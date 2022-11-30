@@ -1,4 +1,4 @@
-from .utils import Readin, invcost_factor, fixcost_factor, varcost_factor
+from .utils import Readin, invcost_factor, fixcost_factor, varcost_factor, write
 
 def load_data(filename, month, time_length):
 
@@ -14,7 +14,9 @@ def load_data(filename, month, time_length):
     Cinv = Readin('technology investment cost', filename, month, time_length)  # [RMB/MW]
     Carbon_Content = Readin('carbon content', filename, month, time_length)  # [Ton/MWh]
     Fuel_price = Readin('fuel price', filename, month, time_length)  # [RMB/MWh]
-    Efficiency = Readin('efficiency', filename, month, time_length)  #
+    Efficiency_in = Readin('efficiency-in', filename, month, time_length)
+    Efficiency_out = Readin('efficiency-out', filename, month, time_length)
+    EP = Readin('EP', filename, month, time_length)
     Lifetime = Readin('lifetime', filename, month, time_length)
 
     Capacity_factor = Readin('capacity factor', filename, month, time_length)
@@ -100,7 +102,9 @@ def load_data(filename, month, time_length):
                                  'invcost': Cinv,
                                  'carbon': Carbon_Content,
                                  'fuelprice': Fuel_price,
-                                 'efficiency': Efficiency,
+                                 'efficiency-in': Efficiency_in,
+                                 'efficiency-out': Efficiency_out,
+                                 'ep': EP,
                                  'lifetime': Lifetime,
                                  'capacity_factor': Capacity_factor,
                                  'demand': Demand,
@@ -139,4 +143,22 @@ def load_data(filename, month, time_length):
                                 'tech_sets':tech_sets,
                                 'stcd_sets':stcd_sets}
 
+    return para
+def updatedata(para):
+    # update carbon emission scenarios
+    write(para['logfile'], 'update carbon emission: %s'%para['carbon_scenario'][0])
+    para['carbon_limit'] = Readin(str(para['carbon_scenario'][0]), para['inputpath']+'scenario/'+para['carbon_scenario'][1], para['month'], para['time_length'])
+    if para['inflow_scenario'][0] != 0:
+        # update inflow
+        write(para['logfile'], 'update inflow and fixed hydropower output emission: %s'%para['inflow_scenario'][0])
+        para['inflow'] = Readin(str(para['inflow_scenario'][0]), para['inputpath']+'scenario/'+para['inflow_scenario'][1], para['month'], para['time_length'])
+        para['hydro_output'] = Readin(str(para['hydropower_scenario'][0]), para['inputpath']+'scenario/'+para['hydropower_scenario'][1], para['month'], para['time_length'])
+    if para['demand_scenario'][0] != 0:
+        # update demand
+        write(para['logfile'], 'update demand emission: %s'%para['demand_scenario'][0])
+        para['demand'] = Readin(str(para['demand_scenario'][0]), para['inputpath']+'scenario/'+para['demand_scenario'][1], para['month'], para['time_length'])
+    if para['invcost_scenario'][0] != 0:
+        # update invcost
+        write(para['logfile'], 'update invcost emission: %s'%para['invcost_scenario'][0])
+        para['invcost'] = Readin(str(para['invcost_scenario'][0]), para['inputpath']+'scenario/'+para['invcost_scenario'][1], para['month'], para['time_length'])
     return para

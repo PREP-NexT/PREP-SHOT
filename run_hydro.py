@@ -1,13 +1,12 @@
 from pyomo.environ import SolverFactory
-from pyomo.opt import SolverStatus, TerminationCondition
 import configparser
 import time
 import argparse
-# from copt_pyomo import *
+import pandas as pd
 
 from prepshot import load_data
 from prepshot import updatedata
-from prepshot import create_model
+from prepshot import create_hydro_model
 from prepshot import utils
 
 # carbon emission scenario
@@ -52,7 +51,6 @@ iteration_number = int(hydro_para['iteration_number'])
 
 # solver config
 solver = SolverFactory(basic_para['solver'], solver_io='python')
-# solver = SolverFactory('copt_direct')
 solver.options['TimeLimit'] = int(solver_para['timelimit'])
 solver.options['LogToConsole'] = 0
 solver.options['LogFile'] = logfile
@@ -71,62 +69,48 @@ start_time = time.time()
 para  = load_data(input_filename, month, time_length)
 utils.write(logfile, "Data loading completed, taking %s minutes"%(round((time.time() - start_time)/60,2)))
 
+
 para['inputpath'] = inputpath
 para['time_length'] = time_length
 para['month'] = month
 para['dt'] = dt
-para['weight'] = weight
-para['ishydro'] = ishydro
 para['logfile'] = logfile
 
 # update parameters according to scenarios (update para)
 para['price'] = args.price
-para['carbon_scenario'] = (args.carbon, 'carbon_supplementary.xlsx')
+para['carbon_scenario'] = (args.carbon, 'carbon.xlsx')
 para['inflow_scenario'] = (args.inflow, 'inflow.xlsx')
-para['hydropower_scenario'] = (args.inflow, 'hydropower.xlsx')
 para['invcost_scenario'] = (args.invcost, 'invcost.xlsx')
 para['demand_scenario'] = (args.demand, 'demand.xlsx')
-para = updatedata(para)
 
+# update year
+para['year_sets'] = [2018]
+
+# change Yunnan demand to Guangxi demand because Yunnan hydropower can meet demand
+for m in para['month_sets']:
+    for h in para['hour_sets']:
+        para['demand']['Yunnan', 2018, m, h] = para['demand']['Guangdong', 2018, m, h]
+
+para = updatedata(para)
 # Validation data
 # TODO
 
 # Create a model
-utils.write(logfile, "\n=========================================================")
-utils.write(logfile, "Start creating model ...")
-model = create_model(para)
-utils.write(logfile, "Model creating completed, taking %s minutes"%(round((time.time() - start_time)/60,2)))
-utils.write(logfile, "\n=========================================================")
+model = create_hydro_model(para)
 
-# Update output file name by all scenario setting
-# output_filename = outputpath +'c%s'%s+ basic_para['outputfile']
-output_filename = outputpath + 'c%s'%args.carbon + basic_para['outputfile'] + '_%s'%para['price'] + '%s'%args.inflow + 'demand%s'%args.demand + 'invcost%s'%args.invcost
-
-if para['ishydro']:
-    utils.write(logfile, "Start solving model ...")
-    start_time = time.time()
-    state = utils.run_model_iteration(model, solver, para, iteration_log=logfile,
+state = utils.run_model_iteration(model, solver, para, iteration_log=logfile,
             error_threshold=error_threshold, iteration_number=iteration_number)
-    utils.write(logfile, "Solving model completed, taking %s minutes"%(round((time.time() - start_time)/60,2)))
-else:
-    utils.write(logfile, "Start solving model ...")
-    start_time = time.time()
-    results = solver.solve(model, tee=True)
-    utils.write(logfile, "Solving model completed, taking %s minutes"%(round((time.time() - start_time)/60,2)))
-    if (results.solver.status == SolverStatus.ok) and \
-    (results.solver.termination_condition == TerminationCondition.optimal):
-        # Do nothing when the solution in optimal and feasible
-        state = 0
-    elif (results.solver.termination_condition == TerminationCondition.infeasible):
-        # Exit programming when model in infeasible
-        utils.write(logfile, "Error: Model is in infeasible!")
-        state = 1
-    else:
-        # Something else is wrong
-        utils.write(logfile, "Solver Status: ",  results.solver.status)
-# print({i:-model.dual[model.emission_limit_cons[i]] for i in [2018,2025,2030,2035,2040,2045,2050]})
-if state == 0:
-    utils.write(logfile, "\n=========================================================")
-    utils.write(logfile, "Start writing results ...")
-    utils.saveresult(model, output_filename, ishydro=ishydro)
-utils.write(logfile, "Finish!")
+# Outout results
+def get_value(dic):
+    mux = pd.MultiIndex.from_tuples(dic.keys())
+    output = pd.DataFrame(list(dic.values()), index=mux)
+    return output
+idx = pd.IndexSlice
+gen_hydro = get_value(model.gen.extract_values())[0].unstack().swaplevel(0,1).droplevel(level=2)
+gen_hydro = gen_hydro.sort_index(level=[0,1], axis=0, ascending=True).round(3)
+import numpy as np
+line = pd.DataFrame({i:np.nan for i in gen_hydro.columns}, index=pd.MultiIndex.from_tuples([('month','hour')]))
+gen_hydro = pd.concat([line, gen_hydro])
+gen_hydro.columns = pd.MultiIndex.from_tuples([('Hydro', i) for i in gen_hydro.columns])
+gen_hydro.columns.names = ('tech','zone')
+gen_hydro.to_excel('./input/scenario/hydro_inflow%s.xlsx'%args.inflow)

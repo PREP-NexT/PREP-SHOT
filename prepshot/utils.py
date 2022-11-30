@@ -78,7 +78,7 @@ def Readin(sheet_name, filename, month=None, time_length=None):
     elif sheet_name == 'connect':
         df = pd.read_excel(filename, sheet_name=sheet_name, index_col=None, header=0)
         return df
-    elif sheet_name in ['inflow', 'storage_upbound', 'storage_downbound']:
+    elif (sheet_name in ['inflow', 'storage_upbound', 'storage_downbound']) or ('inflow' in filename):
         df = pd.read_excel(filename, sheet_name=sheet_name, index_col=[0, 1], header=0)
         df.columns.name = df.index.names[0]
         df.index.names = df.index[0]
@@ -90,13 +90,13 @@ def Readin(sheet_name, filename, month=None, time_length=None):
         df.index.name = df.index[0]
         return df.iloc[1:, :].unstack().to_dict()
 
-    elif sheet_name == 'hydropower':
+    elif (sheet_name == 'hydropower') or ('hydropower' in filename):
         df = pd.read_excel(filename, sheet_name=sheet_name, index_col=[0, 1], header=[0, 1],
                             nrows=int(month * time_length))
         return df.unstack([0,1]).to_dict()
 
     # Read other data
-    if sheet_name in ['capacity factor', 'demand']:
+    if sheet_name in ['capacity factor', 'demand'] or ('demand' in filename):
         df = pd.read_excel(filename, sheet_name=sheet_name, index_col=[0, 1], header=[0, 1],
                            nrows=int(month * time_length)).unstack([0,1])
         return df.to_dict()
@@ -111,11 +111,14 @@ def Readin(sheet_name, filename, month=None, time_length=None):
         df = pd.read_excel(filename, sheet_name=sheet_name, header=0)
         return df
     
-    if df.shape[1] == 1 and sheet_name != 'init storage level':
-        return df.squeeze().to_dict()
+    if sheet_name == 'EP':
+        return df.to_dict()[sheet_name]
+    elif df.shape[1] == 1 and sheet_name not in ['init storage level', 'efficiency-in', 'efficiency-out']:
+        return df.squeeze().to_dict()      
     else:
         df.columns.name = df.index.name
         df.index.name = df.index[0]
+
         return df.iloc[1:, :].unstack().to_dict()
 
 
@@ -174,7 +177,7 @@ def run_model_iteration(model, solver, para, iteration_log, error_threshold=0.00
         elif (results.solver.termination_condition == TerminationCondition.infeasible):
             # Exit programming when model in infeasible
             write(iteration_log, "Error: Model is in infeasible!")
-            return 1
+            return
         else:
             # Something else is wrong
             write(iteration_log, "Solver Status: %s"%results.solver.status)
@@ -220,6 +223,7 @@ def saveresult(model, filename, ishydro=True):
     cost_fix = model.cost_fix.extract_values()[None]
     cost_newtech = model.cost_newtech.extract_values()[None]
     cost_newline = model.cost_newline.extract_values()[None]
+    income = model.income.extract_values()[None]
     charge = model.charge.extract_values()
 
 
@@ -265,11 +269,12 @@ def saveresult(model, filename, ishydro=True):
                             dims=['year'],
                             coords={'year': Year},
                             attrs={'unit': 'Ton'})
-    cost_v = xr.DataArray(data=cost_var+cost_fix+cost_newtech+cost_newline)
-    cost_var_v = xr.DataArray(data=cost_var)
-    cost_fix_v = xr.DataArray(data=cost_fix)
-    cost_newtech_v = xr.DataArray(data=cost_newtech)
-    cost_newline_v = xr.DataArray(data=cost_newline)
+    cost_v = xr.DataArray(data = cost_var + cost_fix + cost_newtech + cost_newline - income)
+    cost_var_v = xr.DataArray(data = cost_var)
+    cost_fix_v = xr.DataArray(data = cost_fix)
+    cost_newtech_v = xr.DataArray(data = cost_newtech)
+    cost_newline_v = xr.DataArray(data = cost_newline)
+    income_v = xr.DataArray(data = income)
     charge_v = xr.DataArray(data=[[[[[charge[h, m, y, z, te] for h in Hour] for m in Month]
                                 for y in Year] for z in Zone] for te in Tech],
                             dims=['tech', 'zone', 'year', 'month', 'hour'],
@@ -303,7 +308,8 @@ def saveresult(model, filename, ishydro=True):
                                 'genflow_v': genflow_v,
                                 'spillflow_v': spillflow_v,
                                 'cost_newtech_v': cost_newtech_v,
-                                'cost_newline_v': cost_newline_v})
+                                'cost_newline_v': cost_newline_v,
+                                'income_v':income_v})
     else:
         ds = xr.Dataset(data_vars={'trans_import_v': trans_import_v,
                                 'trans_export_v': trans_export_v,
@@ -316,7 +322,9 @@ def saveresult(model, filename, ishydro=True):
                                 'cost_fix_v': cost_fix_v,
                                 'charge_v': charge_v,
                                 'cost_newtech_v': cost_newtech_v,
-                                'cost_newline_v': cost_newline_v})
+                                'cost_newline_v': cost_newline_v,
+                                'income_v':income_v})
 
     ds.to_netcdf('%s.nc' % filename)
+    return 
 
