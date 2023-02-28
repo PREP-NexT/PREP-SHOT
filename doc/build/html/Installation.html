@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta property="og:title" content="Installation" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="Installation.html" />
+<meta property="og:site_name" content="PREP-SHOT documentation" />
+<meta property="og:description" content="Installation Steps: 1. Install Gurobi: Gurobi is taken as a fastest solver which supports a free, full-featured academic license for students, faculty, and researchers. You can follow Gurobi instru..." />
+<meta name="description" content="Installation Steps: 1. Install Gurobi: Gurobi is taken as a fastest solver which supports a free, full-featured academic license for students, faculty, and researchers. You can follow Gurobi instru..." />
+<meta name="description" content="Gurobi is taken as a fastest solver which supports a free, full-featured academic license for students, faculty, and researchers. You can follow Gurobi instructions to obtain your free academic named-user license. If...">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Installation &mdash; PREP-SHOT (latest) documentation in English</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/tabs.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/algolia.css" type="text/css" />
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/custom.css?5" type="text/css" />
+      <link rel="stylesheet" href="_static/css/dev.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/js/custom.js?3"></script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+        <script defer="defer" src="_static/js/algolia.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Getting Started" href="Introduction.html" />
+    <link rel="prev" title="Welcome to PREP-SHOT&#39;s documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html">
+            <img src="_static/SVG-04.svg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                latest
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#installation-steps">Installation Steps</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#install-gurobi">1. Install Gurobi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#install-miniconda">2. Install Miniconda</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#create-the-conda-environment">3. Create the Conda Environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#run-a-model">4. Run a Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#features">Features</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Introduction.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Introduction.html#introduction-to-prep-shot">Introduction to PREP-SHOT</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Introduction.html#what-can-the-model-do">What can the model do?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Introduction.html#how-does-it-work">How does it work?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Introduction.html#what-do-i-need-to-know-to-use-prep-shot">What do I need to know to use PREP-SHOT?</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Introduction.html#cost-source">Cost Source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Introduction.html#model-concept">Model concept</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Users_guide.html">Users guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Users_guide.html#prepare-inputs">Prepare inputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Users_guide.html#run-model">Run model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Users_guide.html#read-output">Read output</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Model_structure.html">Model structure</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Model_structure.html#notations">Notations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Model_structure.html#sets">1. Sets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Model_structure.html#variables">2. Variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Model_structure.html#parameters">3. Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Model_structure.html#objective-function">4. Objective function</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Model_structure.html#text-factor-y-text-var">4.1 <span class="math notranslate nohighlight">\(\text{factor}_{y}^\text{var}\)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Model_structure.html#text-factor-y-text-fix">4.2 <span class="math notranslate nohighlight">\(\text{factor}_{y}^\text{fix}\)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Model_structure.html#text-factor-y-text-inv">4.3 <span class="math notranslate nohighlight">\(\text{factor}_{y}^\text{inv}\)</span></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Model_structure.html#constraints">5. Constraints</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Model_structure.html#retirement-constraints">5.1 Retirement constraints</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Model_structure.html#carbon-dioxide-emission-restriction">5.2 Carbon dioxide emission restriction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Model_structure.html#power-balance">5.3 Power balance</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Model_structure.html#transmission-loss-constraints">5.4 Transmission loss constraints</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Model_structure.html#maximum-output-constraint">5.5 Maximum output constraint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Model_structure.html#storage-constraint">5.6 Storage constraint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Model_structure.html#ramping-constraint">5.7 Ramping constraint</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-0-1">Version 0.1</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PREP-SHOT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Installation</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/Zhanwei-Liu/PREP-SHOT/blob/main/doc/source/Installation.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">¶</a></h1>
+<section id="installation-steps">
+<h2>Installation Steps<a class="headerlink" href="#installation-steps" title="Permalink to this heading">¶</a></h2>
+<section id="install-gurobi">
+<h3>1. Install Gurobi<a class="headerlink" href="#install-gurobi" title="Permalink to this heading">¶</a></h3>
+<p>Gurobi is taken as a fastest solver which supports a free, full-featured academic license for students, faculty, and researchers. You can follow  <a class="reference external" href="https://www.gurobi.com/features/academic-named-user-license/">Gurobi instructions</a> to obtain your free academic named-user license.</p>
+<p>If you are using High Performance Computing (HPC) of National University of Singapore (NUS), Gurobi was already installed. You run command <code class="docutils literal notranslate"><span class="pre">module</span> <span class="pre">avail</span> <span class="pre">Gurobi</span></code> to view available Gurobi.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>username@atlas8-c01<span class="w"> </span>~<span class="o">]</span>$<span class="w"> </span>module<span class="w"> </span>avail<span class="w"> </span>Gurobi
+---------------------<span class="w">  </span>/app1/modules/centos6.3<span class="w"> </span>--------------------
+Gurobi/8.0.0<span class="w">            </span>Gurobi/8.0.1<span class="w">            </span>Gurobi/9.5.1
+<span class="o">[</span>username@atlas8-c01<span class="w"> </span>~<span class="o">]</span>$<span class="w"> </span>module<span class="w"> </span>load<span class="w"> </span>Gurobi/9.5.1
+<span class="o">[</span>username@atlas8-c01<span class="w"> </span>~<span class="o">]</span>$<span class="w"> </span>gurobi_cl
+Set<span class="w"> </span>parameter<span class="w"> </span>TokenServer<span class="w"> </span>to<span class="w"> </span>value<span class="w"> </span><span class="s2">&quot;lion11&quot;</span>
+Set<span class="w"> </span>parameter<span class="w"> </span>LogFile<span class="w"> </span>to<span class="w"> </span>value<span class="w"> </span><span class="s2">&quot;gurobi.log&quot;</span>
+Using<span class="w"> </span>license<span class="w"> </span>file<span class="w"> </span>/app1/ia32-64/Gurobi/gurobi.lic
+
+Usuage:<span class="w"> </span>gurobi_cl<span class="w"> </span><span class="o">[</span>--command<span class="o">]</span>*<span class="w"> </span><span class="o">[</span><span class="nv">param</span><span class="o">=</span>value<span class="o">]</span>*<span class="w"> </span>filename
+Type<span class="w"> </span><span class="s1">&#39;gurobi_cl --help&#39;</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>more<span class="w"> </span>information.
+</pre></div>
+</div>
+</section>
+<section id="install-miniconda">
+<h3>2. Install Miniconda<a class="headerlink" href="#install-miniconda" title="Permalink to this heading">¶</a></h3>
+<p>Conda is a package management tool which can help you manage all required <code class="docutils literal notranslate"><span class="pre">Python</span></code> packages of PREP-SHOT. Install Miniconda following offical <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">instructions</a>.</p>
+<p>If you are using HPC, Miniconda was usually already installed. You run command <code class="docutils literal notranslate"><span class="pre">module</span> <span class="pre">avail</span> <span class="pre">miniconda</span></code> to check if existing avail Miniconda. If HPC has installed Miniconda, you run command <code class="docutils literal notranslate"><span class="pre">module</span> <span class="pre">load</span> <span class="pre">specific_conda_version</span></code> to load Miniconda to your personal environment instead of reinstalling it.</p>
+<p>To verify that conda is installed, run command <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">-V</span></code>. Conda version will be printed out.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>username@atlas8-c01<span class="w"> </span>~<span class="o">]</span>$<span class="w"> </span>module<span class="w"> </span>avail<span class="w"> </span>miniconda
+---------------------<span class="w">  </span>/app1/modules/bioinfo<span class="w"> </span>--------------------
+miniconda/3.6<span class="w">            </span>miniconda/3.8<span class="w">             </span>miniconda/4.12
+<span class="o">[</span>username@atlas8-c01<span class="w"> </span>~<span class="o">]</span>$<span class="w"> </span>module<span class="w"> </span>load<span class="w"> </span>miniconda/4.12
+<span class="o">[</span>username@atlas8-c01<span class="w"> </span>~<span class="o">]</span>$<span class="w"> </span>conda<span class="w"> </span>-V
+conda<span class="w"> </span><span class="m">4</span>.12.0
+</pre></div>
+</div>
+</section>
+<section id="create-the-conda-environment">
+<h3>3. Create the Conda Environment<a class="headerlink" href="#create-the-conda-environment" title="Permalink to this heading">¶</a></h3>
+<p>The prep-shot.yml file is provided to readily to create conda environment including all project dependencies. Run command <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">env</span> <span class="pre">create</span> <span class="pre">-f</span> <span class="pre">prep-shot.yml</span></code> to create a new envirnoment called prep-shot. Once installed, run command <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">activate</span> <span class="pre">prep-shot</span></code> to activate the new <code class="docutils literal notranslate"><span class="pre">prep-shot</span></code> environment.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>username@atlas8-c01<span class="w"> </span>prepshot<span class="o">]</span>$<span class="w"> </span>conda<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>prep-shot.yml
+Collecting<span class="w"> </span>package<span class="w"> </span>metadata<span class="w"> </span><span class="o">(</span>repodata.json<span class="o">)</span>:<span class="w"> </span><span class="k">done</span>
+Solving<span class="w"> </span>environment:<span class="w"> </span><span class="k">done</span>
+Downloading<span class="w"> </span>and<span class="w"> </span>Extracting<span class="w"> </span>Packages
+openssl-1.1.1s<span class="w">       </span><span class="p">|</span><span class="w"> </span><span class="m">1</span>.9<span class="w"> </span>MB<span class="w">    </span><span class="p">|</span><span class="w"> </span><span class="c1">####################################### | 100%</span>
+python-3.7.13<span class="w">        </span><span class="p">|</span><span class="w"> </span><span class="m">40</span>.7<span class="w"> </span>MB<span class="w">   </span><span class="p">|</span><span class="w"> </span><span class="c1">####################################### | 100%</span>
+setuptools-65.6.3<span class="w">    </span><span class="p">|</span><span class="w"> </span><span class="m">619</span><span class="w"> </span>KB<span class="w">    </span><span class="p">|</span><span class="w"> </span><span class="c1">####################################### | 100%</span>
+...
+<span class="o">[</span>username@atlas8-c01<span class="w"> </span>prepshot<span class="o">]</span>$<span class="w"> </span><span class="nb">source</span><span class="w"> </span>activate<span class="w"> </span>prep-shot
+<span class="o">(</span>prep-shot<span class="o">)</span><span class="w"> </span><span class="o">[</span>username@atlas8-c01<span class="w"> </span>prepshot<span class="o">]</span>$
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The installation of the <code class="docutils literal notranslate"><span class="pre">prep-shot</span></code> environment also will install <code class="docutils literal notranslate"><span class="pre">gurobipy</span></code> by default, which is Python package of the Gurobi Optimizer. If you already install full-featured license following first step, you can directly use gurobi to launch PREP-SHOT.</p>
+</div>
+</section>
+<section id="run-a-model">
+<h3>4. Run a Model<a class="headerlink" href="#run-a-model" title="Permalink to this heading">¶</a></h3>
+<p>After activating your envirnoment, you can directly run your program by running command <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">run.py</span> <span class="pre">–storage=1</span></code>.</p>
+<p>For HPC user (PBS Job Scheduler), you first need to create a new bash script file (prep-shot-1.sh) with the following contents.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1">#PBS -N PREP-SHOT-1</span>
+<span class="c1">#PBS -l select=1:ncpus=24:mem=120gb</span>
+<span class="c1">#PBS -q parallel24</span>
+<span class="c1">#PBS -l walltime=240:0:0</span>
+<span class="c1">#PBS -o ./log/prep-shot-1.out</span>
+<span class="c1">#PBS -e ./log/prep-shot-1.err</span>
+
+<span class="nb">cd</span><span class="w"> </span><span class="si">${</span><span class="nv">PBS_O_WORKDIR</span><span class="si">}</span>
+<span class="nv">np</span><span class="o">=</span><span class="k">$(</span>cat<span class="w"> </span><span class="si">${</span><span class="nv">PBS_NODEFILE</span><span class="si">}</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l<span class="k">)</span>
+<span class="nb">source</span><span class="w"> </span>/etc/profile.d/rec_modules.sh
+bash<span class="w"> </span>~/.bashrc
+module<span class="w"> </span>load<span class="w"> </span>miniconda/4.12
+module<span class="w"> </span>load<span class="w"> </span>Gurobi/9.5.1
+<span class="nb">source</span><span class="w"> </span>activate<span class="w"> </span>prep-shot
+<span class="nv">$CONDA_PREFIX</span>/bin/python<span class="w"> </span>run.py<span class="w"> </span>--storage<span class="o">=</span><span class="m">1</span>
+</pre></div>
+</div>
+<p>Then you run the commond <code class="docutils literal notranslate"><span class="pre">qsub</span> <span class="pre">prep-shot-1.sh</span></code> to submit your Job in HPC Cloud.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To know more commands about Job Submission and Management using PBS Job Scheduler to refer <a class="reference external" href="https://bobcat.nus.edu.sg/hpc/HPC/pbs/index.html">HPC instructions</a>. You can also check above instructions by run command <code class="docutils literal notranslate"><span class="pre">hpc</span> <span class="pre">pbs</span> <span class="pre">help</span></code> after log into HPC cluster at anytime.</p>
+</div>
+</section>
+</section>
+<section id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this heading">¶</a></h2>
+<p>Sometimes the installation doesn’t always go as planned. If you experience any issues concat <a class="reference external" href="mailto:liuzhanwei&#37;&#52;&#48;u&#46;nus&#46;edu">LIU Zhanwei</a>.</p>
+</section>
+<section id="dependencies">
+<h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Python</span></code> 3.7</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pyomo</span></code> 6.4 for building model</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">numpy</span></code> 1.21</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">scipy</span></code> 1.21 for interpolation</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pandas</span></code> 1.3 for input and result data handling</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">xarray</span></code> 0.20 for result data handling and report generation</p></li>
+</ul>
+</section>
+<section id="features">
+<h2>Features<a class="headerlink" href="#features" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">PREP-SHOT</span></code> is a linear programming optimization model for multi-zone energy
+systems.</p></li>
+<li><p>It finds the minimum cost energy system to satisfy given demand timeseries.</p></li>
+<li><p>By default, operates on hourly-spaced timesteps (configurable).</p></li>
+<li><p>Excel file as input and NetCDF file as output data (based on <code class="docutils literal notranslate"><span class="pre">Xarray</span></code>)</p></li>
+<li><p>Support multiple kind of solvers (Gurobi, CPLEX, MOSEK and GLPK ..., based on Pyomo)</p></li>
+<li><p>Support multiple scenarios input for specific parameters</p></li>
+<li><p>Pure Python program</p></li>
+<li><p>Thanks to <code class="docutils literal notranslate"><span class="pre">pandas</span></code> and <code class="docutils literal notranslate"><span class="pre">xarray</span></code>, complex data analysis code is short and extensible.</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to PREP-SHOT&#39;s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Introduction.html" class="btn btn-neutral float-right" title="Getting Started" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Zhanwei Liu and Xiaogang He (CC BY 3.0).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

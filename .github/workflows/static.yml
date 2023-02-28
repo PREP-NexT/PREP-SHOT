@@ -1,0 +1,28 @@
+name: Docs
+on: [push, pull_request, workflow_dispatch]
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+      - name: Install dependencies
+        run: |
+          pip install -U sphinx
+          pip install sphinx_rtd_theme
+          pip install sphinx_tabs
+          pip install sphinx-notfound-page
+          pip install sphinxext-opengraph
+          
+      - name: Sphinx build
+        run: |
+          cd doc
+          make html
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+        with:
+          publish_branch: gh-pages
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./doc/build/html/
+          force_orphan: true
