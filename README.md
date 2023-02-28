@@ -4,12 +4,12 @@
 
 ### Useful Links
 
-- [Documentation](https://zhanwei-liu.github.io/PREP-SHOT/index.html)
-- [Installation](https://zhanwei-liu.github.io/PREP-SHOT/Installation.html)
-- [Getting Started](https://zhanwei-liu.github.io/PREP-SHOT/Introduction.html)
-- [Users guide](https://zhanwei-liu.github.io/PREP-SHOT/Users_guide.html)
-- [Model Structure](https://zhanwei-liu.github.io/PREP-SHOT/Model_structure.html)
-- [Changelog](https://zhanwei-liu.github.io/PREP-SHOT/Changelog.html)
+- [Documentation](https://prep-next.github.io/PREP-SHOT/index.html)
+- [Installation](https://prep-next.github.io/PREP-SHOT/Installation.html)
+- [Getting Started](https://prep-next.github.io/PREP-SHOT/Introduction.html)
+- [Users guide](https://prep-next.github.io/PREP-SHOT/Users_guide.html)
+- [Model Structure](https://prep-next.github.io/PREP-SHOT/Model_structure.html)
+- [Changelog](https://prep-next.github.io/PREP-SHOT/Changelog.html)
 
 ## How to cite
 
