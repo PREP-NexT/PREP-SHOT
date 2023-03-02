@@ -13,7 +13,7 @@
 
 ## How to cite
 
-To be coming
+coming soon
 
 
 
