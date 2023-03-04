@@ -30,7 +30,8 @@
     --content-wrap-background-color: #efefef;
     --content-background-color: #fcfcfc;
     --logo-opacity: 1.0;
-    --navbar-background-color: #333f67;
+    /*light to replace heavy*/
+    /* --navbar-background-color: #333f67;
     --navbar-background-color-hover: #29355c;
     --navbar-background-color-active: #212d51;
     --navbar-current-background-color: #212d51;
@@ -40,6 +41,21 @@
     --navbar-level-1-color: #c3e3ff;
     --navbar-level-2-color: #b8d6f0;
     --navbar-level-3-color: #a3c4e1;
+    --navbar-heading-color: #ff7381;
+    --navbar-scrollbar-color: #d45a66;
+    --navbar-scrollbar-hover-color: #b14550;
+    --navbar-scrollbar-active-color: #72383e;
+    --navbar-scrollbar-background: #131e2b; */
+    --navbar-background-color: #E5E5E5;
+    --navbar-background-color-hover: #c3d3eb;
+    --navbar-background-color-active: #a7afb9;
+    --navbar-current-background-color: #c2c7d5;
+    --navbar-current-background-color-hover: #a0a5b5;
+    --navbar-current-background-color-active: #a6acbe;
+    --navbar-category-active-color: rgba(255 115 129 / 10%);
+    --navbar-level-1-color: #3c6863;
+    --navbar-level-2-color: #668e8b;
+    --navbar-level-3-color: #3c6863;
     --navbar-heading-color: #ff7381;
     --navbar-scrollbar-color: #d45a66;
     --navbar-scrollbar-hover-color: #b14550;
