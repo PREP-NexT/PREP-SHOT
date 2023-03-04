@@ -184,7 +184,7 @@ html_context = {
     "godot_title_prefix": "" if on_rtd else "(DEV) ",
 }
 
-html_logo = "img/SVG-04.svg"
+html_logo = "img/SVG-03.svg"
 
 # These folders are copied to the documentation's HTML output
 html_static_path = ["_static"]
