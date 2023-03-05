@@ -161,7 +161,7 @@ html_theme_options = {
     # Collapse navigation (False makes it tree-like)
     "collapse_navigation": False,
 }
-# html_favicon = '_static/logo.png'
+html_favicon = '_static/logo.png'
 
 
 html_title = supported_languages[language] % version
