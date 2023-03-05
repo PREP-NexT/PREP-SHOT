@@ -31,7 +31,7 @@
     --content-background-color: #fcfcfc;
     --logo-opacity: 1.0;
     /*light to replace heavy*/
-    --navbar-background-color: #333f67;
+/*     --navbar-background-color: #333f67;
     --navbar-background-color-hover: #29355c;
     --navbar-background-color-active: #212d51;
     --navbar-current-background-color: #212d51;
@@ -45,8 +45,8 @@
     --navbar-scrollbar-color: #d45a66;
     --navbar-scrollbar-hover-color: #b14550;
     --navbar-scrollbar-active-color: #72383e;
-    --navbar-scrollbar-background: #131e2b;
-/*     --navbar-background-color: #E5E5E5;
+    --navbar-scrollbar-background: #131e2b; */
+    --navbar-background-color: #E5E5E5;
     --navbar-background-color-hover: #c3d3eb;
     --navbar-background-color-active: #a7afb9;
     --navbar-current-background-color: #c2c7d5;
@@ -60,7 +60,7 @@
     --navbar-scrollbar-color: #d45a66;
     --navbar-scrollbar-hover-color: #b14550;
     --navbar-scrollbar-active-color: #72383e;
-    --navbar-scrollbar-background: #131e2b; */
+    --navbar-scrollbar-background: #131e2b;
 
     --link-color: #2980b9;
     --link-color-hover: #3091d1;
