@@ -3,7 +3,7 @@
 Welcome to PREP-SHOT's documentation!
 ======================================
 
-:Author: `Liu Zhanwei <https://www.researchgate.net/profile/Zhanwei-Liu-4>`_ (Mr), <liuzhanwei@u.nus.edu> and `He Xiaogang <http://hydro.iis.u-tokyo.ac.jp/~hexg/>`_ (Dr), <hexg@nus.edu.sg>
+:Author: `Zhanwei Liu <https://www.researchgate.net/profile/Zhanwei-Liu-4>`_ (Mr), <liuzhanwei@u.nus.edu> and `Xiaogang He <http://hydro.iis.u-tokyo.ac.jp/~hexg/>`_ (Dr), <hexg@nus.edu.sg>
 :Organization: `National University of Singapore <https://nus.edu.sg/>`_
 :Version: |release|
 :Date: |today|
