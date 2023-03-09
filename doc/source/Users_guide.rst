@@ -3,11 +3,12 @@
 Users guide
 ==============
 
-The following sections will give a general overview and help you getting started from after
-the installation.
+The following sections will give a general overview and help you use the program to create your own energy expansion models and run them. 
 
 Prepare inputs
 -----------------
+
+
 
 Run model
 ----------------
