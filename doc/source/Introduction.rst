@@ -1,7 +1,7 @@
 Getting Started
 =====================
 
-Introduction to PREP-SHOT
+Introduction to PREP-SHOT /ˈprɛpʃɒt/
 --------------------------
 
 This article aims to introduce some basic concepts that can help you determine whether PREP-SHOT might be a good fit for your needs. Please note that this is only an overview of the features, and we will cover many more details in other parts of this documentation.
@@ -46,13 +46,21 @@ The energy expansion model mainly aims to answer the following question:
 * When, where, and which components should be constructed as part of the new build?
 * How much electricity can be produced per unit of fuel (such as coal, natural gas, oil, and natural uranium)?
 
-The amount of fuel used to generate electricity depends on the efficiency (or `heat rate <https://en.wikipedia.org/wiki/Heat_rate_(efficiency)>`_) of the power plant and the `heat content <https://en.wikipedia.org/wiki/Heat_of_combustion>`_ of the fuel.
+The amount of fuel required to generate electricity is influenced by various factors, including the efficiency (or alternatively, the `heat rate <https://en.wikipedia.org/wiki/Heat_rate_(efficiency)>`_) of the power plant and the `heat content <https://en.wikipedia.org/wiki/Heat_of_combustion>`_ of the fuel.  
+
+Heat Rate
+According to `EIA <https://www.eia.gov/tools/faqs/faq.php?id=667&t=2>`_,
+Heat Rate measures the efficiency of a generator or power plant and is based on the amount of energy used to generate one kilowatt of electricity, which can be expressed as: 
 
 .. math::
     \text{Heat Rate} = \frac{\text{Thermal Energy In}}{\text{Electrical Energy Out}}
 
-which is the inverse of the efficiency and a lower heat rate is better. A 100% efficiency implies equal input and output: for 1 kWh of output, the input is 1 kWh. This thermal energy input of 1 kWh = 3.6 MJ = 3,412 Btu. Therefore, the heat rate of a 100% efficient plant is simply 1, or 1 kWh/kWh, or 3.6 MJ/kWh, or 3,412 Btu/kWh. To express the efficiency of a generator or power plant as a percentage, divide the equivalent Btu content of a kWh of electricity (3,412 Btu) by the heat rate. For example, if the heat rate is 10,500 Btu, the efficiency is 33%. If the heat rate is 7,500 Btu, the efficiency is 45%.
+with lower values indicating higher efficiency. For instance, a plant with a Heat Rate of 1 kWh/kWh (or 3.6 MJ/kWh, or 3,412 Btu/kWh) would be considered 100% efficient, meaning that the amount of energy input required to produce 1 kWh of electricity is exactly 1 kWh.
 
-heat content = The efficiency of coal-fired power generators is about 40 percentthe limited by laws of thermodynamics.
-Heat rate = According to `EIA <https://www.eia.gov/tools/faqs/faq.php?id=667&t=2>`_. 
-Heat rate measures the efficiency of a generator or power plant and is based on the amount of energy used to generate one kilowatt of electricity. Heat rates (power plant efficiencies) depend on generator type, power plant emission controls, and some other factors. One metric ton of coal can generate 1,927 kilowatt hours of electricity, in comparison to 1,000 cubic feet of natural gas which can generate 99 kilowatt hours.  
+Efficiency of a pwer plant
+To express the efficiency of a power plant as a percentage, we can divide the equivalent Btu content of a kWh of electricity (which is 3,412 Btu) by the Heat Rate. For example, if the Heat Rate is 10,500 Btu, the efficiency would be 32.5% (i.e., 3,412 Btu/10,500 Btu = 0.325). On the other hand, if the Heat Rate is 7,500 Btu, the efficiency would be 45.5% (i.e., 3,412 Btu/7,500 Btu = 0.455). Therefore, understanding the Heat Rate and its relationship with efficiency is crucial for optimizing power plant operations and designing sustainable energy systems.
+
+Heat Content
+The amount of energy that can be extracted from a fuel source is often referred to as its heat content. For coal, the heat content is relatively high, but the efficiency of coal-fired power generators is limited by the laws of thermodynamics, resulting in a maximum efficiency of around 40%.
+
+ 
