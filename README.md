@@ -1,4 +1,4 @@
-# PREP-SHOT
+# PREP-SHOT (/ˈprɛpʃɒt/)
 
 <p align="center">
   <a href="https://prep-next.github.io/PREP-SHOT/">
