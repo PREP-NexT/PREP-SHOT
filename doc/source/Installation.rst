@@ -9,7 +9,7 @@ Step 1. Install Gurobi
 ++++++++++++++++++++
 Gurobi is a solver known for its speed and efficiency, and it supports a free, full-featured academic license for students, faculty, and researchers. To obtain your free academic named-user license, you can follow  `Gurobi Instructions <https://www.gurobi.com/features/academic-named-user-license/>`_ on their website.
 
-If you are using the High Performance Computing (HPC) system at the National University of Singapore (NUS), if you are using High Performance Computing (HPC) of National University of Singapore (NUS), Gurobi is already installed. You can run the command ``module avail Gurobi`` to view available Gurobi.
+If you are using the High Performance Computing (HPC) system at the National University of Singapore (NUS), Gurobi is already installed. You can run the command ``module avail Gurobi`` to view available Gurobi.
 
 .. code:: bash
 
@@ -30,7 +30,7 @@ Step 2. Install Miniconda
 
 Conda is a package management tool that can be used to manage all the required ``Python`` packages for PREP-SHOT. To get started, you can install Miniconda following offical `instructions <https://docs.conda.io/en/latest/miniconda.html>`_. 
 
-If you are using HPC system, is typically already installed. You can run the command ``module avail miniconda`` if Miniconda is available. If Miniconda is installed, you can load it into your personal environment by running the command ``module load specific_conda_version`` instead of reinstalling it.
+If you are using HPC system, is typically already installed. You can run the command ``module avail miniconda`` to check if Miniconda is available. If Miniconda is installed, you can load it into your personal environment by running the command ``module load specific_conda_version`` instead of reinstalling it.
 
 To verify that Conda is installed, you can run the command ``conda -V`` and the Conda version will be printed out.
 
