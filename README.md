@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://prep-next.github.io/PREP-SHOT/">
-    <img src="https://user-images.githubusercontent.com/50036800/221886195-3113531b-f9c4-4c6a-bb66-612c8b9c3d9a.png" width="450" alt="PREP-SHOT logo">
+    <img src="https://user-images.githubusercontent.com/50036800/221886195-3113531b-f9c4-4c6a-bb66-612c8b9c3d9a.png" width="550" alt="PREP-SHOT logo">
   </a>
 </p>
 
