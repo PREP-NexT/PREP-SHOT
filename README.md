@@ -6,9 +6,9 @@
   </a>
 </p>
 
-## Energy capacity expansion model
+## What is PREP-SHOT
 
-**P**athways for **R**enewable **E**nergy **P**lanning coupling **S**hort-term **H**ydropower **O**pera**T**ion (**PREP-SHOT**) is a transparent, modular, and open-source energy capacity expansion model. It can be used for the multi-technology, multi-node and intertemporal energy expansion. Compared to other existing energy expansion models, which either treat hydropower as fixed processes (urbs) or overlook the dynamic nature of water heads (GenX, PLEXOS) or simply aggregate multiple hydropower stations into a single unit, a unique feature of PREP-SHOT is that it explicitly considers the plant-level water head dynamics (i.e., time-varying water head and storage) and the system-level network topology of all hydropower stations within a regional grid. This allows us to better capture the multi-scale dynamic feedbacks between hydropower operation and energy system expansion as well as realistically simulate the magnitude and spatial-temporal variability of hydropower output, especially in regions with a large number of cascade hydropower stations.
+PREP-SHOT (**P**athways for **R**enewable **E**nergy **P**lanning coupling **S**hort-term **H**ydropower **O**pera**T**ion) is a transparent, modular, and open-source Energy Capacity Expansion Model. It can be used for multi-technology, multi-node, and intertemporal energy expansion planning. Compared to other energy expansion models that treat hydropower as fixed processes (e.g., urbs), overlook the dynamic nature of water heads (e.g., GenX, PLEXOS), or simply aggregate multiple hydropower stations into a single unit, PREP-SHOT is unique in that it explicitly considers the plant-level water head dynamics (i.e., time-varying water head and storage) and system-level network topology of all hydropower stations within a regional grid. This enables us to better capture the multi-scale dynamic feedbacks between hydropower operation and energy system expansion and to realistically simulate the magnitude and spatial-temporal variability of hydropower output, especially in regions with a large number of cascade hydropower stations.
 
 ## Documentation and demos
 
