@@ -12,37 +12,97 @@ Prepare inputs
 .. list-table:: Input files
    :widths: 10 10 10 10 10 50
    :header-rows: 1
-
+   
    * - Parameters
      - Dimension 
      - Default value
      - Type
      - Range
      - Description
+   * - technology portfolio
+     - 2D (year, zone)
+     - No
+     - Continuous
+     - No
+     - Existing installed capacity of technologies across each zone (or bus) at the beginning of the reference year, showcasing status quo in those areas. 
+   * - distance
+     - 2D (zone1, zone2)
+     - No
+     - Continuous
+     - 0 - inf
+     - Distance between two zones.
+   * - transline
+     - 2D (zone1, zone2)
+     - No
+     - Continuous
+     - 0 - inf
+     - The existing capacity of transmission lines between `zone1` and `zone2` represents the current ability to transmit power between these two zones. If you leave this parameter as null, the model will not consider any expansion of the capacity between the corresponding zones except for you set this parameter to a value equal to or greater than zero.
+   * - transline efficiency
+     - 2D (zone1, zone2)
+     - No
+     - Continous
+     - 0 - 1
+     - The transmission efficiency between `zone1` and `zone2` represents the effectiveness of power transfer through transmission lines connecting these zones. It is used to consider transmission losses, which are calculated as follows: transmission loss = transferred electricity * (1 - transmission line efficiency).
    * - discount factor
-     - 1-D (year)
+     - 1D (year)
      - 0.07
      - Continuous
      - 0 - 1
      - It is a weighting factor that is used to calculate the present value. Refer to explaination `here <https://www.wallstreetprep.com/knowledge/discount-factor/>`_.
+   * - technology fixed cost
+     - 2D (year, tech)
+     - No
+     - Continuous
+     - 0 - inf
+     - The fixed Operation and Maintenance (O&M) cost of technologies for each year refers to the expenses associated with the regular upkeep and management of energy generation systems, regardless of their generation, expressed on a per-unit basis. These costs typically include routine maintenance, inspections, repairs, and personnel expenses necessary for the safe and efficient operation of the facility.
+   * - technology variable cost
+     - 2D (year, tech)
+     - No
+     - Continuous
+     - 0 - inf
+     - The variable Operation and Maintenance (O&M) cost of technologies for each year refers to the expenses that vary according to the electricity generation, expressed on a per-unit basis.
+   * - technology investment cost
+     - 2D (year, tech)
+     - 
+     - 
+     - 
+     - 
+   * - carbon content
+     - 2D (year, tech)
+     - 
+     - 
+     -
+     - 
+   * - fuel price
+     - 2D (year, tech)
+     -
+     -
+     -
+     -
+   * - efficiency in
+     - 2D (year, storage tech)
+     - 0.87 (pumped hydro storage)
+     - Continuous
+     - 0 - 1
+     - The efficiency here is mainly for the type of energy storage. It refers to the charge efficiency of the storage source (i.e., change of storage = efficiency :math:`\times` charge). Refer to explaination `here <https://www.sciencedirect.com/topics/engineering/round-trip-efficiency>`_.
+   * - efficiency out
+     - 2D (year, storage tech)
+     - 0.87 (pumped hydro storage)
+     - Continuous
+     - 0 - 1
+     - The efficiency here is mainly for the type of energy storage. It refers to the discharge efficiency of the storage source (i.e., change of storage = efficiency :math:`\times` discharge).
+   * - energy power ratio
+     - 1D (storage tech)
+     - No
+     - Continuous
+     - 
+     -
    * - Inflow
      - 3-D (month, hour & station) 
      - None
      - Continuous
      - None
      - Natural local inflow between upstream and downstream reservoirs.
-   * - efficiency-in
-     - 1-D (year)
-     - 0.87 (pumped hydro storage)
-     - Continuous
-     - 0 - 1
-     - The efficiency here is mainly for the type of energy storage. It refers to the charge efficiency of the storage source (i.e., change of storage = efficiency :math:`\times` charge). Refer to explaination `here <https://www.sciencedirect.com/topics/engineering/round-trip-efficiency>`_.
-   * - efficiency-out
-     - 1-D (year)
-     - 0.87 (pumped hydro storage)
-     - Continuous
-     - 0 - 1
-     - The efficiency here is mainly for the type of energy storage. It refers to the discharge efficiency of the storage source (i.e., change of storage = efficiency :math:`\times` discharge).
    * - ramp up
      - 1-D (technology)
      - 0.35 (Coal)
