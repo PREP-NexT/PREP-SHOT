@@ -1,164 +1,123 @@
-from .utils import Readin, invcost_factor, fixcost_factor, varcost_factor, write
+from os import path
 
-def load_data(filename, month, time_length):
+from .utils import (fixcost_factor, invcost_factor, read_break_point,
+                    read_four_dims,read_five_dims, read_hydro_static, read_lag_time,
+                    read_one_dims, read_three_dims,read_four_dims_three_index_one_col,
+                    read_three_dims_one_idx_two_col, read_two_dims,
+                    varcost_factor)
 
-    Tech_existing = Readin('technology portfolio', filename, month, time_length)  # [MW]
-    Distance = Readin('distance', filename, month, time_length)  # [km]
 
-    # New transmission lines Can not be built in some areas without transmission lines
-    Transmission = Readin('transline', filename, month, time_length)  # [MW]
-    Trans_effi = Readin('transline efficiency', filename, month, time_length)
-    DF = Readin('discount factor', filename, month, time_length)
-    Cfix = Readin('technology fix cost', filename, month, time_length)  # [RMB/MW/y], O&M cost
-    Cvar = Readin('technology variable cost', filename, month, time_length)  # [RMB/MWh]
-    Cinv = Readin('technology investment cost', filename, month, time_length)  # [RMB/MW]
-    Carbon_Content = Readin('carbon content', filename, month, time_length)  # [Ton/MWh]
-    Fuel_price = Readin('fuel price', filename, month, time_length)  # [RMB/MWh]
-    Efficiency_in = Readin('efficiency-in', filename, month, time_length)
-    Efficiency_out = Readin('efficiency-out', filename, month, time_length)
-    EP = Readin('EP', filename, month, time_length)
-    Lifetime = Readin('lifetime', filename, month, time_length)
+def load_data(filepath, filename, para=None):
+    """
+    Args:
+        filepath (_type_): _description_
+        para (_type_): _description_
 
-    Capacity_factor = Readin('capacity factor', filename, month, time_length)
-    Demand = Readin('demand', filename, month, time_length)  # [MWh]
+    Returns:
+        _type_: _description_
+    """
+    if para == None:
+        para = dict()
 
-    Ramp_up = Readin('ramp_up', filename, month, time_length)
-    Ramp_down = Readin('ramp_down', filename, month, time_length)
-    Carbon = Readin('carbon', filename, month, time_length)  # [Ton] # * weight
-    inv_budget = Readin('invest budget', filename, month, time_length)  # [RMB]
-    Cinv_lines = Readin('transline investment cost', filename, month, time_length)  # [RMB/MW/km]
+    para["technology_portfolio"] = read_two_dims(
+        path.join(filepath, filename["technology_portfolio"]))
+    para["distance"] = read_two_dims(path.join(filepath, filename["distance"]))
+    para["transline"] = read_two_dims(path.join(filepath, filename["transline"]))
+    para["transline_efficiency"] = read_two_dims(
+        path.join(filepath, filename["transline_efficiency"]))
+    para["discount_factor"] = read_one_dims(
+        path.join(filepath, filename["discount_factor"]))
+    para["technology_fix_cost"] = read_two_dims(
+        path.join(filepath, filename["technology_fix_cost"]))
+    para["technology_variable_cost"] = read_two_dims(
+        path.join(filepath, filename["technology_variable_cost"]))
+    para["technology_investment_cost"] = read_two_dims(
+        path.join(filepath, filename["technology_investment_cost"]))
+    para["carbon_content"] = read_two_dims(
+        path.join(filepath, filename["carbon_content"]))
+    para["fuel_price"] = read_two_dims(path.join(filepath, filename["fuel_price"]))
+    para["efficiency_in"] = read_two_dims(
+        path.join(filepath, filename["efficiency_in"]))
+    para["efficiency_out"] = read_two_dims(
+        path.join(filepath, filename["efficiency_out"]))
+    para["energy_power_ratio"] = read_one_dims(
+        path.join(filepath, filename["energy_power_ratio"]))
+    para["lifetime"] = read_two_dims(path.join(filepath, filename["lifetime"]))
+    para["capacity_factor"] = read_five_dims(
+        path.join(filepath, filename["capacity_factor"]))
+    para["demand"] = read_four_dims_three_index_one_col(path.join(filepath, filename["demand"]))
+    para["ramp_up"] = read_one_dims(path.join(filepath, filename["ramp_up"]))
+    para["ramp_down"] = read_one_dims(path.join(filepath, filename["ramp_down"]))
+    para["carbon"] = read_one_dims(path.join(filepath, filename["carbon"]))
+    para["transline_investment_cost"] = read_two_dims(
+        path.join(filepath, filename["transline_investment_cost"]))
+    para["technology_upper_bound"] = read_two_dims(
+        path.join(filepath, filename["technology_upper_bound"]))
+    para["new_technology_upper_bound"] = read_two_dims(
+        path.join(filepath, filename["new_technology_upper_bound"]))
+    para["new_technology_lower_bound"] = read_two_dims(
+        path.join(filepath, filename["new_technology_lower_bound"]))
+    para["init_storage_level"] = read_two_dims(
+        path.join(filepath, filename["init_storage_level"]))
+    para["transline_fix_cost"] = read_two_dims(
+        path.join(filepath, filename["transline_fix_cost"]))
+    para["transline_variable_cost"] = read_two_dims(
+        path.join(filepath, filename["transline_variable_cost"]))
+    para["transmission_line_lifetime"] = read_two_dims(
+        path.join(filepath, filename["transmission_line_lifetime"]))
+    para["zv"] = read_break_point(path.join(filepath, filename["zv"]))
+    para["zq"] = read_break_point(path.join(filepath, filename["zq"]))
+    para["type"] = read_one_dims(path.join(filepath, filename["type"]))
+    para["age"] = read_three_dims_one_idx_two_col(
+        path.join(filepath, filename["age"]))
+    para["storage_upbound"] = read_three_dims(
+        path.join(filepath, filename["storage_upbound"]))
+    para["storage_downbound"] = read_three_dims(
+        path.join(filepath, filename["storage_downbound"]))
+    para["storage_init"] = read_two_dims(
+        path.join(filepath, filename["storage_init"]))
+    para["storage_end"] = read_two_dims(
+        path.join(filepath, filename["storage_end"]))
+    para["hydropower"] = read_five_dims(path.join(filepath, filename["hydropower"]))
+    para["inflow"] = read_four_dims_three_index_one_col(path.join(filepath, filename["inflow"]))
+    para["connect"] = read_lag_time(path.join(filepath, filename["connect"]))
+    para["static"] = read_hydro_static(path.join(filepath, filename["static"]))
 
-    # technology expantion limits
-    tech_upper = Readin('technology upper bound', filename, month, time_length)  # [MW]
-    newtech_upper = Readin('new technology upper bound', filename, month, time_length)  # [MW]
-    newtech_lower = Readin('new technology lower bound', filename, month, time_length)  # [MW]
+    # Ascending order
+    para["year"] = sorted(list(para["discount_factor"].keys()))
+    para["stcd"] = list(set([i[1] for i in para["static"].keys()]))
+    para["hour"] = sorted(
+        list(set([i[3] for i in list(para["demand"].keys())])))
+    para["month"] = sorted(
+        list(set([i[2] for i in list(para["demand"].keys())])))
+    para["zone"] = list(set([i[0] for i in list(para["demand"].keys())]))
+    para["tech"] = list(para["type"].keys())
 
-    # init storage level
-    initstorage_level = Readin('init storage level', filename, month, time_length)  # [MW]
+    df_invcost_factor = dict()
+    df_fixcost_factor = dict()
+    df_varcost_factor = dict()
+    trans_invcost_factor = dict()
+    y_min = min(para["year"])
+    y_max = max(para["year"])
 
-    # transmission line cost
-    Cfix_lines = Readin('transline fix cost', filename, month, time_length)  # [RMB/MW/km/y]
-    Cvar_lines = Readin('transline variable cost', filename, month, time_length)  # [RMB/MWh]
-    lifetime_lines = Readin('transmission_line_lifetime', filename, month, time_length)  # [RMB/MWh]
-
-    ZV = Readin('ZV', filename, month, time_length)
-    ZQ = Readin('ZQ', filename, month, time_length)
-
-    # type of technology
-    tech_type =  Readin('type', filename)  # [MW]
-
-    # age
-    age = Readin('age', filename)  # [MW]
-
-    df_invcost_factor = Cinv.copy()
-    df_fixcost_factor = DF.copy()
-    df_varcost_factor = DF.copy()
-    trans_invcost_factor = DF.copy()
-    
-    # Sets
-    # Srictly ascending order
-    year_sets = list(DF.keys())
-    hour_sets = list([i[3] for i in list(Demand.keys())[:time_length]])
-    month_sets = [list(Demand.keys())[i*time_length][2] for i in range(month)]
-    # No order
-    zone_sets = list(set([i[0] for i in Demand.keys()]))
-    tech_sets = list(tech_type.keys())
-    
-    
-    y_min = min(year_sets)
-    y_max = max(year_sets)
     # used to calculate cost
-    for te in tech_sets:
-        for y in year_sets:
-            discount_rate = DF[y]
-            next_modeled_year = y+1 if y == y_max else year_sets[
-                year_sets.index(y) + 1]
-            trans_invcost_factor[y] = invcost_factor(max(lifetime_lines.values()), interest_rate=discount_rate, discount_rate=discount_rate, year_built=y,  year_min=y_min, year_max=y_max)
-            df_invcost_factor[te,y] = invcost_factor(Lifetime[te,y], interest_rate=discount_rate, discount_rate=discount_rate, year_built=y,  year_min=y_min, year_max=y_max)
+    for te in para["tech"]:
+        for y in para["year"]:
+            discount_rate = para["discount_factor"][y]
+            next_modeled_year = y+1 if y == y_max else para["year"][
+                para["year"].index(y) + 1]
+            trans_invcost_factor[y] = invcost_factor(max(para["transmission_line_lifetime"].values(
+            )), interest_rate=discount_rate, discount_rate=discount_rate, year_built=y,  year_min=y_min, year_max=y_max)
+            df_invcost_factor[te, y] = invcost_factor(
+                para["lifetime"][te, y], interest_rate=discount_rate, discount_rate=discount_rate, year_built=y,  year_min=y_min, year_max=y_max)
             df_fixcost_factor[y] = varcost_factor(discount_rate=discount_rate, modeled_year=y,
-                                                   year_min=y_min, next_modeled_year=next_modeled_year)
+                                                  year_min=y_min, next_modeled_year=next_modeled_year)
             df_varcost_factor[y] = fixcost_factor(discount_rate=discount_rate, modeled_year=y,
-                                                   year_min=y_min, next_modeled_year=next_modeled_year)
+                                                  year_min=y_min, next_modeled_year=next_modeled_year)
 
-    # hydropower
-    df_static = Readin('static', filename, month, time_length)
-    df_inflow = Readin('inflow', filename, month, time_length)
-    df_storage_upbound = Readin('storage_upbound', filename, month, time_length)
-    df_storage_downbound = Readin('storage_downbound', filename, month, time_length)
-    df_storage_init = Readin('storage_init', filename, month, time_length)
-    df_storage_end = Readin('storage_end', filename, month, time_length)
-    df_hydro_output = Readin('hydropower', filename, month, time_length)
-    df_connect = Readin('connect', filename, month, time_length)  # dataframe
+    para["inv_factor"] = df_invcost_factor
+    para["fix_factor"] = df_fixcost_factor
+    para["var_factor"] = df_varcost_factor
+    para["trans_inv_factor"] = trans_invcost_factor
 
-    stcd_sets = list(set([i[1] for i in df_static.keys()]))
-
-    para = {'technology': Tech_existing,
-                                 'distance': Distance,
-                                 'transmission': Transmission,
-                                 'trans_effi': Trans_effi,
-                                 'discount': DF,
-                                 'fixcost': Cfix,
-                                 'varcost': Cvar,
-                                 'invcost': Cinv,
-                                 'carbon': Carbon_Content,
-                                 'fuelprice': Fuel_price,
-                                 'efficiency-in': Efficiency_in,
-                                 'efficiency-out': Efficiency_out,
-                                 'ep': EP,
-                                 'lifetime': Lifetime,
-                                 'capacity_factor': Capacity_factor,
-                                 'demand': Demand,
-                                 'invline': Cinv_lines,
-                                 'ramp_up': Ramp_up,
-                                 'ramp_down': Ramp_down,
-                                 'inv_budget': inv_budget,
-                                 'carbon_limit': Carbon,
-                                 'tech_upper': tech_upper,
-                                 'newtech_upper': newtech_upper,
-                                 'newtech_lower': newtech_lower,
-                                 'storage_level': initstorage_level,
-                                 'fixcost_lines': Cfix_lines,
-                                 'varcost_lines': Cvar_lines,
-                                 'lifetime_lines': lifetime_lines,
-                                 'inv_factor': df_invcost_factor,
-                                 'fix_factor': df_fixcost_factor,
-                                 'var_factor': df_varcost_factor,
-                                 'trans_inv_factor':trans_invcost_factor,
-                                 'type':tech_type,
-                                 'age_':age,
-                                 'inflow': df_inflow,
-                                'storageup': df_storage_upbound,
-                                'storagedown': df_storage_downbound,
-                                'storageinit': df_storage_init,
-                                'storageend': df_storage_end,
-                                'static':df_static,
-                                'connect':df_connect,
-                                'ZV':ZV,
-                                'ZQ':ZQ,
-                                'hydro_output':df_hydro_output,
-                                'year_sets':year_sets,
-                                'hour_sets':hour_sets,
-                                'month_sets':month_sets,
-                                'zone_sets':zone_sets,
-                                'tech_sets':tech_sets,
-                                'stcd_sets':stcd_sets}
-
-    return para
-def updatedata(para):
-    # update carbon emission scenarios
-    write(para['logfile'], 'update carbon emission: %s'%para['carbon_scenario'][0])
-    para['carbon_limit'] = Readin(str(para['carbon_scenario'][0]), para['inputpath']+'scenario/'+para['carbon_scenario'][1], para['month'], para['time_length'])
-    if para['inflow_scenario'][0] != 0:
-        # update inflow
-        write(para['logfile'], 'update inflow and fixed hydropower output emission: %s'%para['inflow_scenario'][0])
-        para['inflow'] = Readin(str(para['inflow_scenario'][0]), para['inputpath']+'scenario/'+para['inflow_scenario'][1], para['month'], para['time_length'])
-        para['hydro_output'] = Readin(str(para['hydropower_scenario'][0]), para['inputpath']+'scenario/'+para['hydropower_scenario'][1], para['month'], para['time_length'])
-    if para['demand_scenario'][0] != 0:
-        # update demand
-        write(para['logfile'], 'update demand emission: %s'%para['demand_scenario'][0])
-        para['demand'] = Readin(str(para['demand_scenario'][0]), para['inputpath']+'scenario/'+para['demand_scenario'][1], para['month'], para['time_length'])
-    if para['invcost_scenario'][0] != 0:
-        # update invcost
-        write(para['logfile'], 'update invcost emission: %s'%para['invcost_scenario'][0])
-        para['invcost'] = Readin(str(para['invcost_scenario'][0]), para['inputpath']+'scenario/'+para['invcost_scenario'][1], para['month'], para['time_length'])
     return para
