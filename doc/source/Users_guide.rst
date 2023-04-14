@@ -10,7 +10,7 @@ Prepare inputs
 -----------------
 
 .. list-table:: Input files
-   :widths: 10 10 10 10 10 50
+   :widths: 10 10 80
    :header-rows: 1
    
    * - Parameters
