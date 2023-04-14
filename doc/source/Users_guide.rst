@@ -148,3 +148,5 @@ After preparing the inflow input files, you must use the command line parameter 
 
 Read output
 --------------
+The output of the model is stored in a NetCDF file, please refer to the [simple tutorial](https://xiaoganghe.github.io/python-climate-visuals/chapters/data-analytics/xarray-basic.html) and [official documentation](https://docs.xarray.dev/en/stable/) of Xarray for how to manipulate the NetCDF file.
+
