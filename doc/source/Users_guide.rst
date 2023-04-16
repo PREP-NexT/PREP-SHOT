@@ -36,7 +36,7 @@ Prepare inputs
      - The fixed Operation and Maintenance (O&M) cost of technologies for each year refers to the expenses associated with the regular upkeep and management of energy generation systems, regardless of their generation, expressed on a per-unit basis. These costs typically include routine maintenance, inspections, repairs, and personnel expenses necessary for the safe and efficient operation of the facility.
    * - technology variable cost
      - 2D (year, technology)
-     - The variable Operation and Maintenance (O&M) cost of technologies for each year refers to the expenses that vary according to the electricity generation, expressed on a per-unit basis.
+     - The variable O&M cost of technologies for each year refers to the expenses that vary according to the electricity generation, expressed on a per-unit basis.
    * - technology investment cost
      - 2D (year, technology)
      - The investment cost of technologies for each year refers to the expenses thay vary according to the new installed capacity, expressed on a per-unit basis.
@@ -78,61 +78,58 @@ Prepare inputs
      - Carbon emission limits across different representative years.
    * - transmission line investment cost
      - 2D (zone1, zone2)
-     - 
+     - The investment cost of transmission lines for each year refers to the expenses thay vary according to the new installed capacity of transmission lines, expressed on a per-unit basis.
    * - transmission line fixed cost
-     - 
-     - 
+     - 2D (zone1, zone2)
+     - The fixed O&M cost of technologies for each year refers to the expenses associated with the regular upkeep and management of transmission lines, regardless of their transfered electricity, expressed on a per-unit basis.
    * - transmission line variable cost
-     - 
-     -    
+     - 2D (zone1, zone2)
+     - The variable O&M cost of transmission lines for each year refers to the expenses that vary according to the exported electricity, expressed on a per-unit basis.
    * - technology upper bound
-     -
-     - 
-   * - new technology upper bound
-     -
-     - 
+     - 2D (zone, technology)
+     - The maximum installed capacity of technologies, determined by various constraints such as land use, policy, environmental concerns, social considerations, and other factors, refers to the upper limit on the total capacity of a specific technology that can be deployed within a given zone or jurisdiction.
    * - new technology lower bound
-     - 
-     - 
+     - 2D (zone, technology)
+     - The annual maximum installed capacity of technologies, influenced by various constraints such as construction speed and available financial investment, refers to the upper limit on the total capacity of a specific technology that can be deployed within a given zone or jurisdiction for each representative year.
    * - init storage level
-     -
-     - 
+     - 2D (zone, storage level)
+     - The initial and terminal storage energy level for the first and last hour of each month refers to the amount of energy stored in an energy storage system (such as a battery or pumped hydro storage) at the beginning and ending of each month. 
    * - zv
-     -
+     - 2D (station, break point)
      - elevation - storage relationship of reservoir
    * - zq
-     -
+     - 2D (station, break point)
      - tailrace - discharge relationship of reservoir
    * - type
      - 1D (technology)
-     -
+     - All technologies in PREP-SHOT are divided into three categories: nondispatchable, dispatchable, hydropower, and storage. Here, the user needs explicitly to provide the class of each technology.
    * - age
-     -
-     -
+     - 3D (zone, year, technology)
+     - The existing available capacity of technologies with different ages in different zones at the starting year
    * - storage upper bound
-     -
-     -   
+     - 3D (station, month, hour)
+     - The allowed upper bound of storage for a reservoir at each hour of each month refers to the maximum volume of water (constrainted by the maximum capacity or storage according to flood limit water level of reservoir) that can be stored in a reservoir during a specific time interval.
    * - storage lower bound
-     -
-     -
+     - 3D (station, month, hour)
+     - The allowed lower bound of storage for a reservoir at each hour of each month refers to the minimum volume of water (constrainted by dead storage capacity) that need to be stored in a reservoir during a specific time interval.
    * - initial storage
-     -
-     -
+     - 2D (station, month)
+     - The storage of reservoirs at first hour of each month
    * - terminal storage
-     -
-     -
+     - 2D (station, month)
+     - The storage of reservoirs at last hour of each month
    * - hydropower
-     -
-     -
+     - 4D (station, year, month, hour)
+     - The predifined output of hydropower
    * - inflow
      - 4D (station, year, month, hour) 
      - Natural local inflow between upstream and downstream reservoirs.
    * - connect
-     -
-     -
+     - 2D (station, downstream station)
+     - Water time delay between upstream stations and downstream stations 
    * - static
-     -
-     -
+     - 1D (station)
+     - The characteristic values of the reservoir includes designed water head, installed capacity of hydropower station, allowed minimum outflow of reservoir, allowed maximum outflow of reservoir
 
 Note: `inf` means Infinity. If you set inf which means no upper bound. `None` means null value for current item.
 
