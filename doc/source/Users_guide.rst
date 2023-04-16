@@ -39,13 +39,13 @@ Prepare inputs
      - The variable Operation and Maintenance (O&M) cost of technologies for each year refers to the expenses that vary according to the electricity generation, expressed on a per-unit basis.
    * - technology investment cost
      - 2D (year, technology)
-     - 
+     - The investment cost of technologies for each year refers to the expenses thay vary according to the new installed capacity, expressed on a per-unit basis.
    * - carbon content
      - 2D (year, technology)
-     - 
+     - The carbon intensity of technologies for each year refers to the amount of equivalent carbon dioxide emission when generating unit electricity.
    * - fuel price
      - 2D (year, technology)
-     -
+     - The price of fuel consumed when generating a unit of electricity (i.e., fuel cost per unit of electricity) refers to the cost of purchasing and transporting fuel (e.g., coal, natural gas, or oil) for the fossil fuel-based power plants. Renewable energy sources (i.e., hydropower, wind power and solar power) typically have minimal to no fuel costs.
    * - efficiency in
      - 2D (year, storage technology)
      - The efficiency here is mainly for the type of energy storage. It refers to the charge efficiency of the storage source (i.e., change of storage = efficiency :math:`\times` charge). Refer to explaination `here <https://www.sciencedirect.com/topics/engineering/round-trip-efficiency>`_.
@@ -54,19 +54,19 @@ Prepare inputs
      - The efficiency here is mainly for the type of energy storage. It refers to the discharge efficiency of the storage source (i.e., change of storage = efficiency :math:`\times` discharge).
    * - energy power ratio
      - 1D (storage technology)
-     -
+     - Here, energy power ratio refers to the relationship between the energy capacity of the storage system (measured in kilowatt-hours, kWh) and its power capacity (measured in kilowatts, kW). This ratio is also known as the "duration" or "discharge time" of the energy storage system. It provides insight into the operational characteristics of an energy storage system, indicating how long the system can supply power at its rated capacity before being fully discharged.
    * - lifetime
      - 2D (year, technology)
-     -  
+     - The lifetime of a technology refers to the period span in which it continues to be usable. 
    * - transmission line lifetime
-     - 
-     - 
+     - 2D (zone1, zone2)
+     - The lifetime of a transmission line refers to the period span in which it continues to be usable. 
    * - capacity factor
      - 5D (technology, zone, year, month, hour)
-     -
+     - Capacity factor is a measure of the actual power output of an energy generation system compared to its maximum allowed output over a given period which is expressed as a percentage (0-1). Here it is used to represent maximum power output of variable renewable energy sources, estimated depend on weather factors such as wind speeds (wind power) and sun radiation (solar power).
    * - demand
      - 5D (technology, zone, year, month, hour)
-     - 
+     - Electricity load demand
    * - ramp up
      - 1D (technology)
      - The ramp up (i.e., ramping up speed) refers to the rate at which the plant's output power is increased from a lower level to a higher level. Here, it is measured in ratio of current available capacity power and unit is megawatts per hour. The ramping speed of a plant is a crucial factor in determining the plant's operational ability to respond quickly to changes in demand for electricity or intermittent energy (such wind and solar energy). Refer to explaination `here <https://www.nrel.gov/docs/fy20osti/77639.pdf>`_.
@@ -75,9 +75,9 @@ Prepare inputs
      - Same as the ramp up. It refers to the rate at which the plant's output power is decreased from a higher level to a lower level.
    * - carbon
      - 1D (year)
-     - 
+     - Carbon emission limits across different representative years.
    * - transmission line investment cost
-     -
+     - 2D (zone1, zone2)
      - 
    * - transmission line fixed cost
      - 
