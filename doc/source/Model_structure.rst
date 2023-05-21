@@ -115,12 +115,12 @@ The objective function of the model is to minimize the net present value of  the
 
 .. math::
   \rm{cost} &= \rm{cost}_\rm{tech}^\rm{var} + \rm{cost}_\rm{line}^\rm{var} + \rm{cost}^\rm{fuel} + \rm{cost}_\rm{tech}^\rm{fix} + \rm{cost}_\rm{line}^\rm{fix} + \rm{cost}_\rm{tech}^\rm{inv} + \rm{cost}_\rm{line}^\rm{inv} \\
-  \rm{cost}_\rm{tech}^\rm{var} &= \frac{\sum_{t,m,y,z,te}C_{y,z,\r m{te}}^\rm{tech-var}\times \rm{gen}_{t,m,y,z,\rm{te}}}\rm{Weight} \times \rm{factor}_{y}^\rm{var} \\
+  \rm{cost}_\rm{tech}^\rm{var} &= \frac{\sum_{t,m,y,z,\rm{te}}C_{y,z,\rm{te}}^\rm{tech-var}\times \rm{gen}_{t,m,y,z,\rm{te}}}\rm{Weight} \times \rm{factor}_{y}^\rm{var} \\
   \rm{cost}_\rm{line}^\rm{var} &= \frac{\sum_{t,m,y,z_s,z_o}C_{y,z}^\rm{line-var}\times \rm{export}_{t,m,y,z_s,z_o}}\rm{Weight} \times \rm{factor}_{y}^\rm{var} \\
   \rm{cost}^\rm{fuel} & = \frac{\sum_{t,m,y,z,\rm{te}}C_{y,z,\rm{te}}^\rm{fuel}\times \rm{gen}_{t,m,y,z,\rm{te}}}\rm{Weight} \times \rm{factor}_{y}^\rm{var} \\
-  \rm{cost}_\rm{tech}^\rm{fix} &= \sum_{y,z,\rm{te}}C_{y,z,\rm{te}}^\rm{tech-fix}\times \rm{cap}_{y,z,te}^\rm{existing-tech}\times \rm{factor}_{y}^\rm{fix} \\
+  \rm{cost}_\rm{tech}^\rm{fix} &= \sum_{y,z,\rm{te}}C_{y,z,\rm{te}}^\rm{tech-fix}\times \rm{cap}_{y,z,\rm{te}}^\rm{existing-tech}\times \rm{factor}_{y}^\rm{fix} \\
   \rm{cost}_\rm{line}^\rm{fix} &= \sum_{y,z_s,z_o}C_{y,z_s,z_o}^\rm{line-fix}\times \rm{cap}_{y,z_s,z_o}^\rm{existing-line}\times \rm{factor}_{y}^\rm{fix} \\
-  \rm{cost}_\rm{tech}^\rm{inv} &=  \sum_{y,z,\rm{te}}C_{y,z,\rm{te}}^\rm{tech-inv}\times \rm{cap}_{y,z,te}^\rm{tech-inv}\times \rm{factor}_{y}^\rm{inv} \\
+  \rm{cost}_\rm{tech}^\rm{inv} &=  \sum_{y,z,\rm{te}}C_{y,z,\rm{te}}^\rm{tech-inv}\times \rm{cap}_{y,z,\rm{te}}^\rm{tech-inv}\times \rm{factor}_{y}^\rm{inv} \\
   \rm{cost}_\rm{line}^\rm{inv} &= \sum_{y,z_s,z_o}C_{y,z_s,z_o}^\rm{line-inv}\times \rm{cap}_{y,z_s,z_o}^\rm{line-inv}\times \rm{factor}_{y}^\rm{inv} \times 0.5
 
 where variables
