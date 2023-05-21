@@ -114,7 +114,7 @@ Notations
 The objective function of the model is to minimize the net present value of  the cost of the whole system, which includes investment cost, fixed O&M cost, variable cost and fuel cost by cost type, technology cost and transmission line cost by source of cost and operation cost and planning cost by source of cost. As follows:
 
 .. math::
-  \text{cost} &= \text{cost}_\text{tech}^\text{var} + \text{cost}_\text{line}^\text{var} + \text{cost}^\text{fuel} + \text{cost}_\text{tech}^\text{fix} + \text{cost}_\text{line}^\text{fix} + \text{cost}_\text{tech}^\text{inv} + \text{cost}_\text{line}^\text{inv} \\
+  \rm{cost} &= \rm{cost}_\rm{tech}^\rm{var} + \rm{cost}_\rm{line}^\rm{var} + \rm{cost}^\rm{fuel} + \rm{cost}_\rm{tech}^\rm{fix} + \rm{cost}_\rm{line}^\rm{fix} + \rm{cost}_\rm{tech}^\rm{inv} + \rm{cost}_\rm{line}^\rm{inv} \\
   cost_{tech}^{var} &= \frac{\sum_{t,m,y,z,te}C_{y,z,te}^{tech-var}\times gen_{t,m,y,z,te}}{Weight} \times factor_{y}^{var} \\
   cost_{line}^{var} &= \frac{\sum_{t,m,y,z_s,z_o}C_{y,z}^{line-var}\times export_{t,m,y,z_s,z_o}}{Weight} \times factor_{y}^{var} \\
   cost^{fuel} & = \frac{\sum_{t,m,y,z,te}C_{y,z,te}^{fuel}\times gen_{t,m,y,z,te}}{Weight} \times factor_{y}^{var} \\
