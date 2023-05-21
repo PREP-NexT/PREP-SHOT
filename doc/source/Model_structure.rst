@@ -115,13 +115,13 @@ The objective function of the model is to minimize the net present value of  the
 
 .. math::
   \text{cost} &= \text{cost}_\text{tech}^\text{var} + \text{cost}_\text{line}^\text{var} + \text{cost}^\text{fuel} + \text{cost}_\text{tech}^\text{fix} + \text{cost}_\text{line}^\text{fix} + \text{cost}_\text{tech}^\text{inv} + \text{cost}_\text{line}^\text{inv} \\
-  \text{cost}_\text{tech}^\text{var} &= \frac{\sum_{t,m,y,z,\text{te}}C_{y,z,\text{te}}^\text{tech-var}\times \text{gen}_{t,m,y,z,\text{te}}}\text{Weight} \times \text{factor}_{y}^\text{var} \\
-  \text{cost}_\text{line}^\text{var} &= \frac{\sum_{t,m,y,z_s,z_o}C_{y,z}^\text{line-var}\times \text{export}_{t,m,y,z_s,z_o}}\text{Weight} \times \text{factor}_{y}^\text{var} \\
-  \text{cost}^\text{fuel} & = \frac{\sum_{t,m,y,z,\text{te}}C_{y,z,\text{te}}^\text{fuel}\times \text{gen}_{t,m,y,z,\text{te}}}\text{Weight} \times \text{factor}_{y}^\text{var} \\
-  \text{cost}_\text{tech}^\text{fix} &= \sum_{y,z,\text{te}}C_{y,z,\text{te}}^\text{tech-fix}\times \text{cap}_{y,z,te}^\text{existing-tech}\times \text{factor}_{y}^\text{fix} \\
-  \text{cost}_\text{line}^\text{fix} &= \sum_{y,z_s,z_o}C_{y,z_s,z_o}^\text{line-fix}\times \text{cap}_{y,z_s,z_o}^\text{existing-line}\times \text{factor}_{y}^\text{fix} \\
-  \text{cost}_\text{tech}^\text{inv} &=  \sum_{y,z,\text{te}}C_{y,z,\text{te}}^\text{tech-inv}\times \text{cap}_{y,z,te}^\text{tech-inv}\times \text{factor}_{y}^\text{inv} \\
-  \text{cost}_\text{line}^\text{inv} &= \sum_{y,z_s,z_o}C_{y,z_s,z_o}^\text{line-inv}\times \text{cap}_{y,z_s,z_o}^\text{line-inv}\times \text{factor}_{y}^\text{inv} \times 0.5
+  cost_{tech}^{var} &= \frac{\sum_{t,m,y,z,te}C_{y,z,te}^{tech-var}\times gen_{t,m,y,z,te}}{Weight} \times factor_{y}^{var} \\
+  cost_{line}^{var} &= \frac{\sum_{t,m,y,z_s,z_o}C_{y,z}^{line-var}\times export_{t,m,y,z_s,z_o}}{Weight} \times factor_{y}^{var} \\
+  cost^{fuel} & = \frac{\sum_{t,m,y,z,te}C_{y,z,te}^{fuel}\times gen_{t,m,y,z,te}}{Weight} \times factor_{y}^{var} \\
+  cost_{tech}^{fix} &= \sum_{y,z,te}C_{y,z,te}^{tech-fix}\times cap_{y,z,te}^{existing-tech}\times factor_{y}^{fix} \\
+  cost_{line}^{fix} &= \sum_{y,z_s,z_o}C_{y,z_s,z_o}^{line-fix}\times cap_{y,z_s,z_o}^{existing-line}\times factor_{y}^{fix} \\
+  cost_{tech}^{inv} &=  \sum_{y,z,te}C_{y,z,te}^{tech-inv}\times cap_{y,z,te}^{tech-inv}\times factor_{y}^{inv} \\
+  cost_{line}^{inv} &= \sum_{y,z_s,z_o}C_{y,z_s,z_o}^{line-inv}\times cap_{y,z_s,z_o}^{line-inv}\times factor_{y}^{inv} \times 0.5
 
 where variables
 
