@@ -124,17 +124,20 @@ def read_hydro_static(filename):
 
 
 def get_Z_by_Q(name, Q, ZQ):
-    ZQ_temp = ZQ[(ZQ.name == int(name)) | (ZQ.name == str(name))]
-    f_ZQ = interpolate.interp1d(ZQ_temp.Q, ZQ_temp.Z, fill_value='extrapolate')
     try:
-        Z = f_ZQ(Q)
+        ZQ_temp = ZQ[(ZQ.name == int(name)) | (ZQ.name == str(name))]  
     except:
-        print(Q)
+        ZQ_temp = ZQ[ZQ.name == str(name)]
+    f_ZQ = interpolate.interp1d(ZQ_temp.Q, ZQ_temp.Z, fill_value='extrapolate')
+    Z = f_ZQ(Q)
     return Z
 
 
 def get_Z_by_S(name, S, ZV):
-    ZV_temp = ZV[(ZV.name == int(name)) | (ZV.name == str(name))]
+    try:
+        ZV_temp = ZV[(ZV.name == int(name)) | (ZV.name == str(name))]  
+    except:
+        ZV_temp = ZV[ZV.name == str(name)]
     f_ZV = interpolate.interp1d(ZV_temp.V, ZV_temp.Z, fill_value='extrapolate')
     Z = f_ZV(S)
     return Z
