@@ -105,7 +105,7 @@ def generate_input_filenames(args):
         if getattr(args, param) is None:
             input_filenames[param] = f"{param}.xlsx"
         else:
-            input_filenames[param] = f"{param}_{args[param]}.xlsx"
+            input_filenames[param] = f"{param}_{getattr(args, param)}.xlsx"
     return input_filenames
 
 
