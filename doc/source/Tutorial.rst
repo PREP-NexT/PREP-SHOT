@@ -15,6 +15,11 @@ Background
 
 This is a simplified example based on data primarily obtained from the U.S. Energy Information Administration (`EIA <https://www.eia.gov/electricity/gridmonitor/dashboard/electric_overview/regional/REG-NW>`_), U.S. Army Corps of Engineers (`USACE <https://www.nwd-wc.usace.army.mil/dd/common/dataquery/www/>`_) and U.S. National Renewable Energy Laboratory (`NREL <https://atb.nrel.gov/electricity/2022/data>`_). Our analysis focuses on a cascade hydropower system consisting of 15 hydropower stations, with the specific typology relationship described below. We assume the presence of three balancing authorities (BA1, BA2, and BA3) and establish jurisdictional connections between reservoirs and balancing authorities as follows. Apart from hydropower, we assume that no other existing technologies or transmission lines are in place. Our analysis includes four candidate technologies: Coal-fired plants, Wind power plants, Solar power plants, and Energy storage plants. The objective is to devise an electric mix pathway from 2020 to 2030 that enables the achievement of zero-carbon emissions. To solve this problem quickly, we select a 48-hour representative period.
 
+.. figure:: ./_static/typology.jpg
+   :width: 50 %
+   :alt: typology
+
+
 Prepare the Input Data
 +++++++++++++++++++++++
 👉 technology_portfolio.xlsx
