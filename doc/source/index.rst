@@ -22,7 +22,7 @@ The PREP-SHOT mainly aims to answer the following question:
    :alt: overview of PREP-SHOT
 
 Contents
------------
+---------------
 .. toctree::
    :maxdepth: 1
 
@@ -32,6 +32,11 @@ Contents
    :maxdepth: 1
 
    Introduction
+
+.. toctree::
+   :maxdepth: 1
+
+   Tutorial
 
 .. toctree::
    :maxdepth: 1

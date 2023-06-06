@@ -8,13 +8,12 @@ import argparse
 import configparser
 import time
 import logging
+import os
 
 from pyomo.environ import SolverFactory
 from pyomo.opt import SolverStatus, TerminationCondition
 
 from prepshot import create_model, load_data, utils
-
-# from copt_pyomo import *
 
 # Constants
 INPUT_FILE_PARAMS = [
@@ -196,9 +195,9 @@ def initialize_parameters(basic_para, hydro_para, args, para):
     }
 
 
-def log_parameter_info(basic_para, input_filename, output_filename):
+def log_parameter_info(basic_para, input_path, output_filename):
     logging.info("Set parameter solver to value %s" % basic_para['solver'])
-    logging.info("Set parameter input_filename to value %s" % input_filename)
+    logging.info("Set parameter input folder to value %s" % input_path)
     logging.info("Set parameter output_filename to value %s.nc" %
                  output_filename)
     logging.info("Set parameter time_length to value %s" % basic_para['hour'])
@@ -224,19 +223,22 @@ def main():
     """
     args = process_arguments()
     input_filenames = generate_input_filenames(args)
+    basic_para, solver_para, hydro_para = load_parameters(CONFIG_FILENAME)
 
+    # Predefiened folders and output file names
     log_time = time.strftime("%Y-%m-%d-%H-%M-%S")
+    if os.path.exists('./log') == False:
+        os.mkdir('./log')
     log_file = f'./log/main_{log_time}.log'
     setup_logging(log_file)
 
-    basic_para, solver_para, hydro_para = load_parameters(CONFIG_FILENAME)
-
-    input_path = './input/'
+    input_path = './%s/'%basic_para['inputfolder']
     output_path = './output/'
-    input_filename = input_path + basic_para['inputfile'] # TODO
+    if os.path.exists(output_path) == False:
+        os.mkdir(output_path)
     output_filename = output_path + basic_para['outputfile']
 
-    log_parameter_info(basic_para, input_filename, output_filename)
+    log_parameter_info(basic_para, input_path, output_filename)
 
     solver_name = basic_para['solver']
     solver = build_solver(solver_name, solver_para)
