@@ -25,6 +25,7 @@ Notations
 
 2. Variables
 ++++++++++++++++++++++
+
 .. list-table::
    :widths: 10 80
    :header-rows: 0
@@ -113,14 +114,14 @@ Notations
 The objective function of the model is to minimize the net present value of  the cost of the whole system, which includes investment cost, fixed O&M cost, variable cost and fuel cost by cost type, technology cost and transmission line cost by source of cost and operation cost and planning cost by source of cost. As follows:
 
 .. math::
-  cost &= cost_{tech}^{var} + cost_{line}^{var} + cost^{fuel} + cost_{tech}^{fix} + cost_{line}^{fix} + cost_{tech}^{inv} + cost_{line}^{inv} \\
-  cost_{tech}^{var} &= \frac{\sum_{t,m,y,z,te}C_{y,z,te}^{tech-var}\times gen_{t,m,y,z,te}}{Weight} \times factor_{y}^{var} \\
-  cost_{line}^{var} &= \frac{\sum_{t,m,y,z_s,z_o}C_{y,z}^{line-var}\times export_{t,m,y,z_s,z_o}}{Weight} \times factor_{y}^{var} \\
-  cost^{fuel} & = \frac{\sum_{t,m,y,z,te}C_{y,z,te}^{fuel}\times gen_{t,m,y,z,te}}{Weight} \times factor_{y}^{var} \\
-  cost_{tech}^{fix} &= \sum_{y,z,te}C_{y,z,te}^{tech-fix}\times cap_{y,z,te}^{existing-tech}\times factor_{y}^{fix} \\
-  cost_{line}^{fix} &= \sum_{y,z_s,z_o}C_{y,z_s,z_o}^{line-fix}\times cap_{y,z_s,z_o}^{existing-line}\times factor_{y}^{fix} \\
-  cost_{tech}^{inv} &=  \sum_{y,z,te}C_{y,z,te}^{tech-inv}\times cap_{y,z,te}^{tech-inv}\times factor_{y}^{inv} \\
-  cost_{line}^{inv} &= \sum_{y,z_s,z_o}C_{y,z_s,z_o}^{line-inv}\times cap_{y,z_s,z_o}^{line-inv}\times factor_{y}^{inv} \times 0.5
+  \rm{cost} &= \rm{cost}_\rm{tech}^\rm{var} + \rm{cost}_\rm{line}^\rm{var} + \rm{cost}^\rm{fuel} + \rm{cost}_\rm{tech}^\rm{fix} + \rm{cost}_\rm{line}^\rm{fix} + \rm{cost}_\rm{tech}^\rm{inv} + \rm{cost}_\rm{line}^\rm{inv} \\
+  \rm{cost}_\rm{tech}^\rm{var} &= \frac{\sum_{t,m,y,z,\rm{te}}C_{y,z,\rm{te}}^\rm{tech-var}\times \rm{gen}_{t,m,y,z,\rm{te}}}\rm{Weight} \times \rm{factor}_{y}^\rm{var} \\
+  \rm{cost}_\rm{line}^\rm{var} &= \frac{\sum_{t,m,y,z_s,z_o}C_{y,z}^\rm{line-var}\times \rm{export}_{t,m,y,z_s,z_o}}\rm{Weight} \times \rm{factor}_{y}^\rm{var} \\
+  \rm{cost}^\rm{fuel} & = \frac{\sum_{t,m,y,z,\rm{te}}C_{y,z,\rm{te}}^\rm{fuel}\times \rm{gen}_{t,m,y,z,\rm{te}}}\rm{Weight} \times \rm{factor}_{y}^\rm{var} \\
+  \rm{cost}_\rm{tech}^\rm{fix} &= \sum_{y,z,\rm{te}}C_{y,z,\rm{te}}^\rm{tech-fix}\times \rm{cap}_{y,z,\rm{te}}^\rm{existing-tech}\times \rm{factor}_{y}^\rm{fix} \\
+  \rm{cost}_\rm{line}^\rm{fix} &= \sum_{y,z_s,z_o}C_{y,z_s,z_o}^\rm{line-fix}\times \rm{cap}_{y,z_s,z_o}^\rm{existing-line}\times \rm{factor}_{y}^\rm{fix} \\
+  \rm{cost}_\rm{tech}^\rm{inv} &=  \sum_{y,z,\rm{te}}C_{y,z,\rm{te}}^\rm{tech-inv}\times \rm{cap}_{y,z,\rm{te}}^\rm{tech-inv}\times \rm{factor}_{y}^\rm{inv} \\
+  \rm{cost}_\rm{line}^\rm{inv} &= \sum_{y,z_s,z_o}C_{y,z_s,z_o}^\rm{line-inv}\times \rm{cap}_{y,z_s,z_o}^\rm{line-inv}\times \rm{factor}_{y}^\rm{inv} \times 0.5
 
 where variables
 
@@ -164,7 +165,7 @@ where variables
    * - :math:`\text{factor}^\text{inv}_{y}` 
      - investment cost economic factor in :math:`y`-th year
 
-where parameters:
+where parameters
 
 .. list-table::
    :widths: 10 80

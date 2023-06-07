@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
-<meta property="og:title" content="Welcome to PREP-SHOT's documentation!" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+<meta property="og:title" content="Welcome to the PREP-SHOT Documentation" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="index.html" />
 <meta property="og:site_name" content="PREP-SHOT documentation" />
-<meta property="og:description" content="Author, Liu Zhanwei(Mr), < liuzhanwei@u.nus.edu> and He Xiaogang(Dr), < hexg@nus.edu.sg>,, Organization, National University of Singapore,, Version, latest,, Date, Jan 09, 2023,, Copyright, The mod..." />
-<meta name="description" content="Author, Liu Zhanwei(Mr), < liuzhanwei@u.nus.edu> and He Xiaogang(Dr), < hexg@nus.edu.sg>,, Organization, National University of Singapore,, Version, latest,, Date, Jan 09, 2023,, Copyright, The mod..." />
-<meta name="description" content="Liu Zhanwei (Mr), <liuzhanwei@u.nus.edu> and He Xiaogang (Dr), <hexg@nus.edu.sg> National University of Singapore latest Jan 09, 2023 The model code is licensed under the GNU General Public License 3.0. This documenta...">
+<meta property="og:description" content="Author, Zhanwei Liu(Mr), < liuzhanwei@u.nus.edu> and Xiaogang He(Dr), < hexg@nus.edu.sg>,, Organization, National University of Singapore,, Version, latest,, Date, Jun 07, 2023,, Copyright, The mod..." />
+<meta name="description" content="Author, Zhanwei Liu(Mr), < liuzhanwei@u.nus.edu> and Xiaogang He(Dr), < hexg@nus.edu.sg>,, Organization, National University of Singapore,, Version, latest,, Date, Jun 07, 2023,, Copyright, The mod..." />
+<meta name="description" content="Zhanwei Liu (Mr), <liuzhanwei@u.nus.edu> and Xiaogang He (Dr), <hexg@nus.edu.sg> National University of Singapore latest Jun 07, 2023 The model code is licensed under the GNU General Public License 3.0. This documenta...">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Welcome to PREP-SHOT&#39;s documentation! &mdash; PREP-SHOT (latest) documentation in English</title>
+  <title>Welcome to the PREP-SHOT Documentation &mdash; PREP-SHOT (latest) documentation in English</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/tabs.css" type="text/css" />
@@ -19,6 +19,7 @@
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/custom.css?5" type="text/css" />
       <link rel="stylesheet" href="_static/css/dev.css" type="text/css" />
+    <link rel="shortcut icon" href="_static/logo.png"/>
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -26,9 +27,7 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
         <script src="_static/js/custom.js?3"></script>
         <script defer="defer" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
         <script defer="defer" src="_static/js/algolia.js"></script>
@@ -44,7 +43,7 @@
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
             <a href="#">
-            <img src="_static/SVG-04.svg" class="logo" alt="Logo"/>
+            <img src="_static/SVG-03.svg" class="logo" alt="Logo"/>
           </a>
               <div class="version">
                 latest
@@ -59,22 +58,32 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="Installation.html#installation-steps">Installation Steps</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Installation.html#standard-installation">Standard Installation</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="Installation.html#install-gurobi">1. Install Gurobi</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Installation.html#install-miniconda">2. Install Miniconda</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Installation.html#create-the-conda-environment">3. Create the Conda Environment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Installation.html#run-a-model">4. Run a Model</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="Installation.html#troubleshooting">Troubleshooting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Installation.html#dependencies">Dependencies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Installation.html#features">Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Installation.html#installation-on-hpc-systems">Installation on HPC Systems</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#load-gurobi">1. Load Gurobi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#load-miniconda">2. Load Miniconda</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#id1">3. Create the Conda Environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#id2">4. Run a Model</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="Installation.html#manual-installation">Manual Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#install-python">1. Install Python</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#id3">2. Install Gurobi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#install-packages">3. Install Packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#id5">4. Run a Model</a></li>
 </ul>
-<ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Installation.html#troubleshooting">Troubleshooting</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="Introduction.html">Getting Started</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="Introduction.html#introduction-to-prep-shot">Introduction to PREP-SHOT</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Introduction.html#introduction-to-prep-shot-prpt">Introduction to PREP-SHOT /ˈprɛpʃɒt/</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="Introduction.html#what-can-the-model-do">What can the model do?</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Introduction.html#how-does-it-work">How does it work?</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Introduction.html#what-do-i-need-to-know-to-use-prep-shot">What do I need to know to use PREP-SHOT?</a></li>
@@ -84,16 +93,23 @@
 <li class="toctree-l2"><a class="reference internal" href="Introduction.html#model-concept">Model concept</a></li>
 </ul>
 </li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="Users_guide.html">Users guide</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="Users_guide.html#prepare-inputs">Prepare inputs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Users_guide.html#run-model">Run model</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Users_guide.html#read-output">Read output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial.html">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Tutorial.html#run-your-first-prep-shot-model">Run your first PREP-SHOT model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Tutorial.html#background">Background</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Tutorial.html#prepare-the-input-data">Prepare the Input Data</a></li>
 </ul>
 </li>
 </ul>
-<ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Users_guide.html">Users guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Users_guide.html#prepare-inputs">Prepare inputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Users_guide.html#run-model">Run model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Users_guide.html#scenarios">Scenarios</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Users_guide.html#read-output">Read output</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="Model_structure.html">Model structure</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="Model_structure.html#notations">Notations</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="Model_structure.html#sets">1. Sets</a></li>
@@ -119,8 +135,6 @@
 </li>
 </ul>
 </li>
-</ul>
-<ul>
 <li class="toctree-l1"><a class="reference internal" href="Changelog.html">Changelog</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-0-1">Version 0.1</a></li>
 </ul>
@@ -141,9 +155,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="#" class="icon icon-home"></a></li>
-      <li class="breadcrumb-item active">Welcome to PREP-SHOT's documentation!</li>
+      <li class="breadcrumb-item active">Welcome to the PREP-SHOT Documentation</li>
       <li class="wy-breadcrumbs-aside">
-              <a href="https://github.com/Zhanwei-Liu/PREP-SHOT/blob/main/doc/source/index.rst" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/PREP-NexT/PREP-SHOT/blob/main/doc/source/index.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -151,59 +165,90 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <span class="target" id="module-PREP-SHOT"></span><section id="welcome-to-prep-shot-s-documentation">
-<h1>Welcome to PREP-SHOT's documentation!<a class="headerlink" href="#welcome-to-prep-shot-s-documentation" title="Permalink to this heading">¶</a></h1>
+  <span class="target" id="module-PREP-SHOT"></span><section id="welcome-to-the-prep-shot-documentation">
+<h1>Welcome to the PREP-SHOT Documentation<a class="headerlink" href="#welcome-to-the-prep-shot-documentation" title="Permalink to this headline">¶</a></h1>
 <dl class="field-list simple">
-<dt class="field-odd">Author<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://www.researchgate.net/profile/Zhanwei-Liu-4">Liu Zhanwei</a> (Mr), &lt;<a class="reference external" href="mailto:liuzhanwei&#37;&#52;&#48;u&#46;nus&#46;edu">liuzhanwei<span>&#64;</span>u<span>&#46;</span>nus<span>&#46;</span>edu</a>&gt; and <a class="reference external" href="http://hydro.iis.u-tokyo.ac.jp/~hexg/">He Xiaogang</a> (Dr), &lt;<a class="reference external" href="mailto:hexg&#37;&#52;&#48;nus&#46;edu&#46;sg">hexg<span>&#64;</span>nus<span>&#46;</span>edu<span>&#46;</span>sg</a>&gt;</p>
+<dt class="field-odd">Author</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://www.researchgate.net/profile/Zhanwei-Liu-4">Zhanwei Liu</a> (Mr), &lt;<a class="reference external" href="mailto:liuzhanwei&#37;&#52;&#48;u&#46;nus&#46;edu">liuzhanwei<span>&#64;</span>u<span>&#46;</span>nus<span>&#46;</span>edu</a>&gt; and <a class="reference external" href="http://hydro.iis.u-tokyo.ac.jp/~hexg/">Xiaogang He</a> (Dr), &lt;<a class="reference external" href="mailto:hexg&#37;&#52;&#48;nus&#46;edu&#46;sg">hexg<span>&#64;</span>nus<span>&#46;</span>edu<span>&#46;</span>sg</a>&gt;</p>
 </dd>
-<dt class="field-even">Organization<span class="colon">:</span></dt>
+<dt class="field-even">Organization</dt>
 <dd class="field-even"><p><a class="reference external" href="https://nus.edu.sg/">National University of Singapore</a></p>
 </dd>
-<dt class="field-odd">Version<span class="colon">:</span></dt>
+<dt class="field-odd">Version</dt>
 <dd class="field-odd"><p>latest</p>
 </dd>
-<dt class="field-even">Date<span class="colon">:</span></dt>
-<dd class="field-even"><p>Jan 09, 2023</p>
+<dt class="field-even">Date</dt>
+<dd class="field-even"><p>Jun 07, 2023</p>
 </dd>
-<dt class="field-odd">Copyright<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The model code is licensed under the <a class="reference external" href="http://www.gnu.org/licenses/gpl-3.0">GNU General Public License 3.0</a>. This documentation is licensed under a <a class="reference external" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International</a> license.</p>
+<dt class="field-odd">Copyright</dt>
+<dd class="field-odd"><p>The model code is licensed under the <a class="reference external" href="https://github.com/PREP-NexT/PREP-SHOT/blob/main/LICENSE">GNU General Public License 3.0</a>. This documentation is licensed under a <a class="reference external" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International</a> license.</p>
 </dd>
 </dl>
-<p><strong>P</strong>athways for <strong>R</strong>enewable <strong>E</strong>nergy <strong>P</strong>lanning coupling <strong>S</strong>hort-term <strong>H</strong>ydropower <strong>O</strong>pera<strong>T</strong>ion (<a class="reference external" href="https://github.com/PREP-NexT/PREP-SHOT">PREP-SHOT</a>) is an a transparent, modular, and open-source energy expansion model. It can be used for the multi-scale, intertemporal cost-effective expansion of energy systems and transmission lines. Compared to other existing energy expansion models, which either treat hydropower as fixed processes (<a class="reference external" href="https://urbs.readthedocs.io/en/latest/">urbs</a>) or overlook the dynamic nature of water heads (<a class="reference external" href="https://genxproject.github.io/GenX/dev/">GenX</a>, <a class="reference external" href="https://www.energyexemplar.com/plexos">PLEXOS</a>) or simply aggregate multiple hydropower stations into a single unit, a unique feature of PREP-SHOT is that it explicitly considers the plant-level water head dynamics (i.e., time-varying water head and storage) and the system-level network topology of all hydropower stations within a regional grid. This allows us to better capture the multi-scale dynamic feedbacks between hydropower operation and energy system expansion as well as realistically simulate the magnitude and spatial-temporal variability of hydropower output, especially in regions with a large number of cascade hydropower stations.</p>
-<p>The PREP-SHOT mainly aims to answer the following question:</p>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p><strong>PREP-SHOT</strong> (<strong>P</strong>athways for <strong>R</strong>enewable <strong>E</strong>nergy <strong>P</strong>lanning coupling <strong>S</strong>hort-term <strong>H</strong>ydropower <strong>O</strong>peration <strong>T</strong>echnology) is a transparent, modular, and open-source energy expansion model hosted on <a class="reference external" href="https://github.com/PREP-NexT/PREP-SHOT">GitHub</a>. Offering advanced solutions for multi-scale, intertemporal, and cost-effective expansion of energy systems and transmission lines.</p>
+<p>The model sets itself apart from existing energy expansion models through its deeper consideration of hydropower processes. While models such as <a class="reference external" href="https://urbs.readthedocs.io/en/latest/">urbs</a> might treat hydropower as fixed processes, and others like <a class="reference external" href="https://genxproject.github.io/GenX/dev/">GenX</a> and <a class="reference external" href="https://www.energyexemplar.com/plexos">PLEXOS</a> may not fully capture the dynamic nature of water heads or consolidate multiple hydropower stations into a single unit, PREP-SHOT is uniquely designed to address these oversights.</p>
+<p>Our model explicitly considers the plant-level water head dynamics (i.e., time-varying water head and storage) and the system-level network topology of all hydropower stations within a regional grid. This results in a more accurate reflection of the multi-scale dynamic feedbacks between hydropower operation and energy system expansion. Furthermore, it enables the realistic simulation of the magnitude and spatial-temporal variability of hydropower output, particularly in regions with a large number of cascade hydropower stations.</p>
+<p>With PREP-SHOT, we aim to answer key questions related to the future of energy planning and utilization:</p>
 <ul class="simple">
-<li><p>How to plan an energy portfolio and new transmission capacity for the future (i.e. new-built, retirement) under deep uncertainty?</p></li>
-<li><p>Quantifying the impacts of variable hydropower on generation and capacity of future energy portfolio?</p></li>
+<li><p>How can we effectively plan an energy portfolio and new transmission capacity under deep uncertainty?</p></li>
+<li><p>How can we quantify the impacts of variable hydropower on the generation and capacity of future energy portfolios?</p></li>
 </ul>
+</section>
+<section id="how-it-works">
+<h2>How It Works<a class="headerlink" href="#how-it-works" title="Permalink to this headline">¶</a></h2>
 <figure class="align-default">
 <a class="reference internal image-reference" href="_images/overview.png"><img alt="overview of PREP-SHOT" src="_images/overview.png" style="width: 100%;" /></a>
 </figure>
-<section id="contents">
-<h2>Contents<a class="headerlink" href="#contents" title="Permalink to this heading">¶</a></h2>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
+</section>
+<section id="key-features">
+<h2>Key Features<a class="headerlink" href="#key-features" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>PREP-SHOT is an optimization model based on linear programming for energy systems with multiple zones.</p></li>
+<li><p>It aims to minimize costs while meeting the given demand time series.</p></li>
+<li><p>By default, it operates on hourly-spaced time steps, but this can be adjusted.</p></li>
+<li><p>The input data is in Excel format, while output data is generated in a NetCDF format using <code class="docutils literal notranslate"><span class="pre">Xarray</span></code>.</p></li>
+<li><p>It supports multiple types of solvers such as Gurobi, CPLEX, MOSEK, and GLPK via <a class="reference external" href="https://pyomo.readthedocs.io/en/stable/solving_pyomo_models.html">Pyomo</a>.</p></li>
+<li><p>It allows input of multiple scenarios for specific parameters.</p></li>
+<li><p>As a pure Python program, it benefits from the use of <code class="docutils literal notranslate"><span class="pre">pandas</span></code> and <code class="docutils literal notranslate"><span class="pre">Xarray</span></code>, simplifying complex data analysis and promoting extensibility.</p></li>
 </ul>
-</div>
+</section>
+<section id="let-s-get-started">
+<h2>Let's Get Started<a class="headerlink" href="#let-s-get-started" title="Permalink to this headline">¶</a></h2>
+<p>We've prepared a comprehensive guide to help you understand and use PREP-SHOT efficiently. Explore the sections below to learn more:</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="Introduction.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Installation.html#standard-installation">Standard Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Installation.html#installation-on-hpc-systems">Installation on HPC Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Installation.html#manual-installation">Manual Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Installation.html#troubleshooting">Troubleshooting</a></li>
 </ul>
-</div>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="Users_guide.html">Users guide</a></li>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Introduction.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Introduction.html#introduction-to-prep-shot-prpt">Introduction to PREP-SHOT /ˈprɛpʃɒt/</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Introduction.html#cost-source">Cost Source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Introduction.html#model-concept">Model concept</a></li>
 </ul>
-</div>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="Model_structure.html">Model structure</a></li>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial.html">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Tutorial.html#run-your-first-prep-shot-model">Run your first PREP-SHOT model</a></li>
 </ul>
-</div>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="Changelog.html">Changelog</a></li>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Users_guide.html">Users guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Users_guide.html#prepare-inputs">Prepare inputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Users_guide.html#run-model">Run model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Users_guide.html#read-output">Read output</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Model_structure.html">Model structure</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Model_structure.html#notations">Notations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-0-1">Version 0.1</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </section>
