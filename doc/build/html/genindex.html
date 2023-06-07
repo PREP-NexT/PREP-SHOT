@@ -11,6 +11,7 @@
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/custom.css?5" type="text/css" />
       <link rel="stylesheet" href="_static/css/dev.css" type="text/css" />
+    <link rel="shortcut icon" href="_static/logo.png"/>
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -18,9 +19,7 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
         <script src="_static/tabs.js"></script>
         <script src="_static/js/custom.js?3"></script>
         <script defer="defer" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
@@ -36,7 +35,7 @@
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
             <a href="index.html">
-            <img src="_static/SVG-04.svg" class="logo" alt="Logo"/>
+            <img src="_static/SVG-03.svg" class="logo" alt="Logo"/>
           </a>
               <div class="version">
                 latest
@@ -52,10 +51,10 @@
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="Installation.html#installation-steps">Installation Steps</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="Installation.html#install-gurobi">1. Install Gurobi</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Installation.html#install-miniconda">2. Install Miniconda</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Installation.html#create-the-conda-environment">3. Create the Conda Environment</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Installation.html#run-a-model">4. Run a Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#step-1-install-gurobi">Step 1. Install Gurobi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#step-2-install-miniconda">Step 2. Install Miniconda</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#step-3-create-the-conda-environment">Step 3. Create the Conda Environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#step-4-run-a-model">Step 4. Run a Model</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="Installation.html#troubleshooting">Troubleshooting</a></li>
@@ -63,10 +62,8 @@
 <li class="toctree-l2"><a class="reference internal" href="Installation.html#features">Features</a></li>
 </ul>
 </li>
-</ul>
-<ul>
 <li class="toctree-l1"><a class="reference internal" href="Introduction.html">Getting Started</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="Introduction.html#introduction-to-prep-shot">Introduction to PREP-SHOT</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Introduction.html#introduction-to-prep-shot-prpt">Introduction to PREP-SHOT /ˈprɛpʃɒt/</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="Introduction.html#what-can-the-model-do">What can the model do?</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Introduction.html#how-does-it-work">How does it work?</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Introduction.html#what-do-i-need-to-know-to-use-prep-shot">What do I need to know to use PREP-SHOT?</a></li>
@@ -76,16 +73,23 @@
 <li class="toctree-l2"><a class="reference internal" href="Introduction.html#model-concept">Model concept</a></li>
 </ul>
 </li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="Users_guide.html">Users guide</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="Users_guide.html#prepare-inputs">Prepare inputs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Users_guide.html#run-model">Run model</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Users_guide.html#read-output">Read output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial.html">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Tutorial.html#run-your-first-prep-shot-model">Run your first PREP-SHOT model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Tutorial.html#background">Background</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Tutorial.html#prepare-the-input-data">Prepare the Input Data</a></li>
 </ul>
 </li>
 </ul>
-<ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Users_guide.html">Users guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Users_guide.html#prepare-inputs">Prepare inputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Users_guide.html#run-model">Run model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Users_guide.html#scenarios">Scenarios</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Users_guide.html#read-output">Read output</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="Model_structure.html">Model structure</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="Model_structure.html#notations">Notations</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="Model_structure.html#sets">1. Sets</a></li>
@@ -111,8 +115,6 @@
 </li>
 </ul>
 </li>
-</ul>
-<ul>
 <li class="toctree-l1"><a class="reference internal" href="Changelog.html">Changelog</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-0-1">Version 0.1</a></li>
 </ul>
@@ -135,7 +137,7 @@
       <li><a href="index.html" class="icon icon-home"></a></li>
       <li class="breadcrumb-item active">Index</li>
       <li class="wy-breadcrumbs-aside">
-              <a href="https://github.com/Zhanwei-Liu/PREP-SHOT/blob/main/doc/source/genindex" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/PREP-NexT/PREP-SHOT/blob/main/doc/source/genindex" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>

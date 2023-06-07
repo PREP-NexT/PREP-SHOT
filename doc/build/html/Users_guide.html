@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 <meta property="og:title" content="Users guide" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="Users_guide.html" />
 <meta property="og:site_name" content="PREP-SHOT documentation" />
-<meta property="og:description" content="The following sections will give a general overview and help you getting started from after the installation. Prepare inputs: Run model: Read output:" />
-<meta name="description" content="The following sections will give a general overview and help you getting started from after the installation. Prepare inputs: Run model: Read output:" />
-<meta name="description" content="The following sections will give a general overview and help you getting started from after the installation.">
+<meta property="og:description" content="The following sections will give a general overview and help you getting started from after the installation. Prepare inputs: Input files:,,, Parameters, Dimension, Description,,, technology portfo..." />
+<meta name="description" content="The following sections will give a general overview and help you getting started from after the installation. Prepare inputs: Input files:,,, Parameters, Dimension, Description,,, technology portfo..." />
+<meta name="description" content="The following sections will give a general overview and help you getting started from after the installation. Parameters Dimension Description technology portfolio 2D (year, zone) Existing installed capacity of techno...">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Users guide &mdash; PREP-SHOT (latest) documentation in English</title>
@@ -19,6 +19,7 @@
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/custom.css?5" type="text/css" />
       <link rel="stylesheet" href="_static/css/dev.css" type="text/css" />
+    <link rel="shortcut icon" href="_static/logo.png"/>
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -26,9 +27,8 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
+        <script async="async" src="_static/es5/tex-chtml.js"></script>
         <script src="_static/js/custom.js?3"></script>
         <script defer="defer" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
         <script defer="defer" src="_static/js/algolia.js"></script>
@@ -36,7 +36,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Model structure" href="Model_structure.html" />
-    <link rel="prev" title="Getting Started" href="Introduction.html" /> 
+    <link rel="prev" title="Tutorial" href="Tutorial.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -45,7 +45,7 @@
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
             <a href="index.html">
-            <img src="_static/SVG-04.svg" class="logo" alt="Logo"/>
+            <img src="_static/SVG-03.svg" class="logo" alt="Logo"/>
           </a>
               <div class="version">
                 latest
@@ -58,13 +58,13 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul>
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="Installation.html#installation-steps">Installation Steps</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="Installation.html#install-gurobi">1. Install Gurobi</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Installation.html#install-miniconda">2. Install Miniconda</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Installation.html#create-the-conda-environment">3. Create the Conda Environment</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Installation.html#run-a-model">4. Run a Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#step-1-install-gurobi">Step 1. Install Gurobi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#step-2-install-miniconda">Step 2. Install Miniconda</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#step-3-create-the-conda-environment">Step 3. Create the Conda Environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#step-4-run-a-model">Step 4. Run a Model</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="Installation.html#troubleshooting">Troubleshooting</a></li>
@@ -72,10 +72,8 @@
 <li class="toctree-l2"><a class="reference internal" href="Installation.html#features">Features</a></li>
 </ul>
 </li>
-</ul>
-<ul>
 <li class="toctree-l1"><a class="reference internal" href="Introduction.html">Getting Started</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="Introduction.html#introduction-to-prep-shot">Introduction to PREP-SHOT</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Introduction.html#introduction-to-prep-shot-prpt">Introduction to PREP-SHOT /ˈprɛpʃɒt/</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="Introduction.html#what-can-the-model-do">What can the model do?</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Introduction.html#how-does-it-work">How does it work?</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Introduction.html#what-do-i-need-to-know-to-use-prep-shot">What do I need to know to use PREP-SHOT?</a></li>
@@ -85,16 +83,23 @@
 <li class="toctree-l2"><a class="reference internal" href="Introduction.html#model-concept">Model concept</a></li>
 </ul>
 </li>
-</ul>
-<ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Users guide</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#prepare-inputs">Prepare inputs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#run-model">Run model</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#read-output">Read output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial.html">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Tutorial.html#run-your-first-prep-shot-model">Run your first PREP-SHOT model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Tutorial.html#background">Background</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Tutorial.html#prepare-the-input-data">Prepare the Input Data</a></li>
 </ul>
 </li>
 </ul>
-<ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Users guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#prepare-inputs">Prepare inputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#run-model">Run model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#scenarios">Scenarios</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#read-output">Read output</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="Model_structure.html">Model structure</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="Model_structure.html#notations">Notations</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="Model_structure.html#sets">1. Sets</a></li>
@@ -120,8 +125,6 @@
 </li>
 </ul>
 </li>
-</ul>
-<ul>
 <li class="toctree-l1"><a class="reference internal" href="Changelog.html">Changelog</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-0-1">Version 0.1</a></li>
 </ul>
@@ -144,7 +147,7 @@
       <li><a href="index.html" class="icon icon-home"></a></li>
       <li class="breadcrumb-item active">Users guide</li>
       <li class="wy-breadcrumbs-aside">
-              <a href="https://github.com/Zhanwei-Liu/PREP-SHOT/blob/main/doc/source/Users_guide.rst" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/PREP-NexT/PREP-SHOT/blob/main/doc/source/Users_guide.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -153,17 +156,192 @@
            <div itemprop="articleBody">
              
   <section id="users-guide">
-<span id="id1"></span><h1>Users guide<a class="headerlink" href="#users-guide" title="Permalink to this heading">¶</a></h1>
+<span id="id1"></span><h1>Users guide<a class="headerlink" href="#users-guide" title="Permalink to this headline">¶</a></h1>
 <p>The following sections will give a general overview and help you getting started from after
 the installation.</p>
 <section id="prepare-inputs">
-<h2>Prepare inputs<a class="headerlink" href="#prepare-inputs" title="Permalink to this heading">¶</a></h2>
+<h2>Prepare inputs<a class="headerlink" href="#prepare-inputs" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-given docutils align-default" id="id4">
+<caption><span class="caption-text">Input files</span><a class="headerlink" href="#id4" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 80%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameters</p></th>
+<th class="head"><p>Dimension</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>technology portfolio</p></td>
+<td><p>2D (year, zone)</p></td>
+<td><p>Existing installed capacity of technologies across each zone (or bus) at the beginning of the reference year, showcasing status quo in those areas.</p></td>
+</tr>
+<tr class="row-odd"><td><p>distance</p></td>
+<td><p>2D (zone1, zone2)</p></td>
+<td><p>Distance between two zones.</p></td>
+</tr>
+<tr class="row-even"><td><p>transmission line</p></td>
+<td><p>2D (zone1, zone2)</p></td>
+<td><p>The existing capacity of transmission lines between <cite>zone1</cite> and <cite>zone2</cite> represents the current ability to transmit power between these two zones. If you leave this parameter as null, the model will not consider any expansion of the capacity between the corresponding zones except for you set this parameter to a value equal to or greater than zero.</p></td>
+</tr>
+<tr class="row-odd"><td><p>transline efficiency</p></td>
+<td><p>2D (zone1, zone2)</p></td>
+<td><p>The transmission efficiency between <cite>zone1</cite> and <cite>zone2</cite> represents the effectiveness of power transfer through transmission lines connecting these zones. It is used to consider transmission losses, which are calculated as follows: transmission loss = transferred electricity * (1 - transmission line efficiency).</p></td>
+</tr>
+<tr class="row-even"><td><p>discount factor</p></td>
+<td><p>1D (year)</p></td>
+<td><p>It is a weighting factor that is used to calculate the present value. Refer to explaination <a class="reference external" href="https://www.wallstreetprep.com/knowledge/discount-factor/">here</a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p>technology fixed cost</p></td>
+<td><p>2D (year, technology)</p></td>
+<td><p>The fixed Operation and Maintenance (O&amp;M) cost of technologies for each year refers to the expenses associated with the regular upkeep and management of energy generation systems, regardless of their generation, expressed on a per-unit basis. These costs typically include routine maintenance, inspections, repairs, and personnel expenses necessary for the safe and efficient operation of the facility.</p></td>
+</tr>
+<tr class="row-even"><td><p>technology variable cost</p></td>
+<td><p>2D (year, technology)</p></td>
+<td><p>The variable O&amp;M cost of technologies for each year refers to the expenses that vary according to the electricity generation, expressed on a per-unit basis.</p></td>
+</tr>
+<tr class="row-odd"><td><p>technology investment cost</p></td>
+<td><p>2D (year, technology)</p></td>
+<td><p>The investment cost of technologies for each year refers to the expenses thay vary according to the new installed capacity, expressed on a per-unit basis.</p></td>
+</tr>
+<tr class="row-even"><td><p>carbon content</p></td>
+<td><p>2D (year, technology)</p></td>
+<td><p>The carbon intensity of technologies for each year refers to the amount of equivalent carbon dioxide emission when generating unit electricity.</p></td>
+</tr>
+<tr class="row-odd"><td><p>fuel price</p></td>
+<td><p>2D (year, technology)</p></td>
+<td><p>The price of fuel consumed when generating a unit of electricity (i.e., fuel cost per unit of electricity) refers to the cost of purchasing and transporting fuel (e.g., coal, natural gas, or oil) for the fossil fuel-based power plants. Renewable energy sources (i.e., hydropower, wind power and solar power) typically have minimal to no fuel costs.</p></td>
+</tr>
+<tr class="row-even"><td><p>efficiency in</p></td>
+<td><p>2D (year, storage technology)</p></td>
+<td><p>The efficiency here is mainly for the type of energy storage. It refers to the charge efficiency of the storage source (i.e., change of storage = efficiency <span class="math notranslate nohighlight">\(\times\)</span> charge). Refer to explaination <a class="reference external" href="https://www.sciencedirect.com/topics/engineering/round-trip-efficiency">here</a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p>efficiency out</p></td>
+<td><p>2D (year, storage technology)</p></td>
+<td><p>The efficiency here is mainly for the type of energy storage. It refers to the discharge efficiency of the storage source (i.e., change of storage = efficiency <span class="math notranslate nohighlight">\(\times\)</span> discharge).</p></td>
+</tr>
+<tr class="row-even"><td><p>energy power ratio</p></td>
+<td><p>1D (storage technology)</p></td>
+<td><p>Here, energy power ratio refers to the relationship between the energy capacity of the storage system (measured in kilowatt-hours, kWh) and its power capacity (measured in kilowatts, kW). This ratio is also known as the &quot;duration&quot; or &quot;discharge time&quot; of the energy storage system. It provides insight into the operational characteristics of an energy storage system, indicating how long the system can supply power at its rated capacity before being fully discharged.</p></td>
+</tr>
+<tr class="row-odd"><td><p>lifetime</p></td>
+<td><p>2D (year, technology)</p></td>
+<td><p>The lifetime of a technology refers to the period span in which it continues to be usable.</p></td>
+</tr>
+<tr class="row-even"><td><p>transmission line lifetime</p></td>
+<td><p>2D (zone1, zone2)</p></td>
+<td><p>The lifetime of a transmission line refers to the period span in which it continues to be usable.</p></td>
+</tr>
+<tr class="row-odd"><td><p>capacity factor</p></td>
+<td><p>5D (technology, zone, year, month, hour)</p></td>
+<td><p>Capacity factor is a measure of the actual power output of an energy generation system compared to its maximum allowed output over a given period which is expressed as a percentage (0-1). Here it is used to represent maximum power output of variable renewable energy sources, estimated depend on weather factors such as wind speeds (wind power) and sun radiation (solar power).</p></td>
+</tr>
+<tr class="row-even"><td><p>demand</p></td>
+<td><p>5D (technology, zone, year, month, hour)</p></td>
+<td><p>Electricity load demand</p></td>
+</tr>
+<tr class="row-odd"><td><p>ramp up</p></td>
+<td><p>1D (technology)</p></td>
+<td><p>The ramp up (i.e., ramping up speed) refers to the rate at which the plant's output power is increased from a lower level to a higher level. Here, it is measured in ratio of current available capacity power and unit is megawatts per hour. The ramping speed of a plant is a crucial factor in determining the plant's operational ability to respond quickly to changes in demand for electricity or intermittent energy (such wind and solar energy). Refer to explaination <a class="reference external" href="https://www.nrel.gov/docs/fy20osti/77639.pdf">here</a>.</p></td>
+</tr>
+<tr class="row-even"><td><p>ramp down</p></td>
+<td><p>1D (technology)</p></td>
+<td><p>Same as the ramp up. It refers to the rate at which the plant's output power is decreased from a higher level to a lower level.</p></td>
+</tr>
+<tr class="row-odd"><td><p>carbon</p></td>
+<td><p>1D (year)</p></td>
+<td><p>Carbon emission limits across different representative years.</p></td>
+</tr>
+<tr class="row-even"><td><p>transmission line investment cost</p></td>
+<td><p>2D (zone1, zone2)</p></td>
+<td><p>The investment cost of transmission lines for each year refers to the expenses thay vary according to the new installed capacity of transmission lines, expressed on a per-unit basis.</p></td>
+</tr>
+<tr class="row-odd"><td><p>transmission line fixed cost</p></td>
+<td><p>2D (zone1, zone2)</p></td>
+<td><p>The fixed O&amp;M cost of technologies for each year refers to the expenses associated with the regular upkeep and management of transmission lines, regardless of their transfered electricity, expressed on a per-unit basis.</p></td>
+</tr>
+<tr class="row-even"><td><p>transmission line variable cost</p></td>
+<td><p>2D (zone1, zone2)</p></td>
+<td><p>The variable O&amp;M cost of transmission lines for each year refers to the expenses that vary according to the exported electricity, expressed on a per-unit basis.</p></td>
+</tr>
+<tr class="row-odd"><td><p>technology upper bound</p></td>
+<td><p>2D (zone, technology)</p></td>
+<td><p>The maximum installed capacity of technologies, determined by various constraints such as land use, policy, environmental concerns, social considerations, and other factors, refers to the upper limit on the total capacity of a specific technology that can be deployed within a given zone or jurisdiction.</p></td>
+</tr>
+<tr class="row-even"><td><p>new technology lower bound</p></td>
+<td><p>2D (zone, technology)</p></td>
+<td><p>The annual maximum installed capacity of technologies, influenced by various constraints such as construction speed and available financial investment, refers to the upper limit on the total capacity of a specific technology that can be deployed within a given zone or jurisdiction for each representative year.</p></td>
+</tr>
+<tr class="row-odd"><td><p>init storage level</p></td>
+<td><p>2D (zone, storage level)</p></td>
+<td><p>The initial and terminal storage energy level for the first and last hour of each month refers to the amount of energy stored in an energy storage system (such as a battery or pumped hydro storage) at the beginning and ending of each month.</p></td>
+</tr>
+<tr class="row-even"><td><p>zv</p></td>
+<td><p>2D (station, break point)</p></td>
+<td><p>elevation - storage relationship of reservoir</p></td>
+</tr>
+<tr class="row-odd"><td><p>zq</p></td>
+<td><p>2D (station, break point)</p></td>
+<td><p>tailrace - discharge relationship of reservoir</p></td>
+</tr>
+<tr class="row-even"><td><p>type</p></td>
+<td><p>1D (technology)</p></td>
+<td><p>All technologies in PREP-SHOT are divided into three categories: nondispatchable, dispatchable, hydropower, and storage. Here, the user needs explicitly to provide the class of each technology.</p></td>
+</tr>
+<tr class="row-odd"><td><p>age</p></td>
+<td><p>3D (zone, year, technology)</p></td>
+<td><p>The existing available capacity of technologies with different ages in different zones at the starting year</p></td>
+</tr>
+<tr class="row-even"><td><p>storage upper bound</p></td>
+<td><p>3D (station, month, hour)</p></td>
+<td><p>The allowed upper bound of storage for a reservoir at each hour of each month refers to the maximum volume of water (constrainted by the maximum capacity or storage according to flood limit water level of reservoir) that can be stored in a reservoir during a specific time interval.</p></td>
+</tr>
+<tr class="row-odd"><td><p>storage lower bound</p></td>
+<td><p>3D (station, month, hour)</p></td>
+<td><p>The allowed lower bound of storage for a reservoir at each hour of each month refers to the minimum volume of water (constrainted by dead storage capacity) that need to be stored in a reservoir during a specific time interval.</p></td>
+</tr>
+<tr class="row-even"><td><p>initial storage</p></td>
+<td><p>2D (station, month)</p></td>
+<td><p>The storage of reservoirs at first hour of each month</p></td>
+</tr>
+<tr class="row-odd"><td><p>terminal storage</p></td>
+<td><p>2D (station, month)</p></td>
+<td><p>The storage of reservoirs at last hour of each month</p></td>
+</tr>
+<tr class="row-even"><td><p>hydropower</p></td>
+<td><p>4D (station, year, month, hour)</p></td>
+<td><p>The predifined output of hydropower</p></td>
+</tr>
+<tr class="row-odd"><td><p>inflow</p></td>
+<td><p>4D (station, year, month, hour)</p></td>
+<td><p>Natural local inflow between upstream and downstream reservoirs.</p></td>
+</tr>
+<tr class="row-even"><td><p>connect</p></td>
+<td><p>2D (station, downstream station)</p></td>
+<td><p>Water time delay between upstream stations and downstream stations</p></td>
+</tr>
+<tr class="row-odd"><td><p>static</p></td>
+<td><p>1D (station)</p></td>
+<td><p>The characteristic values of the reservoir includes designed water head, installed capacity of hydropower station, allowed minimum outflow of reservoir, allowed maximum outflow of reservoir</p></td>
+</tr>
+</tbody>
+</table>
+<p>Note: <cite>inf</cite> means Infinity. If you set inf which means no upper bound. <cite>None</cite> means null value for current item.</p>
 </section>
 <section id="run-model">
-<h2>Run model<a class="headerlink" href="#run-model" title="Permalink to this heading">¶</a></h2>
+<h2>Run model<a class="headerlink" href="#run-model" title="Permalink to this headline">¶</a></h2>
+<section id="scenarios">
+<h3>Scenarios<a class="headerlink" href="#scenarios" title="Permalink to this headline">¶</a></h3>
+<p>Here I want to talk about how to run PREP-SHOT with multiple-year inflow. First, you need to download scripts in <cite>prepshot-my-flow</cite> branch. Then you need to prepare an individual inflow input file called &quot;input/scenario/inflow_xxx.xlsx&quot;. Here &quot;xxx&quot; is the name of the scenario, which need to be the same as the command line <cite>inflow</cite> parameter which will be introduced below. The required inflow input file takes the representative year as the name of the sheet table. For each sheet, you only need to maintain the same format as the <cite>inflow</cite> sheet in the previous total input file.</p>
+<p>After preparing the inflow input files, you must use the command line parameter to specify the scenario name. For example, you design an inflow called drought. You need to prepare an inflow input file called &quot;inflow_drough.xlsx&quot; and then run your scenario with the following shell command <cite>python run.py -- inflow=drought</cite>.</p>
+</section>
 </section>
 <section id="read-output">
-<h2>Read output<a class="headerlink" href="#read-output" title="Permalink to this heading">¶</a></h2>
+<h2>Read output<a class="headerlink" href="#read-output" title="Permalink to this headline">¶</a></h2>
+<p>The output of the model is stored in a NetCDF file, please refer to the <a class="reference external" href="https://xiaoganghe.github.io/python-climate-visuals/chapters/data-analytics/xarray-basic.html">simple tutorial</a> and <a class="reference external" href="https://docs.xarray.dev/en/stable/">official documentation</a> of Xarray for how to manipulate the NetCDF file.</p>
 </section>
 </section>
 
@@ -171,7 +349,7 @@ the installation.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="Introduction.html" class="btn btn-neutral float-left" title="Getting Started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Tutorial.html" class="btn btn-neutral float-left" title="Tutorial" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="Model_structure.html" class="btn btn-neutral float-right" title="Model structure" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

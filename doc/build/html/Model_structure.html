@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 <meta property="og:title" content="Model structure" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="Model_structure.html" />
@@ -19,6 +19,7 @@
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/custom.css?5" type="text/css" />
       <link rel="stylesheet" href="_static/css/dev.css" type="text/css" />
+    <link rel="shortcut icon" href="_static/logo.png"/>
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -26,9 +27,7 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
         <script async="async" src="_static/es5/tex-chtml.js"></script>
         <script src="_static/js/custom.js?3"></script>
         <script defer="defer" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
@@ -46,7 +45,7 @@
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
             <a href="index.html">
-            <img src="_static/SVG-04.svg" class="logo" alt="Logo"/>
+            <img src="_static/SVG-03.svg" class="logo" alt="Logo"/>
           </a>
               <div class="version">
                 latest
@@ -59,13 +58,13 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul>
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="Installation.html#installation-steps">Installation Steps</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="Installation.html#install-gurobi">1. Install Gurobi</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Installation.html#install-miniconda">2. Install Miniconda</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Installation.html#create-the-conda-environment">3. Create the Conda Environment</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Installation.html#run-a-model">4. Run a Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#step-1-install-gurobi">Step 1. Install Gurobi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#step-2-install-miniconda">Step 2. Install Miniconda</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#step-3-create-the-conda-environment">Step 3. Create the Conda Environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#step-4-run-a-model">Step 4. Run a Model</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="Installation.html#troubleshooting">Troubleshooting</a></li>
@@ -73,10 +72,8 @@
 <li class="toctree-l2"><a class="reference internal" href="Installation.html#features">Features</a></li>
 </ul>
 </li>
-</ul>
-<ul>
 <li class="toctree-l1"><a class="reference internal" href="Introduction.html">Getting Started</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="Introduction.html#introduction-to-prep-shot">Introduction to PREP-SHOT</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Introduction.html#introduction-to-prep-shot-prpt">Introduction to PREP-SHOT /ˈprɛpʃɒt/</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="Introduction.html#what-can-the-model-do">What can the model do?</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Introduction.html#how-does-it-work">How does it work?</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Introduction.html#what-do-i-need-to-know-to-use-prep-shot">What do I need to know to use PREP-SHOT?</a></li>
@@ -86,16 +83,23 @@
 <li class="toctree-l2"><a class="reference internal" href="Introduction.html#model-concept">Model concept</a></li>
 </ul>
 </li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="Users_guide.html">Users guide</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="Users_guide.html#prepare-inputs">Prepare inputs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Users_guide.html#run-model">Run model</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Users_guide.html#read-output">Read output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial.html">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Tutorial.html#run-your-first-prep-shot-model">Run your first PREP-SHOT model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Tutorial.html#background">Background</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Tutorial.html#prepare-the-input-data">Prepare the Input Data</a></li>
 </ul>
 </li>
 </ul>
-<ul class="current">
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Users_guide.html">Users guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Users_guide.html#prepare-inputs">Prepare inputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Users_guide.html#run-model">Run model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Users_guide.html#scenarios">Scenarios</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Users_guide.html#read-output">Read output</a></li>
+</ul>
+</li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Model structure</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#notations">Notations</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#sets">1. Sets</a></li>
@@ -121,8 +125,6 @@
 </li>
 </ul>
 </li>
-</ul>
-<ul>
 <li class="toctree-l1"><a class="reference internal" href="Changelog.html">Changelog</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-0-1">Version 0.1</a></li>
 </ul>
@@ -145,7 +147,7 @@
       <li><a href="index.html" class="icon icon-home"></a></li>
       <li class="breadcrumb-item active">Model structure</li>
       <li class="wy-breadcrumbs-aside">
-              <a href="https://github.com/Zhanwei-Liu/PREP-SHOT/blob/main/doc/source/Model_structure.rst" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/PREP-NexT/PREP-SHOT/blob/main/doc/source/Model_structure.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -154,12 +156,12 @@
            <div itemprop="articleBody">
              
   <section id="model-structure">
-<h1>Model structure<a class="headerlink" href="#model-structure" title="Permalink to this heading">¶</a></h1>
+<h1>Model structure<a class="headerlink" href="#model-structure" title="Permalink to this headline">¶</a></h1>
 <section id="notations">
-<h2>Notations<a class="headerlink" href="#notations" title="Permalink to this heading">¶</a></h2>
+<h2>Notations<a class="headerlink" href="#notations" title="Permalink to this headline">¶</a></h2>
 <section id="sets">
-<h3>1. Sets<a class="headerlink" href="#sets" title="Permalink to this heading">¶</a></h3>
-<table class="docutils align-left">
+<h3>1. Sets<a class="headerlink" href="#sets" title="Permalink to this headline">¶</a></h3>
+<table class="colwidths-given docutils align-left">
 <colgroup>
 <col style="width: 17%" />
 <col style="width: 83%" />
@@ -184,8 +186,8 @@
 </table>
 </section>
 <section id="variables">
-<h3>2. Variables<a class="headerlink" href="#variables" title="Permalink to this heading">¶</a></h3>
-<table class="docutils align-left">
+<h3>2. Variables<a class="headerlink" href="#variables" title="Permalink to this headline">¶</a></h3>
+<table class="colwidths-given docutils align-left">
 <colgroup>
 <col style="width: 11%" />
 <col style="width: 89%" />
@@ -249,8 +251,8 @@
 </table>
 </section>
 <section id="parameters">
-<h3>3. Parameters<a class="headerlink" href="#parameters" title="Permalink to this heading">¶</a></h3>
-<table class="docutils align-left">
+<h3>3. Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h3>
+<table class="colwidths-given docutils align-left">
 <colgroup>
 <col style="width: 11%" />
 <col style="width: 89%" />
@@ -308,19 +310,19 @@
 </table>
 </section>
 <section id="objective-function">
-<h3>4. Objective function<a class="headerlink" href="#objective-function" title="Permalink to this heading">¶</a></h3>
+<h3>4. Objective function<a class="headerlink" href="#objective-function" title="Permalink to this headline">¶</a></h3>
 <p>The objective function of the model is to minimize the net present value of  the cost of the whole system, which includes investment cost, fixed O&amp;M cost, variable cost and fuel cost by cost type, technology cost and transmission line cost by source of cost and operation cost and planning cost by source of cost. As follows:</p>
 <div class="math notranslate nohighlight">
-\[\begin{split}cost &amp;= cost_{tech}^{var} + cost_{line}^{var} + cost^{fuel} + cost_{tech}^{fix} + cost_{line}^{fix} + cost_{tech}^{inv} + cost_{line}^{inv} \\
-cost_{tech}^{var} &amp;= \frac{\sum_{t,m,y,z,te}C_{y,z,te}^{tech-var}\times gen_{t,m,y,z,te}}{Weight} \times factor_{y}^{var} \\
-cost_{line}^{var} &amp;= \frac{\sum_{t,m,y,z_s,z_o}C_{y,z}^{line-var}\times export_{t,m,y,z_s,z_o}}{Weight} \times factor_{y}^{var} \\
-cost^{fuel} &amp; = \frac{\sum_{t,m,y,z,te}C_{y,z,te}^{fuel}\times gen_{t,m,y,z,te}}{Weight} \times factor_{y}^{var} \\
-cost_{tech}^{fix} &amp;= \sum_{y,z,te}C_{y,z,te}^{tech-fix}\times cap_{y,z,te}^{existing-tech}\times factor_{y}^{fix} \\
-cost_{line}^{fix} &amp;= \sum_{y,z_s,z_o}C_{y,z_s,z_o}^{line-fix}\times cap_{y,z_s,z_o}^{existing-line}\times factor_{y}^{fix} \\
-cost_{tech}^{inv} &amp;=  \sum_{y,z,te}C_{y,z,te}^{tech-inv}\times cap_{y,z,te}^{tech-inv}\times factor_{y}^{inv} \\
-cost_{line}^{inv} &amp;= \sum_{y,z_s,z_o}C_{y,z_s,z_o}^{line-inv}\times cap_{y,z_s,z_o}^{line-inv}\times factor_{y}^{inv} \times 0.5\end{split}\]</div>
+\[\begin{split}\rm{cost} &amp;= \rm{cost}_\rm{tech}^\rm{var} + \rm{cost}_\rm{line}^\rm{var} + \rm{cost}^\rm{fuel} + \rm{cost}_\rm{tech}^\rm{fix} + \rm{cost}_\rm{line}^\rm{fix} + \rm{cost}_\rm{tech}^\rm{inv} + \rm{cost}_\rm{line}^\rm{inv} \\
+\rm{cost}_\rm{tech}^\rm{var} &amp;= \frac{\sum_{t,m,y,z,\rm{te}}C_{y,z,\rm{te}}^\rm{tech-var}\times \rm{gen}_{t,m,y,z,\rm{te}}}\rm{Weight} \times \rm{factor}_{y}^\rm{var} \\
+\rm{cost}_\rm{line}^\rm{var} &amp;= \frac{\sum_{t,m,y,z_s,z_o}C_{y,z}^\rm{line-var}\times \rm{export}_{t,m,y,z_s,z_o}}\rm{Weight} \times \rm{factor}_{y}^\rm{var} \\
+\rm{cost}^\rm{fuel} &amp; = \frac{\sum_{t,m,y,z,\rm{te}}C_{y,z,\rm{te}}^\rm{fuel}\times \rm{gen}_{t,m,y,z,\rm{te}}}\rm{Weight} \times \rm{factor}_{y}^\rm{var} \\
+\rm{cost}_\rm{tech}^\rm{fix} &amp;= \sum_{y,z,\rm{te}}C_{y,z,\rm{te}}^\rm{tech-fix}\times \rm{cap}_{y,z,\rm{te}}^\rm{existing-tech}\times \rm{factor}_{y}^\rm{fix} \\
+\rm{cost}_\rm{line}^\rm{fix} &amp;= \sum_{y,z_s,z_o}C_{y,z_s,z_o}^\rm{line-fix}\times \rm{cap}_{y,z_s,z_o}^\rm{existing-line}\times \rm{factor}_{y}^\rm{fix} \\
+\rm{cost}_\rm{tech}^\rm{inv} &amp;=  \sum_{y,z,\rm{te}}C_{y,z,\rm{te}}^\rm{tech-inv}\times \rm{cap}_{y,z,\rm{te}}^\rm{tech-inv}\times \rm{factor}_{y}^\rm{inv} \\
+\rm{cost}_\rm{line}^\rm{inv} &amp;= \sum_{y,z_s,z_o}C_{y,z_s,z_o}^\rm{line-inv}\times \rm{cap}_{y,z_s,z_o}^\rm{line-inv}\times \rm{factor}_{y}^\rm{inv} \times 0.5\end{split}\]</div>
 <p>where variables</p>
-<table class="docutils align-left">
+<table class="colwidths-given docutils align-left">
 <colgroup>
 <col style="width: 11%" />
 <col style="width: 89%" />
@@ -379,11 +381,15 @@ cost_{line}^{inv} &amp;= \sum_{y,z_s,z_o}C_{y,z_s,z_o}^{line-inv}\times cap_{y,z
 </tr>
 </tbody>
 </table>
-<p>where parameters:</p>
+<p>where parameters</p>
 <table class="docutils align-default" id="id1">
 <caption><span class="caption-text">:widths: 10 80
  :header-rows: 0
  :align: left</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(C_{y,z,te}^\text{tech-var}\)</span></p></td>
 <td><p>variable cost of unit capacity of <span class="math notranslate nohighlight">\(\text{te}\)</span>-th technology in <span class="math notranslate nohighlight">\(y\)</span>-th year <span class="math notranslate nohighlight">\(z\)</span>-th zone [USD/MW]</p></td>
@@ -414,7 +420,7 @@ cost_{line}^{inv} &amp;= \sum_{y,z_s,z_o}C_{y,z_s,z_o}^{line-inv}\times cap_{y,z
 <p>How to account for <span class="math notranslate nohighlight">\(\text{factor}_{y}^\text{var}\)</span>, <span class="math notranslate nohighlight">\(\text{factor}_{y}^\text{fix}\)</span> and <span class="math notranslate nohighlight">\(\text{factor}_{y}^\text{inv}\)</span>?</p>
 <p>Convert future value of all costs to net present value. Assume variable cost, fixed cost of non-modeled year are equals to year of last modeled year before them.</p>
 <section id="text-factor-y-text-var">
-<h4>4.1 <span class="math notranslate nohighlight">\(\text{factor}_{y}^\text{var}\)</span><a class="headerlink" href="#text-factor-y-text-var" title="Permalink to this heading">¶</a></h4>
+<h4>4.1 <span class="math notranslate nohighlight">\(\text{factor}_{y}^\text{var}\)</span><a class="headerlink" href="#text-factor-y-text-var" title="Permalink to this headline">¶</a></h4>
 <a class="reference internal image-reference" href="_images/varcost.png"><img alt="Calculation of variable costs" src="_images/varcost.png" style="width: 400px;" /></a>
 <p>Given variable cost of modeled year = <span class="math notranslate nohighlight">\(B\)</span>, discount rate = <span class="math notranslate nohighlight">\(r\)</span>, <span class="math notranslate nohighlight">\(m\)</span>-th modeled year <span class="math notranslate nohighlight">\(m=y-y_{min}\)</span>, depreciation periods = <span class="math notranslate nohighlight">\(n\)</span>. Total present value are calculated as follows:</p>
 <div class="math notranslate nohighlight">
@@ -427,12 +433,12 @@ m_{y} &amp;= y - y_\text{min} \\
 k_{y} &amp;= y_\text{periods} \\\end{split}\]</div>
 </section>
 <section id="text-factor-y-text-fix">
-<h4>4.2 <span class="math notranslate nohighlight">\(\text{factor}_{y}^\text{fix}\)</span><a class="headerlink" href="#text-factor-y-text-fix" title="Permalink to this heading">¶</a></h4>
+<h4>4.2 <span class="math notranslate nohighlight">\(\text{factor}_{y}^\text{fix}\)</span><a class="headerlink" href="#text-factor-y-text-fix" title="Permalink to this headline">¶</a></h4>
 <div class="math notranslate nohighlight">
 \[\text{factor}_{y}^\text{fix} = factor_{y}^\text{var}\]</div>
 </section>
 <section id="text-factor-y-text-inv">
-<h4>4.3 <span class="math notranslate nohighlight">\(\text{factor}_{y}^\text{inv}\)</span><a class="headerlink" href="#text-factor-y-text-inv" title="Permalink to this heading">¶</a></h4>
+<h4>4.3 <span class="math notranslate nohighlight">\(\text{factor}_{y}^\text{inv}\)</span><a class="headerlink" href="#text-factor-y-text-inv" title="Permalink to this headline">¶</a></h4>
 <a class="reference internal image-reference" href="_images/invcost.png"><img alt="Calculation of investment costs" src="_images/invcost.png" style="width: 400px;" /></a>
 <p>Given weighted average cost of capital (WACC) (or interest rate) = <span class="math notranslate nohighlight">\(i\)</span>, discount rate = <span class="math notranslate nohighlight">\(r\)</span>, <span class="math notranslate nohighlight">\(m\)</span>-th modeled year <span class="math notranslate nohighlight">\(m\)</span> = <span class="math notranslate nohighlight">\(y-y_\text{min}\)</span>, Length of <span class="math notranslate nohighlight">\(m\)</span>-th planning periods = <span class="math notranslate nohighlight">\(k\)</span>, Total present value are calculated as follows:</p>
 <div class="math notranslate nohighlight">
@@ -455,9 +461,9 @@ A &amp;= P\frac{i}{1-(1+i)^{-n}} \\
 </section>
 </section>
 <section id="constraints">
-<h3>5. Constraints<a class="headerlink" href="#constraints" title="Permalink to this heading">¶</a></h3>
+<h3>5. Constraints<a class="headerlink" href="#constraints" title="Permalink to this headline">¶</a></h3>
 <section id="retirement-constraints">
-<h4>5.1 Retirement constraints<a class="headerlink" href="#retirement-constraints" title="Permalink to this heading">¶</a></h4>
+<h4>5.1 Retirement constraints<a class="headerlink" href="#retirement-constraints" title="Permalink to this headline">¶</a></h4>
 <p>The model simply considers this part. At the beginning, the initial age can be set for the technology according to the capacity ratio. Each planning and scheduling period only considers the currently available capacity, that is, the existing capacity.</p>
 <p>Calculate existing capacity of each technology (<span class="math notranslate nohighlight">\(cap_{y,z,te}^{existing-tech}\)</span>) and existing capacity of transmission lines (<span class="math notranslate nohighlight">\(cap_{y,z,te}^{existing-line}\)</span>) in each year each zone.</p>
 <div class="math notranslate nohighlight">
@@ -465,43 +471,43 @@ A &amp;= P\frac{i}{1-(1+i)^{-n}} \\
 cap_{y, z, te}^{existing-line} &amp; = \sum_{lifetime-age&lt;y-y_{min})}cap_{age,z,te}^{line-init} + \sum_{(yy\le y) \&amp; (lifetime&gt;y-yy)}cap_{yy,z,te}^{line-inv} \text{} \forall y,z,te \\\end{split}\]</div>
 </section>
 <section id="carbon-dioxide-emission-restriction">
-<h4>5.2 Carbon dioxide emission restriction<a class="headerlink" href="#carbon-dioxide-emission-restriction" title="Permalink to this heading">¶</a></h4>
+<h4>5.2 Carbon dioxide emission restriction<a class="headerlink" href="#carbon-dioxide-emission-restriction" title="Permalink to this headline">¶</a></h4>
 <div class="math notranslate nohighlight">
 \[\begin{split}carbon_{y,te}^{tech} &amp; = \sum_{t,m,z}Carbon_{y,z,te}\times gen_{t,m,y,z,te} \quad \forall y,te \\
   carbon_{y} &amp; = \sum_{te}carbon_{y,te}^{tech} \forall y\\
   carbon_{y} &amp; \le \overline{Carbon}_y \forall y\end{split}\]</div>
 </section>
 <section id="power-balance">
-<h4>5.3 Power balance<a class="headerlink" href="#power-balance" title="Permalink to this heading">¶</a></h4>
+<h4>5.3 Power balance<a class="headerlink" href="#power-balance" title="Permalink to this headline">¶</a></h4>
 <div class="math notranslate nohighlight">
 \[\begin{split}Demand_{t,m,y,z} = &amp; \sum_{z_s\neq z}import_{t, m, y, z_s, z} - \sum_{z_o\neq z}export_{t, m, y, z, z_o} + \\
                    &amp; \sum_{te}gen_{t, m, y, z, te} - \sum_{te\in storage}charge_{t, m, y, z, te}\quad \forall t,m,y,te\end{split}\]</div>
 </section>
 <section id="transmission-loss-constraints">
-<h4>5.4 Transmission loss constraints<a class="headerlink" href="#transmission-loss-constraints" title="Permalink to this heading">¶</a></h4>
+<h4>5.4 Transmission loss constraints<a class="headerlink" href="#transmission-loss-constraints" title="Permalink to this headline">¶</a></h4>
 <div class="math notranslate nohighlight">
 \[export_{t, m, y, z_s, z_o} \times Effi_{z_s, z_o}^{trans} = import_{t, m, y, z_s, z_o} \quad \forall t,y,z_s\neq z_o\]</div>
 </section>
 <section id="maximum-output-constraint">
-<h4>5.5 Maximum output constraint<a class="headerlink" href="#maximum-output-constraint" title="Permalink to this heading">¶</a></h4>
+<h4>5.5 Maximum output constraint<a class="headerlink" href="#maximum-output-constraint" title="Permalink to this headline">¶</a></h4>
 <div class="math notranslate nohighlight">
 \[gen_{t, m, y, z, te} \leq cap_{y, z, te}^{existing-tech} \forall t,m\]</div>
 </section>
 <section id="storage-constraint">
-<h4>5.6 Storage constraint<a class="headerlink" href="#storage-constraint" title="Permalink to this heading">¶</a></h4>
+<h4>5.6 Storage constraint<a class="headerlink" href="#storage-constraint" title="Permalink to this headline">¶</a></h4>
 <div class="math notranslate nohighlight">
 \[\begin{split}storage_{t,y,z, te}^{level} &amp; = storage_{t-1,y,z, te}^{level} - \frac{gen_{t,y,z,te}}{Effi_{y,te}^{storage}} \quad \forall te \in storage, t,y,z \\
   storage_{t,y,z, te}^{level} &amp; = Storage_{z, te}^{init} \quad \forall t,y=INI,z \\
   storage_{t,y,z}^{level} &amp; = Storage_{z, te}^{end} \quad \forall t,y=END,z\end{split}\]</div>
 </section>
 <section id="ramping-constraint">
-<h4>5.7 Ramping constraint<a class="headerlink" href="#ramping-constraint" title="Permalink to this heading">¶</a></h4>
+<h4>5.7 Ramping constraint<a class="headerlink" href="#ramping-constraint" title="Permalink to this headline">¶</a></h4>
 <div class="math notranslate nohighlight">
 \[\begin{split}gen^{up}_{t, m,y,z,te} &amp; \le R^{up}_{te}\times cap_{y,z,te}^{existing-tech} \quad \forall t,m,y,z,te \\
 gen^{down}_{t,m,y,z,te} &amp; \le R^{down}_{te}\times cap_{y,z,te}^{existing-tech} \quad \forall t,m,y,z,te \\
 gen^{up}_{t,m,y,z,te} - gen^{down}_{t,m,y,z,te} &amp; = gen_{t,m,y,z,te} - gen_{t-1,m,y,z,te} \quad \forall t,m,y,z,te\end{split}\]</div>
 <section id="mathematical-documentation">
-<h5>Mathematical documentation<a class="headerlink" href="#mathematical-documentation" title="Permalink to this heading">¶</a></h5>
+<h5>Mathematical documentation<a class="headerlink" href="#mathematical-documentation" title="Permalink to this headline">¶</a></h5>
 <p>Continue here if you want to understand the formulation of the objective function and constraints of the model.</p>
 </section>
 </section>
