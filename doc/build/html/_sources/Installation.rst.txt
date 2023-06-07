@@ -1,75 +1,87 @@
 Installation
-==================
+============
 
-Installation Steps
--------------------
+This page provides instructions on how to install PREP-SHOT. 
 
+.. contents::
+    :local:
+    :depth: 2
 
-Step 1. Install Gurobi
+Standard Installation
+----------------------
+
+For users installing on a local machine or server.
+
+1. Install Gurobi
++++++++++++++++++
+
+Gurobi is an optimization solver known for its speed and efficiency. You can obtain a free academic license by following `Gurobi Instructions <https://www.gurobi.com/features/academic-named-user-license/>`_.
+
+2. Install Miniconda
 ++++++++++++++++++++
-Gurobi is a solver known for its speed and efficiency, and it supports a free, full-featured academic license for students, faculty, and researchers. To obtain your free academic named-user license, you can follow  `Gurobi Instructions <https://www.gurobi.com/features/academic-named-user-license/>`_ on their website.
 
-If you are using the High Performance Computing (HPC) system at the National University of Singapore (NUS), Gurobi is already installed. You can run the command ``module avail Gurobi`` to view available Gurobi.
+Miniconda is a package management tool that helps manage the Python packages required for PREP-SHOT. You can install it by following the official `instructions <https://docs.conda.io/en/latest/miniconda.html>`_.
 
-.. code:: bash
+To verify that Miniconda has been installed successfully, you can run the ``conda -V`` command to check its version.
 
-    [username@atlas8-c01 ~]$ module avail Gurobi
-    ---------------------  /app1/modules/centos6.3 --------------------
-    Gurobi/8.0.0            Gurobi/8.0.1            Gurobi/9.5.1
-    [username@atlas8-c01 ~]$ module load Gurobi/9.5.1
-    [username@atlas8-c01 ~]$ gurobi_cl
-    Set parameter TokenServer to value "lion11"
-    Set parameter LogFile to value "gurobi.log"
-    Using license file /app1/ia32-64/Gurobi/gurobi.lic
+3. Create the Conda Environment
++++++++++++++++++++++++++++++++
 
-    Usuage: gurobi_cl [--command]* [param=value]* filename
-    Type 'gurobi_cl --help' for more information.
-
-Step 2. Install Miniconda
-+++++++++++++++++++++++
-
-Conda is a package management tool that can be used to manage all the required ``Python`` packages for PREP-SHOT. To get started, you can install Miniconda following offical `instructions <https://docs.conda.io/en/latest/miniconda.html>`_. 
-
-If you are using HPC system, is typically already installed. You can run the command ``module avail miniconda`` to check if Miniconda is available. If Miniconda is installed, you can load it into your personal environment by running the command ``module load specific_conda_version`` instead of reinstalling it.
-
-To verify that Conda is installed, you can run the command ``conda -V`` and the Conda version will be printed out.
+The ``prep-shot.yml`` file contains all the dependencies for the project. You can use it to create a new environment for PREP-SHOT. This environment isolates the project and its dependencies from other Python projects to prevent package conflicts.
 
 .. code:: bash
 
-    [username@atlas8-c01 ~]$ module avail miniconda
-    ---------------------  /app1/modules/bioinfo --------------------
-    miniconda/3.6            miniconda/3.8             miniconda/4.12
-    [username@atlas8-c01 ~]$ module load miniconda/4.12
-    [username@atlas8-c01 ~]$ conda -V 
-    conda 4.12.0
+    conda env create -f prep-shot.yml
+    conda activate prep-shot
 
-Step 3. Create the Conda Environment
-++++++++++++++++++++++++++++++++++++
+4. Run a Model
+++++++++++++++
 
-The "prep-shot.yml" file contains all the project dependencies and can be used to create a Conda environment quickly. To create a new environment called "prep-shot", simply run the command ``conda env create -f prep-shot.yml``. Once the environment is installed, you can activate it by running the command ``conda activate prep-shot`` to activate the new ``prep-shot`` environment.
+Once the environment is activated, you can run your program with the following command:
 
 .. code:: bash
 
-    [username@atlas8-c01 prepshot]$ conda env create -f prep-shot.yml
-    Collecting package metadata (repodata.json): done
-    Solving environment: done
-    Downloading and Extracting Packages
-    openssl-1.1.1s       | 1.9 MB    | ####################################### | 100% 
-    python-3.7.13        | 40.7 MB   | ####################################### | 100% 
-    setuptools-65.6.3    | 619 KB    | ####################################### | 100% 
-    ...
-    [username@atlas8-c01 prepshot]$ source activate prep-shot
-    (prep-shot) [username@atlas8-c01 prepshot]$
+    python run.py
 
-.. note::
-    
-When you install the ``prep-shot`` environment, the ``gurobipy`` Python package will be installed by default. ``gurobipy`` is the Python package for the Gurobi Optimizer. If you have already installed the full-featured Gurobi license by following Step 1, you can use Gurobi to launch PREP-SHOT directly.
+Installation on HPC Systems
+----------------------------
 
-Step 4. Run a Model
-+++++++++++++++++++++++
+For users installing on a High Performance Computing (HPC) system.
 
-Once you have activated your environment, you can run your program directly by executing the command ``python run.py –storage=1``.
-For HPC users who are using the PBS Job Scheduler, you will need to create a new bash script file called "prep-shot-1.sh" with the following contents:
+1. Load Gurobi
+++++++++++++++
+
+For users on the High Performance Computing (HPC) system at the National University of Singapore (NUS), Gurobi is already installed. You can load it with the following commands:
+
+.. code:: bash
+
+    module avail Gurobi
+    module load Gurobi/9.5.1
+
+2. Load Miniconda
++++++++++++++++++
+
+For users on the HPC system, Miniconda is typically already installed. You can load it with the following commands:
+
+.. code:: bash
+
+    module avail miniconda
+    module load miniconda/4.12
+
+3. Create the Conda Environment
++++++++++++++++++++++++++++++++
+
+Similar to the standard installation, use the ``prep-shot.yml`` file to create a new environment for PREP-SHOT.
+
+.. code:: bash
+
+    conda env create -f prep-shot.yml
+    conda activate prep-shot
+
+4. Run a Model
+++++++++++++++
+
+For HPC users, you need to create a bash script file (e.g., ``prep-shot-1.sh``) to submit your job to the HPC cloud.
 
 .. code:: bash
 
@@ -87,36 +99,54 @@ For HPC users who are using the PBS Job Scheduler, you will need to create a new
     module load miniconda/4.12
     module load Gurobi/9.5.1
     source activate prep-shot
-    $CONDA_PREFIX/bin/python run.py --storage=1
+    $CONDA_PREFIX/bin/python run.py
 
-After creating the "prep-shot-1.sh" bash script file, you can submit your job to the HPC cloud by running the command ``qsub prep-shot-1.sh``.
+To submit your job, use the following command:
 
-.. note::
+.. code:: bash
 
-To learn more about Job Submission and Management using the PBS Job Scheduler, you can refer to `HPC instructions <https://bobcat.nus.edu.sg/hpc/HPC/pbs/index.html>`_. You can also run the command ``hpc pbs help`` at any time after logging into the HPC cluster to access the instructions.
+    qsub prep-shot-1.sh
+
+Manual Installation
+-------------------
+
+For users who prefer to manually install Python packages.
+
+1. Install Python
++++++++++++++++++
+
+Ensure Python 3.7 is installed on your machine. You can download Python 3.7 from the official Python `website <https://www.python.org/downloads/release/python-370/>`_.
+
+2. Install Gurobi
++++++++++++++++++
+
+Gurobi is an optimization solver known for its speed and efficiency. You can obtain a free academic license by following `Gurobi Instructions <https://www.gurobi.com/features/academic-named-user-license/>`_.
+
+3. Install Packages
++++++++++++++++++++
+
+You can manually install each package using pip, Python's package installer. Execute the following commands:
+
+.. code:: bash
+
+    pip install gurobipy==9.5.1
+    pip install numpy==1.21.6   
+    pip install openpyxl==3.0.9
+    pip install pandas==1.3.5
+    pip install pyomo==6.4.0
+    pip install scipy==1.7.3
+    pip install xarray==0.20.2
+
+4. Run a Model
+++++++++++++++
+
+Once all the packages are installed, you can run your program with the following command:
+
+.. code:: bash
+
+    python run.py
 
 Troubleshooting
--------------------
+---------------
 
-If you encounter any issues during the installation process, please feel free to contact `LIU Zhanwei <liuzhanwei@u.nus.edu>`_.
-
-Dependencies
--------------------
-
-* ``Python`` 3.7
-* ``pyomo`` 6.4 for building model
-* ``numpy`` 1.21
-* ``scipy`` 1.21 for interpolation
-* ``pandas`` 1.3 for input and result data handling
-* ``xarray`` 0.20 for result data handling and report generation
-
-Features
--------------------
-
-* ``PREP-SHOT`` is an optimization model based on linear programming for energy systems with multiple zones.
-* Its objective is to find the energy system with the minimum cost to satisfy given demand time series.
-* It is designed to operate on hourly-spaced time steps by default, but this can be configured.
-* The input data is provided in an Excel file format, and the output data is generated in a NetCDF file format based on ``Xarray``.
-* It supports multiple types of solvers, such as Gurobi, CPLEX, MOSEK, and GLPK, based on Pyomo.
-* It allows for the input of multiple scenarios for specific parameters.
-* It is a pure Python program that benefits from the use of pandas and xarray, which make complex data analysis code concise and extensible.
+For any issues encountered during the installation process, please contact `LIU Zhanwei <liuzhanwei@u.nus.edu>`_.
