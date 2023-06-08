@@ -2,16 +2,16 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<meta property="og:title" content="Users guide" />
+<meta property="og:title" content="Users Guide" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="Users_guide.html" />
 <meta property="og:site_name" content="PREP-SHOT documentation" />
-<meta property="og:description" content="The following sections will give a general overview and help you getting started from after the installation. Prepare inputs: Input files:,,, Parameters, Dimension, Description,,, technology portfo..." />
-<meta name="description" content="The following sections will give a general overview and help you getting started from after the installation. Prepare inputs: Input files:,,, Parameters, Dimension, Description,,, technology portfo..." />
-<meta name="description" content="The following sections will give a general overview and help you getting started from after the installation. Parameters Dimension Description technology portfolio 2D (year, zone) Existing installed capacity of techno...">
+<meta property="og:description" content="The model requires several input parameters, provided via input files. These parameters, their dimensions, and descriptions are as follows: Parameter Representation: Description of Input Parameters..." />
+<meta name="description" content="The model requires several input parameters, provided via input files. These parameters, their dimensions, and descriptions are as follows: Parameter Representation: Description of Input Parameters..." />
+<meta name="description" content="The model requires several input parameters, provided via input files. These parameters, their dimensions, and descriptions are as follows: Parameter Description Purpose age Age of existing different technologies. To...">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Users guide &mdash; PREP-SHOT (latest) documentation in English</title>
+  <title>Users Guide &mdash; PREP-SHOT (latest) documentation in English</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/tabs.css" type="text/css" />
@@ -28,7 +28,6 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script async="async" src="_static/es5/tex-chtml.js"></script>
         <script src="_static/js/custom.js?3"></script>
         <script defer="defer" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
         <script defer="defer" src="_static/js/algolia.js"></script>
@@ -60,27 +59,48 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="Installation.html#installation-steps">Installation Steps</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="Installation.html#step-1-install-gurobi">Step 1. Install Gurobi</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Installation.html#step-2-install-miniconda">Step 2. Install Miniconda</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Installation.html#step-3-create-the-conda-environment">Step 3. Create the Conda Environment</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Installation.html#step-4-run-a-model">Step 4. Run a Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Installation.html#standard-installation">Standard Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#install-gurobi">1. Install Gurobi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#install-miniconda">2. Install Miniconda</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#create-the-conda-environment">3. Create the Conda Environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#run-the-model">4. Run the Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Installation.html#installation-on-hpc-systems">Installation on HPC Systems</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#load-gurobi">1. Load Gurobi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#load-miniconda">2. Load Miniconda</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#id1">3. Create the Conda Environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#id2">4. Run the Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Installation.html#manual-installation">Manual Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#install-python">1. Install Python</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#id3">2. Install Gurobi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#install-packages">3. Install Packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#id5">4. Run the Model</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="Installation.html#troubleshooting">Troubleshooting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Installation.html#dependencies">Dependencies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Installation.html#features">Features</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Introduction.html">Getting Started</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="Introduction.html#introduction-to-prep-shot-prpt">Introduction to PREP-SHOT /ˈprɛpʃɒt/</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="Introduction.html#what-can-the-model-do">What can the model do?</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Introduction.html#how-does-it-work">How does it work?</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Introduction.html#what-do-i-need-to-know-to-use-prep-shot">What do I need to know to use PREP-SHOT?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Introduction.html#introduction-to-prep-shot">1. Introduction to PREP-SHOT</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Introduction.html#origins">Origins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Introduction.html#model-capabilities">Model Capabilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Introduction.html#user-prerequisites">User Prerequisites</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="Introduction.html#cost-source">Cost Source</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Introduction.html#model-concept">Model concept</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Introduction.html#model-concepts">2. Model Concepts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Introduction.html#understanding-energy-expansion">Understanding Energy Expansion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Introduction.html#efficiency-and-heat-rate">Efficiency and Heat Rate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Introduction.html#id1">Heat Content</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Introduction.html#model-calculations">3. Model Calculations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Introduction.html#electricity-generation-costs">Electricity Generation Costs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Introduction.html#power-plant-efficiency">Power Plant Efficiency</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Tutorial.html">Tutorial</a><ul>
@@ -91,8 +111,9 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Users guide</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#prepare-inputs">Prepare inputs</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Users Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#parameter-representation">Parameter Representation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#preparing-inputs">Preparing Inputs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#run-model">Run model</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#scenarios">Scenarios</a></li>
 </ul>
@@ -145,7 +166,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a></li>
-      <li class="breadcrumb-item active">Users guide</li>
+      <li class="breadcrumb-item active">Users Guide</li>
       <li class="wy-breadcrumbs-aside">
               <a href="https://github.com/PREP-NexT/PREP-SHOT/blob/main/doc/source/Users_guide.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
@@ -156,180 +177,405 @@
            <div itemprop="articleBody">
              
   <section id="users-guide">
-<span id="id1"></span><h1>Users guide<a class="headerlink" href="#users-guide" title="Permalink to this headline">¶</a></h1>
-<p>The following sections will give a general overview and help you getting started from after
-the installation.</p>
-<section id="prepare-inputs">
-<h2>Prepare inputs<a class="headerlink" href="#prepare-inputs" title="Permalink to this headline">¶</a></h2>
-<table class="colwidths-given docutils align-default" id="id4">
-<caption><span class="caption-text">Input files</span><a class="headerlink" href="#id4" title="Permalink to this table">¶</a></caption>
+<span id="id1"></span><h1>Users Guide<a class="headerlink" href="#users-guide" title="Permalink to this headline">¶</a></h1>
+<p>The model requires several input parameters, provided via input files. These parameters, their dimensions, and descriptions are as follows:</p>
+<section id="parameter-representation">
+<h2>Parameter Representation<a class="headerlink" href="#parameter-representation" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-given docutils align-default" id="id2">
+<caption><span class="caption-text">Description of Input Parameters</span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
 <colgroup>
-<col style="width: 10%" />
-<col style="width: 10%" />
-<col style="width: 80%" />
+<col style="width: 5%" />
+<col style="width: 45%" />
+<col style="width: 50%" />
 </colgroup>
 <thead>
-<tr class="row-odd"><th class="head"><p>Parameters</p></th>
-<th class="head"><p>Dimension</p></th>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
 <th class="head"><p>Description</p></th>
+<th class="head"><p>Purpose</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>technology portfolio</p></td>
-<td><p>2D (year, zone)</p></td>
-<td><p>Existing installed capacity of technologies across each zone (or bus) at the beginning of the reference year, showcasing status quo in those areas.</p></td>
-</tr>
-<tr class="row-odd"><td><p>distance</p></td>
-<td><p>2D (zone1, zone2)</p></td>
-<td><p>Distance between two zones.</p></td>
-</tr>
-<tr class="row-even"><td><p>transmission line</p></td>
-<td><p>2D (zone1, zone2)</p></td>
-<td><p>The existing capacity of transmission lines between <cite>zone1</cite> and <cite>zone2</cite> represents the current ability to transmit power between these two zones. If you leave this parameter as null, the model will not consider any expansion of the capacity between the corresponding zones except for you set this parameter to a value equal to or greater than zero.</p></td>
-</tr>
-<tr class="row-odd"><td><p>transline efficiency</p></td>
-<td><p>2D (zone1, zone2)</p></td>
-<td><p>The transmission efficiency between <cite>zone1</cite> and <cite>zone2</cite> represents the effectiveness of power transfer through transmission lines connecting these zones. It is used to consider transmission losses, which are calculated as follows: transmission loss = transferred electricity * (1 - transmission line efficiency).</p></td>
-</tr>
-<tr class="row-even"><td><p>discount factor</p></td>
-<td><p>1D (year)</p></td>
-<td><p>It is a weighting factor that is used to calculate the present value. Refer to explaination <a class="reference external" href="https://www.wallstreetprep.com/knowledge/discount-factor/">here</a>.</p></td>
-</tr>
-<tr class="row-odd"><td><p>technology fixed cost</p></td>
-<td><p>2D (year, technology)</p></td>
-<td><p>The fixed Operation and Maintenance (O&amp;M) cost of technologies for each year refers to the expenses associated with the regular upkeep and management of energy generation systems, regardless of their generation, expressed on a per-unit basis. These costs typically include routine maintenance, inspections, repairs, and personnel expenses necessary for the safe and efficient operation of the facility.</p></td>
-</tr>
-<tr class="row-even"><td><p>technology variable cost</p></td>
-<td><p>2D (year, technology)</p></td>
-<td><p>The variable O&amp;M cost of technologies for each year refers to the expenses that vary according to the electricity generation, expressed on a per-unit basis.</p></td>
-</tr>
-<tr class="row-odd"><td><p>technology investment cost</p></td>
-<td><p>2D (year, technology)</p></td>
-<td><p>The investment cost of technologies for each year refers to the expenses thay vary according to the new installed capacity, expressed on a per-unit basis.</p></td>
-</tr>
-<tr class="row-even"><td><p>carbon content</p></td>
-<td><p>2D (year, technology)</p></td>
-<td><p>The carbon intensity of technologies for each year refers to the amount of equivalent carbon dioxide emission when generating unit electricity.</p></td>
-</tr>
-<tr class="row-odd"><td><p>fuel price</p></td>
-<td><p>2D (year, technology)</p></td>
-<td><p>The price of fuel consumed when generating a unit of electricity (i.e., fuel cost per unit of electricity) refers to the cost of purchasing and transporting fuel (e.g., coal, natural gas, or oil) for the fossil fuel-based power plants. Renewable energy sources (i.e., hydropower, wind power and solar power) typically have minimal to no fuel costs.</p></td>
-</tr>
-<tr class="row-even"><td><p>efficiency in</p></td>
-<td><p>2D (year, storage technology)</p></td>
-<td><p>The efficiency here is mainly for the type of energy storage. It refers to the charge efficiency of the storage source (i.e., change of storage = efficiency <span class="math notranslate nohighlight">\(\times\)</span> charge). Refer to explaination <a class="reference external" href="https://www.sciencedirect.com/topics/engineering/round-trip-efficiency">here</a>.</p></td>
-</tr>
-<tr class="row-odd"><td><p>efficiency out</p></td>
-<td><p>2D (year, storage technology)</p></td>
-<td><p>The efficiency here is mainly for the type of energy storage. It refers to the discharge efficiency of the storage source (i.e., change of storage = efficiency <span class="math notranslate nohighlight">\(\times\)</span> discharge).</p></td>
-</tr>
-<tr class="row-even"><td><p>energy power ratio</p></td>
-<td><p>1D (storage technology)</p></td>
-<td><p>Here, energy power ratio refers to the relationship between the energy capacity of the storage system (measured in kilowatt-hours, kWh) and its power capacity (measured in kilowatts, kW). This ratio is also known as the &quot;duration&quot; or &quot;discharge time&quot; of the energy storage system. It provides insight into the operational characteristics of an energy storage system, indicating how long the system can supply power at its rated capacity before being fully discharged.</p></td>
-</tr>
-<tr class="row-odd"><td><p>lifetime</p></td>
-<td><p>2D (year, technology)</p></td>
-<td><p>The lifetime of a technology refers to the period span in which it continues to be usable.</p></td>
-</tr>
-<tr class="row-even"><td><p>transmission line lifetime</p></td>
-<td><p>2D (zone1, zone2)</p></td>
-<td><p>The lifetime of a transmission line refers to the period span in which it continues to be usable.</p></td>
+<tr class="row-even"><td><p>age</p></td>
+<td><p>Age of existing different technologies.</p></td>
+<td><p>To model the retirement of existing power plants.</p></td>
 </tr>
 <tr class="row-odd"><td><p>capacity factor</p></td>
-<td><p>5D (technology, zone, year, month, hour)</p></td>
-<td><p>Capacity factor is a measure of the actual power output of an energy generation system compared to its maximum allowed output over a given period which is expressed as a percentage (0-1). Here it is used to represent maximum power output of variable renewable energy sources, estimated depend on weather factors such as wind speeds (wind power) and sun radiation (solar power).</p></td>
+<td><p>Capacity factor of different non-dispatchable technologies.</p></td>
+<td><p>To calculate the power output.</p></td>
 </tr>
-<tr class="row-even"><td><p>demand</p></td>
-<td><p>5D (technology, zone, year, month, hour)</p></td>
-<td><p>Electricity load demand</p></td>
+<tr class="row-even"><td><p>carbon</p></td>
+<td><p>Carbon emission limit of different balancing authorities</p></td>
+<td><p>To model the policy of carbon emission reductions.</p></td>
 </tr>
-<tr class="row-odd"><td><p>ramp up</p></td>
-<td><p>1D (technology)</p></td>
-<td><p>The ramp up (i.e., ramping up speed) refers to the rate at which the plant's output power is increased from a lower level to a higher level. Here, it is measured in ratio of current available capacity power and unit is megawatts per hour. The ramping speed of a plant is a crucial factor in determining the plant's operational ability to respond quickly to changes in demand for electricity or intermittent energy (such wind and solar energy). Refer to explaination <a class="reference external" href="https://www.nrel.gov/docs/fy20osti/77639.pdf">here</a>.</p></td>
-</tr>
-<tr class="row-even"><td><p>ramp down</p></td>
-<td><p>1D (technology)</p></td>
-<td><p>Same as the ramp up. It refers to the rate at which the plant's output power is decreased from a higher level to a lower level.</p></td>
-</tr>
-<tr class="row-odd"><td><p>carbon</p></td>
-<td><p>1D (year)</p></td>
-<td><p>Carbon emission limits across different representative years.</p></td>
-</tr>
-<tr class="row-even"><td><p>transmission line investment cost</p></td>
-<td><p>2D (zone1, zone2)</p></td>
-<td><p>The investment cost of transmission lines for each year refers to the expenses thay vary according to the new installed capacity of transmission lines, expressed on a per-unit basis.</p></td>
-</tr>
-<tr class="row-odd"><td><p>transmission line fixed cost</p></td>
-<td><p>2D (zone1, zone2)</p></td>
-<td><p>The fixed O&amp;M cost of technologies for each year refers to the expenses associated with the regular upkeep and management of transmission lines, regardless of their transfered electricity, expressed on a per-unit basis.</p></td>
-</tr>
-<tr class="row-even"><td><p>transmission line variable cost</p></td>
-<td><p>2D (zone1, zone2)</p></td>
-<td><p>The variable O&amp;M cost of transmission lines for each year refers to the expenses that vary according to the exported electricity, expressed on a per-unit basis.</p></td>
-</tr>
-<tr class="row-odd"><td><p>technology upper bound</p></td>
-<td><p>2D (zone, technology)</p></td>
-<td><p>The maximum installed capacity of technologies, determined by various constraints such as land use, policy, environmental concerns, social considerations, and other factors, refers to the upper limit on the total capacity of a specific technology that can be deployed within a given zone or jurisdiction.</p></td>
-</tr>
-<tr class="row-even"><td><p>new technology lower bound</p></td>
-<td><p>2D (zone, technology)</p></td>
-<td><p>The annual maximum installed capacity of technologies, influenced by various constraints such as construction speed and available financial investment, refers to the upper limit on the total capacity of a specific technology that can be deployed within a given zone or jurisdiction for each representative year.</p></td>
-</tr>
-<tr class="row-odd"><td><p>init storage level</p></td>
-<td><p>2D (zone, storage level)</p></td>
-<td><p>The initial and terminal storage energy level for the first and last hour of each month refers to the amount of energy stored in an energy storage system (such as a battery or pumped hydro storage) at the beginning and ending of each month.</p></td>
-</tr>
-<tr class="row-even"><td><p>zv</p></td>
-<td><p>2D (station, break point)</p></td>
-<td><p>elevation - storage relationship of reservoir</p></td>
-</tr>
-<tr class="row-odd"><td><p>zq</p></td>
-<td><p>2D (station, break point)</p></td>
-<td><p>tailrace - discharge relationship of reservoir</p></td>
-</tr>
-<tr class="row-even"><td><p>type</p></td>
-<td><p>1D (technology)</p></td>
-<td><p>All technologies in PREP-SHOT are divided into three categories: nondispatchable, dispatchable, hydropower, and storage. Here, the user needs explicitly to provide the class of each technology.</p></td>
-</tr>
-<tr class="row-odd"><td><p>age</p></td>
-<td><p>3D (zone, year, technology)</p></td>
-<td><p>The existing available capacity of technologies with different ages in different zones at the starting year</p></td>
-</tr>
-<tr class="row-even"><td><p>storage upper bound</p></td>
-<td><p>3D (station, month, hour)</p></td>
-<td><p>The allowed upper bound of storage for a reservoir at each hour of each month refers to the maximum volume of water (constrainted by the maximum capacity or storage according to flood limit water level of reservoir) that can be stored in a reservoir during a specific time interval.</p></td>
-</tr>
-<tr class="row-odd"><td><p>storage lower bound</p></td>
-<td><p>3D (station, month, hour)</p></td>
-<td><p>The allowed lower bound of storage for a reservoir at each hour of each month refers to the minimum volume of water (constrainted by dead storage capacity) that need to be stored in a reservoir during a specific time interval.</p></td>
-</tr>
-<tr class="row-even"><td><p>initial storage</p></td>
-<td><p>2D (station, month)</p></td>
-<td><p>The storage of reservoirs at first hour of each month</p></td>
-</tr>
-<tr class="row-odd"><td><p>terminal storage</p></td>
-<td><p>2D (station, month)</p></td>
-<td><p>The storage of reservoirs at last hour of each month</p></td>
-</tr>
-<tr class="row-even"><td><p>hydropower</p></td>
-<td><p>4D (station, year, month, hour)</p></td>
-<td><p>The predifined output of hydropower</p></td>
-</tr>
-<tr class="row-odd"><td><p>inflow</p></td>
-<td><p>4D (station, year, month, hour)</p></td>
-<td><p>Natural local inflow between upstream and downstream reservoirs.</p></td>
+<tr class="row-odd"><td><p>carbon content</p></td>
+<td><p>Carbon content of different technologies.</p></td>
+<td><p>To calculate the system cost.</p></td>
 </tr>
 <tr class="row-even"><td><p>connect</p></td>
-<td><p>2D (station, downstream station)</p></td>
-<td><p>Water time delay between upstream stations and downstream stations</p></td>
+<td><p>Water delay time of connection between reservoirs.</p></td>
+<td><p>To model the cascade hydrolic connection.</p></td>
 </tr>
-<tr class="row-odd"><td><p>static</p></td>
-<td><p>1D (station)</p></td>
-<td><p>The characteristic values of the reservoir includes designed water head, installed capacity of hydropower station, allowed minimum outflow of reservoir, allowed maximum outflow of reservoir</p></td>
+<tr class="row-odd"><td><p>demand</p></td>
+<td><p>Demand of different balancing authorities.</p></td>
+<td><p>To calculate the power balance.</p></td>
+</tr>
+<tr class="row-even"><td><p>discount Factor</p></td>
+<td><p>Discount factor for each year.</p></td>
+<td><p>To calculate the present value of cost.</p></td>
+</tr>
+<tr class="row-odd"><td><p>distance</p></td>
+<td><p>Distance of different pair of zones.</p></td>
+<td><p>To calculate the transmission investment cost.</p></td>
+</tr>
+<tr class="row-even"><td><p>efficiency In</p></td>
+<td><p>Discharge efficiency of storage technologies.</p></td>
+<td><p>To calculate charge and discharge loss of energy storage.</p></td>
+</tr>
+<tr class="row-odd"><td><p>efficiency Out</p></td>
+<td><p>Charge efficiency of storage technologies.</p></td>
+<td><p>To calculate charge and discharge loss of energy storage.</p></td>
+</tr>
+<tr class="row-even"><td><p>energy power ratio</p></td>
+<td><p>Energy to power ratio of storage technologies.</p></td>
+<td><p>To measure duration of energy storage.</p></td>
+</tr>
+<tr class="row-odd"><td><p>fuel price</p></td>
+<td><p>Fuel price of different technologies.</p></td>
+<td><p>To calculate system cost.</p></td>
+</tr>
+<tr class="row-even"><td><p>hydropower</p></td>
+<td><p>Predifined hydropower output of all reservoirs.</p></td>
+<td><p>To model the simplified hydropower operation.</p></td>
+</tr>
+<tr class="row-odd"><td><p>inflow</p></td>
+<td><p>Inflow of all reservoirs.</p></td>
+<td><p>To model the simplified hydropower operation.</p></td>
+</tr>
+<tr class="row-even"><td><p>init storage level</p></td>
+<td><p>Initial storage level of different storage technologies.</p></td>
+<td><p>To modelling the initial storage level of energy storage.</p></td>
+</tr>
+<tr class="row-odd"><td><p>lifetime</p></td>
+<td><p>Lifetime of different technologies.</p></td>
+<td><p>To calculate the retirement of power plant.</p></td>
+</tr>
+<tr class="row-even"><td><p>new technology lower bound</p></td>
+<td><p>Lower bound of newly-built installed capacity of different technologies for each investment year.</p></td>
+<td><p>To model the limits of technologies constrainted by policy.</p></td>
+</tr>
+<tr class="row-odd"><td><p>new technology upper bound</p></td>
+<td><p>Upper bound of newly-built installed capacity of different technologies for each investment year.</p></td>
+<td><p>To model the limits of technologies constrainted by policy.</p></td>
+</tr>
+<tr class="row-even"><td><p>ramp down</p></td>
+<td><p>Ramp down rate of different technologies.</p></td>
+<td><p>To limit the fluctuation of power outputs.</p></td>
+</tr>
+<tr class="row-odd"><td><p>ramp up</p></td>
+<td><p>Ramp up rate of different technologies.</p></td>
+<td><p>To limit the fluctuation of power outputs.</p></td>
+</tr>
+<tr class="row-even"><td><p>static</p></td>
+<td><p>Static data of all reservoirs.</p></td>
+<td><p>xxx</p></td>
+</tr>
+<tr class="row-odd"><td><p>storage lowbound</p></td>
+<td><p>Lower bound of volume of hydropower reservoirs.</p></td>
+<td><p>To model the operational rule of hydropower reservoirs.</p></td>
+</tr>
+<tr class="row-even"><td><p>storage end</p></td>
+<td><p>Final volume of hydropower reservoirs.</p></td>
+<td><p>To model the operational rule of hydropower reservoirs.</p></td>
+</tr>
+<tr class="row-odd"><td><p>initial storage</p></td>
+<td><p>Initial volume of hydropower reservoirs.</p></td>
+<td><p>To model the operational rule of hydropower reservoirs.</p></td>
+</tr>
+<tr class="row-even"><td><p>storage upbound</p></td>
+<td><p>Upper bound of volume of hydropower reservoirs.</p></td>
+<td><p>To model the operation rule of hydropower reservoirs.</p></td>
+</tr>
+<tr class="row-odd"><td><p>technology fix cost</p></td>
+<td><p>Fixed operation and maintaince cost of different technologies.</p></td>
+<td><p>To calculate the system cost.</p></td>
+</tr>
+<tr class="row-even"><td><p>technology investment cost</p></td>
+<td><p>Investment cost of different technologies.</p></td>
+<td><p>To calculate the system cost.</p></td>
+</tr>
+<tr class="row-odd"><td><p>technology portfolio</p></td>
+<td><p>Existing total installed capacity across all zones.</p></td>
+<td><p>xxx</p></td>
+</tr>
+<tr class="row-even"><td><p>technology upper bound</p></td>
+<td><p>Upper bound of installed capacity of different technologies.</p></td>
+<td><p>To model the potential of technologies with land, fuel, and water constraints.</p></td>
+</tr>
+<tr class="row-odd"><td><p>technology variable cost</p></td>
+<td><p>Variable operation and maintaince cost of different technologies.</p></td>
+<td><p>To calculate the system cost.</p></td>
+</tr>
+<tr class="row-even"><td><p>transline</p></td>
+<td><p>Investment cost of transmission lines.</p></td>
+<td><p>To calculate the system cost.</p></td>
+</tr>
+<tr class="row-odd"><td><p>transline efficiency</p></td>
+<td><p>Efficiency of transmission lines across all zones.</p></td>
+<td><p>To calculate the transmission loss.</p></td>
+</tr>
+<tr class="row-even"><td><p>transline fix cost</p></td>
+<td><p>Fixed operation and maintaince cost of different technologies.</p></td>
+<td><p>To calculate the system cost.</p></td>
+</tr>
+<tr class="row-odd"><td><p>transline investment cost</p></td>
+<td><p>Investment cost of transmission lines.</p></td>
+<td><p>To calculate the system cost.</p></td>
+</tr>
+<tr class="row-even"><td><p>transline variable cost</p></td>
+<td><p>Variable operations and maintenance cost of transmission lines.</p></td>
+<td><p>To calculate the system cost.</p></td>
+</tr>
+<tr class="row-odd"><td><p>transline line lifetime</p></td>
+<td><p>Lifetime of transmission lines.</p></td>
+<td><p>To calculate the retirement of transmission lines.</p></td>
+</tr>
+<tr class="row-even"><td><p>type</p></td>
+<td><p>Catelogies of different technologies.</p></td>
+<td><p>To specify ways of modelling different technologies.</p></td>
+</tr>
+<tr class="row-odd"><td><p>zq</p></td>
+<td><p>Relationship between tailrace elevation and total discharge for different reservoirs.</p></td>
+<td><p>To calculate tailrace elevation based on the reservoir's discharge.</p></td>
+</tr>
+<tr class="row-even"><td><p>zv</p></td>
+<td><p>Relationship between forebay elevation and volume for different reservoirs</p></td>
+<td><p>To calculate forebay elevation based on the reservoir's volume.</p></td>
 </tr>
 </tbody>
 </table>
-<p>Note: <cite>inf</cite> means Infinity. If you set inf which means no upper bound. <cite>None</cite> means null value for current item.</p>
+</section>
+<section id="preparing-inputs">
+<h2>Preparing Inputs<a class="headerlink" href="#preparing-inputs" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-given docutils align-default" id="id3">
+<caption><span class="caption-text">Input Parameters and Corresponding Files</span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 5%" />
+<col style="width: 35%" />
+<col style="width: 30%" />
+<col style="width: 30%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Dimension</p></th>
+<th class="head"><p>Unit</p></th>
+<th class="head"><p>File</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>age</p></td>
+<td><p>3D (zone, year, technology)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MW</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">age.xlsx</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>capacity factor</p></td>
+<td><p>5D (technology, zone, year, month, hour)</p></td>
+<td><p>NIL</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">capacity_factor.xlsx</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>carbon</p></td>
+<td><p>1D (year)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">tCO2</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">carbon.xlsx</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>carbon content</p></td>
+<td><p>2D (year, technology)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">tCO2/MWh</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">carbon_content.xlsx</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>connect</p></td>
+<td><p>2D (station, downstream station)</p></td>
+<td><p>NIL</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">connect.xlsx</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>demand</p></td>
+<td><p>5D (technology, zone, year, month, hour)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MW</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">demand.xlsx</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>discount Factor</p></td>
+<td><p>1D (year)</p></td>
+<td><p>NIL</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">discount_factor.xlsx</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>distance</p></td>
+<td><p>2D (zone1, zone2)</p></td>
+<td><p>NIL</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">distance.xlsx</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>efficiency In</p></td>
+<td><p>2D (year, storage technology)</p></td>
+<td><p>NIL</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">efficiency_in.xlsx</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>efficiency Out</p></td>
+<td><p>2D (year, storage technology)</p></td>
+<td><p>NIL</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">efficiency_out.xlsx</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>energy power ratio</p></td>
+<td><p>1D (storage technology)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">h</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">energy_power_ratio.xlsx</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>fuel price</p></td>
+<td><p>2D (year, technology)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$/MWh</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">fuel_price.xlsx</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>hydropower</p></td>
+<td><p>4D (station, year, month, hour)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MW</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">hydropower.xlsx</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>inflow</p></td>
+<td><p>4D (station, year, month, hour)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">m^3/s</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">inflow.xlsx</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>init storage level</p></td>
+<td><p>2D (zone, storage level)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1/MWh</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">init_storage_level.xlsx</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>lifetime</p></td>
+<td><p>2D (year, technology)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">year</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">lifetime.xlsx</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>new technology lower bound</p></td>
+<td><p>2D (zone, technology)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MW</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">new_technology_lower_bound.xlsx</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>new technology upper bound</p></td>
+<td><p>2D (zone, technology)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MW</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">new_technology_upper_bound.xlsx</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>ramp down</p></td>
+<td><p>1D (technology)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1/MW</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ramp_down.xlsx</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>ramp up</p></td>
+<td><p>1D (technology)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1/MW</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ramp_up.xlsx</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>static</p></td>
+<td><p>1D (station)</p></td>
+<td><p>NIL</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">static.xlsx</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>storage lowbound</p></td>
+<td><p>3D (station, month, hour)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">10^8</span> <span class="pre">m^3</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">storage_lowbound.xlsx</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>storage end</p></td>
+<td><p>2D (station, month)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">10^8</span> <span class="pre">m^3</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">storage_end.xlsx</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>initial storage</p></td>
+<td><p>2D (station, month)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">10^8</span> <span class="pre">m^3</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">storage_init.xlsx</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>storage upbound</p></td>
+<td><p>3D (station, month, hour)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">10^8</span> <span class="pre">m^3</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">storage_upbound.xlsx</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>technology fix cost</p></td>
+<td><p>2D (year, technology)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$/MW</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">technology_fix_cost.xlsx</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>technology investment cost</p></td>
+<td><p>2D (year, technology)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$/MW/km</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">technology_investment_cost.xlsx</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>technology portfolio</p></td>
+<td><p>2D (year, zone)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MW</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">technology_portfolio.xlsx</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>technology upper bound</p></td>
+<td><p>2D (zone, technology)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MW</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">technology_upper_bound.xlsx</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>technology variable cost</p></td>
+<td><p>2D (year, technology)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$/MWh</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">technology_variable_cost.xlsx</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>transline</p></td>
+<td><p>2D (zone1, zone2)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$/MW/km</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">transline.xlsx</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>transline efficiency</p></td>
+<td><p>2D (zone1, zone2)</p></td>
+<td><p>NIL</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">transline_efficiency.xlsx</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>transline fix cost</p></td>
+<td><p>2D (zone1, zone2)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$/MW</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">transline_fix_cost.xlsx</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>transline investment cost</p></td>
+<td><p>2D (zone1, zone2)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$/MW/km</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">transline_investment_cost.xlsx</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>transline variable cost</p></td>
+<td><p>2D (zone1, zone2)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$/MWh</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">transline_variable_cost.xlsx</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>transline line lifetime</p></td>
+<td><p>2D (zone1, zone2)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">year</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">transline_line_lifetime.xlsx</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>type</p></td>
+<td><p>1D (technology)</p></td>
+<td><p>NIL</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">type.xlsx</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>zq</p></td>
+<td><p>2D (station, break point)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">m</span></code> and <code class="docutils literal notranslate"><span class="pre">m^3/s</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">zq.xlsx</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>zv</p></td>
+<td><p>2D (station, break point)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">m</span></code> and <code class="docutils literal notranslate"><span class="pre">10^8</span> <span class="pre">m^3</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">zv.xlsx</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p><cite>inf</cite> refers to Infinity, indicating that there is no upper bound.</p></li>
+<li><p><cite>None</cite> refers to a null value for current item.</p></li>
+</ul>
+</div>
 </section>
 <section id="run-model">
 <h2>Run model<a class="headerlink" href="#run-model" title="Permalink to this headline">¶</a></h2>

@@ -48,7 +48,7 @@ We've prepared a comprehensive guide to help you understand and use PREP-SHOT ef
 
    Installation
    Introduction
-   Tutorial
    Users_guide
+   Tutorial
    Model_structure
    Changelog

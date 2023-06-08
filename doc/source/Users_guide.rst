@@ -1,137 +1,388 @@
 .. _Users_guide:
 
-Users guide
-==============
+Users Guide
+===========
 
-The following sections will give a general overview and help you getting started from after
-the installation.
+The model requires several input parameters, provided via input files. These parameters, their dimensions, and descriptions are as follows:
 
-Prepare inputs
------------------
+Parameter Representation
+------------------------
 
-.. list-table:: Input files
-   :widths: 10 10 80
-   :header-rows: 1
-   
-   * - Parameters
-     - Dimension
-     - Description
-   * - technology portfolio
-     - 2D (year, zone)
-     - Existing installed capacity of technologies across each zone (or bus) at the beginning of the reference year, showcasing status quo in those areas. 
-   * - distance
-     - 2D (zone1, zone2)
-     - Distance between two zones.
-   * - transmission line
-     - 2D (zone1, zone2)
-     - The existing capacity of transmission lines between `zone1` and `zone2` represents the current ability to transmit power between these two zones. If you leave this parameter as null, the model will not consider any expansion of the capacity between the corresponding zones except for you set this parameter to a value equal to or greater than zero.
-   * - transline efficiency
-     - 2D (zone1, zone2)
-     - The transmission efficiency between `zone1` and `zone2` represents the effectiveness of power transfer through transmission lines connecting these zones. It is used to consider transmission losses, which are calculated as follows: transmission loss = transferred electricity * (1 - transmission line efficiency).
-   * - discount factor
-     - 1D (year)
-     - It is a weighting factor that is used to calculate the present value. Refer to explaination `here <https://www.wallstreetprep.com/knowledge/discount-factor/>`_.
-   * - technology fixed cost
-     - 2D (year, technology)
-     - The fixed Operation and Maintenance (O&M) cost of technologies for each year refers to the expenses associated with the regular upkeep and management of energy generation systems, regardless of their generation, expressed on a per-unit basis. These costs typically include routine maintenance, inspections, repairs, and personnel expenses necessary for the safe and efficient operation of the facility.
-   * - technology variable cost
-     - 2D (year, technology)
-     - The variable O&M cost of technologies for each year refers to the expenses that vary according to the electricity generation, expressed on a per-unit basis.
-   * - technology investment cost
-     - 2D (year, technology)
-     - The investment cost of technologies for each year refers to the expenses thay vary according to the new installed capacity, expressed on a per-unit basis.
-   * - carbon content
-     - 2D (year, technology)
-     - The carbon intensity of technologies for each year refers to the amount of equivalent carbon dioxide emission when generating unit electricity.
-   * - fuel price
-     - 2D (year, technology)
-     - The price of fuel consumed when generating a unit of electricity (i.e., fuel cost per unit of electricity) refers to the cost of purchasing and transporting fuel (e.g., coal, natural gas, or oil) for the fossil fuel-based power plants. Renewable energy sources (i.e., hydropower, wind power and solar power) typically have minimal to no fuel costs.
-   * - efficiency in
-     - 2D (year, storage technology)
-     - The efficiency here is mainly for the type of energy storage. It refers to the charge efficiency of the storage source (i.e., change of storage = efficiency :math:`\times` charge). Refer to explaination `here <https://www.sciencedirect.com/topics/engineering/round-trip-efficiency>`_.
-   * - efficiency out
-     - 2D (year, storage technology)
-     - The efficiency here is mainly for the type of energy storage. It refers to the discharge efficiency of the storage source (i.e., change of storage = efficiency :math:`\times` discharge).
-   * - energy power ratio
-     - 1D (storage technology)
-     - Here, energy power ratio refers to the relationship between the energy capacity of the storage system (measured in kilowatt-hours, kWh) and its power capacity (measured in kilowatts, kW). This ratio is also known as the "duration" or "discharge time" of the energy storage system. It provides insight into the operational characteristics of an energy storage system, indicating how long the system can supply power at its rated capacity before being fully discharged.
-   * - lifetime
-     - 2D (year, technology)
-     - The lifetime of a technology refers to the period span in which it continues to be usable. 
-   * - transmission line lifetime
-     - 2D (zone1, zone2)
-     - The lifetime of a transmission line refers to the period span in which it continues to be usable. 
-   * - capacity factor
-     - 5D (technology, zone, year, month, hour)
-     - Capacity factor is a measure of the actual power output of an energy generation system compared to its maximum allowed output over a given period which is expressed as a percentage (0-1). Here it is used to represent maximum power output of variable renewable energy sources, estimated depend on weather factors such as wind speeds (wind power) and sun radiation (solar power).
-   * - demand
-     - 5D (technology, zone, year, month, hour)
-     - Electricity load demand
-   * - ramp up
-     - 1D (technology)
-     - The ramp up (i.e., ramping up speed) refers to the rate at which the plant's output power is increased from a lower level to a higher level. Here, it is measured in ratio of current available capacity power and unit is megawatts per hour. The ramping speed of a plant is a crucial factor in determining the plant's operational ability to respond quickly to changes in demand for electricity or intermittent energy (such wind and solar energy). Refer to explaination `here <https://www.nrel.gov/docs/fy20osti/77639.pdf>`_.
-   * - ramp down
-     - 1D (technology)
-     - Same as the ramp up. It refers to the rate at which the plant's output power is decreased from a higher level to a lower level.
-   * - carbon
-     - 1D (year)
-     - Carbon emission limits across different representative years.
-   * - transmission line investment cost
-     - 2D (zone1, zone2)
-     - The investment cost of transmission lines for each year refers to the expenses thay vary according to the new installed capacity of transmission lines, expressed on a per-unit basis.
-   * - transmission line fixed cost
-     - 2D (zone1, zone2)
-     - The fixed O&M cost of technologies for each year refers to the expenses associated with the regular upkeep and management of transmission lines, regardless of their transfered electricity, expressed on a per-unit basis.
-   * - transmission line variable cost
-     - 2D (zone1, zone2)
-     - The variable O&M cost of transmission lines for each year refers to the expenses that vary according to the exported electricity, expressed on a per-unit basis.
-   * - technology upper bound
-     - 2D (zone, technology)
-     - The maximum installed capacity of technologies, determined by various constraints such as land use, policy, environmental concerns, social considerations, and other factors, refers to the upper limit on the total capacity of a specific technology that can be deployed within a given zone or jurisdiction.
-   * - new technology lower bound
-     - 2D (zone, technology)
-     - The annual maximum installed capacity of technologies, influenced by various constraints such as construction speed and available financial investment, refers to the upper limit on the total capacity of a specific technology that can be deployed within a given zone or jurisdiction for each representative year.
-   * - init storage level
-     - 2D (zone, storage level)
-     - The initial and terminal storage energy level for the first and last hour of each month refers to the amount of energy stored in an energy storage system (such as a battery or pumped hydro storage) at the beginning and ending of each month. 
-   * - zv
-     - 2D (station, break point)
-     - elevation - storage relationship of reservoir
-   * - zq
-     - 2D (station, break point)
-     - tailrace - discharge relationship of reservoir
-   * - type
-     - 1D (technology)
-     - All technologies in PREP-SHOT are divided into three categories: nondispatchable, dispatchable, hydropower, and storage. Here, the user needs explicitly to provide the class of each technology.
-   * - age
-     - 3D (zone, year, technology)
-     - The existing available capacity of technologies with different ages in different zones at the starting year
-   * - storage upper bound
-     - 3D (station, month, hour)
-     - The allowed upper bound of storage for a reservoir at each hour of each month refers to the maximum volume of water (constrainted by the maximum capacity or storage according to flood limit water level of reservoir) that can be stored in a reservoir during a specific time interval.
-   * - storage lower bound
-     - 3D (station, month, hour)
-     - The allowed lower bound of storage for a reservoir at each hour of each month refers to the minimum volume of water (constrainted by dead storage capacity) that need to be stored in a reservoir during a specific time interval.
-   * - initial storage
-     - 2D (station, month)
-     - The storage of reservoirs at first hour of each month
-   * - terminal storage
-     - 2D (station, month)
-     - The storage of reservoirs at last hour of each month
-   * - hydropower
-     - 4D (station, year, month, hour)
-     - The predifined output of hydropower
-   * - inflow
-     - 4D (station, year, month, hour) 
-     - Natural local inflow between upstream and downstream reservoirs.
-   * - connect
-     - 2D (station, downstream station)
-     - Water time delay between upstream stations and downstream stations 
-   * - static
-     - 1D (station)
-     - The characteristic values of the reservoir includes designed water head, installed capacity of hydropower station, allowed minimum outflow of reservoir, allowed maximum outflow of reservoir
+.. list-table:: Description of Input Parameters
+  :widths: 5 45 50
+  :header-rows: 1
 
-Note: `inf` means Infinity. If you set inf which means no upper bound. `None` means null value for current item.
+  * - Parameter
+    - Description
+    - Purpose
+
+  * - age 
+    - Age of existing different technologies.
+    - To model the retirement of existing power plants.
+
+  * - capacity factor
+    - Capacity factor of different non-dispatchable technologies.
+    - To calculate the power output.
+    
+  * - carbon
+    - Carbon emission limit of different balancing authorities
+    - To model the policy of carbon emission reductions.
+    
+  * - carbon content
+    - Carbon content of different technologies.
+    - To calculate the system cost.
+    
+  * - connect
+    - Water delay time of connection between reservoirs.
+    - To model the cascade hydrolic connection.
+    
+  * - demand
+    - Demand of different balancing authorities.
+    - To calculate the power balance.
+    
+  * - discount Factor
+    - Discount factor for each year.
+    - To calculate the present value of cost.
+    
+  * - distance
+    - Distance of different pair of zones.
+    - To calculate the transmission investment cost.
+    
+  * - efficiency In
+    - Discharge efficiency of storage technologies.
+    - To calculate charge and discharge loss of energy storage.
+    
+  * - efficiency Out
+    - Charge efficiency of storage technologies.
+    - To calculate charge and discharge loss of energy storage.
+    
+  * - energy power ratio
+    - Energy to power ratio of storage technologies.
+    - To measure duration of energy storage.
+    
+  * - fuel price
+    - Fuel price of different technologies.
+    - To calculate system cost.
+    
+  * - hydropower
+    - Predifined hydropower output of all reservoirs.
+    - To model the simplified hydropower operation.
+    
+  * - inflow
+    - Inflow of all reservoirs.
+    - To model the simplified hydropower operation.
+    
+  * - init storage level
+    - Initial storage level of different storage technologies.
+    - To modelling the initial storage level of energy storage.
+    
+  * - lifetime
+    - Lifetime of different technologies.
+    - To calculate the retirement of power plant.
+    
+  * - new technology lower bound
+    - Lower bound of newly-built installed capacity of different technologies for each investment year.
+    - To model the limits of technologies constrainted by policy.
+    
+  * - new technology upper bound
+    - Upper bound of newly-built installed capacity of different technologies for each investment year.
+    - To model the limits of technologies constrainted by policy.
+    
+  * - ramp down
+    - Ramp down rate of different technologies.
+    - To limit the fluctuation of power outputs.
+    
+  * - ramp up
+    - Ramp up rate of different technologies.
+    - To limit the fluctuation of power outputs.
+    
+  * - static
+    - Static data of all reservoirs.
+    - xxx
+    
+  * - storage lowbound
+    - Lower bound of volume of hydropower reservoirs.
+    - To model the operational rule of hydropower reservoirs.
+    
+  * - storage end
+    - Final volume of hydropower reservoirs.
+    - To model the operational rule of hydropower reservoirs.
+    
+  * - initial storage
+    - Initial volume of hydropower reservoirs.
+    - To model the operational rule of hydropower reservoirs.
+    
+  * - storage upbound
+    - Upper bound of volume of hydropower reservoirs.
+    - To model the operation rule of hydropower reservoirs.
+    
+  * - technology fix cost
+    - Fixed operation and maintaince cost of different technologies.
+    - To calculate the system cost.
+    
+  * - technology investment cost
+    - Investment cost of different technologies.
+    - To calculate the system cost.
+    
+  * - technology portfolio
+    - Existing total installed capacity across all zones.
+    - xxx
+    
+  * - technology upper bound
+    - Upper bound of installed capacity of different technologies.
+    - To model the potential of technologies with land, fuel, and water constraints.
+    
+  * - technology variable cost
+    - Variable operation and maintaince cost of different technologies.
+    - To calculate the system cost.
+    
+  * - transline
+    - Investment cost of transmission lines.
+    - To calculate the system cost.
+    
+  * - transline efficiency
+    - Efficiency of transmission lines across all zones.
+    - To calculate the transmission loss.
+    
+  * - transline fix cost
+    - Fixed operation and maintaince cost of different technologies.
+    - To calculate the system cost.
+    
+  * - transline investment cost
+    - Investment cost of transmission lines.
+    - To calculate the system cost.
+    
+  * - transline variable cost
+    - Variable operations and maintenance cost of transmission lines.
+    - To calculate the system cost.
+    
+  * - transline line lifetime
+    - Lifetime of transmission lines.
+    - To calculate the retirement of transmission lines.
+    
+  * - type
+    - Catelogies of different technologies.
+    - To specify ways of modelling different technologies.
+    
+  * - zq
+    - Relationship between tailrace elevation and total discharge for different reservoirs.
+    - To calculate tailrace elevation based on the reservoir's discharge.
+    
+  * - zv
+    - Relationship between forebay elevation and volume for different reservoirs
+    - To calculate forebay elevation based on the reservoir's volume.
+
+Preparing Inputs
+----------------
+
+.. list-table:: Input Parameters and Corresponding Files
+  :widths: 5 35 30 30
+  :header-rows: 1
+
+  * - Parameter
+    - Dimension
+    - Unit
+    - File
+
+  * - age 
+    - 3D (zone, year, technology)
+    - ``MW``
+    - ``age.xlsx``
+
+  * - capacity factor
+    - 5D (technology, zone, year, month, hour)
+    - NIL
+    - ``capacity_factor.xlsx``
+    
+  * - carbon
+    - 1D (year)
+    - ``tCO2``
+    - ``carbon.xlsx``
+    
+  * - carbon content
+    - 2D (year, technology)
+    - ``tCO2/MWh``
+    - ``carbon_content.xlsx``
+    
+  * - connect
+    - 2D (station, downstream station)
+    - NIL
+    - ``connect.xlsx``
+    
+  * - demand
+    - 5D (technology, zone, year, month, hour)
+    - ``MW``
+    - ``demand.xlsx``
+    
+  * - discount Factor
+    - 1D (year)
+    - NIL
+    - ``discount_factor.xlsx``
+    
+  * - distance
+    - 2D (zone1, zone2)
+    - NIL
+    - ``distance.xlsx``
+    
+  * - efficiency In
+    - 2D (year, storage technology)
+    - NIL
+    - ``efficiency_in.xlsx``
+    
+  * - efficiency Out
+    - 2D (year, storage technology)
+    - NIL
+    - ``efficiency_out.xlsx``
+    
+  * - energy power ratio
+    - 1D (storage technology)
+    - ``h``
+    - ``energy_power_ratio.xlsx``
+    
+  * - fuel price
+    - 2D (year, technology)
+    - ``$/MWh``
+    - ``fuel_price.xlsx``
+    
+  * - hydropower
+    - 4D (station, year, month, hour)
+    - ``MW``
+    - ``hydropower.xlsx``
+    
+  * - inflow
+    - 4D (station, year, month, hour)
+    - ``m^3/s``
+    - ``inflow.xlsx``
+    
+  * - init storage level
+    - 2D (zone, storage level)
+    - ``1/MWh``
+    - ``init_storage_level.xlsx``
+    
+  * - lifetime
+    - 2D (year, technology)
+    - ``year``
+    - ``lifetime.xlsx``
+    
+  * - new technology lower bound
+    - 2D (zone, technology)
+    - ``MW``
+    - ``new_technology_lower_bound.xlsx``
+    
+  * - new technology upper bound
+    - 2D (zone, technology)
+    - ``MW``
+    - ``new_technology_upper_bound.xlsx``
+    
+  * - ramp down
+    - 1D (technology)
+    - ``1/MW``
+    - ``ramp_down.xlsx``
+    
+  * - ramp up
+    - 1D (technology)
+    - ``1/MW``
+    - ``ramp_up.xlsx``
+    
+  * - static
+    - 1D (station)
+    - NIL
+    - ``static.xlsx``
+    
+  * - storage lowbound
+    - 3D (station, month, hour)
+    - ``10^8 m^3``
+    - ``storage_lowbound.xlsx``
+    
+  * - storage end
+    - 2D (station, month)
+    - ``10^8 m^3``
+    - ``storage_end.xlsx``
+    
+  * - initial storage
+    - 2D (station, month)
+    - ``10^8 m^3``
+    - ``storage_init.xlsx``
+    
+  * - storage upbound
+    - 3D (station, month, hour)
+    - ``10^8 m^3``
+    - ``storage_upbound.xlsx``
+    
+  * - technology fix cost
+    - 2D (year, technology)
+    - ``$/MW``
+    - ``technology_fix_cost.xlsx``
+    
+  * - technology investment cost
+    - 2D (year, technology)
+    - ``$/MW/km``
+    - ``technology_investment_cost.xlsx``
+    
+  * - technology portfolio
+    - 2D (year, zone)
+    - ``MW``
+    - ``technology_portfolio.xlsx``
+    
+  * - technology upper bound
+    - 2D (zone, technology)
+    - ``MW``
+    - ``technology_upper_bound.xlsx``
+    
+  * - technology variable cost
+    - 2D (year, technology)
+    - ``$/MWh``
+    - ``technology_variable_cost.xlsx``
+    
+  * - transline
+    - 2D (zone1, zone2)
+    - ``$/MW/km``
+    - ``transline.xlsx``
+    
+  * - transline efficiency
+    - 2D (zone1, zone2)
+    - NIL
+    - ``transline_efficiency.xlsx``
+    
+  * - transline fix cost
+    - 2D (zone1, zone2)
+    - ``$/MW``
+    - ``transline_fix_cost.xlsx``
+    
+  * - transline investment cost
+    - 2D (zone1, zone2)
+    - ``$/MW/km``
+    - ``transline_investment_cost.xlsx``
+    
+  * - transline variable cost
+    - 2D (zone1, zone2)
+    - ``$/MWh``
+    - ``transline_variable_cost.xlsx``
+    
+  * - transline line lifetime
+    - 2D (zone1, zone2)
+    - ``year``
+    - ``transline_line_lifetime.xlsx``
+    
+  * - type
+    - 1D (technology)
+    - NIL
+    - ``type.xlsx``
+    
+  * - zq
+    - 2D (station, break point)
+    - ``m`` and ``m^3/s``
+    - ``zq.xlsx``
+    
+  * - zv
+    - 2D (station, break point)
+    - ``m`` and ``10^8 m^3``
+    - ``zv.xlsx``
+
+.. note:: 
+  
+  * `inf` refers to Infinity, indicating that there is no upper bound.
+  * `None` refers to a null value for current item.
 
 Run model
 ----------------
