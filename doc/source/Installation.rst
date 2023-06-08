@@ -5,7 +5,7 @@ This page provides instructions on how to install PREP-SHOT.
 
 .. contents::
     :local:
-    :depth: 2
+    :depth: 1
 
 Standard Installation
 ----------------------
@@ -34,8 +34,8 @@ The ``prep-shot.yml`` file contains all the dependencies for the project. You ca
     conda env create -f prep-shot.yml
     conda activate prep-shot
 
-4. Run a Model
-++++++++++++++
+4. Run the Model
++++++++++++++++++
 
 Once the environment is activated, you can run your program with the following command:
 
@@ -78,8 +78,8 @@ Similar to the standard installation, use the ``prep-shot.yml`` file to create a
     conda env create -f prep-shot.yml
     conda activate prep-shot
 
-4. Run a Model
-++++++++++++++
+4. Run the Model
++++++++++++++++++
 
 For HPC users, you need to create a bash script file (e.g., ``prep-shot-1.sh``) to submit your job to the HPC cloud.
 
@@ -137,8 +137,8 @@ You can manually install each package using pip, Python's package installer. Exe
     pip install scipy==1.7.3
     pip install xarray==0.20.2
 
-4. Run a Model
-++++++++++++++
+4. Run the Model
++++++++++++++++++
 
 Once all the packages are installed, you can run your program with the following command:
 
