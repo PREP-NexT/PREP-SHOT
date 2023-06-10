@@ -1,8 +1,8 @@
 Getting Started
 ===============
 
-1. Introduction to PREP-SHOT
------------------------------
+Introduction to PREP-SHOT
+-------------------------
 
 This introductory guide provides an overview of what this model can do and how it works, enabling you to gauge if PREP-SHOT fits your needs. 
 
@@ -28,8 +28,8 @@ User Prerequisites
 
 PREP-SHOT is designed to be accessible and user-friendly, even for users with no strong programming background. However, a basic understanding of object-oriented programming concepts, such as classes and objects, is useful to add custom functions to the model.
 
-2. Model Concepts
------------------
+Model Concepts
+--------------
 
 Understanding Energy Expansion
 ++++++++++++++++++++++++++++++
@@ -61,8 +61,8 @@ Heat Content
 
 The heat content of a fuel source refers to the amount of energy that can be extracted from it. For example, while coal has a high heat content, the efficiency of coal-fired power generators is limited by thermodynamics laws, resulting in a maximum efficiency of around 40%.
 
-3. Model Calculations
----------------------
+Model Calculations
+------------------
 
 Electricity Generation Costs
 ++++++++++++++++++++++++++++

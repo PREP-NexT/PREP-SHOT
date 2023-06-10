@@ -12,20 +12,20 @@ Standard Installation
 
 For users installing on a local machine or server.
 
-1. Install Gurobi
-+++++++++++++++++
+Step 1: Install Gurobi
+++++++++++++++++++++++
 
 Gurobi is an optimization solver known for its speed and efficiency. You can obtain a free academic license by following `Gurobi Instructions <https://www.gurobi.com/features/academic-named-user-license/>`_.
 
-2. Install Miniconda
-++++++++++++++++++++
+Step 2: Install Miniconda
++++++++++++++++++++++++++
 
 Miniconda is a package management tool that helps manage the Python packages required for PREP-SHOT. You can install it by following the official `instructions <https://docs.conda.io/en/latest/miniconda.html>`_.
 
 To verify that Miniconda has been installed successfully, you can run the ``conda -V`` command to check its version.
 
-3. Create the Conda Environment
-+++++++++++++++++++++++++++++++
+Step 3: Create the Conda Environment
+++++++++++++++++++++++++++++++++++++
 
 The ``prep-shot.yml`` file contains all the dependencies for the project. You can use it to create a new environment for PREP-SHOT. This environment isolates the project and its dependencies from other Python projects to prevent package conflicts.
 
@@ -34,8 +34,8 @@ The ``prep-shot.yml`` file contains all the dependencies for the project. You ca
     conda env create -f prep-shot.yml
     conda activate prep-shot
 
-4. Run the Model
-+++++++++++++++++
+Step 4: Run the Model
++++++++++++++++++++++
 
 Once the environment is activated, you can run your program with the following command:
 
@@ -48,8 +48,8 @@ Installation on HPC Systems
 
 For users installing on a High Performance Computing (HPC) system.
 
-1. Load Gurobi
-++++++++++++++
+Step 1: Load Gurobi
++++++++++++++++++++
 
 For users on the High Performance Computing (HPC) system at the National University of Singapore (NUS), Gurobi is already installed. You can load it with the following commands:
 
@@ -58,8 +58,8 @@ For users on the High Performance Computing (HPC) system at the National Univers
     module avail Gurobi
     module load Gurobi/9.5.1
 
-2. Load Miniconda
-+++++++++++++++++
+Step 2: Load Miniconda
+++++++++++++++++++++++
 
 For users on the HPC system, Miniconda is typically already installed. You can load it with the following commands:
 
@@ -68,8 +68,8 @@ For users on the HPC system, Miniconda is typically already installed. You can l
     module avail miniconda
     module load miniconda/4.12
 
-3. Create the Conda Environment
-+++++++++++++++++++++++++++++++
+Step 3: Create the Conda Environment
+++++++++++++++++++++++++++++++++++++
 
 Similar to the standard installation, use the ``prep-shot.yml`` file to create a new environment for PREP-SHOT.
 
@@ -78,8 +78,8 @@ Similar to the standard installation, use the ``prep-shot.yml`` file to create a
     conda env create -f prep-shot.yml
     conda activate prep-shot
 
-4. Run the Model
-+++++++++++++++++
+Step 4: Run the Model
++++++++++++++++++++++
 
 For HPC users, you need to create a bash script file (e.g., ``prep-shot-1.sh``) to submit your job to the HPC cloud.
 
@@ -112,18 +112,18 @@ Manual Installation
 
 For users who prefer to manually install Python packages.
 
-1. Install Python
-+++++++++++++++++
+Step 1: Install Python
+++++++++++++++++++++++
 
 Ensure Python 3.7 is installed on your machine. You can download Python 3.7 from the official Python `website <https://www.python.org/downloads/release/python-370/>`_.
 
-2. Install Gurobi
-+++++++++++++++++
+Step 2: Install Gurobi
+++++++++++++++++++++++
 
 Gurobi is an optimization solver known for its speed and efficiency. You can obtain a free academic license by following `Gurobi Instructions <https://www.gurobi.com/features/academic-named-user-license/>`_.
 
-3. Install Packages
-+++++++++++++++++++
+Step 3: Install Packages
+++++++++++++++++++++++++
 
 You can manually install each package using pip, Python's package installer. Execute the following commands:
 
@@ -137,8 +137,8 @@ You can manually install each package using pip, Python's package installer. Exe
     pip install scipy==1.7.3
     pip install xarray==0.20.2
 
-4. Run the Model
-+++++++++++++++++
+Step 4: Run the Model
++++++++++++++++++++++
 
 Once all the packages are installed, you can run your program with the following command:
 

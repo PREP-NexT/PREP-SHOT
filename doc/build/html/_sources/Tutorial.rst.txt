@@ -45,14 +45,14 @@ You may either clone the repository using the command:
 
     git clone https://github.com/PREP-NexT/PREP-SHOT.git
 
-or download the repository as a zip file `here <https://github.com/PREP-NexT/PREP-SHOT/archive/refs/heads/main.zip>`_.
+or download the repository as a zip file `here <https://github.com/PREP-NexT/PREP-SHOT/archive/refs/heads/main.zip>`__.
 
-Step 2: Download input files this tutorial
-++++++++++++++++++++++++++++++++++++++++++
+Step 2: Download Input Files
+++++++++++++++++++++++++++++
 
 If you have followed the instructions in Step 1, you may omit this step, as the input files for this tutorial are already included in the repository.
 
-Otherwise, download the input files for this tutorial from `here <./_static/input.zip>`_.
+Otherwise, download the input files for this tutorial from `here <./_static/input.zip>`__.
 
 Extract the contents of the zip file and place all the data files (in .xlsx) into the ``input`` folder of the PREP-SHOT model.
 
