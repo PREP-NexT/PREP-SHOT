@@ -117,8 +117,9 @@
 <li class="toctree-l2"><a class="reference internal" href="#scenario-background">Scenario Background</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#run-the-model">Run the Model</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#step-1-download-prep-shot">Step 1: Download PREP-SHOT</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#step-2-download-input-files">Step 2: Download Input Files</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#step-3-run-the-model">Step 3: Run the Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-2-create-the-conda-environment">Step 2: Create the Conda Environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-3-download-input-files">Step 3: Download Input Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-4-run-the-model">Step 4: Run the Model</a></li>
 </ul>
 </li>
 </ul>
@@ -212,14 +213,29 @@
 </div>
 <p>or download the repository as a zip file <a class="reference external" href="https://github.com/PREP-NexT/PREP-SHOT/archive/refs/heads/main.zip">here</a>.</p>
 </section>
-<section id="step-2-download-input-files">
-<h3>Step 2: Download Input Files<a class="headerlink" href="#step-2-download-input-files" title="Permalink to this headline">¶</a></h3>
+<section id="step-2-create-the-conda-environment">
+<h3>Step 2: Create the Conda Environment<a class="headerlink" href="#step-2-create-the-conda-environment" title="Permalink to this headline">¶</a></h3>
+<p>Navigate to the root directory of the PREP-SHOT model and create a conda environment with the required packages:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>prep-shot.yml
+</pre></div>
+</div>
+<p>Activate the newly-created conda environment:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>activate<span class="w"> </span>prep-shot
+</pre></div>
+</div>
+</section>
+<section id="step-3-download-input-files">
+<h3>Step 3: Download Input Files<a class="headerlink" href="#step-3-download-input-files" title="Permalink to this headline">¶</a></h3>
 <p>If you have followed the instructions in Step 1, you may omit this step, as the input files for this tutorial are already included in the repository.</p>
 <p>Otherwise, download the input files for this tutorial from <a class="reference external" href="./_static/input.zip">here</a>.</p>
-<p>Extract the contents of the zip file and place all the data files (in .xlsx) into the <code class="docutils literal notranslate"><span class="pre">input</span></code> folder of the PREP-SHOT model.</p>
+<p>Extract the contents of the zip file and place all the data files <em>(in .xlsx)</em> into the <code class="docutils literal notranslate"><span class="pre">input</span></code> folder of the PREP-SHOT model.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">input</span></code> folder will be used to store all input files <em>(in .xlsx)</em> for the model to run your scenarios.</p>
+</div>
 </section>
-<section id="step-3-run-the-model">
-<h3>Step 3: Run the Model<a class="headerlink" href="#step-3-run-the-model" title="Permalink to this headline">¶</a></h3>
+<section id="step-4-run-the-model">
+<h3>Step 4: Run the Model<a class="headerlink" href="#step-4-run-the-model" title="Permalink to this headline">¶</a></h3>
 <p>Finally, launch the model by running the following command in the root directory of the PREP-SHOT model.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>run.py
 </pre></div>

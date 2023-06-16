@@ -47,16 +47,33 @@ You may either clone the repository using the command:
 
 or download the repository as a zip file `here <https://github.com/PREP-NexT/PREP-SHOT/archive/refs/heads/main.zip>`__.
 
-Step 2: Download Input Files
+Step 2: Create the Conda Environment
+++++++++++++++++++++++++++++++++++++
+
+Navigate to the root directory of the PREP-SHOT model and create a conda environment with the required packages:
+
+.. code-block:: bash
+
+    conda env create -f prep-shot.yml
+
+Activate the newly-created conda environment:
+
+.. code-block:: bash
+
+    conda activate prep-shot
+
+Step 3: Download Input Files
 ++++++++++++++++++++++++++++
 
 If you have followed the instructions in Step 1, you may omit this step, as the input files for this tutorial are already included in the repository.
 
 Otherwise, download the input files for this tutorial from `here <./_static/input.zip>`__.
 
-Extract the contents of the zip file and place all the data files (in .xlsx) into the ``input`` folder of the PREP-SHOT model.
+Extract the contents of the zip file and place all the data files *(in .xlsx)* into the ``input`` folder of the PREP-SHOT model.
 
-Step 3: Run the Model
+.. note:: The ``input`` folder will be used to store all input files *(in .xlsx)* for the model to run your scenarios.
+
+Step 4: Run the Model
 +++++++++++++++++++++
 
 Finally, launch the model by running the following command in the root directory of the PREP-SHOT model.
