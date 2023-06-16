@@ -1,5 +1,5 @@
 Tutorial
-====================================
+========
 
 In this tutorial, we'll guide you through running your first PREP-SHOT model! This example will illustrate an electricity capacity expansion scenario.
 
