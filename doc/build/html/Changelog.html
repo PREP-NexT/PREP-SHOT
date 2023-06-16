@@ -6,9 +6,9 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="Changelog.html" />
 <meta property="og:site_name" content="PREP-SHOT documentation" />
-<meta property="og:description" content="Version 0.1:" />
-<meta name="description" content="Version 0.1:" />
-<meta name="description" content="">
+<meta property="og:description" content="Here, you'll find notable changes for each version of PREP-SHOT. Version 0.1 - Jun 17, 2023: Initial Release: PREP-SHOT model is released with basic functionality for energy expansion planning., Li..." />
+<meta name="description" content="Here, you'll find notable changes for each version of PREP-SHOT. Version 0.1 - Jun 17, 2023: Initial Release: PREP-SHOT model is released with basic functionality for energy expansion planning., Li..." />
+<meta name="description" content="Here, you'll find notable changes for each version of PREP-SHOT. Initial Release: PREP-SHOT model is released with basic functionality for energy expansion planning. Linear programming optimization model for energy sy...">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Changelog &mdash; PREP-SHOT (latest) documentation in English</title>
@@ -116,8 +116,9 @@
 <li class="toctree-l2"><a class="reference internal" href="Tutorial.html#scenario-background">Scenario Background</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Tutorial.html#run-the-model">Run the Model</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="Tutorial.html#step-1-download-prep-shot">Step 1: Download PREP-SHOT</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Tutorial.html#step-2-download-input-files">Step 2: Download Input Files</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Tutorial.html#step-3-run-the-model">Step 3: Run the Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Tutorial.html#step-2-create-the-conda-environment">Step 2: Create the Conda Environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Tutorial.html#step-3-download-input-files">Step 3: Download Input Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Tutorial.html#step-4-run-the-model">Step 4: Run the Model</a></li>
 </ul>
 </li>
 </ul>
@@ -145,7 +146,9 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changelog</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#version-0-1">Version 0.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#version-0-1-today">Version 0.1 - Jun 17, 2023</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#contributing-to-prep-shot">Contributing to PREP-SHOT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#contact-us">Contact Us</a></li>
 </ul>
 </li>
 </ul>
@@ -176,8 +179,46 @@
              
   <section id="changelog">
 <h1>Changelog<a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h1>
-<section id="version-0-1">
-<h2>Version 0.1<a class="headerlink" href="#version-0-1" title="Permalink to this headline">¶</a></h2>
+<p>Here, you'll find notable changes for each version of PREP-SHOT.</p>
+<section id="version-0-1-today">
+<h2>Version 0.1 - Jun 17, 2023<a class="headerlink" href="#version-0-1-today" title="Permalink to this headline">¶</a></h2>
+<p>Initial Release:</p>
+<ul class="simple">
+<li><p>PREP-SHOT model is released with basic functionality for energy expansion planning.</p></li>
+<li><p>Linear programming optimization model for energy systems with multiple zones.</p></li>
+<li><p>Support for solvers such as Gurobi, CPLEX, MOSEK, and GLPK via <a class="reference external" href="https://pyomo.readthedocs.io/en/stable/solving_pyomo_models.html">Pyomo</a>.</p></li>
+<li><p>Input and output handling with <cite>pandas</cite> and <cite>Xarray</cite>.</p></li>
+</ul>
+</section>
+<section id="contributing-to-prep-shot">
+<h2>Contributing to PREP-SHOT<a class="headerlink" href="#contributing-to-prep-shot" title="Permalink to this headline">¶</a></h2>
+<p>We welcome and appreciate contributions from the community. Here are the steps to contribute:</p>
+<ol class="arabic">
+<li><p><strong>Create an Issue</strong></p>
+<p>If you find a bug or have an idea for an improvement or new feature, please create an <a class="reference external" href="https://github.com/PREP-NexT/PREP-SHOT/issues">issue</a>.</p>
+</li>
+<li><p><strong>Fork the Repository</strong></p>
+<p>You can fork the <a class="reference external" href="https://github.com/PREP-NexT/PREP-SHOT">PREP-SHOT repository</a> on GitHub.</p>
+</li>
+<li><p><strong>Create a Branch</strong></p>
+<p>Create a new branch in your forked repository and name the branch according to the feature or fix you're working on.</p>
+</li>
+<li><p><strong>Commit Changes</strong></p>
+<p>Make changes in your branch. Once you've made improvements or bug fixes to the project, commit the changes with a meaningful commit message.</p>
+</li>
+<li><p><strong>Start a Pull Request</strong></p>
+<p>Open a <a class="reference external" href="https://github.com/PREP-NexT/PREP-SHOT/pulls">pull request</a> from your forked repository to the main PREP-SHOT repository. Describe your changes in the pull request.</p>
+</li>
+<li><p><strong>Code Review</strong></p>
+<p>Maintainers of the PREP-SHOT project will review your code. They may ask for changes or improvements before the code is merged into the main codebase.</p>
+</li>
+</ol>
+<p>Please ensure that you update tests as necessary when you're contributing code, and follow the coding conventions established in the rest of the project.</p>
+</section>
+<section id="contact-us">
+<h2>Contact Us<a class="headerlink" href="#contact-us" title="Permalink to this headline">¶</a></h2>
+<p>If you have any questions, comments, or suggestions that aren't suitable for public discussion in the Issues section, please feel free to reach out to <a class="reference external" href="mailto:liuzhanwei&#37;&#52;&#48;u&#46;nus&#46;edu">Zhanwei Liu</a>.</p>
+<p>Please use the GitHub Issues for public discussions related to bugs, enhancements, or other project-related discussions.</p>
 </section>
 </section>
 
