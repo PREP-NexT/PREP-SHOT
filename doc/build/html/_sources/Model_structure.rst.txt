@@ -3,6 +3,52 @@ Mathematical Notations
 
 This page provides a detailed description of the mathematical notations used for formulating the model's objective function and constraints.
 
+Unit List
+---------
+
+The description of the units used in this page are as follows:
+
+.. list-table::
+   :widths: 10 50
+   :header-rows: 1
+   :align: left
+
+   * - Unit
+     - Description
+
+   * - ``hr``
+     - Hour
+
+   * - ``yr``
+     - Year
+
+   * - ``USD``
+     - US Dollar
+
+   * - ``RMB``
+     - Chinese Yuan
+
+   * - ``kW``
+     - Kilowatt
+
+   * - ``MW``
+     - Megawatt
+
+   * - ``MWh``
+     - Megawatt-hour
+
+   * - ``MWy``
+     - Megawatt-year
+
+   * - ``MW-km``
+     - Megawatt-kilometer
+
+   * - ``tonnes``
+     - Tonnes
+
+   * - N/A
+     - Not Applicable
+
 Set List
 --------
 
@@ -17,23 +63,23 @@ Set List
 
    * - :math:`te`
      - Technology
-     - ``USD``
+     - N/A
 
    * - :math:`h` or :math:`t`
      - Hour
-     - ``USD``
+     - ``hr``
 
    * - :math:`y`
      - Year
-     - NIL
+     - ``yr``
 
    * - :math:`m`
      - Time period
-     - ``USD``
+     - N/A
 
    * - :math:`z`
      - Zone
-     - NIL
+     - N/A
 
 Variable List
 -------------
@@ -64,7 +110,7 @@ Variable List
      - ``USD``
 
    * - :math:`\text{cost}^\text{newline}`
-     - Investment cost of transmission lines
+     - Investment cost of transmission lines.
      - ``RMB``
 
    * - :math:`\text{gen}_{h,m,y,z,te}`
@@ -73,31 +119,31 @@ Variable List
 
    * - :math:`\text{cap}^\text{existing}_{y,z,te}`
      - Existing installed capacity of the :math:`te`-th technology, in the :math:`z`-th zone, and in the :math:`y`-th year.
-     - NIL
+     - ``MW``
 
    * - :math:`\text{cap}^\text{newtech}_{y,z,te}`
      - Newly-built installed capacity of the :math:`te`-th technology, in the :math:`z`-th zone, and in the :math:`y`-th year.
-     - NIL
+     - ``MW``
 
    * - :math:`\text{cap}^\text{newline}_{y,z_s,z_o}`
      - Newly-built transmission line capacity from the :math:`z_s`-th zone to the :math:`z_o`-th zone, and in the :math:`y`-th year.
-     - NIL
+     - ``MW``
 
    * - :math:`\text{cap}^\text{remaining}_{y,z,te}`
      - Remaining capacity of the :math:`te`-th technology, in the :math:`z`-th zone, and in the :math:`y`-th year.
-     - NIL
+     - ``MW``
 
    * - :math:`\text{carbon}^\text{tech}_{y,te}`
      - Carbon emission of the :math:`te`-th technology for all zones, and in the :math:`y`-th year
-     - NIL
+     - ``tonnes``
 
    * - :math:`\text{slack}_{h,y,z}` 
      - Unserved demand in the :math:`z`-th zone, in the :math:`y`-th year, and in the :math:`h`-th hour.
-     - NIL
+     - ``MWh``
 
    * - :math:`\text{trans}^\text{import}_{h,y,z1,z}`
      - Generation output imported from the :math:`z1`-th zone to the :math:`z`-th zone, in the :math:`y`-th year, and in the :math:`h`-th hour.
-     - NIL
+     - ``MWh``
 
    * - :math:`\text{cap}^\text{retire}_{y,z,te}`
      - Retiring capacity of the :math:`te`-th technology, in the :math:`z`-th zone, and in the :math:`y`-th year.
@@ -123,7 +169,7 @@ Parameter List
 --------------
 
 .. list-table::
-   :widths: 10 80 5
+   :widths: 10 74 16
    :header-rows: 1
    :align: left
    
@@ -133,11 +179,11 @@ Parameter List
 
    * - :math:`C^\text{var}_{y,te}`
      - Variable O&M cost of the :math:`te`-th technology, and in the :math:`y`-th year.
-     - ``USD/MWh``
+     - ``USD/MW``
 
    * - :math:`C^\text{fix}_{y,te}`
      - Fixed O&M cost of the :math:`te`-th technology, and in the :math:`y`-th year.
-     - ``USD/kWy``
+     - ``USD/kW``
 
    * - :math:`C^\text{newtech}_{y,te}`
      - Investment cost of the :math:`te`-th technology, and in the :math:`y`-th year.
@@ -145,19 +191,19 @@ Parameter List
 
    * - :math:`C^\text{newline}_{y,te}`
      - Investment cost of the :math:`te`-th technology, and in the :math:`y`-th year.
-     - ``USD/(MW*km)``
+     - ``USD/MW-km``
 
    * - :math:`\text{DF}_{y}`
      - Discount factor in the :math:`y`-th year.
-     - NIL
+     - N/A
 
    * - :math:`\text{carbon}_{y}`
      - Carbon emission in the :math:`y`-th year.
-     - ``Ton/MWh``
+     - ``ton/MWh``
 
    * - :math:`\overline{\text{carbon}}_y`
      - Upper bound of carbon emission for all zones in the :math:`y`-th year.
-     - ``Ton``
+     - ``tonnes``
 
    * - :math:`\text{Demand}_{t,m,y,z}`
      - Load demand in the :math:`z`-th zone, in the :math:`y`-th year, for the :math:`m` time period, and in the :math:`t`-th hour.
@@ -165,7 +211,7 @@ Parameter List
 
    * - :math:`\text{Effi}^\text{trans}_{z1,z,y}`
      - Efficiency of transmission line in the :math:`y`-th year, and from the :math:`z_1`-th zone to the :math:`z`-th zone
-     - NIL
+     - N/A
 
    * - :math:`\text{Installed}^\text{init}_{z,te}`
      - Installed capacity of the :math:`te`-th technology, and in the :math:`z`-th zone.
@@ -173,7 +219,7 @@ Parameter List
 
    * - :math:`\text{Effi}^\text{storage}_{y,te}`
      - Energy storage conversion efficiency of the :math:`te`-th technology, and in the :math:`y`-th year.
-     - NIL
+     - N/A
 
    * - :math:`\text{Storage}^\text{init}_{z}`
      - Storage level in the :math:`z`-th zone.
@@ -185,15 +231,15 @@ Parameter List
 
    * - :math:`R^\text{up}_{te}`
      - Maximum upward ramping ratio of the :math:`te`-th technology.
-     - NIL
+     - N/A
 
    * - :math:`R^\text{down}_{te}`
      - Maximum downward ramping ratio of the :math:`te`-th technology.
-     - NIL
+     - N/A
 
    * - :math:`\text{cap}^\text{factor}_{h,z,te}`
      - Capacity factor of the :math:`te`-th technology, in the :math:`z`-th zone, and in the :math:`h`-th hour.
-     - NIL
+     - N/A
 
 Objective Functions
 -------------------
@@ -292,15 +338,15 @@ The variables are defined as follows:
 
    * - :math:`\text{factor}^\text{var}_{y}` 
      - Variable cost economic factor in the :math:`y`-th year.
-     - NIL
+     - N/A
 
    * - :math:`\text{factor}^\text{fix}_{y}`
      - Fixed cost economic factor in the :math:`y`-th year.
-     - NIL
+     - N/A
 
    * - :math:`\text{factor}^\text{inv}_{y}` 
      - Investment cost economic factor in the :math:`y`-th year.
-     - NIL
+     - N/A
 
 The parameters are defined as follows:
 
@@ -327,11 +373,11 @@ The parameters are defined as follows:
 
    * - :math:`C_{y,z,te}^\text{tech-fix}`
      - Fixed cost of unit capacity of the :math:`te`-th technology, in the :math:`z`-th zone, and in the :math:`y`-th year.
-     - ``USD/MW/y``
+     - ``USD/MWy``
 
    * - :math:`C_{y,z_s,z_o}^\text{line-fix}`
      - Fixed cost of unit capacity of transmission line from the :math:`z_s`-th zone to the :math:`z_o`-th zone, and in the :math:`y`-th year.
-     - ``USD/MW/y``
+     - ``USD/MWy``
 
    * - :math:`C_{y,z,te}^\text{tech-inv}` 
      - Investment cost of unit capacity of the :math:`te`-th technology, in the :math:`z`-th zone, and in the :math:`y`-th year.
@@ -343,7 +389,7 @@ The parameters are defined as follows:
 
    * - :math:`\text{Weight}`
      - Proportion of selected scheduling period in a year (8760 hours) that is :math:`\frac{H\times M}{8760}`.
-     - NIL
+     - N/A
 
 Factors
 +++++++

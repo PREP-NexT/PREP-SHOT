@@ -8,7 +8,9 @@ The model requires several input parameters, provided via input files. These par
 Parameter Representation
 ------------------------
 
-.. list-table:: Description of Input Parameters
+The parameters used, their desciptions, and their purpose in the model are as follows:
+
+.. list-table::
   :widths: 5 45 50
   :header-rows: 1
 
@@ -175,7 +177,58 @@ Parameter Representation
 Preparing Inputs
 ----------------
 
-.. list-table:: Input Parameters and Corresponding Files
+The description of the units used in this page are as follows:
+
+.. list-table::
+   :widths: 10 50
+   :header-rows: 1
+   :align: left
+
+   * - Unit
+     - Description
+
+   * - ``s``
+     - Second
+
+   * - ``hr``
+     - Hour
+
+   * - ``yr``
+     - Year
+
+   * - ``USD``
+     - US Dollar
+
+   * - ``RMB``
+     - Chinese Yuan
+
+   * - ``MW``
+     - Megawatt
+
+   * - ``MWh``
+     - Megawatt-hour
+
+   * - ``MW-km``
+     - Megawatt-kilometer
+
+   * - ``tCO2``
+     - Tonnes of Carbon Dioxide
+
+   * - ``m``
+     - Meter
+
+   * - ``m^3``
+     - Cubic meter
+
+   * - ``10^8 m^3``
+     - 100 million cubic meter
+
+   * - N/A
+     - Not Applicable
+
+The input files required for each parameter, and their corresponding dimensions and units are as follows:
+
+.. list-table::
   :widths: 5 35 30 30
   :header-rows: 1
 
@@ -191,7 +244,7 @@ Preparing Inputs
 
   * - capacity factor
     - 5D (technology, zone, year, month, hour)
-    - NIL
+    - N/A
     - ``capacity_factor.xlsx``
     
   * - carbon
@@ -206,7 +259,7 @@ Preparing Inputs
     
   * - connect
     - 2D (station, downstream station)
-    - NIL
+    - N/A
     - ``connect.xlsx``
     
   * - demand
@@ -216,32 +269,32 @@ Preparing Inputs
     
   * - discount Factor
     - 1D (year)
-    - NIL
+    - N/A
     - ``discount_factor.xlsx``
     
   * - distance
     - 2D (zone1, zone2)
-    - NIL
+    - N/A
     - ``distance.xlsx``
     
   * - efficiency In
     - 2D (year, storage technology)
-    - NIL
+    - N/A
     - ``efficiency_in.xlsx``
     
   * - efficiency Out
     - 2D (year, storage technology)
-    - NIL
+    - N/A
     - ``efficiency_out.xlsx``
     
   * - energy power ratio
     - 1D (storage technology)
-    - ``h``
+    - ``hr``
     - ``energy_power_ratio.xlsx``
     
   * - fuel price
     - 2D (year, technology)
-    - ``$/MWh``
+    - ``USD/MWh``
     - ``fuel_price.xlsx``
     
   * - hydropower
@@ -261,7 +314,7 @@ Preparing Inputs
     
   * - lifetime
     - 2D (year, technology)
-    - ``year``
+    - ``yr``
     - ``lifetime.xlsx``
     
   * - new technology lower bound
@@ -286,7 +339,7 @@ Preparing Inputs
     
   * - static
     - 1D (station)
-    - NIL
+    - N/A
     - ``static.xlsx``
     
   * - storage lowbound
@@ -311,12 +364,12 @@ Preparing Inputs
     
   * - technology fix cost
     - 2D (year, technology)
-    - ``$/MW``
+    - ``USD/MW``
     - ``technology_fix_cost.xlsx``
     
   * - technology investment cost
     - 2D (year, technology)
-    - ``$/MW/km``
+    - ``USD/MW-km``
     - ``technology_investment_cost.xlsx``
     
   * - technology portfolio
@@ -331,42 +384,42 @@ Preparing Inputs
     
   * - technology variable cost
     - 2D (year, technology)
-    - ``$/MWh``
+    - ``USD/MWh``
     - ``technology_variable_cost.xlsx``
     
   * - transline
     - 2D (zone1, zone2)
-    - ``$/MW/km``
+    - ``USD/MW-km``
     - ``transline.xlsx``
     
   * - transline efficiency
     - 2D (zone1, zone2)
-    - NIL
+    - N/A
     - ``transline_efficiency.xlsx``
     
   * - transline fix cost
     - 2D (zone1, zone2)
-    - ``$/MW``
+    - ``USD/MW``
     - ``transline_fix_cost.xlsx``
     
   * - transline investment cost
     - 2D (zone1, zone2)
-    - ``$/MW/km``
+    - ``RMB/MW-km``
     - ``transline_investment_cost.xlsx``
     
   * - transline variable cost
     - 2D (zone1, zone2)
-    - ``$/MWh``
+    - ``USD/MWh``
     - ``transline_variable_cost.xlsx``
     
   * - transline line lifetime
     - 2D (zone1, zone2)
-    - ``year``
+    - ``yr``
     - ``transline_line_lifetime.xlsx``
     
   * - type
     - 1D (technology)
-    - NIL
+    - N/A
     - ``type.xlsx``
     
   * - zq
