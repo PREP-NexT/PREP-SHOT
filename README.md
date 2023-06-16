@@ -70,7 +70,7 @@ To contribute to this project, please read our [Contributing Guidelines](https:/
 If you use PREP-SHOT in a scientific publication, we would appreciate citations. You can use the following BibTeX entry:
 
 ```bibtex
-@software{preps_hot2023,
+@misc{PREP-SHOT,
   author = {Zhanwei Liu, Xiaogang He},
   title = {PREP-SHOT: Pathways for Renewable Energy Planning coupling Short-term Hydropower OperaTion},
   url = {https://github.com/PREP-NexT/PREP-SHOT},
