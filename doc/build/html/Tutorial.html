@@ -6,9 +6,9 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="Tutorial.html" />
 <meta property="og:site_name" content="PREP-SHOT documentation" />
-<meta property="og:description" content="Run your first PREP-SHOT model: Let us learn by example. Throughout this tutorial, we'll walk you through running a toy example about electricity capacity expansion. We'll assume you have PREP-SHOT..." />
-<meta name="description" content="Run your first PREP-SHOT model: Let us learn by example. Throughout this tutorial, we'll walk you through running a toy example about electricity capacity expansion. We'll assume you have PREP-SHOT..." />
-<meta name="description" content="Let us learn by example. Throughout this tutorial, we'll walk you through running a toy example about electricity capacity expansion. We'll assume you have PREP-SHOT installed already. This is a simplified example bas...">
+<meta property="og:description" content="In this tutorial, we'll guide you through running your first PREP-SHOT model! This example will illustrate an electricity capacity expansion scenario. Scenario Background: This scenario is inspired..." />
+<meta name="description" content="In this tutorial, we'll guide you through running your first PREP-SHOT model! This example will illustrate an electricity capacity expansion scenario. Scenario Background: This scenario is inspired..." />
+<meta name="description" content="In this tutorial, we'll guide you through running your first PREP-SHOT model! This example will illustrate an electricity capacity expansion scenario. This scenario is inspired by real-world data, drawing primarily fr...">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tutorial &mdash; PREP-SHOT (latest) documentation in English</title>
@@ -34,8 +34,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Users guide" href="Users_guide.html" />
-    <link rel="prev" title="Getting Started" href="Introduction.html" /> 
+    <link rel="next" title="Mathematical Notations" href="Mathematical_notations.html" />
+    <link rel="prev" title="Users Guide" href="User_guide.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -59,67 +59,89 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="Installation.html#installation-steps">Installation Steps</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="Installation.html#step-1-install-gurobi">Step 1. Install Gurobi</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Installation.html#step-2-install-miniconda">Step 2. Install Miniconda</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Installation.html#step-3-create-the-conda-environment">Step 3. Create the Conda Environment</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Installation.html#step-4-run-a-model">Step 4. Run a Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Installation.html#standard-installation">Standard Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#step-1-install-gurobi">Step 1: Install Gurobi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#step-2-install-miniconda">Step 2: Install Miniconda</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#step-3-create-the-conda-environment">Step 3: Create the Conda Environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#step-4-run-the-model">Step 4: Run the Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Installation.html#installation-on-hpc-systems">Installation on HPC Systems</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#step-1-load-gurobi">Step 1: Load Gurobi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#step-2-load-miniconda">Step 2: Load Miniconda</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#id1">Step 3: Create the Conda Environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#id2">Step 4: Run the Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Installation.html#manual-installation">Manual Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#step-1-install-python">Step 1: Install Python</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#step-2-install-gurobi">Step 2: Install Gurobi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#step-3-install-packages">Step 3: Install Packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#id4">Step 4: Run the Model</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="Installation.html#troubleshooting">Troubleshooting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Installation.html#dependencies">Dependencies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Installation.html#features">Features</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="Introduction.html">Getting Started</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="Introduction.html#introduction-to-prep-shot-prpt">Introduction to PREP-SHOT /ˈprɛpʃɒt/</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="Introduction.html#what-can-the-model-do">What can the model do?</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Introduction.html#how-does-it-work">How does it work?</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Introduction.html#what-do-i-need-to-know-to-use-prep-shot">What do I need to know to use PREP-SHOT?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Getting_started.html#introduction-to-prep-shot">Introduction to PREP-SHOT</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Getting_started.html#origins">Origins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Getting_started.html#model-capabilities">Model Capabilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Getting_started.html#user-prerequisites">User Prerequisites</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="Introduction.html#cost-source">Cost Source</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Introduction.html#model-concept">Model concept</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Getting_started.html#model-concepts">Model Concepts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Getting_started.html#understanding-energy-expansion">Understanding Energy Expansion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Getting_started.html#efficiency-and-heat-rate">Efficiency and Heat Rate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Getting_started.html#id1">Heat Content</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Getting_started.html#model-calculations">Model Calculations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Getting_started.html#electricity-generation-costs">Electricity Generation Costs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Getting_started.html#power-plant-efficiency">Power Plant Efficiency</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="User_guide.html">Users Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="User_guide.html#parameter-representation">Parameter Representation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="User_guide.html#preparing-inputs">Preparing Inputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="User_guide.html#run-model">Run model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="User_guide.html#scenarios">Scenarios</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="User_guide.html#read-output">Read output</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Tutorial</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#run-your-first-prep-shot-model">Run your first PREP-SHOT model</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#background">Background</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#prepare-the-input-data">Prepare the Input Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#scenario-background">Scenario Background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#run-the-model">Run the Model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#step-1-download-prep-shot">Step 1: Download PREP-SHOT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-2-create-the-conda-environment">Step 2: Create the Conda Environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-3-download-input-files">Step 3: Download Input Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-4-run-the-model">Step 4: Run the Model</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="Users_guide.html">Users guide</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="Users_guide.html#prepare-inputs">Prepare inputs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Users_guide.html#run-model">Run model</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="Users_guide.html#scenarios">Scenarios</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Mathematical_notations.html">Mathematical Notations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Mathematical_notations.html#unit-list">Unit List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Mathematical_notations.html#set-list">Set List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Mathematical_notations.html#variable-list">Variable List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Mathematical_notations.html#parameter-list">Parameter List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Mathematical_notations.html#objective-functions">Objective Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#costs">Costs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#factors">Factors</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="Users_guide.html#read-output">Read output</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="Model_structure.html">Model structure</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="Model_structure.html#notations">Notations</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="Model_structure.html#sets">1. Sets</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Model_structure.html#variables">2. Variables</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Model_structure.html#parameters">3. Parameters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Model_structure.html#objective-function">4. Objective function</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="Model_structure.html#text-factor-y-text-var">4.1 <span class="math notranslate nohighlight">\(\text{factor}_{y}^\text{var}\)</span></a></li>
-<li class="toctree-l4"><a class="reference internal" href="Model_structure.html#text-factor-y-text-fix">4.2 <span class="math notranslate nohighlight">\(\text{factor}_{y}^\text{fix}\)</span></a></li>
-<li class="toctree-l4"><a class="reference internal" href="Model_structure.html#text-factor-y-text-inv">4.3 <span class="math notranslate nohighlight">\(\text{factor}_{y}^\text{inv}\)</span></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="Model_structure.html#constraints">5. Constraints</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="Model_structure.html#retirement-constraints">5.1 Retirement constraints</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Model_structure.html#carbon-dioxide-emission-restriction">5.2 Carbon dioxide emission restriction</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Model_structure.html#power-balance">5.3 Power balance</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Model_structure.html#transmission-loss-constraints">5.4 Transmission loss constraints</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Model_structure.html#maximum-output-constraint">5.5 Maximum output constraint</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Model_structure.html#storage-constraint">5.6 Storage constraint</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Model_structure.html#ramping-constraint">5.7 Ramping constraint</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="Mathematical_notations.html#constraints">Constraints</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#retirement">Retirement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#carbon-emission">Carbon Emission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#power-balance">Power Balance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#transmission-loss">Transmission Loss</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#maximum-output">Maximum Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#energy-storage">Energy Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#ramping-ratio">Ramping Ratio</a></li>
 </ul>
 </li>
 </ul>
@@ -156,99 +178,69 @@
              
   <section id="tutorial">
 <h1>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h1>
-<section id="run-your-first-prep-shot-model">
-<h2>Run your first PREP-SHOT model<a class="headerlink" href="#run-your-first-prep-shot-model" title="Permalink to this headline">¶</a></h2>
-<p>Let us learn by example.</p>
-<p>Throughout this tutorial, we'll walk you through running a toy example about electricity capacity expansion.</p>
-<p>We'll assume you have PREP-SHOT installed already.</p>
-<section id="background">
-<h3>Background<a class="headerlink" href="#background" title="Permalink to this headline">¶</a></h3>
-<p>This is a simplified example based on data primarily obtained from the U.S. Energy Information Administration (<a class="reference external" href="https://www.eia.gov/electricity/gridmonitor/dashboard/electric_overview/regional/REG-NW">EIA</a>), U.S. Army Corps of Engineers (<a class="reference external" href="https://www.nwd-wc.usace.army.mil/dd/common/dataquery/www/">USACE</a>) and U.S. National Renewable Energy Laboratory (<a class="reference external" href="https://atb.nrel.gov/electricity/2022/data">NREL</a>). Our analysis focuses on a cascade hydropower system consisting of 15 hydropower stations, with the specific typology relationship described below. We assume the presence of three balancing authorities (BA1, BA2, and BA3) and establish jurisdictional connections between reservoirs and balancing authorities as follows. Apart from hydropower, we assume that no other existing technologies or transmission lines are in place. Our analysis includes four candidate technologies: Coal-fired plants, Wind power plants, Solar power plants, and Energy storage plants. The objective is to devise an electric mix pathway from 2020 to 2030 that enables the achievement of zero-carbon emissions. To solve this problem quickly, we select a 48-hour representative period.</p>
+<p>In this tutorial, we'll guide you through running your first PREP-SHOT model! This example will illustrate an electricity capacity expansion scenario.</p>
+<section id="scenario-background">
+<h2>Scenario Background<a class="headerlink" href="#scenario-background" title="Permalink to this headline">¶</a></h2>
+<p>This scenario is inspired by real-world data, drawing primarily from the following resources:</p>
+<ul class="simple">
+<li><p>U.S. Energy Information Administration (<a class="reference external" href="https://www.eia.gov/electricity/gridmonitor/dashboard/electric_overview/regional/REG-NW">EIA</a>)</p></li>
+<li><p>U.S. Army Corps of Engineers (<a class="reference external" href="https://www.nwd-wc.usace.army.mil/dd/common/dataquery/www/">USACE</a>)</p></li>
+<li><p>U.S. National Renewable Energy Laboratory (<a class="reference external" href="https://atb.nrel.gov/electricity/2022/data">NREL</a>)</p></li>
+</ul>
+<p>In this tutorial, we examine a cascading hydropower system, consisting of a network of 15 interconnected hydropower stations. We shall assume the presence of three balancing authorities (BAs) - BA1, BA2, and BA3. Each of these authorities will have distinct jurisdictional connections with their local reservoirs.</p>
+<p>The jurisdictional connections of the stations, reservoirs, and balancing authorities are illustrated below:</p>
 <figure class="align-default">
 <a class="reference internal image-reference" href="_images/typology.jpg"><img alt="typology" src="_images/typology.jpg" style="width: 50%;" /></a>
 </figure>
+<p>For this tutorial, we assume that, apart from hydropower, no other existing power generation technologies or transmission lines are in place.</p>
+<p>However, we will be exploring the potential of incorporating four additional technologies into our grid:</p>
+<ul class="simple">
+<li><p>Coal-fired plants</p></li>
+<li><p>Wind power plants</p></li>
+<li><p>Solar power plants</p></li>
+<li><p>Energy storage plants</p></li>
+</ul>
+<p>The objective of our scenario is to devise an electric mix pathway from 2020 to 2030 that enables the achievement of zero-carbon emissions. We shall use a 48-hour period as a representative sample for our analysis.</p>
 </section>
-<section id="prepare-the-input-data">
-<h3>Prepare the Input Data<a class="headerlink" href="#prepare-the-input-data" title="Permalink to this headline">¶</a></h3>
-<p>👉 technology_portfolio.xlsx</p>
-<p>Existing total installed capacity across all zones is stored in <cite>technology_portfolio.xlsx</cite> as follows and the unit is <code class="docutils literal notranslate"><span class="pre">MW</span></code>.</p>
-<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vS2kUJOLfZ7Y93ausQUFvIpA7NUSOTOSaRB97CCVn70uLKFzhA029C-Uh273kML6Q/pubhtml?gid=637332031&amp;single=true&amp;widget=true&amp;headers=false" width="100%" height="200px"></iframe><p>👉 distance.xlsx</p>
-<p>Distance of different pair of zones is stored in <cite>distance.xlsx</cite> as follows and the unit is <code class="docutils literal notranslate"><span class="pre">km</span></code>, which is used to calculate the transmission investment cost.</p>
-<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTTEELrCKyXq0qXy2CsHcl5lM-ZA0ujw9uO8WTq6zadFQq-kepSLwI0_sMZmXEtPA/pubhtml?gid=293039800&amp;single=true&amp;widget=true&amp;headers=false" width="100%" height="200px"></iframe><p>👉 discount_factor.xlsx</p>
-<p>discount factor for each year is stored in <cite>discount_factor.xlsx</cite> as follows and the unit is <code class="docutils literal notranslate"><span class="pre">1</span></code>, which is used to calculate the present value of cost.</p>
-<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRF8O3KMZ88lVjO_uHdpHRH1VdsfvHSAr1du74VJDwMMXsWiVVZov6WOpv-Ty3zHA/pubhtml?gid=2003587890&amp;single=true&amp;widget=true&amp;headers=false" width="100%" height="200px"></iframe><p>👉 transline.xlsx</p>
-<p>Existing installed capacity of transmission lines across all zones is stored in <cite>transline.xlsx</cite> as follows and the unit is <code class="docutils literal notranslate"><span class="pre">MW</span></code>.</p>
-<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSArhwW8dUb1fM0Fhc9r_Q5GLYvmKFfvZc9NOrNxjAVHvdA3uSzEw3VwKVnnIkQ7Q/pubhtml?gid=1961690293&amp;single=true&amp;widget=true&amp;headers=false" width="100%" height="200px"></iframe><p>👉 transline_efficiency.xlsx</p>
-<p>Efficiency of transmission lines across all zones is stored in <cite>transline_efficiency.xlsx</cite> as follows and the unit is <code class="docutils literal notranslate"><span class="pre">1</span></code>, which is used to calculate the transmission loss.</p>
-<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQchaAZ1r5XxRPygj5rpFOtrW-sex4dqIBvyAdEIiqWa6ls7VFjoxdWtwpHDWvx9w/pubhtml?gid=1498515383&amp;single=true&amp;widget=true&amp;headers=false" width="100%" height="200px"></iframe><p>👉 technology_fix_cost.xlsx</p>
-<p>Fixed operation and maintaince cost of different technologies is stored in <cite>technology_fix_cost.xlsx</cite> as follows and the unit is <code class="docutils literal notranslate"><span class="pre">$/MW</span></code>, which is used to calculate the system cost.</p>
-<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vShzG4zwROyn0JGx9O9nOgbBxiKUDeORFyiYhzSSluWGJlyLl7XHBnoxEBhGI_ymg/pubhtml?gid=551587702&amp;single=true&amp;widget=true&amp;headers=false" width="100%" height="200px"></iframe><p>👉 technology_variable_cost.xlsx</p>
-<p>Variable operation and maintaince cost of different technologies is stored in <cite>technology_variable_cost.xlsx</cite> as follows and the unit is <code class="docutils literal notranslate"><span class="pre">$/MWh</span></code>, which is used to calculate the system cost.</p>
-<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vT7IRzyCzhmJvylBvNX2ROrUKHAypPUYsJKCZQuJd727utBXMdT7LlWSoWZUJvx_A/pubhtml?gid=1567056778&amp;single=true&amp;widget=true&amp;headers=false" width="100%" height="200px"></iframe><p>👉 technology_investment_cost.xlsx</p>
-<p>Investment cost of different technologies is stored in <cite>technology_investment_cost.xlsx</cite> as follows and the unit is <code class="docutils literal notranslate"><span class="pre">$/MW/km</span></code>, which is used to calculate the system cost.</p>
-<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSQTJfo_TAlwyCidnrDBaYMgayChEp00eXBQ4C8WFz1VPyzLQPVnEv-ZQBoyhYmdw/pubhtml?gid=681712845&amp;single=true&amp;widget=true&amp;headers=false" width="100%" height="200px"></iframe><p>👉 carbon_content.xlsx</p>
-<p>Carbon content of different technologies is stored in <cite>carbon_content.xlsx</cite> as follows and the unit is <code class="docutils literal notranslate"><span class="pre">tCO2/MWh</span></code>, which is used to calculate the system cost.</p>
-<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTFK_vG7-cDcu-flf3_nyN8Mofq2_5Fs1l7Z_1RZjCs4iRgSMwqfyaFTOb4RV-f8g/pubhtml?gid=1731802572&amp;single=true&amp;widget=true&amp;headers=false" width="100%" height="200px"></iframe><p>👉 fuel_price.xlsx</p>
-<p>Fuel price of different technologies is stored in <cite>fuel_price.xlsx</cite> as follows and the unit is <code class="docutils literal notranslate"><span class="pre">$/MWh</span></code>, which is used to calculate the system cost.</p>
-<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTpTYT29azVDuHV015ChJXvrbBuWKoh9hNXZd9bTmA__Vt2_MdqW6wurKKO6r0Upw/pubhtml?gid=434666485&amp;single=true&amp;widget=true&amp;headers=false" width="100%" height="200px"></iframe><p>👉 efficiency_in.xlsx</p>
-<p>Discharging efficiency of storage technologies is stored in <cite>efficiency_in.xlsx</cite> as follows and the unit is <code class="docutils literal notranslate"><span class="pre">1</span></code>, which is used to calculate the discharging and charging loss of energy storage.</p>
-<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQ_P7Lr6f2PrV-thn92JQc6DLWZNjMweW6oQP63qP5Bnw7_T3-ORiIb_6SW1JNL5w/pubhtml?gid=591443577&amp;single=true&amp;widget=true&amp;headers=false" width="100%" height="200px"></iframe><p>👉 efficiency_out.xlsx</p>
-<p>Charging efficiency of storage technologies is stored in <cite>efficiency_out.xlsx</cite> as follows and the unit is <code class="docutils literal notranslate"><span class="pre">1</span></code>, which is used to calculate the discharging and charging loss of energy storage.</p>
-<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQlTy32iH0282jLMMiUIDqNDOYuH6ggwl0JuLYfuH_fCT-ziTQrj7XXlLNM0KL6uQ/pubhtml?gid=1682709855&amp;single=true&amp;widget=true&amp;headers=false" width="100%" height="200px"></iframe><p>👉 energy_power_ratio.xlsx</p>
-<p>Energy to power ratio of storage technologies is stored in <cite>energy_power_ratio.xlsx</cite> as follows and the unit is <code class="docutils literal notranslate"><span class="pre">h</span></code>, which is used to measure duration of energy storage.</p>
-<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRXJlbJzHBUtCFARgDOwaxONEZOrRubjqgJaN1SlMnAm6lEDiuObgs16i_oXGxJmg/pubhtml?gid=1539898206&amp;single=true&amp;widget=true&amp;headers=false" width="100%" height="200px"></iframe><p>👉 lifetime.xlsx</p>
-<p>Lifetime of different technologies is stored in <cite>lifetime.xlsx</cite> as follows and the unit is <code class="docutils literal notranslate"><span class="pre">year</span></code>, which is used to calculate the retirement of power plant.</p>
-<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRsSw180wGwZZ4TAlIGGdKSAxaVvfGWn0QYsZvbtsyoigzxq2qJy8fwgZiT5qqluw/pubhtml?gid=1801866364&amp;single=true&amp;widget=true&amp;headers=false" width="100%" height="200px"></iframe><p>👉 capacity_factor.xlsx</p>
-<p>Capacity factor of different non-dispatchable technologies is stored in <cite>capacity_factor.xlsx</cite> as follows and the unit is <code class="docutils literal notranslate"><span class="pre">1</span></code>, which is used to calculate the power output.</p>
-<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQSQe58l9nI-lX_MDMpEoDpay2wiizJ8wE4Dnnbr-ZQQslpEGdkTjZzOXgfjCz-kQ/pubhtml?gid=1863708464&amp;single=true&amp;widget=true&amp;headers=false" width="100%" height="200px"></iframe><p>👉 demand.xlsx</p>
-<p>Demand of different balancing authorities is stored in <cite>demand.xlsx</cite> as follows and the unit is <code class="docutils literal notranslate"><span class="pre">MW</span></code>, which is used to calculate the power balance.</p>
-<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSulJsf8eSjFFA5CvBKACCi9U9zHn3VQgZwNQc-KZad0nJBh3t4zh_yZ2THU2Qpvw/pubhtml?gid=1251865419&amp;single=true&amp;widget=true&amp;headers=false" width="100%" height="200px"></iframe><p>👉 ramp_up.xlsx</p>
-<p>Ramp up rate of different technologies is stored in <cite>ramp_up.xlsx</cite> as follows and the unit is <code class="docutils literal notranslate"><span class="pre">1/MW</span></code>, which is used to limit the fluctuation of power output.</p>
-<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRi4_pwVNLN5jtrB214U-qGsF-sL84L0MAW3Nc1Pe7ppjDrhNBTAb3PcqTAVSlCCA/pubhtml?gid=821500405&amp;single=true&amp;widget=true&amp;headers=false" width="100%" height="200px"></iframe><p>👉 ramp_down.xlsx</p>
-<p>Ramp down rate of different technologies is stored in <cite>ramp_down.xlsx</cite> as follows and the unit is <code class="docutils literal notranslate"><span class="pre">1/MW</span></code>, which is used to limit the fluctuation of power output.</p>
-<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQehJwj1E29-rc9j-BD-urco4I_a9Wa7PeVbkVJR3WNdSWxk-Ex8-uC0dOR4zMEPQ/pubhtml?gid=440050753&amp;single=true&amp;widget=true&amp;headers=false" width="100%" height="200px"></iframe><p>👉 carbon.xlsx</p>
-<p>Carbon emission limit of different balancing authorities is stored in <cite>carbon.xlsx</cite> as follows and the unit is <code class="docutils literal notranslate"><span class="pre">tCO2</span></code>, which is used to modelling the policy of the carbon emission reduction.</p>
-<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRIcZuO_wLzfcE1K_d9am-kWZnTw7eJfhU1oTgRGP3-JrpaFifW71bh1dCmNINv0g/pubhtml?gid=1661835844&amp;single=true&amp;widget=true&amp;headers=false" width="100%" height="200px"></iframe><p>👉 transline_investment_cost.xlsx</p>
-<p>Investment cost of transmission lines is stored in <cite>transline_investment_cost.xlsx</cite> as follows and the unit is <code class="docutils literal notranslate"><span class="pre">$/MW/km</span></code>, which is used to calculate the system cost.</p>
-<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSeQz6TJah3mqCdUWdVhlJSQgmp19diqspWAszYlUY4ScoTHpBVLguBYTRakhU0lQ/pubhtml?gid=1998510036&amp;single=true&amp;widget=true&amp;headers=false" width="100%" height="200px"></iframe><p>👉 technology_upper_bound.xlsx</p>
-<p>Upper bound of installed capacity of different technologies is stored in <cite>technology_upper_bound.xlsx</cite> as follows and the unit is <code class="docutils literal notranslate"><span class="pre">MW</span></code>, which is used to modelling the potential of technologies constrainted by land, fuel, and water.</p>
-<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSQx2SJiUGKsS5R4gyoycv9cGRo7Y9r-iwO-p6EYFqs5NABdrGx4-wiGsXE3sQ7XQ/pubhtml?gid=445947763&amp;single=true&amp;widget=true&amp;headers=false" width="100%" height="200px"></iframe><p>👉 new_technology_upper_bound.xlsx</p>
-<p>Upper bound of new built installed capacity of different technologies for each investment year is stored in <cite>new_technology_upper_bound.xlsx</cite> as follows and the unit is <code class="docutils literal notranslate"><span class="pre">MW</span></code>, which is used to modelling the limits of technologies constrainted by finance and policy.</p>
-<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSMKiKTwzsht2cuNVX2CvRd3fVXv3zvrB-KyxZ3ECBj9CAkhX4A2Y_tcJCExjr80g/pubhtml?gid=384486929&amp;single=true&amp;widget=true&amp;headers=false" width="100%" height="200px"></iframe><p>👉 new_technology_lower_bound.xlsx</p>
-<p>Lower bound of new built installed capacity of different technologies for each investment year is stored in <cite>new_technology_lower_bound.xlsx</cite> as follows and the unit is <code class="docutils literal notranslate"><span class="pre">MW</span></code>, which is used to modelling the limits of technologies constrainted by policy.</p>
-<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRhpZ1hfiFfRNtHToZqOpWagL0DtcYDgIaRMQDbNnr2F8FvHUK0q_ubRHgfOB5YRw/pubhtml?gid=498393379&amp;single=true&amp;widget=true&amp;headers=false" width="100%" height="200px"></iframe><p>👉 init_storage_level.xlsx</p>
-<p>Initial storage level of different storage technologies is stored in <cite>init_storage_level.xlsx</cite> as follows and the unit is <code class="docutils literal notranslate"><span class="pre">1/MWh</span></code>, which is used to modelling the initial storage level of energy storage.</p>
-<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTqaC1jhD_x3iakcaOYCuVNW6Nm0HG_jWtdf1O-GYo7vFBNgc4-rMBUeHWwrnSKbg/pubhtml?gid=1350220091&amp;single=true&amp;widget=true&amp;headers=false" width="100%" height="200px"></iframe><p>👉 transline_fix_cost.xlsx</p>
-<p>Fixed operation and maintaince cost of transmission lines is stored in <cite>transline_fix_cost.xlsx</cite> as follows and the unit is <code class="docutils literal notranslate"><span class="pre">$/MW</span></code>, which is used to calculate the system cost.</p>
-<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vShzG4zwROyn0JGx9O9nOgbBxiKUDeORFyiYhzSSluWGJlyLl7XHBnoxEBhGI_ymg/pubhtml?gid=551587702&amp;single=true&amp;widget=true&amp;headers=false" width="100%" height="200px"></iframe><p>👉 transline_variable_cost.xlsx</p>
-<p>Variable operation and maintaince cost of transmission lines is stored in <cite>transline_variable_cost.xlsx</cite> as follows and the unit is <code class="docutils literal notranslate"><span class="pre">$/MWh</span></code>, which is used to calculate the system cost.</p>
-<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTtiuRyVGqmtybQQ_pb-ZXupDwUJuYlL7I0nvVLYlpynXq5Qr8xV74kNaQodYJiEA/pubhtml?gid=1541781510&amp;single=true&amp;widget=true&amp;headers=false" width="100%" height="200px"></iframe><p>👉 transmission_line_lifetime.xlsx</p>
-<p>Lifetime of transmission lines is stored in <cite>transmission_line_lifetime.xlsx</cite> as follows and the unit is <code class="docutils literal notranslate"><span class="pre">year</span></code>, which is used to calculate the retirement of transmission lines.</p>
-<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQNxDsc0-y0_BySbc3FkNO6Jpc8tpcSMb96q9vqd2Xl77mja8RgFjQni_iWZ5ueUg/pubhtml?gid=1625392481&amp;single=true&amp;widget=true&amp;headers=false" width="100%" height="200px"></iframe><p>👉 zv.xlsx</p>
-<p>The piecewise breakpoint of forebay elevation and volume for different reservoirs is stored in <cite>zv.xlsx</cite> as follows and the unit is <code class="docutils literal notranslate"><span class="pre">m</span></code> and <code class="docutils literal notranslate"><span class="pre">10^8</span> <span class="pre">m3</span></code>. These values are utilized in the calculation of the forebay elevation based on the volume of the reservoirs.</p>
-<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSeAXsm3DtgiBF4W9QpleJWbxIUqAp9_fC_NBgOcOZ90SkuP-vhfB4loZTojLWVFA/pubhtml?gid=1855010818&amp;single=true&amp;widget=true&amp;headers=false" width="100%" height="200px"></iframe><p>👉 zq.xlsx</p>
-<p>The piecewise breakpoint of tailrace elevation and total discharge for different reservoirs is stored in <cite>zq.xlsx</cite> as follows and the unit is <code class="docutils literal notranslate"><span class="pre">m</span></code> and <code class="docutils literal notranslate"><span class="pre">m^3/s</span></code>. These values are utilized in the calculation of the tailrace elevation based on the total discharge of the reservoirs.</p>
-<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTX5LSrVReyc-FqapxrjhUk8kD5JmX3aPoO1ky9BE8voRY6X3hdrsNzauxxeopR2Q/pubhtml?gid=86211327&amp;single=true&amp;widget=true&amp;headers=false" width="100%" height="200px"></iframe><p>👉 type.xlsx</p>
-<p>The catelogy of different technologies is stored in <cite>type.xlsx</cite> as follows. These values are utilized to specify modelling ways of different technologies.</p>
-<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSekya_uCo8p54lrTAjmdqKJKtWFN3uz0_aQAcFGrrRHpC3NhZdxljaXpr71phoyQ/pubhtml?gid=749312388&amp;single=true&amp;widget=true&amp;headers=false" width="100%" height="200px"></iframe><p>👉 age.xlsx</p>
-<p>The age of existing different technologies is stored in <cite>age.xlsx</cite> as follows and the unit is <code class="docutils literal notranslate"><span class="pre">MW</span></code>. These values are utilized to model the retirement of existing power plants.</p>
-<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vS1JngyPcauiYkoNrn9cOt2KQIloJ967YsCzJ7MqePQ7fblRzF0p3JsDsSk10Fkjw/pubhtml?gid=1774762525&amp;single=true&amp;widget=true&amp;headers=false" width="100%" height="200px"></iframe><p>👉 storage_upbound.xlsx</p>
-<p>The upper bound of volume of hydropower reservoirs is stored in <cite>storage_upbound.xlsx</cite> as follows and the unit is <code class="docutils literal notranslate"><span class="pre">10^8</span> <span class="pre">m3</span></code>. These values are utilized to model the operation rule of hydropower reservoirs.</p>
-<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTAcZy6hv9uPSo_RPhcVTwce2kGlwdambx1mkmTypXmQBDHlaZiRMqtakM8UYKT8w/pubhtml?gid=1986677103&amp;single=true&amp;widget=true&amp;headers=false" width="100%" height="200px"></iframe><p>👉 storage_lowbound.xlsx</p>
-<p>The lower bound of volume of hydropower reservoirs is stored in <cite>storage_lowbound.xlsx</cite> as follows and the unit is <code class="docutils literal notranslate"><span class="pre">10^8</span> <span class="pre">m3</span></code>. These values are utilized to model the operation rule of hydropower reservoirs.</p>
-<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vT_XjZ7CAQWdnMmJm816XvcsZERZUnsFsi1rfIEQwaCDHKytRNgcuIcmZeaF4eKDg/pubhtml?gid=137205345&amp;single=true&amp;widget=true&amp;headers=false" width="100%" height="200px"></iframe><p>👉 storage_init.xlsx</p>
-<p>The initial volume of hydropower reservoirs is stored in <cite>storage_init.xlsx</cite> as follows and the unit is <code class="docutils literal notranslate"><span class="pre">10^8</span> <span class="pre">m3</span></code>.</p>
-<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRZ-tmaK-54TGaHyJt-m3LJu77OcgzVyUK3xnZO7WlBlqcWhOotBmBGMI2jiJEp1g/pubhtml?gid=57931371&amp;single=true&amp;widget=true&amp;headers=false" width="100%" height="200px"></iframe><p>👉 storage_end.xlsx</p>
-<p>The final volume of hydropower reservoirs is stored in <cite>storage_end.xlsx</cite> as follows and the unit is <code class="docutils literal notranslate"><span class="pre">10^8</span> <span class="pre">m3</span></code>.</p>
-<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTCfsEtm4w58MxCBOW3SiB2Vpg3KU2epUl-JFLyX255Hw2Hh7pcWD0rlbj4csz2DQ/pubhtml?gid=79770751&amp;single=true&amp;widget=true&amp;headers=false" width="100%" height="200px"></iframe><p>👉 hydropower.xlsx</p>
-<p>The predifined hydropower output of all reservoirs is stored in <cite>hydropower.xlsx</cite> as follows and the unit is <code class="docutils literal notranslate"><span class="pre">MW</span></code>. These values are utilized to model the simplified hydropower operation.</p>
-<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRPi61ApJNAI1L_7_WwnSOXKFYwNqHC6DoWMXNjZPltwZB2I1RPnOWuR-gH3yLPwg/pubhtml?gid=2031818477&amp;single=true&amp;widget=true&amp;headers=false" width="100%" height="200px"></iframe><p>👉 inflow.xlsx</p>
-<p>The inflow of all reservoirs is stored in <cite>inflow.xlsx</cite> as follows and the unit is <code class="docutils literal notranslate"><span class="pre">m^3/s</span></code>. These values are utilized to model the simplified hydropower operation.</p>
-<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRFIz6bsPQjIrz3rCB_aIfYZSCa8_JWpeg9WpRCaC_2GwHGJki8FkLX4Joz4cMMMA/pubhtml?gid=769608322&amp;single=true&amp;widget=true&amp;headers=false" width="100%" height="200px"></iframe><p>👉 connect.xlsx</p>
-<p>The water delay time of connection between reservoirs is stored in <cite>connect.xlsx</cite> as follows. These values are utilized to model the cascade hydrolic connection.</p>
-<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQ6TvqsvSXg6wWigUojaipNKbgHdGQxUB5NXvLwnl8pcKh1_RgGJiv4i7Ivx0sfYg/pubhtml?gid=1371452224&amp;single=true&amp;widget=true&amp;headers=false" width="100%" height="200px"></iframe><p>👉 static.xlsx</p>
-<p>The static data of all reservoirs is stored in <cite>static.xlsx</cite> as follows.</p>
-<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQR4irCy_B43FUEwkCBHLklt8Za4IyG7ye8srWeM2Z7m8UrbRe3hhv6QGwHToGD1w/pubhtml?gid=1743293144&amp;single=true&amp;widget=true&amp;headers=false" width="100%" height="200px"></iframe></section>
+<section id="run-the-model">
+<h2>Run the Model<a class="headerlink" href="#run-the-model" title="Permalink to this headline">¶</a></h2>
+<section id="step-1-download-prep-shot">
+<h3>Step 1: Download PREP-SHOT<a class="headerlink" href="#step-1-download-prep-shot" title="Permalink to this headline">¶</a></h3>
+<p>Ensure you have downloaded the PREP-SHOT model from the <a class="reference external" href="https://github.com/PREP-NexT/PREP-SHOT">GitHub repository</a>.</p>
+<p>You may either clone the repository using the command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/PREP-NexT/PREP-SHOT.git
+</pre></div>
+</div>
+<p>or download the repository as a zip file <a class="reference external" href="https://github.com/PREP-NexT/PREP-SHOT/archive/refs/heads/main.zip">here</a>.</p>
+</section>
+<section id="step-2-create-the-conda-environment">
+<h3>Step 2: Create the Conda Environment<a class="headerlink" href="#step-2-create-the-conda-environment" title="Permalink to this headline">¶</a></h3>
+<p>Navigate to the root directory of the PREP-SHOT model and create a conda environment with the required packages:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>prep-shot.yml
+</pre></div>
+</div>
+<p>Activate the newly-created conda environment:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>activate<span class="w"> </span>prep-shot
+</pre></div>
+</div>
+</section>
+<section id="step-3-download-input-files">
+<h3>Step 3: Download Input Files<a class="headerlink" href="#step-3-download-input-files" title="Permalink to this headline">¶</a></h3>
+<p>If you have followed the instructions in Step 1, you may omit this step, as the input files for this tutorial are already included in the repository.</p>
+<p>Otherwise, download the input files for this tutorial from <a class="reference external" href="./_static/input.zip">here</a>.</p>
+<p>Extract the contents of the zip file and place all the data files <em>(in .xlsx)</em> into the <code class="docutils literal notranslate"><span class="pre">input</span></code> folder of the PREP-SHOT model.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">input</span></code> folder will be used to store all input files <em>(in .xlsx)</em> for the model to run your scenarios.</p>
+</div>
+</section>
+<section id="step-4-run-the-model">
+<h3>Step 4: Run the Model<a class="headerlink" href="#step-4-run-the-model" title="Permalink to this headline">¶</a></h3>
+<p>Finally, launch the model by running the following command in the root directory of the PREP-SHOT model.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>run.py
+</pre></div>
+</div>
+</section>
 </section>
 </section>
 
@@ -256,8 +248,8 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="Introduction.html" class="btn btn-neutral float-left" title="Getting Started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="Users_guide.html" class="btn btn-neutral float-right" title="Users guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="User_guide.html" class="btn btn-neutral float-left" title="Users Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Mathematical_notations.html" class="btn btn-neutral float-right" title="Mathematical Notations" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

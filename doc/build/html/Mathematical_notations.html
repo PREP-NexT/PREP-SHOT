@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+<meta property="og:title" content="Mathematical Notations" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="Mathematical_notations.html" />
+<meta property="og:site_name" content="PREP-SHOT documentation" />
+<meta property="og:description" content="This page provides a detailed description of the mathematical notations used for formulating the model's objective function and constraints. Unit List: The description of the units used in this pag..." />
+<meta name="description" content="This page provides a detailed description of the mathematical notations used for formulating the model's objective function and constraints. Unit List: The description of the units used in this pag..." />
+<meta name="description" content="This page provides a detailed description of the mathematical notations used for formulating the model's objective function and constraints. The description of the units used in this page are as follows: Unit Descript...">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mathematical Notations &mdash; PREP-SHOT (latest) documentation in English</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/tabs.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/algolia.css" type="text/css" />
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/custom.css?5" type="text/css" />
+      <link rel="stylesheet" href="_static/css/dev.css" type="text/css" />
+    <link rel="shortcut icon" href="_static/logo.png"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script async="async" src="_static/es5/tex-chtml.js"></script>
+        <script src="_static/js/custom.js?3"></script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+        <script defer="defer" src="_static/js/algolia.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Changelog" href="Changelog.html" />
+    <link rel="prev" title="Tutorial" href="Tutorial.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html">
+            <img src="_static/SVG-03.svg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                latest
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Installation.html#standard-installation">Standard Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#step-1-install-gurobi">Step 1: Install Gurobi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#step-2-install-miniconda">Step 2: Install Miniconda</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#step-3-create-the-conda-environment">Step 3: Create the Conda Environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#step-4-run-the-model">Step 4: Run the Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Installation.html#installation-on-hpc-systems">Installation on HPC Systems</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#step-1-load-gurobi">Step 1: Load Gurobi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#step-2-load-miniconda">Step 2: Load Miniconda</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#id1">Step 3: Create the Conda Environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#id2">Step 4: Run the Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Installation.html#manual-installation">Manual Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#step-1-install-python">Step 1: Install Python</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#step-2-install-gurobi">Step 2: Install Gurobi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#step-3-install-packages">Step 3: Install Packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#id4">Step 4: Run the Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Installation.html#troubleshooting">Troubleshooting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Getting_started.html#introduction-to-prep-shot">Introduction to PREP-SHOT</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Getting_started.html#origins">Origins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Getting_started.html#model-capabilities">Model Capabilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Getting_started.html#user-prerequisites">User Prerequisites</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Getting_started.html#model-concepts">Model Concepts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Getting_started.html#understanding-energy-expansion">Understanding Energy Expansion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Getting_started.html#efficiency-and-heat-rate">Efficiency and Heat Rate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Getting_started.html#id1">Heat Content</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Getting_started.html#model-calculations">Model Calculations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Getting_started.html#electricity-generation-costs">Electricity Generation Costs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Getting_started.html#power-plant-efficiency">Power Plant Efficiency</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="User_guide.html">Users Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="User_guide.html#parameter-representation">Parameter Representation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="User_guide.html#preparing-inputs">Preparing Inputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="User_guide.html#run-model">Run model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="User_guide.html#scenarios">Scenarios</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="User_guide.html#read-output">Read output</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial.html">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Tutorial.html#scenario-background">Scenario Background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorial.html#run-the-model">Run the Model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Tutorial.html#step-1-download-prep-shot">Step 1: Download PREP-SHOT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Tutorial.html#step-2-download-input-files">Step 2: Download Input Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Tutorial.html#step-3-run-the-model">Step 3: Run the Model</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Mathematical Notations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#unit-list">Unit List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#set-list">Set List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#variable-list">Variable List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#parameter-list">Parameter List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#objective-functions">Objective Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#costs">Costs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#factors">Factors</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#constraints">Constraints</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#retirement">Retirement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#carbon-emission">Carbon Emission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#power-balance">Power Balance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#transmission-loss">Transmission Loss</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#maximum-output">Maximum Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#energy-storage">Energy Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ramping-ratio">Ramping Ratio</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-0-1">Version 0.1</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PREP-SHOT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Mathematical Notations</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/PREP-NexT/PREP-SHOT/blob/main/doc/source/Mathematical_notations.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="mathematical-notations">
+<h1>Mathematical Notations<a class="headerlink" href="#mathematical-notations" title="Permalink to this headline">¶</a></h1>
+<p>This page provides a detailed description of the mathematical notations used for formulating the model's objective function and constraints.</p>
+<section id="unit-list">
+<h2>Unit List<a class="headerlink" href="#unit-list" title="Permalink to this headline">¶</a></h2>
+<p>The description of the units used in this page are as follows:</p>
+<table class="colwidths-given docutils align-left">
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 83%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Unit</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hr</span></code></p></td>
+<td><p>Hour</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">yr</span></code></p></td>
+<td><p>Year</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">USD</span></code></p></td>
+<td><p>US Dollar</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">RMB</span></code></p></td>
+<td><p>Chinese Yuan</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">kW</span></code></p></td>
+<td><p>Kilowatt</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">MW</span></code></p></td>
+<td><p>Megawatt</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">MWh</span></code></p></td>
+<td><p>Megawatt-hour</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">MWy</span></code></p></td>
+<td><p>Megawatt-year</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">MW-km</span></code></p></td>
+<td><p>Megawatt-kilometer</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">tonnes</span></code></p></td>
+<td><p>Tonnes</p></td>
+</tr>
+<tr class="row-even"><td><p>N/A</p></td>
+<td><p>Not Applicable</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="set-list">
+<h2>Set List<a class="headerlink" href="#set-list" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-given docutils align-left">
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 77%" />
+<col style="width: 8%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Set</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Unit</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(te\)</span></p></td>
+<td><p>Technology</p></td>
+<td><p>N/A</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(h\)</span> or <span class="math notranslate nohighlight">\(t\)</span></p></td>
+<td><p>Hour</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">hr</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(y\)</span></p></td>
+<td><p>Year</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">yr</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(m\)</span></p></td>
+<td><p>Time period</p></td>
+<td><p>N/A</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(z\)</span></p></td>
+<td><p>Zone</p></td>
+<td><p>N/A</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="variable-list">
+<h2>Variable List<a class="headerlink" href="#variable-list" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-given docutils align-left">
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 84%" />
+<col style="width: 5%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Variable</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Unit</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\text{cost}\)</span></p></td>
+<td><p>Total cost of whole energy system.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">USD</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\text{cost}^\text{var}\)</span></p></td>
+<td><p>Variable Operation and Maintenance (O&amp;M) cost.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">USD</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\text{cost}^\text{fix}\)</span></p></td>
+<td><p>Fixed O&amp;M cost.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">USD</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\text{cost}^\text{newtech}\)</span></p></td>
+<td><p>Investment cost of technologies.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">USD</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\text{cost}^\text{newline}\)</span></p></td>
+<td><p>Investment cost of transmission lines.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">RMB</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\text{gen}_{h,m,y,z,te}\)</span></p></td>
+<td><p>Generating capacity of the <span class="math notranslate nohighlight">\(te\)</span>-th technology, in the <span class="math notranslate nohighlight">\(z\)</span>-th zone, in the <span class="math notranslate nohighlight">\(y\)</span>-th year, for the <span class="math notranslate nohighlight">\(m\)</span> time period, and in the <span class="math notranslate nohighlight">\(h\)</span>-th hour.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MWh</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\text{cap}^\text{existing}_{y,z,te}\)</span></p></td>
+<td><p>Existing installed capacity of the <span class="math notranslate nohighlight">\(te\)</span>-th technology, in the <span class="math notranslate nohighlight">\(z\)</span>-th zone, and in the <span class="math notranslate nohighlight">\(y\)</span>-th year.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MW</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\text{cap}^\text{newtech}_{y,z,te}\)</span></p></td>
+<td><p>Newly-built installed capacity of the <span class="math notranslate nohighlight">\(te\)</span>-th technology, in the <span class="math notranslate nohighlight">\(z\)</span>-th zone, and in the <span class="math notranslate nohighlight">\(y\)</span>-th year.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MW</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\text{cap}^\text{newline}_{y,z_s,z_o}\)</span></p></td>
+<td><p>Newly-built transmission line capacity from the <span class="math notranslate nohighlight">\(z_s\)</span>-th zone to the <span class="math notranslate nohighlight">\(z_o\)</span>-th zone, and in the <span class="math notranslate nohighlight">\(y\)</span>-th year.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MW</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\text{cap}^\text{remaining}_{y,z,te}\)</span></p></td>
+<td><p>Remaining capacity of the <span class="math notranslate nohighlight">\(te\)</span>-th technology, in the <span class="math notranslate nohighlight">\(z\)</span>-th zone, and in the <span class="math notranslate nohighlight">\(y\)</span>-th year.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MW</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\text{carbon}^\text{tech}_{y,te}\)</span></p></td>
+<td><p>Carbon emission of the <span class="math notranslate nohighlight">\(te\)</span>-th technology for all zones, and in the <span class="math notranslate nohighlight">\(y\)</span>-th year</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">tonnes</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\text{slack}_{h,y,z}\)</span></p></td>
+<td><p>Unserved demand in the <span class="math notranslate nohighlight">\(z\)</span>-th zone, in the <span class="math notranslate nohighlight">\(y\)</span>-th year, and in the <span class="math notranslate nohighlight">\(h\)</span>-th hour.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MWh</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\text{trans}^\text{import}_{h,y,z1,z}\)</span></p></td>
+<td><p>Generation output imported from the <span class="math notranslate nohighlight">\(z1\)</span>-th zone to the <span class="math notranslate nohighlight">\(z\)</span>-th zone, in the <span class="math notranslate nohighlight">\(y\)</span>-th year, and in the <span class="math notranslate nohighlight">\(h\)</span>-th hour.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MWh</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\text{cap}^\text{retire}_{y,z,te}\)</span></p></td>
+<td><p>Retiring capacity of the <span class="math notranslate nohighlight">\(te\)</span>-th technology, in the <span class="math notranslate nohighlight">\(z\)</span>-th zone, and in the <span class="math notranslate nohighlight">\(y\)</span>-th year.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MW</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\text{storage}^\text{level}_{y,z,te}\)</span></p></td>
+<td><p>Storage level of the <span class="math notranslate nohighlight">\(te\)</span>-th technology, in the <span class="math notranslate nohighlight">\(z\)</span>-th zone, and in the <span class="math notranslate nohighlight">\(y\)</span>-th year.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MW</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\text{consumption}_{h,y,z,te}\)</span></p></td>
+<td><p>Cost of fuel consumption of the <span class="math notranslate nohighlight">\(te\)</span>-th technology, in the <span class="math notranslate nohighlight">\(z\)</span>-th zone, in the <span class="math notranslate nohighlight">\(y\)</span>-th year, and in the <span class="math notranslate nohighlight">\(h\)</span>-th hour.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">USD</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\text{gen}^\text{up}_{h,y,z,te}\)</span></p></td>
+<td><p>Output of change upward of the <span class="math notranslate nohighlight">\(te\)</span>-th technology, in the <span class="math notranslate nohighlight">\(z\)</span>-th zone, in the <span class="math notranslate nohighlight">\(y\)</span>-th year, and in the <span class="math notranslate nohighlight">\(h\)</span>-th hour.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MW</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\text{gen}^\text{down}_{h,y,z,te}\)</span></p></td>
+<td><p>Output of change downward of the <span class="math notranslate nohighlight">\(te\)</span>-th technology, in the <span class="math notranslate nohighlight">\(z\)</span>-th zone, in the <span class="math notranslate nohighlight">\(y\)</span>-th year, and in the <span class="math notranslate nohighlight">\(h\)</span>-th hour.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MW</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="parameter-list">
+<h2>Parameter List<a class="headerlink" href="#parameter-list" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-given docutils align-left">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 74%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Unit</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(C^\text{var}_{y,te}\)</span></p></td>
+<td><p>Variable O&amp;M cost of the <span class="math notranslate nohighlight">\(te\)</span>-th technology, and in the <span class="math notranslate nohighlight">\(y\)</span>-th year.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">USD/MW</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(C^\text{fix}_{y,te}\)</span></p></td>
+<td><p>Fixed O&amp;M cost of the <span class="math notranslate nohighlight">\(te\)</span>-th technology, and in the <span class="math notranslate nohighlight">\(y\)</span>-th year.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">USD/kW</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(C^\text{newtech}_{y,te}\)</span></p></td>
+<td><p>Investment cost of the <span class="math notranslate nohighlight">\(te\)</span>-th technology, and in the <span class="math notranslate nohighlight">\(y\)</span>-th year.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">USD/KW</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(C^\text{newline}_{y,te}\)</span></p></td>
+<td><p>Investment cost of the <span class="math notranslate nohighlight">\(te\)</span>-th technology, and in the <span class="math notranslate nohighlight">\(y\)</span>-th year.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">USD/MW-km</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\text{DF}_{y}\)</span></p></td>
+<td><p>Discount factor in the <span class="math notranslate nohighlight">\(y\)</span>-th year.</p></td>
+<td><p>N/A</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\text{carbon}_{y}\)</span></p></td>
+<td><p>Carbon emission in the <span class="math notranslate nohighlight">\(y\)</span>-th year.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ton/MWh</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\overline{\text{carbon}}_y\)</span></p></td>
+<td><p>Upper bound of carbon emission for all zones in the <span class="math notranslate nohighlight">\(y\)</span>-th year.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">tonnes</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\text{Demand}_{t,m,y,z}\)</span></p></td>
+<td><p>Load demand in the <span class="math notranslate nohighlight">\(z\)</span>-th zone, in the <span class="math notranslate nohighlight">\(y\)</span>-th year, for the <span class="math notranslate nohighlight">\(m\)</span> time period, and in the <span class="math notranslate nohighlight">\(t\)</span>-th hour.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MW</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\text{Effi}^\text{trans}_{z1,z,y}\)</span></p></td>
+<td><p>Efficiency of transmission line in the <span class="math notranslate nohighlight">\(y\)</span>-th year, and from the <span class="math notranslate nohighlight">\(z_1\)</span>-th zone to the <span class="math notranslate nohighlight">\(z\)</span>-th zone</p></td>
+<td><p>N/A</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\text{Installed}^\text{init}_{z,te}\)</span></p></td>
+<td><p>Installed capacity of the <span class="math notranslate nohighlight">\(te\)</span>-th technology, and in the <span class="math notranslate nohighlight">\(z\)</span>-th zone.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MW</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\text{Effi}^\text{storage}_{y,te}\)</span></p></td>
+<td><p>Energy storage conversion efficiency of the <span class="math notranslate nohighlight">\(te\)</span>-th technology, and in the <span class="math notranslate nohighlight">\(y\)</span>-th year.</p></td>
+<td><p>N/A</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\text{Storage}^\text{init}_{z}\)</span></p></td>
+<td><p>Storage level in the <span class="math notranslate nohighlight">\(z\)</span>-th zone.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MW</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\text{Storage}^\text{end}_{y, z}\)</span></p></td>
+<td><p>Minimum storage level in the <span class="math notranslate nohighlight">\(z\)</span>-th zone, and in the <span class="math notranslate nohighlight">\(y\)</span>-th year.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MW</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(R^\text{up}_{te}\)</span></p></td>
+<td><p>Maximum upward ramping ratio of the <span class="math notranslate nohighlight">\(te\)</span>-th technology.</p></td>
+<td><p>N/A</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(R^\text{down}_{te}\)</span></p></td>
+<td><p>Maximum downward ramping ratio of the <span class="math notranslate nohighlight">\(te\)</span>-th technology.</p></td>
+<td><p>N/A</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\text{cap}^\text{factor}_{h,z,te}\)</span></p></td>
+<td><p>Capacity factor of the <span class="math notranslate nohighlight">\(te\)</span>-th technology, in the <span class="math notranslate nohighlight">\(z\)</span>-th zone, and in the <span class="math notranslate nohighlight">\(h\)</span>-th hour.</p></td>
+<td><p>N/A</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="objective-functions">
+<h2>Objective Functions<a class="headerlink" href="#objective-functions" title="Permalink to this headline">¶</a></h2>
+<section id="costs">
+<h3>Costs<a class="headerlink" href="#costs" title="Permalink to this headline">¶</a></h3>
+<p>The objective function of the model is to minimize the net present value of the system's cost. This includes investment cost, fixed O&amp;M cost, variable cost and fuel cost by cost type, technology cost, transmission line cost by the source of cost, and operation cost and planning cost by the source of cost.</p>
+<p>The cost equations are defined as follows:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\rm{cost} &amp;= \rm{cost}_\rm{tech}^\rm{var} + \rm{cost}_\rm{line}^\rm{var} + \rm{cost}^\rm{fuel} + \rm{cost}_\rm{tech}^\rm{fix} + \rm{cost}_\rm{line}^\rm{fix} + \rm{cost}_\rm{tech}^\rm{inv} + \rm{cost}_\rm{line}^\rm{inv} \\
+\\
+\rm{cost}_\rm{tech}^\rm{var} &amp;= \frac{\sum_{t,m,y,z,\rm{te}}C_{y,z,\rm{te}}^\rm{tech-var}\times \rm{gen}_{t,m,y,z,\rm{te}}}\rm{Weight} \times \rm{factor}_{y}^\rm{var} \\
+\\
+\rm{cost}_\rm{line}^\rm{var} &amp;= \frac{\sum_{t,m,y,z_s,z_o}C_{y,z}^\rm{line-var}\times \rm{export}_{t,m,y,z_s,z_o}}\rm{Weight} \times \rm{factor}_{y}^\rm{var} \\
+\\
+\rm{cost}^\rm{fuel} &amp; = \frac{\sum_{t,m,y,z,\rm{te}}C_{y,z,\rm{te}}^\rm{fuel}\times \rm{gen}_{t,m,y,z,\rm{te}}}\rm{Weight} \times \rm{factor}_{y}^\rm{var} \\
+\\
+\rm{cost}_\rm{tech}^\rm{fix} &amp;= \sum_{y,z,\rm{te}}C_{y,z,\rm{te}}^\rm{tech-fix}\times \rm{cap}_{y,z,\rm{te}}^\rm{existing-tech}\times \rm{factor}_{y}^\rm{fix} \\
+\\
+\rm{cost}_\rm{line}^\rm{fix} &amp;= \sum_{y,z_s,z_o}C_{y,z_s,z_o}^\rm{line-fix}\times \rm{cap}_{y,z_s,z_o}^\rm{existing-line}\times \rm{factor}_{y}^\rm{fix} \\
+\\
+\rm{cost}_\rm{tech}^\rm{inv} &amp;=  \sum_{y,z,\rm{te}}C_{y,z,\rm{te}}^\rm{tech-inv}\times \rm{cap}_{y,z,\rm{te}}^\rm{tech-inv}\times \rm{factor}_{y}^\rm{inv} \\
+\\
+\rm{cost}_\rm{line}^\rm{inv} &amp;= \sum_{y,z_s,z_o}C_{y,z_s,z_o}^\rm{line-inv}\times \rm{cap}_{y,z_s,z_o}^\rm{line-inv}\times \rm{factor}_{y}^\rm{inv} \times 0.5 \\
+\\\end{split}\]</div>
+<p>The variables are defined as follows:</p>
+<table class="colwidths-given docutils align-left">
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 84%" />
+<col style="width: 5%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Variable</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Unit</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\text{cost}\)</span></p></td>
+<td><p>Total cost.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">USD</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\text{cost}_\text{tech}^\text{var}\)</span></p></td>
+<td><p>Variable cost of technologies.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">USD</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\text{cost}_\text{line}^\text{var}\)</span></p></td>
+<td><p>Variable cost of transmission lines.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">USD</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\text{cost}^\text{fuel}\)</span></p></td>
+<td><p>Fuel cost of technologies.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">USD</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\text{cost}_\text{tech}^\text{fix}\)</span></p></td>
+<td><p>Fixed cost of technologies.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">USD</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\text{cost}_\text{line}^\text{fix}\)</span></p></td>
+<td><p>Fixed cost of transmission lines.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">USD</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\text{cost}_{tech}^{inv}\)</span></p></td>
+<td><p>Investment cost of technologies.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">USD</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\text{cost}_\text{line}^\text{inv}\)</span></p></td>
+<td><p>Investment cost of transmission lines.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">USD</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\text{gen}_{t,m,y,z,te}\)</span></p></td>
+<td><p>Generation electricity of the <span class="math notranslate nohighlight">\(te\)</span>-th technology, in the <span class="math notranslate nohighlight">\(z\)</span>-th zone, in the <span class="math notranslate nohighlight">\(y\)</span>-th year, for the <span class="math notranslate nohighlight">\(m\)</span> time period, and in the <span class="math notranslate nohighlight">\(t\)</span>-th hour.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MWh</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\text{export}_{t,m,y,z_s,z_o}\)</span></p></td>
+<td><p>Transmission electricity from the <span class="math notranslate nohighlight">\(z_s\)</span>-th zone to the <span class="math notranslate nohighlight">\(z_o\)</span>-th zone, in the <span class="math notranslate nohighlight">\(y\)</span>-th year, for the <span class="math notranslate nohighlight">\(m\)</span> time period, and in the <span class="math notranslate nohighlight">\(t\)</span>-th hour.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MWh</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\text{cap}^\text{existing-tech}_{y,z,te}\)</span></p></td>
+<td><p>Existing installed capacity of the <span class="math notranslate nohighlight">\(te\)</span>-th technology, in the <span class="math notranslate nohighlight">\(z\)</span>-th zone, and in the <span class="math notranslate nohighlight">\(y\)</span>-th year.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MW</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\text{cap}^\text{existing-line}_{y,z_s,z_o}\)</span></p></td>
+<td><p>Existing transmission capacity from the <span class="math notranslate nohighlight">\(z_s\)</span>-th zone to the <span class="math notranslate nohighlight">\(z_o\)</span>-th zone, and in the <span class="math notranslate nohighlight">\(y\)</span>-th year.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MW</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\text{cap}^\text{tech-inv}_{y,z,te}\)</span></p></td>
+<td><p>Newly-build installed capacity of the <span class="math notranslate nohighlight">\(te\)</span>-th technology, in the <span class="math notranslate nohighlight">\(z\)</span>-th zone, and in the <span class="math notranslate nohighlight">\(y\)</span>-th year.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MW</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\text{cap}^\text{line-inv}_{y,z_s,z_o}\)</span></p></td>
+<td><p>Newly-build capacity of transmission line from the <span class="math notranslate nohighlight">\(z_s\)</span>-th zone to the <span class="math notranslate nohighlight">\(z_o\)</span>-th zone, and in the <span class="math notranslate nohighlight">\(y\)</span>-th year.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MW</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\text{factor}^\text{var}_{y}\)</span></p></td>
+<td><p>Variable cost economic factor in the <span class="math notranslate nohighlight">\(y\)</span>-th year.</p></td>
+<td><p>N/A</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\text{factor}^\text{fix}_{y}\)</span></p></td>
+<td><p>Fixed cost economic factor in the <span class="math notranslate nohighlight">\(y\)</span>-th year.</p></td>
+<td><p>N/A</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\text{factor}^\text{inv}_{y}\)</span></p></td>
+<td><p>Investment cost economic factor in the <span class="math notranslate nohighlight">\(y\)</span>-th year.</p></td>
+<td><p>N/A</p></td>
+</tr>
+</tbody>
+</table>
+<p>The parameters are defined as follows:</p>
+<table class="colwidths-given docutils align-left">
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 84%" />
+<col style="width: 5%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Unit</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(C_{y,z,te}^\text{tech-var}\)</span></p></td>
+<td><p>Variable cost of unit capacity of the <span class="math notranslate nohighlight">\(te\)</span>-th technology, in the <span class="math notranslate nohighlight">\(z\)</span>-th zone, and in the <span class="math notranslate nohighlight">\(y\)</span>-th year.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">USD/MW</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(C_{y,z}^\text{line-var}\)</span></p></td>
+<td><p>Variable cost of unit capacity of transmission line in the <span class="math notranslate nohighlight">\(z\)</span>-th zone, and in the <span class="math notranslate nohighlight">\(y\)</span>-th year.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">USD/MW</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(C_{y,z,te}^\text{fuel}\)</span></p></td>
+<td><p>Fuel cost of unit generation electricity of the <span class="math notranslate nohighlight">\(te\)</span>-th technology, in the <span class="math notranslate nohighlight">\(z\)</span>-th zone, and in the <span class="math notranslate nohighlight">\(y\)</span>-th year.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">USD/MWh</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(C_{y,z,te}^\text{tech-fix}\)</span></p></td>
+<td><p>Fixed cost of unit capacity of the <span class="math notranslate nohighlight">\(te\)</span>-th technology, in the <span class="math notranslate nohighlight">\(z\)</span>-th zone, and in the <span class="math notranslate nohighlight">\(y\)</span>-th year.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">USD/MWy</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(C_{y,z_s,z_o}^\text{line-fix}\)</span></p></td>
+<td><p>Fixed cost of unit capacity of transmission line from the <span class="math notranslate nohighlight">\(z_s\)</span>-th zone to the <span class="math notranslate nohighlight">\(z_o\)</span>-th zone, and in the <span class="math notranslate nohighlight">\(y\)</span>-th year.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">USD/MWy</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(C_{y,z,te}^\text{tech-inv}\)</span></p></td>
+<td><p>Investment cost of unit capacity of the <span class="math notranslate nohighlight">\(te\)</span>-th technology, in the <span class="math notranslate nohighlight">\(z\)</span>-th zone, and in the <span class="math notranslate nohighlight">\(y\)</span>-th year.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">USD/MW</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(C_{y,z_s,z_o}^\text{line-inv}\)</span></p></td>
+<td><p>Investment cost of transmission lines from the <span class="math notranslate nohighlight">\(z_s\)</span>-th zone to the <span class="math notranslate nohighlight">\(z_o\)</span>-th zone, and in the <span class="math notranslate nohighlight">\(y\)</span>-th year.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">USD/MW</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\text{Weight}\)</span></p></td>
+<td><p>Proportion of selected scheduling period in a year (8760 hours) that is <span class="math notranslate nohighlight">\(\frac{H\times M}{8760}\)</span>.</p></td>
+<td><p>N/A</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="factors">
+<h3>Factors<a class="headerlink" href="#factors" title="Permalink to this headline">¶</a></h3>
+<p>To account for the variable factor, fixed factor, and investment factor, we need to convert all future costs to their net present value. This means adjusting for the time value of money so that all costs are expressed in terms of today's dollars.</p>
+<p>We also assume that variable cost and fixed cost for non-modelled years are assumed to be equal to the cost of the last modelled year preceding them. This allows for consistent comparison across different time periods and technologies.</p>
+<p><strong>Variable Factor</strong></p>
+<a class="reference internal image-reference" href="_images/varcost.png"><img alt="Calculation of variable costs" src="_images/varcost.png" style="width: 400px;" /></a>
+<p>Given the following:</p>
+<ul class="simple">
+<li><p>Variable cost of modeled year: <span class="math notranslate nohighlight">\(B\)</span></p></li>
+<li><p>Discount rate: <span class="math notranslate nohighlight">\(r\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(m\)</span>-th modeled year: <span class="math notranslate nohighlight">\(m = y - y_\text{min}\)</span></p></li>
+<li><p>Depreciation periods: <span class="math notranslate nohighlight">\(n\)</span></p></li>
+</ul>
+<p>The total present value can be calculated as follows:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align*}
+\text{total present value} &amp;= \frac{B}{(1+r)^m} + \frac{B}{(1+r)^{m+1}} + \cdots + \frac{B}{(1+r)^{(m+k-1)}} \\
+\\
+&amp;= B(1+r)^{(1-m)}\frac{1-(1+r)^k}{r} \\
+\\
+\end{align*}\end{split}\]</div>
+<p>And we can calculate the variable factor as follows:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align*}
+\text{factor}_{y}^{var} &amp;= (1+r)^{1-m_y}\frac{1-(1+r)^{k_y}}{r} \\
+\\
+m_{y} &amp;= y - y_\text{min} \\
+\\
+k_{y} &amp;= y_\text{periods} \\
+\\
+\end{align*}\end{split}\]</div>
+<p><strong>Fixed Factor</strong></p>
+<p>We can equate the fixed factor with the variable factor as follows:</p>
+<div class="math notranslate nohighlight">
+\[\text{factor}_{y}^\text{fix} = factor_{y}^\text{var}\]</div>
+<p><strong>Investment Factor</strong></p>
+<a class="reference internal image-reference" href="_images/invcost.png"><img alt="Calculation of investment costs" src="_images/invcost.png" style="width: 400px;" /></a>
+<p>Given the following:</p>
+<ul class="simple">
+<li><p>Weighted Average Cost of Capital (WACC, or otherwise known as the interest rate): <span class="math notranslate nohighlight">\(i\)</span></p></li>
+<li><p>Discount rate: <span class="math notranslate nohighlight">\(r\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(m\)</span>-th modeled year: <span class="math notranslate nohighlight">\(m = y - y_\text{min}\)</span></p></li>
+<li><p>Length of <span class="math notranslate nohighlight">\(m\)</span>-th planning periods: <span class="math notranslate nohighlight">\(k\)</span></p></li>
+</ul>
+<p>The total present value can be calculated as follows:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align*}
+\text{total present value} &amp;= \frac{P}{(1+r)^m} \\
+\\
+&amp;= \frac{\frac{A}{(1+i)} + \frac{A}{(1+i)^2} + \cdots + \frac{A}{(1+i)^n}}{(1+r)^m} \\
+\\
+&amp;= A\frac{1-(1+i)^{-n}}{i}\times\frac{1}{(1+r)^m} \\
+\\
+\end{align*}\end{split}\]</div>
+<p>From the above, we can solve for the annualized cost of depreciation periods, <span class="math notranslate nohighlight">\(A\)</span>, as:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}A = P\frac{i}{1-(1+i)^{-n}} \\
+\\\end{split}\]</div>
+<p>The capital recovery factor is then calculated as:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\text{capital recovery factor} = \frac{i}{1-(1+i)^{-n}} \\
+\\\end{split}\]</div>
+<p>Let's focus on the time periods that fall within the modelled time horizon (indicated in black colour). We can calculate the length of time periods, <span class="math notranslate nohighlight">\(k\)</span>, as follows:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}k = y_{max} - y \\
+\\\end{split}\]</div>
+<p>Using <span class="math notranslate nohighlight">\(k\)</span>, we can calculate the net present value as follows:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\text{net present value} =
+\begin{cases}
+\frac{\frac{A}{(1+r)} + \frac{A}{(1+r)^2} + \cdots + \frac{A}{(1+r)^{min(n, k)}}}{(1+r)^m} &amp; \text{if }n \le k \\
+\\
+\text{total present value} &amp; \text{if }n &gt; k \\
+\\
+\frac{A\frac{1-(1+r)^{-k}}{r}}{(1+r)^m} = P\frac{i}{1-(1+i)^{-n}}\times\frac{1-(1+r)^{-k}}{r(1+r)^m} &amp; \text{otherwise} \\
+\\
+\end{cases}\end{split}\]</div>
+<p>And we can calculate the investment factor as follows:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}factor_{y}^{inv} = \frac{i}{1-(1+i)^{-n}}\times\frac{1-(1+r)^{-min(n,k)}}{r(1+r)^m} \\
+\\\end{split}\]</div>
+</section>
+</section>
+<section id="constraints">
+<h2>Constraints<a class="headerlink" href="#constraints" title="Permalink to this headline">¶</a></h2>
+<section id="retirement">
+<h3>Retirement<a class="headerlink" href="#retirement" title="Permalink to this headline">¶</a></h3>
+<p>The model computes the retirement of each technology and transmission line with these considerations:</p>
+<ul class="simple">
+<li><p>The initial age of the technology and transmission line is based on its capacity ratio.</p></li>
+<li><p>Each planning and scheduling period is based on the existing capacity.</p></li>
+</ul>
+<p>The existing capacity for each year, in each zone, for each technology, is as follows:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}cap_{y, z, te}^{existing-tech} = \sum_{lifetime-age&lt;y-y_{min})}cap_{age,z,te}^{tech-init} + \sum_{(yy\le y) \&amp; (lifetime&gt;y-yy)}cap_{yy,z,te}^{tech-inv} \text{, for all } y,z,te \\
+\\\end{split}\]</div>
+<p>The existing capacity of the transmission lines for each year, from <span class="math notranslate nohighlight">\(z_s\)</span>-th zone to <span class="math notranslate nohighlight">\(z_o\)</span>-th zone, is as follows:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}cap_{y, z_s, z_o}^{existing-line} = \sum_{lifetime-age&lt;y-y_{min})}cap_{age,z_s,z_o}^{line-init} + \sum_{(yy\le y) \&amp; (lifetime&gt;y-yy)}cap_{yy,z_s,z_o}^{line-inv} \text{, for all } y,z_s,z_o \\
+\\\end{split}\]</div>
+</section>
+<section id="carbon-emission">
+<h3>Carbon Emission<a class="headerlink" href="#carbon-emission" title="Permalink to this headline">¶</a></h3>
+<p>The model computes the carbon emissions for each year, based on the sum of carbon emissions from each zone, and from each technology.</p>
+<p>The carbon emission for each technology, for each year, and in each zone, is as follows:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}carbon_{y,te}^{tech} = \sum_{t,m,z}Carbon_{y,z,te}\times gen_{t,m,y,z,te} \quad \forall y,te \\
+\\\end{split}\]</div>
+<p>The carbon emission for each year is as follows:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}carbon_{y} = \sum_{te}carbon_{y,te}^{tech} \forall y \\
+\\\end{split}\]</div>
+<p>Where, the calculated carbon emission for each year, must be lower than its upper bound, as follows:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}carbon_{y} \le \overline{carbon}_y \forall y \\
+\\\end{split}\]</div>
+</section>
+<section id="power-balance">
+<h3>Power Balance<a class="headerlink" href="#power-balance" title="Permalink to this headline">¶</a></h3>
+<p>The model computes the power balance for each hour, in each time period, for each year, and in each zone, as follows:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}Demand_{t,m,y,z} = &amp; \sum_{z_s\neq z}import_{t, m, y, z_s, z} - \sum_{z_o\neq z}export_{t, m, y, z, z_o} + \\
+                   \\
+                   &amp; \sum_{te}gen_{t, m, y, z, te} - \sum_{te\in storage}charge_{t, m, y, z, te}\quad \forall t,m,y,te\end{split}\]</div>
+</section>
+<section id="transmission-loss">
+<h3>Transmission Loss<a class="headerlink" href="#transmission-loss" title="Permalink to this headline">¶</a></h3>
+<p>The model computes the transmission loss for each hour, in each time period, for each year, from <span class="math notranslate nohighlight">\(z_s\)</span>-th zone to <span class="math notranslate nohighlight">\(z_o\)</span>-th zone, as follows:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}export_{t, m, y, z_s, z_o} \times Effi_{z_s, z_o}^{trans} = import_{t, m, y, z_s, z_o} \quad \forall t,y,z_s\neq z_o \\
+\\\end{split}\]</div>
+</section>
+<section id="maximum-output">
+<h3>Maximum Output<a class="headerlink" href="#maximum-output" title="Permalink to this headline">¶</a></h3>
+<p>The model computes the maximum output for each hour, in each time period, for each year, in each zone, and for each technology, as follows:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}gen_{t, m, y, z, te} \leq cap_{y, z, te}^{existing-tech} \forall t,m \\
+\\\end{split}\]</div>
+</section>
+<section id="energy-storage">
+<h3>Energy Storage<a class="headerlink" href="#energy-storage" title="Permalink to this headline">¶</a></h3>
+<p>The model computes the energy storage level for each hour, for each year, in each zone, and for each technology, as follows:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}storage_{t,y,z,te}^{level} = storage_{t-1,y,z, te}^{level} - \frac{gen_{t,y,z,te}}{Effi_{y,te}^{storage}} \quad \forall te \in storage, t,y,z \\
+\\\end{split}\]</div>
+<p>Where, the starting energy storage level is set to the initial storage level, as follows:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}storage_{t,y,z,te}^{level} = Storage_{z, te}^{init} \quad \forall t,y=INI,z \\
+\\\end{split}\]</div>
+<p>And the final energy storage level is set to the ending storage level, as follows:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}storage_{t,y,z}^{level} = Storage_{z, te}^{end} \quad \forall t,y=END,z \\
+\\\end{split}\]</div>
+</section>
+<section id="ramping-ratio">
+<h3>Ramping Ratio<a class="headerlink" href="#ramping-ratio" title="Permalink to this headline">¶</a></h3>
+<p>The model computes the generated power and ensures it is less than the product of the ramping ratio and the existing capacity of each technology.</p>
+<p>Where, the upper bound of the generated power is defined, as follows:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}gen^{up}_{t,m,y,z,te} \le R^{up}_{te}\times cap_{y,z,te}^{existing-tech} \quad \forall t,m,y,z,te \\
+\\\end{split}\]</div>
+<p>And the lower bound of the generated power is defined, as follows:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}gen^{down}_{t,m,y,z,te} \le R^{down}_{te}\times cap_{y,z,te}^{existing-tech} \quad \forall t,m,y,z,te \\
+\\\end{split}\]</div>
+<p>Finally, the difference between the upper and lower bound of the generated power, in the current hour, is equal to the difference between the generated power in the current hour and the previous hour, as follows:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}gen^{up}_{t,m,y,z,te} - gen^{down}_{t,m,y,z,te} = gen_{t,m,y,z,te} - gen_{t-1,m,y,z,te} \quad \forall t,m,y,z,te \\
+\\\end{split}\]</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Tutorial.html" class="btn btn-neutral float-left" title="Tutorial" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Changelog.html" class="btn btn-neutral float-right" title="Changelog" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Zhanwei Liu and Xiaogang He (CC BY 3.0).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

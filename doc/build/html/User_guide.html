@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+<meta property="og:title" content="Users Guide" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="User_guide.html" />
+<meta property="og:site_name" content="PREP-SHOT documentation" />
+<meta property="og:description" content="The model requires several input parameters, provided via input files. These parameters, their dimensions, and descriptions are as follows: Parameter Representation: The parameters used, their desc..." />
+<meta name="description" content="The model requires several input parameters, provided via input files. These parameters, their dimensions, and descriptions are as follows: Parameter Representation: The parameters used, their desc..." />
+<meta name="description" content="The model requires several input parameters, provided via input files. These parameters, their dimensions, and descriptions are as follows: The parameters used, their desciptions, and their purpose in the model are as...">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Users Guide &mdash; PREP-SHOT (latest) documentation in English</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/tabs.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/algolia.css" type="text/css" />
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/custom.css?5" type="text/css" />
+      <link rel="stylesheet" href="_static/css/dev.css" type="text/css" />
+    <link rel="shortcut icon" href="_static/logo.png"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/js/custom.js?3"></script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+        <script defer="defer" src="_static/js/algolia.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Tutorial" href="Tutorial.html" />
+    <link rel="prev" title="Getting Started" href="Getting_started.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html">
+            <img src="_static/SVG-03.svg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                latest
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Installation.html#standard-installation">Standard Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#step-1-install-gurobi">Step 1: Install Gurobi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#step-2-install-miniconda">Step 2: Install Miniconda</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#step-3-create-the-conda-environment">Step 3: Create the Conda Environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#step-4-run-the-model">Step 4: Run the Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Installation.html#installation-on-hpc-systems">Installation on HPC Systems</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#step-1-load-gurobi">Step 1: Load Gurobi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#step-2-load-miniconda">Step 2: Load Miniconda</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#id1">Step 3: Create the Conda Environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#id2">Step 4: Run the Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Installation.html#manual-installation">Manual Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#step-1-install-python">Step 1: Install Python</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#step-2-install-gurobi">Step 2: Install Gurobi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#step-3-install-packages">Step 3: Install Packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Installation.html#id4">Step 4: Run the Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Installation.html#troubleshooting">Troubleshooting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Getting_started.html#introduction-to-prep-shot">Introduction to PREP-SHOT</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Getting_started.html#origins">Origins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Getting_started.html#model-capabilities">Model Capabilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Getting_started.html#user-prerequisites">User Prerequisites</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Getting_started.html#model-concepts">Model Concepts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Getting_started.html#understanding-energy-expansion">Understanding Energy Expansion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Getting_started.html#efficiency-and-heat-rate">Efficiency and Heat Rate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Getting_started.html#id1">Heat Content</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Getting_started.html#model-calculations">Model Calculations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Getting_started.html#electricity-generation-costs">Electricity Generation Costs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Getting_started.html#power-plant-efficiency">Power Plant Efficiency</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Users Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#parameter-representation">Parameter Representation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#preparing-inputs">Preparing Inputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#run-model">Run model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#scenarios">Scenarios</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#read-output">Read output</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial.html">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Tutorial.html#scenario-background">Scenario Background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorial.html#run-the-model">Run the Model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Tutorial.html#step-1-download-prep-shot">Step 1: Download PREP-SHOT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Tutorial.html#step-2-download-input-files">Step 2: Download Input Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Tutorial.html#step-3-run-the-model">Step 3: Run the Model</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Mathematical_notations.html">Mathematical Notations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Mathematical_notations.html#unit-list">Unit List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Mathematical_notations.html#set-list">Set List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Mathematical_notations.html#variable-list">Variable List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Mathematical_notations.html#parameter-list">Parameter List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Mathematical_notations.html#objective-functions">Objective Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#costs">Costs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#factors">Factors</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Mathematical_notations.html#constraints">Constraints</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#retirement">Retirement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#carbon-emission">Carbon Emission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#power-balance">Power Balance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#transmission-loss">Transmission Loss</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#maximum-output">Maximum Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#energy-storage">Energy Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#ramping-ratio">Ramping Ratio</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-0-1">Version 0.1</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PREP-SHOT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Users Guide</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/PREP-NexT/PREP-SHOT/blob/main/doc/source/User_guide.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="users-guide">
+<span id="id1"></span><h1>Users Guide<a class="headerlink" href="#users-guide" title="Permalink to this headline">¶</a></h1>
+<p>The model requires several input parameters, provided via input files. These parameters, their dimensions, and descriptions are as follows:</p>
+<section id="parameter-representation">
+<h2>Parameter Representation<a class="headerlink" href="#parameter-representation" title="Permalink to this headline">¶</a></h2>
+<p>The parameters used, their desciptions, and their purpose in the model are as follows:</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 5%" />
+<col style="width: 45%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Purpose</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>age</p></td>
+<td><p>Age of existing different technologies.</p></td>
+<td><p>To model the retirement of existing power plants.</p></td>
+</tr>
+<tr class="row-odd"><td><p>capacity factor</p></td>
+<td><p>Capacity factor of different non-dispatchable technologies.</p></td>
+<td><p>To calculate the power output.</p></td>
+</tr>
+<tr class="row-even"><td><p>carbon</p></td>
+<td><p>Carbon emission limit of different balancing authorities</p></td>
+<td><p>To model the policy of carbon emission reductions.</p></td>
+</tr>
+<tr class="row-odd"><td><p>carbon content</p></td>
+<td><p>Carbon content of different technologies.</p></td>
+<td><p>To calculate the system cost.</p></td>
+</tr>
+<tr class="row-even"><td><p>connect</p></td>
+<td><p>Water delay time of connection between reservoirs.</p></td>
+<td><p>To model the cascade hydrolic connection.</p></td>
+</tr>
+<tr class="row-odd"><td><p>demand</p></td>
+<td><p>Demand of different balancing authorities.</p></td>
+<td><p>To calculate the power balance.</p></td>
+</tr>
+<tr class="row-even"><td><p>discount Factor</p></td>
+<td><p>Discount factor for each year.</p></td>
+<td><p>To calculate the present value of cost.</p></td>
+</tr>
+<tr class="row-odd"><td><p>distance</p></td>
+<td><p>Distance of different pair of zones.</p></td>
+<td><p>To calculate the transmission investment cost.</p></td>
+</tr>
+<tr class="row-even"><td><p>efficiency In</p></td>
+<td><p>Discharge efficiency of storage technologies.</p></td>
+<td><p>To calculate charge and discharge loss of energy storage.</p></td>
+</tr>
+<tr class="row-odd"><td><p>efficiency Out</p></td>
+<td><p>Charge efficiency of storage technologies.</p></td>
+<td><p>To calculate charge and discharge loss of energy storage.</p></td>
+</tr>
+<tr class="row-even"><td><p>energy power ratio</p></td>
+<td><p>Energy to power ratio of storage technologies.</p></td>
+<td><p>To measure duration of energy storage.</p></td>
+</tr>
+<tr class="row-odd"><td><p>fuel price</p></td>
+<td><p>Fuel price of different technologies.</p></td>
+<td><p>To calculate system cost.</p></td>
+</tr>
+<tr class="row-even"><td><p>hydropower</p></td>
+<td><p>Predifined hydropower output of all reservoirs.</p></td>
+<td><p>To model the simplified hydropower operation.</p></td>
+</tr>
+<tr class="row-odd"><td><p>inflow</p></td>
+<td><p>Inflow of all reservoirs.</p></td>
+<td><p>To model the simplified hydropower operation.</p></td>
+</tr>
+<tr class="row-even"><td><p>init storage level</p></td>
+<td><p>Initial storage level of different storage technologies.</p></td>
+<td><p>To modelling the initial storage level of energy storage.</p></td>
+</tr>
+<tr class="row-odd"><td><p>lifetime</p></td>
+<td><p>Lifetime of different technologies.</p></td>
+<td><p>To calculate the retirement of power plant.</p></td>
+</tr>
+<tr class="row-even"><td><p>new technology lower bound</p></td>
+<td><p>Lower bound of newly-built installed capacity of different technologies for each investment year.</p></td>
+<td><p>To model the limits of technologies constrainted by policy.</p></td>
+</tr>
+<tr class="row-odd"><td><p>new technology upper bound</p></td>
+<td><p>Upper bound of newly-built installed capacity of different technologies for each investment year.</p></td>
+<td><p>To model the limits of technologies constrainted by policy.</p></td>
+</tr>
+<tr class="row-even"><td><p>ramp down</p></td>
+<td><p>Ramp down rate of different technologies.</p></td>
+<td><p>To limit the fluctuation of power outputs.</p></td>
+</tr>
+<tr class="row-odd"><td><p>ramp up</p></td>
+<td><p>Ramp up rate of different technologies.</p></td>
+<td><p>To limit the fluctuation of power outputs.</p></td>
+</tr>
+<tr class="row-even"><td><p>static</p></td>
+<td><p>Static data of all reservoirs.</p></td>
+<td><p>xxx</p></td>
+</tr>
+<tr class="row-odd"><td><p>storage lowbound</p></td>
+<td><p>Lower bound of volume of hydropower reservoirs.</p></td>
+<td><p>To model the operational rule of hydropower reservoirs.</p></td>
+</tr>
+<tr class="row-even"><td><p>storage end</p></td>
+<td><p>Final volume of hydropower reservoirs.</p></td>
+<td><p>To model the operational rule of hydropower reservoirs.</p></td>
+</tr>
+<tr class="row-odd"><td><p>initial storage</p></td>
+<td><p>Initial volume of hydropower reservoirs.</p></td>
+<td><p>To model the operational rule of hydropower reservoirs.</p></td>
+</tr>
+<tr class="row-even"><td><p>storage upbound</p></td>
+<td><p>Upper bound of volume of hydropower reservoirs.</p></td>
+<td><p>To model the operation rule of hydropower reservoirs.</p></td>
+</tr>
+<tr class="row-odd"><td><p>technology fix cost</p></td>
+<td><p>Fixed operation and maintaince cost of different technologies.</p></td>
+<td><p>To calculate the system cost.</p></td>
+</tr>
+<tr class="row-even"><td><p>technology investment cost</p></td>
+<td><p>Investment cost of different technologies.</p></td>
+<td><p>To calculate the system cost.</p></td>
+</tr>
+<tr class="row-odd"><td><p>technology portfolio</p></td>
+<td><p>Existing total installed capacity across all zones.</p></td>
+<td><p>xxx</p></td>
+</tr>
+<tr class="row-even"><td><p>technology upper bound</p></td>
+<td><p>Upper bound of installed capacity of different technologies.</p></td>
+<td><p>To model the potential of technologies with land, fuel, and water constraints.</p></td>
+</tr>
+<tr class="row-odd"><td><p>technology variable cost</p></td>
+<td><p>Variable operation and maintaince cost of different technologies.</p></td>
+<td><p>To calculate the system cost.</p></td>
+</tr>
+<tr class="row-even"><td><p>transline</p></td>
+<td><p>Investment cost of transmission lines.</p></td>
+<td><p>To calculate the system cost.</p></td>
+</tr>
+<tr class="row-odd"><td><p>transline efficiency</p></td>
+<td><p>Efficiency of transmission lines across all zones.</p></td>
+<td><p>To calculate the transmission loss.</p></td>
+</tr>
+<tr class="row-even"><td><p>transline fix cost</p></td>
+<td><p>Fixed operation and maintaince cost of different technologies.</p></td>
+<td><p>To calculate the system cost.</p></td>
+</tr>
+<tr class="row-odd"><td><p>transline investment cost</p></td>
+<td><p>Investment cost of transmission lines.</p></td>
+<td><p>To calculate the system cost.</p></td>
+</tr>
+<tr class="row-even"><td><p>transline variable cost</p></td>
+<td><p>Variable operations and maintenance cost of transmission lines.</p></td>
+<td><p>To calculate the system cost.</p></td>
+</tr>
+<tr class="row-odd"><td><p>transline line lifetime</p></td>
+<td><p>Lifetime of transmission lines.</p></td>
+<td><p>To calculate the retirement of transmission lines.</p></td>
+</tr>
+<tr class="row-even"><td><p>type</p></td>
+<td><p>Catelogies of different technologies.</p></td>
+<td><p>To specify ways of modelling different technologies.</p></td>
+</tr>
+<tr class="row-odd"><td><p>zq</p></td>
+<td><p>Relationship between tailrace elevation and total discharge for different reservoirs.</p></td>
+<td><p>To calculate tailrace elevation based on the reservoir's discharge.</p></td>
+</tr>
+<tr class="row-even"><td><p>zv</p></td>
+<td><p>Relationship between forebay elevation and volume for different reservoirs</p></td>
+<td><p>To calculate forebay elevation based on the reservoir's volume.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="preparing-inputs">
+<h2>Preparing Inputs<a class="headerlink" href="#preparing-inputs" title="Permalink to this headline">¶</a></h2>
+<p>The description of the units used in this page are as follows:</p>
+<table class="colwidths-given docutils align-left">
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 83%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Unit</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">s</span></code></p></td>
+<td><p>Second</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hr</span></code></p></td>
+<td><p>Hour</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">yr</span></code></p></td>
+<td><p>Year</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">USD</span></code></p></td>
+<td><p>US Dollar</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">RMB</span></code></p></td>
+<td><p>Chinese Yuan</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">MW</span></code></p></td>
+<td><p>Megawatt</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">MWh</span></code></p></td>
+<td><p>Megawatt-hour</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">MW-km</span></code></p></td>
+<td><p>Megawatt-kilometer</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">tCO2</span></code></p></td>
+<td><p>Tonnes of Carbon Dioxide</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">m</span></code></p></td>
+<td><p>Meter</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">m^3</span></code></p></td>
+<td><p>Cubic meter</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">10^8</span> <span class="pre">m^3</span></code></p></td>
+<td><p>100 million cubic meter</p></td>
+</tr>
+<tr class="row-even"><td><p>N/A</p></td>
+<td><p>Not Applicable</p></td>
+</tr>
+</tbody>
+</table>
+<p>The input files required for each parameter, and their corresponding dimensions and units are as follows:</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 5%" />
+<col style="width: 35%" />
+<col style="width: 30%" />
+<col style="width: 30%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Dimension</p></th>
+<th class="head"><p>Unit</p></th>
+<th class="head"><p>File</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>age</p></td>
+<td><p>3D (zone, year, technology)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MW</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">age.xlsx</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>capacity factor</p></td>
+<td><p>5D (technology, zone, year, month, hour)</p></td>
+<td><p>N/A</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">capacity_factor.xlsx</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>carbon</p></td>
+<td><p>1D (year)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">tCO2</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">carbon.xlsx</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>carbon content</p></td>
+<td><p>2D (year, technology)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">tCO2/MWh</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">carbon_content.xlsx</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>connect</p></td>
+<td><p>2D (station, downstream station)</p></td>
+<td><p>N/A</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">connect.xlsx</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>demand</p></td>
+<td><p>5D (technology, zone, year, month, hour)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MW</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">demand.xlsx</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>discount Factor</p></td>
+<td><p>1D (year)</p></td>
+<td><p>N/A</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">discount_factor.xlsx</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>distance</p></td>
+<td><p>2D (zone1, zone2)</p></td>
+<td><p>N/A</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">distance.xlsx</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>efficiency In</p></td>
+<td><p>2D (year, storage technology)</p></td>
+<td><p>N/A</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">efficiency_in.xlsx</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>efficiency Out</p></td>
+<td><p>2D (year, storage technology)</p></td>
+<td><p>N/A</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">efficiency_out.xlsx</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>energy power ratio</p></td>
+<td><p>1D (storage technology)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">hr</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">energy_power_ratio.xlsx</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>fuel price</p></td>
+<td><p>2D (year, technology)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">USD/MWh</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">fuel_price.xlsx</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>hydropower</p></td>
+<td><p>4D (station, year, month, hour)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MW</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">hydropower.xlsx</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>inflow</p></td>
+<td><p>4D (station, year, month, hour)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">m^3/s</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">inflow.xlsx</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>init storage level</p></td>
+<td><p>2D (zone, storage level)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1/MWh</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">init_storage_level.xlsx</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>lifetime</p></td>
+<td><p>2D (year, technology)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">yr</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">lifetime.xlsx</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>new technology lower bound</p></td>
+<td><p>2D (zone, technology)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MW</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">new_technology_lower_bound.xlsx</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>new technology upper bound</p></td>
+<td><p>2D (zone, technology)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MW</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">new_technology_upper_bound.xlsx</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>ramp down</p></td>
+<td><p>1D (technology)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1/MW</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ramp_down.xlsx</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>ramp up</p></td>
+<td><p>1D (technology)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1/MW</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ramp_up.xlsx</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>static</p></td>
+<td><p>1D (station)</p></td>
+<td><p>N/A</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">static.xlsx</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>storage lowbound</p></td>
+<td><p>3D (station, month, hour)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">10^8</span> <span class="pre">m^3</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">storage_lowbound.xlsx</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>storage end</p></td>
+<td><p>2D (station, month)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">10^8</span> <span class="pre">m^3</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">storage_end.xlsx</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>initial storage</p></td>
+<td><p>2D (station, month)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">10^8</span> <span class="pre">m^3</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">storage_init.xlsx</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>storage upbound</p></td>
+<td><p>3D (station, month, hour)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">10^8</span> <span class="pre">m^3</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">storage_upbound.xlsx</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>technology fix cost</p></td>
+<td><p>2D (year, technology)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">USD/MW</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">technology_fix_cost.xlsx</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>technology investment cost</p></td>
+<td><p>2D (year, technology)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">USD/MW-km</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">technology_investment_cost.xlsx</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>technology portfolio</p></td>
+<td><p>2D (year, zone)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MW</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">technology_portfolio.xlsx</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>technology upper bound</p></td>
+<td><p>2D (zone, technology)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MW</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">technology_upper_bound.xlsx</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>technology variable cost</p></td>
+<td><p>2D (year, technology)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">USD/MWh</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">technology_variable_cost.xlsx</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>transline</p></td>
+<td><p>2D (zone1, zone2)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">USD/MW-km</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">transline.xlsx</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>transline efficiency</p></td>
+<td><p>2D (zone1, zone2)</p></td>
+<td><p>N/A</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">transline_efficiency.xlsx</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>transline fix cost</p></td>
+<td><p>2D (zone1, zone2)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">USD/MW</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">transline_fix_cost.xlsx</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>transline investment cost</p></td>
+<td><p>2D (zone1, zone2)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">RMB/MW-km</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">transline_investment_cost.xlsx</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>transline variable cost</p></td>
+<td><p>2D (zone1, zone2)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">USD/MWh</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">transline_variable_cost.xlsx</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>transline line lifetime</p></td>
+<td><p>2D (zone1, zone2)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">yr</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">transline_line_lifetime.xlsx</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>type</p></td>
+<td><p>1D (technology)</p></td>
+<td><p>N/A</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">type.xlsx</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>zq</p></td>
+<td><p>2D (station, break point)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">m</span></code> and <code class="docutils literal notranslate"><span class="pre">m^3/s</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">zq.xlsx</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>zv</p></td>
+<td><p>2D (station, break point)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">m</span></code> and <code class="docutils literal notranslate"><span class="pre">10^8</span> <span class="pre">m^3</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">zv.xlsx</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p><cite>inf</cite> refers to Infinity, indicating that there is no upper bound.</p></li>
+<li><p><cite>None</cite> refers to a null value for current item.</p></li>
+</ul>
+</div>
+</section>
+<section id="run-model">
+<h2>Run model<a class="headerlink" href="#run-model" title="Permalink to this headline">¶</a></h2>
+<section id="scenarios">
+<h3>Scenarios<a class="headerlink" href="#scenarios" title="Permalink to this headline">¶</a></h3>
+<p>Here I want to talk about how to run PREP-SHOT with multiple-year inflow. First, you need to download scripts in <cite>prepshot-my-flow</cite> branch. Then you need to prepare an individual inflow input file called &quot;input/scenario/inflow_xxx.xlsx&quot;. Here &quot;xxx&quot; is the name of the scenario, which need to be the same as the command line <cite>inflow</cite> parameter which will be introduced below. The required inflow input file takes the representative year as the name of the sheet table. For each sheet, you only need to maintain the same format as the <cite>inflow</cite> sheet in the previous total input file.</p>
+<p>After preparing the inflow input files, you must use the command line parameter to specify the scenario name. For example, you design an inflow called drought. You need to prepare an inflow input file called &quot;inflow_drough.xlsx&quot; and then run your scenario with the following shell command <cite>python run.py -- inflow=drought</cite>.</p>
+</section>
+</section>
+<section id="read-output">
+<h2>Read output<a class="headerlink" href="#read-output" title="Permalink to this headline">¶</a></h2>
+<p>The output of the model is stored in a NetCDF file, please refer to the <a class="reference external" href="https://xiaoganghe.github.io/python-climate-visuals/chapters/data-analytics/xarray-basic.html">simple tutorial</a> and <a class="reference external" href="https://docs.xarray.dev/en/stable/">official documentation</a> of Xarray for how to manipulate the NetCDF file.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Getting_started.html" class="btn btn-neutral float-left" title="Getting Started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Tutorial.html" class="btn btn-neutral float-right" title="Tutorial" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Zhanwei Liu and Xiaogang He (CC BY 3.0).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
