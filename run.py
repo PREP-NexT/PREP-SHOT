@@ -1,270 +1,95 @@
-"""
-This module is an energy capacity expansion optimization tool.
-It takes command-line arguments for different scenarios to solve
-the optimization problem with various constraints.
-"""
-
-import argparse
-import configparser
-import time
 import logging
-import os
+from os import path
+from prepshot.load_data import load_json, get_required_config_data, load_data
+from prepshot.logs import setup_logging, log_parameter_info
+from prepshot.model import create_model
+from prepshot.parameters import parse_arguments
+from prepshot.solver import build_solver, solve_model
+from prepshot.utils import extract_result, update_output_filename
 
-from pyomo.environ import SolverFactory
-from pyomo.opt import SolverStatus, TerminationCondition
+# Name of the configuration file and parameters file in root directory.
+CONFIG_FILENAME = 'config.json'
+PARAMS_FILENAME = 'params.json'
 
-from prepshot import create_model, load_data, utils
-
-# Constants
-INPUT_FILE_PARAMS = [
-    "technology_portfolio",
-    "distance",
-    "discount_factor",
-    "transline",
-    "transline_efficiency",
-    "technology_fix_cost",
-    "technology_variable_cost",
-    "technology_investment_cost",
-    "carbon_content",
-    "fuel_price",
-    "efficiency_in",
-    "efficiency_out",
-    "energy_power_ratio",
-    "lifetime",
-    "capacity_factor",
-    "demand",
-    "ramp_up",
-    "ramp_down",
-    "carbon",
-    "transline_investment_cost",
-    "technology_upper_bound",
-    "new_technology_upper_bound",
-    "new_technology_lower_bound",
-    "init_storage_level",
-    "transline_fix_cost",
-    "transline_variable_cost",
-    "transmission_line_lifetime",
-    "zv",
-    "zq",
-    "type",
-    "age",
-    "storage_upbound",
-    "storage_downbound",
-    "storage_init",
-    "storage_end",
-    "hydropower",
-    "inflow",
-    "connect",
-    "static"
-]
-CONFIG_FILENAME = 'global.properties'
-
-
-def setup_logging(logfile):
+def setup(params_data, args):
     """
-    Set up logging configuration.
+    Load data and set up logging.
 
-    :param logfile: str, path to the log file
+    Args:
+        params_data (dict): Dictionary of parameters data.
+        args (argparse.Namespace): Arguments parsed by argparse.
+
+    Returns:
+        tuple: A tuple containing the parameters dictionary and the output filename.
     """
-    logging.basicConfig(filename=logfile, level=logging.INFO,
-                        format='%(asctime)s %(levelname)s: %(message)s',
-                        datefmt='%Y-%m-%d %H:%M:%S')
-    console = logging.StreamHandler()
-    console.setLevel(logging.INFO)
-    console.setFormatter(logging.Formatter(
-        '%(asctime)s %(levelname)s: %(message)s', '%Y-%m-%d %H:%M:%S'))
-    logging.getLogger().addHandler(console)
+    # Load configuration data
+    config_data = load_json(CONFIG_FILENAME)
+    required_config_data = get_required_config_data(config_data)
+    required_config_data.update({'price': args.price})
+
+    # Get the path to input folder.
+    filepath = path.dirname(path.abspath(__file__))
+    input_filename = str(config_data['general_parameters']['input_folder'])
+    input_filepath = path.join(filepath, input_filename)
+
+    # Load parameters data
+    parameters = load_data(params_data, input_filepath)
+
+    # Combine the configuration data and parameters data.
+    parameters.update(required_config_data)
+
+    # Set up logging
+    setup_logging()
+    log_parameter_info(config_data)
+    
+    # Get the output filename.
+    output_filename = str(config_data['general_parameters']['output_filename'])
+
+    return parameters, output_filename
 
 
-def process_arguments():
+def run_model(parameters, output_filename, args):
     """
-    Process command-line arguments for different scenarios.
+    Create and solve the model.
 
-    :return: argparse.Namespace, parsed command-line arguments
+    Args:
+        parameters (dict): Dictionary of parameters for the model.
+        output_filename (str): The name of the output file.
+        args (argparse.Namespace): Arguments parsed by argparse.
+
+    Returns:
+        None
     """
-    parser = argparse.ArgumentParser(description='filename')
-    for param in INPUT_FILE_PARAMS:
-        parser.add_argument(f'--{param}', type=str, default=None,
-                            help=f'The suffix of input paramemeters: {param}')
-    parser.add_argument(f'--price', type=float, default=0.01,
-                        help='The value of price paramemeters')
-    return parser.parse_args()
-
-
-def generate_input_filenames(args):
-    """
-    Generate input file names based on provided command-line arguments.
-
-    :param args: argparse.Namespace, parsed command-line arguments
-    :return: dict, mapping of parameter names to input file names
-    """
-    input_filenames = {}
-
-    for param in INPUT_FILE_PARAMS:
-        if getattr(args, param) is None:
-            input_filenames[param] = f"{param}.xlsx"
-        else:
-            input_filenames[param] = f"{param}_{getattr(args, param)}.xlsx"
-    return input_filenames
-
-
-def build_solver(solver_name, solver_config):
-    """
-    Build a solver based on the provided solver name and configuration.
-
-    :param solver_name: str, name of the solver
-    :param config: dict, solver configuration
-    :return: pyomo.opt.base.solvers.OptSolver, solver instance
-    """
-    solver = SolverFactory(solver_name, solver_io='python')
-    for option, value in solver_config.items():
-        solver.options[option] = value
-    return solver
-
-
-def solve_model(model, solver, para, ishydro, error_threshold, iteration_number):
-    """
-    Solve the optimization model using the given solver.
-
-    :param model: The optimization model to be solved
-    :param solver: The solver to be used
-    :param ishydro: Boolean, whether the model includes hydrological constraints
-    :param error_threshold: The error threshold for the iterative solution process
-    :param iteration_number: The maximum number of iterations for the iterative solution process
-    :return: The solution status (0: optimal, 1: infeasible, others: error)
-    """
-    if ishydro:
-        logging.info("Start solving model ...")
-        start_time = time.time()
-        state = utils.run_model_iteration(model, solver, para, error_threshold=error_threshold,
-                                          iteration_number=iteration_number)
-        logging.info(
-            f"Solving model completed, taking {round((time.time() - start_time) / 60, 2)} minutes")
-    else:
-        logging.info("Start solving model ...")
-        start_time = time.time()
-        results = solver.solve(model, tee=True)
-        logging.info(
-            f"Solving model completed, taking {round((time.time() - start_time) / 60, 2)} minutes")
-
-        if (results.solver.status == SolverStatus.ok) and \
-                (results.solver.termination_condition == TerminationCondition.optimal):
-            # Do nothing when the solution in optimal and feasible
-            state = 0
-        elif (results.solver.termination_condition == TerminationCondition.infeasible):
-            # Exit programming when model in infeasible
-            logging.info("Error: Model is in infeasible!")
-            state = 1
-        else:
-            # Something else is wrong
-            logging.info("Solver Status: ", results.solver.status)
-            state = 2
-
-    return state
-
-
-def load_parameters(config_filename):
-    config = configparser.RawConfigParser(inline_comment_prefixes="#")
-    config.read(config_filename)
-    basic_para = dict(config.items('global parameters'))
-    solver_para = dict(config.items('solver parameters'))
-    hydro_para = dict(config.items('hydro parameters'))
-
-    return basic_para, solver_para, hydro_para
-
-
-def initialize_parameters(basic_para, hydro_para, args, para):
-    time_length = int(basic_para['hour'])
-    month = int(basic_para['month'])
-    assert time_length == len(para["hour"])
-    assert month == len(para["month"])
-    dt = int(basic_para['dt'])
-    weight = (month * time_length * dt) / 8760
-
-    ishydro = bool(int(hydro_para['ishydro']))
-    error_threshold = float(hydro_para['error_threshold'])
-    iteration_number = int(hydro_para['iteration_number'])
-
-    return {
-        'dt': dt,
-        'weight': weight,
-        'ishydro': ishydro,
-        'error_threshold': error_threshold,
-        'iteration_number': iteration_number,
-        'price': args.price,
-    }
-
-
-def log_parameter_info(basic_para, input_path, output_filename):
-    logging.info("Set parameter solver to value %s" % basic_para['solver'])
-    logging.info("Set parameter input folder to value %s" % input_path)
-    logging.info("Set parameter output_filename to value %s.nc" %
-                 output_filename)
-    logging.info("Set parameter time_length to value %s" % basic_para['hour'])
-
-
-def read_config_file(config_file):
-    config = configparser.ConfigParser()
-    config.read(config_file)
-
-    # Create a dictionary to store all parameters
-    parameters = {}
-
-    for section in config.sections():
-        for key, value in config.items(section):
-            parameters[key] = value
-
-    return parameters
+    model = create_model(parameters)
+    output_filename = update_output_filename(output_filename, args)
+    solver = build_solver(parameters)
+    solved = solve_model(model, solver, parameters)
+    if solved:
+        logging.info("Start writing results ...")
+        ds = extract_result(model, ishydro=parameters['ishydro'])
+        ds.to_netcdf(f'{output_filename}.nc')
 
 
 def main():
     """
-    The main function of the energy capacity expansion optimization tool.
+    The main function of the PREP-SHOT model.
+
+    Args:
+        None
+
+    Returns:
+        None
     """
-    args = process_arguments()
-    input_filenames = generate_input_filenames(args)
-    basic_para, solver_para, hydro_para = load_parameters(CONFIG_FILENAME)
+    # Load parameters data.
+    params_data = load_json(PARAMS_FILENAME)
+    params_list = [params_data[key]["file_name"] for key in params_data]
+    args = parse_arguments(params_list)
 
-    # Predefiened folders and output file names
-    log_time = time.strftime("%Y-%m-%d-%H-%M-%S")
-    if os.path.exists('./log') == False:
-        os.mkdir('./log')
-    log_file = f'./log/main_{log_time}.log'
-    setup_logging(log_file)
+    # Set up model.
+    parameters, output_filename = setup(params_data, args)
 
-    input_path = './%s/'%basic_para['inputfolder']
-    output_path = './output/'
-    if os.path.exists(output_path) == False:
-        os.mkdir(output_path)
-    output_filename = output_path + basic_para['outputfile']
-
-    log_parameter_info(basic_para, input_path, output_filename)
-
-    solver_name = basic_para['solver']
-    solver = build_solver(solver_name, solver_para)
-
-    parameters = load_data(filepath=input_path,
-                           filename=input_filenames)
-
-    params = initialize_parameters(basic_para, hydro_para, args, parameters)
-    parameters.update(params)
-
-    model = create_model(parameters)
-    
-    output_filename = output_filename + \
-        '_'.join(f'{key}_{value}' for key, value in vars(args).items() if value != None)
-
-    state = solve_model(
-        model, solver, parameters, parameters['ishydro'], parameters['error_threshold'],
-        parameters['iteration_number']
-    )
-
-    if state == 0:
-        logging.info("Start writing results ...")
-        ds = utils.extract_result(model, ishydro=parameters['ishydro'])
-        ds.to_netcdf(f'{output_filename}.nc')
-    logging.info("Finish!")
-
+    # Run model.
+    run_model(parameters, output_filename, args)
 
 if __name__ == "__main__":
     main()
