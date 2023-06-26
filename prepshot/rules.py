@@ -6,6 +6,10 @@ class RuleContainer:
     Class for rules of the model. Used to pass 'para' dictionary to the rules.
     """
     def __init__(self, para):
+        """
+        Args:
+            para (dict): Dictionary of parameters for the model.
+        """
         self.para = para
 
 
@@ -483,23 +487,6 @@ class RuleContainer:
             return model.gen[h-1, m, y, z, te] - model.gen[h, m, y, z, te] <= self.para['ramp_down'][te] * self.para['dt'] * model.cap_existing[y, z, te]
         else:
             return Constraint.Skip
-
-
-    def hydro_output_rule(self, model, h, m, y, z):
-        """
-        Rule for hydrological output.
-
-        Args:
-            model (pyomo.core.base.PyomoModel.ConcreteModel): Model to be solved.
-            h (int): Hour.
-            m (int): Month.
-            y (int): Year.
-            z (str): Zone.
-
-        Returns:
-            pyomo.core.base.PyomoModel.ConcreteModel: Model with hydrological output constraints.
-        """
-        return model.gen[h, m, y, z, [i for i, j in self.para['type'].items() if j == 'hydro'][0]] <= float(self.para['hydropower']['Hydro', z, y, m, h]) * self.para['dt']
 
 
     def natural_inflow_rule(self, model, s, h, m, y):
