@@ -1,5 +1,5 @@
 from pyomo.environ import Constraint, NonNegativeReals, Objective, Var, ConcreteModel, Set, Reals, Suffix, minimize, Param
-from prepshot.rules import *
+from prepshot.rules import RuleContainer
 
 def define_model():
     """
@@ -134,53 +134,55 @@ def define_constraints(model, para):
     Returns:
         None
     """
-    model.total_cost_cons = Constraint(rule=cost_rule, doc='System total cost')
-    model.power_balance_cons = Constraint(model.hour_month_year_zone_tuples, rule=create_power_balance_rule(para), doc='Power balance')
-    model.trans_capacity_cons = Constraint(model.year_zone_zone_tuples, rule=create_trans_capacity_rule(para), doc='Trans capacity')
-    model.trans_physical_cons = Constraint(model.year_zone_zone_tuples, rule=trans_physical_rule, doc='Two-way trans capacity equals')
-    model.trans_balance_cons = Constraint(model.hour_month_year_zone_zone_tuples, rule=create_trans_balance_rule(para), doc='Trans balance')
-    model.trans_up_bound_cons = Constraint(model.hour_month_year_zone_zone_tuples, rule=trans_up_bound_rule, doc='Trans upper bound')
-    model.gen_up_bound_cons = Constraint(model.hour_month_year_zone_tech_tuples, rule=gen_up_bound_rule, doc='Maximum output constraint')
-    model.tech_up_bound_cons = Constraint(model.year_zone_tech_tuples, rule=create_tech_up_bound_rule(para), doc='technology upper bound')
-    model.new_tech_up_bound_cons = Constraint(model.year_zone_tech_tuples, rule=create_new_tech_up_bound_rule(para), doc='new technology upper bound')
-    model.new_tech_low_bound_cons = Constraint(model.year_zone_tech_tuples, rule=create_new_tech_low_bound_rule(para), doc='new technology lower bound')
-    model.tech_lifetime_cons = Constraint(model.year_zone_tech_tuples, rule=create_tech_lifetime_rule(para), doc='Remaining technology')
-    model.ramping_up_cons = Constraint(model.hour_month_year_zone_tech_tuples, rule=create_ramping_up_rule(para), doc='Ramping up constraint')
-    model.ramping_down_cons = Constraint(model.hour_month_year_zone_tech_tuples, rule=create_ramping_down_rule(para), doc='Ramping down constraint')
-    model.cost_var_cons = Constraint(rule=create_var_cost_rule(para), doc='Variable O&M cost and fuel cost')
-    model.newtech_cost_cons = Constraint(rule=create_newtech_cost_rule(para), doc='Investment costs of new technology')
-    model.newline_cost_cons = Constraint(rule=create_newline_cost_rule(para), doc='Investment costs of new transmission lines')
-    model.fix_cost_cons = Constraint(rule=create_fix_cost_rule(para), doc='Fix O&M costs of new transmission lines')
-    model.remaining_capacity_cons = Constraint(model.year, model.zone, model.tech, rule=create_remaining_capacity_rule(para), doc='Capacity increasment of technology')
-    model.emission_limit_cons = Constraint(model.year, rule=create_emission_limit_rule(para), doc='Carbon dioxide emission limit')
-    model.emission_calc_cons = Constraint(model.year, rule=emission_calc_rule, doc='Carbon dioxide emission of each year')
-    model.emission_calc_by_zone_cons = Constraint(model.year_zone_tuples, rule=create_emission_calc_by_zone_rule(para), doc='Carbon dioxide emission of each year')
-    model.hydro_output_cons = Constraint(model.hour_month_year_zone_tuples, rule=create_hydro_output_rule(para), doc='define hydropower output')
+    rules = RuleContainer(para)
+
+    model.total_cost_cons = Constraint(rule=rules.cost_rule, doc='System total cost')
+    model.power_balance_cons = Constraint(model.hour_month_year_zone_tuples, rule=rules.power_balance_rule, doc='Power balance')
+    model.trans_capacity_cons = Constraint(model.year_zone_zone_tuples, rule=rules.trans_capacity_rule, doc='Trans capacity')
+    model.trans_physical_cons = Constraint(model.year_zone_zone_tuples, rule=rules.trans_physical_rule, doc='Two-way trans capacity equals')
+    model.trans_balance_cons = Constraint(model.hour_month_year_zone_zone_tuples, rule=rules.trans_balance_rule, doc='Trans balance')
+    model.trans_up_bound_cons = Constraint(model.hour_month_year_zone_zone_tuples, rule=rules.trans_up_bound_rule, doc='Trans upper bound')
+    model.gen_up_bound_cons = Constraint(model.hour_month_year_zone_tech_tuples, rule=rules.gen_up_bound_rule, doc='Maximum output constraint')
+    model.tech_up_bound_cons = Constraint(model.year_zone_tech_tuples, rule=rules.tech_up_bound_rule, doc='technology upper bound')
+    model.new_tech_up_bound_cons = Constraint(model.year_zone_tech_tuples, rule=rules.new_tech_up_bound_rule, doc='new technology upper bound')
+    model.new_tech_low_bound_cons = Constraint(model.year_zone_tech_tuples, rule=rules.new_tech_low_bound_rule, doc='new technology lower bound')
+    model.tech_lifetime_cons = Constraint(model.year_zone_tech_tuples, rule=rules.tech_lifetime_rule, doc='Remaining technology')
+    model.ramping_up_cons = Constraint(model.hour_month_year_zone_tech_tuples, rule=rules.ramping_up_rule, doc='Ramping up constraint')
+    model.ramping_down_cons = Constraint(model.hour_month_year_zone_tech_tuples, rule=rules.ramping_down_rule, doc='Ramping down constraint')
+    model.cost_var_cons = Constraint(rule=rules.var_cost_rule, doc='Variable O&M cost and fuel cost')
+    model.newtech_cost_cons = Constraint(rule=rules.newtech_cost_rule, doc='Investment costs of new technology')
+    model.newline_cost_cons = Constraint(rule=rules.newline_cost_rule, doc='Investment costs of new transmission lines')
+    model.fix_cost_cons = Constraint(rule=rules.fix_cost_rule, doc='Fix O&M costs of new transmission lines')
+    model.remaining_capacity_cons = Constraint(model.year, model.zone, model.tech, rule=rules.remaining_capacity_rule, doc='Capacity increasment of technology')
+    model.emission_limit_cons = Constraint(model.year, rule=rules.emission_limit_rule, doc='Carbon dioxide emission limit')
+    model.emission_calc_cons = Constraint(model.year, rule=rules.emission_calc_rule, doc='Carbon dioxide emission of each year')
+    model.emission_calc_by_zone_cons = Constraint(model.year_zone_tuples, rule=rules.emission_calc_by_zone_rule, doc='Carbon dioxide emission of each year')
+    model.hydro_output_cons = Constraint(model.hour_month_year_zone_tuples, rule=rules.hydro_output_rule, doc='define hydropower output')
 
     if model.nondispatchable_tech != 0:
-        model.renew_gen_cons = Constraint(model.hour_month_year_zone_nondispatchable_tuples, rule=create_renew_gen_rule(para), doc='define renewable output')
+        model.renew_gen_cons = Constraint(model.hour_month_year_zone_nondispatchable_tuples, rule=rules.renew_gen_rule, doc='define renewable output')
 
     if model.storage_tech != 0:
-        model.energy_storage_balance_cons = Constraint(model.hour_month_year_zone_storage_tuples, rule=create_energy_storage_balance_rule(para), doc='Storage constraint')
-        model.init_energy_storage_cons = Constraint(model.month_year_zone_storage_tuples, rule=create_init_energy_storage_rule(para), doc='Init Storage')
-        model.end_energy_storage_cons = Constraint(model.month_year_zone_storage_tuples, rule=create_end_energy_storage_rule(para), doc='End storage == Init Storage')
-        model.energy_storage_up_bound_cons = Constraint(model.hour_month_year_zone_storage_tuples, rule=create_energy_storage_up_bound_rule(para), doc='Storage bound')
-        model.energy_storage_gen_cons = Constraint(model.hour_month_year_zone_storage_tuples, rule=create_energy_storage_gen_rule(para), doc='Storage bound')
+        model.energy_storage_balance_cons = Constraint(model.hour_month_year_zone_storage_tuples, rule=rules.energy_storage_balance_rule, doc='Storage constraint')
+        model.init_energy_storage_cons = Constraint(model.month_year_zone_storage_tuples, rule=rules.init_energy_storage_rule, doc='Init Storage')
+        model.end_energy_storage_cons = Constraint(model.month_year_zone_storage_tuples, rule=rules.end_energy_storage_rule, doc='End storage == Init Storage')
+        model.energy_storage_up_bound_cons = Constraint(model.hour_month_year_zone_storage_tuples, rule=rules.energy_storage_up_bound_rule, doc='Storage bound')
+        model.energy_storage_gen_cons = Constraint(model.hour_month_year_zone_storage_tuples, rule=rules.energy_storage_gen_rule, doc='Storage bound')
 
     if para['ishydro']:
-        model.natural_inflow_cons = Constraint(model.station_hour_month_year_tuples, rule=create_natural_inflow_rule(para), doc='Natural flow')
-        model.total_inflow_cons = Constraint(model.station_hour_month_year_tuples, rule=create_total_inflow_rule(para), doc='Hydraulic Connection Constraints')
-        model.water_balance_cons = Constraint(model.station_hour_month_year_tuples, rule=create_water_balance_rule(para), doc='Water Balance Constraints')
-        model.discharge_cons = Constraint(model.station_hour_month_year_tuples, rule=discharge_rule, doc='Discharge Constraints')
-        model.outflow_low_bound_cons = Constraint(model.station_hour_month_year_tuples, rule=create_outflow_low_bound_rule(para), doc='Discharge lower limits')
-        model.outflow_up_bound_cons = Constraint(model.station_hour_month_year_tuples, rule=create_outflow_up_bound_rule(para), doc='Discharge upper limits')
-        model.storage_low_bound_cons = Constraint(model.station_hour_month_year_tuples, rule=create_storage_low_bound_rule(para), doc='Storage lower limits')
-        model.storage_up_bound_cons = Constraint(model.station_hour_month_year_tuples, rule=create_storage_up_bound_rule(para), doc='Storage upper limits')
-        model.output_low_bound_cons = Constraint(model.station_hour_month_year_tuples, rule=create_output_low_bound_rule(para), doc='Power Output lower limits')
-        model.output_up_bound_cons = Constraint(model.station_hour_month_year_tuples, rule=create_output_up_bound_rule(para), doc='Power Output upper limits')
-        model.output_calc_cons = Constraint(model.station_hour_month_year_tuples, rule=create_output_calc_rule(para), doc='Power Output Constraints')
-        model.init_storage_cons = Constraint(model.station_month_year_tuples, rule=create_init_storage_rule(para), doc='Initial storage Constraints')
-        model.end_storage_cons = Constraint(model.station_month_year_tuples, rule=create_end_storage_rule(para), doc='Terminal storage Constraints')
+        model.natural_inflow_cons = Constraint(model.station_hour_month_year_tuples, rule=rules.natural_inflow_rule, doc='Natural flow')
+        model.total_inflow_cons = Constraint(model.station_hour_month_year_tuples, rule=rules.total_inflow_rule, doc='Hydraulic Connection Constraints')
+        model.water_balance_cons = Constraint(model.station_hour_month_year_tuples, rule=rules.water_balance_rule, doc='Water Balance Constraints')
+        model.discharge_cons = Constraint(model.station_hour_month_year_tuples, rule=rules.discharge_rule, doc='Discharge Constraints')
+        model.outflow_low_bound_cons = Constraint(model.station_hour_month_year_tuples, rule=rules.outflow_low_bound_rule, doc='Discharge lower limits')
+        model.outflow_up_bound_cons = Constraint(model.station_hour_month_year_tuples, rule=rules.outflow_up_bound_rule, doc='Discharge upper limits')
+        model.storage_low_bound_cons = Constraint(model.station_hour_month_year_tuples, rule=rules.storage_low_bound_rule, doc='Storage lower limits')
+        model.storage_up_bound_cons = Constraint(model.station_hour_month_year_tuples, rule=rules.storage_up_bound_rule, doc='Storage upper limits')
+        model.output_low_bound_cons = Constraint(model.station_hour_month_year_tuples, rule=rules.output_low_bound_rule, doc='Power Output lower limits')
+        model.output_up_bound_cons = Constraint(model.station_hour_month_year_tuples, rule=rules.output_up_bound_rule, doc='Power Output upper limits')
+        model.output_calc_cons = Constraint(model.station_hour_month_year_tuples, rule=rules.output_calc_rule, doc='Power Output Constraints')
+        model.init_storage_cons = Constraint(model.station_month_year_tuples, rule=rules.init_storage_rule, doc='Initial storage Constraints')
+        model.end_storage_cons = Constraint(model.station_month_year_tuples, rule=rules.end_storage_rule, doc='Terminal storage Constraints')
         model.income_cons = Constraint(expr=model.income == sum([model.withdraw[s, h, m, y] * 3600 * para['dt'] * para['price'] for s, h, m, y in model.station_hour_month_year_tuples]))
 
 
