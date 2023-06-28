@@ -1,0 +1,315 @@
+{
+    "age": {
+        "file_name": "age",
+        "index_cols": [0],
+        "header_rows": [0, 1],
+        "unstack_levels": [0],
+        "first_col_only": false,
+        "drop_na": true
+    },
+    "capacity_factor": {
+        "file_name": "capacity_factor",
+        "index_cols": [0, 1, 2],
+        "header_rows": [0, 1],
+        "unstack_levels": [0, 1, 2],
+        "first_col_only": false,
+        "drop_na": true
+    },
+    "carbon": {
+        "file_name": "carbon",
+        "index_cols": [0],
+        "header_rows": [0],
+        "unstack_levels": null,
+        "first_col_only": true,
+        "drop_na": true
+    },
+    "carbon_content": {
+        "file_name": "carbon_content",
+        "index_cols": [0],
+        "header_rows": [0],
+        "unstack_levels": [0],
+        "first_col_only": false,
+        "drop_na": true
+    },
+    "connect": {
+        "file_name": "connect",
+        "index_cols": null,
+        "header_rows": [0],
+        "unstack_levels": null,
+        "first_col_only": false,
+        "drop_na": false
+    },
+    "demand": {
+        "file_name": "demand",
+        "index_cols": [0, 1, 2],
+        "header_rows": [0],
+        "unstack_levels": [0, 1, 2],
+        "first_col_only": false,
+        "drop_na": true
+    },
+    "discount_factor": {
+        "file_name": "discount_factor",
+        "index_cols": [0],
+        "header_rows": [0],
+        "unstack_levels": null,
+        "first_col_only": true,
+        "drop_na": true
+    },
+    "distance": {
+        "file_name": "distance",
+        "index_cols": [0],
+        "header_rows": [0],
+        "unstack_levels": [0],
+        "first_col_only": false,
+        "drop_na": true
+    },
+    "efficiency_in": {
+        "file_name": "efficiency_in",
+        "index_cols": [0],
+        "header_rows": [0],
+        "unstack_levels": [0],
+        "first_col_only": false,
+        "drop_na": true
+    },
+    "efficiency_out": {
+        "file_name": "efficiency_out",
+        "index_cols": [0],
+        "header_rows": [0],
+        "unstack_levels": [0],
+        "first_col_only": false,
+        "drop_na": true
+    },
+    "energy_power_ratio": {
+        "file_name": "energy_power_ratio",
+        "index_cols": [0],
+        "header_rows": [0],
+        "unstack_levels": null,
+        "first_col_only": true,
+        "drop_na": true
+    },
+    "fuel_price": {
+        "file_name": "fuel_price",
+        "index_cols": [0],
+        "header_rows": [0],
+        "unstack_levels": [0],
+        "first_col_only": false,
+        "drop_na": true
+    },
+    "hydropower": {
+        "file_name": "hydropower",
+        "index_cols": [0, 1, 2],
+        "header_rows": [0, 1],
+        "unstack_levels": [0, 1, 2],
+        "first_col_only": false,
+        "drop_na": true
+    },
+    "inflow": {
+        "file_name": "inflow",
+        "index_cols": [0, 1, 2],
+        "header_rows": [0],
+        "unstack_levels": [0, 1, 2],
+        "first_col_only": false,
+        "drop_na": true
+    },
+    "init_storage_level": {
+        "file_name": "init_storage_level",
+        "index_cols": [0],
+        "header_rows": [0],
+        "unstack_levels": [0],
+        "first_col_only": false,
+        "drop_na": true
+    },
+    "lifetime": {
+        "file_name": "lifetime",
+        "index_cols": [0],
+        "header_rows": [0],
+        "unstack_levels": [0],
+        "first_col_only": false,
+        "drop_na": true
+    },
+    "new_technology_lower_bound": {
+        "file_name": "new_technology_lower_bound",
+        "index_cols": [0],
+        "header_rows": [0],
+        "unstack_levels": [0],
+        "first_col_only": false,
+        "drop_na": true
+    },
+    "new_technology_upper_bound": {
+        "file_name": "new_technology_upper_bound",
+        "index_cols": [0],
+        "header_rows": [0],
+        "unstack_levels": [0],
+        "first_col_only": false,
+        "drop_na": true
+    },
+    "ramp_down": {
+        "file_name": "ramp_down",
+        "index_cols": [0],
+        "header_rows": [0],
+        "unstack_levels": null,
+        "first_col_only": true,
+        "drop_na": true
+    },
+    "ramp_up": {
+        "file_name": "ramp_up",
+        "index_cols": [0],
+        "header_rows": [0],
+        "unstack_levels": null,
+        "first_col_only": true,
+        "drop_na": true
+    },
+    "static": {
+        "file_name": "static",
+        "index_cols": [0],
+        "header_rows": [0],
+        "unstack_levels": [-1],
+        "first_col_only": false,
+        "drop_na": false
+    },
+    "storage_downbound": {
+        "file_name": "storage_downbound",
+        "index_cols": [0, 1],
+        "header_rows": [0],
+        "unstack_levels": [0, 1],
+        "first_col_only": false,
+        "drop_na": true
+    },
+    "storage_end": {
+        "file_name": "storage_end",
+        "index_cols": [0],
+        "header_rows": [0],
+        "unstack_levels": [0],
+        "first_col_only": false,
+        "drop_na": true
+    },
+    "storage_init": {
+        "file_name": "storage_init",
+        "index_cols": [0],
+        "header_rows": [0],
+        "unstack_levels": [0],
+        "first_col_only": false,
+        "drop_na": true
+    },
+    "storage_upbound": {
+        "file_name": "storage_upbound",
+        "index_cols": [0, 1],
+        "header_rows": [0],
+        "unstack_levels": [0, 1],
+        "first_col_only": false,
+        "drop_na": true
+    },
+    "technology_fix_cost": {
+        "file_name": "technology_fix_cost",
+        "index_cols": [0],
+        "header_rows": [0],
+        "unstack_levels": [0],
+        "first_col_only": false,
+        "drop_na": true
+    },
+    "technology_investment_cost": {
+        "file_name": "technology_investment_cost",
+        "index_cols": [0],
+        "header_rows": [0],
+        "unstack_levels": [0],
+        "first_col_only": false,
+        "drop_na": true
+    },
+    "technology_portfolio": {
+        "file_name": "technology_portfolio",
+        "index_cols": [0],
+        "header_rows": [0],
+        "unstack_levels": [0],
+        "first_col_only": false,
+        "drop_na": true
+    },
+    "technology_upper_bound": {
+        "file_name": "technology_upper_bound",
+        "index_cols": [0],
+        "header_rows": [0],
+        "unstack_levels": [0],
+        "first_col_only": false,
+        "drop_na": true
+    },
+    "technology_variable_cost": {
+        "file_name": "technology_variable_cost",
+        "index_cols": [0],
+        "header_rows": [0],
+        "unstack_levels": [0],
+        "first_col_only": false,
+        "drop_na": true
+    },
+    "transline": {
+        "file_name": "transline",
+        "index_cols": [0],
+        "header_rows": [0],
+        "unstack_levels": [0],
+        "first_col_only": false,
+        "drop_na": true
+    },
+    "transline_efficiency": {
+        "file_name": "transline_efficiency",
+        "index_cols": [0],
+        "header_rows": [0],
+        "unstack_levels": [0],
+        "first_col_only": false,
+        "drop_na": true
+    },
+    "transline_fix_cost": {
+        "file_name": "transline_fix_cost",
+        "index_cols": [0],
+        "header_rows": [0],
+        "unstack_levels": [0],
+        "first_col_only": false,
+        "drop_na": true
+    },
+    "transline_investment_cost": {
+        "file_name": "transline_investment_cost",
+        "index_cols": [0],
+        "header_rows": [0],
+        "unstack_levels": [0],
+        "first_col_only": false,
+        "drop_na": true
+    },
+    "transline_variable_cost": {
+        "file_name": "transline_variable_cost",
+        "index_cols": [0],
+        "header_rows": [0],
+        "unstack_levels": [0],
+        "first_col_only": false,
+        "drop_na": true
+    },
+    "transmission_line_lifetime": {
+        "file_name": "transmission_line_lifetime",
+        "index_cols": [0],
+        "header_rows": [0],
+        "unstack_levels": [0],
+        "first_col_only": false,
+        "drop_na": true
+    },
+    "type": {
+        "file_name": "type",
+        "index_cols": [0],
+        "header_rows": [0],
+        "unstack_levels": null,
+        "first_col_only": true,
+        "drop_na": true
+    },
+    "zq": {
+        "file_name": "zq",
+        "index_cols": null,
+        "header_rows": [0],
+        "unstack_levels": null,
+        "first_col_only": false,
+        "drop_na": false
+    },
+    "zv": {
+        "file_name": "zv",
+        "index_cols": null,
+        "header_rows": [0],
+        "unstack_levels": null,
+        "first_col_only": false,
+        "drop_na": false
+    }
+}
+  

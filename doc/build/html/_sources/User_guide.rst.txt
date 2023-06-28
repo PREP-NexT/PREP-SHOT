@@ -437,17 +437,58 @@ The input files required for each parameter, and their corresponding dimensions 
   * `inf` refers to Infinity, indicating that there is no upper bound.
   * `None` refers to a null value for current item.
 
-Run model
-----------------
+Tuning Model Parameters
+-----------------------
 
-Scenarios
-####################
+This section will guide you on how to tune the PREP-SHOT model parameters to compute the energy system for your needs. After you have prepared your input data based on the previous sections, you can proceed to tune the model parameters before you run it.
 
-Here I want to talk about how to run PREP-SHOT with multiple-year inflow. First, you need to download scripts in `prepshot-my-flow` branch. Then you need to prepare an individual inflow input file called "input/scenario/inflow_xxx.xlsx". Here "xxx" is the name of the scenario, which need to be the same as the command line `inflow` parameter which will be introduced below. The required inflow input file takes the representative year as the name of the sheet table. For each sheet, you only need to maintain the same format as the `inflow` sheet in the previous total input file.   
+Within the root directory of the model, you will find a JSON file containing the parameters that you can tune for the model, named ``config.json``. This file contains the following parameters:
 
-After preparing the inflow input files, you must use the command line parameter to specify the scenario name. For example, you design an inflow called drought. You need to prepare an inflow input file called "inflow_drough.xlsx" and then run your scenario with the following shell command `python run.py -- inflow=drought`.
+.. list-table::
+   :widths: 10 50
+   :header-rows: 1
+   :align: left
 
-Read output
---------------
-The output of the model is stored in a NetCDF file, please refer to the `simple tutorial <https://xiaoganghe.github.io/python-climate-visuals/chapters/data-analytics/xarray-basic.html>`_ and `official documentation <https://docs.xarray.dev/en/stable/>`_ of Xarray for how to manipulate the NetCDF file.
+   * - Model Parameter
+     - Description
 
+   * - ``input_folder``
+     - Specifies the name of the folder containing the input data.
+
+   * - ``output_filename``
+     - Specifies the name of the output file.
+
+   * - ``hour``
+     - Specifies the number of hours in each time period.
+
+   * - ``month``
+     - Specifies the number of months in each time period.
+
+   * - ``dt``
+     - Specifies the timestep for the simulation in hours.
+
+   * - ``hours_in_year``
+     - Specifies the number of hours in a year. Typically, this is set to 8760.
+
+   * - ``ishydro``
+     - Specifies whether to include hydropower in the optimization problem.
+
+   * - ``error_threshold``
+     - Specifies the error threshold for the model, while iterating for a solution. This parameter controls the convergence of the hydro model.
+
+   * - ``iteration_number``
+     - Specifies the maximum number of iterations for the hydro model, while iterating for a solution.
+
+   * - ``solver``
+     - Specifies the solver to be used for the optimization problem.
+
+   * - ``timelimit``
+     - Specifies the maximum time limit for the solver to solve the optimization problem in seconds.
+
+After you have tuned the parameters, you can run the model by following the steps in the :ref:`installation` page.
+
+You can also try out the model with the sample data provided in the ``input`` folder. Refer to the :ref:`Tutorial` page for a walkthrough of this example, inspried by real-world data.
+
+Reading the Output
+------------------
+The output of the model is stored in a NetCDF file, please refer to this `simple tutorial <https://xiaoganghe.github.io/python-climate-visuals/chapters/data-analytics/xarray-basic.html>`_ and `official documentation <https://docs.xarray.dev/en/stable/>`_ of Xarray to understand how to manipulate NetCDF files.
