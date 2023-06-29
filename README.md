@@ -71,7 +71,7 @@ If you use PREP-SHOT in a scientific publication, we would appreciate citations.
 
 ```bibtex
 @misc{PREP-SHOT,
-  author = {Zhanwei Liu, Xiaogang He},
+  author = {Zhanwei Liu and Xiaogang He},
   title = {PREP-SHOT: Pathways for Renewable Energy Planning coupling Short-term Hydropower OperaTion},
   url = {https://github.com/PREP-NexT/PREP-SHOT},
   version = {0.1}, 
@@ -81,7 +81,7 @@ If you use PREP-SHOT in a scientific publication, we would appreciate citations.
 
 ## Contact Us
 
-If you have any questions, comments, or suggestions that aren't suitable for public discussion in the Issues section, please feel free to reach out to [Zhanwei Liu](mailto:liuzhanwei@u.nus.edu).
+If you have any questions, comments, or suggestions that aren't suitable for public discussions in the Issues section, please feel free to reach out to [Zhanwei Liu](mailto:liuzhanwei@u.nus.edu).
 
 Please use the GitHub Issues for public discussions related to bugs, enhancements, or other project-related discussions.
 
