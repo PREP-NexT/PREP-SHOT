@@ -36,13 +36,13 @@ The parameters used, their desciptions, and their purpose in the model are as fo
     
   * - connect
     - Water delay time of connection between reservoirs.
-    - To model the cascade hydrolic connection.
+    - To model the cascade hydraulic connection.
     
   * - demand
     - Demand of different balancing authorities.
     - To calculate the power balance.
     
-  * - discount Factor
+  * - discount factor
     - Discount factor for each year.
     - To calculate the present value of cost.
     
@@ -50,11 +50,11 @@ The parameters used, their desciptions, and their purpose in the model are as fo
     - Distance of different pair of zones.
     - To calculate the transmission investment cost.
     
-  * - efficiency In
+  * - efficiency in
     - Discharge efficiency of storage technologies.
     - To calculate charge and discharge loss of energy storage.
     
-  * - efficiency Out
+  * - efficiency out
     - Charge efficiency of storage technologies.
     - To calculate charge and discharge loss of energy storage.
     
@@ -67,7 +67,7 @@ The parameters used, their desciptions, and their purpose in the model are as fo
     - To calculate system cost.
     
   * - hydropower
-    - Predifined hydropower output of all reservoirs.
+    - Predefined hydropower output of all reservoirs.
     - To model the simplified hydropower operation.
     
   * - inflow
@@ -76,7 +76,7 @@ The parameters used, their desciptions, and their purpose in the model are as fo
     
   * - init storage level
     - Initial storage level of different storage technologies.
-    - To modelling the initial storage level of energy storage.
+    - To model the initial storage level of energy storage.
     
   * - lifetime
     - Lifetime of different technologies.
@@ -84,11 +84,11 @@ The parameters used, their desciptions, and their purpose in the model are as fo
     
   * - new technology lower bound
     - Lower bound of newly-built installed capacity of different technologies for each investment year.
-    - To model the limits of technologies constrainted by policy.
+    - To model the limits of technologies constrained by policy.
     
   * - new technology upper bound
     - Upper bound of newly-built installed capacity of different technologies for each investment year.
-    - To model the limits of technologies constrainted by policy.
+    - To model the limits of technologies constrained by policy.
     
   * - ramp down
     - Ramp down rate of different technologies.
@@ -99,10 +99,10 @@ The parameters used, their desciptions, and their purpose in the model are as fo
     - To limit the fluctuation of power outputs.
     
   * - static
-    - Static data of all reservoirs.
-    - xxx
+    - Static data of all reservoirs includes designed water head, maximum storage, minimum storage, operational efficiency, area of affiliation, installed capacity, maximum power output, minimum power output, maximum outflow, minimum outflow, and maximum generation outflow.
+    - To model operation constraints of reservoir and hydropower output.
     
-  * - storage lowbound
+  * - storage low bound
     - Lower bound of volume of hydropower reservoirs.
     - To model the operational rule of hydropower reservoirs.
     
@@ -119,7 +119,7 @@ The parameters used, their desciptions, and their purpose in the model are as fo
     - To model the operation rule of hydropower reservoirs.
     
   * - technology fix cost
-    - Fixed operation and maintaince cost of different technologies.
+    - Fixed operation and maintenance cost of different technologies.
     - To calculate the system cost.
     
   * - technology investment cost
@@ -128,14 +128,14 @@ The parameters used, their desciptions, and their purpose in the model are as fo
     
   * - technology portfolio
     - Existing total installed capacity across all zones.
-    - xxx
+    - To model the status quo and retirement of technologies.
     
   * - technology upper bound
     - Upper bound of installed capacity of different technologies.
     - To model the potential of technologies with land, fuel, and water constraints.
     
   * - technology variable cost
-    - Variable operation and maintaince cost of different technologies.
+    - Variable operation and maintenance costs of different technologies.
     - To calculate the system cost.
     
   * - transline
@@ -147,7 +147,7 @@ The parameters used, their desciptions, and their purpose in the model are as fo
     - To calculate the transmission loss.
     
   * - transline fix cost
-    - Fixed operation and maintaince cost of different technologies.
+    - Fixed operation and maintenance costs of different technologies.
     - To calculate the system cost.
     
   * - transline investment cost
@@ -155,7 +155,7 @@ The parameters used, their desciptions, and their purpose in the model are as fo
     - To calculate the system cost.
     
   * - transline variable cost
-    - Variable operations and maintenance cost of transmission lines.
+    - Variable operations and maintenance costs of transmission lines.
     - To calculate the system cost.
     
   * - transline line lifetime
@@ -163,7 +163,7 @@ The parameters used, their desciptions, and their purpose in the model are as fo
     - To calculate the retirement of transmission lines.
     
   * - type
-    - Catelogies of different technologies.
+    - Categories of different technologies.
     - To specify ways of modelling different technologies.
     
   * - zq
@@ -177,7 +177,7 @@ The parameters used, their desciptions, and their purpose in the model are as fo
 Preparing Inputs
 ----------------
 
-The description of the units used in this page are as follows:
+The description of the units used on this page is as follows:
 
 .. list-table::
    :widths: 10 50
