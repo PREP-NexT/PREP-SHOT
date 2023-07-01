@@ -32,6 +32,13 @@ def setup(params_data, args):
     input_filename = str(config_data['general_parameters']['input_folder'])
     input_filepath = path.join(filepath, input_filename)
 
+    # update command-line arguments to set different scenarios easily.
+    for param in params_data.keys():
+        if getattr(args, param) is None:
+            pass
+        else:
+            params_data[param]["file_name"] = params_data[param]["file_name"] + f"_{getattr(args, param)}"
+
     # Load parameters data
     parameters = load_data(params_data, input_filepath)
 
