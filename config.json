@@ -1,6 +1,7 @@
 {
     "general_parameters": {
         "input_folder": "input",
+        "output_folder": "output",
         "output_filename": "year",
         "hour": 48,
         "month": 1,

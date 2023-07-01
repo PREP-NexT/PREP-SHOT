@@ -1,5 +1,5 @@
 import logging
-from os import path
+from os import path, makedirs
 from prepshot.load_data import load_json, get_required_config_data, load_data
 from prepshot.logs import setup_logging, log_parameter_info
 from prepshot.model import create_model
@@ -49,8 +49,14 @@ def setup(params_data, args):
     setup_logging()
     log_parameter_info(config_data)
     
+    # Get the output folder.
+    output_folder = './' + str(config_data['general_parameters']['output_folder'])
+    if not path.exists(output_folder):
+        makedirs(output_folder)
+        logging.warning(f"Folder {output_folder} created")
+
     # Get the output filename.
-    output_filename = str(config_data['general_parameters']['output_filename'])
+    output_filename =  output_folder + '/' + str(config_data['general_parameters']['output_filename'])
 
     return parameters, output_filename
 
@@ -72,9 +78,9 @@ def run_model(parameters, output_filename, args):
     solver = build_solver(parameters)
     solved = solve_model(model, solver, parameters)
     if solved:
-        logging.info("Start writing results ...")
         ds = extract_result(model, ishydro=parameters['ishydro'])
         ds.to_netcdf(f'{output_filename}.nc')
+        logging.info("Results are written to %s.nc", output_filename)
 
 
 def main():

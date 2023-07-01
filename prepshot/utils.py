@@ -249,20 +249,21 @@ def run_model_iteration(model, solver, para, error_threshold=0.001, max_iteratio
         alpha = 1 / iteration
         success = process_model_solution(model, solver, stations, years, months, hours, para, old_waterhead, new_waterhead)
         if not success:
-            break
+            return False
 
         # Calculate error.
         error = compute_error(old_waterhead, new_waterhead)
         errors.append(error)
         logging.info('Water head error: {:.2%}'.format(error))
         if error < error_threshold:
-            break
+            return True
 
         # Update old water head for next iteration.
         old_waterhead += alpha * (new_waterhead - old_waterhead)
 
-    logging.info('Ending iteration recorded at %s.' % (datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
-    return error < error_threshold
+    logging.warning('Ending iteration recorded at %s. Failed to converge. Maximum iteration exceeded.' % 
+                    (datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+    return True
 
 
 def create_data_array(data, dims, coords, unit):
