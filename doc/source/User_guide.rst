@@ -19,8 +19,8 @@ The parameters used, their desciptions, and their purpose in the model are as fo
     - Purpose
 
   * - age 
-    - The capacity of each technology in each BA for each year, taking into account the number of years that each technology has been in operation starting from the beginning of the planning period.
-    - For instance, assuming the planning period span from 2020 to 2050, with 2020 being the starting point, let's consider a technology that has been in operation since 2019. In this case, 2020 would mark its 2nd year of operation within the planning period. These inputs are useful for modelling the retirement of existing technologies.
+    - The capacity of each technology in each BA for each year, taking into account the number of years that each technology has been in operation starting from the beginning of the planning period. For instance, assuming the planning period span from 2020 to 2050, with 2020 being the starting point, let's consider a technology that has been in operation since 2019. In this case, 2020 would mark its 2nd year of operation within the planning period. 
+    - These inputs are useful for modelling the retirement of existing technologies.
 
   * - capacity factor
     - Capacity factor of different non-dispatchable technologies.
