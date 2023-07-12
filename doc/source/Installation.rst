@@ -5,10 +5,6 @@ Installation
 
 This page provides instructions on how to install PREP-SHOT. 
 
-.. contents::
-    :local:
-    :depth: 1
-
 Standard Installation
 ----------------------
 
