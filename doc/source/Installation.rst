@@ -44,12 +44,12 @@ Once the environment is activated, you can run your program with the following c
 Installation on HPC Systems
 ----------------------------
 
-For users installing on a High Performance Computing (HPC) system.
+For users installing PREP-SHOT on a High-Performance Computing (HPC) system.
 
 Step 1: Load Gurobi
 +++++++++++++++++++
 
-For users on the High Performance Computing (HPC) system at the National University of Singapore (NUS), Gurobi is already installed. You can load it with the following commands:
+For users on the High-Performance Computing (HPC) system at the National University of Singapore (NUS), Gurobi is already installed. You can load it with the following commands:
 
 .. code:: bash
 
