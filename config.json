@@ -6,7 +6,8 @@
         "hour": 48,
         "month": 1,
         "dt": 1,
-        "hours_in_year": 8760
+        "hours_in_year": 8760,
+        "price": 0.01
     },
     "hydro_parameters": {
         "ishydro": true,
