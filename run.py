@@ -25,7 +25,6 @@ def setup(params_data, args):
     # Load configuration data
     config_data = load_json(CONFIG_FILENAME)
     required_config_data = get_required_config_data(config_data)
-    required_config_data.update({'price': args.price})
 
     # Get the path to input folder.
     filepath = path.dirname(path.abspath(__file__))

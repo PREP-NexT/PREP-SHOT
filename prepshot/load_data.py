@@ -31,6 +31,7 @@ def get_required_config_data(config_data):
     month = int(config_data['general_parameters']['month'])
     dt = int(config_data['general_parameters']['dt'])
     hours_in_year = int(config_data['general_parameters']['hours_in_year'])
+    price = float(config_data['general_parameters']['price'])
     includes_hydrological_constraints = config_data['hydro_parameters']['ishydro']
     error_threshold = float(config_data['hydro_parameters']['error_threshold'])
     iteration_number = int(config_data['hydro_parameters']['iteration_number'])
@@ -40,6 +41,7 @@ def get_required_config_data(config_data):
     # Create dictionary containing required data from configuration file.
     required_config_data = {
         'dt': dt,
+        'price': price,
         'weight': (month * hour * dt) / hours_in_year,
         'solver': solver,
         'timelimit': timelimit,
@@ -56,6 +58,7 @@ def load_input_params(input_filepath, params_data, para):
     Load input data into its respective parameter.
     
     Args:
+        input_filepath (str): Path to the input folder.
         params_data (dict): Dictionary containing parameters.
         para (dict): Dictionary to store input data of parameters.
 
@@ -128,8 +131,8 @@ def load_data(params_data, input_filepath):
     Loads data from provided file path and processes it according to parameters from params.json.
 
     Args:
+        params_data (dict): Dictionary of parameters data.
         input_filename (str): Name of input folder.
-        params_filename (str): Name of parameters file containing attributes of input data.
 
     Returns:
         dict: Dictionary containing processed parameters.
