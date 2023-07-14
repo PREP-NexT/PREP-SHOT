@@ -56,6 +56,7 @@ def load_input_params(input_filepath, params_data, para):
     Load input data into its respective parameter.
     
     Args:
+        input_filepath (str): Path to the input folder.
         params_data (dict): Dictionary containing parameters.
         para (dict): Dictionary to store input data of parameters.
 
@@ -128,8 +129,8 @@ def load_data(params_data, input_filepath):
     Loads data from provided file path and processes it according to parameters from params.json.
 
     Args:
+        params_data (dict): Dictionary of parameters data.
         input_filename (str): Name of input folder.
-        params_filename (str): Name of parameters file containing attributes of input data.
 
     Returns:
         dict: Dictionary containing processed parameters.
