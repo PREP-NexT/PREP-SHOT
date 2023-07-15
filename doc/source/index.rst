@@ -38,17 +38,3 @@ Key Features
 * It supports multiple types of solvers such as Gurobi, CPLEX, MOSEK, and GLPK via `Pyomo <https://pyomo.readthedocs.io/en/stable/solving_pyomo_models.html>`_.
 * It allows input of multiple scenarios for specific parameters.
 * As a pure Python program, it benefits from the use of ``pandas`` and ``Xarray``, simplifying complex data analysis and promoting extensibility.
-
-Let's Get Started
------------------
-We've prepared a comprehensive guide to help you understand and use PREP-SHOT efficiently. Explore the sections below to learn more:
-
-.. toctree::
-   :maxdepth: 2
-
-   Installation
-   Getting_started
-   User_guide
-   Tutorial
-   Mathematical_notations
-   Changelog
