@@ -608,28 +608,19 @@ The existing capacity of the transmission lines for each year, from :math:`z_{\r
 Carbon Emission
 +++++++++++++++
 
-The model computes the carbon emissions for each year, based on the sum of carbon emissions from each zone, and from each technology.
-
-The carbon emission for each technology, for each year, and in each zone, is as follows:
+The model computes the carbon emissions for each year, based on the sum of carbon emissions from each zone, and from each technology as follows:
 
 .. math::
 
-  carbon_{y,e}^{tech} = \sum_{h,m,z}Carbon_{y,z,e}\times gen_{h,m,y,z,e} \quad \forall y,e \\
+  {\rm{carbon}}_y=\sum_{e\in\mathcal{E}}\sum_{z\in\mathcal{Z}}\sum_{m\in\mathcal{M}}\sum_{h\in\mathcal{H}}\left({{\rm{CARBON}}}_{y,z,e}\times {\rm{gen}}_{h,m,y,z,e}\right)\quad\forall y \\
   \\
 
 
-The carbon emission for each year is as follows:
+The calculated carbon emission for each year lower than its upper bound, as follows:
 
 .. math::
 
-  carbon_{y} = \sum_{e}carbon_{y,e}^{tech} \forall y \\
-  \\
-
-Where, the calculated carbon emission for each year, must be lower than its upper bound, as follows:
-
-.. math::
-
-  carbon_{y} \le \overline{carbon}_y \forall y \\
+  {\rm{carbon}}_y\le{\overline{{\rm{CARBON}}}}_y\quad\forall y \\
   \\
 
 Power Balance
@@ -639,76 +630,134 @@ The model computes the power balance for each hour, in each time period, for eac
 
 .. math::
 
-  Demand_{h,m,y,z} = & \sum_{z_s\neq z}import_{h, m, y, z_s, z} - \sum_{z_o\neq z}export_{h, m, y, z, z_o} + \\
-                     \\
-                     & \sum_{e}gen_{h, m, y, z, e} - \sum_{te\in storage}charge_{h, m, y, z, e}\quad \forall h,m,y,e
+ {{\rm{DEMAND}}}_{h,m,y,z}\times\Delta h=\sum_{z_{\rm{from}}\in {\mathcal{Z}}\backslash{\{z\}}}{{\rm{import}}_{h,m,y,z_{\rm{from}},z}}-\sum_{z_{\rm{to}}\in {\mathcal{Z}}\backslash{\{z\}}}{{\rm{export}}_{h,m,y,z,z_{\rm{to}}}} \\
+    + \sum_{e\in {\mathcal{E}}}{{\rm{gen}}_{h,m,y,z,e}}-\sum_{e\in {\mathcal{STOR}}}{{\rm{charge}}_{h,m,y,z,e}}\quad\forall h,m,y,z
 
-Transmission Loss
+Transmission
 +++++++++++++++++
 
-The model computes the transmission loss for each hour, in each time period, for each year, from :math:`z_s`-th zone to :math:`z_o`-th zone, as follows:
+We simplify the transmission of electricity as a transportation model. The model computes the transmission loss for each hour, in each time period, for each year, from :math:`z_{\rm{from}}` zone to :math:`z_{\rm{to}}}` zone, as follows:
 
 .. math::
 
-  export_{h, m, y, z_s, z_o} \times Effi_{z_s, z_o}^{trans} = import_{h, m, y, z_s, z_o} \quad \forall h,y,z_s\neq z_o \\
+  {\rm{import}}_{h,m,y,z_{\rm{from}},z_{\rm{to}}}={\rm{export}}_{h,m,y,z_{\rm{from}},z_{\rm{to}}}\times\eta_{z_{\rm{from}},z_{\rm{to}}}^{\rm{trans}}\quad\forall h,m,y,z_{\rm{from}}\neq z_{\rm{to}} \\
   \\
+This model assumes that the transmitted power of each transmission line is only constrained by the transmission capacity between two zones as follows:
 
-Maximum Output
+.. math::
+
+ {\rm{import}}_{h,m,y,z_{\rm{from}},z_{\rm{to}}}&\le {\rm{cap}}_{y,z_{\rm{from}},z_{\rm{to}}}^{\rm{existingline}}\times\Delta h\quad\forall h,m,y,z_{\rm{from}}\neq z_{\rm{to}} \\
+ {\rm{export}}_{h,m,y,z_{\rm{from}},z_{\rm{to}}}&\le {\rm{cap}}_{y,z_{\rm{from}},z_{\rm{to}}}^{\rm{existingline}}\times\Delta h\quad\forall h,m,y,z_{\rm{from}}\neq z_{\rm{to}} \\
+
+Power Output
 ++++++++++++++
 
-The model computes the maximum output for each hour, in each time period, for each year, in each zone, and for each technology, as follows:
+The power output of storage and each dispatchable (exclude hydropower) technology (:math:`{\rm{power}}_{h,m,y,z,e}`) is limited by the existing installed capacity (:math:`{\rm{cap}}_{y,z,e}^{\rm{existingtech}}`) and minimum technical output, as follows:
 
 .. math::
 
-  gen_{h, m, y, z, e} \leq cap_{y, z, e}^{existing-tech} \forall h,m \\
-  \\
+  {\underline{{\rm{POWER}}}}_{h,m,y,z,e}\times {\rm{cap}}_{y,z,e}^{\rm{existingtech}}\le{\rm{power}}_{h,m,y,z,e}\le {\rm{cap}}_{y,z,e}^{\rm{existingtech}}\quad\forall h,m,y,z,e\in {\mathcal{STOR}}\ \&\ {\mathcal{DISP}} \\
 
-Energy Storage
-++++++++++++++
-
-The model computes the energy storage level for each hour, for each year, in each zone, and for each technology, as follows:
+Since hydropower processes are explicitly modelled at the plant level in PREP-SHOT, total hydropower output in zone :math:`z` (:math:`{\rm{power}}_{h,m,y,z,e={\rm{hydro}}}`) is the sum of the plant-level hydropower output (:math:`{\rm{power}}_{\it{s,h,m,y}}^{\rm{hydro}}`):
 
 .. math::
 
-  storage_{h,y,z,e}^{level} = storage_{t-1,y,z, e}^{level} - \frac{gen_{h,y,z,e}}{Effi_{y,e}^{storage}} \quad \forall e \in storage, h,y,z \\
-  \\
+    {\rm{power}}_{h,m,y,z,e={\rm{hydro}}}=\sum_{s\ \in{\mathcal{SZ}}_z}{\rm{power}}_{s,h,m,y}^{\rm{hydro}}\quad\forall h,m,y,z \\
 
-Where, the starting energy storage level is set to the initial storage level, as follows:
-
-.. math::
-
-  storage_{h,y,z,e}^{level} = Storage_{z, e}^{init} \quad \forall h,y=INI,z \\
-  \\
-
-And the final energy storage level is set to the ending storage level, as follows:
+Here, calculation of :math:`{\rm{power}}^{\rm{hydro}}_{s,h,m,y}` is obtained by external net water head simulation procedure. In addition, :math:`{\rm{power}}^{\rm{hydro}}_{s,h,m,y}` is bounded between the guaranteed minimum output (:math:`{\underline{{\rm{POWER}}}}_s^{\rm{hydro}}`) and the nameplate capacity (:math:`{{\rm{CAP}}}_s^{\rm{hydro}}`), as follows:
 
 .. math::
 
-  storage_{h,y,z}^{level} = Storage_{z, e}^{end} \quad \forall h,y=END,z \\
-  \\
+    {\underline{{\rm{POWER}}}}_s^{\rm{hydro}}\le{\rm{power}}_{s,h,m,y}^{\rm{hydro}}\le{{\rm{CAP}}}_s^{\rm{hydro}}\quad\forall s,h,m,y \\
 
-Ramping Ratio
-+++++++++++++
-
-The model computes the generated power and ensures it is less than the product of the ramping ratio and the existing capacity of each technology.
-
-Where, the upper bound of the generated power is defined, as follows:
+For VRE, their power output is constrained by the capacity factors as follows:
 
 .. math::
 
-  gen^{up}_{h,m,y,z,e} \le R^{up}_{e}\times cap_{y,z,e}^{existing-tech} \quad \forall h,m,y,z,te \\
-  \\
+    {\rm{power}}_{h,m,y,z,e}\le{{\rm{CF}}}_{h,m,y,z,e}\times{\rm{cap}}_{y,z,e}^{\rm{existingtech}}\quad\forall h,m,y,z,e\in {\mathcal{NDISP}} \\
 
-And the lower bound of the generated power is defined, as follows:
-
-.. math::
-
-  gen^{down}_{h,m,y,z,e} \le R^{down}_{e}\times cap_{y,z,e}^{existing-tech} \quad \forall h,m,y,z,te \\
-  \\
-
-Finally, the difference between the upper and lower bound of the generated power, in the current hour, is equal to the difference between the generated power in the current hour and the previous hour, as follows:
+Regardless of the technology type,  actual power generation (:math:`{\rm{gen}}_{h,m,y,z,e}`) in a corresponding period :math:`\Delta h` can be calculated based on the power output (:math:`{\rm{power}}_{h,m,y,z,e}`) and the generation efficiency (:math:`\eta_{y,e}^{\rm{out}}`):
 
 .. math::
 
-  gen^{up}_{h,m,y,z,e} - gen^{down}_{h,m,y,z,e} = gen_{h,m,y,z,e} - gen_{t-1,m,y,z,e} \quad \forall h,m,y,z,te \\
+    {\rm{gen}}_{h,m,y,z,e}={\rm{power}}_{h,m,y,z,e}\times\Delta h{\times\eta}_{y,e}^{\rm{out}}\quad \forall h,m,y,z,e\in {\mathcal{E}} \\
+
+Note that :math:`\eta_{y,e}^{\rm{out}}`=1 when :math:`e\in {\mathcal{E}}\backslash {\mathcal{STOR}}`.
+
+Power output variation
+++++++++++++++++++++++++++
+
+All technologies apart from non-dispatchable technology are limited by the so-called ramping capability, meaning that the variation of their power output in two successive periods is limited.  We introduce two non-negative auxiliary variables: increment (:math:`{\rm{power}}_{h,m,y,z,e}^{\rm{up}}`) and decrement (:math:`{\rm{power}}_{h,m,y,z,e}^{\rm{down}}`) to describe changes in power output in two successive periods (from :math:`h`-1 to :math:`h`) as follows:
+
+.. math::
+
+  {\rm{power}}_{h,m,y,z,e}^{\rm{up}}-{\rm{power}}_{h,m,y,z,e}^{\rm{down}}={\rm{power}}_{h,m,y,z,e}-{\rm{power}}_{h-1,m,y,z,e}\quad\forall h,m,y,z,e\ \in {\mathcal{E}}\backslash {\mathcal{NDISP}} \\
   \\
+
+When the power plant ramps up from :math:`h`-1 to :math:`h`, the minimum of :math:`{\rm{power}}_{h,m,y,z,e}^{\rm{up}}` is obtained when :math:`{\rm{power}}_{h,m,y,z,e}^{\rm{down}}` becomes zero. Similarly, when the power plant ramps down from :math:`h`-1 to :math:`h`, the minimum of :math:`{\rm{power}}_{h,m,y,z,e}^{\rm{down}}` is obtained when :math:`{\rm{power}}_{h,m,y,z,e}^{\rm{up}}` becomes zero. Therefore, we can constrain the maximum ramping up and down respectively, as follows:
+
+.. math::
+
+  {\rm{power}}_{h,m,y,z,e}^{\rm{up}}&\le{{R}}_e^{\rm{up}}\times\Delta h\times {\rm{cap}}_{y,z,e}^{\rm{existingtech}}\quad\forall h,m,y,z,e\in {\mathcal{E}}\backslash {\mathcal{NDISP}} \\
+  \\
+
+.. math::
+
+  {\rm{power}}_{h,m,y,z,e}^{\rm{down}}&\le{{R}}_e^{\rm{down}}\times\Delta h\times {\rm{cap}}_{y,z,e}^{\rm{existingtech}}\quad\forall h,m,y,z,e\in {\mathcal{E}}\backslash {\mathcal{NDISP}} \\
+  \\
+
+where :math:`{{R}}_e^{\rm{up}}$/${{R}}_e^{\rm{down}}` is the allowed maximum/minimum ramping up/down capacity of technology :math:`e` in two successive periods, expressed as a percentage of the existing capacity of storage technology :math:`e`.
+
+Energy storage
++++++++++++++++
+
+Similar to the power discharging process, the charging power of storage technology :math:`e` (:math:`{\rm{power}}_{h,m,y,z,e}^{{c}}`) is also limited by the existing installed capacity and technical minimum charging power (:math:`{\underline{{\rm{POWER}}}}_{h,m,y,z,e}^{{c}}`) as follows:
+
+.. math::
+
+  {\underline{{\rm{POWER}}}}_{h,m,y,z,e}^{{c}}\times {\rm{cap}}_{y,z,e}^{\rm{existingtech}}\le{\rm{power}}_{h,m,y,z,e}^{{c}}\le {\rm{cap}}_{y,z,e}^{\rm{existingtech}}\quad\forall h,m,y,z,e\in {\mathcal{STOR}} \\
+  \\
+
+The charging generation (:math:`{\rm{charge}}_{h,m,y,z,e}`) and :math:`{\rm{power}}_{h,m,y,z,e}^{c}` need to meet the following formula:
+
+.. math::
+
+  {\rm{charge}}_{h,m,y,z,e}={\rm{power}}_{h,m,y,z,e}^{\rm{c}}\times\Delta h{\times\eta}_{y,e}^{{\rm{in}}}\quad\forall h,m,y,z,e\in {\mathcal{STOR}} \\
+  \\
+
+Changes in stored electricity (:math:`{\rm{storage}}_{h,m,y,z,e}^{\rm{energy}}`)\  in two successive periods should be balanced by the charging (:math:`{\rm{charge}}_{h,m,y,z,e}`) and discharging (:math:`{\rm{gen}}_{h,m,y,z,e}`) processes:
+
+.. math::
+
+  {\rm{storage}}_{h,m,y,z,e}^{\rm{energy}}-\ {\rm{storage}}_{h-1,m,y,z,e}^{\rm{energy}}={\rm{charge}}_{h,m,y,z,e}-{\rm{gen}}_{h,m,y,z,e} \\
+  \\
+
+In addition, the initial (when :math:`h=h_{\rm{start}}`) stored electricity  (:math:`{\rm{storage}}_{h=h_{\rm{start}},m,y,z,e}^{\rm{energy}}`) of storage technology :math:`e` in each month of each year can be calculated based on the proportion of the maximum storage capacity, as follows:
+
+.. math::
+
+    {\rm{storage}}_{h=h_{\rm{start}},m,y,z,e}^{\rm{energy}}={{\rm{STORAGE}}}_{m,y,z,e}^{\rm{energy}}\times{{\rm{EP}}}_e\times {\rm{cap}}_{y,z,e}^{\rm{existingtech}}\quad\forall m,y,z,e\in {\mathcal{STOR}} \\
+
+The instantaneous storage energy level (:math:`{\rm{storage}}_{h,m,y,z,e}^{\rm{energy}}`) of storage technology :math:`e` should not exceed the maximum energy storage capacity, as follows:
+
+.. math::
+
+    {\rm{storage}}_{h,m,y,z,e}^{\rm{energy}}\le{{\rm{EP}}}_e\times {\rm{cap}}_{y,z,e}^{\rm{existingtech}}\quad\forall h,m,y,z,e\in {\mathcal{STOR}} \\
+
+Water balance
++++++++++++++++
+
+To-Do
+
+Reservoir outflow
+++++++++++++++++++
+
+To-Do
+
+Reservoir storage
+++++++++++++++++++
+
+To-Do
+
+
+
