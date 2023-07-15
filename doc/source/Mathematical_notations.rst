@@ -46,7 +46,7 @@ The description of the units used in this page are as follows:
    * - ``m``
      - Meter
 
-   * - :math:{\rm{m}}^{\rm 3}
+   * - :math:`{\rm{m}}^{\rm 3}`
      - Cubic meter
 
    * - ``s``
@@ -278,73 +278,165 @@ Parameter List
    :header-rows: 1
    :align: left
    
-   * - Parameter
+   * - Symbol
      - Description
      - Unit
 
-   * - :math:`C^\text{var}_{y,te}`
-     - Variable O&M cost of the :math:`te`-th technology, and in the :math:`y`-th year.
+   * - :math:`{{C}}_{\it{y,z,e}}^{{\rm{vartech}}}`
+     - Variable O&M cost per unit power generation from technology :math:`e` in year :math:`y` in zone :math:`z`.
+     - ``USD/MWh``
+
+   * - :math:`{{C}}_{\it{y,z,e}}^{\rm{fuel}}`
+     - Fuel cost per unit power generation from technology :math:`e` in year :math:`y` in zone :math:`z`.
+     - ``USD/MWh``
+
+   * - :math:`{{C}}_{\it{y,z,e}}^{\rm{fixtech}}`
+     - Fixed O&M cost per year per unit existing capacity of technology :math:`e` in year :math:`y` in zone :math:`z`.
+     - ``USD/MW-yr``
+
+   * - :math:`{{C}}_{\it{y,z,e}}^{\rm{invtech}}`
+     - Investment cost per unit installed capacity of technology :math:`e` in year :math:`y` in zone :math:`z`.
      - ``USD/MW``
 
-   * - :math:`C^\text{fix}_{y,te}`
-     - Fixed O&M cost of the :math:`te`-th technology, and in the :math:`y`-th year.
-     - ``USD/kW``
+   * - :math:`{{C}}_{y,z_{\rm{from}},z_{\rm{to}}}^{\rm{varline}}`
+     - Variable O&M cost per unit transmitted electricity from zone :math:`z_{\rm{from}}` to zone :math:`z_{\rm{to}}` in year :math:`y`.
+     - ``USD/MWh``
 
-   * - :math:`C^\text{newtech}_{y,te}`
-     - Investment cost of the :math:`te`-th technology, and in the :math:`y`-th year.
-     - ``USD/KW``
+   * - :math:`{{C}}_{y,z_{\rm{from}},z_{\rm{to}}}^{\rm{fixline}}`
+     - Fixed O&M cost per year per unit existing capacity of transmission line from zone :math:`z_{\rm{from}}` to zone :math:`z_{\rm{to}}` in year :math:`y`.
+     - ``USD/MW-yr``
 
-   * - :math:`C^\text{newline}_{y,te}`
-     - Investment cost of the :math:`te`-th technology, and in the :math:`y`-th year.
-     - ``USD/MW-km``
+   * - :math:`{{C}}_{y,z_{\rm{from}},z_{\rm{to}}}^{\rm{invline}}`
+     - Investment cost per unit expansion of transmission line from zone :math:`z_{\rm{from}}` to zone :math:`z_{\rm{to}}` in year :math:`y`.
+     - ``USD/MW``
 
-   * - :math:`\text{DF}_{y}`
-     - Discount factor in the :math:`y`-th year.
-     - N/A
+   * - :math:`{\rm{CARBON}}_{\it{y,z,e}}`
+     - Carbon dioxide equivalent emission per unit power generation from technology :math:`e` in year :math:`y` in zone :math:`z`.
+     - ``tonne/MWh``
 
-   * - :math:`\text{carbon}_{y}`
-     - Carbon emission in the :math:`y`-th year.
-     - ``ton/MWh``
+   * - :math:`\overline{{\rm{CARBON}}}_{y}`
+     - Upper bound of carbon dioxide equivalent emission summed across all zones and technologies in year :math:`y`.
+     - tonne
 
-   * - :math:`\overline{\text{carbon}}_y`
-     - Upper bound of carbon emission for all zones in the :math:`y`-th year.
-     - ``tonne``
-
-   * - :math:`\text{Demand}_{t,m,y,z}`
-     - Load demand in the :math:`z`-th zone, in the :math:`y`-th year, for the :math:`m` time period, and in the :math:`t`-th hour.
+   * - :math:`{{\rm{DEMAND}}}_{h,m,y,z}`
+     - Average power demand in hour :math:`h` in month :math:`m` of year :math:`y` in zone :math:`z`.
      - ``MW``
 
-   * - :math:`\text{Effi}^\text{trans}_{z1,z,y}`
-     - Efficiency of transmission line in the :math:`y`-th year, and from the :math:`z_1`-th zone to the :math:`z`-th zone
+   * - :math:`{{\rm{CAP}}}_{\rm{age},{\it{z,e}}}^{{\rm{inittech}}}`
+     - Initial installed capacity of technology :math:`e` with the operation time of :math:`\rm{age}` years in zone :math:`z`.
      - N/A
 
-   * - :math:`\text{Installed}^\text{init}_{z,te}`
-     - Installed capacity of the :math:`te`-th technology, and in the :math:`z`-th zone.
+   * - :math:`{{\rm{CAP}}}_{\rm{age},{\it{z}}_{\rm{from}},{\it{z}}_{\rm{to}}}^{\rm{initline}}`
+     - Initial installed capacity of transmission lines with the operation time of :math:`\rm{age}` years from zone :math:`z_{\rm{from}}` to zone :math:`{\it{z}}_{\rm{to}}`.
      - ``MW``
 
-   * - :math:`\text{Effi}^\text{storage}_{y,te}`
-     - Energy storage conversion efficiency of the :math:`te`-th technology, and in the :math:`y`-th year.
-     - N/A
-
-   * - :math:`\text{Storage}^\text{init}_{z}`
-     - Storage level in the :math:`z`-th zone.
+   * - :math:`{{\rm{CAP}}}_s^{\rm{hydro}}`
+     - Nameplate capacity of hydropower station :math:`s`.
      - ``MW``
 
-   * - :math:`\text{Storage}^\text{end}_{y, z}`
-     - Minimum storage level in the :math:`z`-th zone, and in the :math:`y`-th year.
-     - ``MW``
-
-   * - :math:`R^\text{up}_{te}`
-     - Maximum upward ramping ratio of the :math:`te`-th technology.
+   * - :math:`{\underline{{\rm{POWER}}}}_s^{\rm{hydro}}`
+     - Guaranteed minimum power output of hydropower station :math:`s`.
      - N/A
 
-   * - :math:`R^\text{down}_{te}`
-     - Maximum downward ramping ratio of the :math:`te`-th technology.
+   * - :math:`{\underline{{\rm{POWER}}}}_{\it{h,m,y,z,e}}^{\it{c}}`
+     - Minimum charge power of storage technology :math:`e` in hour :math:`h` in month :math:`m` of year :math:`y` in zone :math:`z`, expressed as a percentage of the existing capacity of storage technology :math:`e`.
      - N/A
 
-   * - :math:`\text{cap}^\text{factor}_{h,z,te}`
-     - Capacity factor of the :math:`te`-th technology, in the :math:`z`-th zone, and in the :math:`h`-th hour.
+   * - :math:`{{\rm{STORAGE}}}_{\it{m,y,z,e}}^{\rm{energy}}`
+     - Energy storage level of technology :math:`e` at the beginning of month :math:`m` of year :math:`y` in zone :math:`z`, expressed as a percentage of the maximum energy storage capacity of storage technology :math:`e`.
      - N/A
+
+   * - :math:`{R}_e^{\rm{up}}`
+     - Allowed maximum ramping up capacity of technology :math:`e` in two successive periods, expressed as a percentage of the existing capacity of storage technology :math:`e`.
+     - ``1/hr``
+
+   * - :math:`{R}_e^{\rm{down}}`
+     - Allowed maximum ramping down capacity of technology :math:`e` in two successive periods, expressed as a percentage of the existing capacity of storage technology :math:`e`.
+     - ``1/hr``
+
+   * - :math:`{{\rm{STORAGE}}}_{s,m,y}^{\rm{initreservoir}}`
+     - Initial reservoir storage corresponding to hydropower station :math:`s` in month :math:`m` of year :math:`y`.
+     - :math:{\rm m}^{\rm 3}
+
+   * - :math:`{{\rm{STORAGE}}}_{s,m,y}^{\rm{endreservoir}}`
+     - Terminal reservoir storage corresponding to hydropower station :math:`s` in month :math:`m` of year :math:`y`.
+     - :math:{\rm m}^{\rm 3}
+
+   * - :math:`{\overline{{\rm{STORAGE}}}}_s^{\rm{reservoir}}`
+     - Upper bound of reservoir storage corresponding to hydropower station :math:`s`.
+     - :math:{\rm m}^{\rm 3}
+
+   * - :math:`{\underline{{\rm{STORAGE}}}}_s^{\rm{reservoir}}`
+     - Lower bound of reservoir storage corresponding to hydropower station :math:`s`.
+     - :math:{\rm m}^{\rm 3}
+
+   * - :math:`{{\rm{INFLOW}}}_{\it{s,h,m,y}}^{\rm{net}}`
+     - Net inflow of reservoir corresponding to hydropower station :math:`s` in hour :math:`h` in month :math:`m` of year :math:`y`.
+     - :math:{\rm m}^{\rm 3}/{\rm s}
+
+   * - :math:`{\rm{OUTFLOW}}_s^{\rm{gen}}`
+     - Maximum outflow that can be released through turbines of hydropower station :math:`s`.
+     - :math:{\rm m}^{\rm 3}/{\rm s}
+
+   * - :math:`{\rm{OUTFLOW}}_s^{\rm{spillage}}`
+     - Maximum outflow that can be released through spillway of reservoir corresponding to hydropower station :math:`s`.
+     - :math:{\rm m}^{\rm 3}/{\rm s}
+
+   * - :math:`{\rm{OUTFLOW}}_s`
+     - Minimum outflow of reservoir corresponding to hydropower station :math:`s` to meet water supply, environmental flow requirements, flood management, and others.
+     - :math:{\rm m}^{\rm 3}/{\rm s}
+
+   * - :math:`\omega`
+     - Weight factor to extrapolate representative operation day(s) to a full year (8760 hours).
+     - N/A
+
+   * - :math:`\rho`
+     - Density of water.
+     - :math:`\rm{kg}/\rm{m}^\text{3}`
+
+   * - :math:`g`
+     - Acceleration of gravity.
+     - :math:`\rm{m}/\rm{s}^\text{2}`
+
+   * - :math:`\eta_{y,e}^{\rm{in}}`
+     - Charging efficiency of storage technology :math:`e` in year :math:`y`.
+     - N/A
+
+   * - :math:`\eta_{y,e}^{\rm{out}}`
+     - Generation efficiency of technology :math:`e` in year :math:`y`.
+     - N/A
+
+   * - :math:`\eta_s`
+     - Generation efficiency of converting water energy to electric energy in hydropower station :math:`s`.
+     - N/A
+
+   * - :math:`\eta_{z_{\rm{from}},z_{\rm{to}}}^{\rm{trans}}`
+     - Transmission efficiency of transmission lines from zone :math:`z_{\rm{from}}` to zone :math:`z_{\rm{to}}`.
+     - N/A
+
+   * - :math:`\tau_{{\rm{su}},s}`
+     - Water travel (or propagation) time from the upstream hydropower station :math:`{\rm{su}}` to the immediate downstream hydropower station :math:`s`.
+     - ``hr``
+
+   * - :math:`\Delta h`
+     - Time step.
+     - ``hr``
+
+   * - :math:`r`
+     - Discount rate.
+     - N/A
+
+   * - :math:`{T}_e`
+     - Lifetime of technology :math:``e``.
+     - ``yr``
+
+   * - :math:`{T}_{\rm{line}}`
+     - Lifetime of transmission line.
+     - ``yr``
+
+   * - :math:`{\rm{EP}}_e`
+     -  Power to energy ratio of storage technology :math:`e`.
+     - ``hr``
 
 Objective Functions
 -------------------
