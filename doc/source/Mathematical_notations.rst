@@ -40,8 +40,17 @@ The description of the units used in this page are as follows:
    * - ``MW-km``
      - Megawatt-kilometer
 
-   * - ``tonnes``
-     - Tonnes
+   * - ``tonne``
+     - Tonne
+   
+   * - ``m``
+     - Meter
+
+   * - :math:{\rm{m}}^{\rm 3}
+     - Cubic meter
+
+   * - ``s``
+     - Second
 
    * - N/A
      - Not Applicable
@@ -299,7 +308,7 @@ Parameter List
 
    * - :math:`\overline{\text{carbon}}_y`
      - Upper bound of carbon emission for all zones in the :math:`y`-th year.
-     - ``tonnes``
+     - ``tonne``
 
    * - :math:`\text{Demand}_{t,m,y,z}`
      - Load demand in the :math:`z`-th zone, in the :math:`y`-th year, for the :math:`m` time period, and in the :math:`t`-th hour.
