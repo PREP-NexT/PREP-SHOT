@@ -448,11 +448,11 @@ The cost equations are defined as follows:
 .. math::
   \rm{cost} &= \rm{cost}_\rm{tech}^\rm{var} + \rm{cost}_\rm{line}^\rm{var} + \rm{cost}^\rm{fuel} + \rm{cost}_\rm{tech}^\rm{fix} + \rm{cost}_\rm{line}^\rm{fix} + \rm{cost}_\rm{tech}^\rm{inv} + \rm{cost}_\rm{line}^\rm{inv} \\
   \\
-  \rm{cost}_\rm{tech}^\rm{var} &= \frac{\sum_{t,m,y,z,\rm{e}}C_{y,z,\rm{e}}^\rm{tech-var}\times \rm{gen}_{t,m,y,z,\rm{e}}}{\omega} \times \rm{factor}_{y}^\rm{var} \\
+  \rm{cost}_\rm{tech}^\rm{var} &= \frac{\sum_{h,m,y,z,\rm{e}}C_{y,z,\rm{e}}^\rm{tech-var}\times \rm{gen}_{h,m,y,z,\rm{e}}}{\omega} \times \rm{factor}_{y}^\rm{var} \\
   \\
-  \rm{cost}_\rm{line}^\rm{var} &= \frac{\sum_{t,m,y,z_s,z_o}C_{y,z}^\rm{line-var}\times \rm{export}_{t,m,y,z_s,z_o}}{\omega} \times \rm{factor}_{y}^\rm{var} \\
+  \rm{cost}_\rm{line}^\rm{var} &= \frac{\sum_{h,m,y,z_s,z_o}C_{y,z}^\rm{line-var}\times \rm{export}_{h,m,y,z_s,z_o}}{\omega} \times \rm{factor}_{y}^\rm{var} \\
   \\
-  \rm{cost}^\rm{fuel} & = \frac{\sum_{t,m,y,z,\rm{e}}C_{y,z,\rm{e}}^\rm{fuel}\times \rm{gen}_{t,m,y,z,\rm{e}}}{\omega} \times \rm{factor}_{y}^\rm{var} \\
+  \rm{cost}^\rm{fuel} & = \frac{\sum_{h,m,y,z,\rm{e}}C_{y,z,\rm{e}}^\rm{fuel}\times \rm{gen}_{h,m,y,z,\rm{e}}}{\omega} \times \rm{factor}_{y}^\rm{var} \\
   \\
   \rm{cost}_\rm{tech}^\rm{fix} &= \sum_{y,z,\rm{e}}C_{y,z,\rm{e}}^\rm{tech-fix}\times \rm{cap}_{y,z,\rm{e}}^\rm{existing-tech}\times \rm{factor}_{y}^\rm{fix} \\
   \\
@@ -595,7 +595,7 @@ The existing capacity for each year, in each zone, for each technology, is as fo
 
 .. math::
 
-  cap_{y, z, e}^{existing-tech} = \sum_{lifetime-age<y-y_{min})}cap_{age,z,e}^{tech-init} + \sum_{(yy\le y) \& (lifetime>y-yy)}cap_{yy,z,e}^{tech-inv} \text{, for all } y,z,te \\
+  cap_{y, z, e}^{existing-tech} = \sum_{lifetime-age<y-y_{min})}cap_{age,z,e}^{tech-init} + \sum_{(yy\le y) \& (lifetime>y-yy)}cap_{yy,z,e}^{tech-inv} \text{, for all } y,z,e \\
   \\
 
 The existing capacity of the transmission lines for each year, from :math:`z_s`-th zone to :math:`z_o`-th zone, is as follows:
@@ -614,7 +614,7 @@ The carbon emission for each technology, for each year, and in each zone, is as 
 
 .. math::
 
-  carbon_{y,e}^{tech} = \sum_{t,m,z}Carbon_{y,z,e}\times gen_{t,m,y,z,e} \quad \forall y,te \\
+  carbon_{y,e}^{tech} = \sum_{h,m,z}Carbon_{y,z,e}\times gen_{h,m,y,z,e} \quad \forall y,e \\
   \\
 
 
@@ -639,9 +639,9 @@ The model computes the power balance for each hour, in each time period, for eac
 
 .. math::
 
-  Demand_{t,m,y,z} = & \sum_{z_s\neq z}import_{t, m, y, z_s, z} - \sum_{z_o\neq z}export_{t, m, y, z, z_o} + \\
+  Demand_{h,m,y,z} = & \sum_{z_s\neq z}import_{h, m, y, z_s, z} - \sum_{z_o\neq z}export_{h, m, y, z, z_o} + \\
                      \\
-                     & \sum_{e}gen_{t, m, y, z, e} - \sum_{te\in storage}charge_{t, m, y, z, e}\quad \forall t,m,y,te
+                     & \sum_{e}gen_{h, m, y, z, e} - \sum_{te\in storage}charge_{h, m, y, z, e}\quad \forall h,m,y,e
 
 Transmission Loss
 +++++++++++++++++
@@ -650,7 +650,7 @@ The model computes the transmission loss for each hour, in each time period, for
 
 .. math::
 
-  export_{t, m, y, z_s, z_o} \times Effi_{z_s, z_o}^{trans} = import_{t, m, y, z_s, z_o} \quad \forall t,y,z_s\neq z_o \\
+  export_{h, m, y, z_s, z_o} \times Effi_{z_s, z_o}^{trans} = import_{h, m, y, z_s, z_o} \quad \forall h,y,z_s\neq z_o \\
   \\
 
 Maximum Output
@@ -660,7 +660,7 @@ The model computes the maximum output for each hour, in each time period, for ea
 
 .. math::
 
-  gen_{t, m, y, z, e} \leq cap_{y, z, e}^{existing-tech} \forall t,m \\
+  gen_{h, m, y, z, e} \leq cap_{y, z, e}^{existing-tech} \forall h,m \\
   \\
 
 Energy Storage
@@ -670,21 +670,21 @@ The model computes the energy storage level for each hour, for each year, in eac
 
 .. math::
 
-  storage_{t,y,z,e}^{level} = storage_{t-1,y,z, e}^{level} - \frac{gen_{t,y,z,e}}{Effi_{y,e}^{storage}} \quad \forall te \in storage, t,y,z \\
+  storage_{h,y,z,e}^{level} = storage_{t-1,y,z, e}^{level} - \frac{gen_{h,y,z,e}}{Effi_{y,e}^{storage}} \quad \forall e \in storage, h,y,z \\
   \\
 
 Where, the starting energy storage level is set to the initial storage level, as follows:
 
 .. math::
 
-  storage_{t,y,z,e}^{level} = Storage_{z, e}^{init} \quad \forall t,y=INI,z \\
+  storage_{h,y,z,e}^{level} = Storage_{z, e}^{init} \quad \forall h,y=INI,z \\
   \\
 
 And the final energy storage level is set to the ending storage level, as follows:
 
 .. math::
 
-  storage_{t,y,z}^{level} = Storage_{z, e}^{end} \quad \forall t,y=END,z \\
+  storage_{h,y,z}^{level} = Storage_{z, e}^{end} \quad \forall h,y=END,z \\
   \\
 
 Ramping Ratio
@@ -696,19 +696,19 @@ Where, the upper bound of the generated power is defined, as follows:
 
 .. math::
 
-  gen^{up}_{t,m,y,z,e} \le R^{up}_{e}\times cap_{y,z,e}^{existing-tech} \quad \forall t,m,y,z,te \\
+  gen^{up}_{h,m,y,z,e} \le R^{up}_{e}\times cap_{y,z,e}^{existing-tech} \quad \forall h,m,y,z,te \\
   \\
 
 And the lower bound of the generated power is defined, as follows:
 
 .. math::
 
-  gen^{down}_{t,m,y,z,e} \le R^{down}_{e}\times cap_{y,z,e}^{existing-tech} \quad \forall t,m,y,z,te \\
+  gen^{down}_{h,m,y,z,e} \le R^{down}_{e}\times cap_{y,z,e}^{existing-tech} \quad \forall h,m,y,z,te \\
   \\
 
 Finally, the difference between the upper and lower bound of the generated power, in the current hour, is equal to the difference between the generated power in the current hour and the previous hour, as follows:
 
 .. math::
 
-  gen^{up}_{t,m,y,z,e} - gen^{down}_{t,m,y,z,e} = gen_{t,m,y,z,e} - gen_{t-1,m,y,z,e} \quad \forall t,m,y,z,te \\
+  gen^{up}_{h,m,y,z,e} - gen^{down}_{h,m,y,z,e} = gen_{h,m,y,z,e} - gen_{t-1,m,y,z,e} \quad \forall h,m,y,z,te \\
   \\
