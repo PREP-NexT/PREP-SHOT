@@ -424,7 +424,7 @@ Parameter List
      - N/A
 
    * - :math:`{T}_e`
-     - Lifetime of technology :math:``e``.
+     - Lifetime of technology :math:`e`.
      - ``yr``
 
    * - :math:`{T}_{\rm{line}}`
