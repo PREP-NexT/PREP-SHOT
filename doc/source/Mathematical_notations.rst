@@ -595,14 +595,14 @@ The existing capacity for each year, in each zone, for each technology, is as fo
 
 .. math::
 
-  cap_{y, z, e}^{existing-tech} = \sum_{lifetime-age<y-y_{min})}cap_{age,z,e}^{tech-init} + \sum_{(yy\le y) \& (lifetime>y-yy)}cap_{yy,z,e}^{tech-inv} \text{, for all } y,z,e \\
+  {\rm{cap}}_{y,z,e}^{\rm{existingtech}}=\sum_{{\rm{age}}=1}^{{{T}}_e-(y-y_{\rm{start}})}{{\rm{CAP}}}_{{\rm{age}},z,e}^{\rm{inittech}}+\sum_{y_{\rm{pre}}={\max}(y_{\rm{start}}, y-{{T}}_e)}^{y}{{\rm{cap}}_{y_{\rm{pre}},z,e}^{\rm{invtech}}}\quad\forall y,z,e \\
   \\
 
-The existing capacity of the transmission lines for each year, from :math:`z_s`-th zone to :math:`z_o`-th zone, is as follows:
+The existing capacity of the transmission lines for each year, from :math:`z_{\rm{from}}` zone to :math:`z_{\rm{to}}`-th zone, is as follows:
 
 .. math::
 
-  cap_{y, z_s, z_o}^{existing-line} = \sum_{lifetime-age<y-y_{min})}cap_{age,z_s,z_o}^{line-init} + \sum_{(yy\le y) \& (lifetime>y-yy)}cap_{yy,z_s,z_o}^{line-inv} \text{, for all } y,z_s,z_o \\
+  {\rm{cap}}_{y,z_{\rm{from}},z_{\rm{to}}}^{\rm{existingline}}=\sum_{{\rm{age}}=1}^{{T}_{\rm{line}}-(y-y_{\rm{start}})}{{\rm{CAP}}}_{{\rm{age}},z_{\rm{from}},z_{\rm{to}}}^{\rm{initline}}+\sum_{y_{\rm{pre}}={\max}(y_{\rm{start}}, y-{{T}}_{\rm{line}})}^{y}{{\rm{cap}}_{y_{\rm{pre}},z_{\rm{from}},z_{\rm{to}}}^{\rm{invline}}}\quad\forall y,z_{\rm{from}}\neq z_{\rm{to}}\\
   \\
 
 Carbon Emission
