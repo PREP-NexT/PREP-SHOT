@@ -61,24 +61,52 @@ Set List
      - Description
      - Unit
 
-   * - :math:`te`
+   * - :math:`e \in \mathcal{E}`
      - Technology
      - N/A
 
-   * - :math:`h` or :math:`t`
+   * - :math:`h, h_{\rm{start}}, h_{\rm{end}} \in \mathcal{H}`
      - Hour
      - ``hr``
 
-   * - :math:`y`
+   * - :math:`y, y_{\rm{next}}, y_{\rm{pre}}, y_{\rm{start}}, y_{\rm{end}} \in \rm \mathcal{Y}`
      - Year
      - ``yr``
 
-   * - :math:`m`
-     - Time period
+   * - :math:`m \in \rm \mathcal{M}`
+     - Month
      - N/A
 
-   * - :math:`z`
+   * - :math:`z, z_{\rm{from}}, z_{\rm{to}} \in \mathcal{Z}`
      - Zone
+     - N/A
+
+   * - :math:`{\rm{age}} \in \mathcal{AGE}`
+     - Operation time
+     - ``yr``
+
+   * - :math:`s, {\rm{su}} \in \mathcal{S}`
+     - Hydropower station
+     - N/A
+
+   * - :math:`\mathcal{IU}_{\it{s}} \in \mathcal{S}`
+     - Immediate upstream hydropower stations of hydropower station :math:`s`
+     - N/A
+
+   * - :math:`\mathcal{SZ}_{\it{z}} \in \mathcal{S}`
+     - Subset of hydropower stations located in zone :math:`z`
+     - N/A
+
+   * - :math:`\mathcal{DISP} \in \mathcal{E}`
+     - Subset of dispatchable technology
+     - N/A
+
+   * - :math:`\mathcal{NDISP} \in \mathcal{E}`
+     - Subset of non-dispatchable technology
+     - N/A
+
+   * - :math:`\mathcal{STOR} \in \mathcal{E}`
+     - Subset of storage technology
      - N/A
 
 Variable List
