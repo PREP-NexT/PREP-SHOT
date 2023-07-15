@@ -46,9 +46,6 @@ The description of the units used in this page are as follows:
    * - ``m``
      - Meter
 
-   * - :math:`{\rm{m}}^{\rm 3}`
-     - Cubic meter
-
    * - ``s``
      - Second
 
@@ -356,35 +353,35 @@ Parameter List
 
    * - :math:`{{\rm{STORAGE}}}_{s,m,y}^{\rm{initreservoir}}`
      - Initial reservoir storage corresponding to hydropower station :math:`s` in month :math:`m` of year :math:`y`.
-     - :math:{\rm m}^{\rm 3}
+     - :math:`{\rm m}^{\rm 3}`
 
    * - :math:`{{\rm{STORAGE}}}_{s,m,y}^{\rm{endreservoir}}`
      - Terminal reservoir storage corresponding to hydropower station :math:`s` in month :math:`m` of year :math:`y`.
-     - :math:{\rm m}^{\rm 3}
+     - :math:`{\rm m}^{\rm 3}`
 
    * - :math:`{\overline{{\rm{STORAGE}}}}_s^{\rm{reservoir}}`
      - Upper bound of reservoir storage corresponding to hydropower station :math:`s`.
-     - :math:{\rm m}^{\rm 3}
+     - :math:`{\rm m}^{\rm 3}`
 
    * - :math:`{\underline{{\rm{STORAGE}}}}_s^{\rm{reservoir}}`
      - Lower bound of reservoir storage corresponding to hydropower station :math:`s`.
-     - :math:{\rm m}^{\rm 3}
+     - :math:`{\rm m}^{\rm 3}`
 
    * - :math:`{{\rm{INFLOW}}}_{\it{s,h,m,y}}^{\rm{net}}`
      - Net inflow of reservoir corresponding to hydropower station :math:`s` in hour :math:`h` in month :math:`m` of year :math:`y`.
-     - :math:{\rm m}^{\rm 3}/{\rm s}
+     - :math:`{\rm m}^{\rm 3}/{\rm s}`
 
    * - :math:`{\rm{OUTFLOW}}_s^{\rm{gen}}`
      - Maximum outflow that can be released through turbines of hydropower station :math:`s`.
-     - :math:{\rm m}^{\rm 3}/{\rm s}
+     - :math:`{\rm m}^{\rm 3}/{\rm s}`
 
    * - :math:`{\rm{OUTFLOW}}_s^{\rm{spillage}}`
      - Maximum outflow that can be released through spillway of reservoir corresponding to hydropower station :math:`s`.
-     - :math:{\rm m}^{\rm 3}/{\rm s}
+     - :math:`{\rm m}^{\rm 3}/{\rm s}`
 
    * - :math:`{\rm{OUTFLOW}}_s`
      - Minimum outflow of reservoir corresponding to hydropower station :math:`s` to meet water supply, environmental flow requirements, flood management, and others.
-     - :math:{\rm m}^{\rm 3}/{\rm s}
+     - :math:`{\rm m}^{\rm 3}/{\rm s}`
 
    * - :math:`\omega`
      - Weight factor to extrapolate representative operation day(s) to a full year (8760 hours).
