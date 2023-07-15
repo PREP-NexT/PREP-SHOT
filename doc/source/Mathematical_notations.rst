@@ -448,17 +448,17 @@ The cost equations are defined as follows:
 .. math::
   \rm{cost} &= \rm{cost}_\rm{tech}^\rm{var} + \rm{cost}_\rm{line}^\rm{var} + \rm{cost}^\rm{fuel} + \rm{cost}_\rm{tech}^\rm{fix} + \rm{cost}_\rm{line}^\rm{fix} + \rm{cost}_\rm{tech}^\rm{inv} + \rm{cost}_\rm{line}^\rm{inv} \\
   \\
-  \rm{cost}_\rm{tech}^\rm{var} &= \frac{\sum_{t,m,y,z,\rm{te}}C_{y,z,\rm{te}}^\rm{tech-var}\times \rm{gen}_{t,m,y,z,\rm{te}}}{\omega} \times \rm{factor}_{y}^\rm{var} \\
+  \rm{cost}_\rm{tech}^\rm{var} &= \frac{\sum_{t,m,y,z,\rm{e}}C_{y,z,\rm{e}}^\rm{tech-var}\times \rm{gen}_{t,m,y,z,\rm{e}}}{\omega} \times \rm{factor}_{y}^\rm{var} \\
   \\
   \rm{cost}_\rm{line}^\rm{var} &= \frac{\sum_{t,m,y,z_s,z_o}C_{y,z}^\rm{line-var}\times \rm{export}_{t,m,y,z_s,z_o}}{\omega} \times \rm{factor}_{y}^\rm{var} \\
   \\
-  \rm{cost}^\rm{fuel} & = \frac{\sum_{t,m,y,z,\rm{te}}C_{y,z,\rm{te}}^\rm{fuel}\times \rm{gen}_{t,m,y,z,\rm{te}}}{\omega} \times \rm{factor}_{y}^\rm{var} \\
+  \rm{cost}^\rm{fuel} & = \frac{\sum_{t,m,y,z,\rm{e}}C_{y,z,\rm{e}}^\rm{fuel}\times \rm{gen}_{t,m,y,z,\rm{e}}}{\omega} \times \rm{factor}_{y}^\rm{var} \\
   \\
-  \rm{cost}_\rm{tech}^\rm{fix} &= \sum_{y,z,\rm{te}}C_{y,z,\rm{te}}^\rm{tech-fix}\times \rm{cap}_{y,z,\rm{te}}^\rm{existing-tech}\times \rm{factor}_{y}^\rm{fix} \\
+  \rm{cost}_\rm{tech}^\rm{fix} &= \sum_{y,z,\rm{e}}C_{y,z,\rm{e}}^\rm{tech-fix}\times \rm{cap}_{y,z,\rm{e}}^\rm{existing-tech}\times \rm{factor}_{y}^\rm{fix} \\
   \\
   \rm{cost}_\rm{line}^\rm{fix} &= \sum_{y,z_s,z_o}C_{y,z_s,z_o}^\rm{line-fix}\times \rm{cap}_{y,z_s,z_o}^\rm{existing-line}\times \rm{factor}_{y}^\rm{fix} \\
   \\
-  \rm{cost}_\rm{tech}^\rm{inv} &=  \sum_{y,z,\rm{te}}C_{y,z,\rm{te}}^\rm{tech-inv}\times \rm{cap}_{y,z,\rm{te}}^\rm{tech-inv}\times \rm{factor}_{y}^\rm{inv} \\
+  \rm{cost}_\rm{tech}^\rm{inv} &=  \sum_{y,z,\rm{e}}C_{y,z,\rm{e}}^\rm{tech-inv}\times \rm{cap}_{y,z,\rm{e}}^\rm{tech-inv}\times \rm{factor}_{y}^\rm{inv} \\
   \\
   \rm{cost}_\rm{line}^\rm{inv} &= \sum_{y,z_s,z_o}C_{y,z_s,z_o}^\rm{line-inv}\times \rm{cap}_{y,z_s,z_o}^\rm{line-inv}\times \rm{factor}_{y}^\rm{inv} \times 0.5
 
@@ -595,7 +595,7 @@ The existing capacity for each year, in each zone, for each technology, is as fo
 
 .. math::
 
-  cap_{y, z, te}^{existing-tech} = \sum_{lifetime-age<y-y_{min})}cap_{age,z,te}^{tech-init} + \sum_{(yy\le y) \& (lifetime>y-yy)}cap_{yy,z,te}^{tech-inv} \text{, for all } y,z,te \\
+  cap_{y, z, e}^{existing-tech} = \sum_{lifetime-age<y-y_{min})}cap_{age,z,e}^{tech-init} + \sum_{(yy\le y) \& (lifetime>y-yy)}cap_{yy,z,e}^{tech-inv} \text{, for all } y,z,te \\
   \\
 
 The existing capacity of the transmission lines for each year, from :math:`z_s`-th zone to :math:`z_o`-th zone, is as follows:
@@ -614,7 +614,7 @@ The carbon emission for each technology, for each year, and in each zone, is as 
 
 .. math::
 
-  carbon_{y,te}^{tech} = \sum_{t,m,z}Carbon_{y,z,te}\times gen_{t,m,y,z,te} \quad \forall y,te \\
+  carbon_{y,e}^{tech} = \sum_{t,m,z}Carbon_{y,z,e}\times gen_{t,m,y,z,e} \quad \forall y,te \\
   \\
 
 
@@ -622,7 +622,7 @@ The carbon emission for each year is as follows:
 
 .. math::
 
-  carbon_{y} = \sum_{te}carbon_{y,te}^{tech} \forall y \\
+  carbon_{y} = \sum_{e}carbon_{y,e}^{tech} \forall y \\
   \\
 
 Where, the calculated carbon emission for each year, must be lower than its upper bound, as follows:
@@ -641,7 +641,7 @@ The model computes the power balance for each hour, in each time period, for eac
 
   Demand_{t,m,y,z} = & \sum_{z_s\neq z}import_{t, m, y, z_s, z} - \sum_{z_o\neq z}export_{t, m, y, z, z_o} + \\
                      \\
-                     & \sum_{te}gen_{t, m, y, z, te} - \sum_{te\in storage}charge_{t, m, y, z, te}\quad \forall t,m,y,te
+                     & \sum_{e}gen_{t, m, y, z, e} - \sum_{te\in storage}charge_{t, m, y, z, e}\quad \forall t,m,y,te
 
 Transmission Loss
 +++++++++++++++++
@@ -660,7 +660,7 @@ The model computes the maximum output for each hour, in each time period, for ea
 
 .. math::
 
-  gen_{t, m, y, z, te} \leq cap_{y, z, te}^{existing-tech} \forall t,m \\
+  gen_{t, m, y, z, e} \leq cap_{y, z, e}^{existing-tech} \forall t,m \\
   \\
 
 Energy Storage
@@ -670,21 +670,21 @@ The model computes the energy storage level for each hour, for each year, in eac
 
 .. math::
 
-  storage_{t,y,z,te}^{level} = storage_{t-1,y,z, te}^{level} - \frac{gen_{t,y,z,te}}{Effi_{y,te}^{storage}} \quad \forall te \in storage, t,y,z \\
+  storage_{t,y,z,e}^{level} = storage_{t-1,y,z, e}^{level} - \frac{gen_{t,y,z,e}}{Effi_{y,e}^{storage}} \quad \forall te \in storage, t,y,z \\
   \\
 
 Where, the starting energy storage level is set to the initial storage level, as follows:
 
 .. math::
 
-  storage_{t,y,z,te}^{level} = Storage_{z, te}^{init} \quad \forall t,y=INI,z \\
+  storage_{t,y,z,e}^{level} = Storage_{z, e}^{init} \quad \forall t,y=INI,z \\
   \\
 
 And the final energy storage level is set to the ending storage level, as follows:
 
 .. math::
 
-  storage_{t,y,z}^{level} = Storage_{z, te}^{end} \quad \forall t,y=END,z \\
+  storage_{t,y,z}^{level} = Storage_{z, e}^{end} \quad \forall t,y=END,z \\
   \\
 
 Ramping Ratio
@@ -696,19 +696,19 @@ Where, the upper bound of the generated power is defined, as follows:
 
 .. math::
 
-  gen^{up}_{t,m,y,z,te} \le R^{up}_{te}\times cap_{y,z,te}^{existing-tech} \quad \forall t,m,y,z,te \\
+  gen^{up}_{t,m,y,z,e} \le R^{up}_{e}\times cap_{y,z,e}^{existing-tech} \quad \forall t,m,y,z,te \\
   \\
 
 And the lower bound of the generated power is defined, as follows:
 
 .. math::
 
-  gen^{down}_{t,m,y,z,te} \le R^{down}_{te}\times cap_{y,z,te}^{existing-tech} \quad \forall t,m,y,z,te \\
+  gen^{down}_{t,m,y,z,e} \le R^{down}_{e}\times cap_{y,z,e}^{existing-tech} \quad \forall t,m,y,z,te \\
   \\
 
 Finally, the difference between the upper and lower bound of the generated power, in the current hour, is equal to the difference between the generated power in the current hour and the previous hour, as follows:
 
 .. math::
 
-  gen^{up}_{t,m,y,z,te} - gen^{down}_{t,m,y,z,te} = gen_{t,m,y,z,te} - gen_{t-1,m,y,z,te} \quad \forall t,m,y,z,te \\
+  gen^{up}_{t,m,y,z,e} - gen^{down}_{t,m,y,z,e} = gen_{t,m,y,z,e} - gen_{t-1,m,y,z,e} \quad \forall t,m,y,z,te \\
   \\
