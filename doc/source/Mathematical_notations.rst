@@ -25,9 +25,6 @@ The description of the units used in this page are as follows:
    * - ``USD``
      - US Dollar
 
-   * - ``RMB``
-     - Chinese Yuan
-
    * - ``kW``
      - Kilowatt
 
@@ -117,29 +114,37 @@ Variable List
    :header-rows: 1
    :align: left
   
-   * - Variable
+   * - Symbol
      - Description
      - Unit
 
-   * - :math:`\text{cost}`
-     - Total cost of whole energy system.
+   * - :math:`\rm{cost}^{\rm{total}}`
+     - System-wide total cost.
      - ``USD``
 
-   * - :math:`\text{cost}^\text{var}`
-     - Variable Operation and Maintenance (O&M) cost.
+   * - :math:`\rm{cost}^{\rm{var}}_{\rm{tech}}`
+     - System-wide variable Operation and Maintenance (O&M) cost of technologies.
      - ``USD``
 
-   * - :math:`\text{cost}^\text{fix}`
-     - Fixed O&M cost.
+   * - :math:`\rm{cost}^{\rm{fuel}}`
+     - System-wide fuel cost of technologies.
      - ``USD``
 
-   * - :math:`\text{cost}^\text{newtech}` 
-     - Investment cost of technologies.
+   * - :math:`\rm{cost}^{\rm{fix}}_{\rm{tech}}`
+     - System-wide fixed O&M cost of technologies.
      - ``USD``
 
-   * - :math:`\text{cost}^\text{newline}`
-     - Investment cost of transmission lines.
-     - ``RMB``
+   * - :math:`\rm{cost}^{\rm{fix}}_{\rm{line}}` 
+     - System-wide fixed O&M cost of transmission lines.
+     - ``USD``
+
+   * - :math:`\rm{cost}^{\rm{inv}}_{\rm{tech}}`
+     - System-wide investment cost of technologies.
+     - ``USD``
+
+   * - :math:`\rm{cost}^{\rm{inv}}_{\rm{line}}`
+     - System-wide investment cost of transmission lines.
+     - ``USD``
 
    * - :math:`\text{gen}_{h,m,y,z,te}`
      - Generating capacity of the :math:`te`-th technology, in the :math:`z`-th zone, in the :math:`y`-th year, for the :math:`m` time period, and in the :math:`h`-th hour.
