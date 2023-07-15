@@ -439,7 +439,7 @@ The input files required for each parameter, and their corresponding dimensions 
 
 Execute various scenarios
 -------------------------
-By employing command-line parameters, you can execute different scenarios using the model. For example, if you wish to run a scenario referred to as "low demand," you can prepare input data named `demand_low.xlsx`. Subsequently, when running the model, you can utilize command-line parameters to specify the scenario value. For instance, you can execute the model by executing the command `python run.py --demand=low`. 
+By employing command-line parameters, you can execute different scenarios using the model. For example, if you wish to run a scenario referred to as "low demand," you can prepare input data named ``demand_low.xlsx``. Subsequently, when running the model, you can utilize command-line parameters to specify the scenario value. For instance, you can execute the model by executing the command ``python run.py --demand=low``. 
 
 Tuning Model Parameters
 -----------------------
