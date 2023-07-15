@@ -448,11 +448,11 @@ The cost equations are defined as follows:
 .. math::
   \rm{cost} &= \rm{cost}_\rm{tech}^\rm{var} + \rm{cost}_\rm{line}^\rm{var} + \rm{cost}^\rm{fuel} + \rm{cost}_\rm{tech}^\rm{fix} + \rm{cost}_\rm{line}^\rm{fix} + \rm{cost}_\rm{tech}^\rm{inv} + \rm{cost}_\rm{line}^\rm{inv} \\
   \\
-  \rm{cost}_\rm{tech}^\rm{var} &= \frac{\sum_{t,m,y,z,\rm{te}}C_{y,z,\rm{te}}^\rm{tech-var}\times \rm{gen}_{t,m,y,z,\rm{te}}}\rm{Weight} \times \rm{factor}_{y}^\rm{var} \\
+  \rm{cost}_\rm{tech}^\rm{var} &= \frac{\sum_{t,m,y,z,\rm{te}}C_{y,z,\rm{te}}^\rm{tech-var}\times \rm{gen}_{t,m,y,z,\rm{te}}}{\omega} \times \rm{factor}_{y}^\rm{var} \\
   \\
-  \rm{cost}_\rm{line}^\rm{var} &= \frac{\sum_{t,m,y,z_s,z_o}C_{y,z}^\rm{line-var}\times \rm{export}_{t,m,y,z_s,z_o}}\rm{Weight} \times \rm{factor}_{y}^\rm{var} \\
+  \rm{cost}_\rm{line}^\rm{var} &= \frac{\sum_{t,m,y,z_s,z_o}C_{y,z}^\rm{line-var}\times \rm{export}_{t,m,y,z_s,z_o}}{\omega} \times \rm{factor}_{y}^\rm{var} \\
   \\
-  \rm{cost}^\rm{fuel} & = \frac{\sum_{t,m,y,z,\rm{te}}C_{y,z,\rm{te}}^\rm{fuel}\times \rm{gen}_{t,m,y,z,\rm{te}}}\rm{Weight} \times \rm{factor}_{y}^\rm{var} \\
+  \rm{cost}^\rm{fuel} & = \frac{\sum_{t,m,y,z,\rm{te}}C_{y,z,\rm{te}}^\rm{fuel}\times \rm{gen}_{t,m,y,z,\rm{te}}}{\omega} \times \rm{factor}_{y}^\rm{var} \\
   \\
   \rm{cost}_\rm{tech}^\rm{fix} &= \sum_{y,z,\rm{te}}C_{y,z,\rm{te}}^\rm{tech-fix}\times \rm{cap}_{y,z,\rm{te}}^\rm{existing-tech}\times \rm{factor}_{y}^\rm{fix} \\
   \\
@@ -460,130 +460,7 @@ The cost equations are defined as follows:
   \\
   \rm{cost}_\rm{tech}^\rm{inv} &=  \sum_{y,z,\rm{te}}C_{y,z,\rm{te}}^\rm{tech-inv}\times \rm{cap}_{y,z,\rm{te}}^\rm{tech-inv}\times \rm{factor}_{y}^\rm{inv} \\
   \\
-  \rm{cost}_\rm{line}^\rm{inv} &= \sum_{y,z_s,z_o}C_{y,z_s,z_o}^\rm{line-inv}\times \rm{cap}_{y,z_s,z_o}^\rm{line-inv}\times \rm{factor}_{y}^\rm{inv} \times 0.5 \\
-  \\
-
-The variables are defined as follows:
-
-.. list-table::
-   :widths: 10 80 5
-   :header-rows: 1
-   :align: left
-
-   * - Variable
-     - Description
-     - Unit
-
-   * - :math:`\text{cost}`
-     - Total cost.
-     - ``USD``
-
-   * - :math:`\text{cost}_\text{tech}^\text{var}` 
-     - Variable cost of technologies.
-     - ``USD``
-
-   * - :math:`\text{cost}_\text{line}^\text{var}`
-     - Variable cost of transmission lines.
-     - ``USD``
-
-   * - :math:`\text{cost}^\text{fuel}`
-     - Fuel cost of technologies.
-     - ``USD``
-
-   * - :math:`\text{cost}_\text{tech}^\text{fix}`
-     - Fixed cost of technologies.
-     - ``USD``
-
-   * - :math:`\text{cost}_\text{line}^\text{fix}`
-     - Fixed cost of transmission lines.
-     - ``USD``
-
-   * - :math:`\text{cost}_{tech}^{inv}` 
-     - Investment cost of technologies.
-     - ``USD``
-
-   * - :math:`\text{cost}_\text{line}^\text{inv}`
-     - Investment cost of transmission lines.
-     - ``USD``
-
-   * - :math:`\text{gen}_{t,m,y,z,te}` 
-     - Generation electricity of the :math:`te`-th technology, in the :math:`z`-th zone, in the :math:`y`-th year, for the :math:`m` time period, and in the :math:`t`-th hour.
-     - ``MWh``
-
-   * - :math:`\text{export}_{t,m,y,z_s,z_o}`
-     - Transmission electricity from the :math:`z_s`-th zone to the :math:`z_o`-th zone, in the :math:`y`-th year, for the :math:`m` time period, and in the :math:`t`-th hour.
-     - ``MWh``
-
-   * - :math:`\text{cap}^\text{existing-tech}_{y,z,te}`
-     - Existing installed capacity of the :math:`te`-th technology, in the :math:`z`-th zone, and in the :math:`y`-th year.
-     - ``MW``
-
-   * - :math:`\text{cap}^\text{existing-line}_{y,z_s,z_o}`
-     - Existing transmission capacity from the :math:`z_s`-th zone to the :math:`z_o`-th zone, and in the :math:`y`-th year.
-     - ``MW``
-
-   * - :math:`\text{cap}^\text{tech-inv}_{y,z,te}` 
-     - Newly-build installed capacity of the :math:`te`-th technology, in the :math:`z`-th zone, and in the :math:`y`-th year.
-     - ``MW``
-
-   * - :math:`\text{cap}^\text{line-inv}_{y,z_s,z_o}` 
-     - Newly-build capacity of transmission line from the :math:`z_s`-th zone to the :math:`z_o`-th zone, and in the :math:`y`-th year.
-     - ``MW``
-
-   * - :math:`\text{factor}^\text{var}_{y}` 
-     - Variable cost economic factor in the :math:`y`-th year.
-     - N/A
-
-   * - :math:`\text{factor}^\text{fix}_{y}`
-     - Fixed cost economic factor in the :math:`y`-th year.
-     - N/A
-
-   * - :math:`\text{factor}^\text{inv}_{y}` 
-     - Investment cost economic factor in the :math:`y`-th year.
-     - N/A
-
-The parameters are defined as follows:
-
-.. list-table::
-   :widths: 10 80 5
-   :header-rows: 1
-   :align: left
-  
-   * - Parameter
-     - Description
-     - Unit
-
-   * - :math:`C_{y,z,te}^\text{tech-var}` 
-     - Variable cost of unit capacity of the :math:`te`-th technology, in the :math:`z`-th zone, and in the :math:`y`-th year.
-     - ``USD/MW``
-
-   * - :math:`C_{y,z}^\text{line-var}`
-     - Variable cost of unit capacity of transmission line in the :math:`z`-th zone, and in the :math:`y`-th year.
-     - ``USD/MW``
-
-   * - :math:`C_{y,z,te}^\text{fuel}`
-     - Fuel cost of unit generation electricity of the :math:`te`-th technology, in the :math:`z`-th zone, and in the :math:`y`-th year.
-     - ``USD/MWh``
-
-   * - :math:`C_{y,z,te}^\text{tech-fix}`
-     - Fixed cost of unit capacity of the :math:`te`-th technology, in the :math:`z`-th zone, and in the :math:`y`-th year.
-     - ``USD/MWy``
-
-   * - :math:`C_{y,z_s,z_o}^\text{line-fix}`
-     - Fixed cost of unit capacity of transmission line from the :math:`z_s`-th zone to the :math:`z_o`-th zone, and in the :math:`y`-th year.
-     - ``USD/MWy``
-
-   * - :math:`C_{y,z,te}^\text{tech-inv}` 
-     - Investment cost of unit capacity of the :math:`te`-th technology, in the :math:`z`-th zone, and in the :math:`y`-th year.
-     - ``USD/MW``
-
-   * - :math:`C_{y,z_s,z_o}^\text{line-inv}`
-     - Investment cost of transmission lines from the :math:`z_s`-th zone to the :math:`z_o`-th zone, and in the :math:`y`-th year.
-     - ``USD/MW``
-
-   * - :math:`\text{Weight}`
-     - Proportion of selected scheduling period in a year (8760 hours) that is :math:`\frac{H\times M}{8760}`.
-     - N/A
+  \rm{cost}_\rm{line}^\rm{inv} &= \sum_{y,z_s,z_o}C_{y,z_s,z_o}^\rm{line-inv}\times \rm{cap}_{y,z_s,z_o}^\rm{line-inv}\times \rm{factor}_{y}^\rm{inv} \times 0.5
 
 Factors
 +++++++
