@@ -176,7 +176,7 @@ Variable List
 
    * - :math:`\rm{storage}_{\it{s,h,m,y}}^{\rm{reservoir}}` 
      - Reservoir storage corresponding to hydropower station :math:`s` in hour :math:`h` in month :math:`m` of year :math:`y`.
-     - `:math:`\text{m}^\text{3}``
+     - :math:`\text{m}^\text{3}`
 
    * - :math:`\rm{power}_{\it{h,m,y,z,e}}` 
      - Overall power output of technology :math:`e` in zone :math:`z` in hour :math:`h` in month :math:`m` of year :math:`y`.
@@ -227,23 +227,23 @@ Variable List
 
    * - :math:`\rm{inflow}_{\it{s,h,m,y}}^{\rm{total}}`
      - Total inflow of reservoir corresponding to hydropower station :math:`s` in hour :math:`h` in month :math:`m` of year :math:`y`
-     - `:math:`\text{m}^\text{3}/\text{s}``   
+     - :math:`\text{m}^\text{3}/\text{s}` 
  
    * - :math:`\rm{outflow}_{\it{s,h,m,y}}^{\rm{total}}`
      - Total outflow of reservoir corresponding to hydropower station :math:`s` in hour :math:`h` in month :math:`m` of year :math:`y`
-     - ``:math:`\text{m}^\text{3}/\text{s}```    
+     - :math:`\text{m}^\text{3}/\text{s}`   
 
    * - :math:`\rm{outflow}_{\it{s,h,m,y}}^{\rm{gen}}`
      - Generation outflow of reservoir corresponding to hydropower station :math:`s` in hour :math:`h` in month :math:`m` of year :math:`y`
-     - ``:math:`\text{m}^\text{3}/\text{s}``` 
+     - :math:`\text{m}^\text{3}/\text{s}` 
 
    * - :math:`\rm{outflow}_{\it{s,h,m,y}}^{\rm{withdraw}}`
      - Water withdrawal of reservoir corresponding to hydropower station :math:`s` in hour :math:`h` in month :math:`m` of year :math:`y`
-     - ``:math:`\text{m}^\text{3}/\text{s}```
+     - :math:`\text{m}^\text{3}/\text{s}`
 
    * - :math:`\rm{outflow}_{\it{s,h,m,y}}^{\rm{spillage}}`
      - Spillage outflow of reservoir corresponding to hydropower station :math:`s` in hour :math:`h` in month :math:`m` of year :math:`y`
-     - ``:math:`\text{m}^\text{3}/\text{s}```
+     - :math:`\text{m}^\text{3}/\text{s}`
 
    * - :math:`\rm{head}_{\it{s,h,m,y}}^{\rm{net}}`
      - Net water head of hydropower station :math:`s` in hour :math:`h` in month :math:`m` of year :math:`y`
