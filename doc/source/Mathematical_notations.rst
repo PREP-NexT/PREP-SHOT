@@ -146,57 +146,120 @@ Variable List
      - System-wide investment cost of transmission lines.
      - ``USD``
 
-   * - :math:`\text{gen}_{h,m,y,z,te}`
-     - Generating capacity of the :math:`te`-th technology, in the :math:`z`-th zone, in the :math:`y`-th year, for the :math:`m` time period, and in the :math:`h`-th hour.
-     - ``MWh``
-
-   * - :math:`\text{cap}^\text{existing}_{y,z,te}`
-     - Existing installed capacity of the :math:`te`-th technology, in the :math:`z`-th zone, and in the :math:`y`-th year.
-     - ``MW``
-
-   * - :math:`\text{cap}^\text{newtech}_{y,z,te}`
-     - Newly-built installed capacity of the :math:`te`-th technology, in the :math:`z`-th zone, and in the :math:`y`-th year.
-     - ``MW``
-
-   * - :math:`\text{cap}^\text{newline}_{y,z_s,z_o}`
-     - Newly-built transmission line capacity from the :math:`z_s`-th zone to the :math:`z_o`-th zone, and in the :math:`y`-th year.
-     - ``MW``
-
-   * - :math:`\text{cap}^\text{remaining}_{y,z,te}`
-     - Remaining capacity of the :math:`te`-th technology, in the :math:`z`-th zone, and in the :math:`y`-th year.
-     - ``MW``
-
-   * - :math:`\text{carbon}^\text{tech}_{y,te}`
-     - Carbon emission of the :math:`te`-th technology for all zones, and in the :math:`y`-th year
-     - ``tonnes``
-
-   * - :math:`\text{slack}_{h,y,z}` 
-     - Unserved demand in the :math:`z`-th zone, in the :math:`y`-th year, and in the :math:`h`-th hour.
-     - ``MWh``
-
-   * - :math:`\text{trans}^\text{import}_{h,y,z1,z}`
-     - Generation output imported from the :math:`z1`-th zone to the :math:`z`-th zone, in the :math:`y`-th year, and in the :math:`h`-th hour.
-     - ``MWh``
-
-   * - :math:`\text{cap}^\text{retire}_{y,z,te}`
-     - Retiring capacity of the :math:`te`-th technology, in the :math:`z`-th zone, and in the :math:`y`-th year.
-     - ``MW``
-
-   * - :math:`\text{storage}^\text{level}_{y,z,te}`
-     - Storage level of the :math:`te`-th technology, in the :math:`z`-th zone, and in the :math:`y`-th year.
-     - ``MW``
-
-   * - :math:`\text{consumption}_{h,y,z,te}`
-     - Cost of fuel consumption of the :math:`te`-th technology, in the :math:`z`-th zone, in the :math:`y`-th year, and in the :math:`h`-th hour.
+   * - :math:`\rm{cost}^{\rm{annualfuel}}_{\it{y}}`
+     - Fuel cost of technologies in the modelled year:math:`y` (the present value of modelled year :math:`y`).
      - ``USD``
 
-   * - :math:`\text{gen}^\text{up}_{h,y,z,te}` 
-     - Output of change upward of the :math:`te`-th technology, in the :math:`z`-th zone, in the :math:`y`-th year, and in the :math:`h`-th hour.
+   * - :math:`\rm{cost}^{\rm{fuel}}_{\it{y}}`
+     - Fuel cost of technologies accumulated from modelled year :math:`y` to a non-modelled year before the immediate next modelled year (the present value of modelled year :math:`y`).
+     - ``USD``
+
+   * - :math:`\rm{gen}_{\it{h,m,y,z,e}}`
+     - Power generation of technology :math:`e` in zone :math:`z` in hour :math:`h` in month :math:`m` of year :math:`y`.
+     - ``MWh``
+
+   * - :math:`\rm{charge}_{\it{h,m,y,z,e}}`
+     - Charging electricity of storage technology :math:`e` in zone :math:`z` in hour :math:`h` in month :math:`m` of year :math:`y`.
+     - ``MWh``
+
+   * - :math:`\rm{export}_{{\it{h,m,y,z}}_{\rm{from}},{\it{z}}_{\rm{to}}}`
+     - Electric energy exported from zone :math:`z_{\rm{from}}` to zone :math:`z_{\rm{to}}` in hour :math:`h` in month :math:`m` of year :math:`y`.
+     - ``MWh``
+
+   * - :math:`\rm{import}_{{\it{h,m,y,z}}_{\rm{from}},{\it{z}}_{\rm{to}}}`
+     - Electric energy imported from zone :math:`z_{\rm{from}}` to zone :math:`z_{\rm{to}}`  in hour :math:`h` in month :math:`m` of year :math:`y`.
+     - ``MWh``
+
+   * - :math:`\rm{storage}_{\it{h,m,y,z,e}}^{\rm{energy}}`
+     - Energy storage level of storage technology :math:`e` in hour :math:`h` in month :math:`m` of year :math:`y` in zone :math:`z`.
+     - ``MWh``
+
+   * - :math:`\rm{storage}_{\it{s,h,m,y}}^{\rm{reservoir}}` 
+     - Reservoir storage corresponding to hydropower station :math:`s` in hour :math:`h` in month :math:`m` of year :math:`y`.
+     - `:math:`\text{m}^\text{3}``
+
+   * - :math:`\rm{power}_{\it{h,m,y,z,e}}` 
+     - Overall power output of technology :math:`e` in zone :math:`z` in hour :math:`h` in month :math:`m` of year :math:`y`.
      - ``MW``
 
-   * - :math:`\text{gen}^\text{down}_{h,y,z,te}`
-     - Output of change downward of the :math:`te`-th technology, in the :math:`z`-th zone, in the :math:`y`-th year, and in the :math:`h`-th hour.
+   * - :math:`\rm{power}_{\it{h,m,y,z,e}}^{\it{c}}` 
+     - Charging power of storage technology :math:`e` in zone :math:`z` in hour :math:`h` in month :math:`m` of year :math:`y`.
      - ``MW``
+
+   * - :math:`\rm{power}_{\it{h,m,y,z,e}}^{\rm{up}}`
+     - Increment in power output of technology :math:`e` in zone :math:`z` from hour :math:`h`-1 to hour :math:`h` in month :math:`m` of year :math:`y`.
+     - ``MW``
+
+   * - :math:`\rm{power}_{\it{h,m,y,z,e}}^{\rm{down}}`
+     - Decrement in power output of technology :math:`e` in zone :math:`z` from hour :math:`h`-1 to hour :math:`h` in month :math:`m` of year :math:`y`.
+     - ``MW``
+
+   * - :math:`\rm{power}_{\it{s,h,m,y}}^{\rm{hydro}}`
+     - Power output of hydropower station :math:`s` in hour :math:`h` in month :math:`m` of year :math:`y`.
+     - ``MW``
+
+   * - :math:`\rm{cap}_{\it{y,z,e}}^{\rm{existingtech}}`
+     - Existing installed capacity of technology :math:`e` in year :math:`y` in zone :math:`z`.
+     - ``MW``
+
+   * - :math:`\rm{cap}_{{\it{y,z}}_{\rm{from}},{\it{z}}_{\rm{to}}}^{\rm{existingline}}` 
+     - Existing transmission capacity in year :math:`y` from zone :math:`z_{\rm{from}}` to zone :math:`z_{\rm{to}}`.
+     - ``MW``
+
+   * - :math:`\rm{cap}_{\it{y,z,e}}^{invtech}`
+     - Installed capacity of newly built technology :math:`e` in year :math:`y` in zone :math:`z`.
+     - ``MW``
+   * - :math:`\rm{cap}_{{\it{y,z}}_{\rm{from}},{\it{z}}_{\rm{to}}}^{\rm{invline}}` 
+     - Capacity of newly built transmission lines from zone :math:`z_{\rm{from}}` to zone :math:`z_{\rm{to}}` in year :math:`y`
+     - ``MW``
+  
+   * - :math:`\rm{cap}_{\it{y,z,e}}^{\rm{remaining}}`
+     - Remaining installed capacity of technology :math:`e` in year :math:`y` in zone :math:`z`
+     - ``MW``
+
+   * - :math:`\rm{carbon}_{\it{y,e}}^{\rm{tech}}`
+     - Carbon dioxide equivalent emissions of technology :math:`e` in year :math:`y`
+     - ``tonne``
+   
+   * - :math:`\rm{carbon}_{\it y}`
+     - Carbon dioxide equivalent emissions of the entire energy system in year :math:`y`
+     - ``tonne``
+
+   * - :math:`\rm{inflow}_{\it{s,h,m,y}}^{\rm{total}}`
+     - Total inflow of reservoir corresponding to hydropower station :math:`s` in hour :math:`h` in month :math:`m` of year :math:`y`
+     - `:math:`\text{m}^\text{3}/\text{s}``   
+ 
+   * - :math:`\rm{outflow}_{\it{s,h,m,y}}^{\rm{total}}`
+     - Total outflow of reservoir corresponding to hydropower station :math:`s` in hour :math:`h` in month :math:`m` of year :math:`y`
+     - ``:math:`\text{m}^\text{3}/\text{s}```    
+
+   * - :math:`\rm{outflow}_{\it{s,h,m,y}}^{\rm{gen}}`
+     - Generation outflow of reservoir corresponding to hydropower station :math:`s` in hour :math:`h` in month :math:`m` of year :math:`y`
+     - ``:math:`\text{m}^\text{3}/\text{s}``` 
+
+   * - :math:`\rm{outflow}_{\it{s,h,m,y}}^{\rm{withdraw}}`
+     - Water withdrawal of reservoir corresponding to hydropower station :math:`s` in hour :math:`h` in month :math:`m` of year :math:`y`
+     - ``:math:`\text{m}^\text{3}/\text{s}```
+
+   * - :math:`\rm{outflow}_{\it{s,h,m,y}}^{\rm{spillage}}`
+     - Spillage outflow of reservoir corresponding to hydropower station :math:`s` in hour :math:`h` in month :math:`m` of year :math:`y`
+     - ``:math:`\text{m}^\text{3}/\text{s}```
+
+   * - :math:`\rm{head}_{\it{s,h,m,y}}^{\rm{net}}`
+     - Net water head of hydropower station :math:`s` in hour :math:`h` in month :math:`m` of year :math:`y`
+     - ``m`` 
+
+   * - :math:`\rm{head}_{\it{s,h,m,y}}^{\rm{loss}}`
+     - Water head loss of hydropower station :math:`s` in hour :math:`h` in month :math:`m` of year :math:`y` 
+     - ``m`` 
+
+   * - :math:`z_{\it{s,h,m,y}}^{\rm{forebay}}`
+     - Forebay water level of reservoir corresponding to hydropower station :math:`s` in hour :math:`h` in month :math:`m` of year :math:`y`
+     - ``m`` 
+
+   * - :math:`z_{\it{s,h,m,y}}^{\rm{tailrace}}`
+     - Tailrace water level of reservoir corresponding to hydropower station :math:`s` in hour :math:`h` in month :math:`m` of year :math:`y`
+     - ``m`` 
 
 Parameter List
 --------------
