@@ -768,12 +768,29 @@ Note that PREP-SHOT assumes a constant water travel (or propagation) time (:math
 Reservoir outflow
 ++++++++++++++++++
 
-To-Do
+The generation flow and spillage flow of the reservoir are limited by the maximum outflow capacity of turbines (:math:`{\rm{OUTFLOW}}_s^{\rm{gen}}`) and spillway (:math:`{\rm{OUTFLOW}}_s^{\rm{spillage}}`), respectively. The sum of these two parts also needs to meet the minimum outflow required (:math:`{{\rm{OUTFLOW}}}_s`) for other purposes (e.g., ecological flow, shipping flow). These constraints are summarized as:
+
+.. math::
+
+    {\rm{outflow}}_{s,h,m,y}^{\rm{gen}}&\le{\rm{OUTFLOW}}_s^{\rm{gen}}\quad\forall s,h,m,y \label{eq:S35}\\
+    {\rm{outflow}}_{s,h,m,y}^{\rm{spillage}}&\le{\rm{OUTFLOW}}_s^{\rm{spillage}}\quad\forall s,h,m,y \label{eq:S36}\\
+    {{\rm{OUTFLOW}}}_s & \le {\rm{outflow}}_{s,h,m,y}^{\rm{gen}}+{\rm{outflow}}_{s,h,m,y}^{\rm{spillage}}\quad\forall s,h,m,y \\
 
 Reservoir storage
 ++++++++++++++++++
 
-To-Do
+The initial (when :math:`h=h_{\rm{start}}`) and terminal (when :math:`h=h_{\rm{end}}`) storage (:math:`{\rm{storage}}_{s,h=h_{\rm{start}},m,y}^{\rm{reservoir}}` and :math:`{\rm{storage}}_{s,h=h_{\rm{end}},m,y}^{\rm{reservoir}}`) of hydropower reservoir in each month of each year should be assigned as:
+
+.. math::
+
+    {\rm{storage}}_{s,h=h_{\rm{start}},m,y}^{\rm{reservoir}}={{\rm{STORAGE}}}_{s,m,y}^{\rm{initreservoir}}\quad\forall s,m,y \\
+    {\rm{storage}}_{s,h=h_{\rm{end}},m,y}^{\rm{reservoir}}={{\rm{STORAGE}}}_{s,m,y}^{\rm{endreservoir}}\quad\forall s,m,y
+
+The reservoir storage is bounded between the maximum (:math:`{\overline{{\rm{STORAGE}}}}_s^{\rm{reservoir}}`) and minimum storage (:math:`{\underline{{\rm{STORAGE}}}}_s^{\rm{reservoir}}`) depending on the functions (e.g., flood control, recreation, and water supply) of the reservoir:
+
+.. math::
+
+    {\underline{{\rm{STORAGE}}}}_s^{\rm{reservoir}}\le {\rm{storage}}_{s,h,m,y}^{\rm{reservoir}}\le{\overline{{\rm{STORAGE}}}}_s^{\rm{reservoir}}\quad\forall s,h,m,y
 
 
 
