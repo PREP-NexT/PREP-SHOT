@@ -636,7 +636,7 @@ The model computes the power balance for each hour, in each time period, for eac
 Transmission
 +++++++++++++++++
 
-We simplify the transmission of electricity as a transportation model. The model computes the transmission loss for each hour, in each time period, for each year, from :math:`z_{\rm{from}}` zone to :math:`z_{\rm{to}}}` zone, as follows:
+We simplify the transmission of electricity as a transportation model. The model computes the transmission loss for each hour, in each time period, for each year, from :math:`z_{\rm{from}}` zone to :math:`z_{\rm{to}}` zone, as follows:
 
 .. math::
 
@@ -747,7 +747,23 @@ The instantaneous storage energy level (:math:`{\rm{storage}}_{h,m,y,z,e}^{\rm{e
 Water balance
 +++++++++++++++
 
-To-Do
+Similar to the storage technologies, changes in reservoir storage (:math:`{\rm{storage}}_{s,h,m,y}^{\rm{reservoir}}`) in two successive periods should be balanced by total inflow (:math:`{\rm{inflow}}_{s,h,m,y}^{\rm{total}}`) and total outflow (:math:`{\rm{outflow}}_{s,h,m,y}^{\rm{total}}`):
+
+.. math::
+
+    {\rm{storage}}_{s,h,m,y}^{\rm{reservoir}}-{\rm{storage}}_{s,h-1,m,y}^{\rm{reservoir}}=\Delta h\times3600\times\left({\rm{inflow}}_{s,h,m,y}^{\rm{total}}-{\rm{outflow}}_{s,h,m,y}^{\rm{total}}\right)\quad\forall s,h,m,y \\
+
+Here :math:`{\rm{inflow}}_{s,h,m,y}^{\rm{total}}` consists of two parts: the total outflow received from all immediate upstream reservoirs (:math:`\sum_{{\rm{su}}\in {\mathcal{IU}}_s}{{\rm{outflow}}_{{\rm{su}},h-\tau_{{\rm{su}},s},m,y}^{\rm{total}}}`) and the net inflow (also called incremental inflow) of the drainage area controlled by this hydropower reservoir (:math:`{{\rm{INFLOW}}}_{s,h,m,y}^{\rm{net}}`), which can be expressed as follows:
+
+.. math::
+
+    {\rm{inflow}}_{s,h,m,y}^{\rm{total}}={{\rm{INFLOW}}}_{s,h,m,y}^{\rm{net}}+\sum_{{\rm{su}}\in {\mathcal{IU}}_s}{{\rm{outflow}}_{{\rm{su}},h-\tau_{{\rm{su}},s},m,y}^{\rm{total}}}\quad\forall s,h,m,y \\
+
+Note that PREP-SHOT assumes a constant water travel (or propagation) time (:math:`{\tau}_{{\rm{su}},s}`). The total outflow of each reservoir consists of three parts: upstream water withdrawal (i.e., water used for non-hydro purposes such as agriculture irrigation and urban water supply) (:math:`{\rm{outflow}}_{s,h,m,y}^{\rm{withdraw}}`), generation flow (i.e., water flow through the turbines of the hydropower plant) (:math:`{\rm{outflow}}_{s,h,m,y}^{\rm{gen}}`) and spillage flow (i.e., water spilled over the spillways)  (:math:`{\rm{outflow}}_{s,h,m,y}^{\rm{spillage}}`):
+
+.. math::
+
+    {\rm{outflow}}_{s,h,m,y}^{\rm{total}}={\rm{outflow}}_{s,h,m,y}^{\rm{withdraw}}+{\rm{outflow}}_{s,h,m,y}^{\rm{gen}}+{\rm{outflow}}_{s,h,m,y}^{\rm{spillage}}\quad\forall s,h,m,y \\
 
 Reservoir outflow
 ++++++++++++++++++
