@@ -85,6 +85,15 @@ If you have any questions, comments, or suggestions that aren't suitable for pub
 
 Please use the GitHub Issues for public discussions related to bugs, enhancements, or other project-related discussions.
 
+## Roadmap
+
++ `Benders` decomposition-based fast solution framework
++ `JuMP`-based low-memory and fast modelling engine
++ Support for input of cost–supply curves of technologies
++ Support for expanding conventional hydropower plants
++ Support for refurbishing conventional hydropower plants to pumped-storage schemes
++ Support for refurbishing carbon-emission plants to carbon capture and storage (CCS) schemes
+
 ## Disclaimer
 
 The PREP-SHOT model is an academic project and is not intended to be used as a precise prediction tool for specific hydropower operations or energy planning. The developers will not be held liable for any decisions made based on the use of this model. We recommend applying it in conjunction with expert judgment and other modeling tools in a decision-making context.
