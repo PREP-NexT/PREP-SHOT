@@ -735,6 +735,8 @@ class RuleContainer:
         Returns:
             pyomo.core.base.PyomoModel.ConcreteModel: Model with hydrological output constraints.
         """
+        if len([i for i, j in self.para['type'].items() if j == 'hydro']) == 0:
+            return Constraint.Skip
         if self.para['ishydro']:
             hydro_output = 0
             for s in model.station:
