@@ -38,7 +38,7 @@ def define_sets(model, para):
         if tech_type in para['type'].values():
             model.add_component(f"{tech_type}_tech", Set(initialize=[i for i, j in para['type'].items() if j == tech_type], ordered=True, doc=f'Set of {tech_type} technology'))
         else:
-            model.add_component(f"{tech_type}_tech", 0)
+            model.add_component(f"{tech_type}_tech", Set(initialize=[], ordered=True, doc=f'Set of {tech_type} technology'))
 
     if para['ishydro']:
         model.station = Set(initialize=para['stcd'], ordered=True, doc='Set of hydropower plants')
