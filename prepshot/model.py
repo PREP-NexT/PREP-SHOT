@@ -184,7 +184,8 @@ def define_constraints(model, para):
         model.init_storage_cons = Constraint(model.station_month_year_tuples, rule=rules.init_storage_rule, doc='Initial storage Constraints')
         model.end_storage_cons = Constraint(model.station_month_year_tuples, rule=rules.end_storage_rule, doc='Terminal storage Constraints')
         model.income_cons = Constraint(expr=model.income == sum([model.withdraw[s, h, m, y] * 3600 * para['dt'] * para['price'] for s, h, m, y in model.station_hour_month_year_tuples]))
-
+    else:
+        model.income_cons = Constraint(expr=model.income == 0)
 
 def create_model(para):
     """
