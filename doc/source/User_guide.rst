@@ -18,7 +18,7 @@ The parameters used, their desciptions, and their purpose in the model are as fo
     - Description
     - Purpose
 
-  * - age 
+  * - historical capacity 
     - The capacity of each technology in each BA for each year, taking into account the number of years that each technology has been in operation starting from the beginning of the planning period. For instance, assuming the planning period spans from 2020 to 2050, with 2020 being the starting point, let's consider a technology that has been in operation since 2019. In this case, 2020 would mark its 2nd year of operation within the planning period. 
     - These inputs are useful for modelling the retirement of existing technologies.
 
@@ -26,15 +26,15 @@ The parameters used, their desciptions, and their purpose in the model are as fo
     - Capacity factor of different non-dispatchable technologies.
     - To calculate the power output.
     
-  * - carbon
+  * - carbon emission limit
     - Carbon emission limit of different balancing authorities
     - To model the policy of carbon emission reductions.
     
-  * - carbon content
-    - Carbon content of different technologies.
-    - To calculate the system cost.
+  * - emission factor
+    - Emission factor of different technologies.
+    - To calculate the carbon emissions.
     
-  * - connect
+  * - water delay time
     - Water delay time of connection between reservoirs.
     - To model the cascade hydraulic connection.
     
@@ -50,16 +50,16 @@ The parameters used, their desciptions, and their purpose in the model are as fo
     - Distance of different pair of zones.
     - To calculate the transmission investment cost.
     
-  * - efficiency in
+  * - discharge efficiency
     - Discharge efficiency of storage technologies.
     - To calculate charge and discharge loss of energy storage.
     
-  * - efficiency out
+  * - charge efficiency
     - Charge efficiency of storage technologies.
     - To calculate charge and discharge loss of energy storage.
     
-  * - energy power ratio
-    - Energy to power ratio of storage technologies.
+  * - power to energy ratio
+    - Power to energy ratio ratio of storage technologies.
     - To measure duration of energy storage.
     
   * - fuel price
@@ -72,10 +72,10 @@ The parameters used, their desciptions, and their purpose in the model are as fo
     
   * - inflow
     - Inflow of all reservoirs.
-    - To model the simplified hydropower operation.
+    - To model the high-fidelity hydropower operation.
     
-  * - init storage level
-    - Initial storage level of different storage technologies.
+  * - initial energy storage level
+    - Initial energy storage level of different storage technologies.
     - To model the initial storage level of energy storage.
     
   * - lifetime
@@ -98,27 +98,27 @@ The parameters used, their desciptions, and their purpose in the model are as fo
     - Ramp up rate of different technologies.
     - To limit the fluctuation of power outputs.
     
-  * - static
-    - Static data of all reservoirs includes designed water head, maximum storage, minimum storage, operational efficiency, area of affiliation, installed capacity, maximum power output, minimum power output, maximum outflow, minimum outflow, and maximum generation outflow.
+  * - reservoir characteristics
+    - Reservoir characteristics data includes designed water head, maximum storage, minimum storage, operational efficiency, area of affiliation, installed capacity, maximum power output, minimum power output, maximum outflow, minimum outflow, and maximum generation outflow.
     - To model operation constraints of reservoir and hydropower output.
     
-  * - storage low bound
+  * - reservoir storage lower bound
     - Lower bound of volume of hydropower reservoirs.
     - To model the operational rule of hydropower reservoirs.
     
-  * - storage end
+  * - final reservoir storage level
     - Final volume of hydropower reservoirs.
     - To model the operational rule of hydropower reservoirs.
     
-  * - initial storage
+  * - initial reservoir storage level
     - Initial volume of hydropower reservoirs.
     - To model the operational rule of hydropower reservoirs.
     
-  * - storage upbound
+  * - reservoir storage upper bound
     - Upper bound of volume of hydropower reservoirs.
     - To model the operation rule of hydropower reservoirs.
     
-  * - technology fix cost
+  * - Investmented OM cost
     - Fixed operation and maintenance cost of different technologies.
     - To calculate the system cost.
     
@@ -134,45 +134,41 @@ The parameters used, their desciptions, and their purpose in the model are as fo
     - Upper bound of installed capacity of different technologies.
     - To model the potential of technologies with land, fuel, and water constraints.
     
-  * - technology variable cost
+  * - technology variable OM cost
     - Variable operation and maintenance costs of different technologies.
     - To calculate the system cost.
     
-  * - transline
-    - Investment cost of transmission lines.
+  * - transmission line investment cost
+    - Investment cost of transmission lines (if there is no exising nor planned transmission lines between two specific zones, leave the data entries blank).
     - To calculate the system cost.
     
-  * - transline efficiency
+  * - transmission line efficiency
     - Efficiency of transmission lines across all zones.
     - To calculate the transmission loss.
     
-  * - transline fix cost
-    - Fixed operation and maintenance costs of different technologies.
+  * - transmission line fixed OM cost
+    - Fixed operation and maintenance costs of transmission lines.
     - To calculate the system cost.
     
-  * - transline investment cost
-    - Investment cost of transmission lines.
-    - To calculate the system cost.
-    
-  * - transline variable cost
+  * - transmission line lifetime
     - Variable operations and maintenance costs of transmission lines.
     - To calculate the system cost.
     
-  * - transline line lifetime
+  * - transmission line lifetime
     - Lifetime of transmission lines.
     - To calculate the retirement of transmission lines.
     
-  * - type
+  * - technology type
     - Categories of different technologies.
     - To specify ways of modelling different technologies.
     
-  * - zq
-    - Relationship between tailrace elevation and total discharge for different reservoirs.
-    - To calculate tailrace elevation based on the reservoir's discharge.
+  * - reservoir tailrace level-discharge function
+    - Relationship between tailrace level and total discharge for different reservoirs.
+    - To calculate tailrace level based on the reservoir's discharge.
     
-  * - zv
-    - Relationship between forebay elevation and volume for different reservoirs
-    - To calculate forebay elevation based on the reservoir's volume.
+  * - reservoir forebay level-volume function
+    - Relationship between forebay level and volume for different reservoirs
+    - To calculate forebay level based on the reservoir's volume.
 
 Preparing Inputs
 ----------------
@@ -196,12 +192,6 @@ The description of the units used on this page is as follows:
    * - ``yr``
      - Year
 
-   * - ``USD``
-     - US Dollar
-
-   * - ``RMB``
-     - Chinese Yuan
-
    * - ``MW``
      - Megawatt
 
@@ -220,7 +210,7 @@ The description of the units used on this page is as follows:
    * - ``m^3``
      - Cubic meter
 
-   * - ``10^8 m^3``
+   * - ``m^3``
      - 100 million cubic meter
 
    * - N/A
@@ -237,30 +227,25 @@ The input files required for each parameter, and their corresponding dimensions 
     - Unit
     - File
 
-  * - age 
+  * - historical capacity 
     - 3D (zone, year, technology)
     - ``MW``
-    - ``age.xlsx``
+    - ``historical_capacity.xlsx``
 
   * - capacity factor
     - 5D (technology, zone, year, month, hour)
     - N/A
     - ``capacity_factor.xlsx``
     
-  * - carbon
+  * - carbon emission limit
     - 1D (year)
     - ``tCO2``
-    - ``carbon.xlsx``
+    - ``carbon_emission_limit.xlsx``
     
-  * - carbon content
+  * - emission factor
     - 2D (year, technology)
     - ``tCO2/MWh``
     - ``carbon_content.xlsx``
-    
-  * - connect
-    - 2D (station, downstream station)
-    - N/A
-    - ``connect.xlsx``
     
   * - demand
     - 5D (technology, zone, year, month, hour)
@@ -274,27 +259,27 @@ The input files required for each parameter, and their corresponding dimensions 
     
   * - distance
     - 2D (zone1, zone2)
-    - N/A
+    - ``km``
     - ``distance.xlsx``
     
-  * - efficiency In
+  * - discharge efficiency
     - 2D (year, storage technology)
     - N/A
-    - ``efficiency_in.xlsx``
+    - ``discharge_efficiency.xlsx``
     
-  * - efficiency Out
+  * - charge efficiency
     - 2D (year, storage technology)
     - N/A
-    - ``efficiency_out.xlsx``
+    - ``charge_efficiency.xlsx``
     
-  * - energy power ratio
+  * - power to energy ratio
     - 1D (storage technology)
-    - ``hr``
-    - ``energy_power_ratio.xlsx``
+    - ``MW/MWh``
+    - ``power_to_energy_ratio.xlsx``
     
   * - fuel price
     - 2D (year, technology)
-    - ``USD/MWh``
+    - ``dollar/MWh``
     - ``fuel_price.xlsx``
     
   * - hydropower
@@ -307,10 +292,10 @@ The input files required for each parameter, and their corresponding dimensions 
     - ``m^3/s``
     - ``inflow.xlsx``
     
-  * - init storage level
+  * - initial energy storage level
     - 2D (zone, storage level)
     - ``1/MWh``
-    - ``init_storage_level.xlsx``
+    - ``initial_energy_storage_level.xlsx``
     
   * - lifetime
     - 2D (year, technology)
@@ -337,39 +322,39 @@ The input files required for each parameter, and their corresponding dimensions 
     - ``1/MW``
     - ``ramp_up.xlsx``
     
-  * - static
+  * - reservoir_characteristics
     - 1D (station)
-    - N/A
-    - ``static.xlsx``
+    - As per data sheet
+    - ``reservoir_characteristics.xlsx``
     
-  * - storage lowbound
+  * - reservoir storage lower bound
     - 3D (station, month, hour)
-    - ``10^8 m^3``
-    - ``storage_lowbound.xlsx``
+    - ``m^3``
+    - ``reservoir_storage_lower_bound.xlsx``
     
-  * - storage end
+  * - final reservoir storage level
     - 2D (station, month)
-    - ``10^8 m^3``
-    - ``storage_end.xlsx``
+    - ``m^3``
+    - ``final_reservoir_storage_level.xlsx``
     
-  * - initial storage
+  * - initial reservoir storage level
     - 2D (station, month)
-    - ``10^8 m^3``
-    - ``storage_init.xlsx``
+    - ``m^3``
+    - ``initial_reservoir_storage_level.xlsx``
     
-  * - storage upbound
+  * - reservoir storage upper bound
     - 3D (station, month, hour)
-    - ``10^8 m^3``
-    - ``storage_upbound.xlsx``
+    - ``m^3``
+    - ``reservoir_storage_upper_bound.xlsx``
     
-  * - technology fix cost
+  * - Investmented OM cost
     - 2D (year, technology)
-    - ``USD/MW``
-    - ``technology_fix_cost.xlsx``
+    - ``dollar/MW-yr``
+    - ``technology_fixed_OM_cost.xlsx``
     
   * - technology investment cost
     - 2D (year, technology)
-    - ``USD/MW-km``
+    - ``dollar/MW``
     - ``technology_investment_cost.xlsx``
     
   * - technology portfolio
@@ -382,55 +367,50 @@ The input files required for each parameter, and their corresponding dimensions 
     - ``MW``
     - ``technology_upper_bound.xlsx``
     
-  * - technology variable cost
+  * - technology variable OM cost
     - 2D (year, technology)
-    - ``USD/MWh``
-    - ``technology_variable_cost.xlsx``
+    - ``dollar/MWh``
+    - ``technology_variable_OM_cost.xlsx``
     
-  * - transline
+  * - transmission line investment cost
     - 2D (zone1, zone2)
-    - ``USD/MW-km``
-    - ``transline.xlsx``
+    - ``dollar/MW-km``
+    - ``transmission_line_investment_cost.xlsx``
     
-  * - transline efficiency
+  * - transmission line efficiency
     - 2D (zone1, zone2)
     - N/A
-    - ``transline_efficiency.xlsx``
+    - ``transmission_line_efficiency.xlsx``
     
-  * - transline fix cost
+  * - transmission line fixed OM cost
     - 2D (zone1, zone2)
-    - ``USD/MW``
-    - ``transline_fix_cost.xlsx``
+    - ``dollar/MW``
+    - ``transmission_line_fixed_OM_cost.xlsx``
     
-  * - transline investment cost
+  * - transmission line lifetime
     - 2D (zone1, zone2)
-    - ``RMB/MW-km``
-    - ``transline_investment_cost.xlsx``
+    - ``dollar/MWh``
+    - ``transmission_line_variable_cost.xlsx``
     
-  * - transline variable cost
-    - 2D (zone1, zone2)
-    - ``USD/MWh``
-    - ``transline_variable_cost.xlsx``
-    
-  * - transline line lifetime
+  * - transmission line lifetime
     - 2D (zone1, zone2)
     - ``yr``
-    - ``transline_line_lifetime.xlsx``
+    - ``transmission_line_lifetime.xlsx``
     
-  * - type
+  * - technology type
     - 1D (technology)
     - N/A
-    - ``type.xlsx``
+    - ``technology_type.xlsx``
     
-  * - zq
-    - 2D (station, break point)
+  * - reservoir tailrace level-discharge function 
+    - 2D (station, breakpoint)
     - ``m`` and ``m^3/s``
-    - ``zq.xlsx``
+    - ``reservoir_tailrace_level_discharge_function.xlsx``
     
-  * - zv
-    - 2D (station, break point)
-    - ``m`` and ``10^8 m^3``
-    - ``zv.xlsx``
+  * - reservoir forebay level-volume function
+    - 2D (station, breakpoint)
+    - ``m`` and ``m^3``
+    - ``reservoir_forebay_level_volume_function.xlsx``
 
 .. note:: 
   

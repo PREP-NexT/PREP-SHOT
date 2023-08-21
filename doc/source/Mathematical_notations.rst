@@ -22,7 +22,7 @@ The description of the units used in this page are as follows:
    * - ``yr``
      - Year
 
-   * - ``USD``
+   * - ``dollar``
      - US Dollar
 
    * - ``kW``
@@ -126,39 +126,39 @@ Variable List
 
    * - :math:`\rm{cost}^{\rm{total}}`
      - System-wide total cost.
-     - ``USD``
+     - ``dollar``
 
    * - :math:`\rm{cost}^{\rm{var}}_{\rm{tech}}`
      - System-wide variable Operation and Maintenance (O&M) cost of technologies.
-     - ``USD``
+     - ``dollar``
 
    * - :math:`\rm{cost}^{\rm{fuel}}`
      - System-wide fuel cost of technologies.
-     - ``USD``
+     - ``dollar``
 
    * - :math:`\rm{cost}^{\rm{fix}}_{\rm{tech}}`
      - System-wide fixed O&M cost of technologies.
-     - ``USD``
+     - ``dollar``
 
    * - :math:`\rm{cost}^{\rm{fix}}_{\rm{line}}` 
      - System-wide fixed O&M cost of transmission lines.
-     - ``USD``
+     - ``dollar``
 
    * - :math:`\rm{cost}^{\rm{inv}}_{\rm{tech}}`
-     - System-wide investment cost of technologies.
-     - ``USD``
+     - System-wide capital cost of technologies.
+     - ``dollar``
 
    * - :math:`\rm{cost}^{\rm{inv}}_{\rm{line}}`
-     - System-wide investment cost of transmission lines.
-     - ``USD``
+     - System-wide capital cost of transmission lines.
+     - ``dollar``
 
    * - :math:`\rm{cost}^{\rm{annualfuel}}_{\it{y}}`
      - Fuel cost of technologies in the modelled year:math:`y` (the present value of modelled year :math:`y`).
-     - ``USD``
+     - ``dollar``
 
    * - :math:`\rm{cost}^{\rm{fuel}}_{\it{y}}`
      - Fuel cost of technologies accumulated from modelled year :math:`y` to a non-modelled year before the immediate next modelled year (the present value of modelled year :math:`y`).
-     - ``USD``
+     - ``dollar``
 
    * - :math:`\rm{gen}_{\it{h,m,y,z,e}}`
      - Power generation of technology :math:`e` in zone :math:`z` in hour :math:`h` in month :math:`m` of year :math:`y`.
@@ -281,31 +281,31 @@ Parameter List
 
    * - :math:`{{C}}_{\it{y,z,e}}^{{\rm{vartech}}}`
      - Variable O&M cost per unit power generation from technology :math:`e` in year :math:`y` in zone :math:`z`.
-     - ``USD/MWh``
+     - ``dollar/MWh``
 
    * - :math:`{{C}}_{\it{y,z,e}}^{\rm{fuel}}`
      - Fuel cost per unit power generation from technology :math:`e` in year :math:`y` in zone :math:`z`.
-     - ``USD/MWh``
+     - ``dollar/MWh``
 
    * - :math:`{{C}}_{\it{y,z,e}}^{\rm{fixtech}}`
      - Fixed O&M cost per year per unit existing capacity of technology :math:`e` in year :math:`y` in zone :math:`z`.
-     - ``USD/MW-yr``
+     - ``dollar/MW-yr``
 
    * - :math:`{{C}}_{\it{y,z,e}}^{\rm{invtech}}`
-     - Investment cost per unit installed capacity of technology :math:`e` in year :math:`y` in zone :math:`z`.
-     - ``USD/MW``
+     - Capital cost per unit installed capacity of technology :math:`e` in year :math:`y` in zone :math:`z`.
+     - ``dollar/MW``
 
    * - :math:`{{C}}_{y,z_{\rm{from}},z_{\rm{to}}}^{\rm{varline}}`
      - Variable O&M cost per unit transmitted electricity from zone :math:`z_{\rm{from}}` to zone :math:`z_{\rm{to}}` in year :math:`y`.
-     - ``USD/MWh``
+     - ``dollar/MWh``
 
    * - :math:`{{C}}_{y,z_{\rm{from}},z_{\rm{to}}}^{\rm{fixline}}`
      - Fixed O&M cost per year per unit existing capacity of transmission line from zone :math:`z_{\rm{from}}` to zone :math:`z_{\rm{to}}` in year :math:`y`.
-     - ``USD/MW-yr``
+     - ``dollar/MW-yr``
 
    * - :math:`{{C}}_{y,z_{\rm{from}},z_{\rm{to}}}^{\rm{invline}}`
-     - Investment cost per unit expansion of transmission line from zone :math:`z_{\rm{from}}` to zone :math:`z_{\rm{to}}` in year :math:`y`.
-     - ``USD/MW``
+     - Capital cost per unit expansion of transmission line from zone :math:`z_{\rm{from}}` to zone :math:`z_{\rm{to}}` in year :math:`y`.
+     - ``dollar/MW``
 
    * - :math:`{\rm{CARBON}}_{\it{y,z,e}}`
      - Carbon dioxide equivalent emission per unit power generation from technology :math:`e` in year :math:`y` in zone :math:`z`.
@@ -441,7 +441,7 @@ Objective Functions
 Costs
 +++++
 
-The objective function of the model is to minimize the net present value of the system's cost. This includes investment cost, fixed O&M cost, variable cost and fuel cost by cost type, technology cost, transmission line cost by the source of cost, and operation cost and planning cost by the source of cost.
+The objective function of the model is to minimize the net present value of the system's cost. This includes capital cost, fixed O&M cost, variable cost and fuel cost by cost type, technology cost, transmission line cost by the source of cost, and operation cost and planning cost by the source of cost.
 
 The cost equations are defined as follows:
 
@@ -465,7 +465,7 @@ The cost equations are defined as follows:
 Factors
 +++++++
 
-To account for the variable factor, fixed factor, and investment factor, we need to convert all future costs to their net present value. This means adjusting for the time value of money so that all costs are expressed in terms of today's dollars. 
+To account for the variable factor, fixed factor, and capital factor, we need to convert all future costs to their net present value. This means adjusting for the time value of money so that all costs are expressed in terms of today's dollars. 
 
 We also assume that variable cost and fixed cost for non-modelled years are assumed to be equal to the cost of the last modelled year preceding them. This allows for consistent comparison across different time periods and technologies.
 
@@ -588,7 +588,7 @@ Retirement
 
 The model computes the retirement of each technology and transmission line with these considerations:
 
-* The initial age of the technology and transmission line is based on its capacity ratio.
+* The historical capacity of the technology and transmission line is based on its capacity ratio.
 * Each planning and scheduling period is based on the existing capacity.
 
 The existing capacity for each year, in each zone, for each technology, is as follows:
