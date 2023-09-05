@@ -1,7 +1,7 @@
-.. _Users_guide:
+.. _Model_input_output:
 
-Users Guide
-===========
+Model Inputs/Outputs
+=====================
 
 The model requires several input parameters, provided via input files. These parameters, their dimensions, and descriptions are as follows:
 

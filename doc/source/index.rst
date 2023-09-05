@@ -47,8 +47,8 @@ We've prepared a comprehensive guide to help you understand and use PREP-SHOT ef
    :maxdepth: 2
 
    Installation
-   User_guide
-   Tutorial
+   Model_input_output
+   Running_case
    Mathematical_notations
    Changelog
    References
