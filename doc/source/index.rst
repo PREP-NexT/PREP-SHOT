@@ -11,7 +11,7 @@ Welcome to the PREP-SHOT Documentation
 
 Overview
 --------
-**PREP-SHOT** (**P**\ athways for **R**\ enewable **E**\ nergy **P**\ lanning coupling **S**\ hort-term **H**\ ydropower **O**\ pera\ **T**\ ion) is a transparent, modular, and open-source energy expansion model hosted on `GitHub <https://github.com/PREP-NexT/PREP-SHOT>`_. Offering advanced solutions for multi-scale, intertemporal, and cost-effective expansion of energy systems and transmission lines.
+**PREP-SHOT** (**P**\ athways for **R**\ enewable **E**\ nergy **P**\ lanning coupling **S**\ hort-term **H**\ ydropower **O**\ pera\ **T**\ ion) is a transparent, modular, and open-source energy expansion model hosted on `GitHub <https://github.com/PREP-NexT/PREP-SHOT>`_. Offering advanced solutions for multi-scale, intertemporal, and cost-effective expansion of energy systems and transmission lines. PREP-SHOT was orginally developed to study the nexus between water and energy systems. The development started in 2021, and in 2022, it was released as an open-source model.
 
 The model sets itself apart from existing energy expansion models through its deeper consideration of hydropower processes. While models such as `urbs <https://urbs.readthedocs.io/en/latest/>`_ might treat hydropower as fixed processes, and others like `GenX <https://genxproject.github.io/GenX/dev/>`_ and `PLEXOS <https://www.energyexemplar.com/plexos>`_ may not fully capture the dynamic nature of water heads or consolidate multiple hydropower stations into a single unit, PREP-SHOT is uniquely designed to address these oversights.
 
@@ -47,7 +47,6 @@ We've prepared a comprehensive guide to help you understand and use PREP-SHOT ef
    :maxdepth: 2
 
    Installation
-   Getting_started
    User_guide
    Tutorial
    Mathematical_notations
