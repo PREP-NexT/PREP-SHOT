@@ -5,175 +5,337 @@ Model Inputs/Outputs
 
 The model requires several input parameters, provided via input files. These parameters, their dimensions, and descriptions are as follows:
 
-Parameter Representation
+Inputs
 ------------------------
 
 The parameters used, their desciptions, and their input file name in the model are as follows:
 
-.. list-table::
-  :widths: 25 50 25
+.. list-table:: Parameters
+  :widths: 1 5 1
   :header-rows: 1
 
   * - Parameter [Unit]
     - Description
-    - Input file
+    - Input file [#]_ 
 
-  * - historical capacity [#]_ [``MW``]
+  * - historical capacity [#]_ 
+  
+      [``MW``]
     - The capacity of each technology in each zone for each year, taking into account the number of years that each technology has been in operation starting from the beginning of the planning period.
-    - ``historical_capacity.xlsx``
+    - ``historical_capacity``
 
   * - capacity factor [N/A]
     - Capacity factor of different non-dispatchable technologies.
-    - ``capacity_factor.xlsx``
+    - ``capacity_factor``
     
-  * - carbon emission limit [``tCO2``]
+  * - carbon emission  
+  
+      limit [``tCO2``]
     - Carbon emission limit of different zones.
-    - ``carbon_emission_limit.xlsx``
+    - ``carbon_emission_limit``
     
-  * - emission factor [``tCO2/MWh``]
+  * - emission factor 
+  
+      [``tCO2/MWh``]
     - Emission factor of different technologies.
-    - ``carbon_content.xlsx``
+    - ``carbon_content``
     
   * - water delay time [N/A]
     - Water delay time of connection between reservoirs.
-    - ``water_delay_time.xlsx``
+    - ``water_delay_time``
     
   * - demand [``MW``]
     - Demand of different balancing authorities.
-    - ``demand.xlsx``
+    - ``demand``
     
   * - discount factor [N/A]
     - Discount factor for each year.
-    - ``discount_factor.xlsx``
+    - ``discount_factor``
     
   * - distance [``km``]
     - Distance of different pair of zones.
-    - ``distance.xlsx``
+    - ``distance``
     
   * - discharge efficiency [N/A]
     - Discharge efficiency of storage technologies.
-    - ``discharge_efficiency.xlsx``
+    - ``discharge_``
+    
+      ``efficiency``
     
   * - charge efficiency [N/A]
     - Charge efficiency of storage technologies.
-    - ``charge_efficiency.xlsx``
+    - ``charge_``
+      
+      ``efficiency``
     
-  * - power to energy ratio [``MW/MWh``]
+  * - power to 
+  
+      energy ratio [``MW/MWh``]
     - Power to energy ratio ratio of storage technologies.
-    - ``power_to_energy_ratio.xlsx``
+    - ``power_to_``
+    
+      ``energy_ratio``
     
   * - fuel price [``dollar/MWh``]
     - Fuel price of different technologies.
-    - ``fuel_price.xlsx``
+    - ``fuel_price``
     
   * - hydropower [#]_ [``MW``]
     - Predefined hydropower output of all reservoirs.
-    - ``hydropower.xlsx``
+    - ``hydropower``
     
   * - inflow [``m^3/s``]
     - Inflow of all reservoirs.
-    - ``inflow.xlsx``
+    - ``inflow``
     
-  * - initial energy storage level [``1/MWh``]
+  * - initial energy 
+      
+      storage level [``1/MWh``]
     - Initial energy storage level of different storage technologies.
-    - ``initial_energy_storage_level.xlsx``
+    - ``initial_energy_``
+    
+      ``storage_level``
     
   * - lifetime [``yr``]
     - Lifetime of different technologies.
-    - ``lifetime.xlsx``
+    - ``lifetime``
     
-  * - new technology lower bound [``MW``]
+  * - new technology 
+  
+      lower bound [``MW``]
     - Lower bound of newly-built installed capacity of different technologies for each investment year.
-    - ``new_technology_lower_bound.xlsx``
+    - ``new_technology_``
     
-  * - new technology upper bound [``MW``]
+      ``lower_bound``
+    
+  * - new technology 
+  
+      upper bound [``MW``]
     - Upper bound of newly-built installed capacity of different technologies for each investment year.
-    - ``new_technology_upper_bound.xlsx``
+    - ``new_technology_``
+      
+      ``upper_bound``
     
   * - ramp down [``1/MW``]
     - Ramp down rate of different technologies.
-    - ``ramp_down.xlsx``
+    - ``ramp_down``
     
   * - ramp up [``1/MW``]
     - Ramp up rate of different technologies.
-    - ``ramp_up.xlsx``
+    - ``ramp_up``
     
-  * - reservoir characteristics [As per data sheet]
+  * - reservoir characteristics 
+  
+      [As per data sheet]
     - Reservoir characteristics data includes designed water head, maximum storage, minimum storage, operational efficiency, area of affiliation, installed capacity, maximum power output, minimum power output, maximum outflow, minimum outflow, and maximum generation outflow.
-    - ``reservoir_characteristics.xlsx``
+    - ``reservoir_``
+      
+      ``characteristics``
     
-  * - reservoir storage lower bound [``m^3``]
+  * - reservoir storage 
+  
+      lower bound [``m^3``]
     - Lower bound of volume of hydropower reservoirs.
-    - ``reservoir_storage_lower_bound.xlsx``
+    - ``reservoir_storage_``
+      
+      ``lower_bound``
     
-  * - final reservoir storage level [``m^3``]
+  * - final reservoir 
+  
+      storage level [``m^3``]
     - Final volume of hydropower reservoirs.
-    - ``final_reservoir_storage_level.xlsx``
+    - ``final_reservoir_``
     
-  * - initial reservoir storage level [``m^3``]
+      ``storage_level``
+    
+  * - initial reservoir 
+  
+      storage level [``m^3``]
     - Initial volume of hydropower reservoirs.
-    - ``initial_reservoir_storage_level.xlsx``
+    - ``initial_reservoir_``
+      
+      ``storage_level``
     
-  * - reservoir storage upper bound [``m^3``]
+  * - reservoir storage
+      
+      upper bound [``m^3``]
     - Upper bound of volume of hydropower reservoirs.
-    - ``reservoir_storage_upper_bound.xlsx``
+    - ``reservoir_storage``
+       
+      ``_upper_bound``
     
-  * - Investmented OM cost [``dollar/MW-yr``]
+  * - Investmented OM cost 
+  
+      [``dollar/MW-yr``]
     - Fixed operation and maintenance cost of different technologies.
-    - ``technology_fixed_OM_cost.xlsx``
+    - ``technology_fixed_``
     
-  * - technology investment cost [``dollar/MW``]
+      ``OM_cost``
+    
+  * - technology investment
+      
+      cost [``dollar/MW``]
     - Investment cost of different technologies.
-    - ``technology_investment_cost.xlsx``
+    - ``technology_investment``
+    
+      ``_cost``
     
   * - technology portfolio [``MW``]
     - Existing total installed capacity across all zones.
-    - ``technology_portfolio.xlsx``
+    - ``technology_``
     
-  * - technology upper bound [#]_ [``MW``]
+      ``portfolio``
+    
+  * - technology 
+      
+      upper bound [#]_ [``MW``]
     - Upper bound of installed capacity of different technologies.
-    - ``technology_upper_bound.xlsx``
+    - ``technology_upper_``
     
-  * - technology variable OM cost [``dollar/MWh``]
+      ``bound``
+    
+  * - technology variable 
+      
+      OM cost [``dollar/MWh``]
     - Variable operation and maintenance costs of different technologies.
-    - ``technology_variable_OM_cost.xlsx``
+    - ``technology_variable_``
     
-  * - transmission line investment cost [``dollar/MW-km``]
+      ``OM_cost``
+    
+  * - transmission line
+
+      investment cost 
+
+      [``dollar/MW-km``]
     - Investment cost of transmission lines (if there is no exising nor planned transmission lines between two specific zones, leave the data entries blank).
-    - ``transmission_line_investment_cost.xlsx``
+    - ``transmission_line_``
+       
+      ``investment_cost``
     
-  * - transmission line efficiency [N/A]
+  * - transmission line 
+  
+      efficiency [N/A]
     - Efficiency of transmission lines across all zones.
-    - ``transmission_line_efficiency.xlsx``
+    - ``transmission_line_``
     
-  * - transmission line fixed OM cost [``dollar/MW``]
+      ``efficiency``
+    
+  * - transmission line 
+      
+      fixed OM cost 
+      
+      [``dollar/MW``]
     - Fixed operation and maintenance costs of transmission lines.
-    - ``transmission_line_fixed_OM_cost.xlsx``
+    - ``transmission_line_``
+       
+      ``fixed_OM_cost``
     
-  * - transmission line variable OM cost [``dollar/MWh``]
+  * - transmission line 
+  
+      variable OM cost 
+  
+      [``dollar/MWh``]
     - Variable operations and maintenance costs of transmission lines.
-    - ``transmission_line_variable_cost.xlsx``
+    - ``transmission_line``
     
-  * - transmission line lifetime [``yr``]
+      ``_variable_cost``
+    
+  * - transmission line 
+  
+      lifetime [``yr``]
     - Lifetime of transmission lines.
-    - ``transmission_line_lifetime.xlsx``
+    - ``transmission_line_``
+    
+      ``lifetime``
     
   * - technology type [N/A]
     - Categories of different technologies.
-    - ``technology_type.xlsx``
+    - ``technology_type``
     
-  * - reservoir tailrace level-discharge function [``m`` and ``m^3/s``]
+  * - reservoir tailrace 
+  
+      level-discharge function 
+      
+      [``m`` & ``m^3/s``]
     - Relationship between tailrace level and total discharge for different reservoirs.
-    - ``reservoir_tailrace_level_discharge_function.xlsx``
+    - ``reservoir_tailrace_``
     
-  * - reservoir forebay level-volume function [``m`` and ``m^3``]
+      ``level_discharge_``
+      
+      ``function``
+    
+  * - reservoir forebay 
+  
+      level-volume function 
+      
+      [``m`` & ``m^3``]
     - Relationship between forebay level and volume for different reservoirs
-    - ``reservoir_forebay_level_volume_function.xlsx``
+    - ``reservoir_forebay_``
+    
+      ``level_volume_``
+      
+      ``function``
 
 .. note:: 
   
   * `inf` refers to Infinity, indicating that there is no upper bound.
   * `None` refers to a null value for current item.
+
+Outputs
+------------------
+The output of the model is stored in a NetCDF file, please refer to this `simple tutorial <https://xiaoganghe.github.io/python-climate-visuals/chapters/data-analytics/xarray-basic.html>`_ and `official documentation <https://docs.xarray.dev/en/stable/>`_ of Xarray to understand how to manipulate NetCDF files.
+
+The output file contains the following variables:
+
+.. list-table:: Output Variables
+  :widths: 1 5
+  :header-rows: 1
+
+  * - Variable name [Unit]
+    - Description
+  
+  * - trans_import_v [``MW``]
+    - This item refers to the electrical power that is transmitted from Zone 1 and successfully received by Zone 2 via the transmission line. It represents the electricity delivered to Zone 2 after accounting for transmission losses.
+
+  * - trans_export_v [``MW``]
+    - This term pertains to the electrical power initially dispatched by Zone 1 to be transmitted to Zone 2 via the transmission line. It represents the electricity at the point of origin (Zone 1) before it undergoes transmission and distribution losses during its journey to Zone 2.
+
+  * - gen_v [``MW``]
+    - Generated electricity from different technologies.
+
+  * - install_v [``MW``]
+    - Existing installed capacity of different technologies.
+
+  * - carbon_v [``Ton``]
+    - Carbon emissions across different years.
+
+  * - charge_v [``MW``]
+    - Charged electricity of different storage technologies.
+
+  * - cost_v [``dollar``]
+    - Total cost over the planning period.
+
+  * - cost_var_v [``dollar``]
+    - Variable cost over the planning period.
+
+  * - cost_fix_v [``dollar``]
+    - Fixed cost over the planning period.
+
+  * - cost_new_v [``dollar``]
+    - Investment cost of technologies over the planning period.
+
+  * - cost_newline_v [``dollar``]
+    - Investment cost of transmission lines over the planning period.
+
+  * - income_v [``dollar``]
+    - Saved cost due to abstracted water resource over the planning period.
+
+  * - genflow_v [``m^3/s``]
+    - Generated water flow of different reservoirs.
+
+  * - spillflow_v [``m^3/s``]
+    - Spilled water flow of different reservoirs.
+
 
 Execute various scenarios
 -------------------------
@@ -231,11 +393,8 @@ After you have tuned the parameters, you can run the model by following the step
 
 You can also try out the model with the sample data provided in the ``input`` folder. Refer to the :ref:`Model_input_output` page for a walkthrough of this example, inspried by real-world data.
 
-Reading the Output
-------------------
-The output of the model is stored in a NetCDF file, please refer to this `simple tutorial <https://xiaoganghe.github.io/python-climate-visuals/chapters/data-analytics/xarray-basic.html>`_ and `official documentation <https://docs.xarray.dev/en/stable/>`_ of Xarray to understand how to manipulate NetCDF files.
-
 .. rubric:: Footnotes
+.. [#] The input files format is ``.xlsx``.
 .. [#] For instance, assuming the planning period spans from 2020 to 2050, with 2020 being the starting point, let's consider a technology that has been in operation since 2019. In this case, 2020 would mark its 2nd year of operation within the planning period. These inputs are useful for modelling the retirement of existing technologies.
 .. [#] To model the simplified hydropower operation.
 .. [#] To model the potential of technologies with land, fuel, and water constraints.
