@@ -295,10 +295,10 @@ The output file contains the following variables:
     - Description
   
   * - trans_import_v [``MW``]
-    - This item refers to the electrical power that is transmitted from Zone 1 and successfully received by Zone 2 via the transmission line. It represents the electricity delivered to Zone 2 after accounting for transmission losses.
+    - The electrical power transmitted from Zone 1 and effectively received by Zone 2 through the transmission line, after adjusting for transmission losses.
 
   * - trans_export_v [``MW``]
-    - This term pertains to the electrical power initially dispatched by Zone 1 to be transmitted to Zone 2 via the transmission line. It represents the electricity at the point of origin (Zone 1) before it undergoes transmission and distribution losses during its journey to Zone 2.
+    - The electrical power initially sent out by Zone 1 for transmission to Zone 2 via the transmission line, before adjusting for any transmission and distribution losses during its journey to Zone 2.
 
   * - gen_v [``MW``]
     - Generated electricity from different technologies.
@@ -328,7 +328,7 @@ The output file contains the following variables:
     - Investment cost of transmission lines over the planning period.
 
   * - income_v [``dollar``]
-    - Saved cost due to abstracted water resource over the planning period.
+    - Saved cost due to abstracted water resources over the planning period.
 
   * - genflow_v [``m^3/s``]
     - Generated water flow of different reservoirs.
