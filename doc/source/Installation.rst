@@ -48,8 +48,3 @@ Once the environment is activated, you can run an example with the following com
 .. code:: bash
 
     python run.py
-
-Troubleshooting
-+++++++++++++++++++++
-
-For any issues encountered during the installation process, please contact `LIU Zhanwei <liuzhanwei@u.nus.edu>`_.

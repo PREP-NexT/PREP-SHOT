@@ -44,7 +44,7 @@ We welcome and appreciate contributions from the community. Here are the steps t
 
 Please ensure that you update tests as necessary when you're contributing code, and follow the coding conventions established in the rest of the project.
 
-Contact Us
+Q & A
 ----------
 
 If you have any questions, comments, or suggestions that aren't suitable for public discussion in the Issues section, please feel free to reach out to `Zhanwei Liu <mailto:liuzhanwei@u.nus.edu>`_.
