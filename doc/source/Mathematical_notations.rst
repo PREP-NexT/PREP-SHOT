@@ -642,6 +642,7 @@ We simplify the transmission of electricity as a transportation model. The model
 
   {\rm{import}}_{h,m,y,z_{\rm{from}},z_{\rm{to}}}={\rm{export}}_{h,m,y,z_{\rm{from}},z_{\rm{to}}}\times\eta_{z_{\rm{from}},z_{\rm{to}}}^{\rm{trans}}\quad\forall h,m,y,z_{\rm{from}}\neq z_{\rm{to}} \\
   \\
+
 This model assumes that the transmitted power of each transmission line is only constrained by the transmission capacity between two zones as follows:
 
 .. math::
