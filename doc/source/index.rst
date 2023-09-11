@@ -29,6 +29,8 @@ How It Works
    :width: 100 %
    :alt: overview of PREP-SHOT
 
+Source: :cite:t:`liu2023`.
+
 Key Features
 ------------
 * PREP-SHOT is an optimization model based on linear programming for energy systems with multiple zones.

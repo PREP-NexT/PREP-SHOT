@@ -1,7 +1,7 @@
 Mathematical Notations
 =========================
 
-This page provides a detailed description of the mathematical notations used for formulating the model's objective function and constraints (:ref:`Liu & He, 2023 <References>`).
+This page provides a detailed description of the mathematical notations used for formulating the model's objective function and constraints :cite:p:`liu2023`.
 
 Unit List
 ---------
