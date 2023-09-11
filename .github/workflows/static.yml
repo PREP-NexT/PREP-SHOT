@@ -14,7 +14,8 @@ jobs:
           pip install sphinx-tabs==3.4.0
           pip install sphinx-notfound-page==0.8.3
           pip install sphinxext-opengraph==0.7.5
-          
+          pip install sphinxcontrib-bibtex==2.6.1
+
       - name: Sphinx build
         run: |
           cd doc
