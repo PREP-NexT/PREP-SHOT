@@ -33,8 +33,6 @@ This project is licensed under the [GNU General Public License 3.0](https://gith
 
 This section includes a brief tutorial on running your first PREP-SHOT model.
 
-**Ensure that `Python 3.7` (or later) is installed.**
-
 1. Clone the repo
 
     ```bash
@@ -50,7 +48,7 @@ This section includes a brief tutorial on running your first PREP-SHOT model.
 3. Activate the Conda Environment
 
     ```bash
-    conda activate prep-shot
+    conda activate prep-shot-test
     ```
 
 4. Run your first model
