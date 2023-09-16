@@ -9,11 +9,17 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r ./doc/requirements.txt
-
+          sudo apt-get update -qy
+          sudo apt-get install -y texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra
       - name: Sphinx build
         run: |
           cd doc
           make html
+      - name: Generate offline PDF
+        run: |
+          cd doc
+          make latexpdf
+          mv build/latex/*.pdf build/html/
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
