@@ -41,12 +41,13 @@ Key Features
 * It allows input of multiple scenarios for specific parameters.
 * As a pure Python program, it benefits from the use of ``pandas`` and ``Xarray``, simplifying complex data analysis and promoting extensibility.
 
-Let's Get Started
------------------
-We've prepared a comprehensive guide to help you understand and use PREP-SHOT efficiently. Explore the sections below to learn more:
+Offline documentation
+----------------------
+To browse the documentation offline, you can `download an PDF copy <https://github.com/PREP-NexT/PREP-SHOT/raw/gh-pages/_static/PREP-SHOT.pdf>`_ for offline reading (Synchronize updates with online documentation).
 
 .. toctree::
-   :maxdepth: 2
+   :hidden:
+   :maxdepth: 1
 
    Installation
    Model_input_output
