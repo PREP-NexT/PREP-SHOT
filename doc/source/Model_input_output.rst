@@ -20,261 +20,261 @@ The parameters used, their desciptions, and their input file name in the model a
 
   * - historical capacity [#]_ 
   
-      [``MW``]
+      [MW]
     - The capacity of each technology in each zone for each year, taking into account the number of years that each technology has been in operation starting from the beginning of the planning period.
-    - ``historical_capacity``
+    - historical_capacity
 
   * - capacity factor [N/A]
     - Capacity factor of different non-dispatchable technologies.
-    - ``capacity_factor``
+    - capacity_factor
     
   * - carbon emission  
   
-      limit [``tCO2``]
+      limit [tCO2]
     - Carbon emission limit of different zones.
-    - ``carbon_emission_limit``
+    - carbon_emission_limit
     
   * - emission factor 
   
-      [``tCO2/MWh``]
+      [tCO2/MWh]
     - Emission factor of different technologies.
-    - ``carbon_content``
+    - carbon_content
     
   * - water delay time [N/A]
     - Water delay time of connection between reservoirs.
-    - ``water_delay_time``
+    - water_delay_time
     
-  * - demand [``MW``]
+  * - demand [MW]
     - Demand of different balancing authorities.
-    - ``demand``
+    - demand
     
   * - discount factor [N/A]
     - Discount factor for each year.
-    - ``discount_factor``
+    - discount_factor
     
-  * - distance [``km``]
+  * - distance [km]
     - Distance of different pair of zones.
-    - ``distance``
+    - distance
     
   * - discharge efficiency [N/A]
     - Discharge efficiency of storage technologies.
-    - ``discharge_``
+    - discharge\_
     
-      ``efficiency``
+      efficiency
     
   * - charge efficiency [N/A]
     - Charge efficiency of storage technologies.
-    - ``charge_``
+    - charge\_
       
-      ``efficiency``
+      efficiency
     
   * - power to 
   
-      energy ratio [``MW/MWh``]
+      energy ratio [MW/MWh]
     - Power to energy ratio ratio of storage technologies.
-    - ``power_to_``
+    - power_to\_
     
-      ``energy_ratio``
+      energy_ratio
     
-  * - fuel price [``dollar/MWh``]
+  * - fuel price [dollar/MWh]
     - Fuel price of different technologies.
-    - ``fuel_price``
+    - fuel_price
     
-  * - hydropower [#]_ [``MW``]
+  * - hydropower [#]_ [MW]
     - Predefined hydropower output of all reservoirs.
-    - ``hydropower``
+    - hydropower
     
-  * - inflow [``m^3/s``]
+  * - inflow [:math:`\text{m}^3/\text{s}`]
     - Inflow of all reservoirs.
-    - ``inflow``
+    - inflow
     
   * - initial energy 
       
-      storage level [``1/MWh``]
+      storage level [1/MWh]
     - Initial energy storage level of different storage technologies.
-    - ``initial_energy_``
+    - initial_energy\_
     
-      ``storage_level``
+      storage_level
     
-  * - lifetime [``yr``]
+  * - lifetime [yr]
     - Lifetime of different technologies.
-    - ``lifetime``
+    - lifetime
     
   * - new technology 
   
-      lower bound [``MW``]
+      lower bound [MW]
     - Lower bound of newly-built installed capacity of different technologies for each investment year.
-    - ``new_technology_``
+    - new_technology\_
     
-      ``lower_bound``
+      lower_bound
     
   * - new technology 
   
-      upper bound [``MW``]
+      upper bound [MW]
     - Upper bound of newly-built installed capacity of different technologies for each investment year.
-    - ``new_technology_``
+    - new_technology\_
       
-      ``upper_bound``
+      upper_bound
     
-  * - ramp down [``1/MW``]
+  * - ramp down [1/MW]
     - Ramp down rate of different technologies.
-    - ``ramp_down``
+    - ramp_down
     
-  * - ramp up [``1/MW``]
+  * - ramp up [1/MW]
     - Ramp up rate of different technologies.
-    - ``ramp_up``
+    - ramp_up
     
   * - reservoir characteristics 
   
       [As per data sheet]
     - Reservoir characteristics data includes designed water head, maximum storage, minimum storage, operational efficiency, area of affiliation, installed capacity, maximum power output, minimum power output, maximum outflow, minimum outflow, and maximum generation outflow.
-    - ``reservoir_``
+    - reservoir\_
       
-      ``characteristics``
+      characteristics
     
   * - reservoir storage 
   
-      lower bound [``m^3``]
+      lower bound [:math:`\text{m}^3`]
     - Lower bound of volume of hydropower reservoirs.
-    - ``reservoir_storage_``
+    - reservoir_storage\_
       
-      ``lower_bound``
+      lower_bound
     
   * - final reservoir 
   
-      storage level [``m^3``]
+      storage level [:math:`\text{m}^3`]
     - Final volume of hydropower reservoirs.
-    - ``final_reservoir_``
+    - final_reservoir\_
     
-      ``storage_level``
+      storage_level
     
   * - initial reservoir 
   
-      storage level [``m^3``]
+      storage level [:math:`\text{m}^3`]
     - Initial volume of hydropower reservoirs.
-    - ``initial_reservoir_``
+    - initial_reservoir\_
       
-      ``storage_level``
+      storage_level
     
   * - reservoir storage
       
-      upper bound [``m^3``]
+      upper bound [:math:`\text{m}^3`]
     - Upper bound of volume of hydropower reservoirs.
-    - ``reservoir_storage``
+    - reservoir_storage
        
-      ``_upper_bound``
+      _upper_bound
     
   * - Investmented OM cost 
   
-      [``dollar/MW-yr``]
+      [dollar/MW-yr]
     - Fixed operation and maintenance cost of different technologies.
-    - ``technology_fixed_``
+    - technology_fixed\_
     
-      ``OM_cost``
+      OM_cost
     
   * - technology investment
       
-      cost [``dollar/MW``]
+      cost [dollar/MW]
     - Investment cost of different technologies.
-    - ``technology_investment``
+    - technology_investment
     
-      ``_cost``
+      _cost
     
-  * - technology portfolio [``MW``]
+  * - technology portfolio [MW]
     - Existing total installed capacity across all zones.
-    - ``technology_``
+    - technology\_
     
-      ``portfolio``
+      portfolio
     
   * - technology 
       
-      upper bound [#]_ [``MW``]
+      upper bound [#]_ [MW]
     - Upper bound of installed capacity of different technologies.
-    - ``technology_upper_``
+    - technology_upper\_
     
-      ``bound``
+      bound
     
   * - technology variable 
       
-      OM cost [``dollar/MWh``]
+      OM cost [dollar/MWh]
     - Variable operation and maintenance costs of different technologies.
-    - ``technology_variable_``
+    - technology_variable\_
     
-      ``OM_cost``
+      OM_cost
     
   * - transmission line
 
       investment cost 
 
-      [``dollar/MW-km``]
+      [dollar/MW-km]
     - Investment cost of transmission lines (if there is no exising nor planned transmission lines between two specific zones, leave the data entries blank).
-    - ``transmission_line_``
+    - transmission_line\_
        
-      ``investment_cost``
+      investment_cost
     
   * - transmission line 
   
       efficiency [N/A]
     - Efficiency of transmission lines across all zones.
-    - ``transmission_line_``
+    - transmission_line\_
     
-      ``efficiency``
+      efficiency
     
   * - transmission line 
       
       fixed OM cost 
       
-      [``dollar/MW``]
+      [dollar/MW]
     - Fixed operation and maintenance costs of transmission lines.
-    - ``transmission_line_``
+    - transmission_line\_
        
-      ``fixed_OM_cost``
+      fixed_OM_cost
     
   * - transmission line 
   
       variable OM cost 
   
-      [``dollar/MWh``]
+      [dollar/MWh]
     - Variable operations and maintenance costs of transmission lines.
-    - ``transmission_line``
+    - transmission_line
     
-      ``_variable_cost``
+      _variable_cost
     
   * - transmission line 
   
-      lifetime [``yr``]
+      lifetime [yr]
     - Lifetime of transmission lines.
-    - ``transmission_line_``
+    - transmission_line\_
     
-      ``lifetime``
+      lifetime
     
   * - technology type [N/A]
     - Categories of different technologies.
-    - ``technology_type``
+    - technology_type
     
   * - reservoir tailrace 
   
       level-discharge function 
       
-      [``m`` & ``m^3/s``]
+      [m & :math:`\text{m}^3/\text{s}`]
     - Relationship between tailrace level and total discharge for different reservoirs.
-    - ``reservoir_tailrace_``
+    - reservoir_tailrace\_
     
-      ``level_discharge_``
+      level_discharge\_
       
-      ``function``
+      function
     
   * - reservoir forebay 
   
       level-volume function 
       
-      [``m`` & ``m^3``]
+      [m & :math:`\text{m}^3`]
     - Relationship between forebay level and volume for different reservoirs
-    - ``reservoir_forebay_``
+    - reservoir_forebay\_
     
-      ``level_volume_``
+      level_volume\_
       
-      ``function``
+      function
 
 .. note:: 
   
@@ -294,46 +294,46 @@ The output file contains the following variables:
   * - Variable name [Unit]
     - Description
   
-  * - trans_import_v [``MW``]
+  * - trans_import_v [MW]
     - The electrical power transmitted from Zone 1 and effectively received by Zone 2 through the transmission line, after adjusting for transmission losses.
 
-  * - trans_export_v [``MW``]
+  * - trans_export_v [MW]
     - The electrical power initially sent out by Zone 1 for transmission to Zone 2 via the transmission line, before adjusting for any transmission and distribution losses during its journey to Zone 2.
 
-  * - gen_v [``MW``]
+  * - gen_v [MW]
     - Generated electricity from different technologies.
 
-  * - install_v [``MW``]
+  * - install_v [MW]
     - Existing installed capacity of different technologies.
 
-  * - carbon_v [``Ton``]
+  * - carbon_v [Ton]
     - Carbon emissions across different years.
 
-  * - charge_v [``MW``]
+  * - charge_v [MW]
     - Charged electricity of different storage technologies.
 
-  * - cost_v [``dollar``]
+  * - cost_v [dollar]
     - Total cost over the planning period.
 
-  * - cost_var_v [``dollar``]
+  * - cost_var_v [dollar]
     - Variable cost over the planning period.
 
-  * - cost_fix_v [``dollar``]
+  * - cost_fix_v [dollar]
     - Fixed cost over the planning period.
 
-  * - cost_new_v [``dollar``]
+  * - cost_new_v [dollar]
     - Investment cost of technologies over the planning period.
 
-  * - cost_newline_v [``dollar``]
+  * - cost_newline_v [dollar]
     - Investment cost of transmission lines over the planning period.
 
-  * - income_v [``dollar``]
+  * - income_v [dollar]
     - Saved cost due to abstracted water resources over the planning period.
 
-  * - genflow_v [``m^3/s``]
+  * - genflow_v [:math:`\text{m}^3/\text{s}`]
     - Generated water flow of different reservoirs.
 
-  * - spillflow_v [``m^3/s``]
+  * - spillflow_v [:math:`\text{m}^3/\text{s}`]
     - Spilled water flow of different reservoirs.
 
 
@@ -356,37 +356,37 @@ Within the root directory of the model, you will find a JSON file containing the
    * - Model Parameter
      - Description
 
-   * - ``input_folder``
+   * - input_folder
      - Specifies the name of the folder containing the input data.
 
-   * - ``output_filename``
+   * - output_filename
      - Specifies the name of the output file.
 
-   * - ``hour``
+   * - hour
      - Specifies the number of hours in each time period.
 
-   * - ``month``
+   * - month
      - Specifies the number of months in each time period.
 
-   * - ``dt``
+   * - dt
      - Specifies the timestep for the simulation in hours.
 
-   * - ``hours_in_year``
+   * - hours_in_year
      - Specifies the number of hours in a year. Typically, this is set to 8760.
 
-   * - ``ishydro``
+   * - ishydro
      - Specifies whether to include hydropower in the optimization problem.
 
-   * - ``error_threshold``
+   * - error_threshold
      - Specifies the error threshold for the model, while iterating for a solution. This parameter controls the convergence of the hydro model.
 
-   * - ``iteration_number``
+   * - iteration_number
      - Specifies the maximum number of iterations for the hydro model, while iterating for a solution.
 
-   * - ``solver``
+   * - solver
      - Specifies the solver to be used for the optimization problem.
 
-   * - ``timelimit``
+   * - timelimit
      - Specifies the maximum time limit for the solver to solve the optimization problem in seconds.
 
 After you have tuned the parameters, you can run the model by following the steps in the :ref:`installation` page.

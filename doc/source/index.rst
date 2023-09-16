@@ -47,7 +47,7 @@ To browse the documentation offline, you can `download an PDF copy <https://gith
 
 .. toctree::
    :hidden:
-   :maxdepth: 1
+   :maxdepth: 2
 
    Installation
    Model_input_output

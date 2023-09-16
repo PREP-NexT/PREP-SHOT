@@ -16,37 +16,37 @@ The description of the units used in this page are as follows:
    * - Unit
      - Description
 
-   * - ``hr``
+   * - hr
      - Hour
 
-   * - ``yr``
+   * - yr
      - Year
 
-   * - ``dollar``
+   * - dollar
      - US Dollar
 
-   * - ``kW``
+   * - kW
      - Kilowatt
 
-   * - ``MW``
+   * - MW
      - Megawatt
 
-   * - ``MWh``
+   * - MWh
      - Megawatt-hour
 
-   * - ``MWy``
+   * - MWy
      - Megawatt-year
 
-   * - ``MW-km``
+   * - MW-km
      - Megawatt-kilometer
 
-   * - ``tonne``
+   * - tonne
      - Tonne
    
-   * - ``m``
+   * - m
      - Meter
 
-   * - ``s``
+   * - s
      - Second
 
    * - N/A
@@ -70,11 +70,11 @@ Set List
 
    * - :math:`h, h_{\rm{start}}, h_{\rm{end}} \in \mathcal{H}`
      - Hour
-     - ``hr``
+     - hr
 
    * - :math:`y, y_{\rm{next}}, y_{\rm{pre}}, y_{\rm{start}}, y_{\rm{end}} \in \rm \mathcal{Y}`
      - Year
-     - ``yr``
+     - yr
 
    * - :math:`m \in \rm \mathcal{M}`
      - Month
@@ -86,7 +86,7 @@ Set List
 
    * - :math:`{\rm{age}} \in \mathcal{AGE}`
      - Operation time
-     - ``yr``
+     - yr
 
    * - :math:`s, {\rm{su}} \in \mathcal{S}`
      - Hydropower station
@@ -126,59 +126,59 @@ Variable List
 
    * - :math:`\rm{cost}^{\rm{total}}`
      - System-wide total cost.
-     - ``dollar``
+     - dollar
 
    * - :math:`\rm{cost}^{\rm{var}}_{\rm{tech}}`
      - System-wide variable Operation and Maintenance (O&M) cost of technologies.
-     - ``dollar``
+     - dollar
 
    * - :math:`\rm{cost}^{\rm{fuel}}`
      - System-wide fuel cost of technologies.
-     - ``dollar``
+     - dollar
 
    * - :math:`\rm{cost}^{\rm{fix}}_{\rm{tech}}`
      - System-wide fixed O&M cost of technologies.
-     - ``dollar``
+     - dollar
 
    * - :math:`\rm{cost}^{\rm{fix}}_{\rm{line}}` 
      - System-wide fixed O&M cost of transmission lines.
-     - ``dollar``
+     - dollar
 
    * - :math:`\rm{cost}^{\rm{inv}}_{\rm{tech}}`
      - System-wide capital cost of technologies.
-     - ``dollar``
+     - dollar
 
    * - :math:`\rm{cost}^{\rm{inv}}_{\rm{line}}`
      - System-wide capital cost of transmission lines.
-     - ``dollar``
+     - dollar
 
    * - :math:`\rm{cost}^{\rm{annualfuel}}_{\it{y}}`
      - Fuel cost of technologies in the modelled year:math:`y` (the present value of modelled year :math:`y`).
-     - ``dollar``
+     - dollar
 
    * - :math:`\rm{cost}^{\rm{fuel}}_{\it{y}}`
      - Fuel cost of technologies accumulated from modelled year :math:`y` to a non-modelled year before the immediate next modelled year (the present value of modelled year :math:`y`).
-     - ``dollar``
+     - dollar
 
    * - :math:`\rm{gen}_{\it{h,m,y,z,e}}`
      - Power generation of technology :math:`e` in zone :math:`z` in hour :math:`h` in month :math:`m` of year :math:`y`.
-     - ``MWh``
+     - MWh
 
    * - :math:`\rm{charge}_{\it{h,m,y,z,e}}`
      - Charging electricity of storage technology :math:`e` in zone :math:`z` in hour :math:`h` in month :math:`m` of year :math:`y`.
-     - ``MWh``
+     - MWh
 
    * - :math:`\rm{export}_{{\it{h,m,y,z}}_{\rm{from}},{\it{z}}_{\rm{to}}}`
      - Electric energy exported from zone :math:`z_{\rm{from}}` to zone :math:`z_{\rm{to}}` in hour :math:`h` in month :math:`m` of year :math:`y`.
-     - ``MWh``
+     - MWh
 
    * - :math:`\rm{import}_{{\it{h,m,y,z}}_{\rm{from}},{\it{z}}_{\rm{to}}}`
      - Electric energy imported from zone :math:`z_{\rm{from}}` to zone :math:`z_{\rm{to}}`  in hour :math:`h` in month :math:`m` of year :math:`y`.
-     - ``MWh``
+     - MWh
 
    * - :math:`\rm{storage}_{\it{h,m,y,z,e}}^{\rm{energy}}`
      - Energy storage level of storage technology :math:`e` in hour :math:`h` in month :math:`m` of year :math:`y` in zone :math:`z`.
-     - ``MWh``
+     - MWh
 
    * - :math:`\rm{storage}_{\it{s,h,m,y}}^{\rm{reservoir}}` 
      - Reservoir storage corresponding to hydropower station :math:`s` in hour :math:`h` in month :math:`m` of year :math:`y`.
@@ -186,50 +186,50 @@ Variable List
 
    * - :math:`\rm{power}_{\it{h,m,y,z,e}}` 
      - Overall power output of technology :math:`e` in zone :math:`z` in hour :math:`h` in month :math:`m` of year :math:`y`.
-     - ``MW``
+     - MW
 
    * - :math:`\rm{power}_{\it{h,m,y,z,e}}^{\it{c}}` 
      - Charging power of storage technology :math:`e` in zone :math:`z` in hour :math:`h` in month :math:`m` of year :math:`y`.
-     - ``MW``
+     - MW
 
    * - :math:`\rm{power}_{\it{h,m,y,z,e}}^{\rm{up}}`
      - Increment in power output of technology :math:`e` in zone :math:`z` from hour :math:`h`-1 to hour :math:`h` in month :math:`m` of year :math:`y`.
-     - ``MW``
+     - MW
 
    * - :math:`\rm{power}_{\it{h,m,y,z,e}}^{\rm{down}}`
      - Decrement in power output of technology :math:`e` in zone :math:`z` from hour :math:`h`-1 to hour :math:`h` in month :math:`m` of year :math:`y`.
-     - ``MW``
+     - MW
 
    * - :math:`\rm{power}_{\it{s,h,m,y}}^{\rm{hydro}}`
      - Power output of hydropower station :math:`s` in hour :math:`h` in month :math:`m` of year :math:`y`.
-     - ``MW``
+     - MW
 
    * - :math:`\rm{cap}_{\it{y,z,e}}^{\rm{existingtech}}`
      - Existing installed capacity of technology :math:`e` in year :math:`y` in zone :math:`z`.
-     - ``MW``
+     - MW
 
    * - :math:`\rm{cap}_{{\it{y,z}}_{\rm{from}},{\it{z}}_{\rm{to}}}^{\rm{existingline}}` 
      - Existing transmission capacity in year :math:`y` from zone :math:`z_{\rm{from}}` to zone :math:`z_{\rm{to}}`.
-     - ``MW``
+     - MW
 
    * - :math:`\rm{cap}_{\it{y,z,e}}^{invtech}`
      - Installed capacity of newly built technology :math:`e` in year :math:`y` in zone :math:`z`.
-     - ``MW``
+     - MW
    * - :math:`\rm{cap}_{{\it{y,z}}_{\rm{from}},{\it{z}}_{\rm{to}}}^{\rm{invline}}` 
      - Capacity of newly built transmission lines from zone :math:`z_{\rm{from}}` to zone :math:`z_{\rm{to}}` in year :math:`y`
-     - ``MW``
+     - MW
   
    * - :math:`\rm{cap}_{\it{y,z,e}}^{\rm{remaining}}`
      - Remaining installed capacity of technology :math:`e` in year :math:`y` in zone :math:`z`
-     - ``MW``
+     - MW
 
    * - :math:`\rm{carbon}_{\it{y,e}}^{\rm{tech}}`
      - Carbon dioxide equivalent emissions of technology :math:`e` in year :math:`y`
-     - ``tonne``
+     - tonne
    
    * - :math:`\rm{carbon}_{\it y}`
      - Carbon dioxide equivalent emissions of the entire energy system in year :math:`y`
-     - ``tonne``
+     - tonne
 
    * - :math:`\rm{inflow}_{\it{s,h,m,y}}^{\rm{total}}`
      - Total inflow of reservoir corresponding to hydropower station :math:`s` in hour :math:`h` in month :math:`m` of year :math:`y`
@@ -253,25 +253,25 @@ Variable List
 
    * - :math:`\rm{head}_{\it{s,h,m,y}}^{\rm{net}}`
      - Net water head of hydropower station :math:`s` in hour :math:`h` in month :math:`m` of year :math:`y`
-     - ``m`` 
+     - m 
 
    * - :math:`\rm{head}_{\it{s,h,m,y}}^{\rm{loss}}`
      - Water head loss of hydropower station :math:`s` in hour :math:`h` in month :math:`m` of year :math:`y` 
-     - ``m`` 
+     - m 
 
    * - :math:`z_{\it{s,h,m,y}}^{\rm{forebay}}`
      - Forebay water level of reservoir corresponding to hydropower station :math:`s` in hour :math:`h` in month :math:`m` of year :math:`y`
-     - ``m`` 
+     - m 
 
    * - :math:`z_{\it{s,h,m,y}}^{\rm{tailrace}}`
      - Tailrace water level of reservoir corresponding to hydropower station :math:`s` in hour :math:`h` in month :math:`m` of year :math:`y`
-     - ``m`` 
+     - m 
 
 Parameter List
 --------------
 
 .. list-table::
-   :widths: 20 60 20
+   :widths: 25 60 15
    :header-rows: 1
    :align: left
    
@@ -281,35 +281,35 @@ Parameter List
 
    * - :math:`{{C}}_{\it{y,z,e}}^{{\rm{vartech}}}`
      - Variable O&M cost per unit power generation from technology :math:`e` in year :math:`y` in zone :math:`z`.
-     - ``dollar/MWh``
+     - dollar/MWh
 
    * - :math:`{{C}}_{\it{y,z,e}}^{\rm{fuel}}`
      - Fuel cost per unit power generation from technology :math:`e` in year :math:`y` in zone :math:`z`.
-     - ``dollar/MWh``
+     - dollar/MWh
 
    * - :math:`{{C}}_{\it{y,z,e}}^{\rm{fixtech}}`
      - Fixed O&M cost per year per unit existing capacity of technology :math:`e` in year :math:`y` in zone :math:`z`.
-     - ``dollar/MW-yr``
+     - dollar/MW-yr
 
    * - :math:`{{C}}_{\it{y,z,e}}^{\rm{invtech}}`
      - Capital cost per unit installed capacity of technology :math:`e` in year :math:`y` in zone :math:`z`.
-     - ``dollar/MW``
+     - dollar/MW
 
    * - :math:`{{C}}_{y,z_{\rm{from}},z_{\rm{to}}}^{\rm{varline}}`
      - Variable O&M cost per unit transmitted electricity from zone :math:`z_{\rm{from}}` to zone :math:`z_{\rm{to}}` in year :math:`y`.
-     - ``dollar/MWh``
+     - dollar/MWh
 
    * - :math:`{{C}}_{y,z_{\rm{from}},z_{\rm{to}}}^{\rm{fixline}}`
      - Fixed O&M cost per year per unit existing capacity of transmission line from zone :math:`z_{\rm{from}}` to zone :math:`z_{\rm{to}}` in year :math:`y`.
-     - ``dollar/MW-yr``
+     - dollar/MW-yr
 
    * - :math:`{{C}}_{y,z_{\rm{from}},z_{\rm{to}}}^{\rm{invline}}`
      - Capital cost per unit expansion of transmission line from zone :math:`z_{\rm{from}}` to zone :math:`z_{\rm{to}}` in year :math:`y`.
-     - ``dollar/MW``
+     - dollar/MW
 
    * - :math:`{\rm{CARBON}}_{\it{y,z,e}}`
      - Carbon dioxide equivalent emission per unit power generation from technology :math:`e` in year :math:`y` in zone :math:`z`.
-     - ``tonne/MWh``
+     - tonne/MWh
 
    * - :math:`\overline{{\rm{CARBON}}}_{y}`
      - Upper bound of carbon dioxide equivalent emission summed across all zones and technologies in year :math:`y`.
@@ -317,7 +317,7 @@ Parameter List
 
    * - :math:`{{\rm{DEMAND}}}_{h,m,y,z}`
      - Average power demand in hour :math:`h` in month :math:`m` of year :math:`y` in zone :math:`z`.
-     - ``MW``
+     - MW
 
    * - :math:`{{\rm{CAP}}}_{\rm{age},{\it{z,e}}}^{{\rm{inittech}}}`
      - Initial installed capacity of technology :math:`e` with the operation time of :math:`\rm{age}` years in zone :math:`z`.
@@ -325,11 +325,11 @@ Parameter List
 
    * - :math:`{{\rm{CAP}}}_{\rm{age},{\it{z}}_{\rm{from}},{\it{z}}_{\rm{to}}}^{\rm{initline}}`
      - Initial installed capacity of transmission lines with the operation time of :math:`\rm{age}` years from zone :math:`z_{\rm{from}}` to zone :math:`{\it{z}}_{\rm{to}}`.
-     - ``MW``
+     - MW
 
    * - :math:`{{\rm{CAP}}}_s^{\rm{hydro}}`
      - Nameplate capacity of hydropower station :math:`s`.
-     - ``MW``
+     - MW
 
    * - :math:`{\underline{{\rm{POWER}}}}_s^{\rm{hydro}}`
      - Guaranteed minimum power output of hydropower station :math:`s`.
@@ -345,11 +345,11 @@ Parameter List
 
    * - :math:`{R}_e^{\rm{up}}`
      - Allowed maximum ramping up capacity of technology :math:`e` in two successive periods, expressed as a percentage of the existing capacity of storage technology :math:`e`.
-     - ``1/hr``
+     - 1/hr
 
    * - :math:`{R}_e^{\rm{down}}`
      - Allowed maximum ramping down capacity of technology :math:`e` in two successive periods, expressed as a percentage of the existing capacity of storage technology :math:`e`.
-     - ``1/hr``
+     - 1/hr
 
    * - :math:`{{\rm{STORAGE}}}_{s,m,y}^{\rm{initreservoir}}`
      - Initial reservoir storage corresponding to hydropower station :math:`s` in month :math:`m` of year :math:`y`.
@@ -413,11 +413,11 @@ Parameter List
 
    * - :math:`\tau_{{\rm{su}},s}`
      - Water travel (or propagation) time from the upstream hydropower station :math:`{\rm{su}}` to the immediate downstream hydropower station :math:`s`.
-     - ``hr``
+     - hr
 
    * - :math:`\Delta h`
      - Time step.
-     - ``hr``
+     - hr
 
    * - :math:`r`
      - Discount rate.
@@ -425,15 +425,15 @@ Parameter List
 
    * - :math:`{T}_e`
      - Lifetime of technology :math:`e`.
-     - ``yr``
+     - yr
 
    * - :math:`{T}_{\rm{line}}`
      - Lifetime of transmission line.
-     - ``yr``
+     - yr
 
    * - :math:`{\rm{EP}}_e`
      -  Power to energy ratio of storage technology :math:`e`.
-     - ``hr``
+     - hr
 
 Objective Functions
 -------------------
