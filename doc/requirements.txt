@@ -1,4 +1,4 @@
-pygments==2.14.0
+pygments==2.15.0
 sphinx==4.4.0
 sphinx_rtd_theme==1.1.1
 sphinx-tabs==3.4.0
