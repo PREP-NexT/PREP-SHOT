@@ -19,7 +19,7 @@ jobs:
         run: |
           cd doc
           make latexpdf
-          mv build/latex/*.pdf build/html/
+          mv build/latex/*.pdf build/html/_static/
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
