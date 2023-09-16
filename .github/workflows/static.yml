@@ -8,13 +8,7 @@ jobs:
       - uses: actions/setup-python@v2
       - name: Install dependencies
         run: |
-          pip install pygments==2.14.0
-          pip install sphinx==4.4.0
-          pip install sphinx_rtd_theme==1.1.1
-          pip install sphinx-tabs==3.4.0
-          pip install sphinx-notfound-page==0.8.3
-          pip install sphinxext-opengraph==0.7.5
-          pip install sphinxcontrib-bibtex==2.6.1
+          pip install -r ./doc/requirements.txt
 
       - name: Sphinx build
         run: |
