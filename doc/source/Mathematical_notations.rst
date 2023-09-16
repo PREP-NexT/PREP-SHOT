@@ -479,6 +479,7 @@ We also assume that variable cost and fixed cost for non-modelled years are assu
 
 .. image:: ./_static/varcost.png
   :width: 400
+  :align: center
   :alt: Calculation of variable costs
 
 Given the following:
@@ -516,6 +517,7 @@ We can equate the fixed factor with the variable factor as follows:
 
 .. image:: ./_static/invcost.png
   :width: 400
+  :align: center
   :alt: Calculation of investment costs
 
 Given the following:

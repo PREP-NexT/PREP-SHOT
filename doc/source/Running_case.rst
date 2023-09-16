@@ -20,6 +20,7 @@ The jurisdictional connections of the stations, reservoirs, and balancing author
 
 .. figure:: ./_static/typology.jpg
    :width: 50 %
+   :align: center
    :alt: typology
 
 For this tutorial, we assume that, apart from hydropower, no other existing power generation technologies or transmission lines are in place.
