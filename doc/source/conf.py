@@ -38,7 +38,6 @@ sphinxcontrib.bibtex.plugin.register_plugin(
 bibtex_reference_style = "author_year_round"
 ######################## references ##########################################
 
-
 # -- General configuration ------------------------------------------------
 
 needs_sphinx = "1.3"
