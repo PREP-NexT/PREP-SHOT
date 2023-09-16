@@ -446,21 +446,27 @@ The objective function of the model is to minimize the net present value of the 
 The cost equations are defined as follows:
 
 .. math::
-  \rm{cost} &= \rm{cost}_\rm{tech}^\rm{var} + \rm{cost}_\rm{line}^\rm{var} + \rm{cost}^\rm{fuel} + \rm{cost}_\rm{tech}^\rm{fix} + \rm{cost}_\rm{line}^\rm{fix} + \rm{cost}_\rm{tech}^\rm{inv} + \rm{cost}_\rm{line}^\rm{inv} \\
+  
+  \rm{cost} &= \rm{cost}_{\rm{tech}}^{\rm{var}} + \rm{cost}_{\rm{line}}^{\rm{var}} + \rm{cost}^{\rm{fuel}} + \rm{cost}_{\rm{tech}}^{\rm{fix}} + \rm{cost}_{\rm{line}}^{\rm{fix}} + \rm{cost}_{\rm{tech}}^{\rm{inv}} + \rm{cost}_{\rm{line}}^{\rm{inv}} 
   \\
-  \rm{cost}_\rm{tech}^\rm{var} &= \frac{\sum_{h,m,y,z,\rm{e}}C_{y,z,\rm{e}}^\rm{tech-var}\times \rm{gen}_{h,m,y,z,\rm{e}}}{\omega} \times \rm{factor}_{y}^\rm{var} \\
   \\
-  \rm{cost}_\rm{line}^\rm{var} &= \frac{\sum_{h,m,y,z_s,z_o}C_{y,z}^\rm{line-var}\times \rm{export}_{h,m,y,z_s,z_o}}{\omega} \times \rm{factor}_{y}^\rm{var} \\
+  \rm{cost}_{\rm{tech}}^{\rm{var}} &= \frac{\sum_{h,m,y,z,\rm{e}}C_{y,z,\rm{e}}^{\rm{tech-var}}\times \rm{gen}_{h,m,y,z,\rm{e}}}{\omega} \times \rm{factor}_{y}^{\rm{var}} 
   \\
-  \rm{cost}^\rm{fuel} & = \frac{\sum_{h,m,y,z,\rm{e}}C_{y,z,\rm{e}}^\rm{fuel}\times \rm{gen}_{h,m,y,z,\rm{e}}}{\omega} \times \rm{factor}_{y}^\rm{var} \\
   \\
-  \rm{cost}_\rm{tech}^\rm{fix} &= \sum_{y,z,\rm{e}}C_{y,z,\rm{e}}^\rm{tech-fix}\times \rm{cap}_{y,z,\rm{e}}^\rm{existing-tech}\times \rm{factor}_{y}^\rm{fix} \\
+  \rm{cost}_{\rm{line}}^{\rm{var}} &= \frac{\sum_{h,m,y,z_s,z_o}C_{y,z}^{\rm{line-var}}\times \rm{export}_{h,m,y,z_s,z_o}}{\omega} \times \rm{factor}_{y}^{\rm{var}} 
   \\
-  \rm{cost}_\rm{line}^\rm{fix} &= \sum_{y,z_s,z_o}C_{y,z_s,z_o}^\rm{line-fix}\times \rm{cap}_{y,z_s,z_o}^\rm{existing-line}\times \rm{factor}_{y}^\rm{fix} \\
   \\
-  \rm{cost}_\rm{tech}^\rm{inv} &=  \sum_{y,z,\rm{e}}C_{y,z,\rm{e}}^\rm{tech-inv}\times \rm{cap}_{y,z,\rm{e}}^\rm{tech-inv}\times \rm{factor}_{y}^\rm{inv} \\
+  \rm{cost}^{\rm{fuel}} & = \frac{\sum_{h,m,y,z,\rm{e}}C_{y,z,\rm{e}}^{\rm{fuel}}\times \rm{gen}_{h,m,y,z,\rm{e}}}{\omega} \times \rm{factor}_{y}^{\rm{var}} 
   \\
-  \rm{cost}_\rm{line}^\rm{inv} &= \sum_{y,z_s,z_o}C_{y,z_s,z_o}^\rm{line-inv}\times \rm{cap}_{y,z_s,z_o}^\rm{line-inv}\times \rm{factor}_{y}^\rm{inv} \times 0.5
+  \\
+  \rm{cost}_{\rm{tech}}^{\rm{fix}} &= \sum_{y,z,\rm{e}}C_{y,z,\rm{e}}^{\rm{tech-fix}}\times \rm{cap}_{y,z,\rm{e}}^{\rm{existing-tech}}\times \rm{factor}_{y}^{\rm{fix}} \\
+  \\
+  \rm{cost}_{\rm{line}}^{\rm{fix}} &= \sum_{y,z_s,z_o}C_{y,z_s,z_o}^{\rm{line-fix}}\times \rm{cap}_{y,z_s,z_o}^{\rm{existing-line}}\times \rm{factor}_{y}^{\rm{fix}} \\
+  \\
+  \rm{cost}_{\rm{tech}}^{\rm{inv}} &=  \sum_{y,z,\rm{e}}C_{y,z,\rm{e}}^{\rm{tech-inv}}\times \rm{cap}_{y,z,\rm{e}}^{\rm{tech-inv}}\times \rm{factor}_{y}^{\rm{inv}} \\
+  \\
+  \\
+  \rm{cost}_{\rm{line}}^{\rm{inv}} &= \sum_{y,z_s,z_o}C_{y,z_s,z_o}^{\rm{line-inv}}\times \rm{cap}_{y,z_s,z_o}^{\rm{line-inv}}\times \rm{factor}_{y}^{\rm{inv}} \times 0.5
 
 Factors
 +++++++
@@ -486,25 +492,19 @@ The total present value can be calculated as follows:
 
 .. math::
 
-  \begin{align*}
   \text{total present value} &= \frac{B}{(1+r)^m} + \frac{B}{(1+r)^{m+1}} + \cdots + \frac{B}{(1+r)^{(m+k-1)}} \\
   \\
-  &= B(1+r)^{(1-m)}\frac{1-(1+r)^k}{r} \\
-  \\
-  \end{align*}
+  &= B(1+r)^{(1-m)}\frac{1-(1+r)^k}{r}
 
 And we can calculate the variable factor as follows:
 
 .. math::
 
-  \begin{align*}
   \text{factor}_{y}^{var} &= (1+r)^{1-m_y}\frac{1-(1+r)^{k_y}}{r} \\
   \\
   m_{y} &= y - y_\text{min} \\
   \\
-  k_{y} &= y_\text{periods} \\
-  \\
-  \end{align*}
+  k_{y} &= y_\text{periods}
 
 **Fixed Factor**
 
@@ -529,35 +529,29 @@ The total present value can be calculated as follows:
 
 .. math::
 
-  \begin{align*}
   \text{total present value} &= \frac{P}{(1+r)^m} \\
   \\
   &= \frac{\frac{A}{(1+i)} + \frac{A}{(1+i)^2} + \cdots + \frac{A}{(1+i)^n}}{(1+r)^m} \\
   \\
-  &= A\frac{1-(1+i)^{-n}}{i}\times\frac{1}{(1+r)^m} \\
-  \\
-  \end{align*}
+  &= A\frac{1-(1+i)^{-n}}{i}\times\frac{1}{(1+r)^m}
 
 From the above, we can solve for the annualized cost of depreciation periods, :math:`A`, as:
 
 .. math::
 
-  A = P\frac{i}{1-(1+i)^{-n}} \\
-  \\
+  A = P\frac{i}{1-(1+i)^{-n}}
 
 The capital recovery factor is then calculated as:
 
 .. math::
 
-  \text{capital recovery factor} = \frac{i}{1-(1+i)^{-n}} \\
-  \\
+  \text{capital recovery factor} = \frac{i}{1-(1+i)^{-n}}
 
 Let's focus on the time periods that fall within the modelled time horizon (indicated in black colour). We can calculate the length of time periods, :math:`k`, as follows:
 
 .. math::
   
-  k = y_{max} - y \\
-  \\
+  k = y_{max} - y
 
 Using :math:`k`, we can calculate the net present value as follows:
 
@@ -773,8 +767,8 @@ The generation flow and spillage flow of the reservoir are limited by the maximu
 
 .. math::
 
-    {\rm{outflow}}_{s,h,m,y}^{\rm{gen}}&\le{\rm{OUTFLOW}}_s^{\rm{gen}}\quad\forall s,h,m,y \label{eq:S35}\\
-    {\rm{outflow}}_{s,h,m,y}^{\rm{spillage}}&\le{\rm{OUTFLOW}}_s^{\rm{spillage}}\quad\forall s,h,m,y \label{eq:S36}\\
+    {\rm{outflow}}_{s,h,m,y}^{\rm{gen}}&\le{\rm{OUTFLOW}}_s^{\rm{gen}}\quad\forall s,h,m,y\\
+    {\rm{outflow}}_{s,h,m,y}^{\rm{spillage}}&\le{\rm{OUTFLOW}}_s^{\rm{spillage}}\quad\forall s,h,m,y\\
     {{\rm{OUTFLOW}}}_s & \le {\rm{outflow}}_{s,h,m,y}^{\rm{gen}}+{\rm{outflow}}_{s,h,m,y}^{\rm{spillage}}\quad\forall s,h,m,y \\
 
 Reservoir storage
