@@ -11,7 +11,7 @@ Inputs
 The parameters used, their desciptions, and their input file name in the model are as follows:
 
 .. list-table:: Parameters
-  :widths: 1 5 1
+  :widths: 20 60 20
   :header-rows: 1
 
   * - Parameter [Unit]
@@ -288,7 +288,7 @@ The output of the model is stored in a NetCDF file, please refer to this `simple
 The output file contains the following variables:
 
 .. list-table:: Output Variables
-  :widths: 1 5
+  :widths: 30 70
   :header-rows: 1
 
   * - Variable name [Unit]
@@ -349,7 +349,7 @@ This section will guide you on how to tune the PREP-SHOT model parameters to com
 Within the root directory of the model, you will find a JSON file containing the parameters that you can tune for the model, named ``config.json``. This file contains the following parameters:
 
 .. list-table::
-   :widths: 10 50
+   :widths: 30 70
    :header-rows: 1
    :align: left
 

@@ -56,7 +56,7 @@ Set List
 --------
 
 .. list-table::
-   :widths: 10 50 5
+   :widths: 30 60 10
    :header-rows: 1
    :align: left
 
@@ -116,7 +116,7 @@ Variable List
 -------------
 
 .. list-table::
-   :widths: 10 80 5
+   :widths: 20 70 10
    :header-rows: 1
    :align: left
   
@@ -271,7 +271,7 @@ Parameter List
 --------------
 
 .. list-table::
-   :widths: 10 74 16
+   :widths: 20 60 20
    :header-rows: 1
    :align: left
    
