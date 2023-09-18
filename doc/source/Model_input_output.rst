@@ -84,7 +84,7 @@ The parameters used, their desciptions, and their input file name in the model a
     - Predefined hydropower output of all reservoirs.
     - hydropower
     
-  * - inflow [:math:`\text{m}^3/\text{s}`]
+  * - inflow [m3/s]
     - Inflow of all reservoirs.
     - inflow
     
@@ -134,7 +134,7 @@ The parameters used, their desciptions, and their input file name in the model a
     
   * - reservoir storage 
   
-      lower bound [:math:`\text{m}^3`]
+      lower bound [m3]
     - Lower bound of volume of hydropower reservoirs.
     - reservoir_storage\_
       
@@ -142,7 +142,7 @@ The parameters used, their desciptions, and their input file name in the model a
     
   * - final reservoir 
   
-      storage level [:math:`\text{m}^3`]
+      storage level [m3]
     - Final volume of hydropower reservoirs.
     - final_reservoir\_
     
@@ -150,7 +150,7 @@ The parameters used, their desciptions, and their input file name in the model a
     
   * - initial reservoir 
   
-      storage level [:math:`\text{m}^3`]
+      storage level [m3]
     - Initial volume of hydropower reservoirs.
     - initial_reservoir\_
       
@@ -158,7 +158,7 @@ The parameters used, their desciptions, and their input file name in the model a
     
   * - reservoir storage
       
-      upper bound [:math:`\text{m}^3`]
+      upper bound [m3]
     - Upper bound of volume of hydropower reservoirs.
     - reservoir_storage
        
@@ -166,7 +166,7 @@ The parameters used, their desciptions, and their input file name in the model a
     
   * - Investmented OM cost 
   
-      [dollar/MW-yr]
+      [dollar/MW/yr]
     - Fixed operation and maintenance cost of different technologies.
     - technology_fixed\_
     
@@ -206,7 +206,7 @@ The parameters used, their desciptions, and their input file name in the model a
 
       investment cost 
 
-      [dollar/MW-km]
+      [dollar/MW/km]
     - Investment cost of transmission lines (if there is no exising nor planned transmission lines between two specific zones, leave the data entries blank).
     - transmission_line\_
        
@@ -256,7 +256,7 @@ The parameters used, their desciptions, and their input file name in the model a
   
       level-discharge function 
       
-      [m & :math:`\text{m}^3/\text{s}`]
+      [m & m3/s]
     - Relationship between tailrace level and total discharge for different reservoirs.
     - reservoir_tailrace\_
     
@@ -268,7 +268,7 @@ The parameters used, their desciptions, and their input file name in the model a
   
       level-volume function 
       
-      [m & :math:`\text{m}^3`]
+      [m & m3]
     - Relationship between forebay level and volume for different reservoirs
     - reservoir_forebay\_
     
@@ -330,10 +330,10 @@ The output file contains the following variables:
   * - income_v [dollar]
     - Saved cost due to abstracted water resources over the planning period.
 
-  * - genflow_v [:math:`\text{m}^3/\text{s}`]
+  * - genflow_v [m3/s]
     - Generated water flow of different reservoirs.
 
-  * - spillflow_v [:math:`\text{m}^3/\text{s}`]
+  * - spillflow_v [m3/s]
     - Spilled water flow of different reservoirs.
 
 
