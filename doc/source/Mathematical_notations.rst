@@ -445,11 +445,13 @@ The objective function of the model is to minimize the net present value of the 
 
 The cost equations are defined as follows:
 
+.. image:: ./_static/cost_eq.png
+  :width: 700
+  :align: center
+  :alt: Calculation of system-wide total cost
+
 .. math::
   
-  \rm{cost} &= \rm{cost}_{\rm{tech}}^{\rm{var}} + \rm{cost}_{\rm{line}}^{\rm{var}} + \rm{cost}^{\rm{fuel}} + \rm{cost}_{\rm{tech}}^{\rm{fix}} + \rm{cost}_{\rm{line}}^{\rm{fix}} + \rm{cost}_{\rm{tech}}^{\rm{inv}} + \rm{cost}_{\rm{line}}^{\rm{inv}} 
-  \\
-  \\
   \rm{cost}_{\rm{tech}}^{\rm{var}} &= \frac{\sum_{h,m,y,z,\rm{e}}C_{y,z,\rm{e}}^{\rm{tech-var}}\times \rm{gen}_{h,m,y,z,\rm{e}}}{\omega} \times \rm{factor}_{y}^{\rm{var}} 
   \\
   \\
@@ -478,7 +480,7 @@ We also assume that variable cost and fixed cost for non-modelled years are assu
 **Variable Factor**
 
 .. image:: ./_static/varcost.png
-  :width: 400
+  :width: 278
   :align: center
   :alt: Calculation of variable costs
 
