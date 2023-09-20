@@ -68,12 +68,14 @@ To contribute to this project, please read our [Contributing Guidelines](https:/
 If you use PREP-SHOT in a scientific publication, we would appreciate citations. You can use the following BibTeX entry:
 
 ```bibtex
-@misc{PREP-SHOT,
-  author = {Zhanwei Liu and Xiaogang He},
-  title = {PREP-SHOT: Pathways for Renewable Energy Planning coupling Short-term Hydropower OperaTion},
-  url = {https://github.com/PREP-NexT/PREP-SHOT},
-  version = {0.1}, 
+@article{liu2023,
+  title = {Balancing-oriented hydropower operation makes the clean energy transition more affordable and simultaneously boosts water security},
+  author = {Liu, Zhanwei and He, Xiaogang},
+  journal = {Nature Water},
+  volume = {1},
+  pages = {778--789},
   year = {2023},
+  doi = {10.1038/s44221-023-00126-0},
 }
 ```
 
