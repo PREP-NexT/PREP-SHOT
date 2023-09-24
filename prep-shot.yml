@@ -1,11 +1,10 @@
-name: prep-shot-test
+name: prep-shot
 channels:
   - conda-forge
   - defaults
 dependencies:
   - python=3.9
   - pip
-  
   - pip:
     - scipy==1.7.3
     - numpy==1.21.6
