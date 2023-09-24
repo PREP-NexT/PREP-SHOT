@@ -1,5 +1,21 @@
+# Log and output directories
 /log/*
 !/log/.gitkeep
+
 /output/*
 !/output/.gitkeep
+
+# Python compiled files and other common Python ignores
 *.pyc
+*.pyo
+*.egg-info/
+__pycache__/
+
+# Sphinx documentation builds
+/doc/build/
+
+# Common development files
+*.log
+*.swp
+*.swo
+.DS_Store
