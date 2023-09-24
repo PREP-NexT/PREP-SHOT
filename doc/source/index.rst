@@ -53,5 +53,6 @@ To browse the documentation offline, you can `download an PDF copy <https://gith
    Model_input_output
    Running_case
    Mathematical_notations
+   Forum
    Changelog
    References
