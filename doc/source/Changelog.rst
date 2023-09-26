@@ -43,10 +43,3 @@ We welcome and appreciate contributions from the community. Here are the steps t
    Maintainers of the PREP-SHOT project will review your code. They may ask for changes or improvements before the code is merged into the main codebase.
 
 Please ensure that you update tests as necessary when you're contributing code, and follow the coding conventions established in the rest of the project.
-
-Q & A
-----------
-
-If you have any questions, comments, or suggestions that aren't suitable for public discussion in the Issues section, please feel free to reach out to `Zhanwei Liu <mailto:liuzhanwei@u.nus.edu>`_.
-
-Please use the GitHub Issues for public discussions related to bugs, enhancements, or other project-related discussions.

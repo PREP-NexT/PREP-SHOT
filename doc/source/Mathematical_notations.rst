@@ -628,8 +628,10 @@ The model computes the power balance for each hour, in each time period, for eac
 
 .. math::
 
- {{\rm{DEMAND}}}_{h,m,y,z}\times\Delta h=\sum_{z_{\rm{from}}\in {\mathcal{Z}}\backslash{\{z\}}}{{\rm{import}}_{h,m,y,z_{\rm{from}},z}}-\sum_{z_{\rm{to}}\in {\mathcal{Z}}\backslash{\{z\}}}{{\rm{export}}_{h,m,y,z,z_{\rm{to}}}} \\
-    + \sum_{e\in {\mathcal{E}}}{{\rm{gen}}_{h,m,y,z,e}}-\sum_{e\in {\mathcal{STOR}}}{{\rm{charge}}_{h,m,y,z,e}}\quad\forall h,m,y,z
+  {{\rm{DEMAND}}}_{h,m,y,z}\times\Delta h = \sum_{z_{\rm{from}}\in {\mathcal{Z}}\backslash{\{z\}}}{{\rm{import}}_{h,m,y,z_{\rm{from}},z}} - \sum_{z_{\rm{to}}\in {\mathcal{Z}}\backslash{\{z\}}}{{\rm{export}}_{h,m,y,z,z_{\rm{to}}}}\\
+  \\
+  + \sum_{e\in {\mathcal{E}}}{{\rm{gen}}_{h,m,y,z,e}} - \sum_{e\in {\mathcal{STOR}}}{{\rm{charge}}_{h,m,y,z,e}}\quad\forall h,m,y,z
+  \\
 
 Transmission
 +++++++++++++++++
@@ -645,8 +647,10 @@ This model assumes that the transmitted power of each transmission line is only 
 
 .. math::
 
- {\rm{import}}_{h,m,y,z_{\rm{from}},z_{\rm{to}}}&\le {\rm{cap}}_{y,z_{\rm{from}},z_{\rm{to}}}^{\rm{existingline}}\times\Delta h\quad\forall h,m,y,z_{\rm{from}}\neq z_{\rm{to}} \\
- {\rm{export}}_{h,m,y,z_{\rm{from}},z_{\rm{to}}}&\le {\rm{cap}}_{y,z_{\rm{from}},z_{\rm{to}}}^{\rm{existingline}}\times\Delta h\quad\forall h,m,y,z_{\rm{from}}\neq z_{\rm{to}} \\
+  {\rm{import}}_{h,m,y,z_{\rm{from}},z_{\rm{to}}}&\le {\rm{cap}}_{y,z_{\rm{from}},z_{\rm{to}}}^{\rm{existingline}}\times\Delta h\quad\forall h,m,y,z_{\rm{from}}\neq z_{\rm{to}} \\
+  \\
+  {\rm{export}}_{h,m,y,z_{\rm{from}},z_{\rm{to}}}&\le {\rm{cap}}_{y,z_{\rm{from}},z_{\rm{to}}}^{\rm{existingline}}\times\Delta h\quad\forall h,m,y,z_{\rm{from}}\neq z_{\rm{to}} \\
+  \\
 
 Power Output
 ++++++++++++++
@@ -656,32 +660,37 @@ The power output of storage and each dispatchable (exclude hydropower) technolog
 .. math::
 
   {\underline{{\rm{POWER}}}}_{h,m,y,z,e}\times {\rm{cap}}_{y,z,e}^{\rm{existingtech}}\le{\rm{power}}_{h,m,y,z,e}\le {\rm{cap}}_{y,z,e}^{\rm{existingtech}}\quad\forall h,m,y,z,e\in {\mathcal{STOR}}\ \&\ {\mathcal{DISP}} \\
+  \\
 
 Since hydropower processes are explicitly modelled at the plant level in PREP-SHOT, total hydropower output in zone :math:`z` (:math:`{\rm{power}}_{h,m,y,z,e={\rm{hydro}}}`) is the sum of the plant-level hydropower output (:math:`{\rm{power}}_{\it{s,h,m,y}}^{\rm{hydro}}`):
 
 .. math::
 
-    {\rm{power}}_{h,m,y,z,e={\rm{hydro}}}=\sum_{s\ \in{\mathcal{SZ}}_z}{\rm{power}}_{s,h,m,y}^{\rm{hydro}}\quad\forall h,m,y,z \\
+  {\rm{power}}_{h,m,y,z,e={\rm{hydro}}}=\sum_{s\ \in{\mathcal{SZ}}_z}{\rm{power}}_{s,h,m,y}^{\rm{hydro}}\quad\forall h,m,y,z \\
+  \\
 
 Here, calculation of :math:`{\rm{power}}^{\rm{hydro}}_{s,h,m,y}` is obtained by external net water head simulation procedure. In addition, :math:`{\rm{power}}^{\rm{hydro}}_{s,h,m,y}` is bounded between the guaranteed minimum output (:math:`{\underline{{\rm{POWER}}}}_s^{\rm{hydro}}`) and the nameplate capacity (:math:`{{\rm{CAP}}}_s^{\rm{hydro}}`), as follows:
 
 .. math::
 
-    {\underline{{\rm{POWER}}}}_s^{\rm{hydro}}\le{\rm{power}}_{s,h,m,y}^{\rm{hydro}}\le{{\rm{CAP}}}_s^{\rm{hydro}}\quad\forall s,h,m,y \\
+  {\underline{{\rm{POWER}}}}_s^{\rm{hydro}}\le{\rm{power}}_{s,h,m,y}^{\rm{hydro}}\le{{\rm{CAP}}}_s^{\rm{hydro}}\quad\forall s,h,m,y \\
+  \\
 
 For VRE, their power output is constrained by the capacity factors as follows:
 
 .. math::
 
-    {\rm{power}}_{h,m,y,z,e}\le{{\rm{CF}}}_{h,m,y,z,e}\times{\rm{cap}}_{y,z,e}^{\rm{existingtech}}\quad\forall h,m,y,z,e\in {\mathcal{NDISP}} \\
+  {\rm{power}}_{h,m,y,z,e}\le{{\rm{CF}}}_{h,m,y,z,e}\times{\rm{cap}}_{y,z,e}^{\rm{existingtech}}\quad\forall h,m,y,z,e\in {\mathcal{NDISP}} \\
+  \\
 
 Regardless of the technology type,  actual power generation (:math:`{\rm{gen}}_{h,m,y,z,e}`) in a corresponding period :math:`\Delta h` can be calculated based on the power output (:math:`{\rm{power}}_{h,m,y,z,e}`) and the generation efficiency (:math:`\eta_{y,e}^{\rm{out}}`):
 
 .. math::
 
-    {\rm{gen}}_{h,m,y,z,e}={\rm{power}}_{h,m,y,z,e}\times\Delta h{\times\eta}_{y,e}^{\rm{out}}\quad \forall h,m,y,z,e\in {\mathcal{E}} \\
+  {\rm{gen}}_{h,m,y,z,e} = {\rm{power}}_{h,m,y,z,e}\times\Delta h\times\eta_{y,e}^{\rm{out}}\quad \forall h,m,y,z,e\in {\mathcal{E}}
+  \\
 
-Note that :math:`\eta_{y,e}^{\rm{out}}`=1 when :math:`e\in {\mathcal{E}}\backslash {\mathcal{STOR}}`.
+Note that :math:`\eta_{y,e}^{\rm{out}}=1` when :math:`e\in {\mathcal{E}}\backslash {\mathcal{STOR}}`.
 
 Power output variation
 ++++++++++++++++++++++++++
@@ -735,13 +744,15 @@ In addition, the initial (when :math:`h=h_{\rm{start}}`) stored electricity  (:m
 
 .. math::
 
-    {\rm{storage}}_{h=h_{\rm{start}},m,y,z,e}^{\rm{energy}}={{\rm{STORAGE}}}_{m,y,z,e}^{\rm{energy}}\times{{\rm{EP}}}_e\times {\rm{cap}}_{y,z,e}^{\rm{existingtech}}\quad\forall m,y,z,e\in {\mathcal{STOR}} \\
+  {\rm{storage}}_{h=h_{\rm{start}},m,y,z,e}^{\rm{energy}}={{\rm{STORAGE}}}_{m,y,z,e}^{\rm{energy}}\times{{\rm{EP}}}_e\times {\rm{cap}}_{y,z,e}^{\rm{existingtech}}\quad\forall m,y,z,e\in {\mathcal{STOR}} \\
+  \\
 
 The instantaneous storage energy level (:math:`{\rm{storage}}_{h,m,y,z,e}^{\rm{energy}}`) of storage technology :math:`e` should not exceed the maximum energy storage capacity, as follows:
 
 .. math::
 
-    {\rm{storage}}_{h,m,y,z,e}^{\rm{energy}}\le{{\rm{EP}}}_e\times {\rm{cap}}_{y,z,e}^{\rm{existingtech}}\quad\forall h,m,y,z,e\in {\mathcal{STOR}} \\
+  {\rm{storage}}_{h,m,y,z,e}^{\rm{energy}}\le{{\rm{EP}}}_e\times {\rm{cap}}_{y,z,e}^{\rm{existingtech}}\quad\forall h,m,y,z,e\in {\mathcal{STOR}} \\
+  \\
 
 Water balance
 +++++++++++++++
@@ -750,19 +761,22 @@ Similar to the storage technologies, changes in reservoir storage (:math:`{\rm{s
 
 .. math::
 
-    {\rm{storage}}_{s,h,m,y}^{\rm{reservoir}}-{\rm{storage}}_{s,h-1,m,y}^{\rm{reservoir}}=\Delta h\times3600\times\left({\rm{inflow}}_{s,h,m,y}^{\rm{total}}-{\rm{outflow}}_{s,h,m,y}^{\rm{total}}\right)\quad\forall s,h,m,y \\
+  {\rm{storage}}_{s,h,m,y}^{\rm{reservoir}}-{\rm{storage}}_{s,h-1,m,y}^{\rm{reservoir}}=\Delta h\times3600\times\left({\rm{inflow}}_{s,h,m,y}^{\rm{total}}-{\rm{outflow}}_{s,h,m,y}^{\rm{total}}\right)\quad\forall s,h,m,y \\
+  \\
 
 Here :math:`{\rm{inflow}}_{s,h,m,y}^{\rm{total}}` consists of two parts: the total outflow received from all immediate upstream reservoirs (:math:`\sum_{{\rm{su}}\in {\mathcal{IU}}_s}{{\rm{outflow}}_{{\rm{su}},h-\tau_{{\rm{su}},s},m,y}^{\rm{total}}}`) and the net inflow (also called incremental inflow) of the drainage area controlled by this hydropower reservoir (:math:`{{\rm{INFLOW}}}_{s,h,m,y}^{\rm{net}}`), which can be expressed as follows:
 
 .. math::
 
-    {\rm{inflow}}_{s,h,m,y}^{\rm{total}}={{\rm{INFLOW}}}_{s,h,m,y}^{\rm{net}}+\sum_{{\rm{su}}\in {\mathcal{IU}}_s}{{\rm{outflow}}_{{\rm{su}},h-\tau_{{\rm{su}},s},m,y}^{\rm{total}}}\quad\forall s,h,m,y \\
+  {\rm{inflow}}_{s,h,m,y}^{\rm{total}}={{\rm{INFLOW}}}_{s,h,m,y}^{\rm{net}}+\sum_{{\rm{su}}\in {\mathcal{IU}}_s}{{\rm{outflow}}_{{\rm{su}},h-\tau_{{\rm{su}},s},m,y}^{\rm{total}}}\quad\forall s,h,m,y \\
+  \\
 
 Note that PREP-SHOT assumes a constant water travel (or propagation) time (:math:`{\tau}_{{\rm{su}},s}`). The total outflow of each reservoir consists of three parts: upstream water withdrawal (i.e., water used for non-hydro purposes such as agriculture irrigation and urban water supply) (:math:`{\rm{outflow}}_{s,h,m,y}^{\rm{withdraw}}`), generation flow (i.e., water flow through the turbines of the hydropower plant) (:math:`{\rm{outflow}}_{s,h,m,y}^{\rm{gen}}`) and spillage flow (i.e., water spilled over the spillways)  (:math:`{\rm{outflow}}_{s,h,m,y}^{\rm{spillage}}`):
 
 .. math::
 
-    {\rm{outflow}}_{s,h,m,y}^{\rm{total}}={\rm{outflow}}_{s,h,m,y}^{\rm{withdraw}}+{\rm{outflow}}_{s,h,m,y}^{\rm{gen}}+{\rm{outflow}}_{s,h,m,y}^{\rm{spillage}}\quad\forall s,h,m,y \\
+  {\rm{outflow}}_{s,h,m,y}^{\rm{total}}={\rm{outflow}}_{s,h,m,y}^{\rm{withdraw}}+{\rm{outflow}}_{s,h,m,y}^{\rm{gen}}+{\rm{outflow}}_{s,h,m,y}^{\rm{spillage}}\quad\forall s,h,m,y \\
+  \\
 
 Reservoir outflow
 ++++++++++++++++++
@@ -771,9 +785,12 @@ The generation flow and spillage flow of the reservoir are limited by the maximu
 
 .. math::
 
-    {\rm{outflow}}_{s,h,m,y}^{\rm{gen}}&\le{\rm{OUTFLOW}}_s^{\rm{gen}}\quad\forall s,h,m,y\\
-    {\rm{outflow}}_{s,h,m,y}^{\rm{spillage}}&\le{\rm{OUTFLOW}}_s^{\rm{spillage}}\quad\forall s,h,m,y\\
-    {{\rm{OUTFLOW}}}_s & \le {\rm{outflow}}_{s,h,m,y}^{\rm{gen}}+{\rm{outflow}}_{s,h,m,y}^{\rm{spillage}}\quad\forall s,h,m,y \\
+  {\rm{outflow}}_{s,h,m,y}^{\rm{gen}}&\le{\rm{OUTFLOW}}_s^{\rm{gen}}\quad\forall s,h,m,y\\
+  \\
+  {\rm{outflow}}_{s,h,m,y}^{\rm{spillage}}&\le{\rm{OUTFLOW}}_s^{\rm{spillage}}\quad\forall s,h,m,y\\
+  \\
+  {{\rm{OUTFLOW}}}_s & \le {\rm{outflow}}_{s,h,m,y}^{\rm{gen}}+{\rm{outflow}}_{s,h,m,y}^{\rm{spillage}}\quad\forall s,h,m,y \\
+  \\
 
 Reservoir storage
 ++++++++++++++++++
@@ -782,14 +799,14 @@ The initial (when :math:`h=h_{\rm{start}}`) and terminal (when :math:`h=h_{\rm{e
 
 .. math::
 
-    {\rm{storage}}_{s,h=h_{\rm{start}},m,y}^{\rm{reservoir}}={{\rm{STORAGE}}}_{s,m,y}^{\rm{initreservoir}}\quad\forall s,m,y \\
-    {\rm{storage}}_{s,h=h_{\rm{end}},m,y}^{\rm{reservoir}}={{\rm{STORAGE}}}_{s,m,y}^{\rm{endreservoir}}\quad\forall s,m,y
+  {\rm{storage}}_{s,h=h_{\rm{start}},m,y}^{\rm{reservoir}}={{\rm{STORAGE}}}_{s,m,y}^{\rm{initreservoir}}\quad\forall s,m,y \\
+  \\
+  {\rm{storage}}_{s,h=h_{\rm{end}},m,y}^{\rm{reservoir}}={{\rm{STORAGE}}}_{s,m,y}^{\rm{endreservoir}}\quad\forall s,m,y
+  \\
 
 The reservoir storage is bounded between the maximum (:math:`{\overline{{\rm{STORAGE}}}}_s^{\rm{reservoir}}`) and minimum storage (:math:`{\underline{{\rm{STORAGE}}}}_s^{\rm{reservoir}}`) depending on the functions (e.g., flood control, recreation, and water supply) of the reservoir:
 
 .. math::
 
-    {\underline{{\rm{STORAGE}}}}_s^{\rm{reservoir}}\le {\rm{storage}}_{s,h,m,y}^{\rm{reservoir}}\le{\overline{{\rm{STORAGE}}}}_s^{\rm{reservoir}}\quad\forall s,h,m,y
-
-
-
+  {\underline{{\rm{STORAGE}}}}_s^{\rm{reservoir}}\le {\rm{storage}}_{s,h,m,y}^{\rm{reservoir}}\le{\overline{{\rm{STORAGE}}}}_s^{\rm{reservoir}}\quad\forall s,h,m,y
+  \\
