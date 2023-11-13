@@ -5,10 +5,13 @@
 </p>
 
 <p align="center">
+  <a href="https://www.python.org/"><img alt="Build" src="https://img.shields.io/badge/Made%20with-Python-1f425f.svg?color=purple"></a>
   <a href="https://github.com/PREP-NexT/PREP-SHOT"><img src="https://img.shields.io/github/contributors/PREP-NexT/PREP-SHOT.svg" alt="GitHub contributors"></a>
   <a href="https://github.com/PREP-NexT/PREP-SHOT"><img src="https://img.shields.io/github/issues/PREP-NexT/PREP-SHOT.svg" alt="GitHub issues"></a>
   <a href="https://twitter.com/PREPNexT_Lab"><img src="https://img.shields.io/twitter/follow/PREPNexT_Lab.svg?label=Follow&style=social" alt="Twitter Follow"></a>
   <a href="https://github.com/PREP-NexT/PREP-SHOT"><img src="https://img.shields.io/github/license/PREP-NexT/PREP-SHOT.svg" alt="License"></a>
+  <a href="https://github.com/PREP-NexT/PREP-SHOT"><img src="https://badges.frapsoft.com/os/v1/open-source.svg?v=103" alt="Download"></a>
+
 </p>
 
 ## Overview
