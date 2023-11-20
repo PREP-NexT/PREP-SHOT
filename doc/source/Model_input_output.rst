@@ -171,6 +171,14 @@ The parameters used, their desciptions, and their input file name in the model a
     - technology_fixed\_
     
       OM_cost
+
+  * - technology variable 
+      
+      OM cost [dollar/MW/yr]
+    - Variable operation and maintenance costs of different technologies.
+    - technology_variable\_
+    
+      OM_cost
     
   * - technology investment
       
@@ -194,14 +202,6 @@ The parameters used, their desciptions, and their input file name in the model a
     
       bound
     
-  * - technology variable 
-      
-      OM cost [dollar/MW/yr]
-    - Variable operation and maintenance costs of different technologies.
-    - technology_variable\_
-    
-      OM_cost
-    
   * - transmission line
 
       existing capacity 
@@ -219,16 +219,6 @@ The parameters used, their desciptions, and their input file name in the model a
     - transmission_line\_
     
       efficiency
-
-  * - transmission line
-
-      investment cost 
-
-      [dollar/MW/km]
-    - Investment cost of transmission lines.
-    - transmission_line\_
-       
-      investment_cost
 
   * - transmission line 
       
@@ -250,6 +240,16 @@ The parameters used, their desciptions, and their input file name in the model a
     
       _variable_cost
     
+  * - transmission line
+
+      investment cost 
+
+      [dollar/MW/km]
+    - Investment cost of transmission lines.
+    - transmission_line\_
+       
+      investment_cost
+
   * - transmission line 
   
       lifetime [yr]
@@ -385,7 +385,7 @@ Within the root directory of the model, you will find a JSON file containing the
      - Specifies the number of hours in a year. Typically, this is set to 8760.
 
    * - isinflow
-     - Specifies whether to include inflow in the optimization problem. It can be used by assigning `isinflow`= `true` or `false`. 
+     - Specifies whether to include inflow in the optimization problem. It can be used by assigning `isinflow` = `true` or `false`. 
 
    * - error_threshold
      - Specifies the error threshold for the model, while iterating for a solution. This parameter controls the convergence of the hydro model.
