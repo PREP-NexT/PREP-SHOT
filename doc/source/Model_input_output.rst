@@ -325,17 +325,32 @@ The output file contains the following variables:
   * - cost_v [dollar]
     - Total cost (including total investment cost, total variable OM cost, and total fixed OM cost) over the planning period.
 
+ * - cost_breakdown_v [dollar]
+    - Breakdown of total cost (including total investment cost, total variable OM cost, and total fixed OM cost) over the planning period, by zone, year, and technology.
+
   * - cost_var_v [dollar]
     - Total variable OM cost (including technology variable OM cost, transmission line variable OM cost, and fuel cost) over the planning period.
+
+- cost_var_breakdown_v [dollar]
+    - Breakdown of total variable OM cost (including technology variable OM cost, transmission line variable OM cost, and fuel cost) over the planning period, by zone, year, and technology.
 
   * - cost_fix_v [dollar]
     - Total fixed OM cost (including technology fixed OM cost, transmission line fixed OM cost) over the planning period.
 
-  * - cost_new_v [dollar]
-    - Investment cost of technologies over the planning period.
+ * - cost_fix_breakdown_v [dollar]
+    - Breakdown of total fixed OM cost (including technology fixed OM cost, transmission line fixed OM cost) over the planning period, by zone, year, and technology.
+
+  * - cost_newtech_v [dollar]
+    - Total investment cost of technologies over the planning period.
+
+ * - cost_newtech_breakdown_v [dollar]
+    - Breakdown of total investment cost of technologies over the planning period, by zone, year, and technology.
 
   * - cost_newline_v [dollar]
     - Investment cost of transmission lines over the planning period.
+
+  * - cost_newline_breakdown_v [dollar]
+    - Breakdown of total investment cost of transmission lines over the planning period, by zone, year, and technology.
 
   * - income_v [dollar]
     - Saved cost due to abstracted water resources over the planning period.
