@@ -1,4 +1,4 @@
-from pyomo.environ import Constraint, NonNegativeReals, Objective, Var, ConcreteModel, Set, Reals, Suffix, minimize, Param
+from pyomo.environ import Constraint, NonNegativeReals, Objective, Var, ConcreteModel, Set, Reals, Suffix, minimize, Param, Expression
 from prepshot.rules import RuleContainer
 
 def define_model():
@@ -59,6 +59,7 @@ def create_tuples(model, para):
         None
     """
     model.hour_month_year_tuples = model.hour * model.month * model.year
+    model.hour_month_tuples = model.hour * model.month
     model.hour_month_year_zone_storage_tuples = model.hour * model.month * model.year * model.zone * model.storage_tech
     model.hour_month_year_zone_nondispatchable_tuples = model.hour * model.month * model.year * model.zone * model.nondispatchable_tech
     model.hour_month_year_zone_tech_tuples = model.hour * model.month * model.year * model.zone * model.tech
@@ -93,17 +94,22 @@ def define_variables(model, para):
     Returns:
         None
     """
-    model.cost = Var(within=NonNegativeReals, doc='total cost of system [RMB]')
-    model.cost_var = Var(within=NonNegativeReals, doc='Variable O&M costs [RMB]')
-    model.cost_fix = Var(within=NonNegativeReals, doc='Fixed O&M costs [RMB/MW/year]')
-    model.cost_newtech = Var(within=NonNegativeReals, doc='Investment costs of new technology [RMB]')
-    model.cost_newline = Var(within=NonNegativeReals, doc='Investment costs of new transmission lines [RMB]')
-    model.income = Var(within=NonNegativeReals, doc='total income of withdraw water [RMB]')
+    model.cost = Var(within=NonNegativeReals, doc='total cost of system [dollar]')
+    model.cost_var = Var(within=NonNegativeReals, doc='Variable O&M costs [dollar]')
+    # model.cost_var_breakdown = Var(model.year_zone_tech_tuples, within=NonNegativeReals, doc='Variable O&M costs of each technology [dollar]')
+    model.cost_fix = Var(within=NonNegativeReals, doc='Fixed O&M costs [dollar/MW/year]')
+    # model.cost_fix_breakdown = Var(model.year_zone_tech_tuples, within=NonNegativeReals, doc='Fixed O&M costs of each technology [dollar/MW/year]')
+    model.cost_newtech = Var(within=NonNegativeReals, doc='Investment costs of new technology [dollar]')
+    # model.cost_newtech_breakdown = Var(model.year_zone_tech_tuples, within=NonNegativeReals, doc='Investment costs of new technology [dollar]')
+    model.cost_newline = Var(within=NonNegativeReals, doc='Investment costs of new transmission lines [dollar]')
+    # model.cost_newline_breakdown = Var(model.year_zone_zone_tuples, within=NonNegativeReals, doc='Investment costs of new transmission lines [dollar]')
+    model.income = Var(within=NonNegativeReals, doc='total income of withdraw water [dollar]')
     model.cap_existing = Var(model.year_zone_tech_tuples, within=NonNegativeReals, doc='Capacity of existing technology [MW]')
     model.cap_newtech = Var(model.year_zone_tech_tuples, within=NonNegativeReals, doc='Capacity of newbuild technology [MW]')
     model.cap_newline = Var(model.year_zone_zone_tuples, within=NonNegativeReals, doc='Capacity of new transmission lines [MW]')
     model.cap_lines_existing = Var(model.year_zone_zone_tuples, within=NonNegativeReals, doc='Capacity of existing transmission line [MW]')
     model.carbon = Var(model.year, within=NonNegativeReals, doc='Total carbon dioxide emission in each years [tonne]')
+    # model.carbon_breakdown = Var(model.year_zone_tech_tuples, within=NonNegativeReals, doc='Carbon dioxide emission of each technology [tonne]')
     model.carbon_capacity = Var(model.year_zone_tuples, within=NonNegativeReals, doc='Carbon dioxide emission in each year and each zone [tonne]')
     model.gen = Var(model.hour_month_year_zone_tech_tuples, within=NonNegativeReals, doc='Output of each technology in each year, each zone and each time period [MWh]')
     model.storage = Var(model.hour_p_month_year_zone_tech_tuples, within=NonNegativeReals, doc='Storage of energy technology in each year, each zone and each time period [MW]')
@@ -186,6 +192,13 @@ def define_constraints(model, para):
         model.income_cons = Constraint(expr=model.income == sum([model.withdraw[s, h, m, y] * 3600 * para['dt'] * para['price'] for s, h, m, y in model.station_hour_month_year_tuples]))
     else:
         model.income_cons = Constraint(expr=model.income == 0)
+
+    # define expression for breakdown output
+    model.cost_var_breakdown = Expression(model.year_zone_tech_tuples, rule=rules._cost_var_breakdown)
+    model.cost_fix_breakdown = Expression(model.year_zone_tech_tuples, rule=rules._cost_fix_breakdown)
+    model.cost_newtech_breakdown = Expression(model.year_zone_tech_tuples, rule=rules._cost_newtech_breakdown)
+    model.cost_newline_breakdown = Expression(model.year_zone_zone_tuples, rule=rules._cost_newline_breakdown)
+    model.carbon_breakdown = Expression(model.year_zone_tech_tuples, rule=rules._carbon_breakdown)
 
 def create_model(para):
     """

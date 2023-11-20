@@ -304,46 +304,46 @@ The output file contains the following variables:
   * - Variable name [Unit]
     - Description
   
-  * - trans_import_v [MW]
+  * - trans_import [MW]
     - The electrical power transmitted from Zone 1 and effectively received by Zone 2 through the transmission line, after adjusting for transmission losses.
 
-  * - trans_export_v [MW]
+  * - trans_export [MW]
     - The electrical power initially sent out by Zone 1 for transmission to Zone 2 via the transmission line, before adjusting for any transmission and distribution losses during its journey to Zone 2.
 
-  * - gen_v [MW]
-    - Generated electricity from different technologies.
+  * - gen [MW]
+    - Power output of different technologies during user-defined time interval.
 
-  * - install_v [MW]
+  * - install [MW]
     - Existing installed capacity of different technologies.
 
-  * - carbon_v [Ton]
+  * - carbon [Ton]
     - Carbon emissions across different years.
 
-  * - charge_v [MW]
+  * - charge [MW]
     - Charged electricity of different storage technologies.
 
-  * - cost_v [dollar]
+  * - cost [dollar]
     - Total cost over the planning period.
 
-  * - cost_var_v [dollar]
+  * - cost_var [dollar]
     - Variable cost over the planning period.
 
-  * - cost_fix_v [dollar]
+  * - cost_fix [dollar]
     - Fixed cost over the planning period.
 
-  * - cost_new_v [dollar]
+  * - cost_new [dollar]
     - Investment cost of technologies over the planning period.
 
-  * - cost_newline_v [dollar]
+  * - cost_newline [dollar]
     - Investment cost of transmission lines over the planning period.
 
-  * - income_v [dollar]
+  * - income [dollar]
     - Saved cost due to abstracted water resources over the planning period.
 
-  * - genflow_v [m3/s]
+  * - genflow [m3/s]
     - Generated water flow of different reservoirs.
 
-  * - spillflow_v [m3/s]
+  * - spillflow [m3/s]
     - Spilled water flow of different reservoirs.
 
 

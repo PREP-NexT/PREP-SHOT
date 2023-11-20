@@ -745,3 +745,15 @@ class RuleContainer:
             return model.gen[h, m, y, z, [i for i, j in self.para['technology_type'].items() if j == 'hydro'][0]] == hydro_output
         else:
             return model.gen[h, m, y, z, [i for i, j in self.para['technology_type'].items() if j == 'hydro'][0]] <= float(self.para['predefined_hydropower']['Hydro', z, y, m, h]) * self.para['dt']
+
+    # Rules to generate expressions for the model
+    def _cost_var_breakdown(self, model, y, z, te):
+        return sum([self.para['technology_variable_OM_cost'][te, y] * model.gen[h, m, y, z, te] * self.para['dt'] * self.para['var_factor'][y] for h, m in model.hour_month_tuples])
+    def _cost_fix_breakdown(self, model, y, z, te):
+        return self.para['technology_fixed_OM_cost'][te, y] * model.cap_existing[y, z, te] * self.para['fix_factor'][y]
+    def _cost_newtech_breakdown(self, model, y, z, te):
+        return self.para['technology_investment_cost'][te, y] * model.cap_newtech[y, z, te] * self.para['inv_factor'][te, y]
+    def _cost_newline_breakdown(self, model, y, z, z1):
+        return self.para['transmission_line_investment_cost'][z, z1] * model.cap_newline[y, z, z1]
+    def _carbon_breakdown(self, model, y, z, te):
+        return sum([self.para['emission_factor'][te, y] * model.gen[h, m, y, z, te] * self.para['dt'] for h, m in model.hour_month_tuples])

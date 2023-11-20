@@ -314,6 +314,12 @@ def extract_results_non_hydro(model):
     cost_newline_values = model.cost_newline.extract_values()[None]
     income_values = model.income.extract_values()[None]
     charge_values = model.charge.extract_values()
+    cost_var_breakdown = model.cost_var_breakdown
+    cost_fix_breakdown = model.cost_fix_breakdown
+    cost_newtech_breakdown = model.cost_newtech_breakdown
+    cost_newline_breakdown = model.cost_newline_breakdown
+    carbon_breakdown = model.carbon_breakdown 
+    # print(cost_var_breakdown)
 
     # Create DataArrays for each result set.
     trans_import_v = create_data_array(
@@ -350,6 +356,27 @@ def extract_results_non_hydro(model):
         [[[[[charge_values[h, m, y, z, te] for h in hour] for m in month] for y in year] for z in zone] for te in tech], 
         ['tech', 'zone', 'year', 'month', 'hour'], 
         {'tech': tech, 'zone': zone, 'year': year, 'month': month, 'hour': hour}, 'MW')
+    # year_zone_tech_tuples
+    cost_var_breakdown_v = create_data_array(
+        [[[cost_var_breakdown[y, z, te]() for y in year] for z in zone] for te in tech], 
+        ['tech', 'zone', 'year'], 
+        {'tech': tech, 'zone': zone, 'year': year}, 'dollar')
+    cost_fix_breakdown_v = create_data_array(
+        [[[cost_fix_breakdown[y, z, te]() for y in year] for z in zone] for te in tech],
+        ['tech', 'zone', 'year'],
+        {'tech': tech, 'zone': zone, 'year': year}, 'dollar')
+    cost_newtech_breakdown_v = create_data_array(
+        [[[cost_newtech_breakdown[y, z, te]() for y in year] for z in zone] for te in tech],
+        ['tech', 'zone', 'year'],
+        {'tech': tech, 'zone': zone, 'year': year}, 'dollar')
+    cost_newline_breakdown_v = create_data_array(
+        [[[cost_newline_breakdown[y, z1, z]() if (y, z1, z) in model.year_zone_zone_tuples else np.nan for y in year] for z1 in zone] for z in zone],
+        ['zone2', 'zone1', 'year'],
+        {'zone2': zone, 'zone1': zone, 'year': year}, 'dollar')
+    carbon_breakdown_v = create_data_array(
+        [[[carbon_breakdown[y, z, te]() for y in year] for z in zone] for te in tech],
+        ['tech', 'zone', 'year'],
+        {'tech': tech, 'zone': zone, 'year': year}, 'ton')
     
     # Calculate total cost and income and create DataArray for each cost component.
     cost_v = xr.DataArray(data=cost_var_values + cost_fix_values + cost_newtech_values + cost_newline_values - income_values)
@@ -360,19 +387,24 @@ def extract_results_non_hydro(model):
     income_v = xr.DataArray(data=income_values)
     
     # Combine all DataArrays into a Dataset.
-    ds = xr.Dataset(data_vars={'trans_import_v': trans_import_v,
-                               'trans_export_v': trans_export_v,
-                               'gen_v': gen_v,
-                               'carbon_v': carbon_v,
-                               'install_v': install_v,
-                               'carbon_v': carbon_v,
-                               'cost_v': cost_v,
-                               'cost_var_v': cost_var_v,
-                               'cost_fix_v': cost_fix_v,
-                               'charge_v': charge_v,
-                               'cost_newtech_v': cost_newtech_v,
-                               'cost_newline_v': cost_newline_v,
-                               'income_v': income_v})
+    ds = xr.Dataset(data_vars={'trans_import': trans_import_v,
+                               'trans_export': trans_export_v,
+                               'gen': gen_v,
+                               'carbon': carbon_v,
+                               'install': install_v,
+                               'carbon': carbon_v,
+                               'cost': cost_v,
+                               'cost_var': cost_var_v,
+                               'cost_var_breakdown': cost_var_breakdown_v,
+                               'cost_fix_breakdown': cost_fix_breakdown_v,
+                               'cost_newtech_breakdown': cost_newtech_breakdown_v,
+                               'cost_newline_breakdown': cost_newline_breakdown_v,
+                               'carbon_breakdown': carbon_breakdown_v,
+                               'cost_fix': cost_fix_v,
+                               'charge': charge_v,
+                               'cost_newtech': cost_newtech_v,
+                               'cost_newline': cost_newline_v,
+                               'income': income_v})
     return ds
 
 
@@ -408,7 +440,7 @@ def extract_results_hydro(model):
         {'station': stations, 'year': year, 'month': month, 'hour': hour}, 'm**3s**-1')
 
     # Add these DataArrays to the existing non-hydro Dataset.
-    ds = ds.assign({'genflow_v': genflow_v, 'spillflow_v': spillflow_v})
+    ds = ds.assign({'genflow': genflow_v, 'spillflow': spillflow_v})
 
     return ds
 
