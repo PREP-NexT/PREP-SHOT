@@ -203,7 +203,7 @@ def process_model_solution(model, solver, stations, year, month, hour, para, old
         return False
 
     outflow_values = model.outflow.extract_values()
-    storage_values = model.storage_hydro.extract_values()
+    storage_values = model.storage_reservoir.extract_values()
 
     # Iterate over each station to update water head data.
     for stcd in stations:
