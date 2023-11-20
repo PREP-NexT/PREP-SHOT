@@ -413,18 +413,18 @@ def extract_results_hydro(model):
     return ds
 
 
-def extract_result(model, ishydro=True):
+def extract_result(model, isinflow=True):
     """
     Extracts results from the provided model.
 
     Args:
         model (pyomo.core.base.PyomoModel.ConcreteModel): Model to be solved.
-        ishydro (bool, optional): Whether the model should consider hydrological constraints. Defaults to True.
+        isinflow (bool, optional): Whether the model should consider hydrological constraints. Defaults to True.
 
     Returns:
         xr.Dataset: A Dataset containing DataArrays for each attribute of the model.
     """
-    if ishydro:
+    if isinflow:
         return extract_results_hydro(model)
     else:
         return extract_results_non_hydro(model)

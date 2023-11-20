@@ -32,7 +32,7 @@ def get_required_config_data(config_data):
     dt = int(config_data['general_parameters']['dt'])
     hours_in_year = int(config_data['general_parameters']['hours_in_year'])
     price = float(config_data['general_parameters']['price'])
-    includes_hydrological_constraints = config_data['hydro_parameters']['ishydro']
+    includes_hydrological_constraints = config_data['hydro_parameters']['isinflow']
     error_threshold = float(config_data['hydro_parameters']['error_threshold'])
     iteration_number = int(config_data['hydro_parameters']['iteration_number'])
     solver = str(config_data['solver_parameters']['solver'])
@@ -45,7 +45,7 @@ def get_required_config_data(config_data):
         'weight': (month * hour * dt) / hours_in_year,
         'solver': solver,
         'timelimit': timelimit,
-        'ishydro': includes_hydrological_constraints,
+        'isinflow': includes_hydrological_constraints,
         'error_threshold': error_threshold,
         'iteration_number': iteration_number
     }

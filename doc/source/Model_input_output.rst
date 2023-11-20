@@ -68,21 +68,21 @@ The parameters used, their desciptions, and their input file name in the model a
       
       efficiency
     
-  * - power to 
+  * - energy to 
   
-      energy ratio [MW/MWh]
+      power ratio [MWh/MW]
     - Power to energy ratio ratio of storage technologies.
-    - power_to\_
+    - energy_to\_
     
-      energy_ratio
+      power_ratio
     
   * - fuel price [dollar/MWh]
     - Fuel price of different technologies.
     - fuel_price
     
-  * - hydropower [#]_ [MW]
+  * - Predefined hydropower [#]_ [MW]
     - Predefined hydropower output of all reservoirs.
-    - hydropower
+    - predefined_hydropower
     
   * - inflow [m3/s]
     - Inflow of all reservoirs.
@@ -341,7 +341,7 @@ Execute various scenarios
 -------------------------
 By employing command-line parameters, you can execute different scenarios using the model. For example, if you wish to run a scenario referred to as "low demand," you can prepare input data named ``demand_low.xlsx``. Subsequently, when running the model, you can utilize command-line parameters to specify the scenario value. For instance, you can execute the model by executing the command ``python run.py --demand=low``. 
 
-Tuning Model Parameters
+Setting Global Parameters
 -----------------------
 
 This section will guide you on how to tune the PREP-SHOT model parameters to compute the energy system for your needs. After you have prepared your input data based on the previous sections, you can proceed to tune the model parameters before you run it.
@@ -374,8 +374,8 @@ Within the root directory of the model, you will find a JSON file containing the
    * - hours_in_year
      - Specifies the number of hours in a year. Typically, this is set to 8760.
 
-   * - ishydro
-     - Specifies whether to include hydropower in the optimization problem.
+   * - isinflow
+     - Specifies whether to include inflow in the optimization problem. It can be used by assigning `isinflow`= `true` or `false`. 
 
    * - error_threshold
      - Specifies the error threshold for the model, while iterating for a solution. This parameter controls the convergence of the hydro model.

@@ -67,7 +67,7 @@ def solve_model(model, solver, parameters):
     Returns:
         bool: True if the model is solved, False otherwise.
     """
-    if parameters['ishydro']:
+    if parameters['isinflow']:
         return solve_model_with_hydro(model, solver, parameters)
     else:
         return solve_model_without_hydro(model, solver)

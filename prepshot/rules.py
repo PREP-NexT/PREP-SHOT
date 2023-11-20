@@ -737,11 +737,11 @@ class RuleContainer:
         """
         if len([i for i, j in self.para['type'].items() if j == 'hydro']) == 0:
             return Constraint.Skip
-        if self.para['ishydro']:
+        if self.para['isinflow']:
             hydro_output = 0
             for s in model.station:
                 if self.para['static']['zone', s] == z:
                     hydro_output += model.output[s, h, m, y] * self.para['dt']
             return model.gen[h, m, y, z, [i for i, j in self.para['type'].items() if j == 'hydro'][0]] == hydro_output
         else:
-            return model.gen[h, m, y, z, [i for i, j in self.para['type'].items() if j == 'hydro'][0]] <= float(self.para['hydropower']['Hydro', z, y, m, h]) * self.para['dt']
+            return model.gen[h, m, y, z, [i for i, j in self.para['type'].items() if j == 'hydro'][0]] <= float(self.para['predefined_hydropower']['Hydro', z, y, m, h]) * self.para['dt']

@@ -40,7 +40,7 @@ def define_sets(model, para):
         else:
             model.add_component(f"{tech_type}_tech", Set(initialize=[], ordered=True, doc=f'Set of {tech_type} technology'))
 
-    if para['ishydro']:
+    if para['isinflow']:
         model.station = Set(initialize=para['stcd'], ordered=True, doc='Set of hydropower plants')
 
 
@@ -75,7 +75,7 @@ def create_tuples(model, para):
     model.year_zone_tech_tuples = model.year * model.zone * model.tech
     model.year_tech_tuples = model.year * model.tech
 
-    if para['ishydro']:
+    if para['isinflow']:
         model.station_hour_month_year_tuples = model.station * model.hour * model.month * model.year
         model.station_hour_p_month_year_tuples = model.station * model.hour_p * model.month * model.year
         model.station_month_year_tuples = model.station * model.month * model.year
@@ -112,7 +112,7 @@ def define_variables(model, para):
     model.trans_import = Var(model.hour_month_year_zone_zone_tuples, within=NonNegativeReals, doc='Transfer output from zone B to zone A (A is not equals to B) in each year and each time period [MWh]')
     model.remaining_technology = Var(model.year_zone_tech_tuples, within=NonNegativeReals, doc='remaining technology [MW]')
 
-    if para['ishydro']:
+    if para['isinflow']:
         model.naturalinflow = Var(model.station_hour_month_year_tuples, within=Reals, doc='natural inflow of reservoir [m3/s]')
         model.inflow = Var(model.station_hour_month_year_tuples, within=Reals, doc='inflow of reservoir [m3/s]')
         model.outflow = Var(model.station_hour_month_year_tuples, within=NonNegativeReals, doc='inflow of reservoir [m3/s]')
@@ -169,7 +169,7 @@ def define_constraints(model, para):
         model.energy_storage_up_bound_cons = Constraint(model.hour_month_year_zone_storage_tuples, rule=rules.energy_storage_up_bound_rule, doc='Storage bound')
         model.energy_storage_gen_cons = Constraint(model.hour_month_year_zone_storage_tuples, rule=rules.energy_storage_gen_rule, doc='Storage bound')
 
-    if para['ishydro']:
+    if para['isinflow']:
         model.natural_inflow_cons = Constraint(model.station_hour_month_year_tuples, rule=rules.natural_inflow_rule, doc='Natural flow')
         model.total_inflow_cons = Constraint(model.station_hour_month_year_tuples, rule=rules.total_inflow_rule, doc='Hydraulic Connection Constraints')
         model.water_balance_cons = Constraint(model.station_hour_month_year_tuples, rule=rules.water_balance_rule, doc='Water Balance Constraints')
