@@ -35,8 +35,8 @@ def define_sets(model, para):
     model.hour_p = Set(initialize=[0] + para['hour'], ordered=True, doc='Set of operation timesteps')
 
     for tech_type in tech_types:
-        if tech_type in para['type'].values():
-            model.add_component(f"{tech_type}_tech", Set(initialize=[i for i, j in para['type'].items() if j == tech_type], ordered=True, doc=f'Set of {tech_type} technology'))
+        if tech_type in para['technology_type'].values():
+            model.add_component(f"{tech_type}_tech", Set(initialize=[i for i, j in para['technology_type'].items() if j == tech_type], ordered=True, doc=f'Set of {tech_type} technology'))
         else:
             model.add_component(f"{tech_type}_tech", Set(initialize=[], ordered=True, doc=f'Set of {tech_type} technology'))
 
@@ -63,7 +63,7 @@ def create_tuples(model, para):
     model.hour_month_year_zone_nondispatchable_tuples = model.hour * model.month * model.year * model.zone * model.nondispatchable_tech
     model.hour_month_year_zone_tech_tuples = model.hour * model.month * model.year * model.zone * model.tech
     model.hour_month_year_zone_tuples = model.hour * model.month * model.year * model.zone
-    model.year_zone_zone_tuples = Set(initialize=[(y, z, z1) for y in model.year for z in model.zone for z1 in model.zone if (z, z1) in para['transline'].keys()])
+    model.year_zone_zone_tuples = Set(initialize=[(y, z, z1) for y in model.year for z in model.zone for z1 in model.zone if (z, z1) in para['transmission_line_existing_capacity'].keys()])
     model.hour_month_year_zone_zone_tuples = Set(initialize=[(h, m, y, z, z1) for h in model.hour for m in model.month for y, z, z1 in model.year_zone_zone_tuples])
     model.hour_month_tech_tuples = model.hour * model.month * model.tech
     model.hour_p_month_year_zone_tuples = model.hour_p * model.month * model.year * model.zone
@@ -119,7 +119,7 @@ def define_variables(model, para):
         model.genflow = Var(model.station_hour_month_year_tuples, within=NonNegativeReals, doc='generation flow of reservoir [m3/s]')
         model.spillflow = Var(model.station_hour_month_year_tuples, within=NonNegativeReals, doc='water spillage flow of reservoir [m3/s]')
         model.withdraw = Var(model.station_hour_month_year_tuples, within=NonNegativeReals, doc='withdraw from reservoir [m^3/s]')
-        model.storage_hydro = Var(model.station_hour_p_month_year_tuples, within=NonNegativeReals, doc='storage of reservoir [10^8 m3]')
+        model.storage_reservoir = Var(model.station_hour_p_month_year_tuples, within=NonNegativeReals, doc='storage of reservoir [m3]')
         model.output = Var(model.station_hour_month_year_tuples, within=NonNegativeReals, doc='output of reservoir [MW]')
 
 

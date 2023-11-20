@@ -87,12 +87,12 @@ def get_attr(para):
         None
     """
     para["year"] = sorted(list(para["discount_factor"].keys()))
-    if "static" in para.keys():
-        para["stcd"] = list({i[1] for i in para["static"].keys()})
+    if "reservoir_characteristics" in para.keys():
+        para["stcd"] = list({i[1] for i in para["reservoir_characteristics"].keys()})
     para["hour"] = sorted({i[3] for i in para["demand"].keys() if isinstance(i[3], int)})
     para["month"] = sorted({i[2] for i in para["demand"].keys() if isinstance(i[2], int)})
     para["zone"] = list({i[0] for i in para["demand"].keys()})
-    para["tech"] = list(para["type"].keys())
+    para["tech"] = list(para["technology_type"].keys())
 
 
 def calculate_cost_factors(para):

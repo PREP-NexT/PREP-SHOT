@@ -36,9 +36,9 @@ class RuleContainer:
         Returns:
             pyomo.core.base.PyomoModel.ConcreteModel: Model with variable cost constraints.
         """
-        var_OM_tech_cost = sum([self.para['technology_variable_cost'][te, y] * model.gen[h, m, y, z, te] * self.para['dt'] * self.para['var_factor'][y] for h, m, y, z, te in model.hour_month_year_zone_tech_tuples])/self.para['weight']
+        var_OM_tech_cost = sum([self.para['technology_variable_OM_cost'][te, y] * model.gen[h, m, y, z, te] * self.para['dt'] * self.para['var_factor'][y] for h, m, y, z, te in model.hour_month_year_zone_tech_tuples])/self.para['weight']
         fuel_cost = sum([self.para['fuel_price'][te, y] * model.gen[h, m, y, z, te] * self.para['dt'] * self.para['var_factor'][y] for h, m, y, z, te in model.hour_month_year_zone_tech_tuples])/self.para['weight']
-        var_OM_line_cost = 0.5 * sum([self.para['transline_variable_cost'][z, z1] * model.trans_export[h, m, y, z, z1] * self.para['var_factor'][y] for h, m, y, z, z1 in model.hour_month_year_zone_zone_tuples])/self.para['weight']
+        var_OM_line_cost = 0.5 * sum([self.para['transmission_line_variable_OM_cost'][z, z1] * model.trans_export[h, m, y, z, z1] * self.para['var_factor'][y] for h, m, y, z, z1 in model.hour_month_year_zone_zone_tuples])/self.para['weight']
         return model.cost_var == var_OM_tech_cost + fuel_cost + var_OM_line_cost
 
 
@@ -65,7 +65,7 @@ class RuleContainer:
         Returns:
             pyomo.core.base.PyomoModel.ConcreteModel: Model with investment cost of new transmission lines constraints.
         """
-        return model.cost_newline == 0.5 * sum(self.para['transline_investment_cost'][z, z1] * model.cap_newline[y, z, z1] * self.para['distance'][z, z1] * self.para['trans_inv_factor'][y] for y, z, z1 in model.year_zone_zone_tuples)
+        return model.cost_newline == 0.5 * sum(self.para['transmission_line_existing_capacity'][z, z1] * model.cap_newline[y, z, z1] * self.para['distance'][z, z1] * self.para['trans_inv_factor'][y] for y, z, z1 in model.year_zone_zone_tuples)
 
 
     def fix_cost_rule(self, model):
@@ -78,8 +78,8 @@ class RuleContainer:
         Returns:
             pyomo.core.base.PyomoModel.ConcreteModel: Model with fixed O&M cost of technologies and transmission line constraints.
         """
-        fix_cost_tech = sum(self.para['technology_fix_cost'][te, y] * model.cap_existing[y, z, te] * self.para['fix_factor'][y] for y, z, te in model.year_zone_tech_tuples)
-        fix_cost_line = 0.5 * sum(self.para['transline_fix_cost'][z, z1] * model.cap_lines_existing[y, z, z1] * self.para['fix_factor'][y] for y, z1, z in model.year_zone_zone_tuples)
+        fix_cost_tech = sum(self.para['technology_fixed_OM_cost'][te, y] * model.cap_existing[y, z, te] * self.para['fix_factor'][y] for y, z, te in model.year_zone_tech_tuples)
+        fix_cost_line = 0.5 * sum(self.para['transmission_fixed_OM_cost'][z, z1] * model.cap_lines_existing[y, z, z1] * self.para['fix_factor'][y] for y, z1, z in model.year_zone_zone_tuples)
         return model.cost_fix == fix_cost_tech + fix_cost_line
 
 
@@ -167,8 +167,8 @@ class RuleContainer:
         Returns:
             pyomo.core.base.PyomoModel.ConcreteModel: Model with power balance constraints.
         """
-        imp_z = sum([model.trans_import[h, m, y, z1, z] for z1 in model.zone if (z, z1) in self.para['transline'].keys()])
-        exp_z = sum([model.trans_export[h, m, y, z, z1] for z1 in model.zone if (z, z1) in self.para['transline'].keys()])
+        imp_z = sum([model.trans_import[h, m, y, z1, z] for z1 in model.zone if (z, z1) in self.para['transmission_line_existing_capacity'].keys()])
+        exp_z = sum([model.trans_export[h, m, y, z, z1] for z1 in model.zone if (z, z1) in self.para['transmission_line_existing_capacity'].keys()])
         gen_z = sum([model.gen[h, m, y, z, te] for te in model.tech])
         charge_z = sum([model.charge[h, m, y, z, te] for te in model.storage_tech])
         demand_z = self.para['demand'][z, y, m, h]
@@ -205,7 +205,7 @@ class RuleContainer:
             pyomo.core.base.PyomoModel.ConcreteModel: Model with transmission capacity constraints.
         """
         Year = self.para['year']
-        remaining_capacity_line = self.para['transline'][z, z1]
+        remaining_capacity_line = self.para['transmission_line_investment_cost'][z, z1]
         new_capacity_line = sum(model.cap_newline[yy, z, z1] for yy in Year[:Year.index(y) + 1])
         return model.cap_lines_existing[y, z, z1] == remaining_capacity_line + new_capacity_line
 
@@ -225,7 +225,7 @@ class RuleContainer:
         Returns:
             pyomo.core.base.PyomoModel.ConcreteModel: Model with transmission balance constraints.
         """
-        eff = self.para['transline_efficiency'][z, z1]
+        eff = self.para['transmission_line_efficiency'][z, z1]
         return eff * model.trans_export[h, m, y, z, z1] == model.trans_import[h, m, y, z, z1]
 
 
@@ -548,7 +548,7 @@ class RuleContainer:
         Returns:
             pyomo.core.base.PyomoModel.ConcreteModel: Model with water balance constraints.
         """
-        return model.storage_hydro[s, h, m, y] == model.storage_hydro[s, h-1, m, y] + (model.inflow[s, h, m, y] - model.outflow[s, h, m, y] - model.withdraw[s, h, m, y]) * 3600 * self.para['dt'] * 1e-8
+        return model.storage_reservoir[s, h, m, y] == model.storage_reservoir[s, h-1, m, y] + (model.inflow[s, h, m, y] - model.outflow[s, h, m, y] - model.withdraw[s, h, m, y]) * 3600 * self.para['dt']
 
 
     def discharge_rule(self, model, s, h, m, y):
@@ -582,7 +582,7 @@ class RuleContainer:
         Returns:
             pyomo.core.base.PyomoModel.ConcreteModel: Model with outflow lower bound constraints.
         """
-        return model.outflow[s, h, m, y] >= self.para['static']['outflow_min', s]
+        return model.outflow[s, h, m, y] >= self.para['reservoir_characteristics']['outflow_min', s]
 
 
     def outflow_up_bound_rule(self, model, s, h, m, y):
@@ -599,7 +599,7 @@ class RuleContainer:
         Returns:
             pyomo.core.base.PyomoModel.ConcreteModel: Model with outflow upper bound constraints.
         """
-        return model.outflow[s, h, m, y] <= self.para['static']['outflow_max', s]
+        return model.outflow[s, h, m, y] <= self.para['reservoir_characteristics']['outflow_max', s]
 
 
     def storage_low_bound_rule(self, model, s, h, m, y):
@@ -616,7 +616,7 @@ class RuleContainer:
         Returns:
             pyomo.core.base.PyomoModel.ConcreteModel: Model with storage lower bound constraints.
         """
-        return model.storage_hydro[s, h, m, y] >= self.para['storage_downbound'][s, m, h]
+        return model.storage_reservoir[s, h, m, y] >= self.para['reservoir_storage_lower_bound'][s, m, h]
 
 
     def storage_up_bound_rule(self, model, s, h, m, y):
@@ -633,7 +633,7 @@ class RuleContainer:
         Returns:
             pyomo.core.base.PyomoModel.ConcreteModel: Model with storage upper bound constraints.
         """
-        return model.storage_hydro[s, h, m, y] <= self.para['storage_upbound'][s, m, h]
+        return model.storage_reservoir[s, h, m, y] <= self.para['reservoir_storage_upper_bound'][s, m, h]
 
 
     def output_low_bound_rule(self, model, s, h, m, y):
@@ -650,7 +650,7 @@ class RuleContainer:
         Returns:
             pyomo.core.base.PyomoModel.ConcreteModel: Model with output lower bound constraints.
         """
-        return model.output[s, h, m, y] >= self.para['static']['N_min', s]
+        return model.output[s, h, m, y] >= self.para['reservoir_characteristics']['N_min', s]
 
 
     def output_up_bound_rule(self, model, s, h, m, y):
@@ -667,7 +667,7 @@ class RuleContainer:
         Returns:
             pyomo.core.base.PyomoModel.ConcreteModel: Model with output upper bound constraints.
         """
-        return model.output[s, h, m, y] <= self.para['static']['N_max', s]
+        return model.output[s, h, m, y] <= self.para['reservoir_characteristics']['N_max', s]
 
 
     def output_calc_rule(self, model, s, h, m, y):
@@ -684,7 +684,7 @@ class RuleContainer:
         Returns:
             pyomo.core.base.PyomoModel.ConcreteModel: Model with output calculation constraints.
         """
-        return model.output[s, h, m, y] == self.para['static']['coeff', s] * model.genflow[s, h, m, y] * model.head_para[s, h, m, y] * 1e-3
+        return model.output[s, h, m, y] == self.para['reservoir_characteristics']['coeff', s] * model.genflow[s, h, m, y] * model.head_para[s, h, m, y] * 1e-3
 
 
     def init_storage_rule(self, model, s, m, y):
@@ -701,7 +701,7 @@ class RuleContainer:
             pyomo.core.base.PyomoModel.ConcreteModel: Model with initial storage constraints.
         """
         hour_period = [0] + self.para['hour']
-        return model.storage_hydro[s, hour_period[0], m, y] == self.para['storage_init'][m, s]
+        return model.storage_reservoir[s, hour_period[0], m, y] == self.para['initial_reservoir_storage_level'][m, s]
 
 
     def end_storage_rule(self, model, s, m, y):
@@ -718,7 +718,7 @@ class RuleContainer:
             pyomo.core.base.PyomoModel.ConcreteModel: Model with end storage constraints.
         """
         hour_period = [0] + self.para['hour']
-        return model.storage_hydro[s, hour_period[-1], m, y] == self.para['storage_end'][m, s]
+        return model.storage_reservoir[s, hour_period[-1], m, y] == self.para['final_reservoir_storage_level'][m, s]
 
 
     def hydro_output_rule(self, model, h, m, y, z):
@@ -735,13 +735,13 @@ class RuleContainer:
         Returns:
             pyomo.core.base.PyomoModel.ConcreteModel: Model with hydrological output constraints.
         """
-        if len([i for i, j in self.para['type'].items() if j == 'hydro']) == 0:
+        if len([i for i, j in self.para['technology_type'].items() if j == 'hydro']) == 0:
             return Constraint.Skip
         if self.para['isinflow']:
             hydro_output = 0
             for s in model.station:
-                if self.para['static']['zone', s] == z:
+                if self.para['reservoir_characteristics']['zone', s] == z:
                     hydro_output += model.output[s, h, m, y] * self.para['dt']
-            return model.gen[h, m, y, z, [i for i, j in self.para['type'].items() if j == 'hydro'][0]] == hydro_output
+            return model.gen[h, m, y, z, [i for i, j in self.para['technology_type'].items() if j == 'hydro'][0]] == hydro_output
         else:
-            return model.gen[h, m, y, z, [i for i, j in self.para['type'].items() if j == 'hydro'][0]] <= float(self.para['predefined_hydropower']['Hydro', z, y, m, h]) * self.para['dt']
+            return model.gen[h, m, y, z, [i for i, j in self.para['technology_type'].items() if j == 'hydro'][0]] <= float(self.para['predefined_hydropower']['Hydro', z, y, m, h]) * self.para['dt']

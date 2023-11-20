@@ -155,7 +155,7 @@ def initialize_waterhead(stations, year, month, hour, para):
     new_waterhead = old_waterhead.copy(deep=True)
 
     for s in stations:
-        old_waterhead.loc[s, :] = [para['static']['head', s]] * (len(hour) * len(month) * len(year))
+        old_waterhead.loc[s, :] = [para['reservoir_characteristics']['head', s]] * (len(hour) * len(month) * len(year))
     return old_waterhead, new_waterhead
 
 
@@ -210,8 +210,8 @@ def process_model_solution(model, solver, stations, year, month, hour, para, old
         tail = np.array([[[outflow_values[int(stcd), h, m, y] for h in hour] for m in month] for y in year])
         storage = np.array([[[storage_values[int(stcd), h, m, y] for h in model.hour_p] for m in month] for y in year])
 
-        tail = interpolate_Z_by_Q_or_S(str(stcd), tail, para['zq'])
-        storage = interpolate_Z_by_Q_or_S(str(stcd), storage, para['zv'])
+        tail = interpolate_Z_by_Q_or_S(str(stcd), tail, para['reservoir_tailrace_level_discharge_function'])
+        storage = interpolate_Z_by_Q_or_S(str(stcd), storage, para['reservoir_forebay_level_volume_function'])
         
         # Calculate the new water head.
         fore = (storage[:, :, :hour[-1]] + storage[:, :, 1:]) / 2

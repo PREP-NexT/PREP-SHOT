@@ -131,7 +131,15 @@ The parameters used, their desciptions, and their input file name in the model a
     - reservoir\_
       
       characteristics
-    
+
+  * - reservoir storage
+      
+      upper bound [m3]
+    - Upper bound of volume of hydropower reservoirs.
+    - reservoir_storage
+       
+      _upper_bound
+
   * - reservoir storage 
   
       lower bound [m3]
@@ -156,15 +164,7 @@ The parameters used, their desciptions, and their input file name in the model a
       
       storage_level
     
-  * - reservoir storage
-      
-      upper bound [m3]
-    - Upper bound of volume of hydropower reservoirs.
-    - reservoir_storage
-       
-      _upper_bound
-    
-  * - Fixed OM cost 
+  * - technology fixed OM cost 
   
       [dollar/MW/yr]
     - Fixed operation and maintenance cost of different technologies.
@@ -196,7 +196,7 @@ The parameters used, their desciptions, and their input file name in the model a
     
   * - technology variable 
       
-      OM cost [dollar/MWh]
+      OM cost [dollar/MW/yr]
     - Variable operation and maintenance costs of different technologies.
     - technology_variable\_
     
@@ -204,14 +204,14 @@ The parameters used, their desciptions, and their input file name in the model a
     
   * - transmission line
 
-      investment cost 
+      existing capacity 
 
-      [dollar/MW/km]
-    - Investment cost of transmission lines (if there is no exising nor planned transmission lines between two specific zones, leave the data entries blank).
+      [MW]
+    - Capacity of existing transmission lines (if there is no exising nor planned transmission lines between two specific zones, leave the data entries blank).
     - transmission_line\_
        
-      investment_cost
-    
+      existing_capacity   
+
   * - transmission line 
   
       efficiency [N/A]
@@ -219,12 +219,22 @@ The parameters used, their desciptions, and their input file name in the model a
     - transmission_line\_
     
       efficiency
-    
+
+  * - transmission line
+
+      investment cost 
+
+      [dollar/MW/km]
+    - Investment cost of transmission lines.
+    - transmission_line\_
+       
+      investment_cost
+
   * - transmission line 
       
       fixed OM cost 
       
-      [dollar/MW]
+      [dollar/MW/yr]
     - Fixed operation and maintenance costs of transmission lines.
     - transmission_line\_
        
@@ -232,9 +242,9 @@ The parameters used, their desciptions, and their input file name in the model a
     
   * - transmission line 
   
-      variable OM cost 
+      variable OM cost
   
-      [dollar/MWh]
+      [dollar/MW/yr]
     - Variable operations and maintenance costs of transmission lines.
     - transmission_line
     
