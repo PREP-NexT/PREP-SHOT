@@ -38,7 +38,7 @@ The parameters used, their desciptions, and their input file name in the model a
   
       [tCO2/MWh]
     - Emission factor of different technologies.
-    - carbon_content
+    - emission_factor
     
   * - water delay time [N/A]
     - Water delay time of connection between reservoirs.

@@ -116,7 +116,7 @@ class RuleContainer:
         Returns:
             pyomo.core.base.PyomoModel.ConcreteModel: Model with carbon emission restriction constraints.
         """
-        return model.carbon[y] <= self.para['carbon'][y]
+        return model.carbon[y] <= self.para['carbon_emission_limit'][y]
 
 
     def emission_calc_rule(self, model, y):
@@ -145,7 +145,7 @@ class RuleContainer:
         Returns:
             pyomo.core.base.PyomoModel.ConcreteModel: Model with carbon emission calculation by zone rule.
         """
-        return model.carbon_capacity[y, z] == sum(self.para['carbon_content'][te, y] * model.gen[h, m, y, z, te] * self.para['dt'] for h, m, te in model.hour_month_tech_tuples)
+        return model.carbon_capacity[y, z] == sum(self.para['emission_factor'][te, y] * model.gen[h, m, y, z, te] * self.para['dt'] for h, m, te in model.hour_month_tech_tuples)
 
 
     def power_balance_rule(self, model, h, m, y, z):
@@ -356,7 +356,7 @@ class RuleContainer:
         if remaining_time <= 1:
             return model.remaining_technology[y, z, te] == 0
         else:
-            return model.remaining_technology[y, z, te] == sum([self.para['age'][z, te, a] for a in range(1, remaining_time)])
+            return model.remaining_technology[y, z, te] == sum([self.para['historical_capacity'][z, te, a] for a in range(1, remaining_time)])
 
 
     def energy_storage_balance_rule(self, model, h, m, y, z, te):
@@ -374,7 +374,7 @@ class RuleContainer:
         Returns:
             pyomo.core.base.PyomoModel.ConcreteModel: Model with energy storage balance constraints.
         """
-        return (model.storage[h, m, y, z, te] == model.storage[h-1, m, y, z, te] - model.gen[h, m, y, z, te] * self.para['efficiency_out'][te, y] * self.para['dt'] + model.charge[h, m, y, z, te] * self.para['efficiency_in'][te, y] * self.para['dt'])
+        return (model.storage[h, m, y, z, te] == model.storage[h-1, m, y, z, te] - model.gen[h, m, y, z, te] * self.para['discharge_efficiency'][te, y] * self.para['dt'] + model.charge[h, m, y, z, te] * self.para['charge_efficiency'][te, y] * self.para['dt'])
 
 
     def init_energy_storage_rule(self, model, m, y, z, te):
@@ -391,7 +391,7 @@ class RuleContainer:
         Returns:
             pyomo.core.base.PyomoModel.ConcreteModel: Model with initial energy storage constraints.
         """
-        return (model.storage[0, m, y, z, te] == self.para['init_storage_level'][te, z] * model.cap_existing[y, z, te] * self.para['energy_power_ratio'][te])
+        return (model.storage[0, m, y, z, te] == self.para['initial_energy_storage_level'][te, z] * model.cap_existing[y, z, te] * self.para['energy_to_power_ratio'][te])
 
 
     def end_energy_storage_rule(self, model, m, y, z, te):
@@ -426,7 +426,7 @@ class RuleContainer:
         Returns:
             pyomo.core.base.PyomoModel.ConcreteModel: Model with energy storage upper bound constraints.
         """
-        return model.storage[h, m, y, z, te] <= model.cap_existing[y, z, te] * self.para['energy_power_ratio'][te]
+        return model.storage[h, m, y, z, te] <= model.cap_existing[y, z, te] * self.para['energy_to_power_ratio'][te]
 
 
     def energy_storage_gen_rule(self, model, h, m, y, z, te):
@@ -444,7 +444,7 @@ class RuleContainer:
         Returns:
             pyomo.core.base.PyomoModel.ConcreteModel: Model with energy storage generation constraints.
         """
-        return model.gen[h, m, y, z, te] * self.para['efficiency_out'][te, y] * self.para['dt'] <= model.storage[h-1, m, y, z, te]
+        return model.gen[h, m, y, z, te] * self.para['discharge_efficiency'][te, y] * self.para['dt'] <= model.storage[h-1, m, y, z, te]
 
 
     def ramping_up_rule(self, model, h, m, y, z, te):
@@ -524,7 +524,7 @@ class RuleContainer:
         """
         hour = self.para['hour']
         up_stream_outflow = 0
-        for ups, delay in zip(self.para['connect'][self.para['connect']['NEXTPOWER_ID'] == s].POWER_ID, self.para['connect'][self.para['connect']['NEXTPOWER_ID'] == s].delay):
+        for ups, delay in zip(self.para['water_delay_time'][self.para['water_delay_time']['NEXTPOWER_ID'] == s].POWER_ID, self.para['water_delay_time'][self.para['water_delay_time']['NEXTPOWER_ID'] == s].delay):
             delay = int(int(delay)/self.para['dt'])
             if (h - delay >= hour[0]):
                 up_stream_outflow += model.outflow[ups, h-delay, m, y]
