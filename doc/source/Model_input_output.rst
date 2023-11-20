@@ -323,13 +323,13 @@ The output file contains the following variables:
     - Charged electricity of different storage technologies.
 
   * - cost_v [dollar]
-    - Total cost over the planning period.
+    - Total cost (including total investment cost, total variable OM cost, and total fixed OM cost) over the planning period.
 
   * - cost_var_v [dollar]
-    - Variable cost over the planning period.
+    - Total variable OM cost (including technology variable OM cost, transmission line variable OM cost, and fuel cost) over the planning period.
 
   * - cost_fix_v [dollar]
-    - Fixed cost over the planning period.
+    - Total fixed OM cost (including technology fixed OM cost, transmission line fixed OM cost) over the planning period.
 
   * - cost_new_v [dollar]
     - Investment cost of technologies over the planning period.
