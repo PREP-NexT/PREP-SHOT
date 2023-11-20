@@ -164,7 +164,7 @@ The parameters used, their desciptions, and their input file name in the model a
        
       _upper_bound
     
-  * - Investmented OM cost 
+  * - Fixed OM cost 
   
       [dollar/MW/yr]
     - Fixed operation and maintenance cost of different technologies.
