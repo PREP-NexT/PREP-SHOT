@@ -323,19 +323,34 @@ The output file contains the following variables:
     - Charged electricity of different storage technologies.
 
   * - cost [dollar]
-    - Total cost over the planning period.
+    - Total cost (including total investment cost, total variable OM cost, and total fixed OM cost) over the planning period.
+
+  * - cost_breakdown [dollar]
+    - Breakdown of total cost (including total investment cost, total variable OM cost, and total fixed OM cost) over the planning period, by zone, year, and technology.
 
   * - cost_var [dollar]
-    - Variable cost over the planning period.
+    - Total variable OM cost (including technology variable OM cost, transmission line variable OM cost, and fuel cost) over the planning period.
+
+  * - cost_var_breakdown [dollar]
+    - Breakdown of total variable OM cost (including technology variable OM cost, transmission line variable OM cost, and fuel cost) over the planning period, by zone, year, and technology.
 
   * - cost_fix [dollar]
-    - Fixed cost over the planning period.
+    - Total fixed OM cost (including technology fixed OM cost, transmission line fixed OM cost) over the planning period.
 
-  * - cost_new [dollar]
-    - Investment cost of technologies over the planning period.
+  * - cost_fix_breakdown [dollar]
+    - Breakdown of total fixed OM cost (including technology fixed OM cost, transmission line fixed OM cost) over the planning period, by zone, year, and technology.
+
+  * - cost_newtech [dollar]
+    - Total investment cost of technologies over the planning period.
+
+  * - cost_newtech_breakdown [dollar]
+    - Breakdown of total investment cost of technologies over the planning period, by zone, year, and technology.
 
   * - cost_newline [dollar]
     - Investment cost of transmission lines over the planning period.
+
+  * - cost_newline_breakdown [dollar]
+    - Breakdown of total investment cost of transmission lines over the planning period, by zone, year, and technology.
 
   * - income [dollar]
     - Saved cost due to abstracted water resources over the planning period.
@@ -345,7 +360,6 @@ The output file contains the following variables:
 
   * - spillflow [m3/s]
     - Spilled water flow of different reservoirs.
-
 
 Execute various scenarios
 -------------------------
