@@ -398,3 +398,4 @@ You can also try out the model with the sample data provided in the ``input`` fo
 .. [#] For instance, assuming the planning period spans from 2020 to 2050, with 2020 being the starting point, let's consider a technology that has been in operation since 2019. In this case, 2020 would mark its 2nd year of operation within the planning period. These inputs are useful for modelling the retirement of existing technologies.
 .. [#] To model the simplified hydropower operation.
 .. [#] To model the potential of technologies with land, fuel, and water constraints.
+
