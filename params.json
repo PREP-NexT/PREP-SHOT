@@ -1,6 +1,6 @@
 {
-    "age": {
-        "file_name": "age",
+    "historical_capacity": {
+        "file_name": "historical_capacity",
         "index_cols": [0],
         "header_rows": [0, 1],
         "unstack_levels": [0],
@@ -15,24 +15,24 @@
         "first_col_only": false,
         "drop_na": true
     },
-    "carbon": {
-        "file_name": "carbon",
+    "carbon_emission_limit": {
+        "file_name": "carbon_emission_limit",
         "index_cols": [0],
         "header_rows": [0],
         "unstack_levels": null,
         "first_col_only": true,
         "drop_na": true
     },
-    "carbon_content": {
-        "file_name": "carbon_content",
+    "emission_factor": {
+        "file_name": "emission_factor",
         "index_cols": [0],
         "header_rows": [0],
         "unstack_levels": [0],
         "first_col_only": false,
         "drop_na": true
     },
-    "connect": {
-        "file_name": "connect",
+    "water_delay_time": {
+        "file_name": "water_delay_time",
         "index_cols": null,
         "header_rows": [0],
         "unstack_levels": null,
@@ -63,24 +63,24 @@
         "first_col_only": false,
         "drop_na": true
     },
-    "efficiency_in": {
-        "file_name": "efficiency_in",
+    "discharge_efficiency": {
+        "file_name": "discharge_efficiency",
         "index_cols": [0],
         "header_rows": [0],
         "unstack_levels": [0],
         "first_col_only": false,
         "drop_na": true
     },
-    "efficiency_out": {
-        "file_name": "efficiency_out",
+    "charge_efficiency": {
+        "file_name": "charge_efficiency",
         "index_cols": [0],
         "header_rows": [0],
         "unstack_levels": [0],
         "first_col_only": false,
         "drop_na": true
     },
-    "energy_power_ratio": {
-        "file_name": "energy_power_ratio",
+    "energy_to_power_ratio": {
+        "file_name": "energy_to_power_ratio",
         "index_cols": [0],
         "header_rows": [0],
         "unstack_levels": null,
@@ -111,8 +111,8 @@
         "first_col_only": false,
         "drop_na": true
     },
-    "init_storage_level": {
-        "file_name": "init_storage_level",
+    "initial_energy_storage_level": {
+        "file_name": "initial_energy_storage_level",
         "index_cols": [0],
         "header_rows": [0],
         "unstack_levels": [0],
