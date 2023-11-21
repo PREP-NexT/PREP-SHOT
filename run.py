@@ -6,6 +6,7 @@ from prepshot.model import create_model
 from prepshot.parameters import parse_arguments
 from prepshot.solver import build_solver, solve_model
 from prepshot.utils import extract_result, update_output_filename
+import pandas as pd
 
 # Name of the configuration file and parameters file in root directory.
 CONFIG_FILENAME = 'config.json'
@@ -77,9 +78,18 @@ def run_model(parameters, output_filename, args):
     solver = build_solver(parameters)
     solved = solve_model(model, solver, parameters)
     if solved:
-        ds = extract_result(model, ishydro=parameters['ishydro'])
+        ds = extract_result(model, isinflow=parameters['isinflow'])
         ds.to_netcdf(f'{output_filename}.nc')
         logging.info("Results are written to %s.nc", output_filename)
+        # Write results to excel files.
+        for key in ds.data_vars:
+            if len(ds[key].shape) == 0:
+                df = pd.DataFrame([ds[key].values.max()], columns=[key])
+            else:
+                df = ds[key].to_dataframe()
+            df.to_excel(f'{output_filename}_{key}.xlsx', merge_cells=False)
+        logging.info("Results are written to separate excel files")
+        
 
 
 def main():

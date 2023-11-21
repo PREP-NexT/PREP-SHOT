@@ -95,8 +95,8 @@
         "first_col_only": false,
         "drop_na": true
     },
-    "hydropower": {
-        "file_name": "hydropower",
+    "predefined_hydropower": {
+        "file_name": "predefined_hydropower",
         "index_cols": [0, 1, 2],
         "header_rows": [0, 1],
         "unstack_levels": [0, 1, 2],
@@ -159,48 +159,48 @@
         "first_col_only": true,
         "drop_na": true
     },
-    "static": {
-        "file_name": "static",
+    "reservoir_characteristics": {
+        "file_name": "reservoir_characteristics",
         "index_cols": [0],
         "header_rows": [0],
         "unstack_levels": [-1],
         "first_col_only": false,
         "drop_na": false
     },
-    "storage_downbound": {
-        "file_name": "storage_downbound",
+    "reservoir_storage_upper_bound": {
+        "file_name": "reservoir_storage_upper_bound",
         "index_cols": [0, 1],
         "header_rows": [0],
         "unstack_levels": [0, 1],
         "first_col_only": false,
         "drop_na": true
     },
-    "storage_end": {
-        "file_name": "storage_end",
-        "index_cols": [0],
-        "header_rows": [0],
-        "unstack_levels": [0],
-        "first_col_only": false,
-        "drop_na": true
-    },
-    "storage_init": {
-        "file_name": "storage_init",
-        "index_cols": [0],
-        "header_rows": [0],
-        "unstack_levels": [0],
-        "first_col_only": false,
-        "drop_na": true
-    },
-    "storage_upbound": {
-        "file_name": "storage_upbound",
+    "reservoir_storage_lower_bound": {
+        "file_name": "reservoir_storage_lower_bound",
         "index_cols": [0, 1],
         "header_rows": [0],
         "unstack_levels": [0, 1],
         "first_col_only": false,
         "drop_na": true
     },
-    "technology_fix_cost": {
-        "file_name": "technology_fix_cost",
+    "final_reservoir_storage_level": {
+        "file_name": "final_reservoir_storage_level",
+        "index_cols": [0],
+        "header_rows": [0],
+        "unstack_levels": [0],
+        "first_col_only": false,
+        "drop_na": true
+    },
+    "initial_reservoir_storage_level": {
+        "file_name": "initial_reservoir_storage_level",
+        "index_cols": [0],
+        "header_rows": [0],
+        "unstack_levels": [0],
+        "first_col_only": false,
+        "drop_na": true
+    },
+    "technology_fixed_OM_cost": {
+        "file_name": "technology_fixed_OM_cost",
         "index_cols": [0],
         "header_rows": [0],
         "unstack_levels": [0],
@@ -231,48 +231,48 @@
         "first_col_only": false,
         "drop_na": true
     },
-    "technology_variable_cost": {
-        "file_name": "technology_variable_cost",
+    "technology_variable_OM_cost": {
+        "file_name": "technology_variable_OM_cost",
         "index_cols": [0],
         "header_rows": [0],
         "unstack_levels": [0],
         "first_col_only": false,
         "drop_na": true
     },
-    "transline": {
-        "file_name": "transline",
+    "transmission_line_existing_capacity": {
+        "file_name": "transmission_line_existing_capacity",
         "index_cols": [0],
         "header_rows": [0],
         "unstack_levels": [0],
         "first_col_only": false,
         "drop_na": true
     },
-    "transline_efficiency": {
-        "file_name": "transline_efficiency",
+    "transmission_line_efficiency": {
+        "file_name": "transmission_line_efficiency",
         "index_cols": [0],
         "header_rows": [0],
         "unstack_levels": [0],
         "first_col_only": false,
         "drop_na": true
     },
-    "transline_fix_cost": {
-        "file_name": "transline_fix_cost",
+    "transmission_line_investment_cost": {
+        "file_name": "transmission_line_investment_cost",
         "index_cols": [0],
         "header_rows": [0],
         "unstack_levels": [0],
         "first_col_only": false,
         "drop_na": true
     },
-    "transline_investment_cost": {
-        "file_name": "transline_investment_cost",
+    "transmission_fixed_OM_cost": {
+        "file_name": "transmission_fixed_OM_cost",
         "index_cols": [0],
         "header_rows": [0],
         "unstack_levels": [0],
         "first_col_only": false,
         "drop_na": true
     },
-    "transline_variable_cost": {
-        "file_name": "transline_variable_cost",
+    "transmission_line_variable_OM_cost": {
+        "file_name": "transmission_line_variable_OM_cost",
         "index_cols": [0],
         "header_rows": [0],
         "unstack_levels": [0],
@@ -287,24 +287,24 @@
         "first_col_only": false,
         "drop_na": true
     },
-    "type": {
-        "file_name": "type",
+    "technology_type": {
+        "file_name": "technology_type",
         "index_cols": [0],
         "header_rows": [0],
         "unstack_levels": null,
         "first_col_only": true,
         "drop_na": true
     },
-    "zq": {
-        "file_name": "zq",
+    "reservoir_tailrace_level_discharge_function": {
+        "file_name": "reservoir_tailrace_level_discharge_function",
         "index_cols": null,
         "header_rows": [0],
         "unstack_levels": null,
         "first_col_only": false,
         "drop_na": false
     },
-    "zv": {
-        "file_name": "zv",
+    "reservoir_forebay_level_volume_function": {
+        "file_name": "reservoir_forebay_level_volume_function",
         "index_cols": null,
         "header_rows": [0],
         "unstack_levels": null,

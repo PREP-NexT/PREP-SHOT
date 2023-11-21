@@ -10,7 +10,7 @@
         "price": 0.01
     },
     "hydro_parameters": {
-        "ishydro": true,
+        "isinflow": true,
         "error_threshold": 0.001,
         "iteration_number": 3
     },
