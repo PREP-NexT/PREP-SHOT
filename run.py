@@ -82,12 +82,13 @@ def run_model(parameters, output_filename, args):
         ds.to_netcdf(f'{output_filename}.nc')
         logging.info("Results are written to %s.nc", output_filename)
         # Write results to excel files.
-        for key in ds.data_vars:
-            if len(ds[key].shape) == 0:
-                df = pd.DataFrame([ds[key].values.max()], columns=[key])
-            else:
-                df = ds[key].to_dataframe()
-            df.to_excel(f'{output_filename}_{key}.xlsx', merge_cells=False)
+        with pd.ExcelWriter(f'{output_filename}.xlsx') as writer:
+            for key in ds.data_vars:
+                if len(ds[key].shape) == 0:
+                    df = pd.DataFrame([ds[key].values.max()], columns=[key])
+                else:
+                    df = ds[key].to_dataframe()
+                df.to_excel(writer, sheet_name=key, merge_cells=False)
         logging.info("Results are written to separate excel files")
         
 
