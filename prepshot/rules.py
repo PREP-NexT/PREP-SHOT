@@ -79,7 +79,7 @@ class RuleContainer:
             pyomo.core.base.PyomoModel.ConcreteModel: Model with fixed O&M cost of technologies and transmission line constraints.
         """
         fix_cost_tech = sum(self.para['technology_fixed_OM_cost'][te, y] * model.cap_existing[y, z, te] * self.para['fix_factor'][y] for y, z, te in model.year_zone_tech_tuples)
-        fix_cost_line = 0.5 * sum(self.para['transmission_fixed_OM_cost'][z, z1] * model.cap_lines_existing[y, z, z1] * self.para['fix_factor'][y] for y, z1, z in model.year_zone_zone_tuples)
+        fix_cost_line = 0.5 * sum(self.para['transmission_line_fixed_OM_cost'][z, z1] * model.cap_lines_existing[y, z, z1] * self.para['fix_factor'][y] for y, z1, z in model.year_zone_zone_tuples)
         return model.cost_fix == fix_cost_tech + fix_cost_line
 
 

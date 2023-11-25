@@ -263,8 +263,8 @@
         "first_col_only": false,
         "drop_na": true
     },
-    "transmission_fixed_OM_cost": {
-        "file_name": "transmission_fixed_OM_cost",
+    "transmission_line_fixed_OM_cost": {
+        "file_name": "transmission_line_fixed_OM_cost",
         "index_cols": [0],
         "header_rows": [0],
         "unstack_levels": [0],
