@@ -353,10 +353,10 @@ class RuleContainer:
         lifetime = self.para['lifetime'][te, y]
         service_time = y - self.para['year'][0]
         remaining_time = int(lifetime - service_time)
-        if remaining_time <= 1:
+        if remaining_time <= 0:
             return model.remaining_technology[y, z, te] == 0
         else:
-            return model.remaining_technology[y, z, te] == sum([self.para['historical_capacity'][z, te, a] for a in range(1, remaining_time)])
+            return model.remaining_technology[y, z, te] == sum([self.para['historical_capacity'][z, te, a] for a in range(0, remaining_time)])
 
 
     def energy_storage_balance_rule(self, model, h, m, y, z, te):
