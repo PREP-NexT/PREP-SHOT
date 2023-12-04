@@ -49,6 +49,7 @@ To browse the documentation offline, you can `download an PDF copy <https://gith
    :hidden:
    :maxdepth: 2
 
+   Home <self>
    Installation
    Model_input_output
    Running_case
