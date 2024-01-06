@@ -3,7 +3,7 @@
 Welcome to the PREP-SHOT Documentation
 =======================================
 
-:Author: `Zhanwei Liu <https://www.researchgate.net/profile/Zhanwei-Liu-4>`_ (Mr), <liuzhanwei@u.nus.edu> and `Xiaogang He <http://hydro.iis.u-tokyo.ac.jp/~hexg/>`_ (Dr), <hexg@nus.edu.sg>
+:Authors: `Zhanwei Liu <https://scholar.google.com/citations?user=Zub5y2IAAAAJ>`_ (Mr), <liuzhanwei@u.nus.edu> and `Xiaogang He <http://hydro.iis.u-tokyo.ac.jp/~hexg/>`_ (Dr), <hexg@nus.edu.sg>, `Bo Xu <http://faculty.dlut.edu.cn/xubo12/zh_CN/index.htm>`_ <xubo_water@dlut.edu.cn> (Dr), `Jingkai Xie <http://null>`_ <jingkai@nus.edu.sg> (Dr), `Shuyue Yan <http://null>`_ <shuyue.yan@u.nus.edu> (Ms)
 :Organization: `National University of Singapore <https://nus.edu.sg/>`_
 :Version: |release|
 :Date: |today|
@@ -11,7 +11,7 @@ Welcome to the PREP-SHOT Documentation
 
 Overview
 --------
-**PREP-SHOT** (**P**\ athways for **R**\ enewable **E**\ nergy **P**\ lanning coupling **S**\ hort-term **H**\ ydropower **O**\ pera\ **T**\ ion) is a transparent, modular, and open-source energy expansion model hosted on `GitHub <https://github.com/PREP-NexT/PREP-SHOT>`_. Offering advanced solutions for multi-scale, intertemporal, and cost-effective expansion of energy systems and transmission lines. PREP-SHOT was orginally developed to study the nexus between water and energy systems. The development started in 2021, and in 2022, it was released as an open-source model.
+**PREP-SHOT** (**P**\ athways for **R**\ enewable **E**\ nergy **P**\ lanning coupling **S**\ hort-term **H**\ ydropower **O**\ pera\ **T**\ ion) is a transparent, modular, and open-source energy expansion model, offering advanced solutions for multi-scale, intertemporal, and cost-effective expansion of energy systems and transmission lines. PREP-SHOT was orginally developed to study the nexus between water and energy systems. The development started in 2021, and in 2022, it was released as an open-source model.
 
 The model sets itself apart from existing energy expansion models through its deeper consideration of hydropower processes. While models such as `urbs <https://urbs.readthedocs.io/en/latest/>`_ might treat hydropower as fixed processes, and others like `GenX <https://genxproject.github.io/GenX/dev/>`_ and `PLEXOS <https://www.energyexemplar.com/plexos>`_ may not fully capture the dynamic nature of water heads or consolidate multiple hydropower stations into a single unit, PREP-SHOT is uniquely designed to address these oversights.
 

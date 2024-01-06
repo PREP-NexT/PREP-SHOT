@@ -1,6 +1,6 @@
 .. _Running_case:
 
-Running cases
+Tutorial
 =================
 
 In this tutorial, we'll guide you through running your first PREP-SHOT model! This example will illustrate an electricity capacity expansion scenario.
