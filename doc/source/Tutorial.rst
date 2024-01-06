@@ -1,4 +1,4 @@
-.. _Running_case:
+.. _Tutorial:
 
 Tutorial
 =================

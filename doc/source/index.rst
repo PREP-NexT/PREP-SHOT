@@ -52,7 +52,7 @@ To browse the documentation offline, you can `download an PDF copy <https://gith
    Home <self>
    Installation
    Model_input_output
-   Running_case
+   Tutorial
    Mathematical_notations
    Forum
    Changelog
