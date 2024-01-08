@@ -3,8 +3,8 @@
 Welcome to the PREP-SHOT Documentation
 =======================================
 
-:Authors: `Zhanwei Liu <https://scholar.google.com/citations?user=Zub5y2IAAAAJ>` (liuzhanwei@u.nus.edu), `Xiaogang He <http://hydro.iis.u-tokyo.ac.jp/~hexg/>` (hexg@nus.edu.sg)
-:Contributors: `Bo Xu <http://faculty.dlut.edu.cn/xubo12/zh_CN/index.htm>` (xubo_water@dlut.edu.cn), `Jingkai Xie <http://null>` (jingkai@nus.edu.sg), and `Shuyue Yan <http://null>` (shuyue.yan@u.nus.edu) 
+:Authors: `Zhanwei Liu <https://scholar.google.com/citations?user=Zub5y2IAAAAJ>`_ (liuzhanwei@u.nus.edu), `Xiaogang He <http://hydro.iis.u-tokyo.ac.jp/~hexg/>`_ (hexg@nus.edu.sg)
+:Contributors: `Bo Xu <http://faculty.dlut.edu.cn/xubo12/zh_CN/index.htm>`_ (xubo_water@dlut.edu.cn), `Jingkai Xie <http://null>`_ (jingkai@nus.edu.sg), and `Shuyue Yan <http://null>`_ (shuyue.yan@u.nus.edu) 
 :Organization: `National University of Singapore <https://nus.edu.sg/>`_
 :Version: |release|
 :Date: |today|
@@ -12,7 +12,7 @@ Welcome to the PREP-SHOT Documentation
 
 Overview
 --------
-**PREP-SHOT** (**P**\ athways for **R**\ enewable **E**\ nergy **P**\ lanning coupling **S**\ hort-term **H**\ ydropower **O**\ pera\ **T**\ ion) is a transparent, modular, and open-source energy expansion model, offering advanced solutions for multi-scale, intertemporal, and cost-effective expansion of energy systems and transmission lines. PREP-SHOT was orginally developed to study the nexus between water and energy systems. The development started in 2021, and in 2022, it was released as an open-source model.
+**PREP-SHOT** (**P**\ athways for **R**\ enewable **E**\ nergy **P**\ lanning coupling **S**\ hort-term **H**\ ydropower **O**\ pera\ **T**\ ion) is a transparent, modular, and open-source energy expansion model, offering advanced solutions for multi-scale, intertemporal, and cost-effective expansion of energy systems and transmission lines. 
 
 The model sets itself apart from existing energy expansion models through its deeper consideration of hydropower processes. While models such as `urbs <https://urbs.readthedocs.io/en/latest/>`_ might treat hydropower as fixed processes, and others like `GenX <https://genxproject.github.io/GenX/dev/>`_ and `PLEXOS <https://www.energyexemplar.com/plexos>`_ may not fully capture the dynamic nature of water heads or consolidate multiple hydropower stations into a single unit, PREP-SHOT is uniquely designed to address these oversights.
 
@@ -39,12 +39,12 @@ Key Features
 * By default, it operates on hourly-spaced time steps, but this can be adjusted.
 * The input data is in Excel format, while output data is generated in a NetCDF format using ``Xarray``.
 * It supports multiple types of solvers such as Gurobi, CPLEX, MOSEK, and GLPK via `Pyomo <https://pyomo.readthedocs.io/en/stable/solving_pyomo_models.html>`_.
-* It allows input of multiple scenarios for specific parameters.
+* It allows the input of multiple scenarios for specific parameters.
 * As a pure Python program, it benefits from the use of ``pandas`` and ``Xarray``, simplifying complex data analysis and promoting extensibility.
 
 Offline documentation
 ----------------------
-To browse the documentation offline, you can `download an PDF copy <https://github.com/PREP-NexT/PREP-SHOT/raw/gh-pages/_static/PREP-SHOT.pdf>`_ for offline reading (Synchronize updates with online documentation).
+To browse the documentation offline, you can `download a PDF copy <https://github.com/PREP-NexT/PREP-SHOT/raw/gh-pages/_static/PREP-SHOT.pdf>`_ for offline reading (Synchronize updates with online documentation).
 
 .. toctree::
    :hidden:
