@@ -3,7 +3,8 @@
 Welcome to the PREP-SHOT Documentation
 =======================================
 
-:Authors: `Zhanwei Liu <https://scholar.google.com/citations?user=Zub5y2IAAAAJ>`_ (Mr), <liuzhanwei@u.nus.edu>, `Xiaogang He <http://hydro.iis.u-tokyo.ac.jp/~hexg/>`_ (Dr), <hexg@nus.edu.sg>, `Bo Xu <http://faculty.dlut.edu.cn/xubo12/zh_CN/index.htm>`_ (Dr), <xubo_water@dlut.edu.cn>, `Jingkai Xie <http://null>`_ (Dr), <jingkai@nus.edu.sg>, and `Shuyue Yan <http://null>`_ (Ms), <shuyue.yan@u.nus.edu> 
+:Authors: `Zhanwei Liu <https://scholar.google.com/citations?user=Zub5y2IAAAAJ>` (liuzhanwei@u.nus.edu), `Xiaogang He <http://hydro.iis.u-tokyo.ac.jp/~hexg/>` (hexg@nus.edu.sg)
+:Contributors: `Bo Xu <http://faculty.dlut.edu.cn/xubo12/zh_CN/index.htm>` (xubo_water@dlut.edu.cn), `Jingkai Xie <http://null>` (jingkai@nus.edu.sg), and `Shuyue Yan <http://null>` (shuyue.yan@u.nus.edu) 
 :Organization: `National University of Singapore <https://nus.edu.sg/>`_
 :Version: |release|
 :Date: |today|
