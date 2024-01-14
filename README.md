@@ -14,11 +14,11 @@
 </p>
 
 <p align="center">
-  <a href="#3-model-downloads">Overview</a> |
-  <a href="#2-evaluation-results">Features</a> |
-  <a href="#4-quick-start">Quick Start</a> |
-  <a href="#4-quick-start">Contribute</a> |
-  <a href="#6-citation">Citation</a>
+  <a href="#overview">Overview</a> |
+  <a href="#key-features">Features</a> |
+  <a href="#getting-started">Quick Start</a> |
+  <a href="#how-to-contribute">Contribute</a> |
+  <a href="#citation">Citation</a>
 </p>
 
 ## Overview
