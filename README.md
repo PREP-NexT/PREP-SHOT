@@ -18,6 +18,7 @@
   <a href="#key-features">Features</a> |
   <a href="#getting-started">Quick Start</a> |
   <a href="#how-to-contribute">Contribute</a> |
+  <a href="#roadmap">Roadmap</a> |
   <a href="#citation">Citation</a>
 </p>
 
