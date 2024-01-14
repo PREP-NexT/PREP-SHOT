@@ -11,7 +11,14 @@
   <a href="https://twitter.com/PREPNexT_Lab"><img src="https://img.shields.io/twitter/follow/PREPNexT_Lab.svg?label=Follow&style=social" alt="Twitter Follow"></a>
   <a href="https://github.com/PREP-NexT/PREP-SHOT"><img src="https://img.shields.io/github/license/PREP-NexT/PREP-SHOT.svg" alt="License"></a>
   <a href="https://github.com/PREP-NexT/PREP-SHOT"><img src="https://badges.frapsoft.com/os/v1/open-source.svg?v=103" alt="Download"></a>
+</p>
 
+<p align="center">
+  <a href="#3-model-downloads">Overview</a> |
+  <a href="#2-evaluation-results">Features</a> |
+  <a href="#4-quick-start">Quick Start</a> |
+  <a href="#4-quick-start">Contribute</a> |
+  <a href="#6-citation">Citation</a>
 </p>
 
 ## Overview
