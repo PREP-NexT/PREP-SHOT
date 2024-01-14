@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+<meta property="og:title" content="Installation" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="Installation.html" />
+<meta property="og:site_name" content="PREP-SHOT documentation" />
+<meta property="og:description" content="This page provides instructions on how to install and use PREP-SHOT. The installation process is divided into the following steps: Step 1: Install Gurobi: Gurobi is an optimization solver known for..." />
+<meta name="description" content="This page provides instructions on how to install and use PREP-SHOT. The installation process is divided into the following steps: Step 1: Install Gurobi: Gurobi is an optimization solver known for..." />
+<meta name="description" content="This page provides instructions on how to install and use PREP-SHOT. The installation process is divided into the following steps: Gurobi is an optimization solver known for its speed and efficiency. You can obtain a...">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>(DEV) Installation &mdash; PREP-SHOT (latest) documentation in English</title>
+
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/tabs.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/algolia.css" type="text/css" />
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/custom.css?5" type="text/css" />
+      <link rel="stylesheet" href="_static/css/dev.css" type="text/css" />
+    <link rel="shortcut icon" href="_static/logo.png"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/js/custom.js?3"></script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+        <script defer="defer" src="_static/js/algolia.js"></script>
+    <script src="_static/js/theme.js"></script><meta name="theme-color" content="#3d8fcc">
+  <link rel="alternate" hreflang="en" href="https://docs.godotengine.org/en/stable/Installation.html" />
+  <link rel="alternate" hreflang="de" href="https://docs.godotengine.org/de/stable/Installation.html" />
+  <link rel="alternate" hreflang="es" href="https://docs.godotengine.org/es/stable/Installation.html" />
+  <link rel="alternate" hreflang="fr" href="https://docs.godotengine.org/fr/stable/Installation.html" />
+  <link rel="alternate" hreflang="fi" href="https://docs.godotengine.org/fi/stable/Installation.html" />
+  <link rel="alternate" hreflang="it" href="https://docs.godotengine.org/it/stable/Installation.html" />
+  <link rel="alternate" hreflang="ja" href="https://docs.godotengine.org/ja/stable/Installation.html" />
+  <link rel="alternate" hreflang="ko" href="https://docs.godotengine.org/ko/stable/Installation.html" />
+  <link rel="alternate" hreflang="pl" href="https://docs.godotengine.org/pl/stable/Installation.html" />
+  <link rel="alternate" hreflang="pt-br" href="https://docs.godotengine.org/pt_BR/stable/Installation.html" />
+  <link rel="alternate" hreflang="ru" href="https://docs.godotengine.org/ru/stable/Installation.html" />
+  <link rel="alternate" hreflang="uk" href="https://docs.godotengine.org/uk/stable/Installation.html" />
+  <link rel="alternate" hreflang="zh-cn" href="https://docs.godotengine.org/zh_CN/stable/Installation.html" />
+  <link rel="alternate" hreflang="zh-tw" href="https://docs.godotengine.org/zh_TW/stable/Installation.html" />
+  <link rel="alternate" hreflang="x-default" href="https://docs.godotengine.org/en/stable/Installation.html" />
+
+  <link rel="canonical" href="https://docs.godotengine.org/en/stable/Installation.html" />
+  
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Model Inputs/Outputs" href="Model_input_output.html" />
+    <link rel="prev" title="Welcome to the PREP-SHOT Documentation" href="index.html" />
+<meta name="doc_version" content="latest">
+<meta name="doc_is_latest" content="">
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html">
+            <img src="_static/SVG-03.svg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                latest
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Home</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#step-1-install-gurobi">Step 1: Install Gurobi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-2-install-miniconda">Step 2: Install Miniconda</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-3-download-prep-shot">Step 3: Download PREP-SHOT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-4-create-the-conda-environment">Step 4: Create the Conda Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-5-run-the-model">Step 5: Run the Model</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Model_input_output.html">Model Inputs/Outputs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Model_input_output.html#inputs">Inputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Model_input_output.html#outputs">Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Model_input_output.html#execute-various-scenarios">Execute various scenarios</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Model_input_output.html#setting-global-parameters">Setting global parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial.html">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Tutorial.html#scenario-background">Scenario Background</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Mathematical_notations.html">Mathematical Notations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Mathematical_notations.html#unit-list">Unit List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Mathematical_notations.html#set-list">Set List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Mathematical_notations.html#variable-list">Variable List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Mathematical_notations.html#parameter-list">Parameter List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Mathematical_notations.html#objective-functions">Objective Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#costs">Costs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#factors">Factors</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Mathematical_notations.html#constraints">Constraints</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#retirement">Retirement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#carbon-emission">Carbon Emission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#power-balance">Power Balance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#transmission">Transmission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#power-output">Power Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#power-output-variation">Power output variation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#energy-storage">Energy storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#water-balance">Water balance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#reservoir-outflow">Reservoir outflow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#reservoir-storage">Reservoir storage</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Forum.html">Forum</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Forum.html#github-discussions">GitHub Discussions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Forum.html#private-queries">Private Queries</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-0-1-today">Version 0.1 - Jan 14, 2024</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#contributing-to-prep-shot">Contributing to PREP-SHOT</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="References.html">References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PREP-SHOT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+<li>
+	<div style="font-size: 105%;font-weight: 600;">
+		
+	</div>
+	<ul class="wy-breadcrumbs">
+		
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Installation</li>
+	</ul>
+</li>
+
+
+<li style="float: right; text-align: right;">
+	<ul>
+		
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/PREP-NexT/PREP-SHOT/blob/main/doc/source/Installation.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+	</ul>
+
+	<style>
+		.godot-edit-guidelines {
+			font-size: 14px;
+			float: right;
+			clear: both;
+			padding-top: 4px;
+		}
+
+		@media screen and (max-width: 480px) {
+			.godot-edit-guidelines {
+				display: none;
+			}
+		}
+	</style>
+	<a class="godot-edit-guidelines" href="https://prep-next.github.io/PREP-SHOT/Changelog.html#contributing-to-prep-shot">
+		Learn how to contribute!
+	</a>
+</li>
+
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+<div itemprop="articleBody">
+  
+
+  
+  <section id="installation">
+<span id="id1"></span><h1>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">¶</a></h1>
+<p>This page provides instructions on how to install and use PREP-SHOT. The installation process is divided into the following steps:</p>
+<section id="step-1-install-gurobi">
+<h2>Step 1: Install Gurobi<a class="headerlink" href="#step-1-install-gurobi" title="Permalink to this heading">¶</a></h2>
+<p>Gurobi is an optimization solver known for its speed and efficiency. You can obtain a free academic license by following <a class="reference external" href="https://www.gurobi.com/features/academic-named-user-license/">Gurobi Instructions</a>.</p>
+</section>
+<section id="step-2-install-miniconda">
+<h2>Step 2: Install Miniconda<a class="headerlink" href="#step-2-install-miniconda" title="Permalink to this heading">¶</a></h2>
+<p>Miniconda is a package management tool that helps manage the Python packages required for PREP-SHOT. You can install it by following the official <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">instructions</a>.</p>
+<p>To verify that Miniconda has been installed successfully, you can run the <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">-V</span></code> command to check its version.</p>
+</section>
+<section id="step-3-download-prep-shot">
+<h2>Step 3: Download PREP-SHOT<a class="headerlink" href="#step-3-download-prep-shot" title="Permalink to this heading">¶</a></h2>
+<p>Ensure you have downloaded the PREP-SHOT model from the <a class="reference external" href="https://github.com/PREP-NexT/PREP-SHOT">GitHub repository</a>.</p>
+<p>You may either clone the repository using the command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/PREP-NexT/PREP-SHOT.git
+</pre></div>
+</div>
+<p>or download the repository as a zip file <a class="reference external" href="https://github.com/PREP-NexT/PREP-SHOT/archive/refs/heads/main.zip">here</a>.</p>
+</section>
+<section id="step-4-create-the-conda-environment">
+<h2>Step 4: Create the Conda Environment<a class="headerlink" href="#step-4-create-the-conda-environment" title="Permalink to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">prep-shot.yml</span></code> file contains all the dependencies for the project. You can use it to create a new environment for PREP-SHOT. This environment isolates the project and its dependencies from other Python projects to prevent package conflicts.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>prep-shot.yml
+conda<span class="w"> </span>activate<span class="w"> </span>prep-shot
+</pre></div>
+</div>
+</section>
+<section id="step-5-run-the-model">
+<h2>Step 5: Run the Model<a class="headerlink" href="#step-5-run-the-model" title="Permalink to this heading">¶</a></h2>
+<p>Once the environment is activated, you can run an example with the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>run.py
+</pre></div>
+</div>
+</section>
+</section>
+
+
+</div>
+</div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to the PREP-SHOT Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Model_input_output.html" class="btn btn-neutral float-right" title="Model Inputs/Outputs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Zhanwei Liu and Xiaogang He (CC BY 3.0).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<!-- , "de":"#", "es":"#", "fr":"#" -->
+
+
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Read the Docs</span>
+    <!-- v: latest () -->
+    <!-- v: 0.1 -->
+    latest
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    
+
+    <dl>
+      <dt>Languages</dt>
+      
+        <dd><a href="#">en</a></dd>
+      
+    </dl>
+    <!-- <dl>
+      <dt>Versions</dt>
+      
+        <dd><a href="#">stable</a></dd>
+      
+        <dd><a href="#">latest</a></dd>
+      
+    </dl> -->
+    <dl>
+      
+      <dt>On Read the Docs</dt>
+        <dd>
+          <a href="https://github.com/PREP-NexT/PREP-SHOT/tree/main">Project Home</a>
+        </dd>
+        <!-- <dd>
+          <a href="///projects//builds/">Builds</a>
+        </dd> -->
+        <dd>
+          <a href="https://github.com/PREP-NexT/PREP-SHOT/raw/gh-pages/_static/PREP-SHOT.pdf">PDF</a>
+        </dd>
+    </dl>
+
+    <hr>
+    <small>
+      <span>Hosted by <a href="https://readthedocs.org">Read the Docs</a></span>
+      <span> · </span>
+      <a href="https://docs.readthedocs.io/page/privacy-policy.html">Privacy Policy</a>
+    </small>
+
+    
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
