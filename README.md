@@ -99,11 +99,11 @@ Please use the GitHub Issues for public discussions related to bugs, enhancement
 ## Roadmap
 
 - [x] `Benders` decomposition-based fast solution framework
-- [x] `JuMP`-based low-memory and fast modelling engine
-- [x] Support for input of cost–supply curves of technologies
-- [x] Support for expanding conventional hydropower plants
-- [x] Support for refurbishing conventional hydropower plants to pumped-storage schemes
-- [x] Support for refurbishing carbon-emission plants to carbon capture and storage (CCS) schemes
+- [ ] `JuMP`-based low-memory and fast modelling engine
+- [ ] Support for input of cost–supply curves of technologies
+- [ ] Support for expanding conventional hydropower plants
+- [ ] Support for refurbishing conventional hydropower plants to pumped-storage schemes
+- [ ] Support for refurbishing carbon-emission plants to carbon capture and storage (CCS) schemes
 
 ## Disclaimer
 
