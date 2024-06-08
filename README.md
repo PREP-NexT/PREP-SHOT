@@ -30,6 +30,10 @@ For more information, please visit the [Official Documentation](https://prep-nex
 
 This project is licensed under the [GNU General Public License 3.0](https://github.com/PREP-NexT/PREP-SHOT/blob/main/LICENSE).
 
+## Why the Name?
+
+The clean energy transition is our new moonshot to combat climate change – an ambitious 'shot' yet achievable. We're up to the challenge, which is why we developed PREP-SHOT to prepare us for this long shot.
+
 ## Key Features
 
 - Optimization model based on linear programming for multi-zone energy systems.
