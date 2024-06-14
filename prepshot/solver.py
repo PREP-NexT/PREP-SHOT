@@ -19,7 +19,7 @@ def build_solver(parameters):
 
 
 @log_and_time
-def solve_model_with_hydro(model, solver, parameters):
+def solve_model_with_hydro(model, parameters):
     """
     Solve the model with hydrological constraints.
 
@@ -33,7 +33,7 @@ def solve_model_with_hydro(model, solver, parameters):
     """
     error_threshold = parameters['error_threshold']
     iteration_number = parameters['iteration_number']
-    return run_model_iteration(model, solver, parameters, error_threshold, iteration_number)
+    return run_model_iteration(model, parameters, error_threshold, iteration_number)
 
 
 @log_and_time
@@ -55,7 +55,7 @@ def solve_model_without_hydro(model, solver):
         return False
 
 
-def solve_model(model, solver, parameters):
+def solve_model(model, parameters):
     """
     Solve the model.
 
@@ -68,6 +68,6 @@ def solve_model(model, solver, parameters):
         bool: True if the model is solved, False otherwise.
     """
     if parameters['isinflow']:
-        return solve_model_with_hydro(model, solver, parameters)
+        return solve_model_with_hydro(model, parameters)
     else:
-        return solve_model_without_hydro(model, solver)
+        return solve_model_without_hydro(model)

@@ -75,8 +75,8 @@ def run_model(parameters, output_filename, args):
     """
     model = create_model(parameters)
     output_filename = update_output_filename(output_filename, args)
-    solver = build_solver(parameters)
-    solved = solve_model(model, solver, parameters)
+    # solver = build_solver(parameters)
+    solved = solve_model(model, parameters)
     if solved:
         ds = extract_result(model, isinflow=parameters['isinflow'])
         ds.to_netcdf(f'{output_filename}.nc')

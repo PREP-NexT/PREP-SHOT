@@ -6,6 +6,8 @@ import xarray as xr
 from pyomo.opt import SolverStatus, TerminationCondition
 from scipy import interpolate
 
+import pyoptinterface as poi
+
 def update_output_filename(output_filename, args):
     """
     Update the output filename based on the arguments.
@@ -175,7 +177,7 @@ def compute_error(old_waterhead, new_waterhead):
     return error
 
 
-def process_model_solution(model, solver, stations, year, month, hour, para, old_waterhead, new_waterhead):
+def process_model_solution(model, stations, year, month, hour, para, old_waterhead, new_waterhead):
     """
     Process the solution of the model, updating the water head data.
 
@@ -195,22 +197,25 @@ def process_model_solution(model, solver, stations, year, month, hour, para, old
     """
     idx = pd.IndexSlice
     for s, h, m, y in model.station_hour_month_year_tuples:
-        model.head_para[s, h, m, y] = old_waterhead.loc[s, idx[y, m, h]]
+        efficiency = para['reservoir_characteristics']['coeff', s]
+        model.set_normalized_coefficient(
+            model.output_calc_cons[s, h, m, y], 
+            model.genflow[s, h, m, y], 
+            - efficiency * 1e-3 * old_waterhead.loc[s, idx[y, m, h]]
+        )
 
     # Solve the model and check the solution status.
-    results = solver.solve(model, tee=True)
-    if not (results.solver.status == SolverStatus.ok and results.solver.termination_condition == TerminationCondition.optimal):
+    model.optimize()
+    status = model.get_model_attribute(poi.ModelAttribute.TerminationStatus)
+    if not (status == poi.TerminationStatusCode.OPTIMAL):
         return False
-
-    outflow_values = model.outflow.extract_values()
-    storage_values = model.storage_reservoir.extract_values()
 
     # Iterate over each station to update water head data.
     for stcd in stations:
-        tail = np.array([[[outflow_values[int(stcd), h, m, y] for h in hour] for m in month] for y in year])
-        storage = np.array([[[storage_values[int(stcd), h, m, y] for h in model.hour_p] for m in month] for y in year])
+        outflow = np.array([[[model.get_value(model.outflow[int(stcd), h, m, y]) for h in hour] for m in month] for y in year])
+        storage = np.array([[[model.get_value(model.storage_reservoir[int(stcd), h, m, y]) for h in model.hour_p] for m in month] for y in year])
 
-        tail = interpolate_Z_by_Q_or_S(str(stcd), tail, para['reservoir_tailrace_level_discharge_function'])
+        tail = interpolate_Z_by_Q_or_S(str(stcd), outflow, para['reservoir_tailrace_level_discharge_function'])
         storage = interpolate_Z_by_Q_or_S(str(stcd), storage, para['reservoir_forebay_level_volume_function'])
         
         # Calculate the new water head.
@@ -220,7 +225,7 @@ def process_model_solution(model, solver, stations, year, month, hour, para, old
     return True
 
 
-def run_model_iteration(model, solver, para, error_threshold=0.001, max_iterations=5):
+def run_model_iteration(model, para, error_threshold=0.001, max_iterations=5):
     """
     Run the model iteratively.
 
@@ -243,11 +248,10 @@ def run_model_iteration(model, solver, para, error_threshold=0.001, max_iteratio
     # Variables for iteration.
     error = 1
     errors = []
-
     # Perform water head iteration.
     for iteration in range(1, max_iterations+1):
         alpha = 1 / iteration
-        success = process_model_solution(model, solver, stations, years, months, hours, para, old_waterhead, new_waterhead)
+        success = process_model_solution(model, stations, years, months, hours, para, old_waterhead, new_waterhead)
         if not success:
             return False
 
@@ -303,83 +307,89 @@ def extract_results_non_hydro(model):
     tech = model.tech
 
     # Extract values from model.
-    trans_import_values = model.trans_import.extract_values()
-    trans_export_values = model.trans_export.extract_values()
-    gen_values = model.gen.extract_values()
-    carbon_values = model.carbon.extract_values()
-    cap_existing_values = model.cap_existing.extract_values()
-    cost_var_values = model.cost_var.extract_values()[None]
-    cost_fix_values = model.cost_fix.extract_values()[None]
-    cost_newtech_values = model.cost_newtech.extract_values()[None]
-    cost_newline_values = model.cost_newline.extract_values()[None]
-    income_values = model.income.extract_values()[None]
-    charge_values = model.charge.extract_values()
-    cost_var_breakdown = model.cost_var_breakdown
-    cost_fix_breakdown = model.cost_fix_breakdown
-    cost_newtech_breakdown = model.cost_newtech_breakdown
-    cost_newline_breakdown = model.cost_newline_breakdown
-    carbon_breakdown = model.carbon_breakdown 
+    # trans_import_values = model.trans_import.extract_values()
+    # trans_export_values = model.trans_export.extract_values()
+    # gen_values = model.gen.extract_values()
+    # carbon_values = model.carbon.extract_values()
+    # cap_existing_values = model.cap_existing.extract_values()
+    cost_var_values = model.get_value(model.cost_var)
+    cost_fix_values = model.get_value(model.cost_fix)
+    cost_newtech_values = model.get_value(model.cost_newtech)
+    cost_newline_values = model.get_value(model.cost_newline)
+    income_values = model.get_value(model.income)
+    # charge_values = model.charge.extract_values()
+    # cost_var_breakdown = model.cost_var_breakdown
+    # cost_fix_breakdown = model.cost_fix_breakdown
+    # cost_newtech_breakdown = model.cost_newtech_breakdown
+    # cost_newline_breakdown = model.cost_newline_breakdown
+    # carbon_breakdown = model.carbon_breakdown 
     # print(cost_var_breakdown)
 
     # Create DataArrays for each result set.
     trans_import_v = create_data_array(
-        [[[[[trans_import_values[h, m, y, z1, z2] / 1e6 
+        [[[[[model.get_value(model.trans_import[h, m, y, z1, z2]) / 1e6 
              if (h, m, y, z1, z2) in model.hour_month_year_zone_zone_tuples else np.nan for h in hour] for m in month] 
              for y in year] for z1 in zone] for z2 in zone], 
         ['zone2', 'zone1', 'year', 'month', 'hour'], 
         {'month': month, 'hour': hour, 'year': year, 'zone1': zone, 'zone2': zone}, 'TWh')
 
     trans_export_v = create_data_array(
-        [[[[[trans_export_values[h, m, y, z1, z2] / 1e6
+        [[[[[model.get_value(model.trans_export[h, m, y, z1, z2]) / 1e6
             if (h, m, y, z1, z2) in model.hour_month_year_zone_zone_tuples else np.nan
             for h in hour] for m in month] for y in year] for z2 in zone] for z1 in zone],
         ['zone2', 'zone1', 'year', 'month', 'hour'],
         {'month': month, 'hour': hour, 'year': year, 'zone1': zone, 'zone2': zone}, 'TWh')
 
     gen_v = create_data_array(
-        [[[[[gen_values[h, m, y, z, te] / 1e6 
+        [[[[[model.get_value(model.gen[h, m, y, z, te]) / 1e6 
              for h in hour] for m in month] for y in year] for z in zone] for te in tech], 
         ['tech', 'zone', 'year', 'month', 'hour'], 
         {'month': month, 'hour': hour, 'year': year, 'zone': zone, 'tech': tech}, 'TWh')
 
     install_v = create_data_array(
-        [[[cap_existing_values[y, z, te] for y in year] for z in zone] for te in tech], 
+        [[[model.get_value(model.cap_existing[y, z, te]) for y in year] for z in zone] for te in tech], 
         ['tech', 'zone', 'year'], 
         {'zone': zone, 'tech': tech, 'year': year}, 'MW')
 
     carbon_v = create_data_array(
-        [carbon_values[y] for y in year], 
+        [model.get_value(model.carbon[y]) for y in year], 
         ['year'], 
         {'year': year}, 'Ton')
 
     charge_v = create_data_array(
-        [[[[[charge_values[h, m, y, z, te] for h in hour] for m in month] for y in year] for z in zone] for te in tech], 
+        [[[[[model.get_value(model.charge[h, m, y, z, te]) for h in hour] for m in month] for y in year] for z in zone] for te in tech], 
         ['tech', 'zone', 'year', 'month', 'hour'], 
         {'tech': tech, 'zone': zone, 'year': year, 'month': month, 'hour': hour}, 'MW')
     # year_zone_tech_tuples
     cost_var_breakdown_v = create_data_array(
-        [[[cost_var_breakdown[y, z, te]() for y in year] for z in zone] for te in tech], 
+        [[[model.get_value(model.cost_var_breakdown[y, z, te]) for y in year] for z in zone] for te in tech], 
         ['tech', 'zone', 'year'], 
         {'tech': tech, 'zone': zone, 'year': year}, 'dollar')
     cost_fix_breakdown_v = create_data_array(
-        [[[cost_fix_breakdown[y, z, te]() for y in year] for z in zone] for te in tech],
+        [[[model.get_value(model.cost_fix_breakdown[y, z, te]) for y in year] for z in zone] for te in tech],
         ['tech', 'zone', 'year'],
         {'tech': tech, 'zone': zone, 'year': year}, 'dollar')
     cost_newtech_breakdown_v = create_data_array(
-        [[[cost_newtech_breakdown[y, z, te]() for y in year] for z in zone] for te in tech],
+        [[[model.get_value(model.cost_newtech_breakdown[y, z, te]) for y in year] for z in zone] for te in tech],
         ['tech', 'zone', 'year'],
         {'tech': tech, 'zone': zone, 'year': year}, 'dollar')
     cost_newline_breakdown_v = create_data_array(
-        [[[cost_newline_breakdown[y, z1, z]() if (y, z1, z) in model.year_zone_zone_tuples else np.nan for y in year] for z1 in zone] for z in zone],
+        [[[model.get_value(model.cost_newline_breakdown[y, z1, z]) if (y, z1, z) in model.year_zone_zone_tuples else np.nan for y in year] for z1 in zone] for z in zone],
         ['zone2', 'zone1', 'year'],
         {'zone2': zone, 'zone1': zone, 'year': year}, 'dollar')
     carbon_breakdown_v = create_data_array(
-        [[[carbon_breakdown[y, z, te]() for y in year] for z in zone] for te in tech],
+        [[[model.get_value(model.carbon_breakdown[y, z, te]) for y in year] for z in zone] for te in tech],
         ['tech', 'zone', 'year'],
         {'tech': tech, 'zone': zone, 'year': year}, 'ton')
     
     # Calculate total cost and income and create DataArray for each cost component.
-    cost_v = xr.DataArray(data=cost_var_values + cost_fix_values + cost_newtech_values + cost_newline_values - income_values)
+    cost_v = xr.DataArray(
+        data = cost_var_values 
+        + cost_fix_values 
+        + cost_newtech_values 
+        + cost_newline_values
+        - income_values
+    )
     cost_var_v = xr.DataArray(data=cost_var_values)
     cost_fix_v = xr.DataArray(data=cost_fix_values)
     cost_newtech_v = xr.DataArray(data=cost_newtech_values)
@@ -387,24 +397,26 @@ def extract_results_non_hydro(model):
     income_v = xr.DataArray(data=income_values)
     
     # Combine all DataArrays into a Dataset.
-    ds = xr.Dataset(data_vars={'trans_import': trans_import_v,
-                               'trans_export': trans_export_v,
-                               'gen': gen_v,
-                               'carbon': carbon_v,
-                               'install': install_v,
-                               'carbon': carbon_v,
-                               'cost': cost_v,
-                               'cost_var': cost_var_v,
-                               'cost_var_breakdown': cost_var_breakdown_v,
-                               'cost_fix_breakdown': cost_fix_breakdown_v,
-                               'cost_newtech_breakdown': cost_newtech_breakdown_v,
-                               'cost_newline_breakdown': cost_newline_breakdown_v,
-                               'carbon_breakdown': carbon_breakdown_v,
-                               'cost_fix': cost_fix_v,
-                               'charge': charge_v,
-                               'cost_newtech': cost_newtech_v,
-                               'cost_newline': cost_newline_v,
-                               'income': income_v})
+    ds = xr.Dataset(data_vars={
+        'trans_import': trans_import_v,
+        'trans_export': trans_export_v,
+        'gen': gen_v,
+        'carbon': carbon_v,
+        'install': install_v,
+        'carbon': carbon_v,
+        'cost': cost_v,
+        'cost_var': cost_var_v,
+        'cost_var_breakdown': cost_var_breakdown_v,
+        'cost_fix_breakdown': cost_fix_breakdown_v,
+        'cost_newtech_breakdown': cost_newtech_breakdown_v,
+        'cost_newline_breakdown': cost_newline_breakdown_v,
+        'carbon_breakdown': carbon_breakdown_v,
+        'cost_fix': cost_fix_v,
+        'charge': charge_v,
+        'cost_newtech': cost_newtech_v,
+        'cost_newline': cost_newline_v,
+        'income': income_v
+    })
     return ds
 
 
@@ -422,20 +434,20 @@ def extract_results_hydro(model):
 
     # Extract additional attributes specific to hydro models.
     stations = model.station
-    genflow_values = model.genflow.extract_values()
-    spillflow_values = model.spillflow.extract_values()
+    # genflow_values = model.genflow.extract_values()
+    # spillflow_values = model.spillflow.extract_values()
     hour = model.hour
     month = model.month
     year = model.year
 
     # Create additional DataArrays specific to hydro models.
     genflow_v = create_data_array(
-        [[[[genflow_values[s, h, m, y] for h in hour] for m in month] for y in year] for s in stations], 
+        [[[[model.get_value(model.genflow[s, h, m, y]) for h in hour] for m in month] for y in year] for s in stations], 
         ['station', 'year', 'month', 'hour'], 
         {'station': stations, 'year': year, 'month': month, 'hour': hour}, 'm**3s**-1')
     
     spillflow_v = create_data_array(
-        [[[[spillflow_values[s, h, m, y] for h in hour] for m in month] for y in year] for s in stations], 
+        [[[[model.get_value(model.spillflow[s, h, m, y]) for h in hour] for m in month] for y in year] for s in stations], 
         ['station', 'year', 'month', 'hour'], 
         {'station': stations, 'year': year, 'month': month, 'hour': hour}, 'm**3s**-1')
 
