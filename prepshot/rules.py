@@ -205,7 +205,7 @@ class RuleContainer:
             pyomo.core.base.PyomoModel.ConcreteModel: Model with transmission capacity constraints.
         """
         Year = self.para['year']
-        remaining_capacity_line = self.para['transmission_line_investment_cost'][z, z1]
+        remaining_capacity_line = self.para['transmission_line_existing_capacity'][z, z1]
         new_capacity_line = sum(model.cap_newline[yy, z, z1] for yy in Year[:Year.index(y) + 1])
         return model.cap_lines_existing[y, z, z1] == remaining_capacity_line + new_capacity_line
 
