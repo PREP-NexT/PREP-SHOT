@@ -58,3 +58,10 @@ To browse the documentation offline, you can `download a PDF copy <https://githu
    Forum
    Changelog
    References
+   api/prepshot
+
+Indices and tables
+==================
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
