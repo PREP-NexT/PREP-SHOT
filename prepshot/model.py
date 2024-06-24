@@ -1,56 +1,100 @@
-from pyomo.environ import Constraint, NonNegativeReals, Objective, Var, ConcreteModel, Set, Reals, Suffix, minimize, Param, Expression
+""" 
+This module defines the PREP-SHOT model. The model is created using 
+the pyoptinterface library.
+"""
+from itertools import product
+import pyoptinterface as poi
+from pyoptinterface import mosek
+from pyoptinterface import gurobi
+from pyoptinterface import highs
+from pyoptinterface import copt
 from prepshot.rules import RuleContainer
 
-import pyoptinterface as poi
-from pyoptinterface import gurobi
-from itertools import product
+def define_model(para):
+    """This function defines the model using the pyoptinterface library.
 
-def define_model():
-    model = gurobi.Model()
+    Parameters
+    ----------
+    para : dict
+        parameters for the model
+
+    Returns
+    -------
+    pyoptinterface._src.mosek.Model
+        A pyoptinterface Model object
+
+    Raises
+    ------
+    ValueError
+        Unsupported solver
+    """
+    solver_map = {
+        'mosek': mosek,
+        'gurobi': gurobi,
+        'highs': highs,
+        'copt': copt
+    }
+
+    solver = para.get('solver')
+    if solver in solver_map:
+        poi_solver = solver_map[solver]
+    else:
+        raise ValueError(f"Unsupported solver: {solver}")
+
+    model = poi_solver.Model()
     return model
 
-
 def define_sets(model, para):
-    """
-    Define sets for the model.
+    """Define sets for the model.
 
-    Args:
-        model (pyomo.core.base.PyomoModel.ConcreteModel): Model to be solved.
-        para (dict): Dictionary of parameters for the model.
+    Parameters
+    ----------
+    model : pyoptinterface._src.mosek.Model
+        Model to be solved.
+    para : dict
+        Dictionary of parameters for the model.
 
-    Returns:
-        None
+    Returns
+    -------
+    None
     """
     basic_sets = ["year", "zone", "tech", "hour", "month"]
     tech_types = ["storage", "nondispatchable", "dispatchable", "hydro"]
-    
+
     model.tech_types = tech_types
     for set_name in basic_sets:
         setattr(model, set_name, para[set_name])
     model.hour_p = [0] + para['hour']
-
+    tech_category = para['technology_type']
+    # tech_category: {
+    #    'Coal': 'dispatchable',
+    #    'Solar': 'nondispatchable',
+    #    ...
+    # }
     for tech_type in tech_types:
-        # tech_types: {'Coal': 'dispatchable', 'Solar': 'nondispatchable', ...}
-        tech_types = para['technology_type'] 
-        tech_set = [k for k, v in tech_types.items() if v == tech_type]
+        tech_set = [k for k, v in tech_category.items() if v == tech_type]
         setattr(model, f"{tech_type}_tech", tech_set)
-
     if para['isinflow']:
         model.station = para['stcd']
 
 def create_tuples(model, para):
-    """
-    Create tuples for the model. 
+    """Create tuples for the model. 
 
-    Note: The existing capacity between two zones is set to empty (i.e., No value is filled in the Excel cell), which means that these two 
-    zones cannot have newly built transmission lines. If you want to enable two zones which do not have any existing transmission lines, 
-    to build new transmission lines in the planning horizon, you need to set their capacity as zero explicitly.
+    Note: The existing capacity between two zones is set to empty 
+    (i.e., No value is filled in the Excel cell), which means that these two 
+    zones cannot have newly built transmission lines. If you want to enable 
+    two zones which do not have any existing transmission lines, 
+    to build new transmission lines in the planning horizon, you need to set 
+    their capacity as zero explicitly.
 
-    Args:
-        model (pyomo.core.base.PyomoModel.ConcreteModel): Model to be solved.
+    Parameters
+    ----------
+    model : pyoptinterface._src.mosek.Model
+        Model to be solved.
 
-    Returns:
-        None
+    Returns
+    -------
+    None
     """
     def cartesian_product(*args):
         # [1, 2], [7, 8] -> [(1, 7), (1, 8), (2, 7), (2, 8)]
@@ -63,7 +107,7 @@ def create_tuples(model, para):
     te = model.tech
     st = model.storage_tech
     nd = model.nondispatchable_tech
-    
+
     model.hour_month_year_tuples = cartesian_product(h, m, y)
     model.hour_month_tuples = cartesian_product(h, m)
     model.hour_month_year_zone_storage_tuples = \
@@ -74,12 +118,12 @@ def create_tuples(model, para):
     model.hour_month_year_zone_tuples = cartesian_product(h, m, y, z)
     trans_sets = para['transmission_line_existing_capacity'].keys()
     model.year_zone_zone_tuples = [
-        (y_i, z_i, z1_i) for y_i, z_i, z1_i in cartesian_product(y, z, z) 
+        (y_i, z_i, z1_i) for y_i, z_i, z1_i in cartesian_product(y, z, z)
         if (z_i, z1_i) in trans_sets
     ]
     model.hour_month_year_zone_zone_tuples = [
-        (h_i, m_i, y_i, z_i, z1_i) 
-        for h_i, m_i, y_i, z_i, z1_i in cartesian_product(h, m, y, z, z) 
+        (h_i, m_i, y_i, z_i, z1_i)
+        for h_i, m_i, y_i, z_i, z1_i in cartesian_product(h, m, y, z, z)
         if (z_i, z1_i) in trans_sets
     ]
     model.hour_month_tech_tuples = cartesian_product(h, m, te)
@@ -99,21 +143,16 @@ def create_tuples(model, para):
         model.station_hour_month_year_tuples = cartesian_product(s, h, m, y)
         model.station_hour_p_month_year_tuples = cartesian_product(s, hp, m, y)
         model.station_month_year_tuples = cartesian_product(s, m, y)
-        # model.head_para = Param(
-        #     model.station_hour_month_year_tuples, mutable=True
-        # )
-
 
 def define_variables(model, para):
-    """
-    Define variables for the model.
+    """Define variables for the model.
 
-    Args:
-        model (pyomo.core.base.PyomoModel.ConcreteModel): Model to be solved.
-        para (dict): Dictionary of parameters for the model.
-
-    Returns:
-        None
+    Parameters
+    ----------
+    model : pyoptinterface._src.mosek.Model
+        Model to be solved.
+    para : dict
+        Dictionary of parameters for the model.
     """
     model.cost = model.add_variable(lb=0)
     model.cost_var = model.add_variable(lb=0)
@@ -176,15 +215,17 @@ def define_variables(model, para):
 
 
 def define_constraints(model, para):
-    """
-    Define constraints for the model.
-
-    Args:
-        model (pyomo.core.base.PyomoModel.ConcreteModel): Model to be solved.
-        para (dict): Dictionary of parameters for the model.
+    """Define constraints for the model.
+    
+    Parameters
+    ----------
+    model : pyoptinterface._src.mosek.Model
+        Model to be solved.
+    para : dict
+        Dictionary of parameters for the model.
 
     Returns:
-        None
+    None
     """
     rules = RuleContainer(para, model)
 
@@ -247,109 +288,119 @@ def define_constraints(model, para):
 
     if model.nondispatchable_tech != 0:
         model.renew_gen_cons = poi.make_tupledict(
-            model.hour_month_year_zone_nondispatchable_tuples, 
+            model.hour_month_year_zone_nondispatchable_tuples,
             rule=rules.renew_gen_rule
         )
 
     if model.storage_tech != 0:
         model.energy_storage_balance_cons = poi.make_tupledict(
-            model.hour_month_year_zone_storage_tuples, 
+            model.hour_month_year_zone_storage_tuples,
             rule=rules.energy_storage_balance_rule
         )
         model.init_energy_storage_cons = poi.make_tupledict(
-            model.month_year_zone_storage_tuples, 
+            model.month_year_zone_storage_tuples,
             rule=rules.init_energy_storage_rule
         )
         model.end_energy_storage_cons = poi.make_tupledict(
-            model.month_year_zone_storage_tuples, 
+            model.month_year_zone_storage_tuples,
             rule=rules.end_energy_storage_rule
         )
         model.energy_storage_up_bound_cons = poi.make_tupledict(
-            model.hour_month_year_zone_storage_tuples, 
+            model.hour_month_year_zone_storage_tuples,
             rule=rules.energy_storage_up_bound_rule
         )
         model.energy_storage_gen_cons = poi.make_tupledict(
-            model.hour_month_year_zone_storage_tuples, 
+            model.hour_month_year_zone_storage_tuples,
             rule=rules.energy_storage_gen_rule
         )
 
     if para['isinflow']:
         model.natural_inflow_cons = poi.make_tupledict(
-            model.station_hour_month_year_tuples, 
+            model.station_hour_month_year_tuples,
             rule=rules.natural_inflow_rule
         )
         model.total_inflow_cons = poi.make_tupledict(
-            model.station_hour_month_year_tuples, 
+            model.station_hour_month_year_tuples,
             rule=rules.total_inflow_rule
         )
         model.water_balance_cons = poi.make_tupledict(
-            model.station_hour_month_year_tuples, 
+            model.station_hour_month_year_tuples,
             rule=rules.water_balance_rule
         )
         model.discharge_cons = poi.make_tupledict(
-            model.station_hour_month_year_tuples, 
+            model.station_hour_month_year_tuples,
             rule=rules.discharge_rule
         )
         model.outflow_low_bound_cons = poi.make_tupledict(
-            model.station_hour_month_year_tuples, 
+            model.station_hour_month_year_tuples,
             rule=rules.outflow_low_bound_rule
         )
         model.outflow_up_bound_cons = poi.make_tupledict(
-            model.station_hour_month_year_tuples, 
+            model.station_hour_month_year_tuples,
             rule=rules.outflow_up_bound_rule
         )
         model.storage_low_bound_cons = poi.make_tupledict(
-            model.station_hour_month_year_tuples, 
+            model.station_hour_month_year_tuples,
             rule=rules.storage_low_bound_rule
         )
         model.storage_up_bound_cons = poi.make_tupledict(
-            model.station_hour_month_year_tuples, 
+            model.station_hour_month_year_tuples,
             rule=rules.storage_up_bound_rule
         )
         model.output_low_bound_cons = poi.make_tupledict(
-            model.station_hour_month_year_tuples, 
+            model.station_hour_month_year_tuples,
             rule=rules.output_low_bound_rule
         )
         model.output_up_bound_cons = poi.make_tupledict(
-            model.station_hour_month_year_tuples, 
+            model.station_hour_month_year_tuples,
             rule=rules.output_up_bound_rule
         )
         model.output_calc_cons = poi.make_tupledict(
-            model.station_hour_month_year_tuples, 
+            model.station_hour_month_year_tuples,
             rule=rules.output_calc_rule
         )
         model.init_storage_cons = poi.make_tupledict(
-            model.station_month_year_tuples, 
+            model.station_month_year_tuples,
             rule=rules.init_storage_rule
         )
         model.end_storage_cons = poi.make_tupledict(
-            model.station_month_year_tuples, 
+            model.station_month_year_tuples,
             rule=rules.end_storage_rule
         )
         model.income_cons = rules.income_rule()
-    def Expression(*args, rule):
-        if len(args) == 0:
-            return rule()
-        return poi.make_tupledict(*args, rule=rule)
+
     # define expression for breakdown output
-    model.cost_var_breakdown = Expression(model.year_zone_tech_tuples, rule=rules._cost_var_breakdown)
-    model.cost_fix_breakdown = Expression(model.year_zone_tech_tuples, rule=rules._cost_fix_breakdown)
-    model.cost_newtech_breakdown = Expression(model.year_zone_tech_tuples, rule=rules._cost_newtech_breakdown)
-    model.cost_newline_breakdown = Expression(model.year_zone_zone_tuples, rule=rules._cost_newline_breakdown)
-    model.carbon_breakdown = Expression(model.year_zone_tech_tuples, rule=rules._carbon_breakdown)
+    model.cost_var_breakdown = poi.make_tupledict(
+        model.year_zone_tech_tuples, rule=rules.cost_var_breakdown_ep
+    )
+    model.cost_fix_breakdown = poi.make_tupledict(
+        model.year_zone_tech_tuples, rule=rules.cost_fix_breakdown_ep
+    )
+    model.cost_newtech_breakdown = poi.make_tupledict(
+        model.year_zone_tech_tuples, rule=rules.cost_newtech_breakdown_ep
+    )
+    model.cost_newline_breakdown = poi.make_tupledict(
+        model.year_zone_zone_tuples, rule=rules.cost_newline_breakdown_ep
+    )
+    model.carbon_breakdown = poi.make_tupledict(
+        model.year_zone_tech_tuples, rule=rules.carbon_breakdown_ep
+    )
 
 def create_model(para):
-    """
-    Create the PREP-SHOT model.
+    """Create the PREP-SHOT model.
 
-    Args:
-        para (dict): Dictionary of parameters for the model.
+    Parameters
+    ----------
+    para : dict
+        Dictionary of parameters for the model.
 
-    Returns:
-        pyomo.core.base.PyomoModel.ConcreteModel: A pyomo ConcreateModel object.
+    Returns
+    -------
+    pyoptinterface._src.mosek.Model
+        A pyoptinterface Model object.
     """
     # Define a pyomo ConcreteModel object.
-    model = define_model()
+    model = define_model(para)
 
     # Define sets for the model.
     define_sets(model, para)
