@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 """  
 This module contains the class RuleContainer which is used to define the rules 
 """
@@ -203,6 +206,8 @@ class RuleContainer:
         """
         model = self.model
         limit = self.para['carbon_emission_limit']
+        if limit[y] == np.Inf:
+            return None
         lhs = model.carbon[y] - limit[y]
         return model.add_linear_constraint(lhs, poi.Leq, 0)
 

@@ -1,4 +1,7 @@
-""" 
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+"""
 This module contains utility functions for the model.
 """
 import datetime
@@ -294,12 +297,14 @@ def process_model_solution(
             - efficiency * 1e-3 * old_waterhead.loc[s, idx[y, m, h]]
         )
     # Solve the model and check the solution status.
-    model.set_model_attribute(poi.ModelAttribute.Silent, True)
+    model.set_model_attribute(poi.ModelAttribute.Silent, False)
     model.optimize() # add log into log file
     status = model.get_model_attribute(poi.ModelAttribute.TerminationStatus)
-    if not (status == poi.TerminationStatusCode.OPTIMAL):
+    if status != poi.TerminationStatusCode.OPTIMAL:
         return False
-
+    if para['fixed_head']:
+        # If fixed head is True, do not update water head.
+        return True
     # Iterate over each station to update water head data.
     for stcd in stations:
         outflow = np.array([[
@@ -350,6 +355,12 @@ def run_model_iteration(
         'Starting iteration recorded at %s.', 
         datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     )
+    
+    if para['fixed_head'] and max_iterations > 1:
+        logging.warning(
+            "Fixed head is set to True. Maximum iteration is set to 1."
+        )
+        max_iterations = 1
 
     # Initialize water head.
     stations, years, months, hours =                                          \
@@ -562,7 +573,7 @@ def extract_results_non_hydro(model):
         ['tech', 'zone', 'year'],
         {'tech': tech, 'zone': zone, 'year': year}, 'ton')
 
-    # Calculate total cost and income and create DataArray for each cost 
+    # Calculate total cost and income and create DataArray for each cost
     # component.
     cost_v = xr.DataArray(
         data = cost_var_values
@@ -576,7 +587,7 @@ def extract_results_non_hydro(model):
     cost_newtech_v = xr.DataArray(data=cost_newtech_values)
     cost_newline_v = xr.DataArray(data=cost_newline_values)
     income_v = xr.DataArray(data=income_values)
-    
+
     # Combine all DataArrays into a Dataset.
     ds = xr.Dataset(data_vars={
         'trans_import': trans_import_v,

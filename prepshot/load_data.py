@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 """ 
 This module contains functions for loading data from json and xlsx files.
 """
@@ -35,27 +38,30 @@ def get_required_config_data(config_data):
         Dictionary containing required data from the loaded 
         configuration data.
     """
-    # Extract data from configuration file.
+    # Extract general parameters and solver parameters from configuration file.
     hour = int(config_data['general_parameters']['hour'])
     month = int(config_data['general_parameters']['month'])
     dt = int(config_data['general_parameters']['dt'])
     hours_in_year = int(config_data['general_parameters']['hours_in_year'])
     price = float(config_data['general_parameters']['price'])
     includes_hydrological_constraints =                                       \
-        config_data['hydro_parameters']['isinflow']
-    error_threshold = float(config_data['hydro_parameters']['error_threshold'])
-    iteration_number = int(config_data['hydro_parameters']['iteration_number'])
-    solver = str(config_data['solver_parameters']['solver'])
-    timelimit = str(config_data['solver_parameters']['timelimit'])
+        config_data['general_parameters']['isinflow']
+    is_calc_head_error = config_data['general_parameters']['fixed_head']
+    error_threshold = float(
+        config_data['general_parameters']['error_threshold']
+    )
+    iteration_number = int(
+        config_data['general_parameters']['iteration_number']
+    )
 
     # Create dictionary containing required data from configuration file.
     required_config_data = {
         'dt': dt,
         'price': price,
         'weight': (month * hour * dt) / hours_in_year,
-        'solver': solver,
-        'timelimit': timelimit,
+        'solver': config_data['solver_parameters'],
         'isinflow': includes_hydrological_constraints,
+        'fixed_head': is_calc_head_error,
         'error_threshold': error_threshold,
         'iteration_number': iteration_number
     }
@@ -80,17 +86,21 @@ def load_input_params(input_filepath, params_data, para):
     None
     """
     # Load input data into parameters dictionary.
-    for key, value in params_data.items():
-        filename = path.join(input_filepath, f"{value['file_name']}.xlsx")
-        para[key] = read_data(
-            filename,
-            value["index_cols"],
-            value["header_rows"],
-            value["unstack_levels"],
-            value["first_col_only"],
-            value["drop_na"]
-        )
-
+    try:
+        for key, value in params_data.items():
+            filename = path.join(input_filepath, f"{value['file_name']}.xlsx")
+            para[key] = read_data(
+                filename,
+                value["index_cols"],
+                value["header_rows"],
+                value["unstack_levels"],
+                value["first_col_only"],
+                value["drop_na"]
+            )
+    except IndexError as e:
+        # print exception tracks
+        print(e)
+        print(f"Error in loading {value['file_name']} data")
 
 def get_attr(para):
     """

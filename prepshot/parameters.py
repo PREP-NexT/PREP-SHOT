@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 """ 
 This module contains functions to parse parameters from command line. 
 """

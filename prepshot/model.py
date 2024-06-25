@@ -1,7 +1,11 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 """ 
 This module defines the PREP-SHOT model. The model is created using 
 the pyoptinterface library.
 """
+import logging
 from itertools import product
 import pyoptinterface as poi
 from pyoptinterface import mosek
@@ -9,6 +13,7 @@ from pyoptinterface import gurobi
 from pyoptinterface import highs
 from pyoptinterface import copt
 from prepshot.rules import RuleContainer
+from prepshot.logs import timer
 
 def define_model(para):
     """This function defines the model using the pyoptinterface library.
@@ -35,16 +40,32 @@ def define_model(para):
         'copt': copt
     }
 
-    solver = para.get('solver')
+    solver = para['solver']['solver']
     if solver in solver_map:
         poi_solver = solver_map[solver]
     else:
         raise ValueError(f"Unsupported solver: {solver}")
+    if not poi_solver.autoload_library():
+        logging.warning(
+            "%s library failed to load automatically." 
+            + "Attempting to load manually.", solver
+        )
+        if not poi_solver.load_library(para['solver']['solver_path']):
+            raise ValueError(f"Failed to load {solver} library.")
+        logging.info("Loaded %s library manually.", solver)
+    else:
+        logging.info("Loaded %s library automatically.", solver)
 
     model = poi_solver.Model()
+
+    # set the value of the solver-specific parameters
+    for key, value in para['solver'].items():
+        if key not in ('solver', 'solver_path'):
+            model.set_raw_parameter(key, value)
+
     return model
 
-def define_sets(model, para):
+def define_basic_sets(model, para):
     """Define sets for the model.
 
     Parameters
@@ -77,9 +98,8 @@ def define_sets(model, para):
     if para['isinflow']:
         model.station = para['stcd']
 
-def create_tuples(model, para):
-    """Create tuples for the model. 
-
+def define_complex_sets(model, para):
+    """Create complex sets based on simple sets and some conditations.
     Note: The existing capacity between two zones is set to empty 
     (i.e., No value is filled in the Excel cell), which means that these two 
     zones cannot have newly built transmission lines. If you want to enable 
@@ -386,6 +406,7 @@ def define_constraints(model, para):
         model.year_zone_tech_tuples, rule=rules.carbon_breakdown_ep
     )
 
+@timer
 def create_model(para):
     """Create the PREP-SHOT model.
 
@@ -399,24 +420,15 @@ def create_model(para):
     pyoptinterface._src.mosek.Model
         A pyoptinterface Model object.
     """
-    # Define a pyomo ConcreteModel object.
+    # Define a model according to the given solver.
     model = define_model(para)
-
-    # Define sets for the model.
-    define_sets(model, para)
-
-    # Create tuples for the model.
-    create_tuples(model, para)
-
-    # Define variables for the model.
+    define_basic_sets(model, para)
+    define_complex_sets(model, para)
     define_variables(model, para)
-
+    # Define objective function for the model.
     obj = poi.ExprBuilder()
     obj += model.cost
-    # Define objective function for the model.
     model.set_objective(obj, sense=poi.ObjectiveSense.Minimize)
-
-    # Define constraints for the model.
     define_constraints(model, para)
 
     return model
