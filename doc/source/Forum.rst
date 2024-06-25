@@ -1,7 +1,7 @@
 .. _Forum:
 
-Forum
-=====
+Discussion
+==========
 
 We encourage our community to actively participate and engage in discussions. The diverse perspectives and feedback from our users are valuable to us and will help us improve the model and its documentation.
 

@@ -50,15 +50,16 @@ To browse the documentation offline, you can `download a PDF copy <https://githu
    :hidden:
    :maxdepth: 2
 
-   Home <self>
+   Overview <self>
    Installation
    Model_input_output
    Tutorial
    Mathematical_notations
    Forum
+   Contribution
    Changelog
-   References
    api/prepshot
+   References
 
 Indices and tables
 ==================
