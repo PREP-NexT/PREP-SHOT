@@ -49,10 +49,11 @@ class RuleContainer:
         model = self.model
         if self.para['isinflow']:
             coef = 3600 * self.para['dt'] * self.para['price']
-            lhs = model.income - poi.quicksum(
+            lhs = poi.quicksum(
                 model.withdraw[s, h, m, y] * coef
                 for s, h, m, y in model.station_hour_month_year_tuples
             )
+            lhs -= model.income
             return model.add_linear_constraint(lhs, poi.Eq, 0)
 
         return model.add_linear_constraint(model.income, poi.Eq, 0)
@@ -88,8 +89,10 @@ class RuleContainer:
             lvc[z, z1] * model.trans_export[h, m, y, z, z1] * dt * vf[y]
             for h, m, y, z, z1 in model.hour_month_year_zone_zone_tuples
         )
-        lhs = model.cost_var - (var_om_tech_cost + fuel_cost
-            + var_om_line_cost)
+        lhs = poi.ExprBuilder(model.cost_var)
+        lhs -= var_om_tech_cost
+        lhs -= fuel_cost
+        lhs -= var_om_line_cost
         return model.add_linear_constraint(lhs, poi.Eq, 0)
 
     def newtech_cost_rule(self):
@@ -103,10 +106,11 @@ class RuleContainer:
         model = self.model
         tic = self.para['technology_investment_cost']
         ivf = self.para['inv_factor']
-        lhs = model.cost_newtech - poi.quicksum(
+        lhs = poi.quicksum(
             tic[te, y] * model.cap_newtech[y, z, te] * ivf[te, y]
             for y, z, te in model.year_zone_tech_tuples
         )
+        lhs -= model.cost_newtech
         return model.add_linear_constraint(lhs, poi.Eq, 0)
 
 
@@ -122,10 +126,12 @@ class RuleContainer:
         lc = self.para['transmission_line_existing_capacity']
         d = self.para['distance']
         ivf = self.para['trans_inv_factor']
-        lhs = model.cost_newline - 0.5 * poi.quicksum(
+        lhs = poi.quicksum(
             lc[z, z1] * model.cap_newline[y, z, z1] * d[z, z1] * ivf[y]
             for y, z, z1 in model.year_zone_zone_tuples
         )
+        lhs *= 0.5
+        lhs -= model.cost_newline
         return model.add_linear_constraint(lhs, poi.Eq, 0)
 
 
@@ -141,7 +147,7 @@ class RuleContainer:
         fc = self.para['technology_fixed_OM_cost']
         ff = self.para['fix_factor']
         lfc = self.para['transmission_line_fixed_OM_cost']
-        
+
         fix_cost_tech = poi.quicksum(
             fc[te, y] * model.cap_existing[y, z, te] * ff[y]
             for y, z, te in model.year_zone_tech_tuples
@@ -150,7 +156,9 @@ class RuleContainer:
             lfc[z, z1] * model.cap_lines_existing[y, z, z1] * ff[y]
             for y, z1, z in model.year_zone_zone_tuples
         )
-        lhs = model.cost_fix - (fix_cost_tech + fix_cost_line)
+        lhs = poi.ExprBuilder(model.cost_fix)
+        lhs -= fix_cost_tech
+        lhs -= fix_cost_line
         return model.add_linear_constraint(lhs, poi.Eq, 0)
 
     def remaining_capacity_rule(self, y, z, te):
@@ -185,9 +193,9 @@ class RuleContainer:
             for yy in year[:year.index(y) + 1]
             if y - yy < lt[te, y]
         )
-        lhs = model.cap_existing[y, z, te] - (
-            model.remaining_technology[y, z, te] + new_tech
-        )
+        lhs = new_tech
+        lhs += model.remaining_technology[y, z, te]
+        lhs -= model.cap_existing[y, z, te]
         return model.add_linear_constraint(lhs, poi.Eq, 0)
 
 
@@ -227,10 +235,11 @@ class RuleContainer:
             Constraint index of the model.
         """
         model = self.model
-        lhs = model.carbon[y] - poi.quicksum(
+        lhs = poi.quicksum(
             model.carbon_capacity[y, z]
             for z in model.zone
         )
+        lhs -= model.carbon[y]
         return model.add_linear_constraint(lhs, poi.Eq, 0)
 
 
@@ -252,10 +261,11 @@ class RuleContainer:
         model = self.model
         ef = self.para['emission_factor']
         dt = self.para['dt']
-        lhs = model.carbon_capacity[y, z] - poi.quicksum(
+        lhs = poi.quicksum(
             ef[te, y] * model.gen[h, m, y, z, te] * dt
             for h, m, te in model.hour_month_tech_tuples
         )
+        lhs -= model.carbon_capacity[y, z]
         return model.add_linear_constraint(lhs, poi.Eq, 0)
 
 
@@ -353,8 +363,9 @@ class RuleContainer:
         new_capacity_line = poi.quicksum(
             model.cap_newline[yy, z, z1] for yy in year[:year.index(y) + 1]
         )
-        lhs = model.cap_lines_existing[y, z, z1] - \
-            (remaining_capacity_line + new_capacity_line)
+        lhs = new_capacity_line
+        lhs += remaining_capacity_line
+        lhs -= model.cap_lines_existing[y, z, z1]
         return model.add_linear_constraint(lhs, poi.Eq, 0)
 
 
@@ -575,9 +586,10 @@ class RuleContainer:
         if remaining_time <= 0:
             lhs = model.remaining_technology[y, z, te]
         else:
-            lhs = rt - poi.quicksum(
+            lhs = poi.quicksum(
                 hcap[z, te, a] for a in range(0, remaining_time)
             )
+            lhs -= rt
         return model.add_linear_constraint(lhs, poi.Eq, 0)
 
 
@@ -607,8 +619,8 @@ class RuleContainer:
         dt = self.para['dt']
         ce = self.para['charge_efficiency'][te, y]
         lhs = model.storage[h, m, y, z, te] - (
-            model.storage[h-1, m, y, z, te] 
-            - model.gen[h, m, y, z, te] * de * dt 
+            model.storage[h-1, m, y, z, te]
+            - model.gen[h, m, y, z, te] * de * dt
             + model.charge[h, m, y, z, te] * ce * dt
         )
         return model.add_linear_constraint(lhs, poi.Eq, 0)
@@ -637,7 +649,7 @@ class RuleContainer:
         esl = self.para['initial_energy_storage_level'][te, z]
         epr = self.para['energy_to_power_ratio'][te]
         lhs = (
-            model.storage[0, m, y, z, te] 
+            model.storage[0, m, y, z, te]
             - esl * model.cap_existing[y, z, te] * epr
         )
         return model.add_linear_constraint(lhs, poi.Eq, 0)
@@ -665,7 +677,7 @@ class RuleContainer:
         model = self.model
         h_init = self.para['hour'][-1]
         lhs = (
-            model.storage[h_init, m, y, z, te] 
+            model.storage[h_init, m, y, z, te]
             - model.storage[0, m, y, z, te]
         )
         return model.add_linear_constraint(lhs, poi.Eq, 0)
@@ -695,7 +707,7 @@ class RuleContainer:
         model = self.model
         epr = self.para['energy_to_power_ratio'][te]
         lhs = (
-            model.storage[h, m, y, z, te] 
+            model.storage[h, m, y, z, te]
             - model.cap_existing[y, z, te] * epr
         )
         return model.add_linear_constraint(lhs, poi.Leq, 0)
@@ -788,7 +800,7 @@ class RuleContainer:
         rd = self.para['ramp_down'][te] * self.para['dt']
         if h > 1 and  rd < 1:
             lhs = (
-                model.gen[h-1, m, y, z, te] - model.gen[h, m, y, z, te] 
+                model.gen[h-1, m, y, z, te] - model.gen[h, m, y, z, te]
                 - rd * model.cap_existing[y, z, te]
             )
             return model.add_linear_constraint(lhs, poi.Leq, 0)
@@ -844,7 +856,7 @@ class RuleContainer:
         hour = self.para['hour']
         wdt = self.para['water_delay_time']
         dt = self.para['dt']
-        up_stream_outflow = 0
+        up_stream_outflow = poi.ExprBuilder()
         for ups, delay in zip(
             wdt[wdt['NEXTPOWER_ID'] == s].POWER_ID,
             wdt[wdt['NEXTPOWER_ID'] == s].delay
@@ -855,9 +867,9 @@ class RuleContainer:
             else:
                 t = hour[-1] - delay + h
             up_stream_outflow += model.outflow[ups, t, m, y]
-        lhs = (model.inflow[s, h, m, y] - 
-            (model.naturalinflow[s, h, m, y] + up_stream_outflow)
-        )
+        lhs = up_stream_outflow
+        lhs += model.naturalinflow[s, h, m, y]
+        lhs -= model.inflow[s, h, m, y]
         return model.add_linear_constraint(lhs, poi.Eq, 0)
 
 
@@ -1176,10 +1188,11 @@ class RuleContainer:
             return None
         if self.para['isinflow']:
             hydro_output = poi.quicksum(
-                model.output[s, h, m, y] * self.para['dt'] 
+                model.output[s, h, m, y] * self.para['dt']
                 for s in model.station if res_char['zone', s] == z
             )
-            lhs = model.gen[h, m, y, z, hydro_type[0]] - hydro_output
+            lhs = hydro_output
+            lhs -= model.gen[h, m, y, z, hydro_type[0]]
         else:
             lhs = (model.gen[h, m, y, z, hydro_type[0]]
                 - predifined_hydro['Hydro', z, y, m, h] * dt
@@ -1207,8 +1220,7 @@ class RuleContainer:
         tvc = self.para['technology_variable_OM_cost'][te, y]
         dt = self.para['dt']
         vf = self.para['var_factor'][y]
-        cost_var_breakdown = poi.ExprBuilder()
-        cost_var_breakdown += poi.quicksum(
+        cost_var_breakdown = poi.quicksum(
             tvc * model.gen[h, m, y, z, te] * dt * vf
             for h, m in model.hour_month_tuples
         )
@@ -1261,7 +1273,7 @@ class RuleContainer:
         cost_newtech_breakdown = poi.ExprBuilder()
         cost_newtech_breakdown += tic * model.cap_newtech[y, z, te] * ivf
         return cost_newtech_breakdown
-    
+
     def cost_newline_breakdown_ep(self, y, z, z1):
         """New transmission line investment cost breakdown.
 
@@ -1305,8 +1317,7 @@ class RuleContainer:
         model = self.model
         ef = self.para['emission_factor'][te, y]
         dt = self.para['dt']
-        carbon_breakdown = poi.ExprBuilder()
-        carbon_breakdown += poi.quicksum(
+        carbon_breakdown = poi.quicksum(
             ef * model.gen[h, m, y, z, te] * dt
             for h, m in model.hour_month_tuples
         )
