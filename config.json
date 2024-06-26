@@ -1,9 +1,9 @@
 {
     "general_parameters": {
-        "input_folder": "southeast_asia",
+        "input_folder": "input",
         "output_folder": "output",
         "output_filename": "year",
-        "hour": 2190,
+        "hour": 8760,
         "month": 1,
         "dt": 1,
         "hours_in_year": 8760,

@@ -93,8 +93,8 @@ def timer(func):
         end_time = time.perf_counter()
         run_time = end_time - start_time
         logging.info(
-            "Finished %s in %.2f mins", repr(func.__name__),
-            run_time/60
+            "Finished %s in %.2f seds", repr(func.__name__),
+            run_time
         )
 
         return value

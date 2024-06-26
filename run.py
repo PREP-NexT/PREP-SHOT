@@ -115,6 +115,7 @@ def run_model(parameters, output_filename, args):
         Arguments parsed by argparse.
     """
     model = create_model(parameters)
+    exit() # debug
     output_filename = update_output_filename(output_filename, args)
     solved = solve_model(model, parameters)
     if solved:
