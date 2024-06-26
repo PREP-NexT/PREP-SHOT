@@ -15,11 +15,7 @@
         "fixed_head": true
     },
     "solver_parameters": {
-        "solver": "mosek",
-        "solver_path": "/Users/energy/mosek/10.2/tools/platform/osxaarch64/bin/libmosek64.dylib",
-        "MSK_DPAR_OPTIMIZER_MAX_TIME": 7200,
-        "MSK_IPAR_NUM_THREADS": 2,
-        "MSK_IPAR_SIM_SEED": 0
+        "solver": "gurobi"
     },
     "data_parameters":{
         "historical_capacity": {
