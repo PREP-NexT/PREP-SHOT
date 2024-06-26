@@ -3,7 +3,7 @@
         "input_folder": "input",
         "output_folder": "output",
         "output_filename": "year",
-        "hour": 8760,
+        "hour": 48,
         "month": 1,
         "dt": 1,
         "hours_in_year": 8760,
