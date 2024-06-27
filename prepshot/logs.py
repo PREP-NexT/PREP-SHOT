@@ -9,6 +9,8 @@ import logging
 import time
 from pathlib import Path
 import functools
+import psutil
+import os
 
 def setup_logging():
     """Set up logging file to log model run.
@@ -88,13 +90,21 @@ def timer(func):
     """
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
+        process = psutil.Process(os.getpid())
+        start_memory = process.memory_info().rss
         start_time = time.perf_counter()
         value = func(*args, **kwargs)
+        end_memory = process.memory_info().rss
         end_time = time.perf_counter()
         run_time = end_time - start_time
+        memory_used = (end_memory - start_memory) / 1024 / 1024  # MB
         logging.info(
             "Finished %s in %.2f seds", repr(func.__name__),
             run_time
+        )
+        logging.info(
+            "Memory used %s in %.2f MB", repr(func.__name__),
+            memory_used
         )
 
         return value
