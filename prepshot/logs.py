@@ -41,10 +41,10 @@ def log_and_time(func):
         function: The decorated function.
     """
     def wrapper(*args, **kwargs):
-        logging.info("Start solving model ...")
+        # logging.info("Start solving model ...")
         start_time = time.time()
         result = func(*args, **kwargs)
-        logging.info(f"Completed! Total runtime: {round((time.time() - start_time) / 60, 2)} minutes")
+        logging.info(f"Completed! Total runtime: {round((time.time() - start_time), 2)} seconds")
         return result
     return wrapper
 

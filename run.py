@@ -74,6 +74,7 @@ def run_model(parameters, output_filename, args):
         None
     """
     model = create_model(parameters)
+    exit()
     output_filename = update_output_filename(output_filename, args)
     solver = build_solver(parameters)
     solved = solve_model(model, solver, parameters)

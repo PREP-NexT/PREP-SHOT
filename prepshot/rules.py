@@ -684,7 +684,7 @@ class RuleContainer:
         Returns:
             pyomo.core.base.PyomoModel.ConcreteModel: Model with output calculation constraints.
         """
-        return model.output[s, h, m, y] == self.para['reservoir_characteristics']['coeff', s] * model.genflow[s, h, m, y] * model.head_para[s, h, m, y] * 1e-3
+        return model.output[s, h, m, y] == self.para['reservoir_characteristics']['coeff', s] * model.genflow[s, h, m, y]  * 1e-3 # * model.head_para[s, h, m, y]
 
 
     def init_storage_rule(self, model, s, m, y):
