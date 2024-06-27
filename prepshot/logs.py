@@ -1,6 +1,8 @@
 import logging
 import time
 from pathlib import Path
+import psutil
+import os
 
 def setup_logging():
     """
@@ -43,7 +45,11 @@ def log_and_time(func):
     def wrapper(*args, **kwargs):
         # logging.info("Start solving model ...")
         start_time = time.time()
+        process = psutil.Process(os.getpid())
+        start_memory = process.memory_info().rss
         result = func(*args, **kwargs)
+        end_memory = process.memory_info().rss
+        logging.info(f"Memory used: {round((end_memory - start_memory) / 1024 / 1024, 2)} MB")
         logging.info(f"Completed! Total runtime: {round((time.time() - start_time), 2)} seconds")
         return result
     return wrapper
