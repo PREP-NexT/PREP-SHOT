@@ -10,9 +10,11 @@ import numpy as np
 import pandas as pd
 import xarray as xr
 from scipy import interpolate
-import pyoptinterface as poi
+# import pyoptinterface as poi
 
 from prepshot.logs import timer
+
+from julia import Main
 
 def update_output_filename(output_filename, args):
     """Update the output filename based on the arguments.
@@ -297,7 +299,7 @@ def process_model_solution(
             - efficiency * 1e-3 * old_waterhead.loc[s, idx[y, m, h]]
         )
     # Solve the model and check the solution status.
-    model.set_model_attribute(poi.ModelAttribute.Silent, False)
+    # model.set_model_attribute(poi.ModelAttribute.Silent, False)
     model.optimize() # add log into log file
     status = model.get_model_attribute(poi.ModelAttribute.TerminationStatus)
     if status != poi.TerminationStatusCode.OPTIMAL:
@@ -355,7 +357,7 @@ def run_model_iteration(
         'Starting iteration recorded at %s.', 
         datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     )
-    
+
     if para['fixed_head'] and max_iterations > 1:
         logging.warning(
             "Fixed head is set to True. Maximum iteration is set to 1."

@@ -32,14 +32,18 @@ Last Updated:
 
 import logging
 from os import path, makedirs
+import sys, os
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from prepshot.load_data import load_json, get_required_config_data, load_data
 from prepshot.logs import setup_logging, log_parameter_info
-from prepshot.model import create_model
+# from prepshot.model import create_model
 from prepshot.parameters import parse_arguments
 from prepshot.utils import (
     extract_result, update_output_filename, solve_model, save_to_excel
 )
+
+from julia import Main
 
 # Name of the configuration file and parameters file in root directory.
 CONFIG_FILENAME = 'config.json'
@@ -114,9 +118,9 @@ def run_model(parameters, output_filename, args):
     args : argparse.Namespace
         Arguments parsed by argparse.
     """
-    model = create_model(parameters)
+    Main.model = Main.prepshot.create_model(parameters)
     output_filename = update_output_filename(output_filename, args)
-    solved = solve_model(model, parameters)
+    solved = solve_model(Main.model, parameters)
     if solved:
         ds = extract_result(model, isinflow=parameters['isinflow'])
         ds.to_netcdf(f'{output_filename}.nc')
@@ -129,6 +133,7 @@ def run_model(parameters, output_filename, args):
 def main():
     """The main function of the PREP-SHOT model.
     """
+    Main.include("prepshot/engine.jl")
     # Load parameters by parsing config.json and command-line arguments.
     # command-line arguments will overwrite the parameters in config.json.
     setting = load_json(CONFIG_FILENAME)

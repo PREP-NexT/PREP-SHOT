@@ -120,6 +120,17 @@ def get_attr(para):
         para["stcd"] = list({
             i[1] for i in para["reservoir_characteristics"].keys()
         })
+        para["reservoir_characteristics"] =                                   \
+            para["reservoir_characteristics"].to_dict()
+    if "water_delay_time" in para.keys():
+        wdt = para["water_delay_time"]
+        wdt_updated = {}
+        for i in set(wdt["NEXTPOWER_ID"].values):
+            wdt_updated[i] = (
+                wdt.loc[wdt["NEXTPOWER_ID"] == i, "POWER_ID"].values.tolist(),
+                wdt.loc[wdt["NEXTPOWER_ID"] == i, "delay"].values.tolist()
+            )
+        para["water_delay_time"] = wdt_updated
     para["hour"] = sorted({
         i[3] for i in para["demand"].keys() if isinstance(i[3], int)
     })
@@ -128,6 +139,8 @@ def get_attr(para):
     })
     para["zone"] = list({i[0] for i in para["demand"].keys()})
     para["tech"] = list(para["technology_type"].keys())
+    
+    
 
 
 def calculate_cost_factors(para):
