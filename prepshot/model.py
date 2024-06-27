@@ -430,5 +430,9 @@ def create_model(para):
     obj += model.cost
     model.set_objective(obj, sense=poi.ObjectiveSense.Minimize)
     define_constraints(model, para)
+    # [debug]
+    # set solving time
+    # model.set_raw_parameter("TimeLimit", 0)
+    model.optimize()
 
     return model
