@@ -32,7 +32,7 @@ def setup_logging():
     logging.getLogger().addHandler(console)
 
 
-def log_and_time(func):
+def timer(func):
     """
     Decorator to log the start and end of a function, and how long it took to run.
 
@@ -49,8 +49,16 @@ def log_and_time(func):
         start_memory = process.memory_info().rss
         result = func(*args, **kwargs)
         end_memory = process.memory_info().rss
-        logging.info(f"Memory used: {round((end_memory - start_memory) / 1024 / 1024, 2)} MB")
-        logging.info(f"Completed! Total runtime: {round((time.time() - start_time), 2)} seconds")
+        run_time = time.time() - start_time
+        memory_used = (end_memory - start_memory) / 1024 / 1024
+        logging.info(
+            "Finished %s in %.2f seds", repr(func.__name__),
+            run_time
+        )
+        logging.info(
+            "Memory used %s in %.2f MB", repr(func.__name__),
+            memory_used
+        )
         return result
     return wrapper
 

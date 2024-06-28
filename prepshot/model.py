@@ -1,6 +1,6 @@
 from pyomo.environ import Constraint, NonNegativeReals, Objective, Var, ConcreteModel, Set, Reals, Suffix, minimize, Param, Expression
 from prepshot.rules import RuleContainer
-from prepshot.logs import log_and_time
+from prepshot.logs import timer
 from pyomo.environ import SolverFactory
 
 def define_model():
@@ -197,7 +197,7 @@ def define_constraints(model, para):
     model.cost_newline_breakdown = Expression(model.year_zone_zone_tuples, rule=rules._cost_newline_breakdown)
     model.carbon_breakdown = Expression(model.year_zone_tech_tuples, rule=rules._carbon_breakdown)
 
-@log_and_time
+@timer
 def create_model(para):
     """
     Create the PREP-SHOT model.

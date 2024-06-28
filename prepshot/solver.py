@@ -1,6 +1,6 @@
 from pyomo.environ import SolverFactory
 from pyomo.opt import SolverStatus, TerminationCondition
-from prepshot.logs import log_and_time
+from prepshot.logs import timer
 from prepshot.utils import run_model_iteration
 
 def build_solver(parameters):
@@ -18,7 +18,7 @@ def build_solver(parameters):
     return solver
 
 
-@log_and_time
+@timer
 def solve_model_with_hydro(model, solver, parameters):
     """
     Solve the model with hydrological constraints.
@@ -36,7 +36,7 @@ def solve_model_with_hydro(model, solver, parameters):
     return run_model_iteration(model, solver, parameters, error_threshold, iteration_number)
 
 
-@log_and_time
+@timer
 def solve_model_without_hydro(model, solver):
     """
     Solve the model without hydrological constraints.
