@@ -7,10 +7,9 @@ This module contains functions to set up logging for the model run, and to log
 """
 import logging
 import time
-from pathlib import Path
-import functools
-import psutil
 import os
+from pathlib import Path
+import psutil
 
 def setup_logging():
     """Set up logging file to log model run.
@@ -76,28 +75,24 @@ def log_parameter_info(config_data):
     )
 
 def timer(func):
-    """A decorator that times a function.
-
-    Parameters
-    ----------
-    func : function
-        The function to be timed.
-
-    Returns
-    -------
-    function
-        The decorated function.
     """
-    @functools.wraps(func)
+    Decorator to log the start and end of a function, and how long it took to run.
+
+    Args:
+        func (function): The function to be decorated.
+
+    Returns:
+        function: The decorated function.
+    """
     def wrapper(*args, **kwargs):
+        # logging.info("Start solving model ...")
+        start_time = time.time()
         process = psutil.Process(os.getpid())
         start_memory = process.memory_info().rss
-        start_time = time.perf_counter()
-        value = func(*args, **kwargs)
+        result = func(*args, **kwargs)
         end_memory = process.memory_info().rss
-        end_time = time.perf_counter()
-        run_time = end_time - start_time
-        memory_used = (end_memory - start_memory) / 1024 / 1024  # MB
+        run_time = time.time() - start_time
+        memory_used = (end_memory - start_memory) / 1024 / 1024
         logging.info(
             "Finished %s in %.2f seds", repr(func.__name__),
             run_time
@@ -106,7 +101,5 @@ def timer(func):
             "Memory used %s in %.2f MB", repr(func.__name__),
             memory_used
         )
-
-        return value
-
+        return result
     return wrapper
