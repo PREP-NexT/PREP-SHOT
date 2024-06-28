@@ -7,7 +7,6 @@ This module contains functions to set up logging for the model run, and to log
 """
 import logging
 import time
-import os
 from pathlib import Path
 import tracemalloc
 
