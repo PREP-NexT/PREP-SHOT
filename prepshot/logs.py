@@ -1,8 +1,7 @@
 import logging
 import time
 from pathlib import Path
-import psutil
-import os
+import tracemalloc
 
 def setup_logging():
     """
@@ -45,19 +44,18 @@ def timer(func):
     def wrapper(*args, **kwargs):
         # logging.info("Start solving model ...")
         start_time = time.time()
-        process = psutil.Process(os.getpid())
-        start_memory = process.memory_info().rss
+        tracemalloc.start()
         result = func(*args, **kwargs)
-        end_memory = process.memory_info().rss
+        _, peak = tracemalloc.get_traced_memory()
+        tracemalloc.stop()
         run_time = time.time() - start_time
-        memory_used = (end_memory - start_memory) / 1024 / 1024
         logging.info(
             "Finished %s in %.2f seds", repr(func.__name__),
             run_time
         )
         logging.info(
             "Memory used %s in %.2f MB", repr(func.__name__),
-            memory_used
+            peak / 10**6
         )
         return result
     return wrapper
