@@ -33,8 +33,6 @@ Last Updated:
 import logging
 from os import path, makedirs
 
-from memory_profiler import profile
-
 from prepshot.load_data import load_json, get_required_config_data, load_data
 from prepshot.logs import setup_logging, log_parameter_info
 from prepshot.model import create_model
