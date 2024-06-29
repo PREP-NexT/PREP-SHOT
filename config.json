@@ -1,22 +1,21 @@
 {
     "general_parameters": {
-        "input_folder": "singapore",
+        "input_folder": "southeast_asia",
         "output_folder": "output",
         "output_filename": "year",
-        "hour": 8760,
+        "hour": 288,
         "month": 1,
         "dt": 1,
         "hours_in_year": 8760,
         "price": 0.01,
 
-        "isinflow": false,
+        "isinflow": true,
         "error_threshold": 0.001,
         "iteration_number": 1,
         "fixed_head": true
     },
     "solver_parameters": {
-        "solver": "highs",
-        "solver_path": "/Users/energy/miniconda3/envs/prep-shot/lib/python3.9/site-packages/highsbox/highs_dist/lib/libhighs.1.7.dylib"
+        "solver": "gurobi"
     },
     "data_parameters":{
         "historical_capacity": {
