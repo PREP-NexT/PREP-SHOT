@@ -368,7 +368,6 @@ class RuleContainer:
         lhs -= model.cap_lines_existing[y, z, z1]
         return model.add_linear_constraint(lhs, poi.Eq, 0)
 
-
     def trans_balance_rule(self, h, m, y, z, z1):
         """Transmission balance, i.e., the electricity imported from zone z1 
             to zone z should be equal to the electricity exported from zone z 

@@ -426,13 +426,9 @@ def create_model(para):
     define_complex_sets(model, para)
     define_variables(model, para)
     # Define objective function for the model.
-    obj = poi.ExprBuilder()
-    obj += model.cost
-    model.set_objective(obj, sense=poi.ObjectiveSense.Minimize)
+    model.obj = poi.ExprBuilder(model.cost)
+    model.set_objective(model.obj, sense=poi.ObjectiveSense.Minimize)
     define_constraints(model, para)
-    # [debug]
-    # set solving time
-    # model.set_raw_parameter("TimeLimit", 0)
-    model.optimize()
+    # model.write('prep-shot.lp')
 
     return model

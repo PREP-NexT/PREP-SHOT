@@ -86,18 +86,18 @@ def timer(func):
     def wrapper(*args, **kwargs):
         # logging.info("Start solving model ...")
         start_time = time.time()
-        tracemalloc.start()
+        # tracemalloc.start()
         result = func(*args, **kwargs)
-        _, peak = tracemalloc.get_traced_memory()
-        tracemalloc.stop()
+        # _, peak = tracemalloc.get_traced_memory()
+        # tracemalloc.stop()
         run_time = time.time() - start_time
         logging.info(
             "Finished %s in %.2f seds", repr(func.__name__),
             run_time
         )
-        logging.info(
-            "Memory used %s in %.2f MB", repr(func.__name__),
-            peak / 10**6
-        )
+        # logging.info(
+        #     "Memory used %s in %.2f MB", repr(func.__name__),
+        #     peak / 10**6
+        # )
         return result
     return wrapper
