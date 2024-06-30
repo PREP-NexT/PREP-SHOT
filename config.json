@@ -15,7 +15,8 @@
         "fixed_head": true
     },
     "solver_parameters": {
-        "solver": "gurobi"
+        "solver": "highs",
+        "solver_path": ""
     },
     "data_parameters":{
         "historical_capacity": {
