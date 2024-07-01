@@ -190,20 +190,8 @@ def interpolate_z_by_q_or_s(name, qs, zqv):
     scipy.interpolate.interp1d
         Array of interpolated values.
     """
-    try:
-        zqv_temp = zqv[(zqv.name == int(name)) | (zqv.name == str(name))]
-    except Exception as e:
-        logging.error(
-            "Error occurred while trying to interpolate Z by Q or S: %s", e
-        )
-        zqv_temp = zqv[zqv.name == str(name)]
-    try:
-        x = zqv_temp.Q
-    except Exception as e:
-        logging.error(
-            "Error occurred while trying to interpolate Z by Q or S: %s", e
-        )
-        x = zqv_temp.V
+    zqv_temp = zqv[(zqv.name == int(name)) | (zqv.name == str(name))]
+    x = zqv_temp.Q if 'Q' in zqv_temp.columns else zqv_temp.V
     f_zqv = interpolate.interp1d(x, zqv_temp.Z, fill_value='extrapolate')
     return f_zqv(qs)
 
