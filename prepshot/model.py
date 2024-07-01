@@ -50,6 +50,10 @@ def define_model(para):
             "%s library failed to load automatically." 
             + "Attempting to load manually.", solver
         )
+        if 'solver_path' not in para:
+            raise ValueError(
+                f"Solver path for {solver} not found in the configuration."
+            )
         if not poi_solver.load_library(para['solver']['solver_path']):
             raise ValueError(f"Failed to load {solver} library.")
         logging.info("Loaded %s library manually.", solver)

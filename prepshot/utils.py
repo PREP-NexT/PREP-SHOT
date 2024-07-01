@@ -302,8 +302,9 @@ def process_model_solution(
     status = model.get_model_attribute(poi.ModelAttribute.TerminationStatus)
     if status != poi.TerminationStatusCode.OPTIMAL:
         return False
-    if para['fixed_head']:
+    if para['iteration_number'] <= 1:
         # If fixed head is True, do not update water head.
+        new_waterhead = old_waterhead
         return True
     # Iterate over each station to update water head data.
     for stcd in stations:
@@ -355,12 +356,6 @@ def run_model_iteration(
         'Starting iteration recorded at %s.', 
         datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     )
-    
-    if para['fixed_head'] and max_iterations > 1:
-        logging.warning(
-            "Fixed head is set to True. Maximum iteration is set to 1."
-        )
-        max_iterations = 1
 
     # Initialize water head.
     stations, years, months, hours =                                          \
@@ -383,7 +378,14 @@ def run_model_iteration(
             return False
 
         # Calculate error.
-        error = compute_error(old_waterhead, new_waterhead)
+        if  max_iterations <= 1:
+            logging.warning(
+                "Maximum iteration is set to 1 and " 
+                + "the model will be solved with fixed head."
+            )
+            error = 0
+        else:
+            error = compute_error(old_waterhead, new_waterhead)
         errors.append(error)
         logging.info('Water head error: %.2f%%', error)
         if error < error_threshold:
@@ -452,6 +454,7 @@ def solve_model(model, parameters):
         return False
     return True
 
+@timer
 def extract_results_non_hydro(model):
     """Extracts results for non-hydro models.
 
@@ -610,6 +613,7 @@ def extract_results_non_hydro(model):
     })
     return ds
 
+@timer
 def extract_results_hydro(model):
     """Extracts results for hydro models.
 
@@ -694,5 +698,4 @@ def extract_result(model, isinflow=True):
     """
     if isinflow:
         return extract_results_hydro(model)
-    else:
-        return extract_results_non_hydro(model)
+    return extract_results_non_hydro(model)

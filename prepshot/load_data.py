@@ -45,13 +45,12 @@ def get_required_config_data(config_data):
     hours_in_year = int(config_data['general_parameters']['hours_in_year'])
     price = float(config_data['general_parameters']['price'])
     includes_hydrological_constraints =                                       \
-        config_data['general_parameters']['isinflow']
-    is_calc_head_error = config_data['general_parameters']['fixed_head']
+        config_data['hydro_parameters']['isinflow']
     error_threshold = float(
-        config_data['general_parameters']['error_threshold']
+        config_data['hydro_parameters']['error_threshold']
     )
     iteration_number = int(
-        config_data['general_parameters']['iteration_number']
+        config_data['hydro_parameters']['iteration_number']
     )
 
     # Create dictionary containing required data from configuration file.
@@ -61,7 +60,6 @@ def get_required_config_data(config_data):
         'weight': (month * hour * dt) / hours_in_year,
         'solver': config_data['solver_parameters'],
         'isinflow': includes_hydrological_constraints,
-        'fixed_head': is_calc_head_error,
         'error_threshold': error_threshold,
         'iteration_number': iteration_number
     }
