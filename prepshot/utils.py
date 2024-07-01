@@ -192,11 +192,17 @@ def interpolate_z_by_q_or_s(name, qs, zqv):
     """
     try:
         zqv_temp = zqv[(zqv.name == int(name)) | (zqv.name == str(name))]
-    except Exception:
+    except Exception as e:
+        logging.error(
+            "Error occurred while trying to interpolate Z by Q or S: %s", e
+        )
         zqv_temp = zqv[zqv.name == str(name)]
     try:
         x = zqv_temp.Q
-    except Exception:
+    except Exception as e:
+        logging.error(
+            "Error occurred while trying to interpolate Z by Q or S: %s", e
+        )
         x = zqv_temp.V
     f_zqv = interpolate.interp1d(x, zqv_temp.Z, fill_value='extrapolate')
     return f_zqv(qs)
@@ -632,8 +638,6 @@ def extract_results_hydro(model):
 
     # Extract additional attributes specific to hydro models.
     stations = model.station
-    # genflow_values = model.genflow.extract_values()
-    # spillflow_values = model.spillflow.extract_values()
     hour = model.hour
     month = model.month
     year = model.year
@@ -643,7 +647,7 @@ def extract_results_hydro(model):
         [[[[model.get_value(model.genflow[s, h, m, y])
             for h in hour] for m in month] for y in year] for s in stations],
         ['station', 'year', 'month', 'hour'],
-        {'station': stations, 'year': year, 'month': month, 'hour': hour}, 
+        {'station': stations, 'year': year, 'month': month, 'hour': hour},
         'm**3s**-1'
     )
 
@@ -651,7 +655,7 @@ def extract_results_hydro(model):
         [[[[model.get_value(model.spillflow[s, h, m, y]) for h in hour]
             for m in month] for y in year] for s in stations], 
         ['station', 'year', 'month', 'hour'], 
-        {'station': stations, 'year': year, 'month': month, 'hour': hour}, 
+        {'station': stations, 'year': year, 'month': month, 'hour': hour},
         'm**3s**-1'
     )
 

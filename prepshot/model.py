@@ -31,7 +31,7 @@ def define_model(para):
     Raises
     ------
     ValueError
-        Unsupported solver
+        Unsupported or undefined solver
     """
     solver_map = {
         'mosek': mosek,
@@ -78,10 +78,6 @@ def define_basic_sets(model, para):
         Model to be solved.
     para : dict
         Dictionary of parameters for the model.
-
-    Returns
-    -------
-    None
     """
     basic_sets = ["year", "zone", "tech", "hour", "month"]
     tech_types = ["storage", "nondispatchable", "dispatchable", "hydro"]
@@ -115,10 +111,6 @@ def define_complex_sets(model, para):
     ----------
     model : pyoptinterface._src.mosek.Model
         Model to be solved.
-
-    Returns
-    -------
-    None
     """
     def cartesian_product(*args):
         # [1, 2], [7, 8] -> [(1, 7), (1, 8), (2, 7), (2, 8)]
@@ -247,9 +239,6 @@ def define_constraints(model, para):
         Model to be solved.
     para : dict
         Dictionary of parameters for the model.
-
-    Returns:
-    None
     """
     rules = RuleContainer(para, model)
 
@@ -424,15 +413,12 @@ def create_model(para):
     pyoptinterface._src.mosek.Model
         A pyoptinterface Model object.
     """
-    # Define a model according to the given solver.
     model = define_model(para)
     define_basic_sets(model, para)
     define_complex_sets(model, para)
     define_variables(model, para)
-    # Define objective function for the model.
     model.obj = poi.ExprBuilder(model.cost)
     model.set_objective(model.obj, sense=poi.ObjectiveSense.Minimize)
     define_constraints(model, para)
-    # model.write('prep-shot.lp')
 
     return model

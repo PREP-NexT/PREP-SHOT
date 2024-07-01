@@ -78,10 +78,6 @@ def load_input_params(input_filepath, params_data, para):
         Dictionary containing parameters.
     para : dict
         Dictionary to store input data of parameters.
-
-    Returns
-    -------
-    None
     """
     # Load input data into parameters dictionary.
     try:
@@ -96,7 +92,6 @@ def load_input_params(input_filepath, params_data, para):
                 value["drop_na"]
             )
     except IndexError as e:
-        # print exception tracks
         print(e)
         print(f"Error in loading {value['file_name']} data")
 
@@ -108,10 +103,6 @@ def get_attr(para):
     ----------
     para : dict
         Dictionary containing parameters.
-
-    Returns
-    -------
-    None
     """
     para["year"] = sorted(list(para["discount_factor"].keys()))
     if "reservoir_characteristics" in para.keys():
@@ -136,10 +127,6 @@ def calculate_cost_factors(para):
     ----------
     para : dict
         Dictionary containing parameters.
-
-    Returns
-    -------
-    None
     """
     # Initialize dictionaries for computed cost factors.
     para["trans_inv_factor"] = {}
@@ -189,16 +176,9 @@ def load_data(params_data, input_filepath):
     dict
         Dictionary containing processed parameters.
     """
-    # Initialize dictionary for parameters to store input data.
     para = {}
-
-    # Load input data into parameters dictionary.
     load_input_params(input_filepath, params_data, para)
-
-    # Extract attributes from parameters.
     get_attr(para)
-
-    # Calculate cost factors for the parameters.
     calculate_cost_factors(para)
 
     return para

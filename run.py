@@ -42,7 +42,8 @@ from prepshot.utils import (
     extract_result, update_output_filename, solve_model, save_to_excel
 )
 
-# Name of the configuration file and parameters file in root directory.
+# Name of the configuration file and parameters file in the
+# same directory with `run.py`.
 CONFIG_FILENAME = 'config.json'
 PARAMS_FILENAME = 'params.json'
 
@@ -125,7 +126,7 @@ def run_model(parameters, output_filename, args):
         logging.info("Results are written to separate excel files")
 
 def main():
-    """The main function of the PREP-SHOT model.
+    """The entry function of the PREP-SHOT model.
     """
     # Load parameters by parsing params.json and command-line arguments.
     # command-line arguments will overwrite the parameters in params.json.

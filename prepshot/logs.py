@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-
 """  
 This module contains functions to set up logging for the model run, and to log
     the start and end of functions.
@@ -8,18 +7,9 @@ This module contains functions to set up logging for the model run, and to log
 import logging
 import time
 from pathlib import Path
-import tracemalloc
 
 def setup_logging():
     """Set up logging file to log model run.
-
-    Parameters
-    ----------
-        None
-
-    Returns
-    -------
-        None
     """
     # Create a directory for the log file if it doesn't exist.
     Path('log').parent.mkdir(parents=True, exist_ok=True)
@@ -48,13 +38,8 @@ def log_parameter_info(config_data):
 
     Parameters
     ----------
-        Config_data : dict
-            Dictionary containing configuration data for 
-            the model.
-
-    Returns
-    -------
-        None
+    Config_data : dict
+        Dictionary containing configuration data for the model.
     """
     logging.info(
         "Set parameter solver to value %s",
@@ -74,30 +59,27 @@ def log_parameter_info(config_data):
     )
 
 def timer(func):
-    """
-    Decorator to log the start and end of a function, and how long it took to run.
+    """Decorator to log the start and end of a function, and how long it took 
+    to run.
 
-    Args:
-        func (function): The function to be decorated.
+    Parameters
+    ----------
+    func : function
+        The function to be decorated.
 
     Returns:
-        function: The decorated function.
+    ----------
+    Any
+        The return value of decorated function.
     """
     def wrapper(*args, **kwargs):
-        # logging.info("Start solving model ...")
+        logging.info("Start running %s", repr(func.__name__))
         start_time = time.time()
-        # tracemalloc.start()
         result = func(*args, **kwargs)
-        # _, peak = tracemalloc.get_traced_memory()
-        # tracemalloc.stop()
         run_time = time.time() - start_time
         logging.info(
             "Finished %s in %.2f seds", repr(func.__name__),
             run_time
         )
-        # logging.info(
-        #     "Memory used %s in %.2f MB", repr(func.__name__),
-        #     peak / 10**6
-        # )
         return result
     return wrapper
