@@ -16,6 +16,7 @@ jobs:
       - name: Sphinx build
         run: |
           cd doc
+          make clean
           make html
       - name: Generate offline PDF
         run: |
