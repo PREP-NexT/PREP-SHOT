@@ -410,8 +410,11 @@ Within the root directory of the model, you will find a JSON file containing the
    * - solver
      - Specifies the solver to be used for the optimization problem.
 
-   * - timelimit
-     - Specifies the maximum time limit for the solver to solve the optimization problem in seconds.
+   * - solver_path
+     - Specifies the path of the dynamic library of solver. This is required while automatic detection of the installation directory of the solver fails. Please provide refer to `PyOptInterface documentation <https://metab0t.github.io/PyOptInterface/getting_started.html#setup-of-optimizers>`_.
+
+   * - **solver_parameters**
+     - Specifies the solver-specific parameters for `mosek <https://docs.mosek.com/latest/capi/parameters.html>`_, `gurobi <https://www.gurobi.com/documentation/11.0/refman/parameters.html>`_, `highs <https://ergo-code.github.io/HiGHS/dev/options/definitions/>`_, and `copt <https://guide.coap.online/copt/en-doc/parameter.html>`_.
 
 After you have tuned the parameters, you can run the model by following the steps in the :ref:`installation` page.
 

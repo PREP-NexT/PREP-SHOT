@@ -1,759 +1,1323 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+"""  
+This module contains the class RuleContainer which is used to define the rules 
+"""
 import numpy as np
-from pyomo.environ import Constraint
+import pyoptinterface as poi
 
 class RuleContainer:
     """
     Class for rules of the model. Used to pass 'para' dictionary to the rules.
     """
-    def __init__(self, para):
-        """
-        Args:
-            para (dict): Dictionary of parameters for the model.
+    def __init__(self, para, model):
+        """The constructor for RuleContainer class.
+
+        Parameters
+        ----------
+        para : dict
+            Dictionary of parameters for the model.
+        model : pyoptinterface._src.mosek.Model
+            Model to be solved.
         """
         self.para = para
+        self.model = model
 
+    def cost_rule(self):
+        """Objective function of the model, to minimize total cost.
 
-    def cost_rule(self, model):
+        Returns
+        -------
+        pyoptinterface._src.core_ext.ConstraintIndex
+            Model with cost constraints.
         """
-        Objective function of the model, to minimize total cost.
+        model = self.model
+        lhs = model.cost - (model.cost_var + model.cost_newtech
+            + model.cost_fix + model.cost_newline - model.income)
+        return model.add_linear_constraint(lhs, poi.Eq, 0)
 
-        Args:
-            model (pyomo.core.base.PyomoModel.ConcreteModel): Model to be solved.
+    def income_rule(self):
+        """Income from water withdrawal.
+        Reference: https://www.nature.com/articles/s44221-023-00126-0
 
-        Returns:
-            pyomo.core.base.PyomoModel.ConcreteModel: Model with cost constraints.
+        Returns
+        -------
+        pyoptinterface._src.core_ext.ConstraintIndex
+            Constraint index of the model.
         """
-        return model.cost == model.cost_var + model.cost_newtech + model.cost_fix + model.cost_newline - model.income
+        model = self.model
+        if self.para['isinflow']:
+            coef = 3600 * self.para['dt'] * self.para['price']
+            lhs = poi.quicksum(
+                model.withdraw[s, h, m, y] * coef
+                for s, h, m, y in model.station_hour_month_year_tuples
+            )
+            lhs -= model.income
+            return model.add_linear_constraint(lhs, poi.Eq, 0)
 
+        return model.add_linear_constraint(model.income, poi.Eq, 0)
 
-    def var_cost_rule(self, model):
+    def var_cost_rule(self):
+        """Calculate total variable cost, which is sum of the fuel cost of 
+            technologies and variable Operation and maintenance (O&M) cost of 
+            technologies and transmission lines.
+
+        Returns
+        -------
+        pyoptinterface._src.core_ext.ConstraintIndex
+            Constraint index of the model.
         """
-        Rule for total fuel cost of technologies and variable Operation and maintenance (O&M) cost of technologies and transmission lines.
+        model = self.model
+        tvc = self.para['technology_variable_OM_cost']
+        lvc = self.para['transmission_line_variable_OM_cost']
+        dt = self.para['dt']
+        w = self.para['weight']
+        vf = self.para['var_factor']
+        fp = self.para['fuel_price']
+        var_om_tech_cost = 1  / w * poi.quicksum(
+            tvc[te, y] * model.gen[h, m, y, z, te] * dt * vf[y]
+            for h, m, y, z, te in model.hour_month_year_zone_tech_tuples
+        )
 
-        Args:
-            model (pyomo.core.base.PyomoModel.ConcreteModel): Model to be solved.
+        fuel_cost = 1  / w * poi.quicksum(
+            fp[te, y] * model.gen[h, m, y, z, te] * dt * vf[y]
+            for h, m, y, z, te in model.hour_month_year_zone_tech_tuples
+        )
 
-        Returns:
-            pyomo.core.base.PyomoModel.ConcreteModel: Model with variable cost constraints.
+        var_om_line_cost = 0.5 / w * poi.quicksum(
+            lvc[z, z1] * model.trans_export[h, m, y, z, z1] * dt * vf[y]
+            for h, m, y, z, z1 in model.hour_month_year_zone_zone_tuples
+        )
+        lhs = poi.ExprBuilder(model.cost_var)
+        lhs -= var_om_tech_cost
+        lhs -= fuel_cost
+        lhs -= var_om_line_cost
+        return model.add_linear_constraint(lhs, poi.Eq, 0)
+
+    def newtech_cost_rule(self):
+        """Total investment cost of new technologies.
+
+        Returns
+        -------
+        pyoptinterface._src.core_ext.ConstraintIndex
+            Constraint index of the model.
         """
-        var_OM_tech_cost = sum([self.para['technology_variable_OM_cost'][te, y] * model.gen[h, m, y, z, te] * self.para['dt'] * self.para['var_factor'][y] for h, m, y, z, te in model.hour_month_year_zone_tech_tuples])/self.para['weight']
-        fuel_cost = sum([self.para['fuel_price'][te, y] * model.gen[h, m, y, z, te] * self.para['dt'] * self.para['var_factor'][y] for h, m, y, z, te in model.hour_month_year_zone_tech_tuples])/self.para['weight']
-        var_OM_line_cost = 0.5 * sum([self.para['transmission_line_variable_OM_cost'][z, z1] * model.trans_export[h, m, y, z, z1] * self.para['var_factor'][y] for h, m, y, z, z1 in model.hour_month_year_zone_zone_tuples])/self.para['weight']
-        return model.cost_var == var_OM_tech_cost + fuel_cost + var_OM_line_cost
+        model = self.model
+        tic = self.para['technology_investment_cost']
+        ivf = self.para['inv_factor']
+        lhs = poi.quicksum(
+            tic[te, y] * model.cap_newtech[y, z, te] * ivf[te, y]
+            for y, z, te in model.year_zone_tech_tuples
+        )
+        lhs -= model.cost_newtech
+        return model.add_linear_constraint(lhs, poi.Eq, 0)
 
 
-    def newtech_cost_rule(self, model):
+    def newline_cost_rule(self):
+        """Total investment cost of new transmission lines.
+
+        Returns
+        -------
+        pyoptinterface._src.core_ext.ConstraintIndex
+            Constraint index of the model.
         """
-        Rule for total investment cost of new technologies.
+        model = self.model
+        lc = self.para['transmission_line_existing_capacity']
+        d = self.para['distance']
+        ivf = self.para['trans_inv_factor']
+        lhs = poi.quicksum(
+            lc[z, z1] * model.cap_newline[y, z, z1] * d[z, z1] * ivf[y]
+            for y, z, z1 in model.year_zone_zone_tuples
+        )
+        lhs *= 0.5
+        lhs -= model.cost_newline
+        return model.add_linear_constraint(lhs, poi.Eq, 0)
 
-        Args:
-            model (pyomo.core.base.PyomoModel.ConcreteModel): Model to be solved.
 
-        Returns:
-            pyomo.core.base.PyomoModel.ConcreteModel: Model with investment cost of new technologies constraints.
+    def fix_cost_rule(self):
+        """Fixed O&M cost of technologies and transmission lines.
+
+        Returns
+        -------
+        pyoptinterface._src.core_ext.ConstraintIndex
+            Constraint index of the model.
         """
-        return model.cost_newtech == sum(self.para['technology_investment_cost'][te, y] * model.cap_newtech[y, z, te] * self.para['inv_factor'][te, y] for y, z, te in model.year_zone_tech_tuples)
+        model = self.model
+        fc = self.para['technology_fixed_OM_cost']
+        ff = self.para['fix_factor']
+        lfc = self.para['transmission_line_fixed_OM_cost']
 
+        fix_cost_tech = poi.quicksum(
+            fc[te, y] * model.cap_existing[y, z, te] * ff[y]
+            for y, z, te in model.year_zone_tech_tuples
+        )
+        fix_cost_line = 0.5 * poi.quicksum(
+            lfc[z, z1] * model.cap_lines_existing[y, z, z1] * ff[y]
+            for y, z1, z in model.year_zone_zone_tuples
+        )
+        lhs = poi.ExprBuilder(model.cost_fix)
+        lhs -= fix_cost_tech
+        lhs -= fix_cost_line
+        return model.add_linear_constraint(lhs, poi.Eq, 0)
 
-    def newline_cost_rule(self, model):
+    def remaining_capacity_rule(self, y, z, te):
+        """Remaining capacity of initial technology due to lifetime 
+        restrictions.
+        Note: Where in modeled year y, the available technology consists of 
+        the following.
+        1. The remaining in-service installed capacity from the initial 
+        technology.
+        2. The remaining in-service installed capacity from newly built 
+        technology in the previous modelled years.
+
+        Parameters
+        ----------
+        y : int
+            Planned year.
+        z : str
+            Zone.
+        te : str
+            technology.
+
+        Returns
+        -------
+        pyoptinterface._src.core_ext.ConstraintIndex
+            Constraint index of the model.
         """
-        Rule for total investment cost of new transmission lines.
-
-        Args:
-            model (pyomo.core.base.PyomoModel.ConcreteModel): Model to be solved.
-
-        Returns:
-            pyomo.core.base.PyomoModel.ConcreteModel: Model with investment cost of new transmission lines constraints.
-        """
-        return model.cost_newline == 0.5 * sum(self.para['transmission_line_existing_capacity'][z, z1] * model.cap_newline[y, z, z1] * self.para['distance'][z, z1] * self.para['trans_inv_factor'][y] for y, z, z1 in model.year_zone_zone_tuples)
-
-
-    def fix_cost_rule(self, model):
-        """
-        Rule for fixed O&M cost of technologies and transmission lines.
-
-        Args:
-            model (pyomo.core.base.PyomoModel.ConcreteModel): Model to be solved.
-
-        Returns:
-            pyomo.core.base.PyomoModel.ConcreteModel: Model with fixed O&M cost of technologies and transmission line constraints.
-        """
-        fix_cost_tech = sum(self.para['technology_fixed_OM_cost'][te, y] * model.cap_existing[y, z, te] * self.para['fix_factor'][y] for y, z, te in model.year_zone_tech_tuples)
-        fix_cost_line = 0.5 * sum(self.para['transmission_line_fixed_OM_cost'][z, z1] * model.cap_lines_existing[y, z, z1] * self.para['fix_factor'][y] for y, z1, z in model.year_zone_zone_tuples)
-        return model.cost_fix == fix_cost_tech + fix_cost_line
-
-
-    def remaining_capacity_rule(self, model, y, z, te):
-        """
-        Rule for lifetime restrictions.
-        
-        Note: Where in modeled year y, the available technology consists of the following.
-            1. The remaining in-service installed capacity from the initial technology.
-            2. The remaining in-service installed capacity from newly built technology in the previous modelled years.
-
-        Args:
-            model (pyomo.core.base.PyomoModel.ConcreteModel): Model to be solved.
-            y (int): Year.
-            z (str): Zone.
-            te (str): Technology.
-
-        Returns:
-            pyomo.core.base.PyomoModel.ConcreteModel: Model with lifetime restriction constraints.
-        """
+        model = self.model
         year = self.para['year']
-        new_tech = sum([model.cap_newtech[yy, z, te] for yy in year[:year.index(y) + 1] if y - yy < self.para['lifetime'][te, y]])
-        return model.cap_existing[y, z, te] == model.remaining_technology[y, z, te] + new_tech
+        lt = self.para['lifetime']
+        new_tech = poi.quicksum(
+            model.cap_newtech[yy, z, te]
+            for yy in year[:year.index(y) + 1]
+            if y - yy < lt[te, y]
+        )
+        lhs = new_tech
+        lhs += model.remaining_technology[y, z, te]
+        lhs -= model.cap_existing[y, z, te]
+        return model.add_linear_constraint(lhs, poi.Eq, 0)
 
 
-    def emission_limit_rule(self, model, y):
+    def emission_limit_rule(self, y):
+        """Annual carbon emission limits across all zones and technologies.
+        
+        Parameters
+        ----------
+        y : int
+            Planned year.
+            
+        Returns
+        -------
+        pyoptinterface._src.core_ext.ConstraintIndex
+            Constraint index of the model.
         """
-        Rule for carbon emission restrictions.
+        model = self.model
+        limit = self.para['carbon_emission_limit']
+        if limit[y] == np.Inf:
+            return None
+        lhs = model.carbon[y] - limit[y]
+        return model.add_linear_constraint(lhs, poi.Leq, 0)
 
-        Args:
-            model (pyomo.core.base.PyomoModel.ConcreteModel): Model to be solved.
-            y (int): Year.
 
-        Returns:
-            pyomo.core.base.PyomoModel.ConcreteModel: Model with carbon emission restriction constraints.
+    def emission_calc_rule(self, y):
+        """Calculation of annual carbon emission across all zones and
+            technologies.
+
+        Parameters
+        ----------
+        y : int
+            Planned year.
+
+        Returns
+        -------
+        pyoptinterface._src.core_ext.ConstraintIndex
+            Constraint index of the model.
         """
-        return model.carbon[y] <= self.para['carbon_emission_limit'][y]
+        model = self.model
+        lhs = poi.quicksum(
+            model.carbon_capacity[y, z]
+            for z in model.zone
+        )
+        lhs -= model.carbon[y]
+        return model.add_linear_constraint(lhs, poi.Eq, 0)
 
 
-    def emission_calc_rule(self, model, y):
+    def emission_calc_by_zone_rule(self, y, z):
+        """Calculation of annual carbon emissions by zone.
+
+        Parameters
+        ----------
+        y : int
+            Planned year.
+        z : str
+            Zone.
+
+        Returns
+        -------
+        pyoptinterface._src.core_ext.ConstraintIndex
+            Constraint index of the model.
         """
-        Rule for carbon emission calculation.
+        model = self.model
+        ef = self.para['emission_factor']
+        dt = self.para['dt']
+        lhs = poi.quicksum(
+            ef[te, y] * model.gen[h, m, y, z, te] * dt
+            for h, m, te in model.hour_month_tech_tuples
+        )
+        lhs -= model.carbon_capacity[y, z]
+        return model.add_linear_constraint(lhs, poi.Eq, 0)
 
-        Args:
-            model (pyomo.core.base.PyomoModel.ConcreteModel): Model to be solved.
-            y (int): Year.
 
-        Returns:
-            pyomo.core.base.PyomoModel.ConcreteModel: Model with carbon emission calculation rule.
+    def power_balance_rule(self, h, m, y, z):
+        """Power balance.
+        Note: The total electricity demand for each time period and in each 
+        zone should be met by the following.
+        1. The sum of imported power energy from other zones.
+        2. The generation from zone z minus the sum of exported power 
+        energy from zone z to other zones.
+        3. The charging power energy of storage technologies in zone z.
+
+        Parameters
+        ----------
+        h : int
+            Hour.
+        m : int
+            Month.
+        y : int
+            Year.
+        z : str
+            Zone.
+        
+        Returns
+        -------
+        pyoptinterface._src.core_ext.ConstraintIndex
+            Constraint index of the model.
         """
-        return model.carbon[y] == sum(model.carbon_capacity[y, z] for z in model.zone)
+        model = self.model
+        lc = self.para['transmission_line_existing_capacity']
+        load = self.para['demand']
+        imp_z = poi.quicksum(
+            model.trans_import[h, m, y, z1, z]
+            for z1 in model.zone if (z, z1) in lc.keys()
+        )
+        exp_z = poi.quicksum(
+            model.trans_export[h, m, y, z, z1]
+            for z1 in model.zone if (z, z1) in lc.keys()
+        )
+        gen_z = poi.quicksum(
+            model.gen[h, m, y, z, te] for te in model.tech
+        )
+        charge_z = poi.quicksum(
+            model.charge[h, m, y, z, te] for te in model.storage_tech
+        )
+        demand_z = load[z, y, m, h]
+        lhs = demand_z - (imp_z - exp_z + gen_z - charge_z)
+        return model.add_linear_constraint(lhs, poi.Eq, 0)
 
 
-    def emission_calc_by_zone_rule(self, model, y, z):
+    def trans_physical_rule(self, y, z, z1):
+        """Physical transmission lines.
+
+        Parameters
+        ----------
+        y : int
+            Year.
+        z : str
+            Zone.
+        z1 : str
+            Zone.
+
+        Returns
+        -------
+        pyoptinterface._src.core_ext.ConstraintIndex
+            Constraint index of the model.
         """
-        Rule for carbon emission calculation by zone.
+        model = self.model
+        lhs = model.cap_newline[y, z, z1] - model.cap_newline[y, z1, z]
+        return model.add_linear_constraint(lhs, poi.Eq, 0)
 
-        Args:
-            model (pyomo.core.base.PyomoModel.ConcreteModel): Model to be solved.
-            y (int): Year.
-            z (str): Zone.
 
-        Returns:
-            pyomo.core.base.PyomoModel.ConcreteModel: Model with carbon emission calculation by zone rule.
+    def trans_capacity_rule(self, y, z, z1):
+        """Transmission capacity equal to the sum of the existing capacity 
+            and the new capacity in previous planned years.
+
+        Parameters
+        ----------
+        y : int
+            Year.
+        z : str
+            Zone.
+        z1 : str
+            Zone.
+
+        Returns
+        -------
+        pyoptinterface._src.core_ext.ConstraintIndex
+            Constraint index of the model.
         """
-        return model.carbon_capacity[y, z] == sum(self.para['emission_factor'][te, y] * model.gen[h, m, y, z, te] * self.para['dt'] for h, m, te in model.hour_month_tech_tuples)
+        model = self.model
+        year = self.para['year']
+        lc = self.para['transmission_line_existing_capacity']
+        remaining_capacity_line = lc[z, z1]
+        new_capacity_line = poi.quicksum(
+            model.cap_newline[yy, z, z1] for yy in year[:year.index(y) + 1]
+        )
+        lhs = new_capacity_line
+        lhs += remaining_capacity_line
+        lhs -= model.cap_lines_existing[y, z, z1]
+        return model.add_linear_constraint(lhs, poi.Eq, 0)
 
+    def trans_balance_rule(self, h, m, y, z, z1):
+        """Transmission balance, i.e., the electricity imported from zone z1 
+            to zone z should be equal to the electricity exported from zone z 
+            to zone z1 multiplied by the transmission line efficiency.
 
-    def power_balance_rule(self, model, h, m, y, z):
+        Parameters
+        ----------
+        h : int
+            Hour.
+        m : int
+            Month.
+        y : int
+            Year.
+        z : str
+            Zone.
+        z1 : str
+            Zone.
+
+        Returns
+        -------
+        pyoptinterface._src.core_ext.ConstraintIndex
+            Constraint index of the model.
         """
-        Rule for power balance.
-
-        Note: The total electricity demand for each time period and in each zone should be met by the following.
-            1. The sum of imported power energy from other zones.
-            2. The generation from zone z minus the sum of exported power energy from zone z to other zones.
-            3. The charging power energy of storage technologies in zone z.
-
-        Args:
-            model (pyomo.core.base.PyomoModel.ConcreteModel): Model to be solved.
-            h (int): Hour.
-            m (int): Month.
-            y (int): Year.
-            z (str): Zone.
-
-        Returns:
-            pyomo.core.base.PyomoModel.ConcreteModel: Model with power balance constraints.
-        """
-        imp_z = sum([model.trans_import[h, m, y, z1, z] for z1 in model.zone if (z, z1) in self.para['transmission_line_existing_capacity'].keys()])
-        exp_z = sum([model.trans_export[h, m, y, z, z1] for z1 in model.zone if (z, z1) in self.para['transmission_line_existing_capacity'].keys()])
-        gen_z = sum([model.gen[h, m, y, z, te] for te in model.tech])
-        charge_z = sum([model.charge[h, m, y, z, te] for te in model.storage_tech])
-        demand_z = self.para['demand'][z, y, m, h]
-        return demand_z == imp_z - exp_z + gen_z - charge_z
-
-
-    def trans_physical_rule(self, model, y, z, z1):
-        """
-        Rule for physical transmission lines.
-
-        Args:
-            model (pyomo.core.base.PyomoModel.ConcreteModel): Model to be solved.
-            y (int): Year.
-            z (str): Zone.
-            z1 (str): Zone.
-
-        Returns:
-            pyomo.core.base.PyomoModel.ConcreteModel: Model with physical transmission line constraints.
-        """
-        return model.cap_newline[y, z, z1] == model.cap_newline[y, z1, z]
-
-
-    def trans_capacity_rule(self, model, y, z, z1):
-        """
-        Rule for transmission capacity.
-
-        Args:
-            model (pyomo.core.base.PyomoModel.ConcreteModel): Model to be solved.
-            y (int): Year.
-            z (str): Zone.
-            z1 (str): Zone.
-
-        Returns:
-            pyomo.core.base.PyomoModel.ConcreteModel: Model with transmission capacity constraints.
-        """
-        Year = self.para['year']
-        remaining_capacity_line = self.para['transmission_line_existing_capacity'][z, z1]
-        new_capacity_line = sum(model.cap_newline[yy, z, z1] for yy in Year[:Year.index(y) + 1])
-        return model.cap_lines_existing[y, z, z1] == remaining_capacity_line + new_capacity_line
-
-
-    def trans_balance_rule(self, model, h, m, y, z, z1):
-        """
-        Rule for transmission balance.
-
-        Args:
-            model (pyomo.core.base.PyomoModel.ConcreteModel): Model to be solved.
-            h (int): Hour.
-            m (int): Month.
-            y (int): Year.
-            z (str): Zone.
-            z1 (str): Zone.
-
-        Returns:
-            pyomo.core.base.PyomoModel.ConcreteModel: Model with transmission balance constraints.
-        """
+        model = self.model
         eff = self.para['transmission_line_efficiency'][z, z1]
-        return eff * model.trans_export[h, m, y, z, z1] == model.trans_import[h, m, y, z, z1]
+        lhs = model.trans_import[h, m, y, z, z1] \
+            - eff * model.trans_export[h, m, y, z, z1]
+        return model.add_linear_constraint(lhs, poi.Eq, 0)
 
 
-    def trans_up_bound_rule(self, model, h, m, y, z, z1):
+    def trans_up_bound_rule(self, h, m, y, z, z1):
+        """Transmitted power is less than or equal to the transmission line 
+            capacity.
+
+        Parameters
+        ----------
+        h : int
+            Hour.
+        m : int
+            Month.
+        y : int
+            Year.
+        z : str
+            Zone.
+        z1 : str
+            Zone.
+
+        Returns
+        -------
+        pyoptinterface._src.core_ext.ConstraintIndex
+            Constraint index of the model.
         """
-        Rule for transmission upper bound.
+        model = self.model
+        lhs = model.trans_export[h, m, y, z, z1] \
+            - model.cap_lines_existing[y, z, z1]
+        return model.add_linear_constraint(lhs, poi.Leq, 0)
 
-        Args:
-            model (pyomo.core.base.PyomoModel.ConcreteModel): Model to be solved.
-            h (int): Hour.
-            m (int): Month.
-            y (int): Year.
-            z (str): Zone.
-            z1 (str): Zone.
 
-        Returns:
-            pyomo.core.base.PyomoModel.ConcreteModel: Model with transmission upper bound constraints.
+    def gen_up_bound_rule(self, h, m, y, z, te):
+        """Generation is less than or equal to the existing capacity.
+
+        Parameters
+        ----------
+        h : int
+            Hour.
+        m : int
+            Month.
+        y : int
+            Year.
+        z : str
+            Zone.
+        te : str
+            Technology.
+            
+        Returns
+        -------
+        pyoptinterface._src.core_ext.ConstraintIndex
+            Constraint index of the model.
         """
-        return model.trans_export[h, m, y, z, z1] <= model.cap_lines_existing[y, z, z1]
+        model = self.model
+        lhs = model.gen[h, m, y, z, te] - model.cap_existing[y, z, te]
+        return model.add_linear_constraint(lhs, poi.Leq, 0)
 
 
-    def gen_up_bound_rule(self, model, h, m, y, z, te):
+    def tech_up_bound_rule(self, y, z, te):
+        """Allowed capacity of commercial operation technology is less than or 
+            equal to the predefined upper bound.
+
+        Parameters
+        ----------
+        y : int
+            Year.
+        z : str
+            Zone.
+        te : str
+            Technology.
+            
+        Returns
+        -------
+        pyoptinterface._src.core_ext.ConstraintIndex
+            Constraint index of the model.
         """
-        Rule for generation upper bound.
+        model = self.model
+        tub =  self.para['technology_upper_bound'][te, z]
+        if tub != np.Inf:
+            lhs = model.cap_existing[y, z, te] - tub
+            return model.add_linear_constraint(lhs, poi.Leq, 0)
+        return None
 
-        Args:
-            model (pyomo.core.base.PyomoModel.ConcreteModel): Model to be solved.
-            h (int): Hour.
-            m (int): Month.
-            y (int): Year.
-            z (str): Zone.
-            te (str): Technology.
 
-        Returns:
-            pyomo.core.base.PyomoModel.ConcreteModel: Model with generation upper bound constraints.
+    def new_tech_up_bound_rule(self, y, z, te):
+        """New investment technology upper bound in specific year and zone.
+
+        Parameters
+        ----------
+        y : int
+            Year.
+        z : str
+            Zone.
+        te : str
+            Technology.
+            
+        Returns
+        -------
+        pyoptinterface._src.core_ext.ConstraintIndex
+            Constraint index of the model.
         """
-        return model.gen[h, m, y, z, te] <= model.cap_existing[y, z, te]
-
-
-    def tech_up_bound_rule(self, model, y, z, te):
-        """
-        Rule for technology upper bound.
-
-        Args:
-            model (pyomo.core.base.PyomoModel.ConcreteModel): Model to be solved.
-            y (int): Year.
-            z (str): Zone.
-            te (str): Technology.
-
-        Returns:
-            pyomo.core.base.PyomoModel.ConcreteModel: Model with technology upper bound constraints.
-        """
-        if self.para['technology_upper_bound'][te, z] == np.Inf:
-            return Constraint.Skip
+        model = self.model
+        ntub = self.para['new_technology_upper_bound'][te, z]
+        if ntub == np.Inf:
+            return None
         else:
-            return model.cap_existing[y, z, te] <= self.para['technology_upper_bound'][te, z]
+            lhs = model.cap_newtech[y, z, te] - ntub
+            return model.add_linear_constraint(lhs, poi.Leq, 0)
 
 
-    def new_tech_up_bound_rule(self, model, y, z, te):
+    def new_tech_low_bound_rule(self, y, z, te):
+        """New investment technology lower bound.
+
+        Parameters
+        ----------
+        y : int
+            Year.
+        z : str
+            Zone.
+        te : str
+            Technology.
+
+        Returns
+        -------
+        pyoptinterface._src.core_ext.ConstraintIndex
+            Constraint index of the model.
         """
-        Rule for new technology upper bound.
+        model = self.model
+        ntlb = self.para['new_technology_lower_bound'][te, z]
+        lhs = model.cap_newtech[y, z, te] - ntlb
+        return model.add_linear_constraint(lhs, poi.Geq, 0)
 
-        Args:
-            model (pyomo.core.base.PyomoModel.ConcreteModel): Model to be solved.
-            y (int): Year.
-            z (str): Zone.
-            te (str): Technology.
 
-        Returns:
-            pyomo.core.base.PyomoModel.ConcreteModel: Model with new technology upper bound constraints.
+    def renew_gen_rule(self, h, m, y, z, te):
+        """Renewable generation is determined by the capacity factor and 
+            existing capacity.
+        
+        Parameters
+        ----------
+        h : int
+            Hour.
+        m : int
+            Month.
+        y : int
+            Year.
+        z : str
+            Zone.
+        te : str
+            Technology.
+
+        Returns
+        -------
+        pyoptinterface._src.core_ext.ConstraintIndex
+            Constraint index of the model.
         """
-        if self.para['new_technology_upper_bound'][te, z] == np.Inf:
-            return Constraint.Skip
-        else:
-            return model.cap_newtech[y, z, te] <= self.para['new_technology_upper_bound'][te, z]
+        model = self.model
+        cf = self.para['capacity_factor'][te, z, y, m, h]
+        dt = self.para['dt']
+        cap = model.cap_existing[y, z, te]
+        gen = model.gen[h, m, y, z, te]
+        lhs = gen - cap * cf * dt
+        return model.add_linear_constraint(lhs, poi.Leq, 0)
 
 
-    def new_tech_low_bound_rule(self, model, y, z, te):
+    def tech_lifetime_rule(self, y, z, te):
+        """Caculation of remaining technology capacity based on lifetime 
+            constraints.
+
+        Parameters
+        ----------
+        y : int
+            Year.
+        z : str
+            Zone.
+        te : str
+            Technology.
+
+        Returns
+        -------
+        pyoptinterface._src.core_ext.ConstraintIndex
+            Constraint index of the model.
         """
-        Rule for new technology lower bound.
-
-        Args:
-            model (pyomo.core.base.PyomoModel.ConcreteModel): Model to be solved.
-            y (int): Year.
-            z (str): Zone.
-            te (str): Technology.
-
-        Returns:
-            pyomo.core.base.PyomoModel.ConcreteModel: Model with new technology lower bound constraints.
-        """
-        return model.cap_newtech[y, z, te] >= self.para['new_technology_lower_bound'][te, z]
-
-
-    def renew_gen_rule(self, model, h, m, y, z, te):
-        """
-        Rule for renewable generation.
-
-        Args:
-            model (pyomo.core.base.PyomoModel.ConcreteModel): Model to be solved.
-            h (int): Hour.
-            m (int): Month.
-            y (int): Year.
-            z (str): Zone.
-            te (str): Technology.
-
-        Returns:
-            pyomo.core.base.PyomoModel.ConcreteModel: Model with renewable generation constraints.
-        """
-        return model.gen[h, m, y, z, te] <= self.para['capacity_factor'][te, z, y, m, h] * model.cap_existing[y, z, te] * self.para['dt']
-
-
-    def tech_lifetime_rule(self, model, y, z, te):
-        """
-        Rule for technology lifetime.
-
-        Args:
-            model (pyomo.core.base.PyomoModel.ConcreteModel): Model to be solved.
-            y (int): Year.
-            z (str): Zone.
-            te (str): Technology.
-
-        Returns:
-            pyomo.core.base.PyomoModel.ConcreteModel: Model with technology lifetime constraints.
-        """
+        model = self.model
         lifetime = self.para['lifetime'][te, y]
         service_time = y - self.para['year'][0]
+        hcap = self.para['historical_capacity']
+        rt = model.remaining_technology[y, z, te]
         remaining_time = int(lifetime - service_time)
         if remaining_time <= 0:
-            return model.remaining_technology[y, z, te] == 0
+            lhs = model.remaining_technology[y, z, te]
         else:
-            return model.remaining_technology[y, z, te] == sum([self.para['historical_capacity'][z, te, a] for a in range(0, remaining_time)])
+            lhs = poi.quicksum(
+                hcap[z, te, a] for a in range(0, remaining_time)
+            )
+            lhs -= rt
+        return model.add_linear_constraint(lhs, poi.Eq, 0)
 
 
-    def energy_storage_balance_rule(self, model, h, m, y, z, te):
+    def energy_storage_balance_rule(self, h, m, y, z, te):
+        """Energy storage balance.
+
+        Parameters
+        ----------
+        h : int
+            Hour.
+        m : int
+            Month.
+        y : int
+            Year.
+        z : str
+            Zone.
+        te : str
+            Technology.
+            
+        Returns
+        -------
+        pyoptinterface._src.core_ext.ConstraintIndex
+            Constraint index of the model.
         """
-        Rule for energy storage balance.
+        model = self.model
+        de = self.para['discharge_efficiency'][te, y]
+        dt = self.para['dt']
+        ce = self.para['charge_efficiency'][te, y]
+        lhs = model.storage[h, m, y, z, te] - (
+            model.storage[h-1, m, y, z, te]
+            - model.gen[h, m, y, z, te] * de * dt
+            + model.charge[h, m, y, z, te] * ce * dt
+        )
+        return model.add_linear_constraint(lhs, poi.Eq, 0)
 
-        Args:
-            model (pyomo.core.base.PyomoModel.ConcreteModel): Model to be solved.
-            h (int): Hour.
-            m (int): Month.
-            y (int): Year.
-            z (str): Zone.
-            te (str): Technology.
 
-        Returns:
-            pyomo.core.base.PyomoModel.ConcreteModel: Model with energy storage balance constraints.
+    def init_energy_storage_rule(self, m, y, z, te):
+        """Initial energy storage.
+
+        Parameters
+        ----------
+        m : int
+            Month.
+        y : int
+            Year.
+        z : str
+            Zone.
+        te : str
+            Technology.
+            
+        Returns
+        -------
+        pyoptinterface._src.core_ext.ConstraintIndex
+            Constraint index of the model.
         """
-        return (model.storage[h, m, y, z, te] == model.storage[h-1, m, y, z, te] - model.gen[h, m, y, z, te] * self.para['discharge_efficiency'][te, y] * self.para['dt'] + model.charge[h, m, y, z, te] * self.para['charge_efficiency'][te, y] * self.para['dt'])
+        model = self.model
+        esl = self.para['initial_energy_storage_level'][te, z]
+        epr = self.para['energy_to_power_ratio'][te]
+        lhs = (
+            model.storage[0, m, y, z, te]
+            - esl * model.cap_existing[y, z, te] * epr
+        )
+        return model.add_linear_constraint(lhs, poi.Eq, 0)
 
 
-    def init_energy_storage_rule(self, model, m, y, z, te):
+    def end_energy_storage_rule(self, m, y, z, te):
+        """End energy storage.
+
+        Parameters
+        ----------
+        m : int
+            Month.
+        y : int
+            Year.
+        z : str
+            Zone.
+        te : str
+            Technology.
+            
+        Returns
+        -------
+        pyoptinterface._src.core_ext.ConstraintIndex
+            Constraint index of the model.
         """
-        Rule for initial energy storage.
+        model = self.model
+        h_init = self.para['hour'][-1]
+        lhs = (
+            model.storage[h_init, m, y, z, te]
+            - model.storage[0, m, y, z, te]
+        )
+        return model.add_linear_constraint(lhs, poi.Eq, 0)
 
-        Args:
-            model (pyomo.core.base.PyomoModel.ConcreteModel): Model to be solved.
-            m (int): Month.
-            y (int): Year.
-            z (str): Zone.
-            te (str): Technology.
 
-        Returns:
-            pyomo.core.base.PyomoModel.ConcreteModel: Model with initial energy storage constraints.
+    def energy_storage_up_bound_rule(self, h, m, y, z, te):
+        """Energy storage upper bound.
+
+        Parameters
+        ----------
+        h : int
+            Hour.
+        m : int
+            Month.
+        y : int
+            Year.
+        z : str
+            Zone.
+        te : str
+            Technology.
+
+        Returns
+        -------
+        pyoptinterface._src.core_ext.ConstraintIndex
+            Constraint index of the model.
         """
-        return (model.storage[0, m, y, z, te] == self.para['initial_energy_storage_level'][te, z] * model.cap_existing[y, z, te] * self.para['energy_to_power_ratio'][te])
+        model = self.model
+        epr = self.para['energy_to_power_ratio'][te]
+        lhs = (
+            model.storage[h, m, y, z, te]
+            - model.cap_existing[y, z, te] * epr
+        )
+        return model.add_linear_constraint(lhs, poi.Leq, 0)
 
 
-    def end_energy_storage_rule(self, model, m, y, z, te):
+    def energy_storage_gen_rule(self, h, m, y, z, te):
+        """Energy storage generation.
+
+        Parameters
+        ----------
+        h : int
+            Hour.
+        m : int
+            Month.
+        y : int
+            Year.
+        z : str
+            Zone.
+        te : str
+            Technology.
+            
+        Returns
+        -------
+        pyoptinterface._src.core_ext.ConstraintIndex
+            Constraint index of the model.
         """
-        Rule for end energy storage.
+        model = self.model
+        de = self.para['discharge_efficiency'][te, y]
+        dt = self.para['dt']
+        lhs = model.gen[h, m, y, z, te] * de * dt                             \
+            - model.storage[h-1, m, y, z, te]
+        return model.add_linear_constraint(lhs, poi.Leq, 0)
 
-        Args:
-            model (pyomo.core.base.PyomoModel.ConcreteModel): Model to be solved.
-            m (int): Month.
-            y (int): Year.
-            z (str): Zone.
-            te (str): Technology.
 
-        Returns:
-            pyomo.core.base.PyomoModel.ConcreteModel: Model with end energy storage constraints.
+    def ramping_up_rule(self, h, m, y, z, te):
+        """Ramping up limits.
+
+        Parameters
+        ----------
+        h : int
+            Hour.
+        m : int
+            Month.
+        y : int
+            Year.
+        z : str
+            Zone.
+        te : str
+            Technology.
+            
+        Returns
+        -------
+        pyoptinterface._src.core_ext.ConstraintIndex
+            Constraint index of the model.
         """
-        return model.storage[self.para['hour'][-1], m, y, z, te] == model.storage[0, m, y, z, te]
-
-
-    def energy_storage_up_bound_rule(self, model, h, m, y, z, te):
-        """
-        Rule for energy storage upper bound.
-
-        Args:
-            model (pyomo.core.base.PyomoModel.ConcreteModel): Model to be solved.
-            h (int): Hour.
-            m (int): Month.
-            y (int): Year.
-            z (str): Zone.
-            te (str): Technology.
-
-        Returns:
-            pyomo.core.base.PyomoModel.ConcreteModel: Model with energy storage upper bound constraints.
-        """
-        return model.storage[h, m, y, z, te] <= model.cap_existing[y, z, te] * self.para['energy_to_power_ratio'][te]
-
-
-    def energy_storage_gen_rule(self, model, h, m, y, z, te):
-        """
-        Rule for energy storage generation.
-
-        Args:
-            model (pyomo.core.base.PyomoModel.ConcreteModel): Model to be solved.
-            h (int): Hour.
-            m (int): Month.
-            y (int): Year.
-            z (str): Zone.
-            te (str): Technology.
-
-        Returns:
-            pyomo.core.base.PyomoModel.ConcreteModel: Model with energy storage generation constraints.
-        """
-        return model.gen[h, m, y, z, te] * self.para['discharge_efficiency'][te, y] * self.para['dt'] <= model.storage[h-1, m, y, z, te]
-
-
-    def ramping_up_rule(self, model, h, m, y, z, te):
-        """
-        Rule for ramping up.
-
-        Args:
-            model (pyomo.core.base.PyomoModel.ConcreteModel): Model to be solved.
-            h (int): Hour.
-            m (int): Month.
-            y (int): Year.
-            z (str): Zone.
-            te (str): Technology.
-
-        Returns:
-            pyomo.core.base.PyomoModel.ConcreteModel: Model with ramping up constraints.
-        """
-        if h > 1 and self.para['ramp_up'][te] * self.para['dt'] < 1:
-            return model.gen[h, m, y, z, te] - model.gen[h-1, m, y, z, te] <= self.para['ramp_up'][te] * self.para['dt'] * model.cap_existing[y, z, te]
+        model = self.model
+        rp = self.para['ramp_up'][te] * self.para['dt']
+        if h > 1 and rp < 1:
+            lhs = (
+                model.gen[h, m, y, z, te] - model.gen[h-1, m, y, z, te]
+                - rp * model.cap_existing[y, z, te]
+            )
+            return model.add_linear_constraint(lhs, poi.Leq, 0)
         else:
-            return Constraint.Skip
+            return None
 
 
-    def ramping_down_rule(self, model, h, m, y, z, te):
+    def ramping_down_rule(self, h, m, y, z, te):
+        """Ramping down limits.
+
+        Parameters
+        ----------
+        h : int
+            Hour.
+        m : int
+            Month.
+        y : int
+            Year.
+        z : str
+            Zone.
+        te : str
+            Technology.
+            
+        Returns
+        -------
+        pyoptinterface._src.core_ext.ConstraintIndex
+            Constraint index of the model.
         """
-        Rule for ramping down.
-
-        Args:
-            model (pyomo.core.base.PyomoModel.ConcreteModel): Model to be solved.
-            h (int): Hour.
-            m (int): Month.
-            y (int): Year.
-            z (str): Zone.
-            te (str): Technology.
-
-        Returns:
-            pyomo.core.base.PyomoModel.ConcreteModel: Model with ramping down constraints.
-        """
-        if h > 1 and self.para['ramp_down'][te] * self.para['dt'] < 1:
-            return model.gen[h-1, m, y, z, te] - model.gen[h, m, y, z, te] <= self.para['ramp_down'][te] * self.para['dt'] * model.cap_existing[y, z, te]
+        model = self.model
+        rd = self.para['ramp_down'][te] * self.para['dt']
+        if h > 1 and  rd < 1:
+            lhs = (
+                model.gen[h-1, m, y, z, te] - model.gen[h, m, y, z, te]
+                - rd * model.cap_existing[y, z, te]
+            )
+            return model.add_linear_constraint(lhs, poi.Leq, 0)
         else:
-            return Constraint.Skip
+            return None
 
 
-    def natural_inflow_rule(self, model, s, h, m, y):
+    def natural_inflow_rule(self, s, h, m, y):
+        """Natural inflow.
+
+        Parameters
+        ----------
+        s : str
+            hydropower plant.
+        h : int
+            Hour.
+        m : int
+            Month.
+        y : int
+            Year.
+            
+        Returns
+        -------
+        pyoptinterface._src.core_ext.ConstraintIndex
+            Constraint index of the model.
         """
-        Rule for natural inflow.
+        model = self.model
+        inflow = self.para['inflow'][s, y, m, h]
+        lhs = model.naturalinflow[s, h, m, y] - inflow
+        return model.add_linear_constraint(lhs, poi.Eq, 0)
 
-        Args:
-            model (pyomo.core.base.PyomoModel.ConcreteModel): Model to be solved.
-            s (str): Power plant.
-            h (int): Hour.
-            m (int): Month.
-            y (int): Year.
 
-        Returns:
-            pyomo.core.base.PyomoModel.ConcreteModel: Model with natural inflow constraints.
+    def total_inflow_rule(self, s, h, m, y):
+        """Total inflow.
+
+        Parameters
+        ----------
+        s : str
+            hydropower plant.
+        h : int
+            Hour.
+        m : int
+            Month.
+        y : int
+            Year.
+            
+        Returns
+        -------
+        pyoptinterface._src.core_ext.ConstraintIndex
+            Constraint index of the model.
         """
-        return model.naturalinflow[s, h, m, y] == self.para['inflow'][s, y, m, h]
-
-
-    def total_inflow_rule(self, model, s, h, m, y):
-        """
-        Rule for total inflow.
-
-        Note: Outflows are assumed to occur everyday to maintain water level.
-
-        Args:
-            model (pyomo.core.base.PyomoModel.ConcreteModel): Model to be solved.
-            s (str): Power plant.
-            h (int): Hour.
-            m (int): Month.
-            y (int): Year.
-
-        Returns:
-            pyomo.core.base.PyomoModel.ConcreteModel: Model with total inflow constraints.
-        """
+        model = self.model
         hour = self.para['hour']
-        up_stream_outflow = 0
-        for ups, delay in zip(self.para['water_delay_time'][self.para['water_delay_time']['NEXTPOWER_ID'] == s].POWER_ID, self.para['water_delay_time'][self.para['water_delay_time']['NEXTPOWER_ID'] == s].delay):
-            delay = int(int(delay)/self.para['dt'])
+        wdt = self.para['water_delay_time']
+        dt = self.para['dt']
+        up_stream_outflow = poi.ExprBuilder()
+        for ups, delay in zip(
+            wdt[wdt['NEXTPOWER_ID'] == s].POWER_ID,
+            wdt[wdt['NEXTPOWER_ID'] == s].delay
+        ):
+            delay = int(int(delay)/dt)
             if (h - delay >= hour[0]):
-                up_stream_outflow += model.outflow[ups, h-delay, m, y]
+                t = h-delay
             else:
-                up_stream_outflow += model.outflow[ups, hour[-1] - delay + h, m, y]
+                t = hour[-1] - delay + h
+            up_stream_outflow += model.outflow[ups, t, m, y]
+        lhs = up_stream_outflow
+        lhs += model.naturalinflow[s, h, m, y]
+        lhs -= model.inflow[s, h, m, y]
+        return model.add_linear_constraint(lhs, poi.Eq, 0)
 
-        return model.inflow[s, h, m, y] == model.naturalinflow[s, h, m, y] + up_stream_outflow
 
+    def water_balance_rule(self, s, h, m, y):
+        """Water balance of reservoir.
 
-    def water_balance_rule(self, model, s, h, m, y):
+        Parameters
+        ----------
+        s : str
+            hydropower plant.
+        h : int
+            Hour.
+        m : int
+            Month.
+        y : int
+            Year.
+            
+        Returns
+        -------
+        pyoptinterface._src.core_ext.ConstraintIndex
+            Constraint index of the model.
         """
-        Rule for water balance.
+        model = self.model
+        netflow = (
+            model.inflow[s, h, m, y]
+            - model.outflow[s, h, m, y]
+            - model.withdraw[s, h, m, y]
+        )
+        netstorage = 3600 * self.para['dt'] * netflow
+        lhs = model.storage_reservoir[s, h, m, y] - (
+            model.storage_reservoir[s, h-1, m, y] + netstorage
+        )
+        return model.add_linear_constraint(lhs, poi.Eq, 0)
 
-        Args:
-            model (pyomo.core.base.PyomoModel.ConcreteModel): Model to be solved.
-            s (str): Power plant.
-            h (int): Hour.
-            m (int): Month.
-            y (int): Year.
 
-        Returns:
-            pyomo.core.base.PyomoModel.ConcreteModel: Model with water balance constraints.
+    def discharge_rule(self, s, h, m, y):
+        """Total outflow of reservoir is equal to the sum of generation and 
+            spillage.
+
+        Parameters
+        ----------
+        s : str
+            hydropower plant.
+        h : int
+            Hour.
+        m : int
+            Month.
+        y : int
+            Year.
+            
+        Returns
+        -------
+        pyoptinterface._src.core_ext.ConstraintIndex
+            Constraint index of the model.
         """
-        return model.storage_reservoir[s, h, m, y] == model.storage_reservoir[s, h-1, m, y] + (model.inflow[s, h, m, y] - model.outflow[s, h, m, y] - model.withdraw[s, h, m, y]) * 3600 * self.para['dt']
+        model = self.model
+        lhs = model.outflow[s, h, m, y] - (
+            model.genflow[s, h, m, y] + model.spillflow[s, h, m, y]
+        )
+        return model.add_linear_constraint(lhs, poi.Eq, 0)
 
 
-    def discharge_rule(self, model, s, h, m, y):
+    def outflow_low_bound_rule(self, s, h, m, y):
+        """Total outflow lower bound.
+
+        Parameters
+        ----------
+        s : str
+            hydropower plant.
+        h : int
+            Hour.
+        m : int
+            Month.
+        y : int
+            Year.
+            
+        Returns
+        -------
+        pyoptinterface._src.core_ext.ConstraintIndex
+            Constraint index of the model.
         """
-        Rule for discharge.
+        model = self.model
+        min_outflow = self.para['reservoir_characteristics']['outflow_min', s]
+        lhs = model.outflow[s, h, m, y] - min_outflow
+        return model.add_linear_constraint(lhs, poi.Geq, 0)
 
-        Args:
-            model (pyomo.core.base.PyomoModel.ConcreteModel): Model to be solved.
-            s (str): Power plant.
-            h (int): Hour.
-            m (int): Month.
-            y (int): Year.
 
-        Returns:
-            pyomo.core.base.PyomoModel.ConcreteModel: Model with discharge constraints.
+    def outflow_up_bound_rule(self, s, h, m, y):
+        """Total outflow upper bound.
+        
+        Parameters
+        ----------
+        s : str
+            hydropower plant.
+        h : int
+            Hour.
+        m : int
+            Month.
+        y : int
+            Year.
+            
+        Returns
+        -------
+        pyoptinterface._src.core_ext.ConstraintIndex
+            Constraint index of the model.
         """
-        return model.outflow[s, h, m, y] == model.genflow[s, h, m, y] + model.spillflow[s, h, m, y]
+        model = self.model
+        max_outflow = self.para['reservoir_characteristics']['outflow_max', s]
+        lhs = model.outflow[s, h, m, y] - max_outflow
+        return model.add_linear_constraint(lhs, poi.Leq, 0)
 
 
-    def outflow_low_bound_rule(self, model, s, h, m, y):
+    def storage_low_bound_rule(self, s, h, m, y):
+        """Storage lower bound.
+        
+        Parameters
+        ----------
+        s : str
+            hydropower plant.
+        h : int
+            Hour.
+        m : int
+            Month.
+        y : int
+            Year.
+        
+        Returns
+        -------
+        pyoptinterface._src.core_ext.ConstraintIndex
+            Constraint index of the model.
         """
-        Rule for outflow lower bound.
+        model = self.model
+        min_storage = self.para['reservoir_storage_lower_bound'][s, m, h]
+        lhs = model.storage_reservoir[s, h, m, y] - min_storage
+        return model.add_linear_constraint(lhs, poi.Geq, 0)
 
-        Args:
-            model (pyomo.core.base.PyomoModel.ConcreteModel): Model to be solved.
-            s (str): Power plant.
-            h (int): Hour.
-            m (int): Month.
-            y (int): Year.
 
-        Returns:
-            pyomo.core.base.PyomoModel.ConcreteModel: Model with outflow lower bound constraints.
+    def storage_up_bound_rule(self, s, h, m, y):
+        """Storage upper bound.
+
+        Parameters
+        ----------
+        s : str
+            hydropower plant.
+        h : int
+            Hour.
+        m : int
+            Month.
+        y : int
+            Year.
+            
+        Returns
+        -------
+        pyoptinterface._src.core_ext.ConstraintIndex
+            Constraint index of the model.
         """
-        return model.outflow[s, h, m, y] >= self.para['reservoir_characteristics']['outflow_min', s]
+        model = self.model
+        max_storage = self.para['reservoir_storage_upper_bound'][s, m, h]
+        lhs = model.storage_reservoir[s, h, m, y] - max_storage
+        return model.add_linear_constraint(lhs, poi.Leq, 0)
 
 
-    def outflow_up_bound_rule(self, model, s, h, m, y):
+    def output_low_bound_rule(self, s, h, m, y):
+        """Power output of hydropower lower bound.
+
+        Parameters
+        ----------
+        s : str
+            hydropower plant.
+        h : int
+            Hour.
+        m : int
+            Month.
+        y : int
+            Year.
+            
+        Returns
+        -------
+        pyoptinterface._src.core_ext.ConstraintIndex
+            Constraint index of the model.
         """
-        Rule for outflow upper bound.
+        model = self.model
+        min_output = self.para['reservoir_characteristics']['N_min', s]
+        lhs = model.output[s, h, m, y] - min_output
+        return model.add_linear_constraint(lhs, poi.Geq, 0)
 
-        Args:
-            model (pyomo.core.base.PyomoModel.ConcreteModel): Model to be solved.
-            s (str): Power plant.
-            h (int): Hour.
-            m (int): Month.
-            y (int): Year.
 
-        Returns:
-            pyomo.core.base.PyomoModel.ConcreteModel: Model with outflow upper bound constraints.
+    def output_up_bound_rule(self, s, h, m, y):
+        """Power output of hydropower upper bound.
+
+        Parameters
+        ----------
+        s : str
+            hydropower plant.
+        h : int
+            Hour.
+        m : int
+            Month.
+        y : int
+            Year.
+            
+        Returns
+        -------
+        pyoptinterface._src.core_ext.ConstraintIndex
+            Constraint index of the model.
         """
-        return model.outflow[s, h, m, y] <= self.para['reservoir_characteristics']['outflow_max', s]
+        model = self.model
+        max_output = self.para['reservoir_characteristics']['N_max', s]
+        lhs = model.output[s, h, m, y] - max_output
+        return model.add_linear_constraint(lhs, poi.Leq, 0)
 
 
-    def storage_low_bound_rule(self, model, s, h, m, y):
+    def output_calc_rule(self, s, h, m, y):
+        """Hydropower production calculation.
+        Head parameter is specified after building the model.
+
+        Parameters
+        ----------
+        s : str
+            hydropower plant.
+        h : int
+            Hour.
+        m : int
+            Month.
+        y : int
+            Year.
+            
+        Returns
+        -------
+        pyoptinterface._src.core_ext.ConstraintIndex
+            Constraint index of the model.
         """
-        Rule for storage lower bound.
+        model = self.model
+        efficiency = self.para['reservoir_characteristics']['coeff', s]
+        lhs = (
+            model.output[s, h, m, y]
+            - model.genflow[s, h, m, y] * efficiency * 1e-3 #  * head_param
+        )
+        return model.add_linear_constraint(lhs, poi.Eq, 0)
 
-        Args:
-            model (pyomo.core.base.PyomoModel.ConcreteModel): Model to be solved.
-            s (str): Power plant.
-            h (int): Hour.
-            m (int): Month.
-            y (int): Year.
 
-        Returns:
-            pyomo.core.base.PyomoModel.ConcreteModel: Model with storage lower bound constraints.
+    def init_storage_rule(self, s, m, y):
+        """Initial storage of reservoir.
+
+        Parameters
+        ----------
+        s : str
+            hydropower plant.
+        m : int
+            Month.
+        y : int
+            Year.
+            
+        Returns
+        -------
+        pyoptinterface._src.core_ext.ConstraintIndex
+            Constraint index of the model.
         """
-        return model.storage_reservoir[s, h, m, y] >= self.para['reservoir_storage_lower_bound'][s, m, h]
-
-
-    def storage_up_bound_rule(self, model, s, h, m, y):
-        """
-        Rule for storage upper bound.
-
-        Args:
-            model (pyomo.core.base.PyomoModel.ConcreteModel): Model to be solved.
-            s (str): Power plant.
-            h (int): Hour.
-            m (int): Month.
-            y (int): Year.
-
-        Returns:
-            pyomo.core.base.PyomoModel.ConcreteModel: Model with storage upper bound constraints.
-        """
-        return model.storage_reservoir[s, h, m, y] <= self.para['reservoir_storage_upper_bound'][s, m, h]
-
-
-    def output_low_bound_rule(self, model, s, h, m, y):
-        """
-        Rule for output lower bound.
-
-        Args:
-            model (pyomo.core.base.PyomoModel.ConcreteModel): Model to be solved.
-            s (str): Power plant.
-            h (int): Hour.
-            m (int): Month.
-            y (int): Year.
-
-        Returns:
-            pyomo.core.base.PyomoModel.ConcreteModel: Model with output lower bound constraints.
-        """
-        return model.output[s, h, m, y] >= self.para['reservoir_characteristics']['N_min', s]
-
-
-    def output_up_bound_rule(self, model, s, h, m, y):
-        """
-        Rule for output upper bound.
-
-        Args:
-            model (pyomo.core.base.PyomoModel.ConcreteModel): Model to be solved.
-            s (str): Power plant.
-            h (int): Hour.
-            m (int): Month.
-            y (int): Year.
-
-        Returns:
-            pyomo.core.base.PyomoModel.ConcreteModel: Model with output upper bound constraints.
-        """
-        return model.output[s, h, m, y] <= self.para['reservoir_characteristics']['N_max', s]
-
-
-    def output_calc_rule(self, model, s, h, m, y):
-        """
-        Rule for output calculation.
-
-        Args:
-            model (pyomo.core.base.PyomoModel.ConcreteModel): Model to be solved.
-            s (str): Power plant.
-            h (int): Hour.
-            m (int): Month.
-            y (int): Year.
-
-        Returns:
-            pyomo.core.base.PyomoModel.ConcreteModel: Model with output calculation constraints.
-        """
-        return model.output[s, h, m, y] == self.para['reservoir_characteristics']['coeff', s] * model.genflow[s, h, m, y] * model.head_para[s, h, m, y] * 1e-3
-
-
-    def init_storage_rule(self, model, s, m, y):
-        """
-        Rule for initial storage.
-
-        Args:
-            model (pyomo.core.base.PyomoModel.ConcreteModel): Model to be solved.
-            s (str): Power plant.
-            m (int): Month.
-            y (int): Year.
-
-        Returns:
-            pyomo.core.base.PyomoModel.ConcreteModel: Model with initial storage constraints.
-        """
+        model = self.model
         hour_period = [0] + self.para['hour']
-        return model.storage_reservoir[s, hour_period[0], m, y] == self.para['initial_reservoir_storage_level'][m, s]
+        init_storage = self.para['initial_reservoir_storage_level'][m, s]
+        lhs = model.storage_reservoir[s, hour_period[0], m, y] - init_storage
+        return model.add_linear_constraint(lhs, poi.Eq, 0)
 
 
-    def end_storage_rule(self, model, s, m, y):
+    def end_storage_rule(self, s, m, y):
+        """End storage of reservoir.
+
+        Parameters
+        ----------
+        s : str
+            hydropower plant.
+        m : int
+            Month.
+        y : int
+            Year.
+
+        Returns
+        -------
+        pyoptinterface._src.core_ext.ConstraintIndex
+            Constraint index of the model.
         """
-        Rule for end storage.
-
-        Args:
-            model (pyomo.core.base.PyomoModel.ConcreteModel): Model to be solved.
-            s (str): Power plant.
-            m (int): Month.
-            y (int): Year.
-
-        Returns:
-            pyomo.core.base.PyomoModel.ConcreteModel: Model with end storage constraints.
-        """
+        model = self.model
         hour_period = [0] + self.para['hour']
-        return model.storage_reservoir[s, hour_period[-1], m, y] == self.para['final_reservoir_storage_level'][m, s]
+        final_storage = self.para['final_reservoir_storage_level'][m, s]
+        lhs = model.storage_reservoir[s, hour_period[-1], m, y] - final_storage
+        return model.add_linear_constraint(lhs, poi.Eq, 0)
 
 
-    def hydro_output_rule(self, model, h, m, y, z):
+    def hydro_output_rule(self, h, m, y, z):
+        """Hydropower output constraints.
+
+        Parameters
+        ----------
+        h : int
+            Hour.
+        m : int
+            Month.
+        y : int
+            Year.
+        z : str
+            Zone.
+            
+        Returns
+        -------
+        pyoptinterface._src.core_ext.ConstraintIndex
+            Constraint index of the model.
         """
-        Rule for hydrological output.
-
-        Args:
-            model (pyomo.core.base.PyomoModel.ConcreteModel): Model to be solved.
-            h (int): Hour.
-            m (int): Month.
-            y (int): Year.
-            z (str): Zone.
-
-        Returns:
-            pyomo.core.base.PyomoModel.ConcreteModel: Model with hydrological output constraints.
-        """
-        if len([i for i, j in self.para['technology_type'].items() if j == 'hydro']) == 0:
-            return Constraint.Skip
+        model = self.model
+        tech_type = self.para['technology_type']
+        res_char = self.para['reservoir_characteristics']
+        dt = self.para['dt']
+        predifined_hydro = self.para['predefined_hydropower']
+        hydro_type = [i for i, j in tech_type.items() if j == 'hydro']
+        if len(hydro_type) == 0:
+            return None
         if self.para['isinflow']:
-            hydro_output = 0
-            for s in model.station:
-                if self.para['reservoir_characteristics']['zone', s] == z:
-                    hydro_output += model.output[s, h, m, y] * self.para['dt']
-            return model.gen[h, m, y, z, [i for i, j in self.para['technology_type'].items() if j == 'hydro'][0]] == hydro_output
+            hydro_output = poi.quicksum(
+                model.output[s, h, m, y] * self.para['dt']
+                for s in model.station if res_char['zone', s] == z
+            )
+            lhs = hydro_output
+            lhs -= model.gen[h, m, y, z, hydro_type[0]]
         else:
-            return model.gen[h, m, y, z, [i for i, j in self.para['technology_type'].items() if j == 'hydro'][0]] <= float(self.para['predefined_hydropower']['Hydro', z, y, m, h]) * self.para['dt']
+            lhs = (model.gen[h, m, y, z, hydro_type[0]]
+                - predifined_hydro['Hydro', z, y, m, h] * dt
+            )
+        return model.add_linear_constraint(lhs, poi.Eq, 0)
 
-    # Rules to generate expressions for the model
-    def _cost_var_breakdown(self, model, y, z, te):
-        return sum([self.para['technology_variable_OM_cost'][te, y] * model.gen[h, m, y, z, te] * self.para['dt'] * self.para['var_factor'][y] for h, m in model.hour_month_tuples])
-    def _cost_fix_breakdown(self, model, y, z, te):
-        return self.para['technology_fixed_OM_cost'][te, y] * model.cap_existing[y, z, te] * self.para['fix_factor'][y]
-    def _cost_newtech_breakdown(self, model, y, z, te):
-        return self.para['technology_investment_cost'][te, y] * model.cap_newtech[y, z, te] * self.para['inv_factor'][te, y]
-    def _cost_newline_breakdown(self, model, y, z, z1):
-        return self.para['transmission_line_investment_cost'][z, z1] * model.cap_newline[y, z, z1]
-    def _carbon_breakdown(self, model, y, z, te):
-        return sum([self.para['emission_factor'][te, y] * model.gen[h, m, y, z, te] * self.para['dt'] for h, m in model.hour_month_tuples])
+    def cost_var_breakdown_ep(self, y, z, te):
+        """Variable operation and maintenance cost breakdown.
+
+        Parameters
+        ----------
+        y : int
+            Year.
+        z : str
+            Zone.
+        te : str
+            Technology.
+
+        Returns
+        -------
+        pyoptinterface._src.core_ext.ExprBuilder
+            index of expression of the model.
+        """
+        model = self.model
+        tvc = self.para['technology_variable_OM_cost'][te, y]
+        dt = self.para['dt']
+        vf = self.para['var_factor'][y]
+        cost_var_breakdown = poi.quicksum(
+            tvc * model.gen[h, m, y, z, te] * dt * vf
+            for h, m in model.hour_month_tuples
+        )
+        return cost_var_breakdown
+
+    def cost_fix_breakdown_ep(self, y, z, te):
+        """Fixed operation and maintenance cost breakdown.
+
+        Parameters
+        ----------
+        y : int
+            Year.
+        z : str
+            Zone.
+        te : str
+            Technology.
+
+        Returns
+        -------
+        pyoptinterface._src.core_ext.ExprBuilder
+            index of expression of the model.
+        """
+        model = self.model
+        tfc = self.para['technology_fixed_OM_cost'][te, y]
+        ff = self.para['fix_factor'][y]
+        cost_fix_breakdown = poi.ExprBuilder()
+        cost_fix_breakdown += tfc * model.cap_existing[y, z, te] * ff
+        return cost_fix_breakdown
+
+    def cost_newtech_breakdown_ep(self, y, z, te):
+        """New technology investment cost breakdown.
+
+        Parameters
+        ----------
+        y : int
+            Year.
+        z : str
+            Zone.
+        te : str
+            Technology.
+
+        Returns
+        -------
+        pyoptinterface._src.core_ext.ExprBuilder
+            index of expression of the model.
+        """
+        model = self.model
+        tic = self.para['technology_investment_cost'][te, y]
+        ivf = self.para['inv_factor'][te, y]
+        cost_newtech_breakdown = poi.ExprBuilder()
+        cost_newtech_breakdown += tic * model.cap_newtech[y, z, te] * ivf
+        return cost_newtech_breakdown
+
+    def cost_newline_breakdown_ep(self, y, z, z1):
+        """New transmission line investment cost breakdown.
+
+        Parameters
+        ----------
+        y : int
+            Year.
+        z : str
+            Zone.
+        z1 : str
+            Zone.
+
+        Returns
+        -------
+        pyoptinterface._src.core_ext.ExprBuilder
+            index of expression of the model.
+        """
+        model = self.model
+        lic = self.para['transmission_line_investment_cost'][z, z1]
+        cost_newline_breakdown = poi.ExprBuilder()
+        cost_newline_breakdown += lic * model.cap_newline[y, z, z1]
+        return cost_newline_breakdown
+
+    def carbon_breakdown_ep(self, y, z, te):
+        """Carbon emission cost breakdown.
+
+        Parameters
+        ----------
+        y : int
+            Year.
+        z : str
+            Zone.
+        te : str
+            Technology.
+
+        Returns
+        -------
+        pyoptinterface._src.core_ext.ExprBuilder
+            index of expression of the model.
+        """
+        model = self.model
+        ef = self.para['emission_factor'][te, y]
+        dt = self.para['dt']
+        carbon_breakdown = poi.quicksum(
+            ef * model.gen[h, m, y, z, te] * dt
+            for h, m in model.hour_month_tuples
+        )
+        return carbon_breakdown

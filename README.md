@@ -40,7 +40,7 @@ The clean energy transition is our new moonshot to combat climate change – an 
 - Cost minimization while meeting given demand time series.
 - Adjustable operation on hourly-spaced time steps.
 - Input data in Excel format and output data in NetCDF format using ``Xarray``.
-- Support for multiple solvers like Gurobi, CPLEX, MOSEK, and GLPK via `Pyomo`.
+- Support for multiple solvers like ``Gurobi``, ``COPT``, ``MOSEK``, and ``HIGHS`` via `pyoptinterface`.
 - Allows input of multiple scenarios for specific parameters.
 - A pure Python program, leveraging ``pandas`` and ``Xarray`` for simplified complex data analysis and extensibility.
 
@@ -103,7 +103,7 @@ Please use the GitHub Issues for public discussions related to bugs, enhancement
 ## Roadmap
 
 - [x] `Benders` decomposition-based fast solution framework
-- [ ] `JuMP`-based low-memory and fast modelling engine
+- [x] [`pyoptinterface`](https://github.com/metab0t/PyOptInterface)-based low-memory and fast modelling engine
 - [ ] Support for input of cost–supply curves of technologies
 - [ ] Support for expanding conventional hydropower plants
 - [ ] Support for refurbishing conventional hydropower plants to pumped-storage schemes

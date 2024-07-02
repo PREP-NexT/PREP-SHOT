@@ -1,4 +1,4 @@
-Mathematical Notations
+Mathematical Notation
 =========================
 
 This page provides a detailed description of the mathematical notations used for formulating the model's objective function and constraints :cite:p:`liu2023`.

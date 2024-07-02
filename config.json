@@ -10,12 +10,11 @@
         "price": 0.01
     },
     "hydro_parameters": {
-        "isinflow": true,
-        "error_threshold": 0.001,
-        "iteration_number": 3
-    },
+            "isinflow": true,
+            "error_threshold": 0.001,
+            "iteration_number": 3
+        },
     "solver_parameters": {
-        "solver": "gurobi",
-        "timelimit": 36000
+        "solver": "highs"
     }
 }
