@@ -1,0 +1,1554 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+<meta property="og:title" content="PREP-SHOT.rules" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="api/prepshot.rules.html" />
+<meta property="og:site_name" content="PREP-SHOT documentation" />
+<meta property="og:description" content="This module contains the class RuleContainer which is used to define the rules" />
+<meta name="description" content="This module contains the class RuleContainer which is used to define the rules" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>PREP-SHOT.rules &mdash; PREP-SHOT (latest) documentation in English</title>
+
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/algolia.css" type="text/css" />
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/custom.css?5" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/dev.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/logo.png"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/js/custom.js?3"></script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+        <script defer="defer" src="../_static/js/algolia.js"></script>
+    <script src="../_static/js/theme.js"></script><meta name="theme-color" content="#3d8fcc">
+  
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="PREP-SHOT.utils" href="prepshot.utils.html" />
+    <link rel="prev" title="PREP-SHOT.parameters" href="prepshot.parameters.html" />
+<meta name="doc_version" content="latest">
+<meta name="doc_is_latest" content="">
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html">
+            <img src="../_static/SVG-03.svg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                latest
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Installation.html#step-1-download-prep-shot">Step 1: Download PREP-SHOT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Installation.html#step-2-install-conda">Step 2: Install conda</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Installation.html#step-3-install-dependencies">Step 3: Install dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Installation.html#step-4-run-an-example-optional">Step 4: Run an example (Optional)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Installation.html#step-5-run-your-own-model">Step 5: Run your own model</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Model_input_output.html">Model Inputs/Outputs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Model_input_output.html#inputs">Inputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Model_input_output.html#outputs">Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Model_input_output.html#execute-various-scenarios">Execute various scenarios</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Model_input_output.html#setting-global-parameters">Setting global parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Tutorial.html">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorial.html#scenario-background">Scenario Background</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Mathematical_notations.html">Mathematical Notation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Mathematical_notations.html#unit-list">Unit List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Mathematical_notations.html#set-list">Set List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Mathematical_notations.html#variable-list">Variable List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Mathematical_notations.html#parameter-list">Parameter List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Mathematical_notations.html#objective-functions">Objective Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Mathematical_notations.html#costs">Costs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Mathematical_notations.html#factors">Factors</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Mathematical_notations.html#constraints">Constraints</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Mathematical_notations.html#retirement">Retirement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Mathematical_notations.html#carbon-emission">Carbon Emission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Mathematical_notations.html#power-balance">Power Balance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Mathematical_notations.html#transmission">Transmission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Mathematical_notations.html#power-output">Power Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Mathematical_notations.html#power-output-variation">Power output variation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Mathematical_notations.html#energy-storage">Energy storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Mathematical_notations.html#water-balance">Water balance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Mathematical_notations.html#reservoir-outflow">Reservoir outflow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Mathematical_notations.html#reservoir-storage">Reservoir storage</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Forum.html">Discussion</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Forum.html#github-discussions">GitHub Discussions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Forum.html#private-queries">Private Queries</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Contribution.html">Contribution</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Contribution.html#development-process">Development Process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Contribution.html#building-documentation">Building Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Contribution.html#contributing-guidelines">Contributing Guidelines</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Changelog.html#version-0-1-0-jun-24-2024">Version 0.1.0 - Jun 24, 2024</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Changelog.html#version-0-1-1-jun-24-2024">Version 0.1.1 - Jun 24, 2024</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#added">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#fixed">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#changed">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#deprecated">Deprecated</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="prepshot.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="prepshot.load_data.html">PREP-SHOT.load_data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.load_data.html#prepshot.load_data.calculate_cost_factors"><code class="docutils literal notranslate"><span class="pre">calculate_cost_factors()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.load_data.html#prepshot.load_data.get_attr"><code class="docutils literal notranslate"><span class="pre">get_attr()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.load_data.html#prepshot.load_data.get_required_config_data"><code class="docutils literal notranslate"><span class="pre">get_required_config_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.load_data.html#prepshot.load_data.load_data"><code class="docutils literal notranslate"><span class="pre">load_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.load_data.html#prepshot.load_data.load_input_params"><code class="docutils literal notranslate"><span class="pre">load_input_params()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.load_data.html#prepshot.load_data.load_json"><code class="docutils literal notranslate"><span class="pre">load_json()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="prepshot.logs.html">PREP-SHOT.logs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.logs.html#prepshot.logs.log_parameter_info"><code class="docutils literal notranslate"><span class="pre">log_parameter_info()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.logs.html#prepshot.logs.setup_logging"><code class="docutils literal notranslate"><span class="pre">setup_logging()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.logs.html#prepshot.logs.timer"><code class="docutils literal notranslate"><span class="pre">timer()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="prepshot.model.html">PREP-SHOT.model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.model.html#prepshot.model.define_basic_sets"><code class="docutils literal notranslate"><span class="pre">define_basic_sets()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.model.html#prepshot.model.define_complex_sets"><code class="docutils literal notranslate"><span class="pre">define_complex_sets()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.model.html#prepshot.model.define_constraints"><code class="docutils literal notranslate"><span class="pre">define_constraints()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.model.html#prepshot.model.define_model"><code class="docutils literal notranslate"><span class="pre">define_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.model.html#prepshot.model.define_variables"><code class="docutils literal notranslate"><span class="pre">define_variables()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="prepshot.parameters.html">PREP-SHOT.parameters</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.parameters.html#prepshot.parameters.parse_arguments"><code class="docutils literal notranslate"><span class="pre">parse_arguments()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">PREP-SHOT.rules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#prepshot.rules.RuleContainer"><code class="docutils literal notranslate"><span class="pre">RuleContainer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#prepshot.rules.RuleContainer.carbon_breakdown_ep"><code class="docutils literal notranslate"><span class="pre">RuleContainer.carbon_breakdown_ep()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#prepshot.rules.RuleContainer.cost_fix_breakdown_ep"><code class="docutils literal notranslate"><span class="pre">RuleContainer.cost_fix_breakdown_ep()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#prepshot.rules.RuleContainer.cost_newline_breakdown_ep"><code class="docutils literal notranslate"><span class="pre">RuleContainer.cost_newline_breakdown_ep()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#prepshot.rules.RuleContainer.cost_newtech_breakdown_ep"><code class="docutils literal notranslate"><span class="pre">RuleContainer.cost_newtech_breakdown_ep()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#prepshot.rules.RuleContainer.cost_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.cost_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#prepshot.rules.RuleContainer.cost_var_breakdown_ep"><code class="docutils literal notranslate"><span class="pre">RuleContainer.cost_var_breakdown_ep()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#prepshot.rules.RuleContainer.discharge_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.discharge_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#prepshot.rules.RuleContainer.emission_calc_by_zone_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.emission_calc_by_zone_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#prepshot.rules.RuleContainer.emission_calc_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.emission_calc_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#prepshot.rules.RuleContainer.emission_limit_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.emission_limit_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#prepshot.rules.RuleContainer.end_energy_storage_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.end_energy_storage_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#prepshot.rules.RuleContainer.end_storage_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.end_storage_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#prepshot.rules.RuleContainer.energy_storage_balance_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.energy_storage_balance_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#prepshot.rules.RuleContainer.energy_storage_gen_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.energy_storage_gen_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#prepshot.rules.RuleContainer.energy_storage_up_bound_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.energy_storage_up_bound_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#prepshot.rules.RuleContainer.fix_cost_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.fix_cost_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#prepshot.rules.RuleContainer.gen_up_bound_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.gen_up_bound_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#prepshot.rules.RuleContainer.hydro_output_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.hydro_output_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#prepshot.rules.RuleContainer.income_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.income_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#prepshot.rules.RuleContainer.init_energy_storage_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.init_energy_storage_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#prepshot.rules.RuleContainer.init_storage_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.init_storage_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#prepshot.rules.RuleContainer.natural_inflow_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.natural_inflow_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#prepshot.rules.RuleContainer.new_tech_low_bound_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.new_tech_low_bound_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#prepshot.rules.RuleContainer.new_tech_up_bound_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.new_tech_up_bound_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#prepshot.rules.RuleContainer.newline_cost_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.newline_cost_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#prepshot.rules.RuleContainer.newtech_cost_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.newtech_cost_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#prepshot.rules.RuleContainer.outflow_low_bound_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.outflow_low_bound_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#prepshot.rules.RuleContainer.outflow_up_bound_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.outflow_up_bound_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#prepshot.rules.RuleContainer.output_calc_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.output_calc_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#prepshot.rules.RuleContainer.output_low_bound_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.output_low_bound_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#prepshot.rules.RuleContainer.output_up_bound_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.output_up_bound_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#prepshot.rules.RuleContainer.power_balance_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.power_balance_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#prepshot.rules.RuleContainer.ramping_down_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.ramping_down_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#prepshot.rules.RuleContainer.ramping_up_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.ramping_up_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#prepshot.rules.RuleContainer.remaining_capacity_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.remaining_capacity_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#prepshot.rules.RuleContainer.renew_gen_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.renew_gen_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#prepshot.rules.RuleContainer.storage_low_bound_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.storage_low_bound_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#prepshot.rules.RuleContainer.storage_up_bound_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.storage_up_bound_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#prepshot.rules.RuleContainer.tech_lifetime_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.tech_lifetime_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#prepshot.rules.RuleContainer.tech_up_bound_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.tech_up_bound_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#prepshot.rules.RuleContainer.total_inflow_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.total_inflow_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#prepshot.rules.RuleContainer.trans_balance_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.trans_balance_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#prepshot.rules.RuleContainer.trans_capacity_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.trans_capacity_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#prepshot.rules.RuleContainer.trans_physical_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.trans_physical_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#prepshot.rules.RuleContainer.trans_up_bound_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.trans_up_bound_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#prepshot.rules.RuleContainer.var_cost_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.var_cost_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#prepshot.rules.RuleContainer.water_balance_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.water_balance_rule()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="prepshot.utils.html">PREP-SHOT.utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.utils.html#prepshot.utils.compute_error"><code class="docutils literal notranslate"><span class="pre">compute_error()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.utils.html#prepshot.utils.cost_factor"><code class="docutils literal notranslate"><span class="pre">cost_factor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.utils.html#prepshot.utils.create_data_array"><code class="docutils literal notranslate"><span class="pre">create_data_array()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.utils.html#prepshot.utils.extract_result"><code class="docutils literal notranslate"><span class="pre">extract_result()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.utils.html#prepshot.utils.initialize_waterhead"><code class="docutils literal notranslate"><span class="pre">initialize_waterhead()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.utils.html#prepshot.utils.interpolate_z_by_q_or_s"><code class="docutils literal notranslate"><span class="pre">interpolate_z_by_q_or_s()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.utils.html#prepshot.utils.inv_cost_factor"><code class="docutils literal notranslate"><span class="pre">inv_cost_factor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.utils.html#prepshot.utils.process_model_solution"><code class="docutils literal notranslate"><span class="pre">process_model_solution()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.utils.html#prepshot.utils.read_data"><code class="docutils literal notranslate"><span class="pre">read_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.utils.html#prepshot.utils.run_model_iteration"><code class="docutils literal notranslate"><span class="pre">run_model_iteration()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.utils.html#prepshot.utils.update_output_filename"><code class="docutils literal notranslate"><span class="pre">update_output_filename()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.utils.html#prepshot.utils.validate_values"><code class="docutils literal notranslate"><span class="pre">validate_values()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../References.html">References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PREP-SHOT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+<li>
+	<div style="font-size: 105%;font-weight: 600;">
+		
+	</div>
+	<ul class="wy-breadcrumbs">
+		
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="prepshot.html">API Reference</a></li>
+      <li class="breadcrumb-item active">PREP-SHOT.rules</li>
+	</ul>
+</li>
+
+
+<li style="float: right; text-align: right;">
+	<ul>
+		
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/PREP-NexT/PREP-SHOT/blob/main/doc/source/api/prepshot.rules.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+	</ul>
+
+	<style>
+		.godot-edit-guidelines {
+			font-size: 14px;
+			float: right;
+			clear: both;
+			padding-top: 4px;
+		}
+
+		@media screen and (max-width: 480px) {
+			.godot-edit-guidelines {
+				display: none;
+			}
+		}
+	</style>
+	<a class="godot-edit-guidelines" href="https://prep-next.github.io/PREP-SHOT/Changelog.html#contributing-to-prep-shot">
+		Learn how to contribute!
+	</a>
+</li>
+
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+<div itemprop="articleBody">
+  
+
+  
+  <section id="module-prepshot.rules">
+<span id="prep-shot-rules"></span><h1>PREP-SHOT.rules<a class="headerlink" href="#module-prepshot.rules" title="Permalink to this heading">¶</a></h1>
+<p>This module contains the class RuleContainer which is used to define the rules</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="prepshot.rules.RuleContainer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">prepshot.rules.</span></span><span class="sig-name descname"><span class="pre">RuleContainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">para</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#prepshot.rules.RuleContainer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class for rules of the model. Used to pass 'para' dictionary to the rules.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot.rules.RuleContainer.carbon_breakdown_ep">
+<span class="sig-name descname"><span class="pre">carbon_breakdown_ep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">te</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#prepshot.rules.RuleContainer.carbon_breakdown_ep" title="Permalink to this definition">¶</a></dt>
+<dd><p>Carbon emission cost breakdown.</p>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>y<span class="classifier">int</span></dt><dd><p>Year.</p>
+</dd>
+<dt>z<span class="classifier">str</span></dt><dd><p>Zone.</p>
+</dd>
+<dt>te<span class="classifier">str</span></dt><dd><p>Technology.</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>pyoptinterface._src.core_ext.ExprBuilder</dt><dd><p>index of expression of the model.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot.rules.RuleContainer.cost_fix_breakdown_ep">
+<span class="sig-name descname"><span class="pre">cost_fix_breakdown_ep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">te</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#prepshot.rules.RuleContainer.cost_fix_breakdown_ep" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fixed operation and maintenance cost breakdown.</p>
+<section id="id1">
+<h2>Parameters<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>y<span class="classifier">int</span></dt><dd><p>Year.</p>
+</dd>
+<dt>z<span class="classifier">str</span></dt><dd><p>Zone.</p>
+</dd>
+<dt>te<span class="classifier">str</span></dt><dd><p>Technology.</p>
+</dd>
+</dl>
+</section>
+<section id="id2">
+<h2>Returns<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>pyoptinterface._src.core_ext.ExprBuilder</dt><dd><p>index of expression of the model.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot.rules.RuleContainer.cost_newline_breakdown_ep">
+<span class="sig-name descname"><span class="pre">cost_newline_breakdown_ep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#prepshot.rules.RuleContainer.cost_newline_breakdown_ep" title="Permalink to this definition">¶</a></dt>
+<dd><p>New transmission line investment cost breakdown.</p>
+<section id="id3">
+<h2>Parameters<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>y<span class="classifier">int</span></dt><dd><p>Year.</p>
+</dd>
+<dt>z<span class="classifier">str</span></dt><dd><p>Zone.</p>
+</dd>
+<dt>z1<span class="classifier">str</span></dt><dd><p>Zone.</p>
+</dd>
+</dl>
+</section>
+<section id="id4">
+<h2>Returns<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>pyoptinterface._src.core_ext.ExprBuilder</dt><dd><p>index of expression of the model.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot.rules.RuleContainer.cost_newtech_breakdown_ep">
+<span class="sig-name descname"><span class="pre">cost_newtech_breakdown_ep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">te</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#prepshot.rules.RuleContainer.cost_newtech_breakdown_ep" title="Permalink to this definition">¶</a></dt>
+<dd><p>New technology investment cost breakdown.</p>
+<section id="id5">
+<h2>Parameters<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>y<span class="classifier">int</span></dt><dd><p>Year.</p>
+</dd>
+<dt>z<span class="classifier">str</span></dt><dd><p>Zone.</p>
+</dd>
+<dt>te<span class="classifier">str</span></dt><dd><p>Technology.</p>
+</dd>
+</dl>
+</section>
+<section id="id6">
+<h2>Returns<a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>pyoptinterface._src.core_ext.ExprBuilder</dt><dd><p>index of expression of the model.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot.rules.RuleContainer.cost_rule">
+<span class="sig-name descname"><span class="pre">cost_rule</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#prepshot.rules.RuleContainer.cost_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Objective function of the model, to minimize total cost.</p>
+<section id="id7">
+<h2>Returns<a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>pyoptinterface._src.core_ext.ConstraintIndex</dt><dd><p>Model with cost constraints.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot.rules.RuleContainer.cost_var_breakdown_ep">
+<span class="sig-name descname"><span class="pre">cost_var_breakdown_ep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">te</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#prepshot.rules.RuleContainer.cost_var_breakdown_ep" title="Permalink to this definition">¶</a></dt>
+<dd><p>Variable operation and maintenance cost breakdown.</p>
+<section id="id8">
+<h2>Parameters<a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>y<span class="classifier">int</span></dt><dd><p>Year.</p>
+</dd>
+<dt>z<span class="classifier">str</span></dt><dd><p>Zone.</p>
+</dd>
+<dt>te<span class="classifier">str</span></dt><dd><p>Technology.</p>
+</dd>
+</dl>
+</section>
+<section id="id9">
+<h2>Returns<a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>pyoptinterface._src.core_ext.ExprBuilder</dt><dd><p>index of expression of the model.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot.rules.RuleContainer.discharge_rule">
+<span class="sig-name descname"><span class="pre">discharge_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#prepshot.rules.RuleContainer.discharge_rule" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Total outflow of reservoir is equal to the sum of generation and </dt><dd><p>spillage.</p>
+</dd>
+</dl>
+<section id="id10">
+<h2>Parameters<a class="headerlink" href="#id10" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>s<span class="classifier">str</span></dt><dd><p>hydropower plant.</p>
+</dd>
+<dt>h<span class="classifier">int</span></dt><dd><p>Hour.</p>
+</dd>
+<dt>m<span class="classifier">int</span></dt><dd><p>Month.</p>
+</dd>
+<dt>y<span class="classifier">int</span></dt><dd><p>Year.</p>
+</dd>
+</dl>
+</section>
+<section id="id11">
+<h2>Returns<a class="headerlink" href="#id11" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>pyoptinterface._src.core_ext.ConstraintIndex</dt><dd><p>Constraint index of the model.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot.rules.RuleContainer.emission_calc_by_zone_rule">
+<span class="sig-name descname"><span class="pre">emission_calc_by_zone_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#prepshot.rules.RuleContainer.emission_calc_by_zone_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculation of annual carbon emissions by zone.</p>
+<section id="id12">
+<h2>Parameters<a class="headerlink" href="#id12" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>y<span class="classifier">int</span></dt><dd><p>Planned year.</p>
+</dd>
+<dt>z<span class="classifier">str</span></dt><dd><p>Zone.</p>
+</dd>
+</dl>
+</section>
+<section id="id13">
+<h2>Returns<a class="headerlink" href="#id13" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>pyoptinterface._src.core_ext.ConstraintIndex</dt><dd><p>Constraint index of the model.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot.rules.RuleContainer.emission_calc_rule">
+<span class="sig-name descname"><span class="pre">emission_calc_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#prepshot.rules.RuleContainer.emission_calc_rule" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Calculation of annual carbon emission across all zones and</dt><dd><p>technologies.</p>
+</dd>
+</dl>
+<section id="id14">
+<h2>Parameters<a class="headerlink" href="#id14" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>y<span class="classifier">int</span></dt><dd><p>Planned year.</p>
+</dd>
+</dl>
+</section>
+<section id="id15">
+<h2>Returns<a class="headerlink" href="#id15" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>pyoptinterface._src.core_ext.ConstraintIndex</dt><dd><p>Constraint index of the model.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot.rules.RuleContainer.emission_limit_rule">
+<span class="sig-name descname"><span class="pre">emission_limit_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#prepshot.rules.RuleContainer.emission_limit_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Annual carbon emission limits across all zones and technologies.</p>
+<section id="id16">
+<h2>Parameters<a class="headerlink" href="#id16" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>y<span class="classifier">int</span></dt><dd><p>Planned year.</p>
+</dd>
+</dl>
+</section>
+<section id="id17">
+<h2>Returns<a class="headerlink" href="#id17" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>pyoptinterface._src.core_ext.ConstraintIndex</dt><dd><p>Constraint index of the model.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot.rules.RuleContainer.end_energy_storage_rule">
+<span class="sig-name descname"><span class="pre">end_energy_storage_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">te</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#prepshot.rules.RuleContainer.end_energy_storage_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>End energy storage.</p>
+<section id="id18">
+<h2>Parameters<a class="headerlink" href="#id18" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>m<span class="classifier">int</span></dt><dd><p>Month.</p>
+</dd>
+<dt>y<span class="classifier">int</span></dt><dd><p>Year.</p>
+</dd>
+<dt>z<span class="classifier">str</span></dt><dd><p>Zone.</p>
+</dd>
+<dt>te<span class="classifier">str</span></dt><dd><p>Technology.</p>
+</dd>
+</dl>
+</section>
+<section id="id19">
+<h2>Returns<a class="headerlink" href="#id19" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>pyoptinterface._src.core_ext.ConstraintIndex</dt><dd><p>Constraint index of the model.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot.rules.RuleContainer.end_storage_rule">
+<span class="sig-name descname"><span class="pre">end_storage_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#prepshot.rules.RuleContainer.end_storage_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>End storage of reservoir.</p>
+<section id="id20">
+<h2>Parameters<a class="headerlink" href="#id20" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>s<span class="classifier">str</span></dt><dd><p>hydropower plant.</p>
+</dd>
+<dt>m<span class="classifier">int</span></dt><dd><p>Month.</p>
+</dd>
+<dt>y<span class="classifier">int</span></dt><dd><p>Year.</p>
+</dd>
+</dl>
+</section>
+<section id="id21">
+<h2>Returns<a class="headerlink" href="#id21" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>pyoptinterface._src.core_ext.ConstraintIndex</dt><dd><p>Constraint index of the model.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot.rules.RuleContainer.energy_storage_balance_rule">
+<span class="sig-name descname"><span class="pre">energy_storage_balance_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">te</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#prepshot.rules.RuleContainer.energy_storage_balance_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Energy storage balance.</p>
+<section id="id22">
+<h2>Parameters<a class="headerlink" href="#id22" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>h<span class="classifier">int</span></dt><dd><p>Hour.</p>
+</dd>
+<dt>m<span class="classifier">int</span></dt><dd><p>Month.</p>
+</dd>
+<dt>y<span class="classifier">int</span></dt><dd><p>Year.</p>
+</dd>
+<dt>z<span class="classifier">str</span></dt><dd><p>Zone.</p>
+</dd>
+<dt>te<span class="classifier">str</span></dt><dd><p>Technology.</p>
+</dd>
+</dl>
+</section>
+<section id="id23">
+<h2>Returns<a class="headerlink" href="#id23" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>pyoptinterface._src.core_ext.ConstraintIndex</dt><dd><p>Constraint index of the model.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot.rules.RuleContainer.energy_storage_gen_rule">
+<span class="sig-name descname"><span class="pre">energy_storage_gen_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">te</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#prepshot.rules.RuleContainer.energy_storage_gen_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Energy storage generation.</p>
+<section id="id24">
+<h2>Parameters<a class="headerlink" href="#id24" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>h<span class="classifier">int</span></dt><dd><p>Hour.</p>
+</dd>
+<dt>m<span class="classifier">int</span></dt><dd><p>Month.</p>
+</dd>
+<dt>y<span class="classifier">int</span></dt><dd><p>Year.</p>
+</dd>
+<dt>z<span class="classifier">str</span></dt><dd><p>Zone.</p>
+</dd>
+<dt>te<span class="classifier">str</span></dt><dd><p>Technology.</p>
+</dd>
+</dl>
+</section>
+<section id="id25">
+<h2>Returns<a class="headerlink" href="#id25" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>pyoptinterface._src.core_ext.ConstraintIndex</dt><dd><p>Constraint index of the model.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot.rules.RuleContainer.energy_storage_up_bound_rule">
+<span class="sig-name descname"><span class="pre">energy_storage_up_bound_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">te</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#prepshot.rules.RuleContainer.energy_storage_up_bound_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Energy storage upper bound.</p>
+<section id="id26">
+<h2>Parameters<a class="headerlink" href="#id26" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>h<span class="classifier">int</span></dt><dd><p>Hour.</p>
+</dd>
+<dt>m<span class="classifier">int</span></dt><dd><p>Month.</p>
+</dd>
+<dt>y<span class="classifier">int</span></dt><dd><p>Year.</p>
+</dd>
+<dt>z<span class="classifier">str</span></dt><dd><p>Zone.</p>
+</dd>
+<dt>te<span class="classifier">str</span></dt><dd><p>Technology.</p>
+</dd>
+</dl>
+</section>
+<section id="id27">
+<h2>Returns<a class="headerlink" href="#id27" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>pyoptinterface._src.core_ext.ConstraintIndex</dt><dd><p>Constraint index of the model.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot.rules.RuleContainer.fix_cost_rule">
+<span class="sig-name descname"><span class="pre">fix_cost_rule</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#prepshot.rules.RuleContainer.fix_cost_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fixed O&amp;M cost of technologies and transmission lines.</p>
+<section id="id28">
+<h2>Returns<a class="headerlink" href="#id28" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>pyoptinterface._src.core_ext.ConstraintIndex</dt><dd><p>Constraint index of the model.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot.rules.RuleContainer.gen_up_bound_rule">
+<span class="sig-name descname"><span class="pre">gen_up_bound_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">te</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#prepshot.rules.RuleContainer.gen_up_bound_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generation is less than or equal to the existing capacity.</p>
+<section id="id29">
+<h2>Parameters<a class="headerlink" href="#id29" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>h<span class="classifier">int</span></dt><dd><p>Hour.</p>
+</dd>
+<dt>m<span class="classifier">int</span></dt><dd><p>Month.</p>
+</dd>
+<dt>y<span class="classifier">int</span></dt><dd><p>Year.</p>
+</dd>
+<dt>z<span class="classifier">str</span></dt><dd><p>Zone.</p>
+</dd>
+<dt>te<span class="classifier">str</span></dt><dd><p>Technology.</p>
+</dd>
+</dl>
+</section>
+<section id="id30">
+<h2>Returns<a class="headerlink" href="#id30" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>pyoptinterface._src.core_ext.ConstraintIndex</dt><dd><p>Constraint index of the model.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot.rules.RuleContainer.hydro_output_rule">
+<span class="sig-name descname"><span class="pre">hydro_output_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#prepshot.rules.RuleContainer.hydro_output_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hydropower output constraints.</p>
+<section id="id31">
+<h2>Parameters<a class="headerlink" href="#id31" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>h<span class="classifier">int</span></dt><dd><p>Hour.</p>
+</dd>
+<dt>m<span class="classifier">int</span></dt><dd><p>Month.</p>
+</dd>
+<dt>y<span class="classifier">int</span></dt><dd><p>Year.</p>
+</dd>
+<dt>z<span class="classifier">str</span></dt><dd><p>Zone.</p>
+</dd>
+</dl>
+</section>
+<section id="id32">
+<h2>Returns<a class="headerlink" href="#id32" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>pyoptinterface._src.core_ext.ConstraintIndex</dt><dd><p>Constraint index of the model.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot.rules.RuleContainer.income_rule">
+<span class="sig-name descname"><span class="pre">income_rule</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#prepshot.rules.RuleContainer.income_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Income from water withdrawal.
+Reference: <a class="reference external" href="https://www.nature.com/articles/s44221-023-00126-0">https://www.nature.com/articles/s44221-023-00126-0</a></p>
+<section id="id33">
+<h2>Returns<a class="headerlink" href="#id33" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>pyoptinterface._src.core_ext.ConstraintIndex</dt><dd><p>Constraint index of the model.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot.rules.RuleContainer.init_energy_storage_rule">
+<span class="sig-name descname"><span class="pre">init_energy_storage_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">te</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#prepshot.rules.RuleContainer.init_energy_storage_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initial energy storage.</p>
+<section id="id34">
+<h2>Parameters<a class="headerlink" href="#id34" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>m<span class="classifier">int</span></dt><dd><p>Month.</p>
+</dd>
+<dt>y<span class="classifier">int</span></dt><dd><p>Year.</p>
+</dd>
+<dt>z<span class="classifier">str</span></dt><dd><p>Zone.</p>
+</dd>
+<dt>te<span class="classifier">str</span></dt><dd><p>Technology.</p>
+</dd>
+</dl>
+</section>
+<section id="id35">
+<h2>Returns<a class="headerlink" href="#id35" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>pyoptinterface._src.core_ext.ConstraintIndex</dt><dd><p>Constraint index of the model.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot.rules.RuleContainer.init_storage_rule">
+<span class="sig-name descname"><span class="pre">init_storage_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#prepshot.rules.RuleContainer.init_storage_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initial storage of reservoir.</p>
+<section id="id36">
+<h2>Parameters<a class="headerlink" href="#id36" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>s<span class="classifier">str</span></dt><dd><p>hydropower plant.</p>
+</dd>
+<dt>m<span class="classifier">int</span></dt><dd><p>Month.</p>
+</dd>
+<dt>y<span class="classifier">int</span></dt><dd><p>Year.</p>
+</dd>
+</dl>
+</section>
+<section id="id37">
+<h2>Returns<a class="headerlink" href="#id37" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>pyoptinterface._src.core_ext.ConstraintIndex</dt><dd><p>Constraint index of the model.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot.rules.RuleContainer.natural_inflow_rule">
+<span class="sig-name descname"><span class="pre">natural_inflow_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#prepshot.rules.RuleContainer.natural_inflow_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Natural inflow.</p>
+<section id="id38">
+<h2>Parameters<a class="headerlink" href="#id38" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>s<span class="classifier">str</span></dt><dd><p>hydropower plant.</p>
+</dd>
+<dt>h<span class="classifier">int</span></dt><dd><p>Hour.</p>
+</dd>
+<dt>m<span class="classifier">int</span></dt><dd><p>Month.</p>
+</dd>
+<dt>y<span class="classifier">int</span></dt><dd><p>Year.</p>
+</dd>
+</dl>
+</section>
+<section id="id39">
+<h2>Returns<a class="headerlink" href="#id39" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>pyoptinterface._src.core_ext.ConstraintIndex</dt><dd><p>Constraint index of the model.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot.rules.RuleContainer.new_tech_low_bound_rule">
+<span class="sig-name descname"><span class="pre">new_tech_low_bound_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">te</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#prepshot.rules.RuleContainer.new_tech_low_bound_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>New investment technology lower bound.</p>
+<section id="id40">
+<h2>Parameters<a class="headerlink" href="#id40" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>y<span class="classifier">int</span></dt><dd><p>Year.</p>
+</dd>
+<dt>z<span class="classifier">str</span></dt><dd><p>Zone.</p>
+</dd>
+<dt>te<span class="classifier">str</span></dt><dd><p>Technology.</p>
+</dd>
+</dl>
+</section>
+<section id="id41">
+<h2>Returns<a class="headerlink" href="#id41" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>pyoptinterface._src.core_ext.ConstraintIndex</dt><dd><p>Constraint index of the model.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot.rules.RuleContainer.new_tech_up_bound_rule">
+<span class="sig-name descname"><span class="pre">new_tech_up_bound_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">te</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#prepshot.rules.RuleContainer.new_tech_up_bound_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>New investment technology upper bound in specific year and zone.</p>
+<section id="id42">
+<h2>Parameters<a class="headerlink" href="#id42" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>y<span class="classifier">int</span></dt><dd><p>Year.</p>
+</dd>
+<dt>z<span class="classifier">str</span></dt><dd><p>Zone.</p>
+</dd>
+<dt>te<span class="classifier">str</span></dt><dd><p>Technology.</p>
+</dd>
+</dl>
+</section>
+<section id="id43">
+<h2>Returns<a class="headerlink" href="#id43" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>pyoptinterface._src.core_ext.ConstraintIndex</dt><dd><p>Constraint index of the model.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot.rules.RuleContainer.newline_cost_rule">
+<span class="sig-name descname"><span class="pre">newline_cost_rule</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#prepshot.rules.RuleContainer.newline_cost_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Total investment cost of new transmission lines.</p>
+<section id="id44">
+<h2>Returns<a class="headerlink" href="#id44" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>pyoptinterface._src.core_ext.ConstraintIndex</dt><dd><p>Constraint index of the model.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot.rules.RuleContainer.newtech_cost_rule">
+<span class="sig-name descname"><span class="pre">newtech_cost_rule</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#prepshot.rules.RuleContainer.newtech_cost_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Total investment cost of new technologies.</p>
+<section id="id45">
+<h2>Returns<a class="headerlink" href="#id45" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>pyoptinterface._src.core_ext.ConstraintIndex</dt><dd><p>Constraint index of the model.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot.rules.RuleContainer.outflow_low_bound_rule">
+<span class="sig-name descname"><span class="pre">outflow_low_bound_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#prepshot.rules.RuleContainer.outflow_low_bound_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Total outflow lower bound.</p>
+<section id="id46">
+<h2>Parameters<a class="headerlink" href="#id46" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>s<span class="classifier">str</span></dt><dd><p>hydropower plant.</p>
+</dd>
+<dt>h<span class="classifier">int</span></dt><dd><p>Hour.</p>
+</dd>
+<dt>m<span class="classifier">int</span></dt><dd><p>Month.</p>
+</dd>
+<dt>y<span class="classifier">int</span></dt><dd><p>Year.</p>
+</dd>
+</dl>
+</section>
+<section id="id47">
+<h2>Returns<a class="headerlink" href="#id47" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>pyoptinterface._src.core_ext.ConstraintIndex</dt><dd><p>Constraint index of the model.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot.rules.RuleContainer.outflow_up_bound_rule">
+<span class="sig-name descname"><span class="pre">outflow_up_bound_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#prepshot.rules.RuleContainer.outflow_up_bound_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Total outflow upper bound.</p>
+<section id="id48">
+<h2>Parameters<a class="headerlink" href="#id48" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>s<span class="classifier">str</span></dt><dd><p>hydropower plant.</p>
+</dd>
+<dt>h<span class="classifier">int</span></dt><dd><p>Hour.</p>
+</dd>
+<dt>m<span class="classifier">int</span></dt><dd><p>Month.</p>
+</dd>
+<dt>y<span class="classifier">int</span></dt><dd><p>Year.</p>
+</dd>
+</dl>
+</section>
+<section id="id49">
+<h2>Returns<a class="headerlink" href="#id49" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>pyoptinterface._src.core_ext.ConstraintIndex</dt><dd><p>Constraint index of the model.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot.rules.RuleContainer.output_calc_rule">
+<span class="sig-name descname"><span class="pre">output_calc_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#prepshot.rules.RuleContainer.output_calc_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hydropower production calculation.
+Head parameter is specified after building the model.</p>
+<section id="id50">
+<h2>Parameters<a class="headerlink" href="#id50" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>s<span class="classifier">str</span></dt><dd><p>hydropower plant.</p>
+</dd>
+<dt>h<span class="classifier">int</span></dt><dd><p>Hour.</p>
+</dd>
+<dt>m<span class="classifier">int</span></dt><dd><p>Month.</p>
+</dd>
+<dt>y<span class="classifier">int</span></dt><dd><p>Year.</p>
+</dd>
+</dl>
+</section>
+<section id="id51">
+<h2>Returns<a class="headerlink" href="#id51" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>pyoptinterface._src.core_ext.ConstraintIndex</dt><dd><p>Constraint index of the model.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot.rules.RuleContainer.output_low_bound_rule">
+<span class="sig-name descname"><span class="pre">output_low_bound_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#prepshot.rules.RuleContainer.output_low_bound_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Power output of hydropower lower bound.</p>
+<section id="id52">
+<h2>Parameters<a class="headerlink" href="#id52" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>s<span class="classifier">str</span></dt><dd><p>hydropower plant.</p>
+</dd>
+<dt>h<span class="classifier">int</span></dt><dd><p>Hour.</p>
+</dd>
+<dt>m<span class="classifier">int</span></dt><dd><p>Month.</p>
+</dd>
+<dt>y<span class="classifier">int</span></dt><dd><p>Year.</p>
+</dd>
+</dl>
+</section>
+<section id="id53">
+<h2>Returns<a class="headerlink" href="#id53" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>pyoptinterface._src.core_ext.ConstraintIndex</dt><dd><p>Constraint index of the model.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot.rules.RuleContainer.output_up_bound_rule">
+<span class="sig-name descname"><span class="pre">output_up_bound_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#prepshot.rules.RuleContainer.output_up_bound_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Power output of hydropower upper bound.</p>
+<section id="id54">
+<h2>Parameters<a class="headerlink" href="#id54" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>s<span class="classifier">str</span></dt><dd><p>hydropower plant.</p>
+</dd>
+<dt>h<span class="classifier">int</span></dt><dd><p>Hour.</p>
+</dd>
+<dt>m<span class="classifier">int</span></dt><dd><p>Month.</p>
+</dd>
+<dt>y<span class="classifier">int</span></dt><dd><p>Year.</p>
+</dd>
+</dl>
+</section>
+<section id="id55">
+<h2>Returns<a class="headerlink" href="#id55" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>pyoptinterface._src.core_ext.ConstraintIndex</dt><dd><p>Constraint index of the model.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot.rules.RuleContainer.power_balance_rule">
+<span class="sig-name descname"><span class="pre">power_balance_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#prepshot.rules.RuleContainer.power_balance_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Power balance.
+Note: The total electricity demand for each time period and in each 
+zone should be met by the following.
+1. The sum of imported power energy from other zones.
+2. The generation from zone z minus the sum of exported power 
+energy from zone z to other zones.
+3. The charging power energy of storage technologies in zone z.</p>
+<section id="id56">
+<h2>Parameters<a class="headerlink" href="#id56" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>h<span class="classifier">int</span></dt><dd><p>Hour.</p>
+</dd>
+<dt>m<span class="classifier">int</span></dt><dd><p>Month.</p>
+</dd>
+<dt>y<span class="classifier">int</span></dt><dd><p>Year.</p>
+</dd>
+<dt>z<span class="classifier">str</span></dt><dd><p>Zone.</p>
+</dd>
+</dl>
+</section>
+<section id="id57">
+<h2>Returns<a class="headerlink" href="#id57" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>pyoptinterface._src.core_ext.ConstraintIndex</dt><dd><p>Constraint index of the model.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot.rules.RuleContainer.ramping_down_rule">
+<span class="sig-name descname"><span class="pre">ramping_down_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">te</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#prepshot.rules.RuleContainer.ramping_down_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ramping down limits.</p>
+<section id="id58">
+<h2>Parameters<a class="headerlink" href="#id58" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>h<span class="classifier">int</span></dt><dd><p>Hour.</p>
+</dd>
+<dt>m<span class="classifier">int</span></dt><dd><p>Month.</p>
+</dd>
+<dt>y<span class="classifier">int</span></dt><dd><p>Year.</p>
+</dd>
+<dt>z<span class="classifier">str</span></dt><dd><p>Zone.</p>
+</dd>
+<dt>te<span class="classifier">str</span></dt><dd><p>Technology.</p>
+</dd>
+</dl>
+</section>
+<section id="id59">
+<h2>Returns<a class="headerlink" href="#id59" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>pyoptinterface._src.core_ext.ConstraintIndex</dt><dd><p>Constraint index of the model.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot.rules.RuleContainer.ramping_up_rule">
+<span class="sig-name descname"><span class="pre">ramping_up_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">te</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#prepshot.rules.RuleContainer.ramping_up_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ramping up limits.</p>
+<section id="id60">
+<h2>Parameters<a class="headerlink" href="#id60" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>h<span class="classifier">int</span></dt><dd><p>Hour.</p>
+</dd>
+<dt>m<span class="classifier">int</span></dt><dd><p>Month.</p>
+</dd>
+<dt>y<span class="classifier">int</span></dt><dd><p>Year.</p>
+</dd>
+<dt>z<span class="classifier">str</span></dt><dd><p>Zone.</p>
+</dd>
+<dt>te<span class="classifier">str</span></dt><dd><p>Technology.</p>
+</dd>
+</dl>
+</section>
+<section id="id61">
+<h2>Returns<a class="headerlink" href="#id61" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>pyoptinterface._src.core_ext.ConstraintIndex</dt><dd><p>Constraint index of the model.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot.rules.RuleContainer.remaining_capacity_rule">
+<span class="sig-name descname"><span class="pre">remaining_capacity_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">te</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#prepshot.rules.RuleContainer.remaining_capacity_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remaining capacity of initial technology due to lifetime 
+restrictions.
+Note: Where in modeled year y, the available technology consists of 
+the following.
+1. The remaining in-service installed capacity from the initial 
+technology.
+2. The remaining in-service installed capacity from newly built 
+technology in the previous modelled years.</p>
+<section id="id62">
+<h2>Parameters<a class="headerlink" href="#id62" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>y<span class="classifier">int</span></dt><dd><p>Planned year.</p>
+</dd>
+<dt>z<span class="classifier">str</span></dt><dd><p>Zone.</p>
+</dd>
+<dt>te<span class="classifier">str</span></dt><dd><p>technology.</p>
+</dd>
+</dl>
+</section>
+<section id="id63">
+<h2>Returns<a class="headerlink" href="#id63" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>pyoptinterface._src.core_ext.ConstraintIndex</dt><dd><p>Constraint index of the model.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot.rules.RuleContainer.renew_gen_rule">
+<span class="sig-name descname"><span class="pre">renew_gen_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">te</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#prepshot.rules.RuleContainer.renew_gen_rule" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Renewable generation is determined by the capacity factor and </dt><dd><p>existing capacity.</p>
+</dd>
+</dl>
+<section id="id64">
+<h2>Parameters<a class="headerlink" href="#id64" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>h<span class="classifier">int</span></dt><dd><p>Hour.</p>
+</dd>
+<dt>m<span class="classifier">int</span></dt><dd><p>Month.</p>
+</dd>
+<dt>y<span class="classifier">int</span></dt><dd><p>Year.</p>
+</dd>
+<dt>z<span class="classifier">str</span></dt><dd><p>Zone.</p>
+</dd>
+<dt>te<span class="classifier">str</span></dt><dd><p>Technology.</p>
+</dd>
+</dl>
+</section>
+<section id="id65">
+<h2>Returns<a class="headerlink" href="#id65" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>pyoptinterface._src.core_ext.ConstraintIndex</dt><dd><p>Constraint index of the model.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot.rules.RuleContainer.storage_low_bound_rule">
+<span class="sig-name descname"><span class="pre">storage_low_bound_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#prepshot.rules.RuleContainer.storage_low_bound_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Storage lower bound.</p>
+<section id="id66">
+<h2>Parameters<a class="headerlink" href="#id66" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>s<span class="classifier">str</span></dt><dd><p>hydropower plant.</p>
+</dd>
+<dt>h<span class="classifier">int</span></dt><dd><p>Hour.</p>
+</dd>
+<dt>m<span class="classifier">int</span></dt><dd><p>Month.</p>
+</dd>
+<dt>y<span class="classifier">int</span></dt><dd><p>Year.</p>
+</dd>
+</dl>
+</section>
+<section id="id67">
+<h2>Returns<a class="headerlink" href="#id67" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>pyoptinterface._src.core_ext.ConstraintIndex</dt><dd><p>Constraint index of the model.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot.rules.RuleContainer.storage_up_bound_rule">
+<span class="sig-name descname"><span class="pre">storage_up_bound_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#prepshot.rules.RuleContainer.storage_up_bound_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Storage upper bound.</p>
+<section id="id68">
+<h2>Parameters<a class="headerlink" href="#id68" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>s<span class="classifier">str</span></dt><dd><p>hydropower plant.</p>
+</dd>
+<dt>h<span class="classifier">int</span></dt><dd><p>Hour.</p>
+</dd>
+<dt>m<span class="classifier">int</span></dt><dd><p>Month.</p>
+</dd>
+<dt>y<span class="classifier">int</span></dt><dd><p>Year.</p>
+</dd>
+</dl>
+</section>
+<section id="id69">
+<h2>Returns<a class="headerlink" href="#id69" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>pyoptinterface._src.core_ext.ConstraintIndex</dt><dd><p>Constraint index of the model.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot.rules.RuleContainer.tech_lifetime_rule">
+<span class="sig-name descname"><span class="pre">tech_lifetime_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">te</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#prepshot.rules.RuleContainer.tech_lifetime_rule" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Caculation of remaining technology capacity based on lifetime </dt><dd><p>constraints.</p>
+</dd>
+</dl>
+<section id="id70">
+<h2>Parameters<a class="headerlink" href="#id70" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>y<span class="classifier">int</span></dt><dd><p>Year.</p>
+</dd>
+<dt>z<span class="classifier">str</span></dt><dd><p>Zone.</p>
+</dd>
+<dt>te<span class="classifier">str</span></dt><dd><p>Technology.</p>
+</dd>
+</dl>
+</section>
+<section id="id71">
+<h2>Returns<a class="headerlink" href="#id71" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>pyoptinterface._src.core_ext.ConstraintIndex</dt><dd><p>Constraint index of the model.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot.rules.RuleContainer.tech_up_bound_rule">
+<span class="sig-name descname"><span class="pre">tech_up_bound_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">te</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#prepshot.rules.RuleContainer.tech_up_bound_rule" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Allowed capacity of commercial operation technology is less than or </dt><dd><p>equal to the predefined upper bound.</p>
+</dd>
+</dl>
+<section id="id72">
+<h2>Parameters<a class="headerlink" href="#id72" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>y<span class="classifier">int</span></dt><dd><p>Year.</p>
+</dd>
+<dt>z<span class="classifier">str</span></dt><dd><p>Zone.</p>
+</dd>
+<dt>te<span class="classifier">str</span></dt><dd><p>Technology.</p>
+</dd>
+</dl>
+</section>
+<section id="id73">
+<h2>Returns<a class="headerlink" href="#id73" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>pyoptinterface._src.core_ext.ConstraintIndex</dt><dd><p>Constraint index of the model.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot.rules.RuleContainer.total_inflow_rule">
+<span class="sig-name descname"><span class="pre">total_inflow_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#prepshot.rules.RuleContainer.total_inflow_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Total inflow.</p>
+<section id="id74">
+<h2>Parameters<a class="headerlink" href="#id74" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>s<span class="classifier">str</span></dt><dd><p>hydropower plant.</p>
+</dd>
+<dt>h<span class="classifier">int</span></dt><dd><p>Hour.</p>
+</dd>
+<dt>m<span class="classifier">int</span></dt><dd><p>Month.</p>
+</dd>
+<dt>y<span class="classifier">int</span></dt><dd><p>Year.</p>
+</dd>
+</dl>
+</section>
+<section id="id75">
+<h2>Returns<a class="headerlink" href="#id75" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>pyoptinterface._src.core_ext.ConstraintIndex</dt><dd><p>Constraint index of the model.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot.rules.RuleContainer.trans_balance_rule">
+<span class="sig-name descname"><span class="pre">trans_balance_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#prepshot.rules.RuleContainer.trans_balance_rule" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Transmission balance, i.e., the electricity imported from zone z1 </dt><dd><p>to zone z should be equal to the electricity exported from zone z 
+to zone z1 multiplied by the transmission line efficiency.</p>
+</dd>
+</dl>
+<section id="id76">
+<h2>Parameters<a class="headerlink" href="#id76" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>h<span class="classifier">int</span></dt><dd><p>Hour.</p>
+</dd>
+<dt>m<span class="classifier">int</span></dt><dd><p>Month.</p>
+</dd>
+<dt>y<span class="classifier">int</span></dt><dd><p>Year.</p>
+</dd>
+<dt>z<span class="classifier">str</span></dt><dd><p>Zone.</p>
+</dd>
+<dt>z1<span class="classifier">str</span></dt><dd><p>Zone.</p>
+</dd>
+</dl>
+</section>
+<section id="id77">
+<h2>Returns<a class="headerlink" href="#id77" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>pyoptinterface._src.core_ext.ConstraintIndex</dt><dd><p>Constraint index of the model.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot.rules.RuleContainer.trans_capacity_rule">
+<span class="sig-name descname"><span class="pre">trans_capacity_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#prepshot.rules.RuleContainer.trans_capacity_rule" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Transmission capacity equal to the sum of the existing capacity </dt><dd><p>and the new capacity in previous planned years.</p>
+</dd>
+</dl>
+<section id="id78">
+<h2>Parameters<a class="headerlink" href="#id78" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>y<span class="classifier">int</span></dt><dd><p>Year.</p>
+</dd>
+<dt>z<span class="classifier">str</span></dt><dd><p>Zone.</p>
+</dd>
+<dt>z1<span class="classifier">str</span></dt><dd><p>Zone.</p>
+</dd>
+</dl>
+</section>
+<section id="id79">
+<h2>Returns<a class="headerlink" href="#id79" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>pyoptinterface._src.core_ext.ConstraintIndex</dt><dd><p>Constraint index of the model.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot.rules.RuleContainer.trans_physical_rule">
+<span class="sig-name descname"><span class="pre">trans_physical_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#prepshot.rules.RuleContainer.trans_physical_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Physical transmission lines.</p>
+<section id="id80">
+<h2>Parameters<a class="headerlink" href="#id80" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>y<span class="classifier">int</span></dt><dd><p>Year.</p>
+</dd>
+<dt>z<span class="classifier">str</span></dt><dd><p>Zone.</p>
+</dd>
+<dt>z1<span class="classifier">str</span></dt><dd><p>Zone.</p>
+</dd>
+</dl>
+</section>
+<section id="id81">
+<h2>Returns<a class="headerlink" href="#id81" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>pyoptinterface._src.core_ext.ConstraintIndex</dt><dd><p>Constraint index of the model.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot.rules.RuleContainer.trans_up_bound_rule">
+<span class="sig-name descname"><span class="pre">trans_up_bound_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#prepshot.rules.RuleContainer.trans_up_bound_rule" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Transmitted power is less than or equal to the transmission line </dt><dd><p>capacity.</p>
+</dd>
+</dl>
+<section id="id82">
+<h2>Parameters<a class="headerlink" href="#id82" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>h<span class="classifier">int</span></dt><dd><p>Hour.</p>
+</dd>
+<dt>m<span class="classifier">int</span></dt><dd><p>Month.</p>
+</dd>
+<dt>y<span class="classifier">int</span></dt><dd><p>Year.</p>
+</dd>
+<dt>z<span class="classifier">str</span></dt><dd><p>Zone.</p>
+</dd>
+<dt>z1<span class="classifier">str</span></dt><dd><p>Zone.</p>
+</dd>
+</dl>
+</section>
+<section id="id83">
+<h2>Returns<a class="headerlink" href="#id83" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>pyoptinterface._src.core_ext.ConstraintIndex</dt><dd><p>Constraint index of the model.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot.rules.RuleContainer.var_cost_rule">
+<span class="sig-name descname"><span class="pre">var_cost_rule</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#prepshot.rules.RuleContainer.var_cost_rule" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Calculate total variable cost, which is sum of the fuel cost of </dt><dd><p>technologies and variable Operation and maintenance (O&amp;M) cost of 
+technologies and transmission lines.</p>
+</dd>
+</dl>
+<section id="id84">
+<h2>Returns<a class="headerlink" href="#id84" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>pyoptinterface._src.core_ext.ConstraintIndex</dt><dd><p>Constraint index of the model.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot.rules.RuleContainer.water_balance_rule">
+<span class="sig-name descname"><span class="pre">water_balance_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#prepshot.rules.RuleContainer.water_balance_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Water balance of reservoir.</p>
+<section id="id85">
+<h2>Parameters<a class="headerlink" href="#id85" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>s<span class="classifier">str</span></dt><dd><p>hydropower plant.</p>
+</dd>
+<dt>h<span class="classifier">int</span></dt><dd><p>Hour.</p>
+</dd>
+<dt>m<span class="classifier">int</span></dt><dd><p>Month.</p>
+</dd>
+<dt>y<span class="classifier">int</span></dt><dd><p>Year.</p>
+</dd>
+</dl>
+</section>
+<section id="id86">
+<h2>Returns<a class="headerlink" href="#id86" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>pyoptinterface._src.core_ext.ConstraintIndex</dt><dd><p>Constraint index of the model.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+</div>
+</div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="prepshot.parameters.html" class="btn btn-neutral float-left" title="PREP-SHOT.parameters" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="prepshot.utils.html" class="btn btn-neutral float-right" title="PREP-SHOT.utils" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Zhanwei Liu and Xiaogang He (CC BY 3.0).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<!-- , "de":"#", "es":"#", "fr":"#" -->
+
+
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Read the Docs</span>
+    <!-- v: latest () -->
+    <!-- v: 0.1 -->
+    latest
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    
+
+    <dl>
+      <dt>Languages</dt>
+      
+        <dd><a href="#">en</a></dd>
+      
+    </dl>
+    <!-- <dl>
+      <dt>Versions</dt>
+      
+        <dd><a href="#">stable</a></dd>
+      
+        <dd><a href="#">latest</a></dd>
+      
+    </dl> -->
+    <dl>
+      
+      <dt>On Read the Docs</dt>
+        <dd>
+          <a href="https://github.com/PREP-NexT/PREP-SHOT/tree/main">Project Home</a>
+        </dd>
+        <!-- <dd>
+          <a href="///projects//builds/">Builds</a>
+        </dd> -->
+        <dd>
+          <a href="https://github.com/PREP-NexT/PREP-SHOT/raw/gh-pages/_static/PREP-SHOT.pdf">PDF</a>
+        </dd>
+    </dl>
+
+    <hr>
+    <small>
+      <span>Hosted by <a href="https://readthedocs.org">Read the Docs</a></span>
+      <span> · </span>
+      <a href="https://docs.readthedocs.io/page/privacy-policy.html">Privacy Policy</a>
+    </small>
+
+    
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

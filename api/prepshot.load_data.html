@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+<meta property="og:title" content="PREP-SHOT.load_data" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="api/prepshot.load_data.html" />
+<meta property="og:site_name" content="PREP-SHOT documentation" />
+<meta property="og:description" content="This module contains functions for loading data from json and xlsx files." />
+<meta name="description" content="This module contains functions for loading data from json and xlsx files." />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>PREP-SHOT.load_data &mdash; PREP-SHOT (latest) documentation in English</title>
+
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/algolia.css" type="text/css" />
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/custom.css?5" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/dev.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/logo.png"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/js/custom.js?3"></script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+        <script defer="defer" src="../_static/js/algolia.js"></script>
+    <script src="../_static/js/theme.js"></script><meta name="theme-color" content="#3d8fcc">
+  
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="PREP-SHOT.logs" href="prepshot.logs.html" />
+    <link rel="prev" title="API Reference" href="prepshot.html" />
+<meta name="doc_version" content="latest">
+<meta name="doc_is_latest" content="">
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html">
+            <img src="../_static/SVG-03.svg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                latest
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Installation.html#step-1-download-prep-shot">Step 1: Download PREP-SHOT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Installation.html#step-2-install-conda">Step 2: Install conda</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Installation.html#step-3-install-dependencies">Step 3: Install dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Installation.html#step-4-run-an-example-optional">Step 4: Run an example (Optional)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Installation.html#step-5-run-your-own-model">Step 5: Run your own model</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Model_input_output.html">Model Inputs/Outputs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Model_input_output.html#inputs">Inputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Model_input_output.html#outputs">Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Model_input_output.html#execute-various-scenarios">Execute various scenarios</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Model_input_output.html#setting-global-parameters">Setting global parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Tutorial.html">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorial.html#scenario-background">Scenario Background</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Mathematical_notations.html">Mathematical Notation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Mathematical_notations.html#unit-list">Unit List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Mathematical_notations.html#set-list">Set List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Mathematical_notations.html#variable-list">Variable List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Mathematical_notations.html#parameter-list">Parameter List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Mathematical_notations.html#objective-functions">Objective Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Mathematical_notations.html#costs">Costs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Mathematical_notations.html#factors">Factors</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Mathematical_notations.html#constraints">Constraints</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Mathematical_notations.html#retirement">Retirement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Mathematical_notations.html#carbon-emission">Carbon Emission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Mathematical_notations.html#power-balance">Power Balance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Mathematical_notations.html#transmission">Transmission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Mathematical_notations.html#power-output">Power Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Mathematical_notations.html#power-output-variation">Power output variation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Mathematical_notations.html#energy-storage">Energy storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Mathematical_notations.html#water-balance">Water balance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Mathematical_notations.html#reservoir-outflow">Reservoir outflow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Mathematical_notations.html#reservoir-storage">Reservoir storage</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Forum.html">Discussion</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Forum.html#github-discussions">GitHub Discussions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Forum.html#private-queries">Private Queries</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Contribution.html">Contribution</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Contribution.html#development-process">Development Process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Contribution.html#building-documentation">Building Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Contribution.html#contributing-guidelines">Contributing Guidelines</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Changelog.html#version-0-1-0-jun-24-2024">Version 0.1.0 - Jun 24, 2024</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Changelog.html#version-0-1-1-jun-24-2024">Version 0.1.1 - Jun 24, 2024</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#added">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#fixed">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#changed">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#deprecated">Deprecated</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="prepshot.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">PREP-SHOT.load_data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#prepshot.load_data.calculate_cost_factors"><code class="docutils literal notranslate"><span class="pre">calculate_cost_factors()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#prepshot.load_data.get_attr"><code class="docutils literal notranslate"><span class="pre">get_attr()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#prepshot.load_data.get_required_config_data"><code class="docutils literal notranslate"><span class="pre">get_required_config_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#prepshot.load_data.load_data"><code class="docutils literal notranslate"><span class="pre">load_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#prepshot.load_data.load_input_params"><code class="docutils literal notranslate"><span class="pre">load_input_params()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#prepshot.load_data.load_json"><code class="docutils literal notranslate"><span class="pre">load_json()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="prepshot.logs.html">PREP-SHOT.logs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.logs.html#prepshot.logs.log_parameter_info"><code class="docutils literal notranslate"><span class="pre">log_parameter_info()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.logs.html#prepshot.logs.setup_logging"><code class="docutils literal notranslate"><span class="pre">setup_logging()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.logs.html#prepshot.logs.timer"><code class="docutils literal notranslate"><span class="pre">timer()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="prepshot.model.html">PREP-SHOT.model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.model.html#prepshot.model.define_basic_sets"><code class="docutils literal notranslate"><span class="pre">define_basic_sets()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.model.html#prepshot.model.define_complex_sets"><code class="docutils literal notranslate"><span class="pre">define_complex_sets()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.model.html#prepshot.model.define_constraints"><code class="docutils literal notranslate"><span class="pre">define_constraints()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.model.html#prepshot.model.define_model"><code class="docutils literal notranslate"><span class="pre">define_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.model.html#prepshot.model.define_variables"><code class="docutils literal notranslate"><span class="pre">define_variables()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="prepshot.parameters.html">PREP-SHOT.parameters</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.parameters.html#prepshot.parameters.parse_arguments"><code class="docutils literal notranslate"><span class="pre">parse_arguments()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="prepshot.rules.html">PREP-SHOT.rules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.rules.html#prepshot.rules.RuleContainer"><code class="docutils literal notranslate"><span class="pre">RuleContainer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="prepshot.rules.html#prepshot.rules.RuleContainer.carbon_breakdown_ep"><code class="docutils literal notranslate"><span class="pre">RuleContainer.carbon_breakdown_ep()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot.rules.html#prepshot.rules.RuleContainer.cost_fix_breakdown_ep"><code class="docutils literal notranslate"><span class="pre">RuleContainer.cost_fix_breakdown_ep()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot.rules.html#prepshot.rules.RuleContainer.cost_newline_breakdown_ep"><code class="docutils literal notranslate"><span class="pre">RuleContainer.cost_newline_breakdown_ep()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot.rules.html#prepshot.rules.RuleContainer.cost_newtech_breakdown_ep"><code class="docutils literal notranslate"><span class="pre">RuleContainer.cost_newtech_breakdown_ep()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot.rules.html#prepshot.rules.RuleContainer.cost_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.cost_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot.rules.html#prepshot.rules.RuleContainer.cost_var_breakdown_ep"><code class="docutils literal notranslate"><span class="pre">RuleContainer.cost_var_breakdown_ep()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot.rules.html#prepshot.rules.RuleContainer.discharge_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.discharge_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot.rules.html#prepshot.rules.RuleContainer.emission_calc_by_zone_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.emission_calc_by_zone_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot.rules.html#prepshot.rules.RuleContainer.emission_calc_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.emission_calc_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot.rules.html#prepshot.rules.RuleContainer.emission_limit_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.emission_limit_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot.rules.html#prepshot.rules.RuleContainer.end_energy_storage_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.end_energy_storage_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot.rules.html#prepshot.rules.RuleContainer.end_storage_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.end_storage_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot.rules.html#prepshot.rules.RuleContainer.energy_storage_balance_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.energy_storage_balance_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot.rules.html#prepshot.rules.RuleContainer.energy_storage_gen_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.energy_storage_gen_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot.rules.html#prepshot.rules.RuleContainer.energy_storage_up_bound_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.energy_storage_up_bound_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot.rules.html#prepshot.rules.RuleContainer.fix_cost_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.fix_cost_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot.rules.html#prepshot.rules.RuleContainer.gen_up_bound_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.gen_up_bound_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot.rules.html#prepshot.rules.RuleContainer.hydro_output_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.hydro_output_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot.rules.html#prepshot.rules.RuleContainer.income_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.income_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot.rules.html#prepshot.rules.RuleContainer.init_energy_storage_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.init_energy_storage_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot.rules.html#prepshot.rules.RuleContainer.init_storage_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.init_storage_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot.rules.html#prepshot.rules.RuleContainer.natural_inflow_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.natural_inflow_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot.rules.html#prepshot.rules.RuleContainer.new_tech_low_bound_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.new_tech_low_bound_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot.rules.html#prepshot.rules.RuleContainer.new_tech_up_bound_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.new_tech_up_bound_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot.rules.html#prepshot.rules.RuleContainer.newline_cost_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.newline_cost_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot.rules.html#prepshot.rules.RuleContainer.newtech_cost_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.newtech_cost_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot.rules.html#prepshot.rules.RuleContainer.outflow_low_bound_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.outflow_low_bound_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot.rules.html#prepshot.rules.RuleContainer.outflow_up_bound_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.outflow_up_bound_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot.rules.html#prepshot.rules.RuleContainer.output_calc_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.output_calc_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot.rules.html#prepshot.rules.RuleContainer.output_low_bound_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.output_low_bound_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot.rules.html#prepshot.rules.RuleContainer.output_up_bound_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.output_up_bound_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot.rules.html#prepshot.rules.RuleContainer.power_balance_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.power_balance_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot.rules.html#prepshot.rules.RuleContainer.ramping_down_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.ramping_down_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot.rules.html#prepshot.rules.RuleContainer.ramping_up_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.ramping_up_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot.rules.html#prepshot.rules.RuleContainer.remaining_capacity_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.remaining_capacity_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot.rules.html#prepshot.rules.RuleContainer.renew_gen_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.renew_gen_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot.rules.html#prepshot.rules.RuleContainer.storage_low_bound_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.storage_low_bound_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot.rules.html#prepshot.rules.RuleContainer.storage_up_bound_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.storage_up_bound_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot.rules.html#prepshot.rules.RuleContainer.tech_lifetime_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.tech_lifetime_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot.rules.html#prepshot.rules.RuleContainer.tech_up_bound_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.tech_up_bound_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot.rules.html#prepshot.rules.RuleContainer.total_inflow_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.total_inflow_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot.rules.html#prepshot.rules.RuleContainer.trans_balance_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.trans_balance_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot.rules.html#prepshot.rules.RuleContainer.trans_capacity_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.trans_capacity_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot.rules.html#prepshot.rules.RuleContainer.trans_physical_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.trans_physical_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot.rules.html#prepshot.rules.RuleContainer.trans_up_bound_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.trans_up_bound_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot.rules.html#prepshot.rules.RuleContainer.var_cost_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.var_cost_rule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot.rules.html#prepshot.rules.RuleContainer.water_balance_rule"><code class="docutils literal notranslate"><span class="pre">RuleContainer.water_balance_rule()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="prepshot.utils.html">PREP-SHOT.utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.utils.html#prepshot.utils.compute_error"><code class="docutils literal notranslate"><span class="pre">compute_error()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.utils.html#prepshot.utils.cost_factor"><code class="docutils literal notranslate"><span class="pre">cost_factor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.utils.html#prepshot.utils.create_data_array"><code class="docutils literal notranslate"><span class="pre">create_data_array()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.utils.html#prepshot.utils.extract_result"><code class="docutils literal notranslate"><span class="pre">extract_result()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.utils.html#prepshot.utils.initialize_waterhead"><code class="docutils literal notranslate"><span class="pre">initialize_waterhead()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.utils.html#prepshot.utils.interpolate_z_by_q_or_s"><code class="docutils literal notranslate"><span class="pre">interpolate_z_by_q_or_s()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.utils.html#prepshot.utils.inv_cost_factor"><code class="docutils literal notranslate"><span class="pre">inv_cost_factor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.utils.html#prepshot.utils.process_model_solution"><code class="docutils literal notranslate"><span class="pre">process_model_solution()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.utils.html#prepshot.utils.read_data"><code class="docutils literal notranslate"><span class="pre">read_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.utils.html#prepshot.utils.run_model_iteration"><code class="docutils literal notranslate"><span class="pre">run_model_iteration()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.utils.html#prepshot.utils.update_output_filename"><code class="docutils literal notranslate"><span class="pre">update_output_filename()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.utils.html#prepshot.utils.validate_values"><code class="docutils literal notranslate"><span class="pre">validate_values()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../References.html">References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PREP-SHOT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+<li>
+	<div style="font-size: 105%;font-weight: 600;">
+		
+	</div>
+	<ul class="wy-breadcrumbs">
+		
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="prepshot.html">API Reference</a></li>
+      <li class="breadcrumb-item active">PREP-SHOT.load_data</li>
+	</ul>
+</li>
+
+
+<li style="float: right; text-align: right;">
+	<ul>
+		
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/PREP-NexT/PREP-SHOT/blob/main/doc/source/api/prepshot.load_data.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+	</ul>
+
+	<style>
+		.godot-edit-guidelines {
+			font-size: 14px;
+			float: right;
+			clear: both;
+			padding-top: 4px;
+		}
+
+		@media screen and (max-width: 480px) {
+			.godot-edit-guidelines {
+				display: none;
+			}
+		}
+	</style>
+	<a class="godot-edit-guidelines" href="https://prep-next.github.io/PREP-SHOT/Changelog.html#contributing-to-prep-shot">
+		Learn how to contribute!
+	</a>
+</li>
+
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+<div itemprop="articleBody">
+  
+
+  
+  <section id="module-prepshot.load_data">
+<span id="prep-shot-load-data"></span><h1>PREP-SHOT.load_data<a class="headerlink" href="#module-prepshot.load_data" title="Permalink to this heading">¶</a></h1>
+<p>This module contains functions for loading data from json and xlsx files.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="prepshot.load_data.calculate_cost_factors">
+<span class="sig-prename descclassname"><span class="pre">prepshot.load_data.</span></span><span class="sig-name descname"><span class="pre">calculate_cost_factors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">para</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#prepshot.load_data.calculate_cost_factors" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Calculate cost factors for transmission investment, investment, </dt><dd><p>fixed and variable costs.</p>
+</dd>
+</dl>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>para<span class="classifier">dict</span></dt><dd><p>Dictionary containing parameters.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="prepshot.load_data.get_attr">
+<span class="sig-prename descclassname"><span class="pre">prepshot.load_data.</span></span><span class="sig-name descname"><span class="pre">get_attr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">para</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#prepshot.load_data.get_attr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract attributes from parameters.</p>
+<section id="id1">
+<h2>Parameters<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>para<span class="classifier">dict</span></dt><dd><p>Dictionary containing parameters.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="prepshot.load_data.get_required_config_data">
+<span class="sig-prename descclassname"><span class="pre">prepshot.load_data.</span></span><span class="sig-name descname"><span class="pre">get_required_config_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#prepshot.load_data.get_required_config_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get required data from loaded configuration data.</p>
+<section id="id2">
+<h2>Parameters<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>config_data<span class="classifier">dict</span></dt><dd><p>Configuration data for the model.</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>dict</dt><dd><p>Dictionary containing required data from the loaded 
+configuration data.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="prepshot.load_data.load_data">
+<span class="sig-prename descclassname"><span class="pre">prepshot.load_data.</span></span><span class="sig-name descname"><span class="pre">load_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_filepath</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#prepshot.load_data.load_data" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Loads data from provided file path and processes it according to </dt><dd><p>parameters from params.json.</p>
+</dd>
+</dl>
+<section id="id3">
+<h2>Parameters<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>params_data<span class="classifier">dict</span></dt><dd><p>Dictionary containing parameters data.</p>
+</dd>
+<dt>input_filepath<span class="classifier">str</span></dt><dd><p>Path to the input folder.</p>
+</dd>
+</dl>
+</section>
+<section id="id4">
+<h2>Returns<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>dict</dt><dd><p>Dictionary containing processed parameters.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="prepshot.load_data.load_input_params">
+<span class="sig-prename descclassname"><span class="pre">prepshot.load_data.</span></span><span class="sig-name descname"><span class="pre">load_input_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_filepath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">para</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#prepshot.load_data.load_input_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load input data into its respective parameter.</p>
+<section id="id5">
+<h2>Parameters<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>input_filepath<span class="classifier">str</span></dt><dd><p>Path to the input folder.</p>
+</dd>
+<dt>params_data<span class="classifier">dict</span></dt><dd><p>Dictionary containing parameters.</p>
+</dd>
+<dt>para<span class="classifier">dict</span></dt><dd><p>Dictionary to store input data of parameters.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="prepshot.load_data.load_json">
+<span class="sig-prename descclassname"><span class="pre">prepshot.load_data.</span></span><span class="sig-name descname"><span class="pre">load_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#prepshot.load_data.load_json" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load data from a json file.</p>
+<section id="id6">
+<h2>Parameters<a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>file<span class="classifier">str</span></dt><dd><p>Path to the json file.</p>
+</dd>
+</dl>
+</section>
+<section id="id7">
+<h2>Returns<a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>dict</dt><dd><p>Dictionary containing data from the json file.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</section>
+
+
+</div>
+</div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="prepshot.html" class="btn btn-neutral float-left" title="API Reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="prepshot.logs.html" class="btn btn-neutral float-right" title="PREP-SHOT.logs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Zhanwei Liu and Xiaogang He (CC BY 3.0).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<!-- , "de":"#", "es":"#", "fr":"#" -->
+
+
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Read the Docs</span>
+    <!-- v: latest () -->
+    <!-- v: 0.1 -->
+    latest
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    
+
+    <dl>
+      <dt>Languages</dt>
+      
+        <dd><a href="#">en</a></dd>
+      
+    </dl>
+    <!-- <dl>
+      <dt>Versions</dt>
+      
+        <dd><a href="#">stable</a></dd>
+      
+        <dd><a href="#">latest</a></dd>
+      
+    </dl> -->
+    <dl>
+      
+      <dt>On Read the Docs</dt>
+        <dd>
+          <a href="https://github.com/PREP-NexT/PREP-SHOT/tree/main">Project Home</a>
+        </dd>
+        <!-- <dd>
+          <a href="///projects//builds/">Builds</a>
+        </dd> -->
+        <dd>
+          <a href="https://github.com/PREP-NexT/PREP-SHOT/raw/gh-pages/_static/PREP-SHOT.pdf">PDF</a>
+        </dd>
+    </dl>
+
+    <hr>
+    <small>
+      <span>Hosted by <a href="https://readthedocs.org">Read the Docs</a></span>
+      <span> · </span>
+      <a href="https://docs.readthedocs.io/page/privacy-policy.html">Privacy Policy</a>
+    </small>
+
+    
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
