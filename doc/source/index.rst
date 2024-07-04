@@ -37,10 +37,10 @@ Key Features
 * PREP-SHOT is an optimization model based on linear programming for energy systems with multiple zones.
 * It aims to minimize costs while meeting the given demand time series.
 * By default, it operates on hourly-spaced time steps, but this can be adjusted.
-* The input data is in Excel format, while output data is generated in a NetCDF format using ``Xarray``.
-* It supports multiple types of solvers such as Gurobi, CPLEX, MOSEK, and GLPK via `Pyomo <https://pyomo.readthedocs.io/en/stable/solving_pyomo_models.html>`_.
+* The input data is in Excel format, while output data is generated in a NetCDF format using `Xarray <https://docs.xarray.dev/en/stable/>`_.
+* It supports multiple types of solvers such as `HiGHS <https://github.com/jump-dev/HiGHS.jl>`_ , `GUROBI <https://www.gurobi.com/>`_, `COPT <https://www.copt.de/>`_, and `MOSEK <https://www.mosek.com/>`_ via `PyOptInterface <https://github.com/metab0t/PyOptInterface>`_.
 * It allows the input of multiple scenarios for specific parameters.
-* As a pure Python program, it benefits from the use of ``pandas`` and ``Xarray``, simplifying complex data analysis and promoting extensibility.
+* As a pure Python program, it benefits from the use of `pandas <https://pandas.pydata.org/>`_ and `Xarray <https://docs.xarray.dev/en/stable/>`_, simplifying complex data analysis and promoting extensibility.
 
 Offline documentation
 ----------------------
