@@ -39,10 +39,10 @@ The clean energy transition is our new moonshot to combat climate change – an 
 - Optimization model based on linear programming for multi-zone energy systems.
 - Cost minimization while meeting given demand time series.
 - Adjustable operation on hourly-spaced time steps.
-- Input data in Excel format and output data in NetCDF format using ``Xarray``.
-- Support for multiple solvers like ``Gurobi``, ``COPT``, ``MOSEK``, and ``HIGHS`` via `pyoptinterface`.
+- Input data in Excel format and output data in ``NetCDF`` format using [Xarray](https://docs.xarray.dev/en/stable/).
+- Support for multiple solvers like [HiGHS](https://github.com/jump-dev/HiGHS.jl) , [GUROBI](https://www.gurobi.com/), [COPT](https://www.copt.de/), and [MOSEK](https://www.mosek.com/) via [PyOptInterface](https://github.com/metab0t/PyOptInterface).
 - Allows input of multiple scenarios for specific parameters.
-- A pure Python program, leveraging ``pandas`` and ``Xarray`` for simplified complex data analysis and extensibility.
+- A pure Python program, leveraging [pandas](https://pandas.pydata.org/) and [Xarray](https://docs.xarray.dev/en/stable/) for simplified complex data analysis and extensibility.
 
 ## Getting Started
 
@@ -63,7 +63,7 @@ This section includes a brief tutorial on running your first PREP-SHOT model.
 3. Activate the Conda Environment
 
     ```bash
-    conda activate prep-shot-test
+    conda activate prep-shot
     ```
 
 4. Run your first model
@@ -73,6 +73,12 @@ This section includes a brief tutorial on running your first PREP-SHOT model.
     ```
 
 This example is inspired by real-world data. For a detailed elaboration of this tutorial, check out the [Tutorial Page](https://prep-next.github.io/PREP-SHOT/Tutorial.html) in our documentation.
+
+By default, PREP-SHOT uses open-source freely ``HIGHS`` solver. Solver-specific settings parameters are specified in the ``config.json`` file, which should be located in the current working directory. We also provide the option to use one of these three commercial solvers:
+
++ [Gurobi](https://www.gurobi.com/)
++ [COPT](https://www.copt.de/)
++ [MOSEK](https://www.mosek.com/)
 
 ## How to Contribute
 
@@ -103,8 +109,8 @@ Please use the GitHub Issues for public discussions related to bugs, enhancement
 ## Roadmap
 
 - [x] `Benders` decomposition-based fast solution framework
-- [x] [`pyoptinterface`](https://github.com/metab0t/PyOptInterface)-based low-memory and fast modelling engine
-- [ ] Support for input of cost–supply curves of technologies
+- [x] [`PyOptInterface`](https://github.com/metab0t/PyOptInterface)-based low-memory and fast modelling engine
+- [x] Support for input of cost–supply curves of technologies
 - [ ] Support for expanding conventional hydropower plants
 - [ ] Support for refurbishing conventional hydropower plants to pumped-storage schemes
 - [ ] Support for refurbishing carbon-emission plants to carbon capture and storage (CCS) schemes
