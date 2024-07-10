@@ -5,18 +5,23 @@
 This module defines the PREP-SHOT model. The model is created using 
 the pyoptinterface library.
 """
-import logging
-from itertools import product
-import pyoptinterface as poi
-from pyoptinterface import mosek
-from pyoptinterface import gurobi
-from pyoptinterface import highs
-from pyoptinterface import copt
-from prepshot.rules import RuleContainer
+
+from prepshot.utils import cartesian_product
+from prepshot._model.demand import AddDemandConstraints
+from prepshot._model.generation import AddGenerationConstraints
+from prepshot._model.cost import AddCostObjective
+from prepshot._model.co2 import AddCo2EmissionConstraints
+from prepshot._model.hydro import AddHydropowerConstraints
+from prepshot._model.storage import AddStorageConstraints
+from prepshot._model.nondispatchable import AddNondispatchableConstraints
+from prepshot._model.transmission import AddTransmissionConstraints
+from prepshot._model.investment import AddInvestmentConstraints
 from prepshot.logs import timer
+from prepshot.solver import get_solver
+from prepshot.solver import set_solver_parameters
 
 def define_model(para):
-    """This function defines the model using the pyoptinterface library.
+    """This function creates the model class depending on predefined solver.
 
     Parameters
     ----------
@@ -25,66 +30,37 @@ def define_model(para):
 
     Returns
     -------
-    pyoptinterface._src.mosek.Model
-        A pyoptinterface Model object
+    pyoptinterface._src.solver.Model
+        A pyoptinterface Model object depending on the solver
 
     Raises
     ------
     ValueError
         Unsupported or undefined solver
     """
-    solver_map = {
-        'mosek': mosek,
-        'gurobi': gurobi,
-        'highs': highs,
-        'copt': copt
-    }
-
-    solver = para['solver']['solver']
-    if solver in solver_map:
-        poi_solver = solver_map[solver]
-    else:
-        raise ValueError(f"Unsupported solver: {solver}")
-    if not poi_solver.autoload_library():
-        logging.warning(
-            "%s library failed to load automatically." 
-            + "Attempting to load manually.", solver
-        )
-        if 'solver_path' not in para:
-            raise ValueError(
-                f"Solver path for {solver} not found in the configuration."
-            )
-        if not poi_solver.load_library(para['solver']['solver_path']):
-            raise ValueError(f"Failed to load {solver} library.")
-        logging.info("Loaded %s library manually.", solver)
-    else:
-        logging.info("Loaded %s library automatically.", solver)
-
-    model = poi_solver.Model()
-
-    # set the value of the solver-specific parameters
-    for key, value in para['solver'].items():
-        if key not in ('solver', 'solver_path'):
-            model.set_raw_parameter(key, value)
+    solver = get_solver(para)
+    model = solver.Model()
+    model.para = para
+    set_solver_parameters(model)
 
     return model
 
-def define_basic_sets(model, para):
+def define_basic_sets(model):
     """Define sets for the model.
 
     Parameters
     ----------
-    model : pyoptinterface._src.mosek.Model
+    model : pyoptinterface._src.solver.Model
         Model to be solved.
-    para : dict
-        Dictionary of parameters for the model.
     """
+    para = model.para
     basic_sets = ["year", "zone", "tech", "hour", "month"]
     tech_types = ["storage", "nondispatchable", "dispatchable", "hydro"]
 
     model.tech_types = tech_types
     for set_name in basic_sets:
         setattr(model, set_name, para[set_name])
+    # TODO: Generate the hour_p set based on the hour set
     model.hour_p = [0] + para['hour']
     tech_category = para['technology_type']
     # tech_category: {
@@ -98,7 +74,7 @@ def define_basic_sets(model, para):
     if para['isinflow']:
         model.station = para['stcd']
 
-def define_complex_sets(model, para):
+def define_complex_sets(model):
     """Create complex sets based on simple sets and some conditations.
     Note: The existing capacity between two zones is set to empty 
     (i.e., No value is filled in the Excel cell), which means that these two 
@@ -109,12 +85,10 @@ def define_complex_sets(model, para):
 
     Parameters
     ----------
-    model : pyoptinterface._src.mosek.Model
+    model : pyoptinterface._src.solver.Model
         Model to be solved.
     """
-    def cartesian_product(*args):
-        # [1, 2], [7, 8] -> [(1, 7), (1, 8), (2, 7), (2, 8)]
-        return list(product(*args))
+    para = model.para
     h = model.hour
     hp = model.hour_p
     m = model.month
@@ -160,15 +134,13 @@ def define_complex_sets(model, para):
         model.station_hour_p_month_year_tuples = cartesian_product(s, hp, m, y)
         model.station_month_year_tuples = cartesian_product(s, m, y)
 
-def define_variables(model, para):
+def define_variables(model):
     """Define variables for the model.
 
     Parameters
     ----------
-    model : pyoptinterface._src.mosek.Model
+    model : pyoptinterface._src.solver.Model
         Model to be solved.
-    para : dict
-        Dictionary of parameters for the model.
     """
     model.cost = model.add_variable(lb=0)
     model.cost_var = model.add_variable(lb=0)
@@ -203,201 +175,39 @@ def define_variables(model, para):
         model.year_zone_tech_tuples, lb=0
     )
 
-    if para['isinflow']:
-        model.naturalinflow = model.add_variables(
-            model.station_hour_month_year_tuples, lb=-float('inf')
-        )
-        model.inflow = model.add_variables(
-            model.station_hour_month_year_tuples, lb=-float('inf')
-        )
-        model.outflow = model.add_variables(
-            model.station_hour_month_year_tuples, lb=0
-        )
-        model.genflow = model.add_variables(
-            model.station_hour_month_year_tuples, lb=0
-        )
-        model.spillflow = model.add_variables(
-            model.station_hour_month_year_tuples, lb=0
-        )
-        model.withdraw = model.add_variables(
-            model.station_hour_month_year_tuples, lb=0
-        )
-        model.storage_reservoir = model.add_variables(
-            model.station_hour_p_month_year_tuples, lb=0
-        )
-        model.output = model.add_variables(
-            model.station_hour_month_year_tuples, lb=0
-        )
+#    if para['isinflow']:
+#        model.genflow = model.add_variables(
+#            model.station_hour_month_year_tuples, lb=0
+#        )
+#        model.spillflow = model.add_variables(
+#            model.station_hour_month_year_tuples, lb=0
+#        )
+#        model.withdraw = model.add_variables(
+#            model.station_hour_month_year_tuples, lb=0
+#        )
+#        model.storage_reservoir = model.add_variables(
+#            model.station_hour_p_month_year_tuples, lb=0
+#        )
+#        model.output = model.add_variables(
+#            model.station_hour_month_year_tuples, lb=0
+#        )
 
-
-def define_constraints(model, para):
+def define_constraints(model):
     """Define constraints for the model.
     
     Parameters
     ----------
-    model : pyoptinterface._src.mosek.Model
+    model : pyoptinterface._src.solver.Model
         Model to be solved.
-    para : dict
-        Dictionary of parameters for the model.
     """
-    rules = RuleContainer(para, model)
-
-    model.total_cost_cons = rules.cost_rule()
-    model.power_balance_cons = poi.make_tupledict(
-        model.hour_month_year_zone_tuples, rule=rules.power_balance_rule
-    )
-    model.trans_capacity_cons = poi.make_tupledict(
-        model.year_zone_zone_tuples, rule=rules.trans_capacity_rule
-    )
-    model.trans_physical_cons = poi.make_tupledict(
-        model.year_zone_zone_tuples, rule=rules.trans_physical_rule
-    )
-    model.trans_balance_cons = poi.make_tupledict(
-        model.hour_month_year_zone_zone_tuples, rule=rules.trans_balance_rule
-    )
-    model.trans_up_bound_cons = poi.make_tupledict(
-        model.hour_month_year_zone_zone_tuples, rule=rules.trans_up_bound_rule
-    )
-    model.gen_up_bound_cons = poi.make_tupledict(
-        model.hour_month_year_zone_tech_tuples, rule=rules.gen_up_bound_rule
-    )
-    model.tech_up_bound_cons = poi.make_tupledict(
-        model.year_zone_tech_tuples, rule=rules.tech_up_bound_rule
-    )
-    model.new_tech_up_bound_cons = poi.make_tupledict(
-        model.year_zone_tech_tuples, rule=rules.new_tech_up_bound_rule
-    )
-    model.new_tech_low_bound_cons = poi.make_tupledict(
-        model.year_zone_tech_tuples, rule=rules.new_tech_low_bound_rule
-    )
-    model.tech_lifetime_cons = poi.make_tupledict(
-        model.year_zone_tech_tuples, rule=rules.tech_lifetime_rule
-    )
-    model.ramping_up_cons = poi.make_tupledict(
-        model.hour_month_year_zone_tech_tuples, rule=rules.ramping_up_rule
-    )
-    model.ramping_down_cons = poi.make_tupledict(
-        model.hour_month_year_zone_tech_tuples, rule=rules.ramping_down_rule
-    )
-    model.cost_var_cons = rules.var_cost_rule()
-    model.newtech_cost_cons = rules.newtech_cost_rule()
-    model.newline_cost_cons = rules.newline_cost_rule()
-    model.fix_cost_cons = rules.fix_cost_rule()
-    model.remaining_capacity_cons = poi.make_tupledict(
-        model.year, model.zone, model.tech, rule=rules.remaining_capacity_rule
-    )
-    model.emission_limit_cons = poi.make_tupledict(
-        model.year, rule=rules.emission_limit_rule
-    )
-    model.emission_calc_cons = poi.make_tupledict(
-        model.year, rule=rules.emission_calc_rule
-    )
-    model.emission_calc_by_zone_cons = poi.make_tupledict(
-        model.year_zone_tuples, rule=rules.emission_calc_by_zone_rule
-    )
-    model.hydro_output_cons = poi.make_tupledict(
-        model.hour_month_year_zone_tuples, rule=rules.hydro_output_rule
-    )
-
-    if model.nondispatchable_tech != 0:
-        model.renew_gen_cons = poi.make_tupledict(
-            model.hour_month_year_zone_nondispatchable_tuples,
-            rule=rules.renew_gen_rule
-        )
-
-    if model.storage_tech != 0:
-        model.energy_storage_balance_cons = poi.make_tupledict(
-            model.hour_month_year_zone_storage_tuples,
-            rule=rules.energy_storage_balance_rule
-        )
-        model.init_energy_storage_cons = poi.make_tupledict(
-            model.month_year_zone_storage_tuples,
-            rule=rules.init_energy_storage_rule
-        )
-        model.end_energy_storage_cons = poi.make_tupledict(
-            model.month_year_zone_storage_tuples,
-            rule=rules.end_energy_storage_rule
-        )
-        model.energy_storage_up_bound_cons = poi.make_tupledict(
-            model.hour_month_year_zone_storage_tuples,
-            rule=rules.energy_storage_up_bound_rule
-        )
-        model.energy_storage_gen_cons = poi.make_tupledict(
-            model.hour_month_year_zone_storage_tuples,
-            rule=rules.energy_storage_gen_rule
-        )
-
-    if para['isinflow']:
-        model.natural_inflow_cons = poi.make_tupledict(
-            model.station_hour_month_year_tuples,
-            rule=rules.natural_inflow_rule
-        )
-        model.total_inflow_cons = poi.make_tupledict(
-            model.station_hour_month_year_tuples,
-            rule=rules.total_inflow_rule
-        )
-        model.water_balance_cons = poi.make_tupledict(
-            model.station_hour_month_year_tuples,
-            rule=rules.water_balance_rule
-        )
-        model.discharge_cons = poi.make_tupledict(
-            model.station_hour_month_year_tuples,
-            rule=rules.discharge_rule
-        )
-        model.outflow_low_bound_cons = poi.make_tupledict(
-            model.station_hour_month_year_tuples,
-            rule=rules.outflow_low_bound_rule
-        )
-        model.outflow_up_bound_cons = poi.make_tupledict(
-            model.station_hour_month_year_tuples,
-            rule=rules.outflow_up_bound_rule
-        )
-        model.storage_low_bound_cons = poi.make_tupledict(
-            model.station_hour_month_year_tuples,
-            rule=rules.storage_low_bound_rule
-        )
-        model.storage_up_bound_cons = poi.make_tupledict(
-            model.station_hour_month_year_tuples,
-            rule=rules.storage_up_bound_rule
-        )
-        model.output_low_bound_cons = poi.make_tupledict(
-            model.station_hour_month_year_tuples,
-            rule=rules.output_low_bound_rule
-        )
-        model.output_up_bound_cons = poi.make_tupledict(
-            model.station_hour_month_year_tuples,
-            rule=rules.output_up_bound_rule
-        )
-        model.output_calc_cons = poi.make_tupledict(
-            model.station_hour_month_year_tuples,
-            rule=rules.output_calc_rule
-        )
-        model.init_storage_cons = poi.make_tupledict(
-            model.station_month_year_tuples,
-            rule=rules.init_storage_rule
-        )
-        model.end_storage_cons = poi.make_tupledict(
-            model.station_month_year_tuples,
-            rule=rules.end_storage_rule
-        )
-        model.income_cons = rules.income_rule()
-
-    # define expression for breakdown output
-    model.cost_var_breakdown = poi.make_tupledict(
-        model.year_zone_tech_tuples, rule=rules.cost_var_breakdown_ep
-    )
-    model.cost_fix_breakdown = poi.make_tupledict(
-        model.year_zone_tech_tuples, rule=rules.cost_fix_breakdown_ep
-    )
-    model.cost_newtech_breakdown = poi.make_tupledict(
-        model.year_zone_tech_tuples, rule=rules.cost_newtech_breakdown_ep
-    )
-    model.cost_newline_breakdown = poi.make_tupledict(
-        model.year_zone_zone_tuples, rule=rules.cost_newline_breakdown_ep
-    )
-    model.carbon_breakdown = poi.make_tupledict(
-        model.year_zone_tech_tuples, rule=rules.carbon_breakdown_ep
-    )
+    AddDemandConstraints(model)
+    AddGenerationConstraints(model)
+    AddTransmissionConstraints(model)
+    AddInvestmentConstraints(model)
+    AddCo2EmissionConstraints(model)
+    AddNondispatchableConstraints(model)
+    AddStorageConstraints(model)
+    AddHydropowerConstraints(model)
 
 @timer
 def create_model(para):
@@ -410,15 +220,14 @@ def create_model(para):
 
     Returns
     -------
-    pyoptinterface._src.mosek.Model
+    pyoptinterface._src.solver.Model
         A pyoptinterface Model object.
     """
     model = define_model(para)
-    define_basic_sets(model, para)
-    define_complex_sets(model, para)
-    define_variables(model, para)
-    model.obj = poi.ExprBuilder(model.cost)
-    model.set_objective(model.obj, sense=poi.ObjectiveSense.Minimize)
-    define_constraints(model, para)
+    define_basic_sets(model)
+    define_complex_sets(model)
+    define_variables(model)
+    define_constraints(model)
+    AddCostObjective(model)
 
     return model
