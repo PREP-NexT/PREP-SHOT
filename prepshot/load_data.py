@@ -5,8 +5,12 @@
 This module contains functions for loading data from json and xlsx files.
 """
 import json
+import sys
+import logging
 from os import path
-from prepshot.utils import read_data, inv_cost_factor, cost_factor
+import pandas as pd
+from prepshot.utils import inv_cost_factor, cost_factor
+
 
 def load_json(file):
     """Load data from a json file.
@@ -23,6 +27,7 @@ def load_json(file):
     """
     with open(file, "r", encoding="utf-8") as f:
         return json.load(f)
+
 
 def get_required_config_data(config_data):
     """Get required data from loaded configuration data.
@@ -66,16 +71,16 @@ def get_required_config_data(config_data):
 
     return required_config_data
 
+
 def load_input_params(input_filepath, params_data, para):
-    """
-    Load input data into its respective parameter.
+    """Load excel input data.
     
     Parameters
     ----------
     input_filepath : str
         Path to the input folder.
     params_data : dict
-        Dictionary containing parameters.
+        Dictionary containing parameter name and their dimension information.
     para : dict
         Dictionary to store input data of parameters.
     """
@@ -91,13 +96,13 @@ def load_input_params(input_filepath, params_data, para):
                 value["first_col_only"],
                 value["drop_na"]
             )
-    except IndexError as e:
-        print(e)
-        print(f"Error in loading {value['file_name']} data")
+    except FileNotFoundError as e:
+        logging.error("Error loading %s data: %s", value["file_name"], e)
+        sys.exit(1)
 
-def get_attr(para):
-    """
-    Extract attributes from parameters.
+
+def get_sets(para):
+    """Extract simple sets from parameters.
     
     Parameters
     ----------
@@ -160,6 +165,47 @@ def calculate_cost_factors(para):
                 discount_rate, year, y_min, next_year
             )
 
+
+def read_data(
+    filename, index_cols, header_rows, unstack_levels=None,
+    first_col_only=False, dropna=True
+):
+    """Read data from the input Excel file into a pandas.DataFrame.
+
+    Parameters
+    ----------
+    filename : str
+        The name of the input Excel file.
+    index_cols : list
+        List of column names to be used as index.
+    header_rows : list
+        List of rows to be used as header.
+    unstack_levels : list, optional
+        List of levels to be unstacked, by default None
+    first_col_only : bool, optional
+        Whether to keep only the first column, by default False
+    dropna : bool, optional
+        Whether to drop rows with NaN values, by default True
+
+    Returns
+    -------
+    pandas.DataFrame
+        A DataFrame containing the data from the input Excel file.
+    """
+    df = pd.read_excel(io=filename, index_col=index_cols, header=header_rows)
+
+    if unstack_levels:
+        df = df.unstack(level=unstack_levels)
+
+    if first_col_only:
+        df = df.iloc[:, 0]
+
+    if dropna:
+        df = df.dropna().to_dict()
+
+    return df
+
+
 def load_data(params_data, input_filepath):
     """ Loads data from provided file path and processes it according to 
         parameters from params.json.
@@ -178,7 +224,7 @@ def load_data(params_data, input_filepath):
     """
     para = {}
     load_input_params(input_filepath, params_data, para)
-    get_attr(para)
+    get_sets(para)
     calculate_cost_factors(para)
 
     return para

@@ -1,12 +1,15 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+
 """  
 This module contains functions to set up logging for the model run, and to log
     the start and end of functions.
 """
+
 import logging
 import time
 from pathlib import Path
+
 
 def setup_logging():
     """Set up logging file to log model run.
@@ -34,7 +37,7 @@ def setup_logging():
     logging.getLogger().addHandler(console)
 
 def log_parameter_info(config_data):
-    """Log the parameters used for the model.
+    """Log the key parameters used for the model.
 
     Parameters
     ----------
