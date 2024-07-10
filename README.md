@@ -74,7 +74,7 @@ This section includes a brief tutorial on running your first PREP-SHOT model.
 
 This example is inspired by real-world data. For a detailed elaboration of this tutorial, check out the [Tutorial Page](https://prep-next.github.io/PREP-SHOT/Tutorial.html) in our documentation.
 
-By default, PREP-SHOT uses open-source freely [HiGHS](https://github.com/jump-dev/HiGHS.jl) solver. Solver-specific settings parameters are specified in the ``config.json`` file, which should be located in the current working directory. We also provide the option to use one of these three commercial solvers:
+By default, PREP-SHOT uses open-source [HiGHS](https://github.com/jump-dev/HiGHS.jl) solver. Solver-specific parameters are specified in the ``config.json`` file, which should be located in the current working directory. Additionaly, we provide the option to use one of the following three commercial solvers:
 
 + [Gurobi](https://www.gurobi.com/)
 + [COPT](https://www.copt.de/)

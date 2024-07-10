@@ -1,7 +1,7 @@
-PREP-SHOT.parameters
+PREP-SHOT.output_data
 ====================================
 
-.. automodule:: prepshot.parameters
+.. automodule:: prepshot.output_data
     :members:
     :inherited-members:
     :undoc-members:
