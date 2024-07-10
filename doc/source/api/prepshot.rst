@@ -8,10 +8,13 @@ API Reference
 
 .. toctree::
     :maxdepth: 2
-
-    prepshot.load_data.rst
+    
+    prepshot.set_up.rst
     prepshot.logs.rst
+    prepshot.load_data.rst
+    prepshot.solver.rst
     prepshot.model.rst
-    prepshot.parameters.rst
-    prepshot.rules.rst
+    prepshot._model.rst
     prepshot.utils.rst
+    prepshot.output_data.rst
+
