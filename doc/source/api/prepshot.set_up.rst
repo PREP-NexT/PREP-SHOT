@@ -1,7 +1,7 @@
-PREP-SHOT.rules
+PREP-SHOT.set_up
 ====================================
 
-.. automodule:: prepshot.rules
+.. automodule:: prepshot.set_up
     :members:
     :inherited-members:
     :undoc-members:
