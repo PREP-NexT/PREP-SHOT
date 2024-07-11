@@ -11,7 +11,7 @@ Version 0.1.0 - Jun 24, 2024
 * Support for solvers such as Gurobi, CPLEX, MOSEK, and GLPK via `Pyomo <https://pyomo.readthedocs.io/en/stable/solving_pyomo_models.html>`_.
 * Input and output handling with `pandas` and `Xarray`.
 
-Version 0.1.1 - Jun 24, 2024
+Version 0.1.1 - Jul 11, 2024
 -------------------------------
 
 Added
