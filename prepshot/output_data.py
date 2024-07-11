@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""
-This module contains utility functions to save solving results of model.
+"""This module contains functions to save solving results of models.
 """
 
 import logging
@@ -44,7 +43,7 @@ def extract_results_non_hydro(model):
 
     Parameters
     ----------
-    model : pyoptinterface._src.mosek.Model
+    model : pyoptinterface._src.solver.Model
         Model to be solved.
 
     Returns
@@ -53,21 +52,18 @@ def extract_results_non_hydro(model):
         A Dataset containing DataArrays for each attribute of 
         the model.
     """
-    # Extract attributes and values from model.
     hour = model.hour
     month = model.month
     year = model.year
     zone = model.zone
     tech = model.tech
 
-    # Extract values from model.
     cost_var_values = model.get_value(model.cost_var)
     cost_fix_values = model.get_value(model.cost_fix)
     cost_newtech_values = model.get_value(model.cost_newtech)
     cost_newline_values = model.get_value(model.cost_newline)
     income_values = model.get_value(model.income)
 
-    # Create DataArrays for each result set.
     trans_import_v = create_data_array(
         [[[[[model.get_value(model.trans_import[h, m, y, z1, z2]) / 1e6
             if (h, m, y, z1, z2) in model.hour_month_year_zone_zone_tuples
@@ -77,10 +73,9 @@ def extract_results_non_hydro(model):
         {
             'month': month, 'hour': hour, 'year': year, 
             'zone1': zone, 'zone2': zone
-        }, 
+        },
         'TWh'
     )
-
     trans_export_v = create_data_array(
         [[[[[model.get_value(model.trans_export[h, m, y, z1, z2]) / 1e6
             if (h, m, y, z1, z2) in model.hour_month_year_zone_zone_tuples
@@ -94,7 +89,6 @@ def extract_results_non_hydro(model):
         },
         'TWh'
     )
-
     gen_v = create_data_array(
         [[[[[model.get_value(model.gen[h, m, y, z, te]) / 1e6
             for h in hour] for m in month] for y in year]
@@ -106,7 +100,6 @@ def extract_results_non_hydro(model):
         },
         'TWh'
     )
-
     install_v = create_data_array(
         [[[model.get_value(model.cap_existing[y, z, te]) for y in year]
             for z in zone] for te in tech],
@@ -114,12 +107,12 @@ def extract_results_non_hydro(model):
         {'zone': zone, 'tech': tech, 'year': year},
         'MW'
     )
-
     carbon_v = create_data_array(
         [model.get_value(model.carbon[y]) for y in year],
         ['year'],
-        {'year': year}, 'Ton')
-
+        {'year': year}, 
+        'Ton'
+    )
     charge_v = create_data_array(
         [[[[[model.get_value(model.charge[h, m, y, z, te]) for h in hour]
             for m in month] for y in year] for z in zone] for te in tech],
@@ -141,15 +134,17 @@ def extract_results_non_hydro(model):
         [[[model.get_value(model.cost_fix_tech_breakdown[y, z, te])
             for y in year] for z in zone] for te in tech],
         ['tech', 'zone', 'year'],
-        {'tech': tech, 'zone': zone, 'year': year}, 'dollar')
+        {'tech': tech, 'zone': zone, 'year': year}, 'dollar'
+    )
     cost_newtech_breakdown_v = create_data_array(
         [[[model.get_value(model.cost_newtech_breakdown[y, z, te])
             for y in year] for z in zone] for te in tech],
         ['tech', 'zone', 'year'],
-        {'tech': tech, 'zone': zone, 'year': year}, 'dollar')
+        {'tech': tech, 'zone': zone, 'year': year}, 'dollar'
+    )
     cost_newline_breakdown_v = create_data_array(
         [[[model.get_value(model.cost_newline_breakdown[y, z1, z])
-            if (y, z1, z) in model.year_zone_zone_tuples 
+            if (y, z1, z) in model.year_zone_zone_tuples
             else np.nan for y in year] for z1 in zone] for z in zone],
         ['zone2', 'zone1', 'year'],
         {'zone2': zone, 'zone1': zone, 'year': year}, 'dollar')
@@ -157,8 +152,8 @@ def extract_results_non_hydro(model):
         [[[model.get_value(model.carbon_breakdown[y, z, te])
             for y in year] for z in zone] for te in tech],
         ['tech', 'zone', 'year'],
-        {'tech': tech, 'zone': zone, 'year': year}, 'ton')
-
+        {'tech': tech, 'zone': zone, 'year': year}, 'ton'
+    )
     cost_v = xr.DataArray(
         data = cost_var_values
         + cost_fix_values
@@ -172,7 +167,6 @@ def extract_results_non_hydro(model):
     cost_newline_v = xr.DataArray(data=cost_newline_values)
     income_v = xr.DataArray(data=income_values)
 
-    # Combine all DataArrays into a Dataset.
     ds = xr.Dataset(data_vars={
         'trans_import': trans_import_v,
         'trans_export': trans_export_v,
@@ -200,7 +194,7 @@ def extract_results_hydro(model):
 
     Parameters
     ----------
-    model : pyoptinterface._src.mosek.Model
+    model : pyoptinterface._src.solver.Model
         Model to be solved.
 
     Returns
@@ -211,13 +205,11 @@ def extract_results_hydro(model):
     """
     ds = extract_results_non_hydro(model)
 
-    # Extract additional attributes specific to hydro models.
     stations = model.station
     hour = model.hour
     month = model.month
     year = model.year
 
-    # Create additional DataArrays specific to hydro models.
     genflow_v = create_data_array(
         [[[[model.get_value(model.genflow[s, h, m, y])
             for h in hour] for m in month] for y in year] for s in stations],
@@ -234,7 +226,6 @@ def extract_results_hydro(model):
         'm**3s**-1'
     )
 
-    # Add these DataArrays to the existing non-hydro Dataset.
     ds = ds.assign({'genflow': genflow_v, 'spillflow': spillflow_v})
 
     return ds
@@ -264,7 +255,7 @@ def save_result(model):
 
     Parameters
     ----------
-    model : pyoptinterface._src.mosek.Model
+    model : pyoptinterface._src.solver.Model
         Model to be solved.
     """
     isinflow = model.para['isinflow']

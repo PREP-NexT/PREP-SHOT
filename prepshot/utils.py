@@ -1,35 +1,33 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""
-This module contains utility functions for the model.
+"""This module contains utility functions for the model.
 """
 
 from itertools import product
 from scipy import interpolate
 
-def validate_values(*values):
-    """Validate that all values are greater than 0, otherwise raise a 
-    ValueError.
+def check_positive(*values):
+    """Ensure all values are greater than 0.
     
     Parameters
     ----------
     values : int or float
-        Values to be validated.
+        Values to be checked.
 
     Raises
     ------
     ValueError
-        If any of the values are less than or equal to 0.
+        If any value is less than or equal to 0.
     """
     for value in values:
         if value <= 0:
             raise ValueError("All arguments must be greater than 0.")
 
-def inv_cost_factor(
+def calc_inv_cost_factor(
     dep_period, interest_rate, year_built, discount_rate, year_min, year_max
 ):
-    """Calculate the investment cost factor.
+    """Compute the investment cost factor.
 
     Parameters
     ----------
@@ -49,18 +47,15 @@ def inv_cost_factor(
     Returns
     -------
     float
-        The investment cost factor.
+        Investment cost factor.
 
     Raises
     ------
     ValueError
-        If year_max is less than or equal to year_min, 
-        or year_max is less than year_built,
-        or year_built is less than year_min. 
+        If year_max <= year_min, year_max < year_built, or 
+        year_built < year_min.
     """
-    validate_values(
-        dep_period, interest_rate, year_built, year_min, year_max
-    )
+    check_positive(dep_period, interest_rate, year_built, year_min, year_max)
     if (year_max <= year_min) or (year_max < year_built)                      \
         or (year_built < year_min):
         raise ValueError("Invalid year values.")
@@ -71,8 +66,8 @@ def inv_cost_factor(
              * (1 - (1 + discount_rate) ** (-min(dep_period, years_to_max)))
              / (discount_rate * (1 + discount_rate) ** years_since_min))
 
-def cost_factor(discount_rate, modeled_year, year_min, next_modeled_year):
-    """Calculate the cost factor.
+def calc_cost_factor(discount_rate, modeled_year, year_min, next_modeled_year):
+    """Compute the cost factor.
 
     Parameters
     ----------
@@ -83,19 +78,19 @@ def cost_factor(discount_rate, modeled_year, year_min, next_modeled_year):
     year_min : int
         Minimum year.
     next_modeled_year : int
-        Next modeled year.
+        Next year.
 
     Returns
     -------
     float
-        The cost factor.
+        Cost factor.
 
     Raises
     ------
     ValueError
-        if next_modeled_year is less than modeled_year.
+        if next_modeled_year < modeled_year.
     """
-    validate_values(discount_rate, modeled_year, year_min, next_modeled_year)
+    check_positive(discount_rate, modeled_year, year_min, next_modeled_year)
     if next_modeled_year < modeled_year:
         raise ValueError(
             "Next modeled year must be greater than or" 
@@ -108,7 +103,8 @@ def cost_factor(discount_rate, modeled_year, year_min, next_modeled_year):
         / (discount_rate * (1 + discount_rate) ** (years_since_min - 1))
 
 def interpolate_z_by_q_or_s(name, qs, zqv):
-    """Interpolate Z by Q or S.
+    """Interpolate forebay water level (Z) by reservoir storage (S) or tailrace
+    water level (Z) by the reservoir outflow (Q).
 
     Parameters
     ----------
@@ -131,7 +127,7 @@ def interpolate_z_by_q_or_s(name, qs, zqv):
 
 
 def cartesian_product(*args):
-    """Generate the complex sets based on simple sets and some conditions.
+    """Generate Cartesian product of input iterables.
     
     Parameters
     ----------
@@ -141,7 +137,7 @@ def cartesian_product(*args):
     Returns
     -------
     list
-        List of tuples of the Cartesian product of the input iterables. 
+        List of tuples representing the Cartesian product. 
     """
     # [1, 2], [7, 8] -> [(1, 7), (1, 8), (2, 7), (2, 8)]
     return list(product(*args))

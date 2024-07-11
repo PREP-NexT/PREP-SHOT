@@ -1,36 +1,36 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-""" 
-This module contains functions for loading data from json and xlsx files.
+"""This module contains functions for loading and processing data from JSON
+and Excel files.
 """
 import json
 import sys
 import logging
 from os import path
 import pandas as pd
-from prepshot.utils import inv_cost_factor, cost_factor
+from prepshot.utils import calc_inv_cost_factor, calc_cost_factor
 
 
-def load_json(file):
-    """Load data from a json file.
+def load_json(file_path):
+    """Load data from a JSON file.
 
     Parameters
     ----------
-    file : str
-        Path to the json file.
+    file_path : str
+        Path to the JSON file.
 
     Returns
     -------
     dict
-        Dictionary containing data from the json file.
+        Dictionary containing data from the JSON file.
     """
-    with open(file, "r", encoding="utf-8") as f:
+    with open(file_path, "r", encoding="utf-8") as f:
         return json.load(f)
 
 
-def get_required_config_data(config_data):
-    """Get required data from loaded configuration data.
+def extract_config_data(config_data):
+    """Extract necessary data from configuration settings.
 
     Parameters
     ----------
@@ -40,10 +40,9 @@ def get_required_config_data(config_data):
     Returns
     -------
     dict
-        Dictionary containing required data from the loaded 
-        configuration data.
+        Dictionary containing necessary configuration data.
     """
-    # Extract general parameters and solver parameters from configuration file.
+    # Extract parameters from configuration data.
     hour = int(config_data['general_parameters']['hour'])
     month = int(config_data['general_parameters']['month'])
     dt = int(config_data['general_parameters']['dt'])
@@ -58,7 +57,7 @@ def get_required_config_data(config_data):
         config_data['hydro_parameters']['iteration_number']
     )
 
-    # Create dictionary containing required data from configuration file.
+    # Create dictionary with necessary configuration data.
     required_config_data = {
         'dt': dt,
         'price': price,
@@ -72,23 +71,23 @@ def get_required_config_data(config_data):
     return required_config_data
 
 
-def load_input_params(input_filepath, params_data, para):
-    """Load excel input data.
+def load_excel_data(input_folder, params_info, data_store):
+    """Load data from Excel files based on the provided parameters.
     
     Parameters
     ----------
-    input_filepath : str
+    input_folder : str
         Path to the input folder.
-    params_data : dict
-        Dictionary containing parameter name and their dimension information.
+    params_info : dict
+        Dictionary containing parameter names and their corresponding file
+    information.
     para : dict
-        Dictionary to store input data of parameters.
+        Dictionary to store loaded data.
     """
-    # Load input data into parameters dictionary.
     try:
-        for key, value in params_data.items():
-            filename = path.join(input_filepath, f"{value['file_name']}.xlsx")
-            para[key] = read_data(
+        for key, value in params_info.items():
+            filename = path.join(input_folder, f"{value['file_name']}.xlsx")
+            data_store[key] = read_excel(
                 filename,
                 value["index_cols"],
                 value["header_rows"],
@@ -101,76 +100,76 @@ def load_input_params(input_filepath, params_data, para):
         sys.exit(1)
 
 
-def get_sets(para):
-    """Extract simple sets from parameters.
+def extract_sets(data_store):
+    """Extract simple sets from loaded parameters.
     
     Parameters
     ----------
-    para : dict
-        Dictionary containing parameters.
+    data_store : dict
+        Dictionary containing loaded parameters.
     """
-    para["year"] = sorted(list(para["discount_factor"].keys()))
-    if "reservoir_characteristics" in para.keys():
-        para["stcd"] = list({
-            i[1] for i in para["reservoir_characteristics"].keys()
+    data_store["year"] = sorted(list(data_store["discount_factor"].keys()))
+    if "reservoir_characteristics" in data_store.keys():
+        data_store["stcd"] = list({
+            i[1] for i in data_store["reservoir_characteristics"].keys()
         })
-    para["hour"] = sorted({
-        i[3] for i in para["demand"].keys() if isinstance(i[3], int)
+    data_store["hour"] = sorted({
+        i[3] for i in data_store["demand"].keys() if isinstance(i[3], int)
     })
-    para["month"] = sorted({
-        i[2] for i in para["demand"].keys() if isinstance(i[2], int)
+    data_store["month"] = sorted({
+        i[2] for i in data_store["demand"].keys() if isinstance(i[2], int)
     })
-    para["zone"] = list({i[0] for i in para["demand"].keys()})
-    para["tech"] = list(para["technology_type"].keys())
+    data_store["zone"] = list({i[0] for i in data_store["demand"].keys()})
+    data_store["tech"] = list(data_store["technology_type"].keys())
 
 
-def calculate_cost_factors(para):
-    """Calculate cost factors for transmission investment, investment, 
-        fixed and variable costs.
+def compute_cost_factors(data_store):
+    """Calculate cost factors for various transmission investment and 
+    operational costs.
 
     Parameters
     ----------
-    para : dict
-        Dictionary containing parameters.
+    data_store : dict
+        Dictionary containing loaded parameters.
     """
     # Initialize dictionaries for computed cost factors.
-    para["trans_inv_factor"] = {}
-    para["inv_factor"] = {}
-    para["fix_factor"] = {}
-    para["var_factor"] = {}
+    data_store["trans_inv_factor"] = {}
+    data_store["inv_factor"] = {}
+    data_store["fix_factor"] = {}
+    data_store["var_factor"] = {}
 
     # Initialize parameters for cost factor calculations.
-    trans_line_lifetime = max(para["transmission_line_lifetime"].values())
-    lifetime = para["lifetime"]
-    y_min, y_max = min(para["year"]), max(para["year"])
+    trans_line_lifetime = max(data_store["transmission_line_lifetime"].values())
+    lifetime = data_store["lifetime"]
+    y_min, y_max = min(data_store["year"]), max(data_store["year"])
 
     # Calculate cost factors
-    for tech in para["tech"]:
-        for year in para["year"]:
-            discount_rate = para["discount_factor"][year]
+    for tech in data_store["tech"]:
+        for year in data_store["year"]:
+            discount_rate = data_store["discount_factor"][year]
             next_year = year+1 if year == y_max                               \
-                else para["year"][para["year"].index(year) + 1]
-            para["trans_inv_factor"][year] = inv_cost_factor(
+                else data_store["year"][data_store["year"].index(year) + 1]
+            data_store["trans_inv_factor"][year] = calc_inv_cost_factor(
                 trans_line_lifetime, discount_rate, year, discount_rate,
                 y_min, y_max
             )
-            para["inv_factor"][tech, year] = inv_cost_factor(
+            data_store["inv_factor"][tech, year] = calc_inv_cost_factor(
                 lifetime[tech, year], discount_rate, year, discount_rate,
                 y_min, y_max
             )
-            para["fix_factor"][year] = cost_factor(
+            data_store["fix_factor"][year] = calc_cost_factor(
                 discount_rate, year, y_min, next_year
             )
-            para["var_factor"][year] = cost_factor(
+            data_store["var_factor"][year] = calc_cost_factor(
                 discount_rate, year, y_min, next_year
             )
 
 
-def read_data(
+def read_excel(
     filename, index_cols, header_rows, unstack_levels=None,
     first_col_only=False, dropna=True
 ):
-    """Read data from the input Excel file into a pandas.DataFrame.
+    """Read data from an Excel file into a pandas DataFrame.
 
     Parameters
     ----------
@@ -190,7 +189,7 @@ def read_data(
     Returns
     -------
     pandas.DataFrame
-        A DataFrame containing the data from the input Excel file.
+        A DataFrame containing the data from the Excel file.
     """
     df = pd.read_excel(io=filename, index_col=index_cols, header=header_rows)
 
@@ -206,14 +205,13 @@ def read_data(
     return df
 
 
-def load_data(params_data, input_filepath):
-    """ Loads data from provided file path and processes it according to 
-        parameters from params.json.
+def process_data(params_info, input_folder):
+    """Load and process data from input folder based on parameters settings.
 
     Parameters
     ----------
-    params_data : dict
-        Dictionary containing parameters data.
+    params_info : dict
+        Dictionary containing parameters information.
     input_filepath : str
         Path to the input folder.
             
@@ -222,9 +220,9 @@ def load_data(params_data, input_filepath):
     dict
         Dictionary containing processed parameters.
     """
-    para = {}
-    load_input_params(input_filepath, params_data, para)
-    get_sets(para)
-    calculate_cost_factors(para)
+    data_store = {}
+    load_excel_data(input_folder, params_info, data_store)
+    extract_sets(data_store)
+    compute_cost_factors(data_store)
 
-    return para
+    return data_store

@@ -13,18 +13,18 @@ from pyoptinterface import copt
 from prepshot.logs import timer
 from prepshot._model.head_iteration import run_model_iteration
 
-def get_solver(para):
-    """Get the solver object.
+def get_solver(params):
+    """Retrieve the solver object based on parameters.
     
     Parameters
     ----------
-    para : dict
-        Dictionary containing parameters.
+    params : dict
+        Configuration dictionary with solver details.
     
     Returns
     -------
     pyoptinterface._src.solver
-        Solver object depending on the predefined solver.
+        Solver object.
     """
     solver_map = {
         'mosek': mosek,
@@ -33,7 +33,7 @@ def get_solver(para):
         'copt': copt
     }
 
-    solver = para['solver']['solver']
+    solver = params['solver']['solver']
     if solver in solver_map:
         poi_solver = solver_map[solver]
     else:
@@ -43,11 +43,11 @@ def get_solver(para):
             "%s library failed to load automatically." 
             + "Attempting to load manually.", solver
         )
-        if 'solver_path' not in para:
+        if 'solver_path' not in params:
             raise ValueError(
                 f"Solver path for {solver} not found in the configuration."
             )
-        if not poi_solver.load_library(para['solver']['solver_path']):
+        if not poi_solver.load_library(params['solver']['solver_path']):
             raise ValueError(f"Failed to load {solver} library.")
         logging.info("Loaded %s library manually.", solver)
     else:
@@ -56,39 +56,38 @@ def get_solver(para):
     return poi_solver
 
 def set_solver_parameters(model):
-    """Set the solver parameters.
+    """Set the solver-specific parameters for the model.
     
     Parameters
     ----------
     model : pyoptinterface._src.solver.Model 
-        Model to be solved.
+        Model to configurable.
     """
-    # set the value of the solver-specific parameters
     for key, value in model.para['solver'].items():
         if key not in ('solver', 'solver_path'):
             model.set_raw_parameter(key, value)
 
 @timer
-def solve_model(model, parameters):
-    """Solve the model.
+def solve_model(model, params):
+    """Solve the model using the provided parameters.
 
     Parameters
     ----------
     model : pyoptinterface._src.solver.Model
-        Model to be solved.
-    parameters : dict
-        Dictionary of parameters for the model.
+        Model to solve.
+    params : dict
+        Configuration parameters for solving the model.
 
     Returns
     -------
     bool
-        True if the model is solved, False otherwise.
+        True if the model is solved optimally, False otherwise.
     """
-    if parameters['isinflow']:
-        error_threshold = parameters['error_threshold']
-        iteration_number = parameters['iteration_number']
+    if params['isinflow']:
+        error_threshold = params['error_threshold']
+        iteration_number = params['iteration_number']
         return run_model_iteration(
-            model, parameters, error_threshold, iteration_number
+            model, params, error_threshold, iteration_number
         )
     model.optimize()
     status = model.get_model_attribute(poi.ModelAttribute.TerminationStatus)

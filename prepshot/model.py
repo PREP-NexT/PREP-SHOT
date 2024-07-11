@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-""" 
-This module defines the PREP-SHOT model. The model is created using 
+"""This module defines the PREP-SHOT model. The model is created using 
 the pyoptinterface library.
 """
 

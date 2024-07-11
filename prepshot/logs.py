@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 
 """  
-This module contains functions to set up logging for the model run, and to log
-    the start and end of functions.
+This module contains functions to set up logging for the model run and to log
+the start and end of functions.
 """
 
 import logging
@@ -12,9 +12,9 @@ from pathlib import Path
 
 
 def setup_logging():
-    """Set up logging file to log model run.
+    """Set up logging configuration for the model run.
     """
-    # Create a directory for the log file if it doesn't exist.
+    # Ensure the log directory exists.
     Path('log').parent.mkdir(parents=True, exist_ok=True)
 
     # Create a log file with a timestamp.
@@ -29,6 +29,8 @@ def setup_logging():
         datefmt='%Y-%m-%d %H:%M:%S',
         force=True
     )
+
+    # Set up console logging.
     console = logging.StreamHandler()
     console.setLevel(logging.INFO)
     console.setFormatter(logging.Formatter(
@@ -37,11 +39,11 @@ def setup_logging():
     logging.getLogger().addHandler(console)
 
 def log_parameter_info(config_data):
-    """Log the key parameters used for the model.
+    """Log key parameters used for the model.
 
     Parameters
     ----------
-    Config_data : dict
+    config_data : dict
         Dictionary containing configuration data for the model.
     """
     logging.info(
@@ -62,15 +64,14 @@ def log_parameter_info(config_data):
     )
 
 def timer(func):
-    """Decorator to log the start and end of a function, and how long it took 
-    to run.
+    """Decorator to log the start and end of a function and its runtime.
 
     Parameters
     ----------
     func : function
         The function to be decorated.
 
-    Returns:
+    Returns
     ----------
     Any
         The return value of decorated function.
