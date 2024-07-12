@@ -1,4 +1,4 @@
-PREP-SHOT.model
+model
 ====================================
 
 .. automodule:: prepshot.model

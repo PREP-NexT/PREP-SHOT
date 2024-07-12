@@ -1,4 +1,4 @@
-PREP-SHOT.constraints.generation
+generation
 =================================
 
 .. automodule:: prepshot._model.generation

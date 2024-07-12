@@ -1,4 +1,4 @@
-PREP-SHOT.constraints.transmission
+transmission
 ===================================
 
 .. automodule:: prepshot._model.transmission

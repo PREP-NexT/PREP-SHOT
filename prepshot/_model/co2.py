@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-""" This module contains constraints related to carbon emissions. 
+"""This module contains constraints related to carbon emissions. 
 """
 
 import pyoptinterface as poi
@@ -17,7 +17,7 @@ class AddCo2EmissionConstraints:
         ----------
         model : pyoptinterface._src.solver.Model
             Model index.
-        para : dict
+        params : dict
             Dictionary containing parameters.
         """
         self.model = model
@@ -52,7 +52,7 @@ class AddCo2EmissionConstraints:
             Constraint index of the model.
         """
         model = self.model
-        limit = model.para['carbon_emission_limit']
+        limit = model.params['carbon_emission_limit']
         if limit[y] == np.Inf:
             return None
         lhs = model.carbon[y] - limit[y]
@@ -60,7 +60,7 @@ class AddCo2EmissionConstraints:
 
     def emission_calc_rule(self, y):
         """Calculation of annual carbon emission across all zones and
-            technologies.
+        technologies.
 
         Parameters
         ----------
@@ -117,8 +117,8 @@ class AddCo2EmissionConstraints:
             index of expression of the model.
         """
         model = self.model
-        ef = model.para['emission_factor'][te, y]
-        dt = model.para['dt']
+        ef = model.params['emission_factor'][te, y]
+        dt = model.params['dt']
         return poi.quicksum(
             ef * model.gen[h, m, y, z, te] * dt
             for h, m in model.hour_month_tuples

@@ -17,13 +17,13 @@ class AddDemandConstraints:
             model.hour_month_year_zone_tuples, rule=self.power_balance_rule
         )
     def power_balance_rule(self, h, m, y, z):
-        """Power balance.
-        Note: The total electricity demand for each time period and in each 
-        zone should be met by the following.
+        """Nodal power balance. The total electricity demand for each time 
+        period and in each zone should be met by the following.
+        
         1. The sum of imported power energy from other zones.
         2. The generation from zone z minus the sum of exported power 
-        energy from zone z to other zones.
-        3. The charging power energy of storage technologies in zone z.
+           energy from zone z to other zones.
+        3. The charging power energy of storage technologies in zone z.  
 
         Parameters
         ----------
@@ -42,8 +42,8 @@ class AddDemandConstraints:
             Constraint index of the model.
         """
         model = self.model
-        lc = model.para['transmission_line_existing_capacity']
-        load = model.para['demand']
+        lc = model.params['transmission_line_existing_capacity']
+        load = model.params['demand']
         imp_z = poi.quicksum(
             model.trans_import[h, m, y, z1, z]
             for z1 in model.zone if (z, z1) in lc.keys()

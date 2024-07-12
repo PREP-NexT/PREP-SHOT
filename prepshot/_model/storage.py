@@ -3,12 +3,14 @@
 
 """This module contains energy storage related functions. Symmetrical energy 
 storage system is considered in this module. It means that the energy storage
-system has the same power capacity for charging and discharging."""
+system has the same power capacity for charging and discharging.
+"""
 
 import pyoptinterface as poi
 
 class AddStorageConstraints:
-    """Energy storage class."""
+    """Energy storage class.
+    """
     def __init__(self, model):
         self.model = model
         if model.storage_tech != 0:
@@ -55,8 +57,8 @@ class AddStorageConstraints:
             Constraint index of the model.
         """
         model = self.model
-        de = model.para['discharge_efficiency'][te, y]
-        ce = model.para['charge_efficiency'][te, y]
+        de = model.params['discharge_efficiency'][te, y]
+        ce = model.params['charge_efficiency'][te, y]
         return model.add_linear_constraint(
             model.storage[h, m, y, z, te] - (
                 model.storage[h-1, m, y, z, te]
@@ -87,9 +89,9 @@ class AddStorageConstraints:
             Constraint index of the model.
         """
         model = self.model
-        esl = model.para['initial_energy_storage_level'][te, z]
-        epr = model.para['energy_to_power_ratio'][te]
-        dt = model.para['dt']
+        esl = model.params['initial_energy_storage_level'][te, z]
+        epr = model.params['energy_to_power_ratio'][te]
+        dt = model.params['dt']
         lhs = (
             model.storage[0, m, y, z, te]
             - esl * model.cap_existing[y, z, te] * epr * dt
@@ -116,7 +118,7 @@ class AddStorageConstraints:
             Constraint index of the model.
         """
         model = self.model
-        h_init = model.para['hour'][-1]
+        h_init = model.params['hour'][-1]
         lhs = (
             model.storage[h_init, m, y, z, te]
             - model.storage[0, m, y, z, te]
@@ -145,8 +147,8 @@ class AddStorageConstraints:
             Constraint index of the model.
         """
         model = self.model
-        epr = model.para['energy_to_power_ratio'][te]
-        dt = model.para['dt']
+        epr = model.params['energy_to_power_ratio'][te]
+        dt = model.params['dt']
         lhs = (
             model.storage[h, m, y, z, te]
             - model.cap_existing[y, z, te] * epr * dt
@@ -175,7 +177,7 @@ class AddStorageConstraints:
             Constraint index of the model.
         """
         model = self.model
-        de = model.para['discharge_efficiency'][te, y]
+        de = model.params['discharge_efficiency'][te, y]
         lhs = model.gen[h, m, y, z, te] / de                                  \
             - model.storage[h-1, m, y, z, te]
         return model.add_linear_constraint(lhs, poi.Leq, 0)

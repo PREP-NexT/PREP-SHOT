@@ -1,4 +1,4 @@
-PREP-SHOT.constraints
+constraints
 ==========================
 
 .. automodule:: prepshot._model

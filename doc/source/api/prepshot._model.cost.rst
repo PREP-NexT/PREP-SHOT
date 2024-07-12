@@ -1,4 +1,4 @@
-PREP-SHOT.constraints.cost
+cost
 ==========================
 
 .. automodule:: prepshot._model.cost

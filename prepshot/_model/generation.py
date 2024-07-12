@@ -70,7 +70,7 @@ class AddGenerationConstraints:
             Constraint index of the model.
         """
         model = self.model
-        rp = model.para['ramp_up'][te] * model.para['dt']
+        rp = model.params['ramp_up'][te] * model.params['dt']
         if h > 1 and rp < 1:
             lhs = (
                 model.gen[h, m, y, z, te] - model.gen[h-1, m, y, z, te]
@@ -103,7 +103,7 @@ class AddGenerationConstraints:
             Constraint index of the model.
         """
         model = self.model
-        rd = model.para['ramp_down'][te] * model.para['dt']
+        rd = model.params['ramp_down'][te] * model.params['dt']
         if h > 1 and  rd < 1:
             lhs = (
                 model.gen[h-1, m, y, z, te] - model.gen[h, m, y, z, te]

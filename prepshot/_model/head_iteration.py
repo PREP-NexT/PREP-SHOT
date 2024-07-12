@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""
-This module contains utility functions related to the head iteration.
+"""This module contains utility functions related to the head iteration.
 """
 
 import datetime
@@ -13,7 +12,7 @@ import pyoptinterface as poi
 
 from prepshot.utils import interpolate_z_by_q_or_s
 
-def initialize_waterhead(stations, year, month, hour, para):
+def initialize_waterhead(stations, year, month, hour, params):
     """Initialize water head.
 
     Parameters
@@ -26,7 +25,7 @@ def initialize_waterhead(stations, year, month, hour, para):
         List of months.
     hour : list
         List of hours.
-    para : dict
+    params : dict
         Dictionary of parameters for the model.
 
     Returns
@@ -45,7 +44,7 @@ def initialize_waterhead(stations, year, month, hour, para):
 
     for s in stations:
         old_waterhead.loc[s, :] = [
-            para['reservoir_characteristics']['head', s]
+            params['reservoir_characteristics']['head', s]
         ] * (len(hour) * len(month) * len(year))
     return old_waterhead, new_waterhead
 
@@ -72,7 +71,7 @@ def compute_error(old_waterhead, new_waterhead):
     return error
 
 def process_model_solution(
-    model, stations, year, month, hour, para, old_waterhead, new_waterhead
+    model, stations, year, month, hour, params, old_waterhead, new_waterhead
 ):
     """Process the solution of the model, updating the water head data.
 
@@ -88,7 +87,7 @@ def process_model_solution(
         List of months.
     hour : list
         List of hours.
-    para : dict
+    params : dict
         Dictionary of parameters for the model.
     old_waterhead : pandas.DataFrame
         The water head before the solution.
@@ -102,7 +101,7 @@ def process_model_solution(
     """
     idx = pd.IndexSlice
     for s, h, m, y in model.station_hour_month_year_tuples:
-        efficiency = para['reservoir_characteristics']['coeff', s]
+        efficiency = params['reservoir_characteristics']['coeff', s]
         model.set_normalized_coefficient(
             model.output_calc_cons[s, h, m, y],
             model.genflow[s, h, m, y],
@@ -114,7 +113,7 @@ def process_model_solution(
     status = model.get_model_attribute(poi.ModelAttribute.TerminationStatus)
     if status != poi.TerminationStatusCode.OPTIMAL:
         return False
-    if para['iteration_number'] <= 1:
+    if params['iteration_number'] <= 1:
         # If fixed head is True, do not update water head.
         new_waterhead = old_waterhead
         return True
@@ -131,10 +130,10 @@ def process_model_solution(
 
         tail = interpolate_z_by_q_or_s(
             str(stcd), outflow,
-            para['reservoir_tailrace_level_discharge_function']
+            params['reservoir_tailrace_level_discharge_function']
         )
         storage = interpolate_z_by_q_or_s(
-            str(stcd), storage, para['reservoir_forebay_level_volume_function']
+            str(stcd), storage, params['reservoir_forebay_level_volume_function']
         )
 
         # Calculate the new water head.
@@ -144,7 +143,7 @@ def process_model_solution(
     return True
 
 def run_model_iteration(
-    model, para, error_threshold=0.001, max_iterations=5
+    model, params, error_threshold=0.001, max_iterations=5
 ):
     """Run the model iteratively.
 
@@ -152,7 +151,7 @@ def run_model_iteration(
     ----------
     model : pyoptinterface._src.solver.Model
         Model to be solved.
-    para : dict
+    params : dict
         Dictionary of parameters for the model.
     error_threshold : float, optional
         The error threshold, by default 0.001
@@ -171,9 +170,9 @@ def run_model_iteration(
 
     # Initialize water head.
     stations, years, months, hours =                                          \
-        para['stcd'], para['year'], para['month'], para['hour']
+        params['stcd'], params['year'], params['month'], params['hour']
     old_waterhead, new_waterhead = initialize_waterhead(
-        stations, years, months, hours, para
+        stations, years, months, hours, params
     )
 
     # Variables for iteration.
@@ -183,7 +182,7 @@ def run_model_iteration(
     for iteration in range(1, max_iterations+1):
         alpha = 1 / iteration
         success = process_model_solution(
-            model, stations, years, months, hours, para,
+            model, stations, years, months, hours, params,
             old_waterhead, new_waterhead
         )
         if not success:

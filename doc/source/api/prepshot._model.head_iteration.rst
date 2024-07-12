@@ -1,4 +1,4 @@
-PREP-SHOT.constraints.head_iteration
+head_iteration
 =====================================
 
 .. automodule:: prepshot._model.head_iteration

@@ -1,4 +1,4 @@
-PREP-SHOT.constraints.demand
+demand
 ===============================
 
 .. automodule:: prepshot._model.demand

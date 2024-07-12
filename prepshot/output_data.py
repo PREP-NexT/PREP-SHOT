@@ -258,9 +258,9 @@ def save_result(model):
     model : pyoptinterface._src.solver.Model
         Model to be solved.
     """
-    isinflow = model.para['isinflow']
-    args = model.para['command_line_args']
-    output_filename = model.para['output_filename']
+    isinflow = model.params['isinflow']
+    args = model.params['command_line_args']
+    output_filename = model.params['output_filename']
     output_filename = update_output_filename(output_filename, args)
 
     if isinflow:

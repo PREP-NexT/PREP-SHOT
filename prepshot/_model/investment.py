@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-""" This module is used to determine investment-related constraints. 
+"""This module is used to determine investment-related constraints. 
 """
 
 import numpy as np
 import pyoptinterface as poi
 
 class AddInvestmentConstraints:
-    """ Add constraints for investment in the model.
+    """Add constraints for investment in the model.
     """
     def __init__(self, model):
-        """ Initialize the class and add constraints.
+        """Initialize the class and add constraints.
         """
         self.model = model
         model.tech_up_bound_cons = poi.make_tupledict(
@@ -33,7 +33,7 @@ class AddInvestmentConstraints:
 
     def tech_up_bound_rule(self, y, z, te):
         """Allowed capacity of commercial operation technology is less than or 
-            equal to the predefined upper bound.
+        equal to the predefined upper bound.
 
         Parameters
         ----------
@@ -50,7 +50,7 @@ class AddInvestmentConstraints:
             Constraint index of the model.
         """
         model = self.model
-        tub =  model.para['technology_upper_bound'][te, z]
+        tub =  model.params['technology_upper_bound'][te, z]
         if tub != np.Inf:
             lhs = model.cap_existing[y, z, te] - tub
             return model.add_linear_constraint(lhs, poi.Leq, 0)
@@ -74,7 +74,7 @@ class AddInvestmentConstraints:
             Constraint index of the model.
         """
         model = self.model
-        ntub = model.para['new_technology_upper_bound'][te, z]
+        ntub = model.params['new_technology_upper_bound'][te, z]
         if ntub == np.Inf:
             return None
         else:
@@ -99,13 +99,13 @@ class AddInvestmentConstraints:
             Constraint index of the model.
         """
         model = self.model
-        ntlb = model.para['new_technology_lower_bound'][te, z]
+        ntlb = model.params['new_technology_lower_bound'][te, z]
         lhs = model.cap_newtech[y, z, te] - ntlb
         return model.add_linear_constraint(lhs, poi.Geq, 0)
 
     def tech_lifetime_rule(self, y, z, te):
         """Caculation of remaining technology capacity based on lifetime 
-            constraints.
+        constraints.
 
         Parameters
         ----------
@@ -122,9 +122,9 @@ class AddInvestmentConstraints:
             Constraint index of the model.
         """
         model = self.model
-        lifetime = model.para['lifetime'][te, y]
-        service_time = y - model.para['year'][0]
-        hcap = model.para['historical_capacity']
+        lifetime = model.params['lifetime'][te, y]
+        service_time = y - model.params['year'][0]
+        hcap = model.params['historical_capacity']
         rt = model.remaining_technology[y, z, te]
         remaining_time = int(lifetime - service_time)
         if remaining_time <= 0:
@@ -138,13 +138,13 @@ class AddInvestmentConstraints:
 
     def remaining_capacity_rule(self, y, z, te):
         """Remaining capacity of initial technology due to lifetime 
-        restrictions.
-        Note: Where in modeled year y, the available technology consists of 
-        the following.
+        restrictions. Where in modeled year y, the available technology
+        consists of the following.
+        
         1. The remaining in-service installed capacity from the initial 
-        technology.
+           technology.
         2. The remaining in-service installed capacity from newly built 
-        technology in the previous modelled years.
+           technology in the previous modelled years.
 
         Parameters
         ----------
@@ -161,8 +161,8 @@ class AddInvestmentConstraints:
             Constraint index of the model.
         """
         model = self.model
-        year = model.para['year']
-        lt = model.para['lifetime']
+        year = model.params['year']
+        lt = model.params['lifetime']
         new_tech = poi.quicksum(
             model.cap_newtech[yy, z, te]
             for yy in year[:year.index(y) + 1]

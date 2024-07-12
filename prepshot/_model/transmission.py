@@ -6,11 +6,11 @@
 import pyoptinterface as poi
 
 class AddTransmissionConstraints:
-    """ Add constraints for transmission lines while considering multiple 
+    """Add constraints for transmission lines while considering multiple 
     zones. 
     """
     def __init__(self, model):
-        """ Initialize the class and add constraints.
+        """Initialize the class and add constraints.
         """
         self.model = model
         model.trans_capacity_cons = poi.make_tupledict(
@@ -51,7 +51,7 @@ class AddTransmissionConstraints:
 
     def trans_capacity_rule(self, y, z, z1):
         """Transmission capacity equal to the sum of the existing capacity 
-            and the new capacity in previous planned years.
+        and the new capacity in previous planned years.
 
         Parameters
         ----------
@@ -68,8 +68,8 @@ class AddTransmissionConstraints:
             Constraint index of the model.
         """
         model = self.model
-        year = model.para['year']
-        lc = model.para['transmission_line_existing_capacity']
+        year = model.params['year']
+        lc = model.params['transmission_line_existing_capacity']
         remaining_capacity_line = lc[z, z1]
         new_capacity_line = poi.quicksum(
             model.cap_newline[yy, z, z1] for yy in year[:year.index(y) + 1]
@@ -81,8 +81,8 @@ class AddTransmissionConstraints:
 
     def trans_balance_rule(self, h, m, y, z, z1):
         """Transmission balance, i.e., the electricity imported from zone z1 
-            to zone z should be equal to the electricity exported from zone z 
-            to zone z1 multiplied by the transmission line efficiency.
+        to zone z should be equal to the electricity exported from zone z 
+        to zone z1 multiplied by the transmission line efficiency.
 
         Parameters
         ----------
@@ -103,7 +103,7 @@ class AddTransmissionConstraints:
             Constraint index of the model.
         """
         model = self.model
-        eff = model.para['transmission_line_efficiency'][z, z1]
+        eff = model.params['transmission_line_efficiency'][z, z1]
         lhs = model.trans_import[h, m, y, z, z1] \
             - eff * model.trans_export[h, m, y, z, z1]
         return model.add_linear_constraint(lhs, poi.Eq, 0)
@@ -111,7 +111,7 @@ class AddTransmissionConstraints:
 
     def trans_up_bound_rule(self, h, m, y, z, z1):
         """Transmitted power is less than or equal to the transmission line 
-            capacity.
+        capacity.
 
         Parameters
         ----------

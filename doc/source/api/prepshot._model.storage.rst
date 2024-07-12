@@ -1,4 +1,4 @@
-PREP-SHOT.constraints.storage
+storage
 ===============================
 
 .. automodule:: prepshot._model.storage

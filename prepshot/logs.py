@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""  
-This module contains functions to set up logging for the model run and to log
+"""This module contains functions to set up logging for the model run and to log
 the start and end of functions.
 """
 

@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""This module contains the definition of the solver class.""" 
+"""This module contains the definition of the solver class.
+"""
 
 import logging
 import pyoptinterface as poi
@@ -63,7 +64,7 @@ def set_solver_parameters(model):
     model : pyoptinterface._src.solver.Model 
         Model to configurable.
     """
-    for key, value in model.para['solver'].items():
+    for key, value in model.params['solver'].items():
         if key not in ('solver', 'solver_path'):
             model.set_raw_parameter(key, value)
 

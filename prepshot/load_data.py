@@ -73,15 +73,15 @@ def extract_config_data(config_data):
 
 def load_excel_data(input_folder, params_info, data_store):
     """Load data from Excel files based on the provided parameters.
-    
+
     Parameters
     ----------
     input_folder : str
         Path to the input folder.
     params_info : dict
         Dictionary containing parameter names and their corresponding file
-    information.
-    para : dict
+        information.
+    data_store : dict
         Dictionary to store loaded data.
     """
     try:
@@ -212,9 +212,9 @@ def process_data(params_info, input_folder):
     ----------
     params_info : dict
         Dictionary containing parameters information.
-    input_filepath : str
+    input_folder : str
         Path to the input folder.
-            
+
     Returns
     -------
     dict

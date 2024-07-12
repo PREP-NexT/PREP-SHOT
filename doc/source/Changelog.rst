@@ -31,6 +31,12 @@ Changed
 * Change default solver to HiGHS.
 * Change the code comment style to `NumPy <https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_numpy.html>`_.
 * Change the code style to `PEP8 <https://pep8.org>`_.
+* Categorize constraint definitions based on type (co2, cost, demand, generation, hydro, investment, nondispatchable, storage, transmission) for better organization.
+* Split `rule.py` class into serveral smaller, focused classes according to categorized constraint definitions.
+* Simplify model by replacing intermediate constraints with direct expressions.
+* Extract new modules `solver.py`, `output_data.py`, and `set_up.py` from `run.py` and `utils.py`.
+* Remove `parameters.py` into `set_up.py`.
+* Refactor and improve comments and function names for clarity and conciseness.
 
 Deprecated
 ++++++++++

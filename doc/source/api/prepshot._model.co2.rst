@@ -1,4 +1,4 @@
-PREP-SHOT.constraints.co2
+co2
 ==========================
 
 .. automodule:: prepshot._model.co2

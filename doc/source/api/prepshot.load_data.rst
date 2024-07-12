@@ -1,4 +1,4 @@
-PREP-SHOT.load_data
+load_data
 ==========================
 
 .. automodule:: prepshot.load_data

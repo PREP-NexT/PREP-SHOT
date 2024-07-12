@@ -1,4 +1,4 @@
-PREP-SHOT.output_data
+output_data
 ====================================
 
 .. automodule:: prepshot.output_data

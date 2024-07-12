@@ -1,4 +1,4 @@
-PREP-SHOT.logs
+logs
 ====================================
 
 .. automodule:: prepshot.logs

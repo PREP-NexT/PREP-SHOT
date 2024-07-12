@@ -1,4 +1,4 @@
-PREP-SHOT.utils
+utils
 ====================================
 
 .. automodule:: prepshot.utils

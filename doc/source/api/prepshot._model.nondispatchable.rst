@@ -1,4 +1,4 @@
-PREP-SHOT.constraints.nondispatchable
+nondispatchable
 =======================================
 
 .. automodule:: prepshot._model.nondispatchable 

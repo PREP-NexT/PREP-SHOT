@@ -1,4 +1,4 @@
-PREP-SHOT.solver
+solver
 ==========================
 
 .. automodule:: prepshot.solver

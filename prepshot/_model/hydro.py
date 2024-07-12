@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+"""This module contains functions related to hydropower technologies. 
+"""
+
 import pyoptinterface as poi
 
 class AddHydropowerConstraints:
-    """ 
-    Class for hydropower constraints and calculations.
+    """Class for hydropower constraints and calculations.
     """
     def __init__(self, model):
         """Initialize the class. Here I define the variables needed and the 
@@ -13,12 +15,12 @@ class AddHydropowerConstraints:
 
         Parameters
         ----------
-        model : [todo]
+        model : pyoptinterface._src.solver.Model
             Model container which is a dict-like objective and includes
             parameters, variables and constraints.
         """
         self.model = model
-        if model.para['isinflow']:
+        if model.params['isinflow']:
             self.define_variable()
             model.outflow = poi.make_tupledict(
                 model.station_hour_month_year_tuples,
@@ -115,9 +117,9 @@ class AddHydropowerConstraints:
             Total inflow of reservoir.
         """
         model = self.model
-        hour = model.para['hour']
-        wdt = model.para['water_delay_time']
-        dt = model.para['dt']
+        hour = model.params['hour']
+        wdt = model.params['water_delay_time']
+        dt = model.params['dt']
         up_stream_outflow = poi.ExprBuilder()
         # Assume the delay time is a constant by default. Other routing methods
         # can be implemented here such as Muskingum method, piecewise linear
@@ -132,11 +134,11 @@ class AddHydropowerConstraints:
             else:
                 t = hour[-1] + h - delay
             up_stream_outflow += model.outflow[ups, t, m, y]
-        return up_stream_outflow + model.para['inflow'][s, y, m, h]
+        return up_stream_outflow + model.params['inflow'][s, y, m, h]
 
     def outflow_rule(self, s, h, m, y):
         """Total outflow of reservoir is equal to the sum of generation and 
-            spillage.
+        spillage.
 
         Parameters
         ----------
@@ -179,7 +181,7 @@ class AddHydropowerConstraints:
         """
         model = self.model
         lhs = poi.ExprBuilder()
-        lhs += 3600 * model.para['dt'] * (
+        lhs += 3600 * model.params['dt'] * (
             model.inflow[s, h, m, y]
             - model.outflow[s, h, m, y]
             - model.withdraw[s, h, m, y]
@@ -207,7 +209,7 @@ class AddHydropowerConstraints:
         """
         model = self.model
         hour_period = model.hour_p
-        init_storage = model.para['initial_reservoir_storage_level'][m, s]
+        init_storage = model.params['initial_reservoir_storage_level'][m, s]
         lhs = model.storage_reservoir[s, hour_period[0], m, y] - init_storage
         return model.add_linear_constraint(lhs, poi.Eq, 0)
 
@@ -230,7 +232,7 @@ class AddHydropowerConstraints:
         """
         model = self.model
         hour_period = model.hour_p
-        final_storage = model.para['final_reservoir_storage_level'][m, s]
+        final_storage = model.params['final_reservoir_storage_level'][m, s]
         lhs = model.storage_reservoir[s, hour_period[-1], m, y] - final_storage
         return model.add_linear_constraint(lhs, poi.Eq, 0)
 
@@ -254,7 +256,7 @@ class AddHydropowerConstraints:
             Constraint index of the model.
         """
         model = self.model
-        min_outflow = model.para['reservoir_characteristics']['outflow_min', s]
+        min_outflow = model.params['reservoir_characteristics']['outflow_min', s]
         lhs = model.outflow[s, h, m, y] - min_outflow
         return model.add_linear_constraint(lhs, poi.Geq, 0)
 
@@ -278,7 +280,7 @@ class AddHydropowerConstraints:
             Constraint index of the model.
         """
         model = self.model
-        max_outflow = model.para['reservoir_characteristics']['outflow_max', s]
+        max_outflow = model.params['reservoir_characteristics']['outflow_max', s]
         lhs = model.outflow[s, h, m, y] - max_outflow
         return model.add_linear_constraint(lhs, poi.Leq, 0)
 
@@ -302,7 +304,7 @@ class AddHydropowerConstraints:
             Constraint index of the model.
         """
         model = self.model
-        min_storage = model.para['reservoir_storage_lower_bound'][s, m, h]
+        min_storage = model.params['reservoir_storage_lower_bound'][s, m, h]
         lhs = model.storage_reservoir[s, h, m, y] - min_storage
         return model.add_linear_constraint(lhs, poi.Geq, 0)
 
@@ -326,7 +328,7 @@ class AddHydropowerConstraints:
             Constraint index of the model.
         """
         model = self.model
-        max_storage = model.para['reservoir_storage_upper_bound'][s, m, h]
+        max_storage = model.params['reservoir_storage_upper_bound'][s, m, h]
         lhs = model.storage_reservoir[s, h, m, y] - max_storage
         return model.add_linear_constraint(lhs, poi.Leq, 0)
 
@@ -350,7 +352,7 @@ class AddHydropowerConstraints:
             Constraint index of the model.
         """
         model = self.model
-        min_output = model.para['reservoir_characteristics']['N_min', s]
+        min_output = model.params['reservoir_characteristics']['N_min', s]
         lhs = model.output[s, h, m, y] - min_output
         return model.add_linear_constraint(lhs, poi.Geq, 0)
 
@@ -374,13 +376,13 @@ class AddHydropowerConstraints:
             Constraint index of the model.
         """
         model = self.model
-        max_output = model.para['reservoir_characteristics']['N_max', s]
+        max_output = model.params['reservoir_characteristics']['N_max', s]
         lhs = model.output[s, h, m, y] - max_output
         return model.add_linear_constraint(lhs, poi.Leq, 0)
 
     def output_calc_rule(self, s, h, m, y):
-        """Hydropower production calculation.
-        Head parameter is specified after building the model.
+        """Hydropower production calculation. Head parameter is specified after
+        building the model.
 
         Parameters
         ----------
@@ -399,7 +401,7 @@ class AddHydropowerConstraints:
             Constraint index of the model.
         """
         model = self.model
-        efficiency = model.para['reservoir_characteristics']['coeff', s]
+        efficiency = model.params['reservoir_characteristics']['coeff', s]
         lhs = (
             model.output[s, h, m, y]
             - model.genflow[s, h, m, y] * efficiency * 1e-3 #  * head_param
@@ -426,16 +428,16 @@ class AddHydropowerConstraints:
             Constraint index of the model.
         """
         model = self.model
-        tech_type = model.para['technology_type']
-        res_char = model.para['reservoir_characteristics']
-        dt = model.para['dt']
-        predifined_hydro = model.para['predefined_hydropower']
+        tech_type = model.params['technology_type']
+        res_char = model.params['reservoir_characteristics']
+        dt = model.params['dt']
+        predifined_hydro = model.params['predefined_hydropower']
         hydro_type = [i for i, j in tech_type.items() if j == 'hydro']
         if len(hydro_type) == 0:
             return None
-        if model.para['isinflow']:
+        if model.params['isinflow']:
             hydro_output = poi.quicksum(
-                model.output[s, h, m, y] * model.para['dt']
+                model.output[s, h, m, y] * model.params['dt']
                 for s in model.station if res_char['zone', s] == z
             )
             lhs = hydro_output

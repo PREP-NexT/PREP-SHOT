@@ -1,4 +1,4 @@
-PREP-SHOT.constraints.hydro
+hydro
 ==============================
 
 .. automodule:: prepshot._model.hydro

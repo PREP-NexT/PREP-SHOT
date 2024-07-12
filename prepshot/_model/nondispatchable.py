@@ -19,7 +19,7 @@ class AddNondispatchableConstraints:
 
     def renew_gen_rule(self, h, m, y, z, te):
         """Renewable generation is determined by the capacity factor and 
-            existing capacity.
+        existing capacity.
         
         Parameters
         ----------
@@ -40,8 +40,8 @@ class AddNondispatchableConstraints:
             Constraint index of the model.
         """
         model = self.model
-        cf = model.para['capacity_factor'][te, z, y, m, h]
-        dt = model.para['dt']
+        cf = model.params['capacity_factor'][te, z, y, m, h]
+        dt = model.params['dt']
         cap = model.cap_existing[y, z, te]
         gen = model.gen[h, m, y, z, te]
         lhs = gen - cap * cf * dt

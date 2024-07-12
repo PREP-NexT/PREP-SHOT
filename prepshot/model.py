@@ -24,7 +24,7 @@ def define_model(para):
 
     Parameters
     ----------
-    para : dict
+    params : dict
         parameters for the model
 
     Returns
@@ -39,7 +39,7 @@ def define_model(para):
     """
     solver = get_solver(para)
     model = solver.Model()
-    model.para = para
+    model.params = para
     set_solver_parameters(model)
 
     return model
@@ -52,16 +52,16 @@ def define_basic_sets(model):
     model : pyoptinterface._src.solver.Model
         Model to be solved.
     """
-    para = model.para
+    params = model.params
     basic_sets = ["year", "zone", "tech", "hour", "month"]
     tech_types = ["storage", "nondispatchable", "dispatchable", "hydro"]
 
     model.tech_types = tech_types
     for set_name in basic_sets:
-        setattr(model, set_name, para[set_name])
+        setattr(model, set_name, params[set_name])
     # TODO: Generate the hour_p set based on the hour set
-    model.hour_p = [0] + para['hour']
-    tech_category = para['technology_type']
+    model.hour_p = [0] + params['hour']
+    tech_category = params['technology_type']
     # tech_category: {
     #    'Coal': 'dispatchable',
     #    'Solar': 'nondispatchable',
@@ -70,24 +70,23 @@ def define_basic_sets(model):
     for tech_type in tech_types:
         tech_set = [k for k, v in tech_category.items() if v == tech_type]
         setattr(model, f"{tech_type}_tech", tech_set)
-    if para['isinflow']:
-        model.station = para['stcd']
+    if params['isinflow']:
+        model.station = params['stcd']
 
 def define_complex_sets(model):
-    """Create complex sets based on simple sets and some conditations.
-    Note: The existing capacity between two zones is set to empty 
-    (i.e., No value is filled in the Excel cell), which means that these two 
-    zones cannot have newly built transmission lines. If you want to enable 
-    two zones which do not have any existing transmission lines, 
-    to build new transmission lines in the planning horizon, you need to set 
-    their capacity as zero explicitly.
+    """Create complex sets based on simple sets and some conditations. The
+    existing capacity between two zones is set to empty (i.e., No value is
+    filled in the Excel cell), which means that these two zones cannot have
+    newly built transmission lines. If you want to enable two zones which do
+    not have any existing transmission lines, to build new transmission lines
+    in the planning horizon, you need to set their capacity as zero explicitly.
 
     Parameters
     ----------
     model : pyoptinterface._src.solver.Model
         Model to be solved.
     """
-    para = model.para
+    params = model.params
     h = model.hour
     hp = model.hour_p
     m = model.month
@@ -105,7 +104,7 @@ def define_complex_sets(model):
         cartesian_product(h, m, y, z, nd)
     model.hour_month_year_zone_tech_tuples = cartesian_product(h, m, y, z, te)
     model.hour_month_year_zone_tuples = cartesian_product(h, m, y, z)
-    trans_sets = para['transmission_line_existing_capacity'].keys()
+    trans_sets = params['transmission_line_existing_capacity'].keys()
     model.year_zone_zone_tuples = [
         (y_i, z_i, z1_i) for y_i, z_i, z1_i in cartesian_product(y, z, z)
         if (z_i, z1_i) in trans_sets
@@ -127,7 +126,7 @@ def define_complex_sets(model):
     model.year_zone_tech_tuples = cartesian_product(y, z, te)
     model.year_tech_tuples = cartesian_product(y, te)
 
-    if para['isinflow']:
+    if params['isinflow']:
         s = model.station
         model.station_hour_month_year_tuples = cartesian_product(s, h, m, y)
         model.station_hour_p_month_year_tuples = cartesian_product(s, hp, m, y)
@@ -174,7 +173,7 @@ def define_variables(model):
         model.year_zone_tech_tuples, lb=0
     )
 
-#    if para['isinflow']:
+#    if params['isinflow']:
 #        model.genflow = model.add_variables(
 #            model.station_hour_month_year_tuples, lb=0
 #        )
@@ -209,12 +208,12 @@ def define_constraints(model):
     AddHydropowerConstraints(model)
 
 @timer
-def create_model(para):
+def create_model(params):
     """Create the PREP-SHOT model.
 
     Parameters
     ----------
-    para : dict
+    params : dict
         Dictionary of parameters for the model.
 
     Returns
@@ -222,7 +221,7 @@ def create_model(para):
     pyoptinterface._src.solver.Model
         A pyoptinterface Model object.
     """
-    model = define_model(para)
+    model = define_model(params)
     define_basic_sets(model)
     define_complex_sets(model)
     define_variables(model)

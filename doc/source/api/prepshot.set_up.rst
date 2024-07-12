@@ -1,4 +1,4 @@
-PREP-SHOT.set_up
+set_up
 ====================================
 
 .. automodule:: prepshot.set_up

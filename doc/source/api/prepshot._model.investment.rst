@@ -1,4 +1,4 @@
-PREP-SHOT.constraints.investment
+investment
 =================================
 
 .. automodule:: prepshot._model.investment
