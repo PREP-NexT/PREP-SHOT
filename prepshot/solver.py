@@ -5,6 +5,7 @@
 """
 
 import logging
+
 import pyoptinterface as poi
 from pyoptinterface import mosek
 from pyoptinterface import gurobi

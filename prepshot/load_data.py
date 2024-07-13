@@ -4,11 +4,14 @@
 """This module contains functions for loading and processing data from JSON
 and Excel files.
 """
+
 import json
 import sys
 import logging
 from os import path
+
 import pandas as pd
+
 from prepshot.utils import calc_inv_cost_factor, calc_cost_factor
 
 

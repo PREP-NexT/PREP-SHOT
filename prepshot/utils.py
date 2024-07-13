@@ -5,6 +5,7 @@
 """
 
 from itertools import product
+
 from scipy import interpolate
 
 def check_positive(*values):

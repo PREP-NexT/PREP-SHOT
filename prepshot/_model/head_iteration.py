@@ -6,8 +6,10 @@
 
 import datetime
 import logging
+
 import numpy as np
 import pandas as pd
+
 import pyoptinterface as poi
 
 from prepshot.utils import interpolate_z_by_q_or_s
