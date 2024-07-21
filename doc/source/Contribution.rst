@@ -34,6 +34,7 @@ Development Process
 To check your code for PEP8 compliance, run:
 
 .. code:: bash
+
     pylint run.py
     pylint prepshot
 
