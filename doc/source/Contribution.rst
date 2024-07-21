@@ -24,11 +24,24 @@ Development Process
 
    Make changes in your branch. Once you've made improvements or bug fixes to the project, commit the changes with a meaningful commit message.
 
-5. **Start a Pull Request**
+5. **Run Tests**
+   To execute all tests, navigate to the root directory of PREP-SHOT and run:
+
+.. code:: bash
+
+    python -m unittest discover -s tests
+
+To check your code for PEP8 compliance, run:
+
+.. code:: bash
+    pylint run.py
+    pylint prepshot
+
+6. **Start a Pull Request**
 
    Open a `pull request <https://github.com/PREP-NexT/PREP-SHOT/pulls>`_ from your forked repository to the main PREP-SHOT repository. Describe your changes in the pull request.
 
-6. **Code Review**
+7. **Code Review**
 
    Maintainers of the PREP-SHOT project will review your code. They may ask for changes or improvements before the code is merged into the main codebase.
 
