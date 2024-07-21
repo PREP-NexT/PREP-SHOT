@@ -6,6 +6,7 @@
 
 import datetime
 import logging
+from typing import Union, Tuple, List, Dict, Any
 
 import numpy as np
 import pandas as pd
@@ -13,26 +14,31 @@ import pandas as pd
 import pyoptinterface as poi
 
 from prepshot.utils import interpolate_z_by_q_or_s
+from prepshot.utils import cartesian_product
 
-def initialize_waterhead(stations, year, month, hour, params):
+def initialize_waterhead(
+    stations : List[str], year : List[int],
+    month : List[int], hour : List[int],
+    params : Dict[str, Any]
+) -> Tuple[pd.DataFrame, pd.DataFrame]:
     """Initialize water head.
 
     Parameters
     ----------
-    stations : list
+    stations : List[str]
         List of stations.
-    year : list
+    year : List[int]
         List of years.
-    month : list
+    month : List[int] 
         List of months.
-    hour : list
+    hour : List[int] 
         List of hours.
-    params : dict
+    params : Dict[str, Any]
         Dictionary of parameters for the model.
 
     Returns
     -------
-    tuple
+    Tuple[pd.DataFrame, pd.DataFrame]
         A tuple of two pandas.DataFrame objects, the first one is 
         the old water head, the second one is the new water head.
     """
@@ -50,7 +56,9 @@ def initialize_waterhead(stations, year, month, hour, params):
         ] * (len(hour) * len(month) * len(year))
     return old_waterhead, new_waterhead
 
-def compute_error(old_waterhead, new_waterhead):
+def compute_error(
+    old_waterhead : pd.DataFrame, new_waterhead : pd.DataFrame
+) -> float:
     """Calculate the error of the water head.
 
     Parameters
@@ -73,8 +81,16 @@ def compute_error(old_waterhead, new_waterhead):
     return error
 
 def process_model_solution(
-    model, stations, year, month, hour, params, old_waterhead, new_waterhead
-):
+    model : Union[
+        poi._src.highs.Model,
+        poi._src.gurobi.Model,
+        poi._src.mosek.Model,
+        poi._src.copt.Model
+    ],
+    stations : List[str], year : List[int], month : List[int],
+    hour : List[int], params : Dict[str, Any],
+    old_waterhead : pd.DataFrame, new_waterhead : pd.DataFrame
+) -> bool:
     """Process the solution of the model, updating the water head data.
 
     Parameters
@@ -82,7 +98,7 @@ def process_model_solution(
     model : pyoptinterface._src.solver.Model
         Model to be solved.
     stations : list
-        List of hydropower stations.
+        List  f hydropower stations.
     year : list
         List of years.
     month : list
@@ -102,7 +118,7 @@ def process_model_solution(
         True if the model is solved, False otherwise.
     """
     idx = pd.IndexSlice
-    for s, h, m, y in model.station_hour_month_year_tuples:
+    for s, h, m, y in cartesian_product(stations, hour, month, year):
         efficiency = params['reservoir_characteristics']['coeff', s]
         model.set_normalized_coefficient(
             model.output_calc_cons[s, h, m, y],
@@ -145,8 +161,13 @@ def process_model_solution(
     return True
 
 def run_model_iteration(
-    model, params, error_threshold=0.001, max_iterations=5
-):
+    model : Union[
+        poi._src.highs.Model,
+        poi._src.gurobi.Model,
+        poi._src.mosek.Model,
+    ], params : Dict[str, Any],
+    error_threshold=0.001, max_iterations=5
+) -> bool:
     """Run the model iteratively.
 
     Parameters

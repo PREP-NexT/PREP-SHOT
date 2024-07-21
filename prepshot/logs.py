@@ -6,11 +6,12 @@ the start and end of functions.
 """
 
 import logging
+from typing import Any
 import time
 from pathlib import Path
 
 
-def setup_logging():
+def setup_logging() -> None:
     """Set up logging configuration for the model run.
     """
     # Ensure the log directory exists.
@@ -37,7 +38,9 @@ def setup_logging():
     ))
     logging.getLogger().addHandler(console)
 
-def log_parameter_info(config_data):
+def log_parameter_info(
+    config_data : dict
+) -> None:
     """Log key parameters used for the model.
 
     Parameters
@@ -62,7 +65,9 @@ def log_parameter_info(config_data):
         config_data['general_parameters']['hour']
     )
 
-def timer(func):
+def timer(
+    func : object
+) -> Any:
     """Decorator to log the start and end of a function and its runtime.
 
     Parameters

@@ -5,6 +5,7 @@
 """
 
 import logging
+from typing import Union
 
 import pyoptinterface as poi
 from pyoptinterface import mosek
@@ -15,7 +16,12 @@ from pyoptinterface import copt
 from prepshot.logs import timer
 from prepshot._model.head_iteration import run_model_iteration
 
-def get_solver(params):
+def get_solver(params : dict) -> Union[
+        poi._src.highs.Model,
+        poi._src.gurobi.Model,
+        poi._src.mosek.Model,
+        poi._src.copt.Model
+    ]:
     """Retrieve the solver object based on parameters.
     
     Parameters
@@ -25,8 +31,13 @@ def get_solver(params):
     
     Returns
     -------
-    pyoptinterface._src.solver
-        Solver object.
+    Union[
+        poi._src.highs.Model,
+        poi._src.gurobi.Model,
+        poi._src.mosek.Model,
+        poi._src.copt.Model
+    ]
+        Type object of the solver module.
     """
     solver_map = {
         'mosek': mosek,
@@ -57,12 +68,22 @@ def get_solver(params):
 
     return poi_solver
 
-def set_solver_parameters(model):
+def set_solver_parameters(model : Union[
+        poi._src.highs.Model,
+        poi._src.gurobi.Model,
+        poi._src.mosek.Model,
+        poi._src.copt.Model
+    ]) -> None:
     """Set the solver-specific parameters for the model.
     
     Parameters
     ----------
-    model : pyoptinterface._src.solver.Model 
+    model : Union[
+        poi._src.highs.Model,
+        poi._src.gurobi.Model,
+        poi._src.mosek.Model,
+        poi._src.copt.Model
+    ] 
         Model to configurable.
     """
     for key, value in model.params['solver'].items():
@@ -70,12 +91,25 @@ def set_solver_parameters(model):
             model.set_raw_parameter(key, value)
 
 @timer
-def solve_model(model, params):
+def solve_model(
+    model : Union[
+        poi._src.highs.Model,
+        poi._src.gurobi.Model,
+        poi._src.mosek.Model,
+        poi._src.copt.Model
+    ],
+    params : dict
+) -> bool:
     """Solve the model using the provided parameters.
 
     Parameters
     ----------
-    model : pyoptinterface._src.solver.Model
+    model : Union[
+        poi._src.highs.Model,
+        poi._src.gurobi.Model,
+        poi._src.mosek.Model,
+        poi._src.copt.Model
+    ]
         Model to solve.
     params : dict
         Configuration parameters for solving the model.

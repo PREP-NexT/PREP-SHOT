@@ -1,0 +1,2 @@
+[MASTER]
+extension-pkg-allow-list=pyoptinterface._src.core_ext

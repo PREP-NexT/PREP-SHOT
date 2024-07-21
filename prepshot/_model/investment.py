@@ -4,34 +4,53 @@
 """This module is used to determine investment-related constraints. 
 """
 
+from typing import Union
+
 import numpy as np
 import pyoptinterface as poi
 
 class AddInvestmentConstraints:
     """Add constraints for investment in the model.
     """
-    def __init__(self, model):
+    def __init__(self,
+        model : Union[
+            poi._src.highs.Model,
+            poi._src.gurobi.Model,
+            poi._src.mosek.Model,
+            poi._src.copt.Model
+        ]
+    ) -> None:
         """Initialize the class and add constraints.
         """
         self.model = model
-        model.tech_up_bound_cons = poi.make_tupledict(
-            model.year_zone_tech_tuples, rule=self.tech_up_bound_rule
+        model.remaining_technology = poi.make_tupledict(
+            model.year, model.zone, model.tech,
+            rule=self.tech_lifetime_rule
         )
-        model.new_tech_up_bound_cons = poi.make_tupledict(
-            model.year_zone_tech_tuples, rule=self.new_tech_up_bound_rule
-        )
-        model.new_tech_low_bound_cons = poi.make_tupledict(
-            model.year_zone_tech_tuples, rule=self.new_tech_low_bound_rule
-        )
-        model.tech_lifetime_cons = poi.make_tupledict(
-            model.year_zone_tech_tuples, rule=self.tech_lifetime_rule
-        )
-        model.remaining_capacity_cons = poi.make_tupledict(
+        model.cap_existing = poi.make_tupledict(
             model.year, model.zone, model.tech,
             rule=self.remaining_capacity_rule
         )
+        model.tech_up_bound_cons = poi.make_tupledict(
+            model.year, model.zone, model.tech,
+            rule=self.tech_up_bound_rule
+        )
+        model.new_tech_up_bound_cons = poi.make_tupledict(
+            model.year, model.zone, model.tech,
+            rule=self.new_tech_up_bound_rule
+        )
+        model.new_tech_low_bound_cons = poi.make_tupledict(
+            model.year, model.zone, model.tech,
+            rule=self.new_tech_low_bound_rule
+        )
+        model.tech_lifetime_cons = poi.make_tupledict(
+            model.year, model.zone, model.tech,
+            rule=self.tech_lifetime_rule
+        )
 
-    def tech_up_bound_rule(self, y, z, te):
+    def tech_up_bound_rule(self,
+        y : int, z : str, te : str
+    ) -> poi._src.core_ext.ConstraintIndex:
         """Allowed capacity of commercial operation technology is less than or 
         equal to the predefined upper bound.
 
@@ -54,9 +73,10 @@ class AddInvestmentConstraints:
         if tub != np.Inf:
             lhs = model.cap_existing[y, z, te] - tub
             return model.add_linear_constraint(lhs, poi.Leq, 0)
-        return None
 
-    def new_tech_up_bound_rule(self, y, z, te):
+    def new_tech_up_bound_rule(self,
+        y : int, z : str, te : str
+    ) -> poi._src.core_ext.ConstraintIndex:
         """New investment technology upper bound in specific year and zone.
 
         Parameters
@@ -75,13 +95,13 @@ class AddInvestmentConstraints:
         """
         model = self.model
         ntub = model.params['new_technology_upper_bound'][te, z]
-        if ntub == np.Inf:
-            return None
-        else:
+        if ntub != np.Inf:
             lhs = model.cap_newtech[y, z, te] - ntub
             return model.add_linear_constraint(lhs, poi.Leq, 0)
 
-    def new_tech_low_bound_rule(self, y, z, te):
+    def new_tech_low_bound_rule(self,
+        y : int, z : str, te : str
+    ) -> poi._src.core_ext.ConstraintIndex:
         """New investment technology lower bound.
 
         Parameters
@@ -103,7 +123,9 @@ class AddInvestmentConstraints:
         lhs = model.cap_newtech[y, z, te] - ntlb
         return model.add_linear_constraint(lhs, poi.Geq, 0)
 
-    def tech_lifetime_rule(self, y, z, te):
+    def tech_lifetime_rule(self,
+        y : int, z : str, te : str
+    ) -> poi._src.core_ext.ConstraintIndex:
         """Caculation of remaining technology capacity based on lifetime 
         constraints.
 
@@ -118,25 +140,21 @@ class AddInvestmentConstraints:
 
         Returns
         -------
-        pyoptinterface._src.core_ext.ConstraintIndex
-            Constraint index of the model.
+        pyoptinterface._src.core_ext.ExprBuilder
+            Index of expression of the model.
         """
         model = self.model
         lifetime = model.params['lifetime'][te, y]
         service_time = y - model.params['year'][0]
         hcap = model.params['historical_capacity']
-        rt = model.remaining_technology[y, z, te]
         remaining_time = int(lifetime - service_time)
         if remaining_time <= 0:
-            lhs = model.remaining_technology[y, z, te]
-        else:
-            lhs = poi.quicksum(
-                hcap[z, te, a] for a in range(0, remaining_time)
-            )
-            lhs -= rt
-        return model.add_linear_constraint(lhs, poi.Eq, 0)
+            return 0
+        return poi.quicksum(hcap[z, te, a] for a in range(0, remaining_time))
 
-    def remaining_capacity_rule(self, y, z, te):
+    def remaining_capacity_rule(self,
+        y : int, z : str, te : str
+    ) -> poi._src.core_ext.ExprBuilder:
         """Remaining capacity of initial technology due to lifetime 
         restrictions. Where in modeled year y, the available technology
         consists of the following.
@@ -157,18 +175,18 @@ class AddInvestmentConstraints:
 
         Returns
         -------
-        pyoptinterface._src.core_ext.ConstraintIndex
-            Constraint index of the model.
+        pyoptinterface._src.core_ext.ExprBuilder
+            Index of expression of the model.
         """
         model = self.model
         year = model.params['year']
         lt = model.params['lifetime']
+        cap_existing = poi.ExprBuilder()
         new_tech = poi.quicksum(
             model.cap_newtech[yy, z, te]
             for yy in year[:year.index(y) + 1]
             if y - yy < lt[te, y]
         )
-        lhs = new_tech
-        lhs += model.remaining_technology[y, z, te]
-        lhs -= model.cap_existing[y, z, te]
-        return model.add_linear_constraint(lhs, poi.Eq, 0)
+        cap_existing += new_tech
+        cap_existing += model.remaining_technology[y, z, te]
+        return cap_existing

@@ -4,29 +4,41 @@
 """This module contains constraints related to carbon emissions. 
 """
 
+from typing import Union
+
 import pyoptinterface as poi
 import numpy as np
 
 class AddCo2EmissionConstraints:
     """Class for carbon emission constraints and calculations.
     """
-    def __init__(self, model):
+    def __init__(self,
+        model : Union[
+            poi._src.highs.Model,
+            poi._src.gurobi.Model,
+            poi._src.mosek.Model,
+            poi._src.copt.Model
+        ],
+    ) -> None:
         """Initialize the class.
 
         Parameters
         ----------
-        model : pyoptinterface._src.solver.Model
-            Model index.
-        params : dict
-            Dictionary containing parameters.
+        model : Union[
+            poi._src.highs.Model,
+            poi._src.gurobi.Model,
+            poi._src.mosek.Model,
+            poi._src.copt.Model
+        ]
+            Model object depending on the solver.
         """
         self.model = model
         model.carbon_breakdown = poi.make_tupledict(
-            model.year_zone_tech_tuples,
+            model.year, model.zone, model.tech,
             rule=self.carbon_breakdown
         )
         model.carbon_capacity = poi.make_tupledict(
-            model.year_zone_tuples,
+            model.year, model.zone,
             rule=self.emission_calc_by_zone_rule
         )
         model.carbon = poi.make_tupledict(
@@ -38,7 +50,10 @@ class AddCo2EmissionConstraints:
             rule=self.emission_limit_rule
         )
 
-    def emission_limit_rule(self, y):
+    def emission_limit_rule(
+        self,
+        y : int
+    ) -> poi._src.core_ext.ConstraintIndex:
         """Annual carbon emission limits across all zones and technologies.
         
         Parameters
@@ -58,7 +73,10 @@ class AddCo2EmissionConstraints:
         lhs = model.carbon[y] - limit[y]
         return model.add_linear_constraint(lhs, poi.Leq, 0)
 
-    def emission_calc_rule(self, y):
+    def emission_calc_rule(
+        self,
+        y : int
+    ) -> poi._src.core_ext.ConstraintIndex:
         """Calculation of annual carbon emission across all zones and
         technologies.
 
@@ -78,7 +96,11 @@ class AddCo2EmissionConstraints:
             for z in model.zone
         )
 
-    def emission_calc_by_zone_rule(self, y, z):
+    def emission_calc_by_zone_rule(
+        self,
+        y : int,
+        z : str
+    ) -> poi._src.core_ext.ConstraintIndex:
         """Calculation of annual carbon emissions by zone.
 
         Parameters
@@ -99,7 +121,12 @@ class AddCo2EmissionConstraints:
             for te in model.tech
         )
 
-    def carbon_breakdown(self, y, z, te):
+    def carbon_breakdown(
+        self,
+        y : int,
+        z : str,
+        te : str
+    ) -> poi._src.core_ext.ExprBuilder:
         """Carbon emission cost breakdown.
 
         Parameters
@@ -121,5 +148,5 @@ class AddCo2EmissionConstraints:
         dt = model.params['dt']
         return poi.quicksum(
             ef * model.gen[h, m, y, z, te] * dt
-            for h, m in model.hour_month_tuples
+            for h in model.hour for m in model.month
         )

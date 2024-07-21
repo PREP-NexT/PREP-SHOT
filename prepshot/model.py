@@ -5,6 +5,10 @@
 the pyoptinterface library.
 """
 
+from typing import Union
+
+import pyoptinterface as poi
+
 from prepshot.utils import cartesian_product
 from prepshot._model.demand import AddDemandConstraints
 from prepshot._model.generation import AddGenerationConstraints
@@ -19,7 +23,15 @@ from prepshot.logs import timer
 from prepshot.solver import get_solver
 from prepshot.solver import set_solver_parameters
 
-def define_model(para):
+def define_model(
+    para : dict
+) -> Union[
+    poi._src.highs.Model,
+    poi._src.gurobi.Model,
+    poi._src.mosek.Model,
+    poi._src.copt.Model
+
+]:
     """This function creates the model class depending on predefined solver.
 
     Parameters
@@ -29,7 +41,12 @@ def define_model(para):
 
     Returns
     -------
-    pyoptinterface._src.solver.Model
+    Union[
+        poi._src.highs.Model,
+        poi._src.gurobi.Model,
+        poi._src.mosek.Model,
+        poi._src.copt.Model
+    ]
         A pyoptinterface Model object depending on the solver
 
     Raises
@@ -44,12 +61,24 @@ def define_model(para):
 
     return model
 
-def define_basic_sets(model):
+def define_basic_sets(
+    model : Union[
+        poi._src.highs.Model,
+        poi._src.gurobi.Model,
+        poi._src.mosek.Model,
+        poi._src.copt.Model
+    ]
+) -> None:
     """Define sets for the model.
 
     Parameters
     ----------
-    model : pyoptinterface._src.solver.Model
+    model : Union[
+        poi._src.highs.Model,
+        poi._src.gurobi.Model,
+        poi._src.mosek.Model,
+        poi._src.copt.Model
+    ]
         Model to be solved.
     """
     params = model.params
@@ -73,7 +102,14 @@ def define_basic_sets(model):
     if params['isinflow']:
         model.station = params['stcd']
 
-def define_complex_sets(model):
+def define_complex_sets(
+    model : Union[
+        poi._src.highs.Model,
+        poi._src.gurobi.Model,
+        poi._src.mosek.Model,
+        poi._src.copt.Model
+    ]
+) -> None:
     """Create complex sets based on simple sets and some conditations. The
     existing capacity between two zones is set to empty (i.e., No value is
     filled in the Excel cell), which means that these two zones cannot have
@@ -83,132 +119,118 @@ def define_complex_sets(model):
 
     Parameters
     ----------
-    model : pyoptinterface._src.solver.Model
+    model : Union[
+        poi._src.highs.Model,
+        poi._src.gurobi.Model,
+        poi._src.mosek.Model,
+        poi._src.copt.Model
+    ]
         Model to be solved.
     """
-    params = model.params
-    h = model.hour
-    hp = model.hour_p
-    m = model.month
-    y = model.year
-    z = model.zone
-    te = model.tech
-    st = model.storage_tech
-    nd = model.nondispatchable_tech
 
-    model.hour_month_year_tuples = cartesian_product(h, m, y)
-    model.hour_month_tuples = cartesian_product(h, m)
-    model.hour_month_year_zone_storage_tuples = \
-        cartesian_product(h, m, y, z, st)
-    model.hour_month_year_zone_nondispatchable_tuples = \
-        cartesian_product(h, m, y, z, nd)
-    model.hour_month_year_zone_tech_tuples = cartesian_product(h, m, y, z, te)
-    model.hour_month_year_zone_tuples = cartesian_product(h, m, y, z)
-    trans_sets = params['transmission_line_existing_capacity'].keys()
-    model.year_zone_zone_tuples = [
-        (y_i, z_i, z1_i) for y_i, z_i, z1_i in cartesian_product(y, z, z)
-        if (z_i, z1_i) in trans_sets
+    trans_sets = model.params['transmission_line_existing_capacity'].keys()
+    for z_i, z1_i in cartesian_product(model.zone, model.zone):
+        if (z_i, z1_i) not in trans_sets:
+            model.params['transmission_line_existing_capacity'][z_i, z1_i] = 0
+            model.params['transmission_line_efficiency'][z_i, z1_i] = 0
+            # TODO: Set the capacity of new transmission lines to 0
+
+
+def define_variables(
+    model : Union[
+        poi._src.highs.Model,
+        poi._src.gurobi.Model,
+        poi._src.mosek.Model,
+        poi._src.copt.Model
     ]
-    model.hour_month_year_zone_zone_tuples = [
-        (h_i, m_i, y_i, z_i, z1_i)
-        for h_i, m_i, y_i, z_i, z1_i in cartesian_product(h, m, y, z, z)
-        if (z_i, z1_i) in trans_sets
-    ]
-    model.hour_month_tech_tuples = cartesian_product(h, m, te)
-    model.hour_p_month_year_zone_tuples = cartesian_product(hp, m, y, z)
-    model.hour_p_month_year_zone_tech_tuples = \
-        cartesian_product(hp, m, y, z, te)
-    model.hour_p_month_year_zone_storage_tuples = \
-        cartesian_product(hp, m, y, z, st)
-    model.month_year_zone_tuples = cartesian_product(m, y, z)
-    model.month_year_zone_storage_tuples = cartesian_product(m, y, z, st)
-    model.year_zone_tuples = cartesian_product(y, z)
-    model.year_zone_tech_tuples = cartesian_product(y, z, te)
-    model.year_tech_tuples = cartesian_product(y, te)
-
-    if params['isinflow']:
-        s = model.station
-        model.station_hour_month_year_tuples = cartesian_product(s, h, m, y)
-        model.station_hour_p_month_year_tuples = cartesian_product(s, hp, m, y)
-        model.station_month_year_tuples = cartesian_product(s, m, y)
-
-def define_variables(model):
+) -> None:
     """Define variables for the model.
 
     Parameters
     ----------
-    model : pyoptinterface._src.solver.Model
+    model : Union[
+        poi._src.highs.Model,
+        poi._src.gurobi.Model,
+        poi._src.mosek.Model,
+        poi._src.copt.Model
+    ]
         Model to be solved.
     """
-    model.cost = model.add_variable(lb=0)
-    model.cost_var = model.add_variable(lb=0)
-    model.cost_fix = model.add_variable(lb=0)
-    model.cost_newtech = model.add_variable(lb=0)
-    model.cost_newline = model.add_variable(lb=0)
-    model.income = model.add_variable(lb=0)
-    model.cap_existing = model.add_variables(model.year_zone_tech_tuples, lb=0)
-    model.cap_newtech = model.add_variables(model.year_zone_tech_tuples, lb=0)
-    model.cap_newline = model.add_variables(model.year_zone_zone_tuples, lb=0)
-    model.cap_lines_existing = model.add_variables(
-        model.year_zone_zone_tuples, lb=0
+
+    model.cap_newtech = model.add_variables(
+        model.year, model.zone, model.tech, lb=0
     )
-    model.carbon = model.add_variables(model.year, lb=0)
-    model.carbon_capacity = model.add_variables(model.year_zone_tuples, lb=0)
+    model.cap_newline = model.add_variables(
+        model.year, model.zone, model.zone, lb=0
+    )
     model.gen = model.add_variables(
-        model.hour_month_year_zone_tech_tuples, lb=0
+        model.hour, model.month, model.year, model.zone, model.tech, lb=0
     )
     model.storage = model.add_variables(
-        model.hour_p_month_year_zone_tech_tuples, lb=0
+        model.hour_p, model.month, model.year, model.zone, model.tech, lb=0
     )
     model.charge = model.add_variables(
-        model.hour_month_year_zone_tech_tuples, lb=0
+        model.hour, model.month, model.year, model.zone, model.tech, lb=0
     )
     model.trans_export = model.add_variables(
-        model.hour_month_year_zone_zone_tuples, lb=0
-    )
-    model.trans_import = model.add_variables(
-        model.hour_month_year_zone_zone_tuples, lb=0
-    )
-    model.remaining_technology = model.add_variables(
-        model.year_zone_tech_tuples, lb=0
+        model.hour, model.month, model.year, model.zone, model.zone, lb=0
     )
 
-#    if params['isinflow']:
-#        model.genflow = model.add_variables(
-#            model.station_hour_month_year_tuples, lb=0
-#        )
-#        model.spillflow = model.add_variables(
-#            model.station_hour_month_year_tuples, lb=0
-#        )
-#        model.withdraw = model.add_variables(
-#            model.station_hour_month_year_tuples, lb=0
-#        )
-#        model.storage_reservoir = model.add_variables(
-#            model.station_hour_p_month_year_tuples, lb=0
-#        )
-#        model.output = model.add_variables(
-#            model.station_hour_month_year_tuples, lb=0
-#        )
+    if model.params['isinflow']:
+        model.genflow = model.add_variables(
+            model.station, model.hour, model.month, model.year, lb=0
+        )
+        model.spillflow = model.add_variables(
+            model.station, model.hour, model.month, model.year, lb=0
+        )
+        model.withdraw = model.add_variables(
+            model.station, model.hour, model.month, model.year, lb=0
+        )
+        model.storage_reservoir = model.add_variables(
+            model.station, model.hour_p, model.month, model.year, lb=0
+        )
+        model.output = model.add_variables(
+            model.station, model.hour, model.month, model.year, lb=0
+        )
 
-def define_constraints(model):
+def define_constraints(
+    model : Union[
+        poi._src.highs.Model,
+        poi._src.gurobi.Model,
+        poi._src.mosek.Model,
+        poi._src.copt.Model
+    ]
+) -> None:
     """Define constraints for the model.
     
     Parameters
     ----------
-    model : pyoptinterface._src.solver.Model
+    model : Union[
+        poi._src.highs.Model,
+        poi._src.gurobi.Model,
+        poi._src.mosek.Model,
+        poi._src.copt.Model
+    ]
         Model to be solved.
     """
-    AddDemandConstraints(model)
+    AddInvestmentConstraints(model)
     AddGenerationConstraints(model)
     AddTransmissionConstraints(model)
-    AddInvestmentConstraints(model)
     AddCo2EmissionConstraints(model)
     AddNondispatchableConstraints(model)
     AddStorageConstraints(model)
     AddHydropowerConstraints(model)
+    AddDemandConstraints(model)
 
 @timer
-def create_model(params):
+def create_model(
+    params : dict
+) -> Union[
+    poi._src.highs.Model,
+    poi._src.gurobi.Model,
+    poi._src.mosek.Model,
+    poi._src.copt.Model
+]:
     """Create the PREP-SHOT model.
 
     Parameters
@@ -218,7 +240,12 @@ def create_model(params):
 
     Returns
     -------
-    pyoptinterface._src.solver.Model
+    Union[
+        poi._src.highs.Model,
+        poi._src.gurobi.Model,
+        poi._src.mosek.Model,
+        poi._src.copt.Model
+    ]
         A pyoptinterface Model object.
     """
     model = define_model(params)

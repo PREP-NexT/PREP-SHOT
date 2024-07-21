@@ -4,12 +4,21 @@
 """This module contains functions related to hydropower technologies. 
 """
 
+from typing import Union
+
 import pyoptinterface as poi
 
 class AddHydropowerConstraints:
     """Class for hydropower constraints and calculations.
     """
-    def __init__(self, model):
+    def __init__(self,
+        model : Union[
+            poi._src.highs.Model,
+            poi._src.gurobi.Model,
+            poi._src.mosek.Model,
+            poi._src.copt.Model
+        ]
+    ) -> None:
         """Initialize the class. Here I define the variables needed and the 
         constraints for the hydropower model.
 
@@ -21,81 +30,62 @@ class AddHydropowerConstraints:
         """
         self.model = model
         if model.params['isinflow']:
-            self.define_variable()
             model.outflow = poi.make_tupledict(
-                model.station_hour_month_year_tuples,
+                model.station, model.hour, model.month, model.year,
                 rule=self.outflow_rule
             )
             model.inflow = poi.make_tupledict(
-                model.station_hour_month_year_tuples,
+                model.station, model.hour, model.month, model.year,
                 rule=self.inflow_rule
             )
             model.water_balance_cons = poi.make_tupledict(
-                model.station_hour_month_year_tuples,
+                model.station, model.hour, model.month, model.year,
                 rule=self.water_balance_rule
             )
             model.init_storage_cons = poi.make_tupledict(
-                model.station_month_year_tuples,
+                model.station, model.month, model.year,
                 rule=self.init_storage_rule
             )
             model.end_storage_cons = poi.make_tupledict(
-                model.station_month_year_tuples,
+                model.station, model.month, model.year,
                 rule=self.end_storage_rule
             )
             model.output_calc_cons = poi.make_tupledict(
-                model.station_hour_month_year_tuples,
+                model.station, model.hour, model.month, model.year,
                 rule=self.output_calc_rule
             )
             model.outflow_low_bound_cons = poi.make_tupledict(
-                model.station_hour_month_year_tuples,
+                model.station, model.hour, model.month, model.year,
                 rule=self.outflow_low_bound_rule
             )
             model.outflow_up_bound_cons = poi.make_tupledict(
-                model.station_hour_month_year_tuples,
+                model.station, model.hour, model.month, model.year,
                 rule=self.outflow_up_bound_rule
             )
             model.storage_low_bound_cons = poi.make_tupledict(
-                model.station_hour_month_year_tuples,
+                model.station, model.hour, model.month, model.year,
                 rule=self.storage_low_bound_rule
             )
             model.storage_up_bound_cons = poi.make_tupledict(
-                model.station_hour_month_year_tuples,
+                model.station, model.hour, model.month, model.year,
                 rule=self.storage_up_bound_rule
             )
             model.output_low_bound_cons = poi.make_tupledict(
-                model.station_hour_month_year_tuples,
+                model.station, model.hour, model.month, model.year,
                 rule=self.output_low_bound_rule
             )
             model.output_up_bound_cons = poi.make_tupledict(
-                model.station_hour_month_year_tuples,
+                model.station, model.hour, model.month, model.year,
                 rule=self.output_up_bound_rule
             )
         model.hydro_output_cons = poi.make_tupledict(
-            model.hour_month_year_zone_tuples,
+            model.hour, model.month, model.year, model.zone,
             rule=self.hydro_output_rule
         )
 
-    def define_variable(self):
-        """Define variables for hydropower production constraints. 
-        """
-        model = self.model 
-        model.genflow = model.add_variables(
-            model.station_hour_month_year_tuples, lb=0
-        )
-        model.spillflow = model.add_variables(
-            model.station_hour_month_year_tuples, lb=0
-        )
-        model.withdraw = model.add_variables(
-            model.station_hour_month_year_tuples, lb=0
-        )
-        model.storage_reservoir = model.add_variables(
-            model.station_hour_p_month_year_tuples, lb=0
-        )
-        model.output = model.add_variables(
-            model.station_hour_month_year_tuples, lb=0
-        )
-
-    def inflow_rule(self, s, h, m, y):
+    def inflow_rule(self,
+        s : str, h : int, m : int, y : int
+    ) -> poi._src.core_ext.ExprBuilder:
         """Define hydrolic connnect between cascade reservoirs, total inflow of 
         downsteam reservoir = natural inflow + upstream outflow from upsteam
         reservoir(s).
@@ -129,14 +119,16 @@ class AddHydropowerConstraints:
             wdt[wdt['NEXTPOWER_ID'] == s].delay
         ):
             delay = int(int(delay)/dt)
-            if (h - delay >= hour[0]):
+            if h - delay >= hour[0]:
                 t = h - delay
             else:
                 t = hour[-1] + h - delay
             up_stream_outflow += model.outflow[ups, t, m, y]
         return up_stream_outflow + model.params['inflow'][s, y, m, h]
 
-    def outflow_rule(self, s, h, m, y):
+    def outflow_rule(self,
+        s : str, h : int, m : int, y : int
+    ) -> poi._src.core_ext.ExprBuilder:
         """Total outflow of reservoir is equal to the sum of generation and 
         spillage.
 
@@ -159,7 +151,9 @@ class AddHydropowerConstraints:
         model = self.model
         return model.genflow[s, h, m, y] + model.spillflow[s, h, m, y]
 
-    def water_balance_rule(self, s, h, m, y):
+    def water_balance_rule(self,
+        s : str, h : int, m : int, y : int
+    ) -> poi._src.core_ext.ConstraintIndex:
         """Water balance of reservoir, i.e., storage[t] = storage[t-1] + 
         net_storage[t].
 
@@ -190,7 +184,9 @@ class AddHydropowerConstraints:
         lhs -= model.storage_reservoir[s, h, m, y]
         return model.add_linear_constraint(lhs, poi.Eq, 0)
 
-    def init_storage_rule(self, s, m, y):
+    def init_storage_rule(self,
+        s : str, m : int, y : int
+    ) -> poi._src.core_ext.ConstraintIndex:
         """Determine storage of reservoir in the initial hour of each month.
 
         Parameters
@@ -213,7 +209,9 @@ class AddHydropowerConstraints:
         lhs = model.storage_reservoir[s, hour_period[0], m, y] - init_storage
         return model.add_linear_constraint(lhs, poi.Eq, 0)
 
-    def end_storage_rule(self, s, m, y):
+    def end_storage_rule(self,
+        s : str, m : int, y : int
+    ) -> poi._src.core_ext.ConstraintIndex:
         """Determine storage of reservoir in the terminal hour of each month.
 
         Parameters
@@ -236,7 +234,9 @@ class AddHydropowerConstraints:
         lhs = model.storage_reservoir[s, hour_period[-1], m, y] - final_storage
         return model.add_linear_constraint(lhs, poi.Eq, 0)
 
-    def outflow_low_bound_rule(self, s, h, m, y):
+    def outflow_low_bound_rule(self,
+        s : str, h : int, m : int, y : int
+    ) -> poi._src.core_ext.ConstraintIndex:
         """Lower bound of total outflow.
 
         Parameters
@@ -256,11 +256,14 @@ class AddHydropowerConstraints:
             Constraint index of the model.
         """
         model = self.model
-        min_outflow = model.params['reservoir_characteristics']['outflow_min', s]
+        rc = model.params['reservoir_characteristics']
+        min_outflow = rc['outflow_min', s]
         lhs = model.outflow[s, h, m, y] - min_outflow
         return model.add_linear_constraint(lhs, poi.Geq, 0)
 
-    def outflow_up_bound_rule(self, s, h, m, y):
+    def outflow_up_bound_rule(self,
+        s : str, h : int, m : int, y : int
+    ) -> poi._src.core_ext.ConstraintIndex:
         """Upper bound of total outflow.
         
         Parameters
@@ -280,11 +283,14 @@ class AddHydropowerConstraints:
             Constraint index of the model.
         """
         model = self.model
-        max_outflow = model.params['reservoir_characteristics']['outflow_max', s]
+        rc = model.params['reservoir_characteristics']
+        max_outflow = rc['outflow_max', s]
         lhs = model.outflow[s, h, m, y] - max_outflow
         return model.add_linear_constraint(lhs, poi.Leq, 0)
 
-    def storage_low_bound_rule(self, s, h, m, y):
+    def storage_low_bound_rule(self,
+        s : str, h : int, m : int, y : int
+    ) -> poi._src.core_ext.ConstraintIndex:
         """Lower bound of reservoir storage.
         
         Parameters
@@ -308,7 +314,9 @@ class AddHydropowerConstraints:
         lhs = model.storage_reservoir[s, h, m, y] - min_storage
         return model.add_linear_constraint(lhs, poi.Geq, 0)
 
-    def storage_up_bound_rule(self, s, h, m, y):
+    def storage_up_bound_rule(self,
+        s : str, h : int, m : int, y : int
+    ) -> poi._src.core_ext.ConstraintIndex:
         """Upper bound of reservoir storage.
 
         Parameters
@@ -332,7 +340,9 @@ class AddHydropowerConstraints:
         lhs = model.storage_reservoir[s, h, m, y] - max_storage
         return model.add_linear_constraint(lhs, poi.Leq, 0)
 
-    def output_low_bound_rule(self, s, h, m, y):
+    def output_low_bound_rule(self,
+        s : str, h : int, m : int, y : int
+    ) -> poi._src.core_ext.ConstraintIndex:
         """Lower bound of hydropower output.
 
         Parameters
@@ -356,7 +366,9 @@ class AddHydropowerConstraints:
         lhs = model.output[s, h, m, y] - min_output
         return model.add_linear_constraint(lhs, poi.Geq, 0)
 
-    def output_up_bound_rule(self, s, h, m, y):
+    def output_up_bound_rule(self,
+        s : str, h : int, m : int, y : int
+    ) -> poi._src.core_ext.ConstraintIndex:
         """Upper bound of hydropower output.
 
         Parameters
@@ -380,7 +392,9 @@ class AddHydropowerConstraints:
         lhs = model.output[s, h, m, y] - max_output
         return model.add_linear_constraint(lhs, poi.Leq, 0)
 
-    def output_calc_rule(self, s, h, m, y):
+    def output_calc_rule(self,
+        s : str, h : int, m : int, y :int
+    ) -> poi._src.core_ext.ConstraintIndex:
         """Hydropower production calculation. Head parameter is specified after
         building the model.
 
@@ -408,7 +422,9 @@ class AddHydropowerConstraints:
         )
         return model.add_linear_constraint(lhs, poi.Eq, 0)
 
-    def hydro_output_rule(self, h, m, y, z):
+    def hydro_output_rule(self,
+        h : int, m : int, y : int, z : str
+    ) -> poi._src.core_ext.ConstraintIndex:
         """Hydropower output of all hydropower plants across each zone.
 
         Parameters

@@ -3,20 +3,31 @@
 
 """This module contains constraints related to demand. 
 """
+from typing import Union
 
 import pyoptinterface as poi
 
 class AddDemandConstraints:
     """This class contains demand constraints.
     """
-    def __init__(self, model):
+    def __init__(self,
+        model : Union[
+            poi._src.highs.Model,
+            poi._src.gurobi.Model,
+            poi._src.mosek.Model,
+            poi._src.copt.Model
+        ]
+    ) -> None:
         """Initialize the class and add constraints.
         """
         self.model = model
         model.power_balance_cons = poi.make_tupledict(
-            model.hour_month_year_zone_tuples, rule=self.power_balance_rule
+            model.hour, model.month, model.year, model.zone,
+            rule=self.power_balance_rule
         )
-    def power_balance_rule(self, h, m, y, z):
+    def power_balance_rule(self,
+        h : int, m : int, y : int, z : str
+    ) -> poi._src.core_ext.ConstraintIndex:
         """Nodal power balance. The total electricity demand for each time 
         period and in each zone should be met by the following.
         
@@ -42,15 +53,12 @@ class AddDemandConstraints:
             Constraint index of the model.
         """
         model = self.model
-        lc = model.params['transmission_line_existing_capacity']
         load = model.params['demand']
         imp_z = poi.quicksum(
-            model.trans_import[h, m, y, z1, z]
-            for z1 in model.zone if (z, z1) in lc.keys()
+            model.trans_import[h, m, y, z1, z] for z1 in model.zone
         )
         exp_z = poi.quicksum(
-            model.trans_export[h, m, y, z, z1]
-            for z1 in model.zone if (z, z1) in lc.keys()
+            model.trans_export[h, m, y, z, z1] for z1 in model.zone
         )
         gen_z = poi.quicksum(
             model.gen[h, m, y, z, te] for te in model.tech

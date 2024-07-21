@@ -1,24 +1,27 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""This module contains functions for setting parameters and configuring
+"""This module contains functions for setting params and configuring
 logging. 
 """
 
 import logging
 import argparse
 from os import path, makedirs
+from typing import Dict, List, Union, Tuple
+
+import pandas as pd
 
 from prepshot.load_data import load_json, extract_config_data, process_data
 from prepshot.logs import setup_logging, log_parameter_info
 
 
-def parse_cli_arguments(params_list):
+def parse_cli_arguments(params_list : List[str]) -> argparse.Namespace:
     """Parse command-line arguments from a list of parameter names.
 
     Parameters
     ----------
-    params_list : list
+    params_list : List[str]
         List of parameter names.
 
     Returns
@@ -37,18 +40,40 @@ def parse_cli_arguments(params_list):
     return parser.parse_args()
 
 
-def initialize_environment(config_files):
-    """Load configuration data, set up logging, and process input parameters.
+def initialize_environment(
+    config_files : Dict[str, str]
+) -> Dict[
+        str,
+        Union[
+            int, float, bool, str, argparse.Namespace, pd.DataFrame, pd.Series,
+            List[Union[str, int]],
+            Dict[
+                Union[str, int, Tuple[Union[str, int]]],
+                Union[str, float]
+            ]
+        ]
+    ]:
+    """Load configuration data, set up logging, and process input params.
     
     Parameters
     ----------
     config_files : dict
-        Dictionary containing paths to parameters and configuration files.
+        Dictionary containing paths to params and configuration files.
 
     Returns
     -------
-    tuple
-        A tuple containing the parameters dictionary and the output filename.
+    Dict[
+        str,
+        Union[
+            int, float, bool, str, argparse.Namespace, pd.DataFrame, pd.Series,
+            List[Union[str, int]],
+            Dict[
+                Union[str, int, Tuple[Union[str, int]]],
+                Union[str, float]
+            ]
+        ]
+    ]
+        Dictionary containing the global params.
     """
     params_filename = config_files['params_filename']
     config_filename = config_files['config_filename']
@@ -68,18 +93,18 @@ def initialize_environment(config_files):
     input_filename = str(config_data['general_parameters']['input_folder'])
     input_filepath = path.join(filepath, input_filename)
 
-    # Update parameters with command-line arguments if provided.
+    # Update params with command-line arguments if provided.
     for param in params.keys():
         if getattr(args, param) is not None:
             params[param]["file_name"] = params[param]["file_name"] \
                 + f"_{getattr(args, param)}"
 
-    # Load and process parameters data
-    parameters = process_data(params, input_filepath)
-    parameters['command_line_args'] = args
+    # Load and process params data
+    params = process_data(params, input_filepath)
+    params['command_line_args'] = args
 
     # Combine the configuration data with processed parameter data.
-    parameters.update(required_config_data)
+    params.update(required_config_data)
 
     # Determine the output folder path.
     output_folder = './'                                                      \
@@ -93,6 +118,6 @@ def initialize_environment(config_files):
     # Determine the output filename.
     output_filename =  output_folder + '/'                                    \
         + str(config_data['general_parameters']['output_filename'])
- 
-    parameters['output_filename'] = output_filename
-    return parameters
+
+    params['output_filename'] = output_filename
+    return params
