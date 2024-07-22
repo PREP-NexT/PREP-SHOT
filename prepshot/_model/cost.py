@@ -9,7 +9,7 @@ and operation cost and planning cost by the source of cost.
 
 The cost equations are defined as follows:
 
-.. image:: ../../_static/cost_eq.png
+.. image:: ../_static/cost_eq.png
     :width: 700
     :align: center
     :alt: Calculation of system-wide total cost

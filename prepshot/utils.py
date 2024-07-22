@@ -16,7 +16,7 @@ technologies.
 
 **Variable Factor**
 
-.. image:: ../../_static/varcost.png
+.. image:: ../_static/varcost.png
   :width: 278
   :align: center
   :alt: Calculation of variable costs
@@ -58,7 +58,7 @@ We can equate the fixed factor with the variable factor as follows:
 
 **Investment Factor**
 
-.. image:: ../../_static/invcost.png
+.. image:: ../_static/invcost.png
   :width: 400
   :align: center
   :alt: Calculation of investment costs
