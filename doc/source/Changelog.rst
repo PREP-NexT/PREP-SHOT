@@ -42,3 +42,30 @@ Deprecated
 ++++++++++
 
 * Removed dependency on `Pyomo <https://pyomo.readthedocs.io/en/stable/solving_pyomo_models.html>`_ due to high memory usage and slow performance for large-scale models. `For you reference <https://metab0t.github.io/PyOptInterface/benchmark.html>`_.
+
+
+Version 0.1.2 - Jul 22, 2024
+-------------------------------
+
+Added
+++++++
+
+* Added mathematical notations to the constraint module.
+* Added a test script for `prepshot.utils`.
+
+Fixed
+++++++
+
+* Fixed the format of the API reference.
+* Fix code blocks of documentation.
+* Updated `Contribution.rst` to include context on running tests and code style checks.
+* Defined explicit data types for inputs and outputs of functions for better type checking and readability.
+* Added `pyoptinterface._src.core_ext` to Pylint's extension package allow list to resolve cpp-extension-no-member warning.
+
+Changed
+++++++++
+
+* Updated `model.py` to keep necessary decision variables and use expressions for intermediate variables instead of direct determination.
+* Refactored `extract_results_non_hydro` in `output_data.py` to extract common features for different variables, simplifying the code.
+* Removed definitions of complex sets and opted for simple sets wherever possible to streamline the code.
+* Refactor: Organize import order of modules according to PEP 8 guidelines: (1) Grouped standard library imports at the top; (2) Followed by third-party library imports; (3) Local application/library imports at the bottom.
