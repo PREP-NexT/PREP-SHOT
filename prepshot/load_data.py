@@ -15,9 +15,7 @@ import pandas as pd
 from prepshot.utils import calc_inv_cost_factor, calc_cost_factor
 
 
-def load_json(
-    file_path : str
-) -> dict:
+def load_json(file_path : str) -> dict:
     """Load data from a JSON file.
 
     Parameters
@@ -34,9 +32,7 @@ def load_json(
         return json.load(f)
 
 
-def extract_config_data(
-    config_data : dict
-) -> dict:
+def extract_config_data(config_data : dict) -> dict:
     """Extract necessary data from configuration settings.
 
     Parameters
@@ -79,9 +75,7 @@ def extract_config_data(
 
 
 def load_excel_data(
-    input_folder : str,
-    params_info : dict,
-    data_store : dict
+    input_folder : str, params_info : dict, data_store : dict
 ) -> None:
     """Load data from Excel files based on the provided parameters.
 
@@ -111,9 +105,7 @@ def load_excel_data(
         sys.exit(1)
 
 
-def extract_sets(
-    data_store : dict
-) -> None:
+def extract_sets(data_store : dict) -> None:
     """Extract simple sets from loaded parameters.
     
     Parameters
@@ -136,9 +128,7 @@ def extract_sets(
     data_store["tech"] = list(data_store["technology_type"].keys())
 
 
-def compute_cost_factors(
-    data_store : dict
-) -> None:
+def compute_cost_factors(data_store : dict) -> None:
     """Calculate cost factors for various transmission investment and 
     operational costs.
 
@@ -221,8 +211,7 @@ def read_excel(
 
 
 def process_data(
-    params_info : dict,
-    input_folder : str
+    params_info : dict, input_folder : str
 ) -> dict:
     """Load and process data from input folder based on parameters settings.
 

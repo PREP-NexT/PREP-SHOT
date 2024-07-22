@@ -2,22 +2,29 @@
 # -*- coding: utf-8 -*-
 
 """This module contains functions related to nondispatchable technologies. 
-"""
-from typing import Union
+For non-dispatchable technologies, their power output is constrained by
+the predefined capacity factors as follows:
 
+.. math::
+
+    {\\rm{power}}_{h,m,y,z,e}\le{{\\rm{CF}}}_{h,m,y,z,e}\\times
+    {\\rm{cap}}_{y,z,e}^{\\rm{existingtech}}\\quad\\forall h,m,y,z,e\\in
+    {\\mathcal{NDISP}}
+
+"""
 import pyoptinterface as poi
 
 class AddNondispatchableConstraints:
     """Add constraints for nondispatchable technologies. 
     """
-    def __init__(self,
-        model : Union[
-            poi._src.highs.Model,
-            poi._src.gurobi.Model,
-            poi._src.mosek.Model,
-            poi._src.copt.Model
-        ]
-    ) -> None:
+    def __init__(self, model : object) -> None:
+        """Initialize the class and add constraints.
+        
+        Parameters
+        ----------
+        model : object
+            Model object depending on the solver.
+        """
         self.model = model
         if model.nondispatchable_tech != 0:
             model.renew_gen_cons = poi.make_tupledict(
@@ -25,9 +32,9 @@ class AddNondispatchableConstraints:
                 model.nondispatchable_tech, rule=self.renew_gen_rule
             )
 
-    def renew_gen_rule(self,
-        h : int, m : int, y : int, z : str, te : str
-    ) -> poi._src.core_ext.ConstraintIndex:
+    def renew_gen_rule(
+        self, h : int, m : int, y : int, z : str, te : str
+    ) -> poi.ConstraintIndex:
         """Renewable generation is determined by the capacity factor and 
         existing capacity.
         
@@ -46,8 +53,8 @@ class AddNondispatchableConstraints:
 
         Returns
         -------
-        pyoptinterface._src.core_ext.ConstraintIndex
-            Constraint index of the model.
+        poi.ConstraintIndex
+            The constraint of the model.
         """
         model = self.model
         cf = model.params['capacity_factor'][te, z, y, m, h]

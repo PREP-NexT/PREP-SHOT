@@ -6,9 +6,10 @@ the start and end of functions.
 """
 
 import logging
-from typing import Any
 import time
+from typing import Any
 from pathlib import Path
+from functools import wraps
 
 
 def setup_logging() -> None:
@@ -38,9 +39,7 @@ def setup_logging() -> None:
     ))
     logging.getLogger().addHandler(console)
 
-def log_parameter_info(
-    config_data : dict
-) -> None:
+def log_parameter_info(config_data : dict) -> None:
     """Log key parameters used for the model.
 
     Parameters
@@ -65,9 +64,7 @@ def log_parameter_info(
         config_data['general_parameters']['hour']
     )
 
-def timer(
-    func : object
-) -> Any:
+def timer(func : object) -> Any:
     """Decorator to log the start and end of a function and its runtime.
 
     Parameters
@@ -80,6 +77,7 @@ def timer(
     Any
         The return value of decorated function.
     """
+    @wraps(func)
     def wrapper(*args, **kwargs):
         logging.info("Start running %s", repr(func.__name__))
         start_time = time.time()

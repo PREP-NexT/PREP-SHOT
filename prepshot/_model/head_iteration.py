@@ -6,7 +6,7 @@
 
 import datetime
 import logging
-from typing import Union, Tuple, List, Dict, Any
+from typing import Tuple, List, Dict, Any
 
 import numpy as np
 import pandas as pd
@@ -81,13 +81,7 @@ def compute_error(
     return error
 
 def process_model_solution(
-    model : Union[
-        poi._src.highs.Model,
-        poi._src.gurobi.Model,
-        poi._src.mosek.Model,
-        poi._src.copt.Model
-    ],
-    stations : List[str], year : List[int], month : List[int],
+    model : object, stations : List[str], year : List[int], month : List[int],
     hour : List[int], params : Dict[str, Any],
     old_waterhead : pd.DataFrame, new_waterhead : pd.DataFrame
 ) -> bool:
@@ -95,7 +89,7 @@ def process_model_solution(
 
     Parameters
     ----------
-    model : pyoptinterface._src.solver.Model
+    model : object
         Model to be solved.
     stations : list
         List  f hydropower stations.
@@ -161,18 +155,14 @@ def process_model_solution(
     return True
 
 def run_model_iteration(
-    model : Union[
-        poi._src.highs.Model,
-        poi._src.gurobi.Model,
-        poi._src.mosek.Model,
-    ], params : Dict[str, Any],
+    model : object, params : Dict[str, Any],
     error_threshold=0.001, max_iterations=5
 ) -> bool:
     """Run the model iteratively.
 
     Parameters
     ----------
-    model : pyoptinterface._src.solver.Model
+    model : object 
         Model to be solved.
     params : dict
         Dictionary of parameters for the model.

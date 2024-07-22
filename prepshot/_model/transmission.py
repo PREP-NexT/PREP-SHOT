@@ -1,9 +1,32 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""This module contains transmission related functions. """ 
+"""This module contains transmission related functions. We simplify the
+transmission of electricity as a transportation model.
+The model computes the transmission loss for each hour, in each time period,
+for each year, from :math:`z_{\\rm{from}}` zone to :math:`z_{\\rm{to}}` zone,
+as follows:
 
-from typing import Union
+.. math::
+
+    {\\rm{import}}_{h,m,y,z_{\\rm{from}},z_{\\rm{to}}}
+    ={\\rm{export}}_{h,m,y,z_{\\rm{from}},z_{\\rm{to}}}\\times
+    \\eta_{z_{\\rm{from}},z_{\\rm{to}}}^{\\rm{trans}}
+    \\quad\\forall h,m,y,z_{\\rm{from}}\\neq z_{\\rm{to}}
+
+This model assumes that the transmitted power of each transmission line is only
+constrained by the transmission capacity between two zones as follows:
+
+.. math::
+
+    {\\rm{import}}_{h,m,y,z_{\\rm{from}},z_{\\rm{to}}}\\le
+    {\\rm{cap}}_{y,z_{\\rm{from}},z_{\\rm{to}}}^{\\rm{existingline}}
+    \\times\\Delta h\\quad\\forall h,m,y,z_{\\rm{from}}\\neq z_{\\rm{to}}
+
+    {\\rm{export}}_{h,m,y,z_{\\rm{from}},z_{\\rm{to}}} \\le
+    {\\rm{cap}}_{y,z_{\\rm{from}},z_{\\rm{to}}}^{\\rm{existingline}}
+    \\times\\Delta h\\quad\\forall h,m,y,z_{\\rm{from}}\\neq z_{\\rm{to}}
+"""
 
 import pyoptinterface as poi
 
@@ -11,15 +34,13 @@ class AddTransmissionConstraints:
     """Add constraints for transmission lines while considering multiple 
     zones. 
     """
-    def __init__(self,
-        model : Union[
-            poi._src.highs.Model,
-            poi._src.gurobi.Model,
-            poi._src.mosek.Model,
-            poi._src.copt.Model
-        ]
-    ):
+    def __init__(self, model : object) -> None:
         """Initialize the class and add constraints.
+        
+        Parameters
+        ----------
+        model : object
+            Model object depending on the solver.
         """
         self.model = model
         model.cap_lines_existing = poi.make_tupledict(
@@ -39,10 +60,9 @@ class AddTransmissionConstraints:
             rule=self.trans_up_bound_rule
         )
 
-
-    def trans_physical_rule(self,
-        y : int, z : str, z1 : str
-    ) -> poi._src.core_ext.ConstraintIndex:
+    def trans_physical_rule(
+        self, y : int, z : str, z1 : str
+    ) -> poi.ConstraintIndex:
         """Physical transmission lines.
 
         Parameters
@@ -56,8 +76,8 @@ class AddTransmissionConstraints:
 
         Returns
         -------
-        pyoptinterface._src.core_ext.ConstraintIndex
-            Constraint index of the model.
+        poi.ConstraintIndex
+            The constraint of the model.
         """
         model = self.model
         if z != z1:
@@ -65,9 +85,9 @@ class AddTransmissionConstraints:
             return model.add_linear_constraint(lhs, poi.Eq, 0)
 
 
-    def trans_capacity_rule(self,
-        y : int, z : str, z1 : str
-    ) -> poi._src.core_ext.ExprBuilder:
+    def trans_capacity_rule(
+        self, y : int, z : str, z1 : str
+    ) -> poi.ExprBuilder:
         """Transmission capacity equal to the sum of the existing capacity 
         and the new capacity in previous planned years.
 
@@ -82,8 +102,8 @@ class AddTransmissionConstraints:
 
         Returns
         -------
-        pyoptinterface._src.core_ext.ExprBuilder
-            Index of expression of the model.
+        poi.ExprBuilder
+            The expression of the model.
         """
         model = self.model
         year = model.params['year']
@@ -97,10 +117,9 @@ class AddTransmissionConstraints:
         cap_lines_existing += remaining_capacity_line
         return cap_lines_existing
 
-
-    def trans_balance_rule(self,
-        h : int, m : int, y : int, z : str, z1 : str
-    ) -> poi._src.core_ext.ConstraintIndex:
+    def trans_balance_rule(
+        self, h : int, m : int, y : int, z : str, z1 : str
+    ) -> poi.ConstraintIndex:
         """Transmission balance, i.e., the electricity imported from zone z1 
         to zone z should be equal to the electricity exported from zone z 
         to zone z1 multiplied by the transmission line efficiency.
@@ -120,17 +139,16 @@ class AddTransmissionConstraints:
 
         Returns
         -------
-        pyoptinterface._src.core_ext.ConstraintIndex
-            Constraint index of the model.
+        poi.ConstraintIndex
+            The constraint of the model.
         """
         model = self.model
         eff = model.params['transmission_line_efficiency'][z, z1]
         return eff * model.trans_export[h, m, y, z, z1]
 
-
-    def trans_up_bound_rule(self,
-        h : int, m : int, y : int, z : str, z1 : str
-    ) -> poi._src.core_ext.ConstraintIndex:
+    def trans_up_bound_rule(
+        self, h : int, m : int, y : int, z : str, z1 : str
+    ) -> poi.ConstraintIndex:
         """Transmitted power is less than or equal to the transmission line 
         capacity.
 
@@ -149,8 +167,8 @@ class AddTransmissionConstraints:
 
         Returns
         -------
-        pyoptinterface._src.core_ext.ConstraintIndex
-            Constraint index of the model.
+        poi.ConstraintIndex
+            The constraint of the model.
         """
         model = self.model
         lhs = model.trans_export[h, m, y, z, z1]                              \

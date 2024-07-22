@@ -1,30 +1,115 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""This module contains functions related to hydropower technologies. 
+"""This module contains functions related to hydropower technologies.
+
+1. Water balance of reservoirs.
+
+Similar to the storage technologies, changes in reservoir storage
+(:math:`{\\rm{storage}}_{s,h,m,y}^{\\rm{reservoir}}`) in two successive periods
+should be balanced by total inflow
+(:math:`{\\rm{inflow}}_{s,h,m,y}^{\\rm{total}}`) and total outflow
+(:math:`{\\rm{outflow}}_{s,h,m,y}^{\\rm{total}}`):
+
+.. math::
+    
+    {\\rm{storage}}_{s,h,m,y}^{\\rm{reservoir}}-
+    {\\rm{storage}}_{s,h-1,m,y}^{\\rm{reservoir}}=
+    \\Delta h\\times3600\\times\\left({\\rm{inflow}}_{s,h,m,y}^{\\rm{total}}
+    -{\\rm{outflow}}_{s,h,m,y}^{\\rm{total}}\\right)\\quad\\forall s,h,m,y
+
+Here :math:`{\\rm{inflow}}_{s,h,m,y}^{\\rm{total}}` consists of two parts:
+the total outflow received from all immediate upstream reservoirs
+(:math:`\\sum_{{\\rm{su}}\\in{\\mathcal{IU}}_s}{{\\rm{outflow}}_
+{{\\rm{su}},h-\\tau_{{\\rm{su}},s},m,y}^{\\rm{total}}}`)
+and the net inflow (also called incremental inflow) of the drainage area
+controlled by this hydropower reservoir
+(:math:`{{\\rm{INFLOW}}}_{s,h,m,y}^{\\rm{net}}`),
+which can be expressed as follows:
+
+.. math::
+    
+    {\\rm{inflow}}_{s,h,m,y}^{\\rm{total}}
+    ={{\\rm{INFLOW}}}_{s,h,m,y}^{\\rm{net}}+\\sum_{{\\rm{su}}\\in
+    {\\mathcal{IU}}_s}{{\\rm{outflow}}_{{\\rm{su}},h-
+    \\tau_{{\\rm{su}},s},m,y}^{\\rm{total}}}\\quad\\forall s,h,m,y
+
+Note that PREP-SHOT assumes a constant water travel (or propagation) time
+(:math:`{\\tau}_{{\\rm{su}},s}`). The total outflow of each reservoir consists
+of three parts: upstream water withdrawal (i.e., water used for non-hydro
+purposes such as agriculture irrigation and urban water supply)
+(:math:`{\\rm{outflow}}_{s,h,m,y}^{\\rm{withdraw}}`), generation flow
+(i.e., water flow through the turbines of the hydropower plant)
+(:math:`{\\rm{outflow}}_{s,h,m,y}^{\\rm{gen}}`) and spillage flow
+(i.e., water spilled over the spillways)
+(:math:`{\\rm{outflow}}_{s,h,m,y}^{\\rm{spillage}}`):
+
+.. math::
+    
+    {\\rm{outflow}}_{s,h,m,y}^{\\rm{total}}
+    ={\\rm{outflow}}_{s,h,m,y}^{\\rm{withdraw}}
+    +{\\rm{outflow}}_{s,h,m,y}^{\\rm{gen}}
+    +{\\rm{outflow}}_{s,h,m,y}^{\\rm{spillage}}\\quad\\forall s,h,m,y
+
+2. Reservoir outflow
+
+The generation flow and spillage flow of the reservoir are limited by the
+maximum outflow capacity of turbines (:math:`{\\rm{OUTFLOW}}_s^{\\rm{gen}}`)
+and spillway (:math:`{\\rm{OUTFLOW}}_s^{\\rm{spillage}}`), respectively.
+The sum of these two parts also needs to meet the minimum outflow required
+(:math:`{{\\rm{OUTFLOW}}}_s`) for other purposes
+(e.g., ecological flow, shipping flow). These constraints are summarized as:
+
+.. math::
+    
+    {\\rm{outflow}}_{s,h,m,y}^{\\rm{gen}}\\le{\\rm{OUTFLOW}}_s^{\\rm{gen}}
+    \\quad\\forall s,h,m,y
+    
+    {\\rm{outflow}}_{s,h,m,y}^{\\rm{spillage}}\\le
+    {\\rm{OUTFLOW}}_s^{\\rm{spillage}}\\quad\\forall s,h,m,y
+
+    {{\\rm{OUTFLOW}}}_s\\le {\\rm{outflow}}_{s,h,m,y}^{\\rm{gen}}
+    +{\\rm{outflow}}_{s,h,m,y}^{\\rm{spillage}}\\quad\\forall s,h,m,y
+
+3. Reservoir storage
+
+The initial (when :math:`h=h_{\\rm{start}}`) and terminal
+(when :math:`h=h_{\\rm{end}}`) storage
+(:math:`{\\rm{storage}}_{s,h=h_{\\rm{start}},m,y}^{\\rm{reservoir}}`
+and :math:`{\\rm{storage}}_{s,h=h_{\\rm{end}},m,y}^{\\rm{reservoir}}`)
+of hydropower reservoir in each month of each year should be assigned as:
+
+.. math::
+
+    {\\rm{storage}}_{s,h=h_{\\rm{start}},m,y}^{\\rm{reservoir}}
+    ={{\\rm{STORAGE}}}_{s,m,y}^{\\rm{initreservoir}}\\quad\\forall s,m,y
+
+    {\\rm{storage}}_{s,h=h_{\\rm{end}},m,y}^{\\rm{reservoir}}
+    ={{\\rm{STORAGE}}}_{s,m,y}^{\\rm{endreservoir}}\\quad\\forall s,m,y
+
+The reservoir storage is bounded between the maximum
+(:math:`{\\overline{{\\rm{STORAGE}}}}_s^{\\rm{reservoir}}`) and minimum storage
+(:math:`{\\underline{{\\rm{STORAGE}}}}_s^{\\rm{reservoir}}`) depending on the
+functions (e.g., flood control, recreation, and water supply) of the reservoir:
+
+.. math::
+    
+    {\\underline{{\\rm{STORAGE}}}}_s^{\\rm{reservoir}}\\le
+    {\\rm{storage}}_{s,h,m,y}^{\\rm{reservoir}}\\le
+    {\\overline{{\\rm{STORAGE}}}}_s^{\\rm{reservoir}}\\quad\\forall s,h,m,y
 """
-
-from typing import Union
-
 import pyoptinterface as poi
 
 class AddHydropowerConstraints:
     """Class for hydropower constraints and calculations.
     """
-    def __init__(self,
-        model : Union[
-            poi._src.highs.Model,
-            poi._src.gurobi.Model,
-            poi._src.mosek.Model,
-            poi._src.copt.Model
-        ]
-    ) -> None:
+    def __init__(self, model : object) -> None:
         """Initialize the class. Here I define the variables needed and the 
         constraints for the hydropower model.
 
         Parameters
         ----------
-        model : pyoptinterface._src.solver.Model
+        model : object
             Model container which is a dict-like objective and includes
             parameters, variables and constraints.
         """
@@ -83,9 +168,9 @@ class AddHydropowerConstraints:
             rule=self.hydro_output_rule
         )
 
-    def inflow_rule(self,
-        s : str, h : int, m : int, y : int
-    ) -> poi._src.core_ext.ExprBuilder:
+    def inflow_rule(
+        self, s : str, h : int, m : int, y : int
+    ) -> poi.ExprBuilder:
         """Define hydrolic connnect between cascade reservoirs, total inflow of 
         downsteam reservoir = natural inflow + upstream outflow from upsteam
         reservoir(s).
@@ -103,7 +188,7 @@ class AddHydropowerConstraints:
             
         Returns
         -------
-        pyoptinterface._src.core_ext.ExprBuilder
+        poi.ExprBuilder
             Total inflow of reservoir.
         """
         model = self.model
@@ -126,9 +211,9 @@ class AddHydropowerConstraints:
             up_stream_outflow += model.outflow[ups, t, m, y]
         return up_stream_outflow + model.params['inflow'][s, y, m, h]
 
-    def outflow_rule(self,
-        s : str, h : int, m : int, y : int
-    ) -> poi._src.core_ext.ExprBuilder:
+    def outflow_rule(
+        self, s : str, h : int, m : int, y : int
+    ) -> poi.ExprBuilder:
         """Total outflow of reservoir is equal to the sum of generation and 
         spillage.
 
@@ -145,15 +230,15 @@ class AddHydropowerConstraints:
             
         Returns
         -------
-        pyoptinterface._src.core_ext.ExprBuilder
+        poi.ExprBuilder
             Total outflow of reservoir.
         """
         model = self.model
         return model.genflow[s, h, m, y] + model.spillflow[s, h, m, y]
 
-    def water_balance_rule(self,
-        s : str, h : int, m : int, y : int
-    ) -> poi._src.core_ext.ConstraintIndex:
+    def water_balance_rule(
+        self, s : str, h : int, m : int, y : int
+    ) -> poi.ConstraintIndex:
         """Water balance of reservoir, i.e., storage[t] = storage[t-1] + 
         net_storage[t].
 
@@ -170,8 +255,8 @@ class AddHydropowerConstraints:
             
         Returns
         -------
-        pyoptinterface._src.core_ext.ConstraintIndex
-            Constraint index of the model.
+        poi.ConstraintIndex
+            The constraint of the model.
         """
         model = self.model
         lhs = poi.ExprBuilder()
@@ -184,9 +269,9 @@ class AddHydropowerConstraints:
         lhs -= model.storage_reservoir[s, h, m, y]
         return model.add_linear_constraint(lhs, poi.Eq, 0)
 
-    def init_storage_rule(self,
-        s : str, m : int, y : int
-    ) -> poi._src.core_ext.ConstraintIndex:
+    def init_storage_rule(
+        self, s : str, m : int, y : int
+    ) -> poi.ConstraintIndex:
         """Determine storage of reservoir in the initial hour of each month.
 
         Parameters
@@ -200,8 +285,8 @@ class AddHydropowerConstraints:
             
         Returns
         -------
-        pyoptinterface._src.core_ext.ConstraintIndex
-            Constraint index of the model.
+        poi.ConstraintIndex
+            The constraint of the model.
         """
         model = self.model
         hour_period = model.hour_p
@@ -209,9 +294,9 @@ class AddHydropowerConstraints:
         lhs = model.storage_reservoir[s, hour_period[0], m, y] - init_storage
         return model.add_linear_constraint(lhs, poi.Eq, 0)
 
-    def end_storage_rule(self,
-        s : str, m : int, y : int
-    ) -> poi._src.core_ext.ConstraintIndex:
+    def end_storage_rule(
+        self, s : str, m : int, y : int
+    ) -> poi.ConstraintIndex:
         """Determine storage of reservoir in the terminal hour of each month.
 
         Parameters
@@ -225,8 +310,8 @@ class AddHydropowerConstraints:
 
         Returns
         -------
-        pyoptinterface._src.core_ext.ConstraintIndex
-            Constraint index of the model.
+        poi.ConstraintIndex
+            The constraint of the model.
         """
         model = self.model
         hour_period = model.hour_p
@@ -234,9 +319,9 @@ class AddHydropowerConstraints:
         lhs = model.storage_reservoir[s, hour_period[-1], m, y] - final_storage
         return model.add_linear_constraint(lhs, poi.Eq, 0)
 
-    def outflow_low_bound_rule(self,
-        s : str, h : int, m : int, y : int
-    ) -> poi._src.core_ext.ConstraintIndex:
+    def outflow_low_bound_rule(
+        self, s : str, h : int, m : int, y : int
+    ) -> poi.ConstraintIndex:
         """Lower bound of total outflow.
 
         Parameters
@@ -252,8 +337,8 @@ class AddHydropowerConstraints:
             
         Returns
         -------
-        pyoptinterface._src.core_ext.ConstraintIndex
-            Constraint index of the model.
+        poi.ConstraintIndex
+            The constraint of the model.
         """
         model = self.model
         rc = model.params['reservoir_characteristics']
@@ -261,9 +346,9 @@ class AddHydropowerConstraints:
         lhs = model.outflow[s, h, m, y] - min_outflow
         return model.add_linear_constraint(lhs, poi.Geq, 0)
 
-    def outflow_up_bound_rule(self,
-        s : str, h : int, m : int, y : int
-    ) -> poi._src.core_ext.ConstraintIndex:
+    def outflow_up_bound_rule(
+        self, s : str, h : int, m : int, y : int
+    ) -> poi.ConstraintIndex:
         """Upper bound of total outflow.
         
         Parameters
@@ -279,8 +364,8 @@ class AddHydropowerConstraints:
             
         Returns
         -------
-        pyoptinterface._src.core_ext.ConstraintIndex
-            Constraint index of the model.
+        poi.ConstraintIndex
+            The constraint of the model.
         """
         model = self.model
         rc = model.params['reservoir_characteristics']
@@ -288,9 +373,9 @@ class AddHydropowerConstraints:
         lhs = model.outflow[s, h, m, y] - max_outflow
         return model.add_linear_constraint(lhs, poi.Leq, 0)
 
-    def storage_low_bound_rule(self,
-        s : str, h : int, m : int, y : int
-    ) -> poi._src.core_ext.ConstraintIndex:
+    def storage_low_bound_rule(
+        self, s : str, h : int, m : int, y : int
+    ) -> poi.ConstraintIndex:
         """Lower bound of reservoir storage.
         
         Parameters
@@ -306,17 +391,17 @@ class AddHydropowerConstraints:
         
         Returns
         -------
-        pyoptinterface._src.core_ext.ConstraintIndex
-            Constraint index of the model.
+        poi.ConstraintIndex
+            The constraint of the model.
         """
         model = self.model
         min_storage = model.params['reservoir_storage_lower_bound'][s, m, h]
         lhs = model.storage_reservoir[s, h, m, y] - min_storage
         return model.add_linear_constraint(lhs, poi.Geq, 0)
 
-    def storage_up_bound_rule(self,
-        s : str, h : int, m : int, y : int
-    ) -> poi._src.core_ext.ConstraintIndex:
+    def storage_up_bound_rule(
+        self, s : str, h : int, m : int, y : int
+    ) -> poi.ConstraintIndex:
         """Upper bound of reservoir storage.
 
         Parameters
@@ -332,17 +417,17 @@ class AddHydropowerConstraints:
             
         Returns
         -------
-        pyoptinterface._src.core_ext.ConstraintIndex
-            Constraint index of the model.
+        poi.ConstraintIndex
+            The constraint of the model.
         """
         model = self.model
         max_storage = model.params['reservoir_storage_upper_bound'][s, m, h]
         lhs = model.storage_reservoir[s, h, m, y] - max_storage
         return model.add_linear_constraint(lhs, poi.Leq, 0)
 
-    def output_low_bound_rule(self,
-        s : str, h : int, m : int, y : int
-    ) -> poi._src.core_ext.ConstraintIndex:
+    def output_low_bound_rule(
+        self, s : str, h : int, m : int, y : int
+    ) -> poi.ConstraintIndex:
         """Lower bound of hydropower output.
 
         Parameters
@@ -358,17 +443,17 @@ class AddHydropowerConstraints:
             
         Returns
         -------
-        pyoptinterface._src.core_ext.ConstraintIndex
-            Constraint index of the model.
+        poi.ConstraintIndex
+            The constraint of the model.
         """
         model = self.model
         min_output = model.params['reservoir_characteristics']['N_min', s]
         lhs = model.output[s, h, m, y] - min_output
         return model.add_linear_constraint(lhs, poi.Geq, 0)
 
-    def output_up_bound_rule(self,
-        s : str, h : int, m : int, y : int
-    ) -> poi._src.core_ext.ConstraintIndex:
+    def output_up_bound_rule(
+        self, s : str, h : int, m : int, y : int
+    ) -> poi.ConstraintIndex:
         """Upper bound of hydropower output.
 
         Parameters
@@ -384,17 +469,17 @@ class AddHydropowerConstraints:
             
         Returns
         -------
-        pyoptinterface._src.core_ext.ConstraintIndex
-            Constraint index of the model.
+        poi.ConstraintIndex
+            The constraint of the model.
         """
         model = self.model
         max_output = model.params['reservoir_characteristics']['N_max', s]
         lhs = model.output[s, h, m, y] - max_output
         return model.add_linear_constraint(lhs, poi.Leq, 0)
 
-    def output_calc_rule(self,
-        s : str, h : int, m : int, y :int
-    ) -> poi._src.core_ext.ConstraintIndex:
+    def output_calc_rule(
+        self, s : str, h : int, m : int, y :int
+    ) -> poi.ConstraintIndex:
         """Hydropower production calculation. Head parameter is specified after
         building the model.
 
@@ -411,8 +496,8 @@ class AddHydropowerConstraints:
             
         Returns
         -------
-        pyoptinterface._src.core_ext.ConstraintIndex
-            Constraint index of the model.
+        poi.ConstraintIndex
+            The constraint of the model.
         """
         model = self.model
         efficiency = model.params['reservoir_characteristics']['coeff', s]
@@ -422,9 +507,9 @@ class AddHydropowerConstraints:
         )
         return model.add_linear_constraint(lhs, poi.Eq, 0)
 
-    def hydro_output_rule(self,
-        h : int, m : int, y : int, z : str
-    ) -> poi._src.core_ext.ConstraintIndex:
+    def hydro_output_rule(
+        self, h : int, m : int, y : int, z : str
+    ) -> poi.ConstraintIndex:
         """Hydropower output of all hydropower plants across each zone.
 
         Parameters
@@ -440,8 +525,8 @@ class AddHydropowerConstraints:
             
         Returns
         -------
-        pyoptinterface._src.core_ext.ConstraintIndex
-            Constraint index of the model.
+        poi.ConstraintIndex
+            The constraint of the model.
         """
         model = self.model
         tech_type = model.params['technology_type']

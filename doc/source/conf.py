@@ -46,6 +46,7 @@ mathjax_path = "es5/tex-chtml.js"
 # Sphinx extension module names and templates location
 sys.path.append(os.path.abspath("_extensions"))
 extensions = [
+    "sphinx.ext.autodoc",
     "sphinx_tabs.tabs",
     "notfound.extension",
     "sphinxext.opengraph",
@@ -53,10 +54,20 @@ extensions = [
     "sphinx.ext.ifconfig",
     "sphinx.ext.mathjax",
     "sphinxcontrib.bibtex",
-    "sphinx.ext.autodoc",
+    "sphinx_copybutton",
+    "sphinx.ext.viewcode",
+    "sphinx.ext.napoleon",
 ]
+
+autodoc_typehints = 'description'
+
 # Specify the path to your BibTeX file
 bibtex_bibfiles = ['references.bib']
+
+# Enable Napoleon Google style docstrings
+# napoleon_google_docstring = True
+napoleon_numpy_docstring = True
+napoleon_include_init_with_doc = True
 
 # Warning when the Sphinx Tabs extension is used with unknown
 # builders (like the dummy builder) - as it doesn't cause errors,

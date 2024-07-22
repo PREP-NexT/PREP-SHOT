@@ -6,27 +6,17 @@
 
 import logging
 import argparse
-from typing import Union
 
 import numpy as np
 import xarray as xr
 import pandas as pd
-import pyoptinterface as poi
 
 from prepshot.logs import timer
 from prepshot.utils import cartesian_product
 
 
 def create_data_array(
-    data : dict,
-    dims : dict,
-    unit : str,
-    model : Union[
-        poi._src.highs.Model,
-        poi._src.gurobi.Model,
-        poi._src.mosek.Model,
-        poi._src.copt.Model
-    ],
+    data : dict, dims : list, unit : str, model : object
 ) -> xr.DataArray:
     """Create a xarray DataArray with specified data, dimensions, coordinates 
     and units.
@@ -39,6 +29,8 @@ def create_data_array(
         The list of dimentions of the data.
     unit : str
         The unit of the data.
+    model : object
+        The model object.
 
     Returns
     -------
@@ -59,26 +51,18 @@ def create_data_array(
 
 
 @timer
-def extract_results_non_hydro(
-    model : Union[
-        poi._src.highs.Model,
-        poi._src.gurobi.Model,
-        poi._src.mosek.Model,
-        poi._src.copt.Model
-    ]
-) -> xr.Dataset:
+def extract_results_non_hydro(model : object) -> xr.Dataset:
     """Extracts results for non-hydro models.
 
     Parameters
     ----------
-    model : pyoptinterface._src.solver.Model
-        Model to be solved.
+    model : object
+        Model object sloved already.
 
     Returns
     -------
     xr.Dataset
-        A Dataset containing DataArrays for each attribute of 
-        the model.
+        A Dataset containing DataArrays for each attribute of the model.
     """
     model.zone1 = model.zone
     model.zone2 = model.zone
@@ -135,31 +119,18 @@ def extract_results_non_hydro(
     return xr.Dataset(data_vars)
 
 @timer
-def extract_results_hydro(
-    model : Union[
-        poi._src.highs.Model,
-        poi._src.gurobi.Model,
-        poi._src.mosek.Model,
-        poi._src.copt.Model
-    ]
-) -> xr.Dataset:
+def extract_results_hydro(model : object) -> xr.Dataset:
     """Extracts results for hydro models.
 
     Parameters
     ----------
-    model : Union[
-        poi._src.highs.Model,
-        poi._src.gurobi.Model,
-        poi._src.mosek.Model,
-        poi._src.copt.Model
-    ]
-        Model to be solved.
+    model : object
+        Model solved already.
 
     Returns
     -------
     xr.Dataset
-        A Dataset containing DataArrays for each attribute 
-        of the model.
+        A Dataset containing DataArrays for each attribute of the model.
     """
     ds = extract_results_non_hydro(model)
     data_vars = {}
@@ -201,20 +172,13 @@ def save_to_excel(
             df.to_excel(writer, sheet_name=key, merge_cells=False)
 
 
-def save_result(
-    model : Union[
-        poi._src.highs.Model,
-        poi._src.gurobi.Model,
-        poi._src.mosek.Model,
-        poi._src.copt.Model
-    ]
-) -> None:
+def save_result(model : object) -> None:
     """Extracts results from the provided model.
 
     Parameters
     ----------
-    model : pyoptinterface._src.solver.Model
-        Model to be solved.
+    model : object
+        The model object to extract results from and save.
     """
     isinflow = model.params['isinflow']
     args = model.params['command_line_args']
@@ -234,8 +198,7 @@ def save_result(
 
 
 def update_output_filename(
-    output_filename : str,
-    args : argparse.Namespace
+    output_filename : str, args : argparse.Namespace
 ) -> str:
     """Update the output filename based on the arguments.
 

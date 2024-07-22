@@ -1,33 +1,44 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""This module contains constraints related to demand. 
+"""This module contains constraints related to demand. The model computes
+the power balance for each hour, in each time period, for each year,
+and in each zone, as follows:
+
+.. math::
+
+    {{\\rm{DEMAND}}}_{h,m,y,z}\\times\\Delta h = \\sum_{z_{\\rm{from}}\\in 
+    {\\mathcal{Z}}\\backslash{\\{z\\}}}{{\\rm{import}}_{h,m,y,z_{\\rm{from}},z}} 
+    - \\sum_{z_{\\rm{to}}\\in {\\mathcal{Z}}\\backslash{\\{z\\}}}
+    {{\\rm{export}}_{h,m,y,z,z_{\\rm{to}}}}
+
+    + \\sum_{e\\in {\\mathcal{E}}}{{\\rm{gen}}_{h,m,y,z,e}} 
+    - \\sum_{e\in {\\mathcal{STOR}}}{{\\rm{charge}}_{h,m,y,z,e}}
+    \\quad\\forall h,m,y,z
+
 """
-from typing import Union
 
 import pyoptinterface as poi
 
 class AddDemandConstraints:
     """This class contains demand constraints.
     """
-    def __init__(self,
-        model : Union[
-            poi._src.highs.Model,
-            poi._src.gurobi.Model,
-            poi._src.mosek.Model,
-            poi._src.copt.Model
-        ]
-    ) -> None:
+    def __init__(self, model : object) -> None:
         """Initialize the class and add constraints.
+        
+        Parameters
+        ----------
+        model : object
+            Model object depending on the solver.
         """
         self.model = model
         model.power_balance_cons = poi.make_tupledict(
             model.hour, model.month, model.year, model.zone,
             rule=self.power_balance_rule
         )
-    def power_balance_rule(self,
-        h : int, m : int, y : int, z : str
-    ) -> poi._src.core_ext.ConstraintIndex:
+    def power_balance_rule(
+        self, h : int, m : int, y : int, z : str
+    ) -> poi.ConstraintIndex:
         """Nodal power balance. The total electricity demand for each time 
         period and in each zone should be met by the following.
         
@@ -49,8 +60,8 @@ class AddDemandConstraints:
         
         Returns
         -------
-        pyoptinterface._src.core_ext.ConstraintIndex
-            Constraint index of the model.
+        poi.ConstraintIndex
+            The constraint of the model.
         """
         model = self.model
         load = model.params['demand']

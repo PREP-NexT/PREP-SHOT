@@ -1,7 +1,53 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""This module contains objective functions for the model.
+"""This module contains objective functions for the model. The objective
+function of the model is to minimize the net present value of the system's
+cost. This includes capital cost, fixed O&M cost, variable cost and fuel cost
+by cost type, technology cost, transmission line cost by the source of cost,
+and operation cost and planning cost by the source of cost.
+
+The cost equations are defined as follows:
+
+.. image:: ../../_static/cost_eq.png
+    :width: 700
+    :align: center
+    :alt: Calculation of system-wide total cost
+
+.. math::
+
+    \\rm{cost}_{\\rm{tech}}^{\\rm{var}} &= \\frac{\\sum_{h,m,y,z,\\rm{e}}
+    C_{y,z,\\rm{e}}^{\\rm{tech-var}}\\times \\rm{gen}_{h,m,y,z,\\rm{e}}}
+    {\omega} \\times \\rm{factor}_{y}^{\\rm{var}} 
+    
+    \\rm{cost}_{\\rm{line}}^{\\rm{var}} &= \\frac{\\sum_{h,m,y,z_s,z_o}
+    C_{y,z}^{\\rm{line-var}}\\times \\rm{export}_{h,m,y,z_s,z_o}}{\omega}
+    \\times \\rm{factor}_{y}^{\\rm{var}}
+    
+    \\rm{cost}^{\\rm{fuel}} & = \\frac{\\sum_{h,m,y,z,\\rm{e}}
+    C_{y,z,\\rm{e}}^{\\rm{fuel}}\\times \\rm{gen}_{h,m,y,z,\\rm{e}}}{\omega}
+    \\times \\rm{factor}_{y}^{\\rm{var}} 
+
+    \\rm{cost}_{\\rm{tech}}^{\\rm{fix}} &= \\sum_{y,z,\\rm{e}}
+    C_{y,z,\\rm{e}}^{\\rm{tech-fix}}\\times 
+    \\rm{cap}_{y,z,\\rm{e}}^{\\rm{existing-tech}}\\times 
+    \\rm{factor}_{y}^{\\rm{fix}}
+
+    \\rm{cost}_{\\rm{line}}^{\\rm{fix}} &= \\sum_{y,z_s,z_o}
+    C_{y,z_s,z_o}^{\\rm{line-fix}}\\times 
+    \\rm{cap}_{y,z_s,z_o}^{\\rm{existing-line}}\\times
+    \\rm{factor}_{y}^{\\rm{fix}}
+
+    \\rm{cost}_{\\rm{tech}}^{\\rm{inv}} &=  \\sum_{y,z,\\rm{e}}
+    C_{y,z,\\rm{e}}^{\\rm{tech-inv}}\\times 
+    \\rm{cap}_{y,z,\\rm{e}}^{\\rm{tech-inv}}\\times
+    \\rm{factor}_{y}^{\\rm{inv}}
+
+    \\rm{cost}_{\\rm{line}}^{\\rm{inv}} &= \\sum_{y,z_s,z_o}
+    C_{y,z_s,z_o}^{\\rm{line-inv}}\\times
+    \\rm{cap}_{y,z_s,z_o}^{\\rm{line-inv}}\\times
+    \\rm{factor}_{y}^{\\rm{inv}} \\times 0.5
+
 """
 
 from typing import Union
@@ -11,19 +57,12 @@ import pyoptinterface as poi
 class AddCostObjective:
     """Objective function class to determine the total cost of the model.
     """
-    def __init__(
-        self, model : Union[
-            poi._src.highs.Model,
-            poi._src.gurobi.Model,
-            poi._src.mosek.Model,
-            poi._src.copt.Model
-        ]
-    ) -> None:
+    def __init__(self, model : object) -> None:
         """The constructor for objective functions class.
 
         Parameters
         ----------
-        model : pyoptinterface._src.solver.Model
+        model : object
             Model to be solved.
         """
         self.model = model
@@ -42,11 +81,9 @@ class AddCostObjective:
             + model.cost_fix + model.cost_newline - model.income
         model.set_objective(model.cost, sense=poi.ObjectiveSense.Minimize)
 
-    def fuel_cost_breakdown(self,
-            y : int,
-            z : str,
-            te : str
-        ) -> poi._src.core_ext.ExprBuilder:
+    def fuel_cost_breakdown(
+        self, y : int, z : str, te : str
+    ) -> poi.ExprBuilder:
         """Fuel cost breakdown of technologies.
 
         Parameters
@@ -60,7 +97,7 @@ class AddCostObjective:
 
         Returns
         -------
-        pyoptinterface._src.core_ext.ExprBuilder
+        poi.ExprBuilder
             Fuel cost at a given year, zone and technology.
         """
         model = self.model
@@ -71,11 +108,9 @@ class AddCostObjective:
         return 1 / w * fp * sum(model.gen[h, m, y, z, te]
             for h in model.hour for m in model.month) * dt * vf
 
-    def cost_var_line_breakdown(self,
-            y : int,
-            z : str,
-            z1 : str
-        ) -> poi._src.core_ext.ExprBuilder:
+    def cost_var_line_breakdown(
+        self, y : int, z : str, z1 : str
+    ) -> poi.ExprBuilder:
         """Variable operation and maintenance cost breakdown of transmission 
         lines.
 
@@ -90,7 +125,7 @@ class AddCostObjective:
 
         Returns
         -------
-        pyoptinterface._src.core_ext.ExprBuilder
+        poi.ExprBuilder
             Variable operation and maintenance cost of transmission lines at a 
             given year, source and destination zone.
         """
@@ -103,11 +138,9 @@ class AddCostObjective:
             sum(model.trans_export[h, m, y, z, z1]
             for h in model.hour for m in model.month)
 
-    def cost_var_tech_breakdown(self,
-        y : int,
-        z : str,
-        te : str
-    ) -> poi._src.core_ext.ExprBuilder:
+    def cost_var_tech_breakdown(
+        self, y : int, z : str, te : str
+    ) -> poi.ExprBuilder:
         """Variable operation and maintenance cost breakdown.
 
         Parameters
@@ -121,7 +154,7 @@ class AddCostObjective:
 
         Returns
         -------
-        pyoptinterface._src.core_ext.ExprBuilder
+        poi.ExprBuilder
             Variable operation and maintenance cost of technologies at a given 
             year, zone and technology.
         """
@@ -133,11 +166,9 @@ class AddCostObjective:
         return 1 / w * tvc * sum(model.gen[h, m, y, z, te]
             for h in model.hour for m in model.month) * dt * vf
 
-    def cost_fix_line_breakdown(self,
-        y : int,
-        z : str,
-        z1 : str
-    ) -> poi._src.core_ext.ExprBuilder:
+    def cost_fix_line_breakdown(
+        self, y : int, z : str, z1 : str
+    ) -> poi.ExprBuilder:
         """Fixed operation and maintenance cost breakdown of transmission 
         lines.
 
@@ -152,7 +183,7 @@ class AddCostObjective:
 
         Returns
         -------
-        pyoptinterface._src.core_ext.ExprBuilder
+        poi.ExprBuilder
             Fixed operation and maintenance cost of transmission lines at a given 
             year, source and destination zone.
         """
@@ -161,9 +192,9 @@ class AddCostObjective:
         ff = model.params['fix_factor']
         return lfc[z, z1] * model.cap_lines_existing[y, z, z1] * ff[y] * 0.5
 
-    def cost_fix_tech_breakdown(self,
-        y : int, z : str, te : str
-    ) -> poi._src.core_ext.ExprBuilder:
+    def cost_fix_tech_breakdown(
+        self, y : int, z : str, te : str
+    ) -> poi.ExprBuilder:
         """Fixed operation and maintenance cost breakdown.
 
         Parameters
@@ -177,7 +208,7 @@ class AddCostObjective:
 
         Returns
         -------
-        pyoptinterface._src.core_ext.ExprBuilder
+        poi.ExprBuilder
             Fixed operation and maintenance cost of technologies at a given year, 
             zone and technology.
         """
@@ -186,9 +217,9 @@ class AddCostObjective:
         ff = model.params['fix_factor'][y]
         return  tfc * model.cap_existing[y, z, te] * ff
 
-    def cost_newtech_breakdown(self,
-        y : int, z : str, te : str
-    ) -> poi._src.core_ext.ExprBuilder:
+    def cost_newtech_breakdown(
+        self, y : int, z : str, te : str
+    ) -> poi.ExprBuilder:
         """New technology investment cost breakdown.
 
         Parameters
@@ -202,7 +233,7 @@ class AddCostObjective:
 
         Returns
         -------
-        pyoptinterface._src.core_ext.ExprBuilder
+        poi.ExprBuilder
             Investment cost of new technologies at a given year, zone and 
             technology.
         """
@@ -213,7 +244,7 @@ class AddCostObjective:
 
     def cost_newline_breakdown(
         self, y : int, z : str, z1 : str
-    ) -> poi._src.core_ext.ExprBuilder:
+    ) -> poi.ExprBuilder:
         """New transmission line investment cost breakdown.
 
         Parameters
@@ -227,7 +258,7 @@ class AddCostObjective:
 
         Returns
         -------
-        pyoptinterface._src.core_ext.ExprBuilder
+        poi.ExprBuilder
             Investment cost of new transmission lines at a given year, source and 
             destination zone.
         """
@@ -238,13 +269,13 @@ class AddCostObjective:
         capacity_invested_line = model.cap_newline[y, z, z1]
         return lic * capacity_invested_line * d * ivf * 0.5
 
-    def income_rule(self) -> poi._src.core_ext.ExprBuilder:
+    def income_rule(self) -> poi.ExprBuilder:
         """Income from water withdrawal.
         Reference: https://www.nature.com/articles/s44221-023-00126-0
 
         Returns
         -------
-        pyoptinterface._src.core_ext.ExprBuilder
+        poi.ExprBuilder
             Income from water withdrawal.
         """
         model = self.model
@@ -261,14 +292,14 @@ class AddCostObjective:
 
         return poi.ExprBuilder(0)
 
-    def var_cost_rule(self) -> poi._src.core_ext.ExprBuilder:
+    def var_cost_rule(self) -> poi.ExprBuilder:
         """Calculate total variable cost, which is sum of the fuel cost of 
         technologies and variable Operation and maintenance (O&M) cost of 
         technologies and transmission lines.
         
         Returns
         -------
-        pyoptinterface._src.core_ext.ExprBuilder
+        poi.ExprBuilder
             Total variable cost across all years, zones and technologies.
         """
         model = self.model
@@ -292,12 +323,12 @@ class AddCostObjective:
         cost_var += poi.quicksum(model.cost_var_line_breakdown)
         return cost_var
 
-    def newtech_cost_rule(self) -> poi._src.core_ext.ExprBuilder:
+    def newtech_cost_rule(self) -> poi.ExprBuilder:
         """Total investment cost of new technologies.
         
         Returns
         -------
-        pyoptinterface._src.core_ext.ExprBuilder
+        poi.ExprBuilder
             Total investment cost of new technologies over all years, zones and 
             technologies.
         """
@@ -308,12 +339,12 @@ class AddCostObjective:
         )
         return poi.quicksum(model.cost_newtech_breakdown)
 
-    def newline_cost_rule(self) -> poi._src.core_ext.ExprBuilder:
+    def newline_cost_rule(self) -> poi.ExprBuilder:
         """Total investment cost of new transmission lines.
 
         Returns
         -------
-        pyoptinterface._src.core_ext.ExprBuilder
+        poi.ExprBuilder
             Total investment cost of new transmission lines over all years, 
             zones.
         """
@@ -324,12 +355,12 @@ class AddCostObjective:
         )
         return poi.quicksum(model.cost_newline_breakdown)
 
-    def fix_cost_rule(self) -> poi._src.core_ext.ExprBuilder:
+    def fix_cost_rule(self) -> poi.ExprBuilder:
         """Fixed O&M cost of technologies and transmission lines.
         
         Returns
         -------
-        pyoptinterface._src.core_ext.ExprBuilder
+        poi.ExprBuilder
             Total fixed O&M cost of technologies and transmission lines over
             all years, zones and technologies.
         """

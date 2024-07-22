@@ -2,6 +2,127 @@
 # -*- coding: utf-8 -*-
 
 """This module contains utility functions for the model.
+
+Here, we determine factors to covert future value to present value for costs
+and benefits. To account for the variable factor, fixed factor, and capital
+factor, we need to convert all future costs to their net present value.
+This means adjusting for the time value of money so that all costs are
+expressed in terms of today's dollars. 
+
+We also assume that variable cost and fixed cost for non-modelled years are
+assumed to be equal to the cost of the last modelled year preceding them.
+This allows for consistent comparison across different time periods and
+technologies.
+
+**Variable Factor**
+
+.. image:: ../../_static/varcost.png
+  :width: 278
+  :align: center
+  :alt: Calculation of variable costs
+
+Given the following:
+
+* Variable cost of modeled year: :math:`B`
+* Discount rate: :math:`r`
+* :math:`m`-th modeled year: :math:`m = y - y_\\text{min}`
+* Depreciation periods: :math:`n`
+
+The total present value can be calculated as follows:
+
+.. math::
+    :nowrap:
+    
+    \\begin{align}
+    \\text{total present value} &= \\frac{B}{(1+r)^m} + \\frac{B}{(1+r)^{m+1}}
+    + \\cdots + \\frac{B}{(1+r)^{(m+k-1)}} \\\\
+    &= B(1+r)^{(1-m)}\\frac{1-(1+r)^k}{r}
+    \\end{align}
+
+And we can calculate the variable factor as follows:
+
+.. math::
+    :nowrap:
+    
+    \\begin{align}
+    \\text{factor}_{y}^{var} &= (1+r)^{1-m_y}\\frac{1-(1+r)^{k_y}}{r} \\\\
+    m_{y} &= y - y_\\text{min} \\\\
+    k_{y} &= y_\\text{periods}
+    \\end{align}
+
+**Fixed Factor**
+
+We can equate the fixed factor with the variable factor as follows:
+
+.. math:: \\text{factor}_{y}^\\text{fix} = factor_{y}^\\text{var}
+
+**Investment Factor**
+
+.. image:: ../../_static/invcost.png
+  :width: 400
+  :align: center
+  :alt: Calculation of investment costs
+
+Given the following:
+
+* Weighted Average Cost of Capital
+  (WACC, or otherwise known as the interest rate): :math:`i`
+* Discount rate: :math:`r`
+* :math:`m`-th modeled year: :math:`m = y - y_\\text{min}`
+* Length of :math:`m`-th planning periods: :math:`k`
+
+The total present value can be calculated as follows:
+
+.. math::
+    :nowrap:
+    
+    \\begin{align}
+    \\text{total present value} &= \\frac{P}{(1+r)^m} \\\\
+    &= \\frac{\\frac{A}{(1+i)} + \\frac{A}{(1+i)^2} + \\cdots
+    + \\frac{A}{(1+i)^n}}{(1+r)^m} \\\\
+    &= A\\frac{1-(1+i)^{-n}}{i}\\times\\frac{1}{(1+r)^m}
+    \\end{align}
+
+From the above, we can solve for the annualized cost of depreciation periods,
+:math:`A`, as:
+
+.. math::
+
+    A = P\\frac{i}{1-(1+i)^{-n}}
+
+The capital recovery factor is then calculated as:
+
+.. math::
+
+    \\text{capital recovery factor} = \\frac{i}{1-(1+i)^{-n}}
+
+Let's focus on the time periods that fall within the modelled time horizon
+(indicated in black colour).
+We can calculate the length of time periods, :math:`k`, as follows:
+
+.. math::
+
+    k = y_{max} - y
+
+Using :math:`k`, we can calculate the net present value as follows:
+
+.. math::
+
+    \\text{net present value} =
+    \\begin{cases} 
+    \\frac{\\frac{A}{(1+r)} + \\frac{A}{(1+r)^2} + \\cdots 
+    + \\frac{A}{(1+r)^{min(n, k)}}}{(1+r)^m} \\text{if} \\quad n \\le k \\\\
+    \\text{total present value}\\quad \\text{if }n > k \\\\
+    \\frac{A\\frac{1-(1+r)^{-k}}{r}}{(1+r)^m} = P\\frac{i}{1-(1+i)^{-n}}\\times
+    \\frac{1-(1+r)^{-k}}{r(1+r)^m} & \\text{otherwise}
+    \\end{cases}
+
+And we can calculate the investment factor as follows:
+
+.. math::
+
+    factor_{y}^{inv} = \\frac{i}{1-(1+i)^{-n}}\\times
+    \\frac{1-(1+r)^{-min(n,k)}}{r(1+r)^m}
 """
 from typing import Union, Tuple, List
 from itertools import product
@@ -70,6 +191,7 @@ def calc_inv_cost_factor(
     Given a depreciation period of 20 years, interest rate of 0.05, year of
     investment in 2025, discount rate of 0.05, planning horizon from 2020 to
     2050, compute the investment cost factor:
+
     >>> calc_inv_cost_factor(20, 0.05, 2025, 0.05, 2020, 2050)
     0.783526
     
@@ -128,6 +250,7 @@ def calc_cost_factor(
     Given annual cost incurred in 2025, next_modeled_year = 2030, and starting
     year = 2020, compute present value in 2020 of the cost incurred in 
     2025-2029:
+
     >>> calc_cost_factor(0.05, 2025, 2020, 2030)
     3.561871
 
@@ -154,7 +277,7 @@ def interpolate_z_by_q_or_s(
 
     Parameters
     ----------
-    name : str 
+    name : str
         Code of the hydropower station.
     qs : Union[np.ndarray, float]
         Reservoir storage or outflow values. 
@@ -174,7 +297,7 @@ def interpolate_z_by_q_or_s(
 def cartesian_product(
     *args : List[Union[int, str]]
 ) -> List[Tuple[Union[int, str]]]:
-    """Generate Cartesian product of input iterables.
+    """Generate cartesian product of input iterables.
 
     Parameters
     ----------

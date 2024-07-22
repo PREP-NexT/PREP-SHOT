@@ -1,36 +1,39 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""This module contains constraints related to carbon emissions. 
+"""This module contains the constraints and expressions related to
+carbon emissions. The model computes the carbon emissions for each year, 
+based on the sum of carbon emissions from each zone, and from each technology
+as follows:
+
+.. math::
+
+    {\\rm{carbon}}_y=\\sum_{e\\in\\mathcal{E}}\\sum_{z\\in\mathcal{Z}}
+    \\sum_{m\\in\mathcal{M}}\\sum_{h\\in\mathcal{H}}
+    \\left({{\\rm{CARBON}}}_{y,z,e}\\times 
+    {\\rm{gen}}_{h,m,y,z,e}\\right)\\quad\\forall y
+
+The calculated carbon emission for each year lower than its upper bound, as follows:
+
+.. math::
+    
+    {\\rm{carbon}}_y\\le{\\overline{{\\rm{CARBON}}}}_y\\quad\\forall y
+    
 """
-
-from typing import Union
-
 import pyoptinterface as poi
 import numpy as np
 
 class AddCo2EmissionConstraints:
     """Class for carbon emission constraints and calculations.
     """
-    def __init__(self,
-        model : Union[
-            poi._src.highs.Model,
-            poi._src.gurobi.Model,
-            poi._src.mosek.Model,
-            poi._src.copt.Model
-        ],
-    ) -> None:
+    def __init__(self, model : object) -> None:
         """Initialize the class.
 
         Parameters
         ----------
-        model : Union[
-            poi._src.highs.Model,
-            poi._src.gurobi.Model,
-            poi._src.mosek.Model,
-            poi._src.copt.Model
-        ]
+        model : object
             Model object depending on the solver.
+
         """
         self.model = model
         model.carbon_breakdown = poi.make_tupledict(
@@ -50,10 +53,7 @@ class AddCo2EmissionConstraints:
             rule=self.emission_limit_rule
         )
 
-    def emission_limit_rule(
-        self,
-        y : int
-    ) -> poi._src.core_ext.ConstraintIndex:
+    def emission_limit_rule(self, y : int) -> poi.ConstraintIndex:
         """Annual carbon emission limits across all zones and technologies.
         
         Parameters
@@ -63,8 +63,8 @@ class AddCo2EmissionConstraints:
             
         Returns
         -------
-        pyoptinterface._src.core_ext.ConstraintIndex
-            Constraint index of the model.
+        poi.ConstraintIndex
+            A constraint of the model.
         """
         model = self.model
         limit = model.params['carbon_emission_limit']
@@ -73,10 +73,7 @@ class AddCo2EmissionConstraints:
         lhs = model.carbon[y] - limit[y]
         return model.add_linear_constraint(lhs, poi.Leq, 0)
 
-    def emission_calc_rule(
-        self,
-        y : int
-    ) -> poi._src.core_ext.ConstraintIndex:
+    def emission_calc_rule(self, y : int) -> poi.ConstraintIndex:
         """Calculation of annual carbon emission across all zones and
         technologies.
 
@@ -87,8 +84,8 @@ class AddCo2EmissionConstraints:
 
         Returns
         -------
-        pyoptinterface._src.core_ext.ConstraintIndex
-            Constraint index of the model.
+        poi.ConstraintIndex
+            A constraint of the model.
         """
         model = self.model
         return poi.quicksum(
@@ -97,10 +94,8 @@ class AddCo2EmissionConstraints:
         )
 
     def emission_calc_by_zone_rule(
-        self,
-        y : int,
-        z : str
-    ) -> poi._src.core_ext.ConstraintIndex:
+        self, y : int, z : str
+    ) -> poi.ConstraintIndex:
         """Calculation of annual carbon emissions by zone.
 
         Parameters
@@ -112,8 +107,8 @@ class AddCo2EmissionConstraints:
 
         Returns
         -------
-        pyoptinterface._src.core_ext.ConstraintIndex
-            Constraint index of the model.
+        poi.ConstraintIndex
+            A constraint of the model.
         """
         model = self.model
         return poi.quicksum(
@@ -126,7 +121,7 @@ class AddCo2EmissionConstraints:
         y : int,
         z : str,
         te : str
-    ) -> poi._src.core_ext.ExprBuilder:
+    ) -> poi.ExprBuilder:
         """Carbon emission cost breakdown.
 
         Parameters
@@ -140,8 +135,8 @@ class AddCo2EmissionConstraints:
 
         Returns
         -------
-        pyoptinterface._src.core_ext.ExprBuilder
-            index of expression of the model.
+        poi.ExprBuilder
+            The expression of the model.
         """
         model = self.model
         ef = model.params['emission_factor'][te, y]

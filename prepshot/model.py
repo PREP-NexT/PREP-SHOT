@@ -5,10 +5,6 @@
 the pyoptinterface library.
 """
 
-from typing import Union
-
-import pyoptinterface as poi
-
 from prepshot.utils import cartesian_product
 from prepshot._model.demand import AddDemandConstraints
 from prepshot._model.generation import AddGenerationConstraints
@@ -24,14 +20,8 @@ from prepshot.solver import get_solver
 from prepshot.solver import set_solver_parameters
 
 def define_model(
-    para : dict
-) -> Union[
-    poi._src.highs.Model,
-    poi._src.gurobi.Model,
-    poi._src.mosek.Model,
-    poi._src.copt.Model
-
-]:
+    params : dict
+) -> object:
     """This function creates the model class depending on predefined solver.
 
     Parameters
@@ -41,12 +31,7 @@ def define_model(
 
     Returns
     -------
-    Union[
-        poi._src.highs.Model,
-        poi._src.gurobi.Model,
-        poi._src.mosek.Model,
-        poi._src.copt.Model
-    ]
+    object
         A pyoptinterface Model object depending on the solver
 
     Raises
@@ -54,32 +39,20 @@ def define_model(
     ValueError
         Unsupported or undefined solver
     """
-    solver = get_solver(para)
+    solver = get_solver(params)
     model = solver.Model()
-    model.params = para
+    model.params = params
     set_solver_parameters(model)
 
     return model
 
-def define_basic_sets(
-    model : Union[
-        poi._src.highs.Model,
-        poi._src.gurobi.Model,
-        poi._src.mosek.Model,
-        poi._src.copt.Model
-    ]
-) -> None:
+def define_basic_sets(model : object) -> None:
     """Define sets for the model.
 
     Parameters
     ----------
-    model : Union[
-        poi._src.highs.Model,
-        poi._src.gurobi.Model,
-        poi._src.mosek.Model,
-        poi._src.copt.Model
-    ]
-        Model to be solved.
+    model : object
+        Model object to be solved.
     """
     params = model.params
     basic_sets = ["year", "zone", "tech", "hour", "month"]
@@ -102,14 +75,7 @@ def define_basic_sets(
     if params['isinflow']:
         model.station = params['stcd']
 
-def define_complex_sets(
-    model : Union[
-        poi._src.highs.Model,
-        poi._src.gurobi.Model,
-        poi._src.mosek.Model,
-        poi._src.copt.Model
-    ]
-) -> None:
+def define_complex_sets(model : object) -> None:
     """Create complex sets based on simple sets and some conditations. The
     existing capacity between two zones is set to empty (i.e., No value is
     filled in the Excel cell), which means that these two zones cannot have
@@ -119,15 +85,9 @@ def define_complex_sets(
 
     Parameters
     ----------
-    model : Union[
-        poi._src.highs.Model,
-        poi._src.gurobi.Model,
-        poi._src.mosek.Model,
-        poi._src.copt.Model
-    ]
+    model : object
         Model to be solved.
     """
-
     trans_sets = model.params['transmission_line_existing_capacity'].keys()
     for z_i, z1_i in cartesian_product(model.zone, model.zone):
         if (z_i, z1_i) not in trans_sets:
@@ -136,24 +96,12 @@ def define_complex_sets(
             # TODO: Set the capacity of new transmission lines to 0
 
 
-def define_variables(
-    model : Union[
-        poi._src.highs.Model,
-        poi._src.gurobi.Model,
-        poi._src.mosek.Model,
-        poi._src.copt.Model
-    ]
-) -> None:
+def define_variables(model : object) -> None:
     """Define variables for the model.
 
     Parameters
     ----------
-    model : Union[
-        poi._src.highs.Model,
-        poi._src.gurobi.Model,
-        poi._src.mosek.Model,
-        poi._src.copt.Model
-    ]
+    model : object
         Model to be solved.
     """
 
@@ -193,24 +141,12 @@ def define_variables(
             model.station, model.hour, model.month, model.year, lb=0
         )
 
-def define_constraints(
-    model : Union[
-        poi._src.highs.Model,
-        poi._src.gurobi.Model,
-        poi._src.mosek.Model,
-        poi._src.copt.Model
-    ]
-) -> None:
+def define_constraints(model : object) -> None:
     """Define constraints for the model.
     
     Parameters
     ----------
-    model : Union[
-        poi._src.highs.Model,
-        poi._src.gurobi.Model,
-        poi._src.mosek.Model,
-        poi._src.copt.Model
-    ]
+    model : object
         Model to be solved.
     """
     AddInvestmentConstraints(model)
@@ -223,14 +159,7 @@ def define_constraints(
     AddDemandConstraints(model)
 
 @timer
-def create_model(
-    params : dict
-) -> Union[
-    poi._src.highs.Model,
-    poi._src.gurobi.Model,
-    poi._src.mosek.Model,
-    poi._src.copt.Model
-]:
+def create_model(params : dict) -> object:
     """Create the PREP-SHOT model.
 
     Parameters
@@ -240,13 +169,8 @@ def create_model(
 
     Returns
     -------
-    Union[
-        poi._src.highs.Model,
-        poi._src.gurobi.Model,
-        poi._src.mosek.Model,
-        poi._src.copt.Model
-    ]
-        A pyoptinterface Model object.
+    object
+        Model object.
     """
     model = define_model(params)
     define_basic_sets(model)

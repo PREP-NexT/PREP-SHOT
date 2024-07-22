@@ -1,28 +1,26 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""This module contains functions for setting params and configuring
+"""This module contains functions for setting parameters and configuring
 logging. 
 """
 
 import logging
 import argparse
 from os import path, makedirs
-from typing import Dict, List, Union, Tuple
-
-import pandas as pd
+from typing import Dict, List, Any
 
 from prepshot.load_data import load_json, extract_config_data, process_data
 from prepshot.logs import setup_logging, log_parameter_info
 
 
 def parse_cli_arguments(params_list : List[str]) -> argparse.Namespace:
-    """Parse command-line arguments from a list of parameter names.
+    """Parse command-line arguments from a list of names of parameters.
 
     Parameters
     ----------
     params_list : List[str]
-        List of parameter names.
+        List of parameters.
 
     Returns
     -------
@@ -40,40 +38,18 @@ def parse_cli_arguments(params_list : List[str]) -> argparse.Namespace:
     return parser.parse_args()
 
 
-def initialize_environment(
-    config_files : Dict[str, str]
-) -> Dict[
-        str,
-        Union[
-            int, float, bool, str, argparse.Namespace, pd.DataFrame, pd.Series,
-            List[Union[str, int]],
-            Dict[
-                Union[str, int, Tuple[Union[str, int]]],
-                Union[str, float]
-            ]
-        ]
-    ]:
-    """Load configuration data, set up logging, and process input params.
+def initialize_environment(config_files : Dict[str, str]) -> Dict[str, Any]:
+    """Load configuration data, set up logging, and process input parameters.
     
     Parameters
     ----------
-    config_files : dict
-        Dictionary containing paths to params and configuration files.
+    config_files : Dict[str, str]
+        Dictionary containing paths to parameters and configuration files.
 
     Returns
     -------
-    Dict[
-        str,
-        Union[
-            int, float, bool, str, argparse.Namespace, pd.DataFrame, pd.Series,
-            List[Union[str, int]],
-            Dict[
-                Union[str, int, Tuple[Union[str, int]]],
-                Union[str, float]
-            ]
-        ]
-    ]
-        Dictionary containing the global params.
+    Dict[str, Any]
+        Dictionary containing the global parameters.
     """
     params_filename = config_files['params_filename']
     config_filename = config_files['config_filename']

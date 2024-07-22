@@ -5,7 +5,6 @@
 """
 
 import logging
-from typing import Union
 
 import pyoptinterface as poi
 from pyoptinterface import mosek
@@ -16,28 +15,18 @@ from pyoptinterface import copt
 from prepshot.logs import timer
 from prepshot._model.head_iteration import run_model_iteration
 
-def get_solver(params : dict) -> Union[
-        poi._src.highs.Model,
-        poi._src.gurobi.Model,
-        poi._src.mosek.Model,
-        poi._src.copt.Model
-    ]:
+def get_solver(params : dict) -> object:
     """Retrieve the solver object based on parameters.
-    
+
     Parameters
     ----------
     params : dict
         Configuration dictionary with solver details.
-    
+
     Returns
     -------
-    Union[
-        poi._src.highs.Model,
-        poi._src.gurobi.Model,
-        poi._src.mosek.Model,
-        poi._src.copt.Model
-    ]
-        Type object of the solver module.
+    object
+        Solver object based on the configuration.    
     """
     solver_map = {
         'mosek': mosek,
@@ -68,22 +57,12 @@ def get_solver(params : dict) -> Union[
 
     return poi_solver
 
-def set_solver_parameters(model : Union[
-        poi._src.highs.Model,
-        poi._src.gurobi.Model,
-        poi._src.mosek.Model,
-        poi._src.copt.Model
-    ]) -> None:
+def set_solver_parameters(model : object) -> None:
     """Set the solver-specific parameters for the model.
-    
+
     Parameters
     ----------
-    model : Union[
-        poi._src.highs.Model,
-        poi._src.gurobi.Model,
-        poi._src.mosek.Model,
-        poi._src.copt.Model
-    ] 
+    model : object
         Model to configurable.
     """
     for key, value in model.params['solver'].items():
@@ -91,25 +70,12 @@ def set_solver_parameters(model : Union[
             model.set_raw_parameter(key, value)
 
 @timer
-def solve_model(
-    model : Union[
-        poi._src.highs.Model,
-        poi._src.gurobi.Model,
-        poi._src.mosek.Model,
-        poi._src.copt.Model
-    ],
-    params : dict
-) -> bool:
+def solve_model(model : object, params : dict) -> bool:
     """Solve the model using the provided parameters.
 
     Parameters
     ----------
-    model : Union[
-        poi._src.highs.Model,
-        poi._src.gurobi.Model,
-        poi._src.mosek.Model,
-        poi._src.copt.Model
-    ]
+    model : object
         Model to solve.
     params : dict
         Configuration parameters for solving the model.
