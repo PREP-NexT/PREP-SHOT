@@ -41,8 +41,9 @@ def create_data_array(
     index_tuple = cartesian_product(*coords.values())
     if len(dims) == 1:
         index_tuple = [i[0] for i in index_tuple]
+    data_values = data.map(model.get_value)
     data = np.array(
-        [model.get_value(data[tuple_]) for tuple_ in index_tuple]
+        [data_values[tuple_] for tuple_ in index_tuple]
     ).reshape([len(coord) for coord in coords.values()])
     return xr.DataArray(data=data,
                         dims=dims,

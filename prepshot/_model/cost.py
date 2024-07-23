@@ -105,8 +105,8 @@ class AddCostObjective:
         dt = model.params['dt']
         vf = model.params['var_factor'][y]
         w = model.params['weight']
-        return 1 / w * fp * sum(model.gen[h, m, y, z, te]
-            for h in model.hour for m in model.month) * dt * vf
+        return (1 / w * fp * dt * vf
+            * poi.quicksum(model.gen.select('*', '*', y, z, te)))
 
     def cost_var_line_breakdown(
         self, y : int, z : str, z1 : str
@@ -134,9 +134,8 @@ class AddCostObjective:
         dt = model.params['dt']
         vf = model.params['var_factor'][y]
         w = model.params['weight']
-        return 0.5 / w * lvc * dt * vf * \
-            sum(model.trans_export[h, m, y, z, z1]
-            for h in model.hour for m in model.month)
+        return (0.5 / w * lvc * dt * vf
+            * poi.quicksum(model.trans_export.select('*', '*', y, z, z1)))
 
     def cost_var_tech_breakdown(
         self, y : int, z : str, te : str
@@ -163,8 +162,8 @@ class AddCostObjective:
         dt = model.params['dt']
         vf = model.params['var_factor'][y]
         w = model.params['weight']
-        return 1 / w * tvc * sum(model.gen[h, m, y, z, te]
-            for h in model.hour for m in model.month) * dt * vf
+        return (1 / w * tvc * dt * vf
+            * poi.quicksum(model.gen.select('*', '*', y, z, te)))
 
     def cost_fix_line_breakdown(
         self, y : int, z : str, z1 : str

@@ -88,10 +88,7 @@ class AddCo2EmissionConstraints:
             A constraint of the model.
         """
         model = self.model
-        return poi.quicksum(
-            model.carbon_capacity[y, z]
-            for z in model.zone
-        )
+        return poi.quicksum(model.carbon_capacity.select(y, '*'))
 
     def emission_calc_by_zone_rule(
         self, y : int, z : str
@@ -111,10 +108,7 @@ class AddCo2EmissionConstraints:
             A constraint of the model.
         """
         model = self.model
-        return poi.quicksum(
-            model.carbon_breakdown[y, z, te]
-            for te in model.tech
-        )
+        return poi.quicksum(model.carbon_breakdown.select(y, z, '*'))
 
     def carbon_breakdown(
         self,
@@ -141,7 +135,4 @@ class AddCo2EmissionConstraints:
         model = self.model
         ef = model.params['emission_factor'][te, y]
         dt = model.params['dt']
-        return poi.quicksum(
-            ef * model.gen[h, m, y, z, te] * dt
-            for h in model.hour for m in model.month
-        )
+        return ef * dt * poi.quicksum(model.gen.select('*', '*', y, z, te))
