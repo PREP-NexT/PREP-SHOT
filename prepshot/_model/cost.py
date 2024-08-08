@@ -80,7 +80,6 @@ class AddCostObjective:
         model.cost = model.cost_var + model.cost_newtech                     \
             + model.cost_fix + model.cost_newline - model.income
         model.set_objective(model.cost, sense=poi.ObjectiveSense.Minimize)
-
     def fuel_cost_breakdown(
         self, y : int, z : str, te : str
     ) -> poi.ExprBuilder:

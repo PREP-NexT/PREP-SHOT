@@ -203,7 +203,7 @@ def calc_inv_cost_factor(
 
     """
     check_positive(dep_period, interest_rate, year_built, year_min, year_max)
-    if (year_max <= year_min) or (year_max < year_built)                      \
+    if (year_max < year_min) or (year_max < year_built)                      \
         or (year_built < year_min):
         raise ValueError("Invalid year values.")
 

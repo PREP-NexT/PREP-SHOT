@@ -103,6 +103,7 @@ class AddInvestmentConstraints:
         if tub != np.Inf:
             lhs = model.cap_existing[y, z, te] - tub
             return model.add_linear_constraint(lhs, poi.Leq, 0)
+        return None
 
     def new_tech_up_bound_rule(
         self, y : int, z : str, te : str
@@ -128,6 +129,7 @@ class AddInvestmentConstraints:
         if ntub != np.Inf:
             lhs = model.cap_newtech[y, z, te] - ntub
             return model.add_linear_constraint(lhs, poi.Leq, 0)
+        return None
 
     def new_tech_low_bound_rule(
         self, y : int, z : str, te : str
