@@ -21,7 +21,7 @@ or download the repository as a zip file `here <https://github.com/PREP-NexT/PRE
 Step 2: Install dependencies
 ++++++++++++++++++++++++++++++
 
-Assuming you have already [installed `Python`](https://www.python.org/downloads/), the ``requirements.txt`` file contains all the dependencies for the project (default install open-source solver `HiGHS`). I also recommend [create a new environment](https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html) for PREP-SHOT and installing the dependencies within the new environement. This approach isolates the project and its dependencies, helping to prevent conflicts with other Python projects.
+Assuming you have already `installed Python <https://www.python.org/downloads/>`_, the ``requirements.txt`` file contains all the dependencies for the project (default install open-source solver `HiGHS`). I also recommend `create a new environment <https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html>`_ for PREP-SHOT and installing the dependencies within the new environement. This approach isolates the project and its dependencies, helping to prevent conflicts with other Python projects.
 
 .. code:: bash
 
