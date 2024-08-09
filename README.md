@@ -11,7 +11,7 @@
   <a href="https://twitter.com/PREPNexT_Lab"><img src="https://img.shields.io/twitter/follow/PREPNexT_Lab.svg?label=Follow&style=social" alt="Twitter Follow"></a>
   <a href="https://github.com/PREP-NexT/PREP-SHOT"><img src="https://img.shields.io/github/license/PREP-NexT/PREP-SHOT.svg" alt="License"></a>
   <a href="https://github.com/PREP-NexT/PREP-SHOT"><img src="https://badges.frapsoft.com/os/v1/open-source.svg?v=103" alt="Download"></a>
-  <a href="https://colab.research.google.com/github/PREP-NexT/PREP-SHOT/blob/main/example/single_node_with_hydro/main.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a>
+  <a href="https://github.com/PREP-NexT/PREP-SHOT"><img src="https://badges.frapsoft.com/os/v1/open-source.svg?v=103" alt="Download"></a> 
 </p>
 
 <p align="center">
@@ -55,19 +55,14 @@ This section includes a brief tutorial on running your first PREP-SHOT model.
     git clone https://github.com/PREP-NexT/PREP-SHOT.git
     ```
 
-2. Create the Conda Environment and install the dependencies
+2. Install the dependencies
 
     ```bash
-    conda env create -f prep-shot.yml
+    cd PREP-SHOT
+    pip install -r requirements.txt
     ```
 
-3. Activate the Conda Environment
-
-    ```bash
-    conda activate prep-shot
-    ```
-
-4. Run your first model
+3. Run your first model
 
     ```bash
     python run.py
