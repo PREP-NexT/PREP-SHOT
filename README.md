@@ -59,6 +59,8 @@ This section includes a brief tutorial on running your first PREP-SHOT model.
 
     ```bash
     cd PREP-SHOT
+    conda create -n prep-shot python=3.8
+    conda activate prep-shot
     pip install -r requirements.txt
     ```
 
