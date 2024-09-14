@@ -26,6 +26,8 @@ Assuming you have already `installed Python <https://www.python.org/downloads/>`
 .. code:: bash
 
     cd PREP-SHOT
+    conda create -n prep-shot python=3.8
+    conda activate prep-shot
     pip install -r requirements.txt
 
 Step 3: Run an example (Optional)
