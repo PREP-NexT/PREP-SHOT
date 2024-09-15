@@ -73,10 +73,6 @@ class AddInvestmentConstraints:
             model.year, model.zone, model.tech,
             rule=self.new_tech_low_bound_rule
         )
-        model.tech_lifetime_cons = poi.make_tupledict(
-            model.year, model.zone, model.tech,
-            rule=self.tech_lifetime_rule
-        )
 
     def tech_up_bound_rule(
         self, y : int, z : str, te : str
