@@ -497,13 +497,13 @@ The total present value can be calculated as follows:
 
   \text{total present value} &= \frac{B}{(1+r)^m} + \frac{B}{(1+r)^{m+1}} + \cdots + \frac{B}{(1+r)^{(m+k-1)}} \\
   \\
-  &= B(1+r)^{(1-m)}\frac{1-(1+r)^k}{r}
+  &= B(1+r)^{(1-m)}\frac{1-(1+r)^{-k}}{r}
 
 And we can calculate the variable factor as follows:
 
 .. math::
 
-  \text{factor}_{y}^{var} &= (1+r)^{1-m_y}\frac{1-(1+r)^{k_y}}{r} \\
+  \text{factor}_{y}^{var} &= (1+r)^{1-m_y}\frac{1-(1+r)^{-k_y}}{r} \\
   \\
   m_{y} &= y - y_\text{min} \\
   \\
