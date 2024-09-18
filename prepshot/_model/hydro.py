@@ -147,6 +147,10 @@ class AddHydropowerConstraints:
                 model.station, model.hour, model.month, model.year,
                 rule=self.outflow_up_bound_rule
             )
+            model.genflow_up_bound_cons = poi.make_tupledict(
+                model.station, model.hour, model.month, model.year,
+                rule=self.genflow_up_bound_rule
+            )
             model.storage_low_bound_cons = poi.make_tupledict(
                 model.station, model.hour, model.month, model.year,
                 rule=self.storage_low_bound_rule
@@ -371,6 +375,33 @@ class AddHydropowerConstraints:
         rc = model.params['reservoir_characteristics']
         max_outflow = rc['outflow_max', s]
         lhs = model.outflow[s, h, m, y] - max_outflow
+        return model.add_linear_constraint(lhs, poi.Leq, 0)
+
+    def genflow_up_bound_rule(
+        self, s : str, h : int, m : int, y : int
+    ) -> poi.ConstraintIndex:
+        """Upper bound of generation flow.
+        
+        Parameters
+        ----------
+        s : str
+            hydropower plant.
+        h : int
+            Hour.
+        m : int
+            Month.
+        y : int
+            Year.
+            
+        Returns
+        -------
+        poi.ConstraintIndex
+            The constraint of the model. 
+        """
+        model = self.model
+        rc = model.params['reservoir_characteristics']
+        max_genflow = rc['GQ_max', s]
+        lhs = model.genflow[s, h, m, y] - max_genflow
         return model.add_linear_constraint(lhs, poi.Leq, 0)
 
     def storage_low_bound_rule(

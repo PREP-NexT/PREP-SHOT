@@ -134,7 +134,8 @@ class AddGenerationConstraints:
             The constraint of the model.
         """
         model = self.model
-        lhs = model.gen[h, m, y, z, te] - model.cap_existing[y, z, te]
+        lhs = model.gen[h, m, y, z, te] \
+            - model.cap_existing[y, z, te] * model.params['dt']
         return model.add_linear_constraint(lhs, poi.Leq, 0)
 
 

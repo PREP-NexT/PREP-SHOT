@@ -279,13 +279,15 @@ class AddCostObjective:
         model = self.model
         if model.params['isinflow']:
             coef = 3600 * model.params['dt'] * model.params['price']
+            vf = model.params['var_factor']
+            w = model.params['weight']
             income = sum(
-                model.withdraw[s, h, m, y] * coef
+                model.withdraw[s, h, m, y] * coef * vf[y]
                 for s in model.station
                 for h in model.hour
                 for m in model.month
                 for y in model.year
-            )
+            ) / w
             return income
 
         return poi.ExprBuilder(0)
