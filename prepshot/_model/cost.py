@@ -101,10 +101,9 @@ class AddCostObjective:
         """
         model = self.model
         fp = model.params['fuel_price'][te, y]
-        dt = model.params['dt']
         vf = model.params['var_factor'][y]
         w = model.params['weight']
-        return (1 / w * fp * dt * vf
+        return (1 / w * fp * vf
             * poi.quicksum(model.gen.select('*', '*', y, z, te)))
 
     def cost_var_line_breakdown(
@@ -130,10 +129,9 @@ class AddCostObjective:
         """
         model = self.model
         lvc = model.params['transmission_line_variable_OM_cost'][z, z1]
-        dt = model.params['dt']
         vf = model.params['var_factor'][y]
         w = model.params['weight']
-        return (0.5 / w * lvc * dt * vf
+        return (0.5 / w * lvc * vf
             * poi.quicksum(model.trans_export.select('*', '*', y, z, z1)))
 
     def cost_var_tech_breakdown(
@@ -158,10 +156,9 @@ class AddCostObjective:
         """
         model = self.model
         tvc = model.params['technology_variable_OM_cost'][te, y]
-        dt = model.params['dt']
         vf = model.params['var_factor'][y]
         w = model.params['weight']
-        return (1 / w * tvc * dt * vf
+        return (1 / w * tvc * vf
             * poi.quicksum(model.gen.select('*', '*', y, z, te)))
 
     def cost_fix_line_breakdown(

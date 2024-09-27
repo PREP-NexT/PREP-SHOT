@@ -163,11 +163,12 @@ class AddGenerationConstraints:
             The constraint of the model.
         """
         model = self.model
-        rp = model.params['ramp_up'][te] * model.params['dt']
+        dt = model.params['dt']
+        rp = model.params['ramp_up'][te] * dt
         if rp < 1 < h:
             lhs = (
                 model.gen[h, m, y, z, te] - model.gen[h-1, m, y, z, te]
-                - rp * model.cap_existing[y, z, te]
+                - rp * model.cap_existing[y, z, te] * dt
             )
             return model.add_linear_constraint(lhs, poi.Leq, 0)
 

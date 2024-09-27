@@ -134,5 +134,5 @@ class AddCo2EmissionConstraints:
         """
         model = self.model
         ef = model.params['emission_factor'][te, y]
-        dt = model.params['dt']
-        return ef * dt * poi.quicksum(model.gen.select('*', '*', y, z, te))
+        w = model.params['weight']
+        return 1 / w * ef * poi.quicksum(model.gen.select('*', '*', y, z, te))
