@@ -78,7 +78,7 @@ By default, PREP-SHOT uses open-source [HiGHS](https://github.com/jump-dev/HiGHS
 + [COPT](https://www.copt.de/)
 + [MOSEK](https://www.mosek.com/)
 
-## How to Contribute
+## 🤝 How to Contribute
 
 To contribute to this project, please read our [Contributing Guidelines](https://prep-next.github.io/PREP-SHOT/Changelog.html#contributing-to-prep-shot).
 
@@ -122,6 +122,6 @@ The PREP-SHOT model is an academic project and is not intended to be used as a p
 ## Repo Activity
 ![Repo Analytics](https://repobeats.axiom.co/api/embed/159a603ee4c6124a5addc35d47b3cb02e3fc39f0.svg "Repo analytics")
 
-## Star History
+## ⭐ Star History
 
 [![Star History Chart](https://api.star-history.com/svg?repos=PREP-NexT/PREP-SHOT&type=Date)](https://star-history.com/#PREP-NexT/PREP-SHOT&Date)
