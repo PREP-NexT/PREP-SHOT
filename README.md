@@ -82,7 +82,17 @@ By default, PREP-SHOT uses open-source [HiGHS](https://github.com/jump-dev/HiGHS
 
 To contribute to this project, please read our [Contributing Guidelines](https://prep-next.github.io/PREP-SHOT/Changelog.html#contributing-to-prep-shot).
 
-## Citation
+## Versioning
+
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [releases on this repository](https://github.com/PREP-NexT/PREP-SHOT/releases).
+
+## Citing PREP-SHOT
+
+See the [Citation Guide](https://prep-next.github.io/PREP-SHOT/citation.html).
+
+Please use the following logo if you use PREP-SHOT:
+
+![https://github.com/CLIMADA-project/climada_python/blob/main/doc/guide/img/CLIMADA_logo_QR.png](https://github.com/CLIMADA-project/climada_python/blob/main/doc/guide/img/CLIMADA_logo_QR.png?raw=true)
 
 If you use PREP-SHOT in a scientific publication, we would appreciate citations. You can use the following BibTeX entry:
 
