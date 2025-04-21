@@ -92,7 +92,8 @@ See the [Citation Guide](https://prep-next.github.io/PREP-SHOT/citation.html).
 
 Please use the following logo if you use PREP-SHOT:
 
-![https://github.com/CLIMADA-project/climada_python/blob/main/doc/guide/img/CLIMADA_logo_QR.png](https://github.com/CLIMADA-project/climada_python/blob/main/doc/guide/img/CLIMADA_logo_QR.png?raw=true)
+![PREP-SHOT_logos_QR](https://github.com/user-attachments/assets/7927c510-d756-4b4e-80dc-38d8272d9a3e)
+
 
 If you use PREP-SHOT in a scientific publication, we would appreciate citations. You can use the following BibTeX entry:
 
