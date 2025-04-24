@@ -14,16 +14,16 @@ from scipy.spatial import KDTree
 INPUT_CONFIG = {
     # 'discharge': "./input/sea_nores_discharge_monthly_1960-1961.nc",  # Gridded discharge
     'discharge': "./input/mekong_discharge_monthly_1960-1961.nc",  # Gridded discharge
-    'reservoirs': "./input/mekong_reservoirs.xlsx",                   # Reservoir locations
+    'reservoirs': "./input/reservoir_parameters.xlsx",                   # Reservoir locations
     'flow_direction': "./input/ldd.nc",                               # Flow direction
     'upstream_area': "./input/ups.nc"                                 # Upstream drainage area
 }
 
 # =================== Output files path ===================
 OUTPUT_CONFIG = {
-    'topology': "reservoir_topology.xlsx",             # Reservoir topology
-    'net_inflow': "monthly_net_inflow.xlsx",           # Monthly net inflow
-    'drainage_area': "reservoir_drainage_areas.xlsx"   # Reservoir drainage area
+    'topology': "./output/reservoir_topology.xlsx",             # Reservoir topology
+    'net_inflow': "./output/monthly_net_inflow.xlsx",           # Monthly net inflow
+    'drainage_area': "./output/reservoir_drainage_areas.xlsx"   # Reservoir drainage area
 }
 
 def load_reservoir_data(file_path: str) -> pd.DataFrame:
@@ -36,7 +36,7 @@ def extract_reservoir_topology(res, ldd, ldd_lons, ldd_lats):
     Only added type hints and slightly improved variable names.
     """
     # Original logic preserved
-    reservoir_points = res[["lon_5min", "lat_5min"]].values
+    reservoir_points = res[["longitude", "latitude"]].values
     ldd_grid_lats, ldd_grid_lons = np.meshgrid(ldd_lats, ldd_lons, indexing='ij')
     ldd_grid_points = np.column_stack((ldd_grid_lons.ravel(), ldd_grid_lats.ravel()))
     tree = KDTree(ldd_grid_points)
@@ -45,7 +45,7 @@ def extract_reservoir_topology(res, ldd, ldd_lons, ldd_lats):
     reservoir_grid_indices = np.unravel_index(reservoir_grid_indices, ldd.shape)
 
     reservoir_loc_dict = {
-        (reservoir_grid_indices[0][i], reservoir_grid_indices[1][i]): res['NO'][i]
+        (reservoir_grid_indices[0][i], reservoir_grid_indices[1][i]): res['stcd'][i]
         for i in range(len(reservoir_points))
     }
 
@@ -76,7 +76,7 @@ def extract_reservoir_topology(res, ldd, ldd_lons, ldd_lats):
     topology = []
     for i in range(len(reservoir_points)):
         x, y = reservoir_grid_indices[0][i], reservoir_grid_indices[1][i]
-        upstream_no = res['NO'][i]
+        upstream_no = res['stcd'][i]
         
         downstream_no = track_downstream(x, y, upstream_no)
         if downstream_no is not None:
@@ -91,12 +91,12 @@ def calculate_drainage_areas(res, topology_df, ups_ds, reservoir_grid_indices):
     """
     # Original area calculation logic
     def get_reservoir_area(res_no, ups_ds, reservoir_grid_indices, res):
-        idx = res[res['NO'] == res_no].index[0]
+        idx = res[res['stcd'] == res_no].index[0]
         x, y = reservoir_grid_indices[0][idx], reservoir_grid_indices[1][idx]
         return float(ups_ds['ups'][x, y].values)
 
     reservoir_areas = {}
-    for res_no in res['NO']:
+    for res_no in res['stcd']:
         reservoir_areas[res_no] = get_reservoir_area(res_no, ups_ds, reservoir_grid_indices, res)
 
     drainage_areas = {}
@@ -128,8 +128,8 @@ def compute_net_inflow(discharge_file, res, topology_df):
 
     total_inflow = pd.DataFrame()
     for _, row in res.iterrows():
-        reservoir_no = row['NO']
-        lon, lat = row['lon_5min'], row['lat_5min']
+        # reservoir_no = row['stcd']
+        lon, lat = row['longitude'], row['latitude']
         
         _, idx = tree.query([lon, lat])
         yi, xi = np.unravel_index(idx, shp)
@@ -138,7 +138,7 @@ def compute_net_inflow(discharge_file, res, topology_df):
         monthly_flow = daily_flow.resample(time='1M').mean()
         # total_inflow[reservoir_no] = monthly_flow.values
         total_inflow = pd.concat([total_inflow, monthly_flow.to_pandas()], axis=1)
-    total_inflow.columns = res['NO']
+    total_inflow.columns = res['stcd']
 
     total_inflow.index = monthly_flow['time'].values
 
@@ -177,7 +177,7 @@ def main():
     
     print("Calculating drainage areas...")
     # Recreate grid indices as in original code
-    reservoir_points = res[["lon_5min", "lat_5min"]].values
+    reservoir_points = res[["longitude", "latitude"]].values
     ldd_grid_lats, ldd_grid_lons = np.meshgrid(ldd_lats, ldd_lons, indexing='ij')
     ldd_grid_points = np.column_stack((ldd_grid_lons.ravel(), ldd_grid_lats.ravel()))
     tree = KDTree(ldd_grid_points)
