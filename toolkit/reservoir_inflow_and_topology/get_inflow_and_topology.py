@@ -1,6 +1,6 @@
 """
 Author: Zhanwei LIU
-Date: 2025-04-18
+Date: 2025-04-26
 
 Script for preparing reservoir topology and net inflow for PREP-SHOT model.
 """
@@ -13,10 +13,17 @@ from scipy.spatial import KDTree
 # =================== Input files path ===================
 INPUT_CONFIG = {
     # 'discharge': "./input/sea_nores_discharge_monthly_1960-1961.nc",  # Gridded discharge
-    'discharge': "./input/mekong_discharge_monthly_1960-1961.nc",  # Gridded discharge
+    'discharge': "./input/mekong_discharge_monthly_1960-1961.nc",        # Gridded discharge
     'reservoirs': "./input/reservoir_parameters.xlsx",                   # Reservoir locations
-    'flow_direction': "./input/ldd.nc",                               # Flow direction
-    'upstream_area': "./input/ups.nc"                                 # Upstream drainage area
+    'flow_direction': "./input/ldd.nc",                                  # Flow direction
+    'upstream_area': "./input/ups.nc",                                   # Upstream drainage area
+    # estimate water travel time
+    'river_width': "./input/chanwidth.nc",
+    'river_depth': "./input/chanheight.nc",
+    'river_length': "./input/chanlength.nc",
+    'river_slope': "./input/tanslope.nc",
+    'manning': "./input/chanmanning.nc",
+    'manning_scale': 1.0
 }
 
 # =================== Output files path ===================
@@ -30,7 +37,7 @@ def load_reservoir_data(file_path: str) -> pd.DataFrame:
     """Load reservoir data with minimal validation."""
     return pd.read_excel(file_path, index_col=False)
 
-def extract_reservoir_topology(res, ldd, ldd_lons, ldd_lats):
+def extract_reservoir_topology(res, ldd, ldd_lons, ldd_lats, travel_time):
     """
     Extract reservoir topology (minimally modified from original).
     Only added type hints and slightly improved variable names.
@@ -56,33 +63,36 @@ def extract_reservoir_topology(res, ldd, ldd_lons, ldd_lats):
         7: (-1, -1), 8: (0, -1), 9: (1, -1)
     }
 
-    def track_downstream(x, y, upstream_no):
+    def track_downstream(x, y, upstream_no, tt):
         """Original tracking function preserved exactly."""
         flow_dir = ldd[x, y]
         if flow_dir == 5:
-            return None
+            return None, tt
 
         dy, dx = flow_directions[flow_dir]
         xj, yj = x + dx, y + dy
 
         if (xj < 0 or xj >= ldd.shape[0] or yj < 0 or yj >= ldd.shape[1]):
-            return None
-
-        if (xj, yj) in reservoir_loc_dict:
-            return reservoir_loc_dict[(xj, yj)]
+            return None, tt
         
-        return track_downstream(xj, yj, upstream_no)
+        if (xj, yj) in reservoir_loc_dict:
+            tt += travel_time[x, y] / 2
+            return reservoir_loc_dict[(xj, yj)], tt
+        tt += travel_time[x, y]
+
+        return track_downstream(xj, yj, upstream_no, tt)
 
     topology = []
     for i in range(len(reservoir_points)):
         x, y = reservoir_grid_indices[0][i], reservoir_grid_indices[1][i]
         upstream_no = res['stcd'][i]
-        
-        downstream_no = track_downstream(x, y, upstream_no)
+        tt = travel_time[x, y] / 2
+        downstream_no, tt = track_downstream(x, y, upstream_no, tt)
         if downstream_no is not None:
-            topology.append([upstream_no, downstream_no])
+            tt = round(tt/3600) # second to hour
+            topology.append([upstream_no, downstream_no, tt])
 
-    return pd.DataFrame(topology, columns=['Upstream', 'Downstream'])
+    return pd.DataFrame(topology, columns=['Upstream', 'Downstream', 'TravelTime [hour]'])
 
 def calculate_drainage_areas(res, topology_df, ups_ds, reservoir_grid_indices):
     """
@@ -168,12 +178,52 @@ def main():
         ldd = ds['ldd'].values
         ldd_lons = ds['lon'].values
         ldd_lats = ds['lat'].values
+    with (
+        xr.open_dataset(INPUT_CONFIG["river_width"]) as chanwidth,
+        xr.open_dataset(INPUT_CONFIG["river_depth"]) as chanheight,
+        xr.open_dataset(INPUT_CONFIG["river_length"]) as chanlength,
+        xr.open_dataset(INPUT_CONFIG["river_slope"]) as tanslope,
+        xr.open_dataset(INPUT_CONFIG["manning"]) as chanmanning
+    ):
+        manning_scale = INPUT_CONFIG['manning_scale']
+        # Load variables
+        width = chanwidth.chanwidth
+        height = chanheight.chanheight
+        length = chanlength.chanlength
+        # gradient = changradient.changradient
+        tanslope = tanslope.tanslope
+        manning = chanmanning.chanmanning * manning_scale
+        
+        # Calculate hydraulic radius with safety checks
+        denominator = width + 2 * height
+        hydraulic_radius = xr.where(
+            denominator > 0,
+            (width * height) / denominator,
+            0  # or some small positive value
+        )
+        
+        # Handle problematic values
+        manning = xr.where(manning > 0, manning, 0.01)  # replace zeros with typical value
+        tanslope = xr.where(tanslope > 0, tanslope, 1e-4)  # minimal slope
+        
+        # Calculate velocity with safety checks
+        velocity = (1.0 / manning) * (hydraulic_radius ** (2/3)) * (tanslope ** 0.5)
+        
+        # Calculate travel time with safety checks
+        safe_velocity = xr.where(velocity > 0, velocity, 0.001)  # minimal velocity
+        travel_time = length / safe_velocity
+        
+        # Optionally mask invalid values
+        travel_time = travel_time.where(
+            (width > 0) & (height > 0) & (length > 0) & (tanslope > 0) & (manning > 0)
+        ).values
+    
     
     ups_ds = xr.open_dataset(INPUT_CONFIG['upstream_area'])
     
     # Process data using original functions
     print("Extracting reservoir topology...")
-    topology_df = extract_reservoir_topology(res, ldd, ldd_lons, ldd_lats)
+    topology_df = extract_reservoir_topology(res, ldd, ldd_lons, ldd_lats, travel_time)
     
     print("Calculating drainage areas...")
     # Recreate grid indices as in original code
@@ -200,4 +250,5 @@ def main():
     print(f"Net inflow saved to: {OUTPUT_CONFIG['net_inflow']}")
 
 if __name__ == "__main__":
+
     main()
