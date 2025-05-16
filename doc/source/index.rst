@@ -59,6 +59,7 @@ To browse the documentation offline, you can `download a PDF copy <https://githu
    Contribution
    Changelog
    api/prepshot
+   Citations
    References
 
 Indices and tables
