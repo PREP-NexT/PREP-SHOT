@@ -88,7 +88,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Citing PREP-SHOT
 
-See the [Citation Guide](https://prep-next.github.io/PREP-SHOT/citation.html).
+See the [Citation Guide](https://prep-next.github.io/PREP-SHOT/Citations.html).
 
 Please use the following logo if you use PREP-SHOT:
 
