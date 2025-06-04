@@ -151,6 +151,15 @@
 
 /* Dark theme colors */
 @media (prefers-color-scheme: dark) {
+    /* Dark mode override for function signatures */
+    html.writer-html5 .rst-content dl.function > dt.sig,
+    html.writer-html5 .rst-content dl.method > dt.sig,
+    html.writer-html5 .rst-content dl.attribute > dt.sig {
+        background-color: #1c2230 !important;
+        border-color: #28334c !important;
+    }
+    /* Keep original text color styles for parameter descriptions */
+
     :root {
         --body-color: rgba(255, 255, 255, 0.85);
         --content-wrap-background-color: #202326;
