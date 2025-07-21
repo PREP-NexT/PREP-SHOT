@@ -57,6 +57,7 @@ extensions = [
     "sphinx_copybutton",
     "sphinx.ext.viewcode",
     "sphinx.ext.napoleon",
+    "sphinxcontrib.video",
 ]
 
 autodoc_typehints = 'description'
