@@ -14,6 +14,11 @@ Overview
 --------
 **PREP-SHOT** (**P**\ athways for **R**\ enewable **E**\ nergy **P**\ lanning coupling **S**\ hort-term **H**\ ydropower **O**\ pera\ **T**\ ion) is a transparent, modular, and open-source energy expansion model, offering advanced solutions for multi-scale, intertemporal, and cost-effective expansion of energy systems and transmission lines. 
 
+.. video:: ./20250717_prep_shot.mp4
+   :width: 100%
+   :poster: ./_static/PREPSHOT_Update07.jpg
+   :alt: PREP-SHOT introduction video
+
 The model sets itself apart from existing energy expansion models through its deeper consideration of hydropower processes. While models such as `urbs <https://urbs.readthedocs.io/en/latest/>`_ might treat hydropower as fixed processes, and others like `GenX <https://genxproject.github.io/GenX/dev/>`_ and `PLEXOS <https://www.energyexemplar.com/plexos>`_ may not fully capture the dynamic nature of water heads or consolidate multiple hydropower stations into a single unit, PREP-SHOT is uniquely designed to address these oversights.
 
 Our model explicitly considers the plant-level water head dynamics (i.e., time-varying water head and storage) and the system-level network topology of all hydropower stations within a regional grid. This results in a more accurate reflection of the multi-scale dynamic feedbacks between hydropower operation and energy system expansion. Furthermore, it enables the realistic simulation of the magnitude and spatial-temporal variability of hydropower output, particularly in regions with a large number of cascade hydropower stations.
