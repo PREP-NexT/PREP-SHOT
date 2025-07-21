@@ -14,7 +14,7 @@ Overview
 --------
 **PREP-SHOT** (**P**\ athways for **R**\ enewable **E**\ nergy **P**\ lanning coupling **S**\ hort-term **H**\ ydropower **O**\ pera\ **T**\ ion) is a transparent, modular, and open-source energy expansion model, offering advanced solutions for multi-scale, intertemporal, and cost-effective expansion of energy systems and transmission lines. 
 
-.. video:: ./20250717_prep_shot.mp4
+.. video:: https://github.com/PREP-NexT/PREP-SHOT/releases/download/v1.0/20250717_prep_shot.mp4
    :width: 100%
    :poster: ./_static/PREPSHOT_Update07.jpg
    :alt: PREP-SHOT introduction video

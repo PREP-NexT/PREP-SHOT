@@ -4,11 +4,6 @@ jobs:
   docs:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout + LFS
-        uses: actions/checkout@v4
-        with:
-          lfs: true  # Enable Git LFS for large files
-
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
         with:
