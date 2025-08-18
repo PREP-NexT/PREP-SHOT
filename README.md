@@ -26,7 +26,7 @@
 ## Overview
 
 **PREP-SHOT** (**P**athways for **R**enewable **E**nergy **P**lanning coupling **S**hort-term **H**ydropower **O**pera**T**ion) is a transparent, modular, and open-source energy expansion model, offering advanced solutions for multi-scale, intertemporal, and cost-effective expansion of energy systems and transmission lines. It's developed by [Zhanwei Liu](https://www.researchgate.net/profile/Zhanwei-Liu-4) and [Xiaogang He](http://hydro.iis.u-tokyo.ac.jp/~hexg/) from the [PREP-NexT](https://github.com/PREP-NexT) Lab at the [National University of Singapore](https://nus.edu.sg/).
-
+![PREPSHOT_Update07](https://github.com/user-attachments/assets/4b3bd966-39c3-4845-b4c2-8c5e5c0b93a5)
 For more information, please visit the [Official Documentation](https://prep-next.github.io/PREP-SHOT/).
 
 This project is licensed under the [GNU General Public License 3.0](https://github.com/PREP-NexT/PREP-SHOT/blob/main/LICENSE).
