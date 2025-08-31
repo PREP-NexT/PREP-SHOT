@@ -128,7 +128,7 @@ master_doc = "index"
 # General information about the project
 project = "PREP-SHOT"
 copyright = (
-    "2023, Zhanwei Liu and Xiaogang He (CC BY 3.0)"
+    "2023-2025, Zhanwei Liu and Xiaogang He (GPL-3.0)"
 )
 author = "Zhanwei Liu and Xiaogang He"
 
