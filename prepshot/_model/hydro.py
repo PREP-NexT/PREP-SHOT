@@ -114,7 +114,45 @@ class AddHydropowerConstraints:
             parameters, variables and constraints.
         """
         self.model = model
-        if model.params['isinflow']:
+        self.is_inflow = model.params['isinflow']
+        self.hydro_type = [i for i, j in model.params['technology_type'].items() if j == 'hydro']
+        self.main_hydro = self.hydro_type[0] if self.hydro_type else None
+        if self.is_inflow:
+            # Pre-computed dict for lookup efficiency
+            # Replaces repetitive DataFrame queries with direct memory access
+            self.wdt_dict = {
+                k: v[['POWER_ID', 'delay']].values
+                for k, v in model.params['water_delay_time'].groupby('NEXTPOWER_ID')
+            }
+            self.station_zone = {
+                s: model.params['reservoir_characteristics']['zone', s]
+                for s in model.station
+            }
+            self.efficiency_cache = {
+                s: model.params['reservoir_characteristics']['coeff', s]
+                for s in model.station
+            }
+            self.min_outflow_cache = {
+                s: model.params['reservoir_characteristics']['outflow_min', s]
+                for s in model.station
+            }
+            self.max_outflow_cache = {
+                s: model.params['reservoir_characteristics']['outflow_max', s]
+                for s in model.station
+            }
+            self.max_genflow_cache = {
+                s: model.params['reservoir_characteristics']['GQ_max', s]
+                for s in model.station
+            }
+            self.min_capacity_cache = {
+                s: model.params['reservoir_characteristics']['N_min', s]
+                for s in model.station
+            }
+            self.max_capacity_cache = {
+                s: model.params['reservoir_characteristics']['N_max', s]
+                for s in model.station
+            }
+            # Define variables and constraints
             model.outflow = poi.make_tupledict(
                 model.station, model.hour, model.month, model.year,
                 rule=self.outflow_rule
@@ -197,16 +235,13 @@ class AddHydropowerConstraints:
         """
         model = self.model
         hour = model.params['hour']
-        wdt = model.params['water_delay_time']
+        up_streams = self.wdt_dict.get(s, [])
         dt = model.params['dt']
         up_stream_outflow = poi.ExprBuilder()
         # Assume the delay time is a constant by default. Other routing methods
         # can be implemented here such as Muskingum method, piecewise linear
         # routing method, etc.
-        for ups, delay in zip(
-            wdt[wdt['NEXTPOWER_ID'] == s].POWER_ID,
-            wdt[wdt['NEXTPOWER_ID'] == s].delay
-        ):
+        for ups, delay in up_streams:
             delay = int(int(delay)/dt)
             if h - delay >= hour[0]:
                 t = h - delay
@@ -271,7 +306,7 @@ class AddHydropowerConstraints:
         ) # netstorage
         lhs += model.storage_reservoir[s, h-1, m, y]
         lhs -= model.storage_reservoir[s, h, m, y]
-        return model.add_linear_constraint(lhs, poi.Eq, 0)
+        return model.add_linear_constraint(lhs, poi.Eq, 0, name=f'water_balance_{s}_{y}_{m}_{h}')
 
     def init_storage_rule(
         self, s : str, m : int, y : int
@@ -345,8 +380,7 @@ class AddHydropowerConstraints:
             The constraint of the model.
         """
         model = self.model
-        rc = model.params['reservoir_characteristics']
-        min_outflow = rc['outflow_min', s]
+        min_outflow = self.min_outflow_cache[s]
         lhs = model.outflow[s, h, m, y] - min_outflow
         return model.add_linear_constraint(lhs, poi.Geq, 0)
 
@@ -372,8 +406,7 @@ class AddHydropowerConstraints:
             The constraint of the model.
         """
         model = self.model
-        rc = model.params['reservoir_characteristics']
-        max_outflow = rc['outflow_max', s]
+        max_outflow = self.max_outflow_cache[s]
         lhs = model.outflow[s, h, m, y] - max_outflow
         return model.add_linear_constraint(lhs, poi.Leq, 0)
 
@@ -399,8 +432,7 @@ class AddHydropowerConstraints:
             The constraint of the model. 
         """
         model = self.model
-        rc = model.params['reservoir_characteristics']
-        max_genflow = rc['GQ_max', s]
+        max_genflow = self.max_genflow_cache[s]
         lhs = model.genflow[s, h, m, y] - max_genflow
         return model.add_linear_constraint(lhs, poi.Leq, 0)
 
@@ -478,7 +510,7 @@ class AddHydropowerConstraints:
             The constraint of the model.
         """
         model = self.model
-        min_output = model.params['reservoir_characteristics']['N_min', s]
+        min_output = self.min_capacity_cache[s]
         lhs = model.output[s, h, m, y] - min_output
         return model.add_linear_constraint(lhs, poi.Geq, 0)
 
@@ -504,7 +536,7 @@ class AddHydropowerConstraints:
             The constraint of the model.
         """
         model = self.model
-        max_output = model.params['reservoir_characteristics']['N_max', s]
+        max_output = self.max_capacity_cache[s]
         lhs = model.output[s, h, m, y] - max_output
         return model.add_linear_constraint(lhs, poi.Leq, 0)
 
@@ -531,7 +563,7 @@ class AddHydropowerConstraints:
             The constraint of the model.
         """
         model = self.model
-        efficiency = model.params['reservoir_characteristics']['coeff', s]
+        efficiency = self.efficiency_cache[s]
         lhs = (
             model.output[s, h, m, y]
             - model.genflow[s, h, m, y] * efficiency * 1e-3 #  * head_param
@@ -559,23 +591,22 @@ class AddHydropowerConstraints:
         poi.ConstraintIndex
             The constraint of the model.
         """
+        if not self.main_hydro:
+            return None
         model = self.model
-        tech_type = model.params['technology_type']
-        res_char = model.params['reservoir_characteristics']
         dt = model.params['dt']
         predifined_hydro = model.params['predefined_hydropower']
-        hydro_type = [i for i, j in tech_type.items() if j == 'hydro']
-        if len(hydro_type) == 0:
-            return None
-        if model.params['isinflow']:
-            hydro_output = poi.quicksum(
-                model.output[s, h, m, y] * model.params['dt']
-                for s in model.station if res_char['zone', s] == z
+        lhs = poi.ExprBuilder()
+
+        if self.is_inflow:
+            lhs += poi.quicksum(
+                model.output[s, h, m, y] * dt
+                for s in model.station if self.station_zone.get(s) == z
             )
-            lhs = hydro_output
-            lhs -= model.gen[h, m, y, z, hydro_type[0]]
+            lhs -= model.gen[h, m, y, z, self.main_hydro]
         else:
-            lhs = (model.gen[h, m, y, z, hydro_type[0]]
-                - predifined_hydro['Hydro', z, y, m, h] * dt
+            lhs += (
+                model.gen[h, m, y, z, self.main_hydro] -
+                predifined_hydro['Hydro', z, y, m, h] * dt
             )
-        return model.add_linear_constraint(lhs, poi.Eq, 0)
+        return model.add_linear_constraint(lhs, poi.Eq, 0, name=f'Hydro_output_{y}_{m}_{h}_{z}')
