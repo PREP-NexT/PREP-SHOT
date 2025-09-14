@@ -161,6 +161,7 @@ def save_to_excel(
     output_filename : str
         The name of the output file.
     """
+    max_rows = 1_000_000
     # pylint: disable=abstract-class-instantiated
     with pd.ExcelWriter(
         f'{output_filename}.xlsx', engine='xlsxwriter'
@@ -170,7 +171,21 @@ def save_to_excel(
                 df = pd.DataFrame([ds[key].values.max()], columns=[key])
             else:
                 df = ds[key].to_dataframe()
-            df.to_excel(writer, sheet_name=key, merge_cells=False)
+            n_rows = len(df)
+            if n_rows <= max_rows:
+                df.to_excel(writer, sheet_name=key, merge_cells=False)
+            else:
+                logging.info(
+                    "%s has %d rows, split into %d sheets", key, n_rows, int(np.ceil(n_rows/max_rows))
+                )
+                n_sheets = int(np.ceil(n_rows/max_rows))
+                for i in range(n_sheets):
+                    start_row = i * max_rows
+                    end_row = min((i+1) * max_rows, n_rows)
+                    df_part = df.iloc[start_row:end_row]
+                    df_part.to_excel(
+                        writer, sheet_name=f'{key}_{i+1}', merge_cells=False
+                    )
 
 
 def save_result(model : object) -> None:
