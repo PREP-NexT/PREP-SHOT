@@ -20,8 +20,8 @@
         "file_name": "carbon_emission_limit",
         "index_cols": [0],
         "header_rows": [0],
-        "unstack_levels": null,
-        "first_col_only": true,
+        "unstack_levels": [0],
+        "first_col_only": false,
         "drop_na": true
     },
     "emission_factor": {

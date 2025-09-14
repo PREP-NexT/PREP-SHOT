@@ -49,11 +49,11 @@ class AddCo2EmissionConstraints:
             rule=self.emission_calc_rule
         )
         model.emission_limit_cons = poi.make_tupledict(
-            model.year,
+            model.year, model.zone,
             rule=self.emission_limit_rule
         )
 
-    def emission_limit_rule(self, y : int) -> poi.ConstraintIndex:
+    def emission_limit_rule(self, y : int, z : str) -> poi.ConstraintIndex:
         """Annual carbon emission limits across all zones and technologies.
         
         Parameters
@@ -67,10 +67,10 @@ class AddCo2EmissionConstraints:
             A constraint of the model.
         """
         model = self.model
-        limit = model.params['carbon_emission_limit']
-        if limit[y] == np.Inf:
+        limit = model.params['carbon_emission_limit'][z, y]
+        if limit == np.Inf:
             return None
-        lhs = model.carbon[y] - limit[y]
+        lhs = model.carbon_capacity[y, z] - limit
         return model.add_linear_constraint(lhs, poi.Leq, 0)
 
     def emission_calc_rule(self, y : int) -> poi.ConstraintIndex:
@@ -135,4 +135,6 @@ class AddCo2EmissionConstraints:
         model = self.model
         ef = model.params['emission_factor'][te, y]
         w = model.params['weight']
+        if ef == 0:
+            return poi.ExprBuilder(0)
         return 1 / w * ef * poi.quicksum(model.gen.select('*', '*', y, z, te))

@@ -1,6 +1,6 @@
 {
     "general_parameters": {
-        "input_folder": "input",
+        "input_folder": "southeast_asia",
         "output_folder": "output",
         "output_filename": "year",
         "hour": 48,
@@ -12,9 +12,9 @@
     "hydro_parameters": {
             "isinflow": true,
             "error_threshold": 0.001,
-            "iteration_number": 3
+            "iteration_number": 1
         },
     "solver_parameters": {
-        "solver": "highs"
+        "solver": "gurobi"
     }
 }
