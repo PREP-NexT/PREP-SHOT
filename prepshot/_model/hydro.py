@@ -247,6 +247,9 @@ class AddHydropowerConstraints:
                 t = h - delay
             else:
                 t = hour[-1] + h - delay
+            while t < hour[0]:
+                # when water delay time delay exceeded 24 hours
+                t += int(24/dt)
             up_stream_outflow += model.outflow[ups, t, m, y]
         return up_stream_outflow + model.params['inflow'][s, y, m, h]
 
