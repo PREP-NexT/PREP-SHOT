@@ -96,6 +96,10 @@ def extract_results_non_hydro(model : object) -> xr.Dataset:
         model.cost_newtech_breakdown, ['year', 'zone', 'tech'],
         'dollar', model
     )
+    data_vars['public_debt_newtech'] = create_data_array(
+        model.public_debt_newtech, ['year', 'zone', 'tech'],
+        'dollar', model
+    )
     data_vars['cost_newline_breakdown'] = create_data_array(
         model.cost_newline_breakdown, ['year', 'zone1', 'zone2'],
         'dollar', model

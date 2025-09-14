@@ -148,11 +148,29 @@ def check_positive(*values : Union[int, float]) -> None:
         if value <= 0:
             raise ValueError("All arguments must be greater than 0.")
 
+def calc_interest_rate(
+    public_debt_ratio : float,
+    private_debt_ratio : float,
+    cost_of_public_debt: float,
+    cost_of_private_equity: float,
+    cost_of_private_debt: float
+) -> float:
+    """Calculate interest rate for each zone and technology.
+    """
+    equity_ratio = 1 - public_debt_ratio - private_debt_ratio
+    if (public_debt_ratio < 0) or (private_debt_ratio < 0) or (equity_ratio < 0):
+        raise ValueError("Debt and equity ratios must be non-negative "
+                        + "and sum to 1 or less.")
+    interest_rate = (public_debt_ratio * cost_of_public_debt
+                         + private_debt_ratio * cost_of_private_debt
+                         + equity_ratio * cost_of_private_equity)
+    return interest_rate
+
 def calc_inv_cost_factor(
     dep_period : int,
     interest_rate : float,
     year_built : int,
-    discount_rate : int,
+    discount_rate : float,
     year_min : int,
     year_max : int
 ) -> float:
