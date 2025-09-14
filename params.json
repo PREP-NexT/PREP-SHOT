@@ -311,6 +311,61 @@
         "unstack_levels": null,
         "first_col_only": false,
         "drop_na": false
+    },
+    "public_debt_ratio": {
+        "file_name": "public_debt_ratio",
+        "index_cols": [0],
+        "header_rows": [0],
+        "unstack_levels": null,
+        "first_col_only": true,
+        "drop_na": true
+    },
+    "private_debt_ratio": {
+        "file_name": "private_debt_ratio",
+        "index_cols": [0],
+        "header_rows": [0],
+        "unstack_levels": null,
+        "first_col_only": true,
+        "drop_na": true
+    },
+    "cost_of_public_debt": {
+        "file_name": "cost_of_public_debt",
+        "index_cols": [0],
+        "header_rows": [0],
+        "unstack_levels": [0],
+        "first_col_only": false,
+        "drop_na": true
+    },
+    "cost_of_private_equity": {
+        "file_name": "cost_of_private_equity",
+        "index_cols": [0],
+        "header_rows": [0],
+        "unstack_levels": [0],
+        "first_col_only": false,
+        "drop_na": true
+    },
+    "cost_of_private_debt": {
+        "file_name": "cost_of_private_debt",
+        "index_cols": [0],
+        "header_rows": [0],
+        "unstack_levels": [0],
+        "first_col_only": false,
+        "drop_na": true
+    },
+    "public_debt_upper_bound_zone": {
+        "file_name": "public_debt_upper_bound_zone",
+        "index_cols": [0],
+        "header_rows": [0],
+        "unstack_levels": [0],
+        "first_col_only": false,
+        "drop_na": true
+    },
+    "public_debt_upper_bound_system": {
+        "file_name": "public_debt_upper_bound_system",
+        "index_cols": [0],
+        "header_rows": [0],
+        "unstack_levels": null,
+        "first_col_only": true,
+        "drop_na": true
     }
-     
 }

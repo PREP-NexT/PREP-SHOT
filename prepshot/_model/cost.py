@@ -212,31 +212,6 @@ class AddCostObjective:
         ff = model.params['fix_factor'][y]
         return  tfc * model.cap_existing[y, z, te] * ff
 
-    def cost_newtech_breakdown(
-        self, y : int, z : str, te : str
-    ) -> poi.ExprBuilder:
-        """New technology investment cost breakdown.
-
-        Parameters
-        ----------
-        y : int
-            Year.
-        z : str
-            Zone.
-        te : str
-            Technology.
-
-        Returns
-        -------
-        poi.ExprBuilder
-            Investment cost of new technologies at a given year, zone and 
-            technology.
-        """
-        model = self.model
-        tic = model.params['technology_investment_cost'][te, y]
-        ivf = model.params['inv_factor'][te, y]
-        return tic * model.cap_newtech[y, z, te] * ivf
-
     def cost_newline_breakdown(
         self, y : int, z : str, z1 : str
     ) -> poi.ExprBuilder:
@@ -330,10 +305,7 @@ class AddCostObjective:
             technologies.
         """
         model = self.model
-        model.cost_newtech_breakdown = poi.make_tupledict(
-            model.year, model.zone, model.tech,
-            rule=self.cost_newtech_breakdown
-        )
+        # Define the cost breakdown of new technology investment in Finance module
         return poi.quicksum(model.cost_newtech_breakdown)
 
     def newline_cost_rule(self) -> poi.ExprBuilder:
