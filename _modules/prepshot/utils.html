@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>prepshot.utils &mdash; PREP-SHOT (latest) documentation in English</title>
+
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/tabs.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/algolia.css" type="text/css" />
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/custom.css?5" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/dev.css" type="text/css" />
+    <link rel="shortcut icon" href="../../_static/logo.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+        <script src="../../_static/tabs.js"></script>
+        <script src="../../_static/js/custom.js?3"></script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+        <script defer="defer" src="../../_static/js/algolia.js"></script>
+    <script src="../../_static/js/theme.js"></script><meta name="theme-color" content="#3d8fcc">
+  
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<meta name="doc_version" content="latest">
+<meta name="doc_is_latest" content="">
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html">
+            <img src="../../_static/SVG-03.svg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                latest
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Installation.html#step-1-download-prep-shot">Step 1: Download PREP-SHOT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Installation.html#step-2-install-dependencies">Step 2: Install dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Installation.html#step-3-run-an-example-optional">Step 3: Run an example (Optional)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Installation.html#step-4-run-your-own-model">Step 4: Run your own model</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Model_input_output.html">Model Inputs/Outputs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Model_input_output.html#inputs">Inputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Model_input_output.html#outputs">Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Model_input_output.html#execute-various-scenarios">Execute various scenarios</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Model_input_output.html#setting-global-parameters">Setting global parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Tutorial.html">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorial.html#scenario-background">Scenario Background</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Mathematical_notations.html">Mathematical Notation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Mathematical_notations.html#unit-list">Unit List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Mathematical_notations.html#set-list">Set List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Mathematical_notations.html#variable-list">Variable List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Mathematical_notations.html#parameter-list">Parameter List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Mathematical_notations.html#objective-functions">Objective Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Mathematical_notations.html#costs">Costs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Mathematical_notations.html#factors">Factors</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../Mathematical_notations.html#constraints">Constraints</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Mathematical_notations.html#retirement">Retirement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Mathematical_notations.html#carbon-emission">Carbon Emission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Mathematical_notations.html#power-balance">Power Balance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Mathematical_notations.html#transmission">Transmission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Mathematical_notations.html#power-output">Power Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Mathematical_notations.html#power-output-variation">Power output variation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Mathematical_notations.html#energy-storage">Energy storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Mathematical_notations.html#water-balance">Water balance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Mathematical_notations.html#reservoir-outflow">Reservoir outflow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Mathematical_notations.html#reservoir-storage">Reservoir storage</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Forum.html">Discussion</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Forum.html#github-discussions">GitHub Discussions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Forum.html#private-queries">Private Queries</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Contribution.html">Contribution</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Contribution.html#development-process">Development Process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Contribution.html#building-documentation">Building Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Contribution.html#contributing-guidelines">Contributing Guidelines</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-0-1-0-jun-24-2024">Version 0.1.0 - Jun 24, 2024</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-0-1-1-jul-11-2024">Version 0.1.1 - Jul 11, 2024</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#added">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#fixed">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#changed">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#deprecated">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-0-1-2-jul-22-2024">Version 0.1.2 - Jul 22, 2024</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id2">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id3">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id4">Changed</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/prepshot.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api/prepshot.set_up.html">set_up</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.set_up.html#prepshot.set_up.initialize_environment"><code class="docutils literal notranslate"><span class="pre">initialize_environment()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.set_up.html#prepshot.set_up.parse_cli_arguments"><code class="docutils literal notranslate"><span class="pre">parse_cli_arguments()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/prepshot.logs.html">logs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.logs.html#prepshot.logs.log_parameter_info"><code class="docutils literal notranslate"><span class="pre">log_parameter_info()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.logs.html#prepshot.logs.setup_logging"><code class="docutils literal notranslate"><span class="pre">setup_logging()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.logs.html#prepshot.logs.timer"><code class="docutils literal notranslate"><span class="pre">timer()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/prepshot.load_data.html">load_data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.load_data.html#prepshot.load_data.compute_cost_factors"><code class="docutils literal notranslate"><span class="pre">compute_cost_factors()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.load_data.html#prepshot.load_data.extract_config_data"><code class="docutils literal notranslate"><span class="pre">extract_config_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.load_data.html#prepshot.load_data.extract_sets"><code class="docutils literal notranslate"><span class="pre">extract_sets()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.load_data.html#prepshot.load_data.load_excel_data"><code class="docutils literal notranslate"><span class="pre">load_excel_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.load_data.html#prepshot.load_data.load_json"><code class="docutils literal notranslate"><span class="pre">load_json()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.load_data.html#prepshot.load_data.process_data"><code class="docutils literal notranslate"><span class="pre">process_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.load_data.html#prepshot.load_data.read_excel"><code class="docutils literal notranslate"><span class="pre">read_excel()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/prepshot.solver.html">solver</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.solver.html#prepshot.solver.get_solver"><code class="docutils literal notranslate"><span class="pre">get_solver()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.solver.html#prepshot.solver.set_solver_parameters"><code class="docutils literal notranslate"><span class="pre">set_solver_parameters()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.solver.html#prepshot.solver.solve_model"><code class="docutils literal notranslate"><span class="pre">solve_model()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/prepshot.model.html">model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.model.html#prepshot.model.create_model"><code class="docutils literal notranslate"><span class="pre">create_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.model.html#prepshot.model.define_basic_sets"><code class="docutils literal notranslate"><span class="pre">define_basic_sets()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.model.html#prepshot.model.define_complex_sets"><code class="docutils literal notranslate"><span class="pre">define_complex_sets()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.model.html#prepshot.model.define_constraints"><code class="docutils literal notranslate"><span class="pre">define_constraints()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.model.html#prepshot.model.define_model"><code class="docutils literal notranslate"><span class="pre">define_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.model.html#prepshot.model.define_variables"><code class="docutils literal notranslate"><span class="pre">define_variables()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/prepshot._model.html">constraints</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot._model.co2.html">co2</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/prepshot._model.co2.html#prepshot._model.co2.AddCo2EmissionConstraints"><code class="docutils literal notranslate"><span class="pre">AddCo2EmissionConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot._model.cost.html">cost</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/prepshot._model.cost.html#prepshot._model.cost.AddCostObjective"><code class="docutils literal notranslate"><span class="pre">AddCostObjective</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot._model.demand.html">demand</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/prepshot._model.demand.html#prepshot._model.demand.AddDemandConstraints"><code class="docutils literal notranslate"><span class="pre">AddDemandConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot._model.generation.html">generation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/prepshot._model.generation.html#prepshot._model.generation.AddGenerationConstraints"><code class="docutils literal notranslate"><span class="pre">AddGenerationConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot._model.head_iteration.html">head_iteration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/prepshot._model.head_iteration.html#prepshot._model.head_iteration.compute_error"><code class="docutils literal notranslate"><span class="pre">compute_error()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/prepshot._model.head_iteration.html#prepshot._model.head_iteration.initialize_waterhead"><code class="docutils literal notranslate"><span class="pre">initialize_waterhead()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/prepshot._model.head_iteration.html#prepshot._model.head_iteration.process_model_solution"><code class="docutils literal notranslate"><span class="pre">process_model_solution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/prepshot._model.head_iteration.html#prepshot._model.head_iteration.run_model_iteration"><code class="docutils literal notranslate"><span class="pre">run_model_iteration()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot._model.hydro.html">hydro</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/prepshot._model.hydro.html#prepshot._model.hydro.AddHydropowerConstraints"><code class="docutils literal notranslate"><span class="pre">AddHydropowerConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot._model.investment.html">investment</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/prepshot._model.investment.html#prepshot._model.investment.AddInvestmentConstraints"><code class="docutils literal notranslate"><span class="pre">AddInvestmentConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot._model.nondispatchable.html">nondispatchable</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/prepshot._model.nondispatchable.html#prepshot._model.nondispatchable.AddNondispatchableConstraints"><code class="docutils literal notranslate"><span class="pre">AddNondispatchableConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot._model.storage.html">storage</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/prepshot._model.storage.html#prepshot._model.storage.AddStorageConstraints"><code class="docutils literal notranslate"><span class="pre">AddStorageConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot._model.transmission.html">transmission</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/prepshot._model.transmission.html#prepshot._model.transmission.AddTransmissionConstraints"><code class="docutils literal notranslate"><span class="pre">AddTransmissionConstraints</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/prepshot.utils.html">utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.utils.html#prepshot.utils.calc_cost_factor"><code class="docutils literal notranslate"><span class="pre">calc_cost_factor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.utils.html#prepshot.utils.calc_inv_cost_factor"><code class="docutils literal notranslate"><span class="pre">calc_inv_cost_factor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.utils.html#prepshot.utils.cartesian_product"><code class="docutils literal notranslate"><span class="pre">cartesian_product()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.utils.html#prepshot.utils.check_positive"><code class="docutils literal notranslate"><span class="pre">check_positive()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.utils.html#prepshot.utils.interpolate_z_by_q_or_s"><code class="docutils literal notranslate"><span class="pre">interpolate_z_by_q_or_s()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/prepshot.output_data.html">output_data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.output_data.html#prepshot.output_data.create_data_array"><code class="docutils literal notranslate"><span class="pre">create_data_array()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.output_data.html#prepshot.output_data.extract_results_hydro"><code class="docutils literal notranslate"><span class="pre">extract_results_hydro()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.output_data.html#prepshot.output_data.extract_results_non_hydro"><code class="docutils literal notranslate"><span class="pre">extract_results_non_hydro()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.output_data.html#prepshot.output_data.save_result"><code class="docutils literal notranslate"><span class="pre">save_result()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.output_data.html#prepshot.output_data.save_to_excel"><code class="docutils literal notranslate"><span class="pre">save_to_excel()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.output_data.html#prepshot.output_data.update_output_filename"><code class="docutils literal notranslate"><span class="pre">update_output_filename()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Citations.html">Citation Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Citations.html#publications-by-topic">Publications by Topic</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../References.html">References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">PREP-SHOT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+<li>
+	<div style="font-size: 105%;font-weight: 600;">
+		
+	</div>
+	<ul class="wy-breadcrumbs">
+		
+      <li><a href="../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">prepshot.utils</li>
+	</ul>
+</li>
+
+
+<li style="float: right; text-align: right;">
+	<ul>
+		
+      <li class="wy-breadcrumbs-aside">
+      </li>
+	</ul>
+
+	<style>
+		.godot-edit-guidelines {
+			font-size: 14px;
+			float: right;
+			clear: both;
+			padding-top: 4px;
+		}
+
+		@media screen and (max-width: 480px) {
+			.godot-edit-guidelines {
+				display: none;
+			}
+		}
+	</style>
+	<a class="godot-edit-guidelines" href="https://prep-next.github.io/PREP-SHOT/Changelog.html#contributing-to-prep-shot">
+		Learn how to contribute!
+	</a>
+</li>
+
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+<div itemprop="articleBody">
+  
+
+  
+  <h1>Source code for prepshot.utils</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="sd">&quot;&quot;&quot;This module contains utility functions for the model.</span>
+
+<span class="sd">Here, we determine factors to covert future value to present value for costs</span>
+<span class="sd">and benefits. To account for the variable factor, fixed factor, and capital</span>
+<span class="sd">factor, we need to convert all future costs to their net present value.</span>
+<span class="sd">This means adjusting for the time value of money so that all costs are</span>
+<span class="sd">expressed in terms of today&#39;s dollars. </span>
+
+<span class="sd">We also assume that variable cost and fixed cost for non-modelled years are</span>
+<span class="sd">assumed to be equal to the cost of the last modelled year preceding them.</span>
+<span class="sd">This allows for consistent comparison across different time periods and</span>
+<span class="sd">technologies.</span>
+
+<span class="sd">**Variable Factor**</span>
+
+<span class="sd">.. image:: ../_static/varcost.png</span>
+<span class="sd">  :width: 278</span>
+<span class="sd">  :align: center</span>
+<span class="sd">  :alt: Calculation of variable costs</span>
+
+<span class="sd">Given the following:</span>
+
+<span class="sd">* Variable cost of modeled year: :math:`B`</span>
+<span class="sd">* Discount rate: :math:`r`</span>
+<span class="sd">* :math:`m`-th modeled year: :math:`m = y - y_\\text{min}`</span>
+<span class="sd">* Depreciation periods: :math:`n`</span>
+
+<span class="sd">The total present value can be calculated as follows:</span>
+
+<span class="sd">.. math::</span>
+<span class="sd">    :nowrap:</span>
+<span class="sd">    </span>
+<span class="sd">    \\begin{align}</span>
+<span class="sd">    \\text{total present value} &amp;= \\frac{B}{(1+r)^m} + \\frac{B}{(1+r)^{m+1}}</span>
+<span class="sd">    + \\cdots + \\frac{B}{(1+r)^{(m+k-1)}} \\\\</span>
+<span class="sd">    &amp;= B(1+r)^{(1-m)}\\frac{1-(1+r)^k}{r}</span>
+<span class="sd">    \\end{align}</span>
+
+<span class="sd">And we can calculate the variable factor as follows:</span>
+
+<span class="sd">.. math::</span>
+<span class="sd">    :nowrap:</span>
+<span class="sd">    </span>
+<span class="sd">    \\begin{align}</span>
+<span class="sd">    \\text{factor}_{y}^{var} &amp;= (1+r)^{1-m_y}\\frac{1-(1+r)^{k_y}}{r} \\\\</span>
+<span class="sd">    m_{y} &amp;= y - y_\\text{min} \\\\</span>
+<span class="sd">    k_{y} &amp;= y_\\text{periods}</span>
+<span class="sd">    \\end{align}</span>
+
+<span class="sd">**Fixed Factor**</span>
+
+<span class="sd">We can equate the fixed factor with the variable factor as follows:</span>
+
+<span class="sd">.. math:: \\text{factor}_{y}^\\text{fix} = factor_{y}^\\text{var}</span>
+
+<span class="sd">**Investment Factor**</span>
+
+<span class="sd">.. image:: ../_static/invcost.png</span>
+<span class="sd">  :width: 400</span>
+<span class="sd">  :align: center</span>
+<span class="sd">  :alt: Calculation of investment costs</span>
+
+<span class="sd">Given the following:</span>
+
+<span class="sd">* Weighted Average Cost of Capital</span>
+<span class="sd">  (WACC, or otherwise known as the interest rate): :math:`i`</span>
+<span class="sd">* Discount rate: :math:`r`</span>
+<span class="sd">* :math:`m`-th modeled year: :math:`m = y - y_\\text{min}`</span>
+<span class="sd">* Length of :math:`m`-th planning periods: :math:`k`</span>
+
+<span class="sd">The total present value can be calculated as follows:</span>
+
+<span class="sd">.. math::</span>
+<span class="sd">    :nowrap:</span>
+<span class="sd">    </span>
+<span class="sd">    \\begin{align}</span>
+<span class="sd">    \\text{total present value} &amp;= \\frac{P}{(1+r)^m} \\\\</span>
+<span class="sd">    &amp;= \\frac{\\frac{A}{(1+i)} + \\frac{A}{(1+i)^2} + \\cdots</span>
+<span class="sd">    + \\frac{A}{(1+i)^n}}{(1+r)^m} \\\\</span>
+<span class="sd">    &amp;= A\\frac{1-(1+i)^{-n}}{i}\\times\\frac{1}{(1+r)^m}</span>
+<span class="sd">    \\end{align}</span>
+
+<span class="sd">From the above, we can solve for the annualized cost of depreciation periods,</span>
+<span class="sd">:math:`A`, as:</span>
+
+<span class="sd">.. math::</span>
+
+<span class="sd">    A = P\\frac{i}{1-(1+i)^{-n}}</span>
+
+<span class="sd">The capital recovery factor is then calculated as:</span>
+
+<span class="sd">.. math::</span>
+
+<span class="sd">    \\text{capital recovery factor} = \\frac{i}{1-(1+i)^{-n}}</span>
+
+<span class="sd">Let&#39;s focus on the time periods that fall within the modelled time horizon</span>
+<span class="sd">(indicated in black colour).</span>
+<span class="sd">We can calculate the length of time periods, :math:`k`, as follows:</span>
+
+<span class="sd">.. math::</span>
+
+<span class="sd">    k = y_{max} - y</span>
+
+<span class="sd">Using :math:`k`, we can calculate the net present value as follows:</span>
+
+<span class="sd">.. math::</span>
+
+<span class="sd">    \\text{net present value} =</span>
+<span class="sd">    \\begin{cases} </span>
+<span class="sd">    \\frac{\\frac{A}{(1+r)} + \\frac{A}{(1+r)^2} + \\cdots </span>
+<span class="sd">    + \\frac{A}{(1+r)^{min(n, k)}}}{(1+r)^m} \\text{if} \\quad n \\le k \\\\</span>
+<span class="sd">    \\text{total present value}\\quad \\text{if }n &gt; k \\\\</span>
+<span class="sd">    \\frac{A\\frac{1-(1+r)^{-k}}{r}}{(1+r)^m} = P\\frac{i}{1-(1+i)^{-n}}\\times</span>
+<span class="sd">    \\frac{1-(1+r)^{-k}}{r(1+r)^m} &amp; \\text{otherwise}</span>
+<span class="sd">    \\end{cases}</span>
+
+<span class="sd">And we can calculate the investment factor as follows:</span>
+
+<span class="sd">.. math::</span>
+
+<span class="sd">    factor_{y}^{inv} = \\frac{i}{1-(1+i)^{-n}}\\times</span>
+<span class="sd">    \\frac{1-(1+r)^{-min(n,k)}}{r(1+r)^m}</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">List</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">product</span>
+
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">interpolate</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<div class="viewcode-block" id="check_positive"><a class="viewcode-back" href="../../api/prepshot.utils.html#prepshot.utils.check_positive">[docs]</a><span class="k">def</span> <span class="nf">check_positive</span><span class="p">(</span><span class="o">*</span><span class="n">values</span> <span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Ensure all values are greater than 0.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    values : Union[int, float]</span>
+<span class="sd">        Values to be checked.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If any value is less than or equal to 0.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;All arguments must be greater than 0.&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="calc_inv_cost_factor"><a class="viewcode-back" href="../../api/prepshot.utils.html#prepshot.utils.calc_inv_cost_factor">[docs]</a><span class="k">def</span> <span class="nf">calc_inv_cost_factor</span><span class="p">(</span>
+    <span class="n">dep_period</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">interest_rate</span> <span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">year_built</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">discount_rate</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">year_min</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">year_max</span> <span class="p">:</span> <span class="nb">int</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute the investment cost factor. When the depreciation period is</span>
+<span class="sd">    greater than the planning horizon, the investment cost factor is calculated</span>
+<span class="sd">    by only considering the period within the planning horizon.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    dep_period : int</span>
+<span class="sd">        Depreciation period, in years, i.e., lifetime of the infrastructure.</span>
+<span class="sd">    interest_rate : float</span>
+<span class="sd">        Interest rate.</span>
+<span class="sd">    year_built : int</span>
+<span class="sd">        Year of investment.</span>
+<span class="sd">    discount_rate : float</span>
+<span class="sd">        Discount rate.</span>
+<span class="sd">    year_min : int</span>
+<span class="sd">        Minimum year, i.e., the first year of the planning horizon.</span>
+<span class="sd">    year_max : int</span>
+<span class="sd">        Maximum year, i.e., the last year of the planning horizon.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        Investment cost factor.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If year_max &lt;= year_min, year_max &lt; year_built, or </span>
+<span class="sd">        year_built &lt; year_min.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    Given a depreciation period of 20 years, interest rate of 0.05, year of</span>
+<span class="sd">    investment in 2025, discount rate of 0.05, planning horizon from 2020 to</span>
+<span class="sd">    2050, compute the investment cost factor:</span>
+
+<span class="sd">    &gt;&gt;&gt; calc_inv_cost_factor(20, 0.05, 2025, 0.05, 2020, 2050)</span>
+<span class="sd">    0.783526</span>
+<span class="sd">    </span>
+<span class="sd">    If the depreciation perios is 100 years, compute the investment cost factor</span>
+<span class="sd">    for the same scenario:</span>
+<span class="sd">    </span>
+<span class="sd">    &gt;&gt;&gt; calc_inv_cost_factor(100, 0.05, 2025, 0.05, 2020, 2050)</span>
+<span class="sd">    0.567482</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">check_positive</span><span class="p">(</span><span class="n">dep_period</span><span class="p">,</span> <span class="n">interest_rate</span><span class="p">,</span> <span class="n">year_built</span><span class="p">,</span> <span class="n">year_min</span><span class="p">,</span> <span class="n">year_max</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">year_max</span> <span class="o">&lt;</span> <span class="n">year_min</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">year_max</span> <span class="o">&lt;</span> <span class="n">year_built</span><span class="p">)</span>                      \
+        <span class="ow">or</span> <span class="p">(</span><span class="n">year_built</span> <span class="o">&lt;</span> <span class="n">year_min</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid year values.&quot;</span><span class="p">)</span>
+
+    <span class="n">years_since_min</span> <span class="o">=</span> <span class="n">year_built</span> <span class="o">-</span> <span class="n">year_min</span>
+    <span class="n">years_to_max</span> <span class="o">=</span> <span class="n">year_max</span> <span class="o">-</span> <span class="n">year_built</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">interest_rate</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">interest_rate</span><span class="p">)</span> <span class="o">**</span> <span class="p">(</span><span class="o">-</span><span class="n">dep_period</span><span class="p">))</span>
+             <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">discount_rate</span><span class="p">)</span> <span class="o">**</span> <span class="p">(</span><span class="o">-</span><span class="nb">min</span><span class="p">(</span><span class="n">dep_period</span><span class="p">,</span> <span class="n">years_to_max</span><span class="p">)))</span>
+             <span class="o">/</span> <span class="p">(</span><span class="n">discount_rate</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">discount_rate</span><span class="p">)</span> <span class="o">**</span> <span class="n">years_since_min</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="calc_cost_factor"><a class="viewcode-back" href="../../api/prepshot.utils.html#prepshot.utils.calc_cost_factor">[docs]</a><span class="k">def</span> <span class="nf">calc_cost_factor</span><span class="p">(</span>
+    <span class="n">discount_rate</span> <span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">modeled_year</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">year_min</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">next_modeled_year</span> <span class="p">:</span> <span class="nb">int</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute the variable and fixed cost factor while considering the </span>
+<span class="sd">    multi-stage planning horizon.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    discount_rate : float</span>
+<span class="sd">        The discount rate to apply.</span>
+<span class="sd">    modeled_year : int</span>
+<span class="sd">        The year in which the cost occurs.</span>
+<span class="sd">    year_min : int</span>
+<span class="sd">        The first year of the planning horizon. All costs are discounted to </span>
+<span class="sd">        this year.</span>
+<span class="sd">    next_modeled_year : int</span>
+<span class="sd">        The subsequent modeled year. The cost incurred bewteen modeled_year</span>
+<span class="sd">        and modeled_year and next_modeled_year is calculated.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        The computed cost factor.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        if next_modeled_year &lt; modeled_year.</span>
+<span class="sd">        </span>
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    Given annual cost incurred in 2025, next_modeled_year = 2030, and starting</span>
+<span class="sd">    year = 2020, compute present value in 2020 of the cost incurred in </span>
+<span class="sd">    2025-2029:</span>
+
+<span class="sd">    &gt;&gt;&gt; calc_cost_factor(0.05, 2025, 2020, 2030)</span>
+<span class="sd">    3.561871</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">check_positive</span><span class="p">(</span><span class="n">discount_rate</span><span class="p">,</span> <span class="n">modeled_year</span><span class="p">,</span> <span class="n">year_min</span><span class="p">,</span> <span class="n">next_modeled_year</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">next_modeled_year</span> <span class="o">&lt;=</span> <span class="n">modeled_year</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;Next modeled year must be greater than or&quot;</span> 
+            <span class="o">+</span> <span class="s2">&quot;equal to the current modeled year.&quot;</span>
+        <span class="p">)</span>
+
+    <span class="n">years_since_min</span> <span class="o">=</span> <span class="n">modeled_year</span> <span class="o">-</span> <span class="n">year_min</span>
+    <span class="n">years_to_next</span> <span class="o">=</span> <span class="n">next_modeled_year</span> <span class="o">-</span> <span class="n">modeled_year</span>
+    <span class="k">return</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">discount_rate</span><span class="p">)</span> <span class="o">**</span> <span class="p">(</span><span class="o">-</span><span class="n">years_to_next</span><span class="p">))</span>                      \
+        <span class="o">/</span> <span class="p">(</span><span class="n">discount_rate</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">discount_rate</span><span class="p">)</span> <span class="o">**</span> <span class="p">(</span><span class="n">years_since_min</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="interpolate_z_by_q_or_s"><a class="viewcode-back" href="../../api/prepshot.utils.html#prepshot.utils.interpolate_z_by_q_or_s">[docs]</a><span class="k">def</span> <span class="nf">interpolate_z_by_q_or_s</span><span class="p">(</span>
+    <span class="n">name</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">qs</span> <span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+    <span class="n">zqv</span> <span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Interpolate forebay water level (Z) by reservoir storage (S) or tailrace</span>
+<span class="sd">    water level (Z) by the reservoir outflow (Q).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    name : str</span>
+<span class="sd">        Code of the hydropower station.</span>
+<span class="sd">    qs : Union[np.ndarray, float]</span>
+<span class="sd">        Reservoir storage or outflow values. </span>
+<span class="sd">    zqv : pandas.DataFrame</span>
+<span class="sd">        DataFrame of ZQ or ZV values.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Union[np.ndarray, float]</span>
+<span class="sd">        Interpolated values.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">zqv_station</span> <span class="o">=</span> <span class="n">zqv</span><span class="p">[(</span><span class="n">zqv</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="nb">int</span><span class="p">(</span><span class="n">name</span><span class="p">))</span> <span class="o">|</span> <span class="p">(</span><span class="n">zqv</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="nb">str</span><span class="p">(</span><span class="n">name</span><span class="p">))]</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">zqv_station</span><span class="o">.</span><span class="n">Q</span> <span class="k">if</span> <span class="s1">&#39;Q&#39;</span> <span class="ow">in</span> <span class="n">zqv_station</span><span class="o">.</span><span class="n">columns</span> <span class="k">else</span> <span class="n">zqv_station</span><span class="o">.</span><span class="n">V</span>
+    <span class="n">f_zqv</span> <span class="o">=</span> <span class="n">interpolate</span><span class="o">.</span><span class="n">interp1d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">zqv_station</span><span class="o">.</span><span class="n">Z</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="s1">&#39;extrapolate&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">f_zqv</span><span class="p">(</span><span class="n">qs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="cartesian_product"><a class="viewcode-back" href="../../api/prepshot.utils.html#prepshot.utils.cartesian_product">[docs]</a><span class="k">def</span> <span class="nf">cartesian_product</span><span class="p">(</span>
+    <span class="o">*</span><span class="n">args</span> <span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate cartesian product of input iterables.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    args : List[Union[int, str]]</span>
+<span class="sd">        Iterables to be combined.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    List[Tuple[Union[int, str]]]</span>
+<span class="sd">        List of tuples representing the Cartesian product.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    Combine two lists [1, 2] and [7, 8]:</span>
+
+<span class="sd">    &gt;&gt;&gt; cartesian_product([1, 2], [7, 8])</span>
+<span class="sd">    [(1, 7), (1, 8), (2, 7), (2, 8)]</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">product</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">))</span></div>
+</pre></div>
+
+</div>
+</div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023-2025, Zhanwei Liu and Xiaogang He (GPL-3.0).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<!-- , "de":"#", "es":"#", "fr":"#" -->
+
+
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Read the Docs</span>
+    <!-- v: latest () -->
+    <!-- v: 0.1 -->
+    latest
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    
+
+    <dl>
+      <dt>Languages</dt>
+      
+        <dd><a href="#">en</a></dd>
+      
+    </dl>
+    <!-- <dl>
+      <dt>Versions</dt>
+      
+        <dd><a href="#">stable</a></dd>
+      
+        <dd><a href="#">latest</a></dd>
+      
+    </dl> -->
+    <dl>
+      
+      <dt>On Read the Docs</dt>
+        <dd>
+          <a href="https://github.com/PREP-NexT/PREP-SHOT/tree/main">Project Home</a>
+        </dd>
+        <!-- <dd>
+          <a href="///projects//builds/">Builds</a>
+        </dd> -->
+        <dd>
+          <a href="https://github.com/PREP-NexT/PREP-SHOT/raw/gh-pages/_static/PREP-SHOT.pdf">PDF</a>
+        </dd>
+    </dl>
+
+    <hr>
+    <small>
+      <span>Hosted by <a href="https://readthedocs.org">Read the Docs</a></span>
+      <span> · </span>
+      <a href="https://docs.readthedocs.io/page/privacy-policy.html">Privacy Policy</a>
+    </small>
+
+    
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

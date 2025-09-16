@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>prepshot.model &mdash; PREP-SHOT (latest) documentation in English</title>
+
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/tabs.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/algolia.css" type="text/css" />
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/custom.css?5" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/dev.css" type="text/css" />
+    <link rel="shortcut icon" href="../../_static/logo.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+        <script src="../../_static/tabs.js"></script>
+        <script src="../../_static/js/custom.js?3"></script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+        <script defer="defer" src="../../_static/js/algolia.js"></script>
+    <script src="../../_static/js/theme.js"></script><meta name="theme-color" content="#3d8fcc">
+  
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<meta name="doc_version" content="latest">
+<meta name="doc_is_latest" content="">
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html">
+            <img src="../../_static/SVG-03.svg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                latest
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Installation.html#step-1-download-prep-shot">Step 1: Download PREP-SHOT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Installation.html#step-2-install-dependencies">Step 2: Install dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Installation.html#step-3-run-an-example-optional">Step 3: Run an example (Optional)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Installation.html#step-4-run-your-own-model">Step 4: Run your own model</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Model_input_output.html">Model Inputs/Outputs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Model_input_output.html#inputs">Inputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Model_input_output.html#outputs">Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Model_input_output.html#execute-various-scenarios">Execute various scenarios</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Model_input_output.html#setting-global-parameters">Setting global parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Tutorial.html">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Tutorial.html#scenario-background">Scenario Background</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Mathematical_notations.html">Mathematical Notation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Mathematical_notations.html#unit-list">Unit List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Mathematical_notations.html#set-list">Set List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Mathematical_notations.html#variable-list">Variable List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Mathematical_notations.html#parameter-list">Parameter List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Mathematical_notations.html#objective-functions">Objective Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Mathematical_notations.html#costs">Costs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Mathematical_notations.html#factors">Factors</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../Mathematical_notations.html#constraints">Constraints</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Mathematical_notations.html#retirement">Retirement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Mathematical_notations.html#carbon-emission">Carbon Emission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Mathematical_notations.html#power-balance">Power Balance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Mathematical_notations.html#transmission">Transmission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Mathematical_notations.html#power-output">Power Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Mathematical_notations.html#power-output-variation">Power output variation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Mathematical_notations.html#energy-storage">Energy storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Mathematical_notations.html#water-balance">Water balance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Mathematical_notations.html#reservoir-outflow">Reservoir outflow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Mathematical_notations.html#reservoir-storage">Reservoir storage</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Forum.html">Discussion</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Forum.html#github-discussions">GitHub Discussions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Forum.html#private-queries">Private Queries</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Contribution.html">Contribution</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Contribution.html#development-process">Development Process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Contribution.html#building-documentation">Building Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Contribution.html#contributing-guidelines">Contributing Guidelines</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-0-1-0-jun-24-2024">Version 0.1.0 - Jun 24, 2024</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-0-1-1-jul-11-2024">Version 0.1.1 - Jul 11, 2024</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#added">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#fixed">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#changed">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#deprecated">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-0-1-2-jul-22-2024">Version 0.1.2 - Jul 22, 2024</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id2">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id3">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id4">Changed</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/prepshot.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api/prepshot.set_up.html">set_up</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.set_up.html#prepshot.set_up.initialize_environment"><code class="docutils literal notranslate"><span class="pre">initialize_environment()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.set_up.html#prepshot.set_up.parse_cli_arguments"><code class="docutils literal notranslate"><span class="pre">parse_cli_arguments()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/prepshot.logs.html">logs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.logs.html#prepshot.logs.log_parameter_info"><code class="docutils literal notranslate"><span class="pre">log_parameter_info()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.logs.html#prepshot.logs.setup_logging"><code class="docutils literal notranslate"><span class="pre">setup_logging()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.logs.html#prepshot.logs.timer"><code class="docutils literal notranslate"><span class="pre">timer()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/prepshot.load_data.html">load_data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.load_data.html#prepshot.load_data.compute_cost_factors"><code class="docutils literal notranslate"><span class="pre">compute_cost_factors()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.load_data.html#prepshot.load_data.extract_config_data"><code class="docutils literal notranslate"><span class="pre">extract_config_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.load_data.html#prepshot.load_data.extract_sets"><code class="docutils literal notranslate"><span class="pre">extract_sets()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.load_data.html#prepshot.load_data.load_excel_data"><code class="docutils literal notranslate"><span class="pre">load_excel_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.load_data.html#prepshot.load_data.load_json"><code class="docutils literal notranslate"><span class="pre">load_json()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.load_data.html#prepshot.load_data.process_data"><code class="docutils literal notranslate"><span class="pre">process_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.load_data.html#prepshot.load_data.read_excel"><code class="docutils literal notranslate"><span class="pre">read_excel()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/prepshot.solver.html">solver</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.solver.html#prepshot.solver.get_solver"><code class="docutils literal notranslate"><span class="pre">get_solver()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.solver.html#prepshot.solver.set_solver_parameters"><code class="docutils literal notranslate"><span class="pre">set_solver_parameters()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.solver.html#prepshot.solver.solve_model"><code class="docutils literal notranslate"><span class="pre">solve_model()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/prepshot.model.html">model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.model.html#prepshot.model.create_model"><code class="docutils literal notranslate"><span class="pre">create_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.model.html#prepshot.model.define_basic_sets"><code class="docutils literal notranslate"><span class="pre">define_basic_sets()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.model.html#prepshot.model.define_complex_sets"><code class="docutils literal notranslate"><span class="pre">define_complex_sets()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.model.html#prepshot.model.define_constraints"><code class="docutils literal notranslate"><span class="pre">define_constraints()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.model.html#prepshot.model.define_model"><code class="docutils literal notranslate"><span class="pre">define_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.model.html#prepshot.model.define_variables"><code class="docutils literal notranslate"><span class="pre">define_variables()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/prepshot._model.html">constraints</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot._model.co2.html">co2</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/prepshot._model.co2.html#prepshot._model.co2.AddCo2EmissionConstraints"><code class="docutils literal notranslate"><span class="pre">AddCo2EmissionConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot._model.cost.html">cost</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/prepshot._model.cost.html#prepshot._model.cost.AddCostObjective"><code class="docutils literal notranslate"><span class="pre">AddCostObjective</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot._model.demand.html">demand</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/prepshot._model.demand.html#prepshot._model.demand.AddDemandConstraints"><code class="docutils literal notranslate"><span class="pre">AddDemandConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot._model.generation.html">generation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/prepshot._model.generation.html#prepshot._model.generation.AddGenerationConstraints"><code class="docutils literal notranslate"><span class="pre">AddGenerationConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot._model.head_iteration.html">head_iteration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/prepshot._model.head_iteration.html#prepshot._model.head_iteration.compute_error"><code class="docutils literal notranslate"><span class="pre">compute_error()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/prepshot._model.head_iteration.html#prepshot._model.head_iteration.initialize_waterhead"><code class="docutils literal notranslate"><span class="pre">initialize_waterhead()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/prepshot._model.head_iteration.html#prepshot._model.head_iteration.process_model_solution"><code class="docutils literal notranslate"><span class="pre">process_model_solution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/prepshot._model.head_iteration.html#prepshot._model.head_iteration.run_model_iteration"><code class="docutils literal notranslate"><span class="pre">run_model_iteration()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot._model.hydro.html">hydro</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/prepshot._model.hydro.html#prepshot._model.hydro.AddHydropowerConstraints"><code class="docutils literal notranslate"><span class="pre">AddHydropowerConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot._model.investment.html">investment</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/prepshot._model.investment.html#prepshot._model.investment.AddInvestmentConstraints"><code class="docutils literal notranslate"><span class="pre">AddInvestmentConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot._model.nondispatchable.html">nondispatchable</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/prepshot._model.nondispatchable.html#prepshot._model.nondispatchable.AddNondispatchableConstraints"><code class="docutils literal notranslate"><span class="pre">AddNondispatchableConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot._model.storage.html">storage</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/prepshot._model.storage.html#prepshot._model.storage.AddStorageConstraints"><code class="docutils literal notranslate"><span class="pre">AddStorageConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot._model.transmission.html">transmission</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/prepshot._model.transmission.html#prepshot._model.transmission.AddTransmissionConstraints"><code class="docutils literal notranslate"><span class="pre">AddTransmissionConstraints</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/prepshot.utils.html">utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.utils.html#prepshot.utils.calc_cost_factor"><code class="docutils literal notranslate"><span class="pre">calc_cost_factor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.utils.html#prepshot.utils.calc_inv_cost_factor"><code class="docutils literal notranslate"><span class="pre">calc_inv_cost_factor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.utils.html#prepshot.utils.cartesian_product"><code class="docutils literal notranslate"><span class="pre">cartesian_product()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.utils.html#prepshot.utils.check_positive"><code class="docutils literal notranslate"><span class="pre">check_positive()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.utils.html#prepshot.utils.interpolate_z_by_q_or_s"><code class="docutils literal notranslate"><span class="pre">interpolate_z_by_q_or_s()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/prepshot.output_data.html">output_data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.output_data.html#prepshot.output_data.create_data_array"><code class="docutils literal notranslate"><span class="pre">create_data_array()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.output_data.html#prepshot.output_data.extract_results_hydro"><code class="docutils literal notranslate"><span class="pre">extract_results_hydro()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.output_data.html#prepshot.output_data.extract_results_non_hydro"><code class="docutils literal notranslate"><span class="pre">extract_results_non_hydro()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.output_data.html#prepshot.output_data.save_result"><code class="docutils literal notranslate"><span class="pre">save_result()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.output_data.html#prepshot.output_data.save_to_excel"><code class="docutils literal notranslate"><span class="pre">save_to_excel()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.output_data.html#prepshot.output_data.update_output_filename"><code class="docutils literal notranslate"><span class="pre">update_output_filename()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Citations.html">Citation Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Citations.html#publications-by-topic">Publications by Topic</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../References.html">References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">PREP-SHOT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+<li>
+	<div style="font-size: 105%;font-weight: 600;">
+		
+	</div>
+	<ul class="wy-breadcrumbs">
+		
+      <li><a href="../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">prepshot.model</li>
+	</ul>
+</li>
+
+
+<li style="float: right; text-align: right;">
+	<ul>
+		
+      <li class="wy-breadcrumbs-aside">
+      </li>
+	</ul>
+
+	<style>
+		.godot-edit-guidelines {
+			font-size: 14px;
+			float: right;
+			clear: both;
+			padding-top: 4px;
+		}
+
+		@media screen and (max-width: 480px) {
+			.godot-edit-guidelines {
+				display: none;
+			}
+		}
+	</style>
+	<a class="godot-edit-guidelines" href="https://prep-next.github.io/PREP-SHOT/Changelog.html#contributing-to-prep-shot">
+		Learn how to contribute!
+	</a>
+</li>
+
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+<div itemprop="articleBody">
+  
+
+  
+  <h1>Source code for prepshot.model</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="sd">&quot;&quot;&quot;This module defines the PREP-SHOT model. The model is created using </span>
+<span class="sd">the pyoptinterface library.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">prepshot.utils</span> <span class="kn">import</span> <span class="n">cartesian_product</span>
+<span class="kn">from</span> <span class="nn">prepshot._model.demand</span> <span class="kn">import</span> <span class="n">AddDemandConstraints</span>
+<span class="kn">from</span> <span class="nn">prepshot._model.generation</span> <span class="kn">import</span> <span class="n">AddGenerationConstraints</span>
+<span class="kn">from</span> <span class="nn">prepshot._model.cost</span> <span class="kn">import</span> <span class="n">AddCostObjective</span>
+<span class="kn">from</span> <span class="nn">prepshot._model.co2</span> <span class="kn">import</span> <span class="n">AddCo2EmissionConstraints</span>
+<span class="kn">from</span> <span class="nn">prepshot._model.hydro</span> <span class="kn">import</span> <span class="n">AddHydropowerConstraints</span>
+<span class="kn">from</span> <span class="nn">prepshot._model.storage</span> <span class="kn">import</span> <span class="n">AddStorageConstraints</span>
+<span class="kn">from</span> <span class="nn">prepshot._model.nondispatchable</span> <span class="kn">import</span> <span class="n">AddNondispatchableConstraints</span>
+<span class="kn">from</span> <span class="nn">prepshot._model.transmission</span> <span class="kn">import</span> <span class="n">AddTransmissionConstraints</span>
+<span class="kn">from</span> <span class="nn">prepshot._model.investment</span> <span class="kn">import</span> <span class="n">AddInvestmentConstraints</span>
+<span class="kn">from</span> <span class="nn">prepshot.logs</span> <span class="kn">import</span> <span class="n">timer</span>
+<span class="kn">from</span> <span class="nn">prepshot.solver</span> <span class="kn">import</span> <span class="n">get_solver</span>
+<span class="kn">from</span> <span class="nn">prepshot.solver</span> <span class="kn">import</span> <span class="n">set_solver_parameters</span>
+
+<div class="viewcode-block" id="define_model"><a class="viewcode-back" href="../../api/prepshot.model.html#prepshot.model.define_model">[docs]</a><span class="k">def</span> <span class="nf">define_model</span><span class="p">(</span>
+    <span class="n">params</span> <span class="p">:</span> <span class="nb">dict</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">object</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This function creates the model class depending on predefined solver.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    params : dict</span>
+<span class="sd">        parameters for the model</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    object</span>
+<span class="sd">        A pyoptinterface Model object depending on the solver</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        Unsupported or undefined solver</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">solver</span> <span class="o">=</span> <span class="n">get_solver</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">solver</span><span class="o">.</span><span class="n">Model</span><span class="p">()</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="n">params</span>
+    <span class="n">set_solver_parameters</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">model</span></div>
+
+<div class="viewcode-block" id="define_basic_sets"><a class="viewcode-back" href="../../api/prepshot.model.html#prepshot.model.define_basic_sets">[docs]</a><span class="k">def</span> <span class="nf">define_basic_sets</span><span class="p">(</span><span class="n">model</span> <span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Define sets for the model.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    model : object</span>
+<span class="sd">        Model object to be solved.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">params</span>
+    <span class="n">basic_sets</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">,</span> <span class="s2">&quot;zone&quot;</span><span class="p">,</span> <span class="s2">&quot;tech&quot;</span><span class="p">,</span> <span class="s2">&quot;hour&quot;</span><span class="p">,</span> <span class="s2">&quot;month&quot;</span><span class="p">]</span>
+    <span class="n">tech_types</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;storage&quot;</span><span class="p">,</span> <span class="s2">&quot;nondispatchable&quot;</span><span class="p">,</span> <span class="s2">&quot;dispatchable&quot;</span><span class="p">,</span> <span class="s2">&quot;hydro&quot;</span><span class="p">]</span>
+
+    <span class="n">model</span><span class="o">.</span><span class="n">tech_types</span> <span class="o">=</span> <span class="n">tech_types</span>
+    <span class="k">for</span> <span class="n">set_name</span> <span class="ow">in</span> <span class="n">basic_sets</span><span class="p">:</span>
+        <span class="nb">setattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">set_name</span><span class="p">,</span> <span class="n">params</span><span class="p">[</span><span class="n">set_name</span><span class="p">])</span>
+    <span class="c1"># TODO: Generate the hour_p set based on the hour set</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">hour_p</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;hour&#39;</span><span class="p">]</span>
+    <span class="n">tech_category</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;technology_type&#39;</span><span class="p">]</span>
+    <span class="c1"># tech_category: {</span>
+    <span class="c1">#    &#39;Coal&#39;: &#39;dispatchable&#39;,</span>
+    <span class="c1">#    &#39;Solar&#39;: &#39;nondispatchable&#39;,</span>
+    <span class="c1">#    ...</span>
+    <span class="c1"># }</span>
+    <span class="k">for</span> <span class="n">tech_type</span> <span class="ow">in</span> <span class="n">tech_types</span><span class="p">:</span>
+        <span class="n">tech_set</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">tech_category</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">v</span> <span class="o">==</span> <span class="n">tech_type</span><span class="p">]</span>
+        <span class="nb">setattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">tech_type</span><span class="si">}</span><span class="s2">_tech&quot;</span><span class="p">,</span> <span class="n">tech_set</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;isinflow&#39;</span><span class="p">]:</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">station</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;stcd&#39;</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="define_complex_sets"><a class="viewcode-back" href="../../api/prepshot.model.html#prepshot.model.define_complex_sets">[docs]</a><span class="k">def</span> <span class="nf">define_complex_sets</span><span class="p">(</span><span class="n">model</span> <span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create complex sets based on simple sets and some conditations. The</span>
+<span class="sd">    existing capacity between two zones is set to empty (i.e., No value is</span>
+<span class="sd">    filled in the Excel cell), which means that these two zones cannot have</span>
+<span class="sd">    newly built transmission lines. If you want to enable two zones which do</span>
+<span class="sd">    not have any existing transmission lines, to build new transmission lines</span>
+<span class="sd">    in the planning horizon, you need to set their capacity as zero explicitly.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    model : object</span>
+<span class="sd">        Model to be solved.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">trans_sets</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;transmission_line_existing_capacity&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">z_i</span><span class="p">,</span> <span class="n">z1_i</span> <span class="ow">in</span> <span class="n">cartesian_product</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">zone</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">zone</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">z_i</span><span class="p">,</span> <span class="n">z1_i</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">trans_sets</span><span class="p">:</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;transmission_line_existing_capacity&#39;</span><span class="p">][</span><span class="n">z_i</span><span class="p">,</span> <span class="n">z1_i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;transmission_line_efficiency&#39;</span><span class="p">][</span><span class="n">z_i</span><span class="p">,</span> <span class="n">z1_i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span></div>
+            <span class="c1"># TODO: Set the capacity of new transmission lines to 0</span>
+
+
+<div class="viewcode-block" id="define_variables"><a class="viewcode-back" href="../../api/prepshot.model.html#prepshot.model.define_variables">[docs]</a><span class="k">def</span> <span class="nf">define_variables</span><span class="p">(</span><span class="n">model</span> <span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Define variables for the model.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    model : object</span>
+<span class="sd">        Model to be solved.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">model</span><span class="o">.</span><span class="n">cap_newtech</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">add_variables</span><span class="p">(</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">zone</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">tech</span><span class="p">,</span> <span class="n">lb</span><span class="o">=</span><span class="mi">0</span>
+    <span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">cap_newline</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">add_variables</span><span class="p">(</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">zone</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">zone</span><span class="p">,</span> <span class="n">lb</span><span class="o">=</span><span class="mi">0</span>
+    <span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">gen</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">add_variables</span><span class="p">(</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">zone</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">tech</span><span class="p">,</span> <span class="n">lb</span><span class="o">=</span><span class="mi">0</span>
+    <span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">storage</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">add_variables</span><span class="p">(</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">hour_p</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">zone</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">tech</span><span class="p">,</span> <span class="n">lb</span><span class="o">=</span><span class="mi">0</span>
+    <span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">charge</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">add_variables</span><span class="p">(</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">zone</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">tech</span><span class="p">,</span> <span class="n">lb</span><span class="o">=</span><span class="mi">0</span>
+    <span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">trans_export</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">add_variables</span><span class="p">(</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">zone</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">zone</span><span class="p">,</span> <span class="n">lb</span><span class="o">=</span><span class="mi">0</span>
+    <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;isinflow&#39;</span><span class="p">]:</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">genflow</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">add_variables</span><span class="p">(</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">station</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">lb</span><span class="o">=</span><span class="mi">0</span>
+        <span class="p">)</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">spillflow</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">add_variables</span><span class="p">(</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">station</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">lb</span><span class="o">=</span><span class="mi">0</span>
+        <span class="p">)</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">withdraw</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">add_variables</span><span class="p">(</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">station</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">lb</span><span class="o">=</span><span class="mi">0</span>
+        <span class="p">)</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">storage_reservoir</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">add_variables</span><span class="p">(</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">station</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">hour_p</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">lb</span><span class="o">=</span><span class="mi">0</span>
+        <span class="p">)</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">output</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">add_variables</span><span class="p">(</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">station</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">lb</span><span class="o">=</span><span class="mi">0</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="define_constraints"><a class="viewcode-back" href="../../api/prepshot.model.html#prepshot.model.define_constraints">[docs]</a><span class="k">def</span> <span class="nf">define_constraints</span><span class="p">(</span><span class="n">model</span> <span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Define constraints for the model.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    model : object</span>
+<span class="sd">        Model to be solved.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">AddInvestmentConstraints</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+    <span class="n">AddGenerationConstraints</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+    <span class="n">AddTransmissionConstraints</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+    <span class="n">AddCo2EmissionConstraints</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+    <span class="n">AddNondispatchableConstraints</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+    <span class="n">AddStorageConstraints</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+    <span class="n">AddHydropowerConstraints</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+    <span class="n">AddDemandConstraints</span><span class="p">(</span><span class="n">model</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="create_model"><a class="viewcode-back" href="../../api/prepshot.model.html#prepshot.model.create_model">[docs]</a><span class="nd">@timer</span>
+<span class="k">def</span> <span class="nf">create_model</span><span class="p">(</span><span class="n">params</span> <span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">object</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create the PREP-SHOT model.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    params : dict</span>
+<span class="sd">        Dictionary of parameters for the model.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    object</span>
+<span class="sd">        Model object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">define_model</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+    <span class="n">define_basic_sets</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+    <span class="n">define_complex_sets</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+    <span class="n">define_variables</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+    <span class="n">define_constraints</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+    <span class="n">AddCostObjective</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">model</span></div>
+</pre></div>
+
+</div>
+</div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023-2025, Zhanwei Liu and Xiaogang He (GPL-3.0).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<!-- , "de":"#", "es":"#", "fr":"#" -->
+
+
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Read the Docs</span>
+    <!-- v: latest () -->
+    <!-- v: 0.1 -->
+    latest
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    
+
+    <dl>
+      <dt>Languages</dt>
+      
+        <dd><a href="#">en</a></dd>
+      
+    </dl>
+    <!-- <dl>
+      <dt>Versions</dt>
+      
+        <dd><a href="#">stable</a></dd>
+      
+        <dd><a href="#">latest</a></dd>
+      
+    </dl> -->
+    <dl>
+      
+      <dt>On Read the Docs</dt>
+        <dd>
+          <a href="https://github.com/PREP-NexT/PREP-SHOT/tree/main">Project Home</a>
+        </dd>
+        <!-- <dd>
+          <a href="///projects//builds/">Builds</a>
+        </dd> -->
+        <dd>
+          <a href="https://github.com/PREP-NexT/PREP-SHOT/raw/gh-pages/_static/PREP-SHOT.pdf">PDF</a>
+        </dd>
+    </dl>
+
+    <hr>
+    <small>
+      <span>Hosted by <a href="https://readthedocs.org">Read the Docs</a></span>
+      <span> · </span>
+      <a href="https://docs.readthedocs.io/page/privacy-policy.html">Privacy Policy</a>
+    </small>
+
+    
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

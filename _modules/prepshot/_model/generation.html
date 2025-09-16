@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>prepshot._model.generation &mdash; PREP-SHOT (latest) documentation in English</title>
+
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/tabs.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/algolia.css" type="text/css" />
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/custom.css?5" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/dev.css" type="text/css" />
+    <link rel="shortcut icon" href="../../../_static/logo.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+        <script src="../../../_static/clipboard.min.js"></script>
+        <script src="../../../_static/copybutton.js"></script>
+        <script src="../../../_static/tabs.js"></script>
+        <script src="../../../_static/js/custom.js?3"></script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+        <script defer="defer" src="../../../_static/js/algolia.js"></script>
+    <script src="../../../_static/js/theme.js"></script><meta name="theme-color" content="#3d8fcc">
+  
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+<meta name="doc_version" content="latest">
+<meta name="doc_is_latest" content="">
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html">
+            <img src="../../../_static/SVG-03.svg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                latest
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../Installation.html#step-1-download-prep-shot">Step 1: Download PREP-SHOT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../Installation.html#step-2-install-dependencies">Step 2: Install dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../Installation.html#step-3-run-an-example-optional">Step 3: Run an example (Optional)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../Installation.html#step-4-run-your-own-model">Step 4: Run your own model</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Model_input_output.html">Model Inputs/Outputs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../Model_input_output.html#inputs">Inputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../Model_input_output.html#outputs">Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../Model_input_output.html#execute-various-scenarios">Execute various scenarios</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../Model_input_output.html#setting-global-parameters">Setting global parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Tutorial.html">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../Tutorial.html#scenario-background">Scenario Background</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Mathematical_notations.html">Mathematical Notation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../Mathematical_notations.html#unit-list">Unit List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../Mathematical_notations.html#set-list">Set List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../Mathematical_notations.html#variable-list">Variable List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../Mathematical_notations.html#parameter-list">Parameter List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../Mathematical_notations.html#objective-functions">Objective Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../Mathematical_notations.html#costs">Costs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../Mathematical_notations.html#factors">Factors</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../Mathematical_notations.html#constraints">Constraints</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../Mathematical_notations.html#retirement">Retirement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../Mathematical_notations.html#carbon-emission">Carbon Emission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../Mathematical_notations.html#power-balance">Power Balance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../Mathematical_notations.html#transmission">Transmission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../Mathematical_notations.html#power-output">Power Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../Mathematical_notations.html#power-output-variation">Power output variation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../Mathematical_notations.html#energy-storage">Energy storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../Mathematical_notations.html#water-balance">Water balance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../Mathematical_notations.html#reservoir-outflow">Reservoir outflow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../Mathematical_notations.html#reservoir-storage">Reservoir storage</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Forum.html">Discussion</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../Forum.html#github-discussions">GitHub Discussions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../Forum.html#private-queries">Private Queries</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Contribution.html">Contribution</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../Contribution.html#development-process">Development Process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../Contribution.html#building-documentation">Building Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../Contribution.html#contributing-guidelines">Contributing Guidelines</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../Changelog.html#version-0-1-0-jun-24-2024">Version 0.1.0 - Jun 24, 2024</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../Changelog.html#version-0-1-1-jul-11-2024">Version 0.1.1 - Jul 11, 2024</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../Changelog.html#added">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../Changelog.html#fixed">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../Changelog.html#changed">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../Changelog.html#deprecated">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../Changelog.html#version-0-1-2-jul-22-2024">Version 0.1.2 - Jul 22, 2024</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../Changelog.html#id2">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../Changelog.html#id3">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../Changelog.html#id4">Changed</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/prepshot.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/prepshot.set_up.html">set_up</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/prepshot.set_up.html#prepshot.set_up.initialize_environment"><code class="docutils literal notranslate"><span class="pre">initialize_environment()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/prepshot.set_up.html#prepshot.set_up.parse_cli_arguments"><code class="docutils literal notranslate"><span class="pre">parse_cli_arguments()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/prepshot.logs.html">logs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/prepshot.logs.html#prepshot.logs.log_parameter_info"><code class="docutils literal notranslate"><span class="pre">log_parameter_info()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/prepshot.logs.html#prepshot.logs.setup_logging"><code class="docutils literal notranslate"><span class="pre">setup_logging()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/prepshot.logs.html#prepshot.logs.timer"><code class="docutils literal notranslate"><span class="pre">timer()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/prepshot.load_data.html">load_data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/prepshot.load_data.html#prepshot.load_data.compute_cost_factors"><code class="docutils literal notranslate"><span class="pre">compute_cost_factors()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/prepshot.load_data.html#prepshot.load_data.extract_config_data"><code class="docutils literal notranslate"><span class="pre">extract_config_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/prepshot.load_data.html#prepshot.load_data.extract_sets"><code class="docutils literal notranslate"><span class="pre">extract_sets()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/prepshot.load_data.html#prepshot.load_data.load_excel_data"><code class="docutils literal notranslate"><span class="pre">load_excel_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/prepshot.load_data.html#prepshot.load_data.load_json"><code class="docutils literal notranslate"><span class="pre">load_json()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/prepshot.load_data.html#prepshot.load_data.process_data"><code class="docutils literal notranslate"><span class="pre">process_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/prepshot.load_data.html#prepshot.load_data.read_excel"><code class="docutils literal notranslate"><span class="pre">read_excel()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/prepshot.solver.html">solver</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/prepshot.solver.html#prepshot.solver.get_solver"><code class="docutils literal notranslate"><span class="pre">get_solver()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/prepshot.solver.html#prepshot.solver.set_solver_parameters"><code class="docutils literal notranslate"><span class="pre">set_solver_parameters()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/prepshot.solver.html#prepshot.solver.solve_model"><code class="docutils literal notranslate"><span class="pre">solve_model()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/prepshot.model.html">model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/prepshot.model.html#prepshot.model.create_model"><code class="docutils literal notranslate"><span class="pre">create_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/prepshot.model.html#prepshot.model.define_basic_sets"><code class="docutils literal notranslate"><span class="pre">define_basic_sets()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/prepshot.model.html#prepshot.model.define_complex_sets"><code class="docutils literal notranslate"><span class="pre">define_complex_sets()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/prepshot.model.html#prepshot.model.define_constraints"><code class="docutils literal notranslate"><span class="pre">define_constraints()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/prepshot.model.html#prepshot.model.define_model"><code class="docutils literal notranslate"><span class="pre">define_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/prepshot.model.html#prepshot.model.define_variables"><code class="docutils literal notranslate"><span class="pre">define_variables()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/prepshot._model.html">constraints</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/prepshot._model.co2.html">co2</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/prepshot._model.co2.html#prepshot._model.co2.AddCo2EmissionConstraints"><code class="docutils literal notranslate"><span class="pre">AddCo2EmissionConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/prepshot._model.cost.html">cost</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/prepshot._model.cost.html#prepshot._model.cost.AddCostObjective"><code class="docutils literal notranslate"><span class="pre">AddCostObjective</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/prepshot._model.demand.html">demand</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/prepshot._model.demand.html#prepshot._model.demand.AddDemandConstraints"><code class="docutils literal notranslate"><span class="pre">AddDemandConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/prepshot._model.generation.html">generation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/prepshot._model.generation.html#prepshot._model.generation.AddGenerationConstraints"><code class="docutils literal notranslate"><span class="pre">AddGenerationConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/prepshot._model.head_iteration.html">head_iteration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/prepshot._model.head_iteration.html#prepshot._model.head_iteration.compute_error"><code class="docutils literal notranslate"><span class="pre">compute_error()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/prepshot._model.head_iteration.html#prepshot._model.head_iteration.initialize_waterhead"><code class="docutils literal notranslate"><span class="pre">initialize_waterhead()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/prepshot._model.head_iteration.html#prepshot._model.head_iteration.process_model_solution"><code class="docutils literal notranslate"><span class="pre">process_model_solution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/prepshot._model.head_iteration.html#prepshot._model.head_iteration.run_model_iteration"><code class="docutils literal notranslate"><span class="pre">run_model_iteration()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/prepshot._model.hydro.html">hydro</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/prepshot._model.hydro.html#prepshot._model.hydro.AddHydropowerConstraints"><code class="docutils literal notranslate"><span class="pre">AddHydropowerConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/prepshot._model.investment.html">investment</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/prepshot._model.investment.html#prepshot._model.investment.AddInvestmentConstraints"><code class="docutils literal notranslate"><span class="pre">AddInvestmentConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/prepshot._model.nondispatchable.html">nondispatchable</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/prepshot._model.nondispatchable.html#prepshot._model.nondispatchable.AddNondispatchableConstraints"><code class="docutils literal notranslate"><span class="pre">AddNondispatchableConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/prepshot._model.storage.html">storage</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/prepshot._model.storage.html#prepshot._model.storage.AddStorageConstraints"><code class="docutils literal notranslate"><span class="pre">AddStorageConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/prepshot._model.transmission.html">transmission</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/prepshot._model.transmission.html#prepshot._model.transmission.AddTransmissionConstraints"><code class="docutils literal notranslate"><span class="pre">AddTransmissionConstraints</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/prepshot.utils.html">utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/prepshot.utils.html#prepshot.utils.calc_cost_factor"><code class="docutils literal notranslate"><span class="pre">calc_cost_factor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/prepshot.utils.html#prepshot.utils.calc_inv_cost_factor"><code class="docutils literal notranslate"><span class="pre">calc_inv_cost_factor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/prepshot.utils.html#prepshot.utils.cartesian_product"><code class="docutils literal notranslate"><span class="pre">cartesian_product()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/prepshot.utils.html#prepshot.utils.check_positive"><code class="docutils literal notranslate"><span class="pre">check_positive()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/prepshot.utils.html#prepshot.utils.interpolate_z_by_q_or_s"><code class="docutils literal notranslate"><span class="pre">interpolate_z_by_q_or_s()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/prepshot.output_data.html">output_data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/prepshot.output_data.html#prepshot.output_data.create_data_array"><code class="docutils literal notranslate"><span class="pre">create_data_array()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/prepshot.output_data.html#prepshot.output_data.extract_results_hydro"><code class="docutils literal notranslate"><span class="pre">extract_results_hydro()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/prepshot.output_data.html#prepshot.output_data.extract_results_non_hydro"><code class="docutils literal notranslate"><span class="pre">extract_results_non_hydro()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/prepshot.output_data.html#prepshot.output_data.save_result"><code class="docutils literal notranslate"><span class="pre">save_result()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/prepshot.output_data.html#prepshot.output_data.save_to_excel"><code class="docutils literal notranslate"><span class="pre">save_to_excel()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/prepshot.output_data.html#prepshot.output_data.update_output_filename"><code class="docutils literal notranslate"><span class="pre">update_output_filename()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Citations.html">Citation Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../Citations.html#publications-by-topic">Publications by Topic</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../References.html">References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">PREP-SHOT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+<li>
+	<div style="font-size: 105%;font-weight: 600;">
+		
+	</div>
+	<ul class="wy-breadcrumbs">
+		
+      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">prepshot._model.generation</li>
+	</ul>
+</li>
+
+
+<li style="float: right; text-align: right;">
+	<ul>
+		
+      <li class="wy-breadcrumbs-aside">
+      </li>
+	</ul>
+
+	<style>
+		.godot-edit-guidelines {
+			font-size: 14px;
+			float: right;
+			clear: both;
+			padding-top: 4px;
+		}
+
+		@media screen and (max-width: 480px) {
+			.godot-edit-guidelines {
+				display: none;
+			}
+		}
+	</style>
+	<a class="godot-edit-guidelines" href="https://prep-next.github.io/PREP-SHOT/Changelog.html#contributing-to-prep-shot">
+		Learn how to contribute!
+	</a>
+</li>
+
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+<div itemprop="articleBody">
+  
+
+  
+  <h1>Source code for prepshot._model.generation</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="sd">&quot;&quot;&quot;This module contains constraints related to technology generation.</span>
+<span class="sd">The power output of storage and each dispatchable (exclude hydropower)</span>
+<span class="sd">technology (:math:`{\\rm{power}}_{h,m,y,z,e}`) is limited by the existing</span>
+<span class="sd">installed capacity (:math:`{\\rm{cap}}_{y,z,e}^{\\rm{existingtech}}`)</span>
+<span class="sd">and minimum technical output, as follows:</span>
+
+<span class="sd">.. math::</span>
+
+<span class="sd">    {\\underline{{\\rm{POWER}}}}_{h,m,y,z,e}\\times</span>
+<span class="sd">    {\\rm{cap}}_{y,z,e}^{\\rm{existingtech}}\\le{\\rm{power}}_{h,m,y,z,e}\\le</span>
+<span class="sd">    {\\rm{cap}}_{y,z,e}^{\\rm{existingtech}}\\quad\\forall h,m,y,z,e\\in</span>
+<span class="sd">    {\\mathcal{STOR}}\ \&amp;\ {\\mathcal{DISP}}</span>
+
+<span class="sd">Since hydropower processes are explicitly modelled at the plant level in</span>
+<span class="sd">PREP-SHOT, total hydropower output in zone</span>
+<span class="sd">:math:`z` (:math:`{\\rm{power}}_{h,m,y,z,e={\\rm{hydro}}}`) is the sum of the</span>
+<span class="sd">plant-level hydropower output</span>
+<span class="sd">(:math:`{\\rm{power}}_{\\it{s,h,m,y}}^{\\rm{hydro}}`):</span>
+
+<span class="sd">.. math::</span>
+
+<span class="sd">    {\\rm{power}}_{h,m,y,z,e={\\rm{hydro}}}=\\sum_{s\\in{\\mathcal{SZ}}_z}</span>
+<span class="sd">    {\\rm{power}}_{s,h,m,y}^{\\rm{hydro}}\\quad\\forall h,m,y,z</span>
+
+<span class="sd">Here, calculation of :math:`{\\rm{power}}^{\\rm{hydro}}_{s,h,m,y}` is obtained</span>
+<span class="sd">by external net water head simulation procedure. In addition,</span>
+<span class="sd">:math:`{\\rm{power}}^{\\rm{hydro}}_{s,h,m,y}` is bounded between the guaranteed</span>
+<span class="sd">minimum output (:math:`{\\underline{{\\rm{POWER}}}}_s^{\\rm{hydro}}`) and the</span>
+<span class="sd">nameplate capacity (:math:`{{\\rm{CAP}}}_s^{\\rm{hydro}}`), as follows:</span>
+
+<span class="sd">Regardless of the technology type, actual power generation</span>
+<span class="sd">(:math:`{\\rm{gen}}_{h,m,y,z,e}`) in a corresponding period :math:`\\Delta h`</span>
+<span class="sd">can be calculated based on the power output (:math:`{\\rm{power}}_{h,m,y,z,e}`)</span>
+<span class="sd">and the generation efficiency (:math:`\\eta_{y,e}^{\\rm{out}}`):</span>
+
+<span class="sd">.. math::</span>
+
+<span class="sd">    {\\rm{gen}}_{h,m,y,z,e} = {\\rm{power}}_{h,m,y,z,e}\\times\\Delta h</span>
+<span class="sd">    \\times\eta_{y,e}^{\\rm{out}}\\quad \\forall h,m,y,z,e\\in {\\mathcal{E}}</span>
+
+<span class="sd">Note that :math:`\\eta_{y,e}^{\\rm{out}}=1` when</span>
+<span class="sd">:math:`e\\in {\\mathcal{E}}\\backslash {\\mathcal{STOR}}`. </span>
+
+<span class="sd">All technologies apart from dispatchable technology are limited by the</span>
+<span class="sd">so-called ramping capability, meaning that the variation of their power output</span>
+<span class="sd">in two successive periods is limited.  We introduce two non-negative auxiliary</span>
+<span class="sd">variables: increment (:math:`{\rm{power}}_{h,m,y,z,e}^{\rm{up}}`) and decrement</span>
+<span class="sd">(:math:`{\rm{power}}_{h,m,y,z,e}^{\rm{down}}`) to describe changes in power</span>
+<span class="sd">output in two successive periods (from :math:`h`-1 to :math:`h`) as follows:</span>
+
+<span class="sd">.. math::</span>
+
+<span class="sd">    {\\rm{power}}_{h,m,y,z,e}^{\\rm{up}}-{\\rm{power}}_{h,m,y,z,e}^{\\rm{down}}</span>
+<span class="sd">    ={\\rm{power}}_{h,m,y,z,e}-{\\rm{power}}_{h-1,m,y,z,e}</span>
+<span class="sd">    \\quad\\forall h,m,y,z,e\ \\in {\\mathcal{E}}\\backslash {\\mathcal{NDISP}}</span>
+
+<span class="sd">When the power plant ramps up from :math:`h`-1 to :math:`h`,</span>
+<span class="sd">the minimum of :math:`{\\rm{power}}_{h,m,y,z,e}^{\\rm{up}}` is obtained when</span>
+<span class="sd">:math:`{\\rm{power}}_{h,m,y,z,e}^{\\rm{down}}` becomes zero. Similarly, when</span>
+<span class="sd">the power plant ramps down from :math:`h`-1 to :math:`h`, the minimum of</span>
+<span class="sd">:math:`{\\rm{power}}_{h,m,y,z,e}^{\\rm{down}}` is obtained when</span>
+<span class="sd">:math:`{\\rm{power}}_{h,m,y,z,e}^{\\rm{up}}` becomes zero. Therefore,</span>
+<span class="sd">we can constrain the maximum ramping up and down respectively, as follows:</span>
+
+<span class="sd">.. math::</span>
+<span class="sd">    </span>
+<span class="sd">    {\\rm{power}}_{h,m,y,z,e}^{\\rm{up}}\\le{{R}}_e^{\\rm{up}}\\times</span>
+<span class="sd">    \\Delta h\\times {\\rm{cap}}_{y,z,e}^{\\rm{existingtech}}\\quad</span>
+<span class="sd">    \\forall h,m,y,z,e\\in {\\mathcal{E}}\\backslash {\\mathcal{NDISP}}</span>
+
+<span class="sd">.. math::</span>
+<span class="sd">    </span>
+<span class="sd">    {\\rm{power}}_{h,m,y,z,e}^{\\rm{down}}\\le{{R}}_e^{\\rm{down}}\\times</span>
+<span class="sd">    \\Delta h\\times {\\rm{cap}}_{y,z,e}^{\\rm{existingtech}}</span>
+<span class="sd">    \\quad\\forall h,m,y,z,e\\in {\\mathcal{E}}\\backslash {\\mathcal{NDISP}}</span>
+
+<span class="sd">where :math:`{{R}}_e^{\\rm{up}}$/${{R}}_e^{\\rm{down}}` is the allowed</span>
+<span class="sd">maximum/minimum ramping up/down capacity of technology :math:`e` in two</span>
+<span class="sd">successive periods, expressed as a percentage of the existing capacity</span>
+<span class="sd">of storage technology :math:`e`.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">pyoptinterface</span> <span class="k">as</span> <span class="nn">poi</span>
+
+<div class="viewcode-block" id="AddGenerationConstraints"><a class="viewcode-back" href="../../../api/prepshot._model.generation.html#prepshot._model.generation.AddGenerationConstraints">[docs]</a><span class="k">class</span> <span class="nc">AddGenerationConstraints</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Add constraints for generation in the model.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="AddGenerationConstraints.__init__"><a class="viewcode-back" href="../../../api/prepshot._model.generation.html#prepshot._model.generation.AddGenerationConstraints.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span> <span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the class and add constraints.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        model : object</span>
+<span class="sd">            Model object depending on the solver.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">model</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">gen_up_bound_cons</span> <span class="o">=</span> <span class="n">poi</span><span class="o">.</span><span class="n">make_tupledict</span><span class="p">(</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">zone</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">tech</span><span class="p">,</span>
+            <span class="n">rule</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">gen_up_bound_rule</span>
+        <span class="p">)</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">ramping_up_cons</span> <span class="o">=</span> <span class="n">poi</span><span class="o">.</span><span class="n">make_tupledict</span><span class="p">(</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">zone</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">tech</span><span class="p">,</span>
+            <span class="n">rule</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ramping_up_rule</span>
+        <span class="p">)</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">ramping_down_cons</span> <span class="o">=</span> <span class="n">poi</span><span class="o">.</span><span class="n">make_tupledict</span><span class="p">(</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">zone</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">tech</span><span class="p">,</span>
+            <span class="n">rule</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ramping_down_rule</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="AddGenerationConstraints.gen_up_bound_rule"><a class="viewcode-back" href="../../../api/prepshot._model.generation.html#prepshot._model.generation.AddGenerationConstraints.gen_up_bound_rule">[docs]</a>    <span class="k">def</span> <span class="nf">gen_up_bound_rule</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">h</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">m</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">z</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">te</span> <span class="p">:</span> <span class="nb">str</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">poi</span><span class="o">.</span><span class="n">ConstraintIndex</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generation is less than or equal to the existing capacity.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        h : int</span>
+<span class="sd">            Hour.</span>
+<span class="sd">        m : int</span>
+<span class="sd">            Month.</span>
+<span class="sd">        y : int</span>
+<span class="sd">            Year.</span>
+<span class="sd">        z : str</span>
+<span class="sd">            Zone.</span>
+<span class="sd">        te : str</span>
+<span class="sd">            Technology.</span>
+<span class="sd">            </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        poi.ConstraintIndex</span>
+<span class="sd">            The constraint of the model.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span>
+        <span class="n">lhs</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">gen</span><span class="p">[</span><span class="n">h</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">te</span><span class="p">]</span> \
+            <span class="o">-</span> <span class="n">model</span><span class="o">.</span><span class="n">cap_existing</span><span class="p">[</span><span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">te</span><span class="p">]</span> <span class="o">*</span> <span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;dt&#39;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">model</span><span class="o">.</span><span class="n">add_linear_constraint</span><span class="p">(</span><span class="n">lhs</span><span class="p">,</span> <span class="n">poi</span><span class="o">.</span><span class="n">Leq</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="AddGenerationConstraints.ramping_up_rule"><a class="viewcode-back" href="../../../api/prepshot._model.generation.html#prepshot._model.generation.AddGenerationConstraints.ramping_up_rule">[docs]</a>    <span class="k">def</span> <span class="nf">ramping_up_rule</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">h</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">m</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">z</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">te</span> <span class="p">:</span> <span class="nb">str</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">poi</span><span class="o">.</span><span class="n">ConstraintIndex</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Ramping up limits.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        h : int</span>
+<span class="sd">            Hour.</span>
+<span class="sd">        m : int</span>
+<span class="sd">            Month.</span>
+<span class="sd">        y : int</span>
+<span class="sd">            Year.</span>
+<span class="sd">        z : str</span>
+<span class="sd">            Zone.</span>
+<span class="sd">        te : str</span>
+<span class="sd">            Technology.</span>
+<span class="sd">            </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        poi.ConstraintIndex</span>
+<span class="sd">            The constraint of the model.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span>
+        <span class="n">rp</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;ramp_up&#39;</span><span class="p">][</span><span class="n">te</span><span class="p">]</span> <span class="o">*</span> <span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;dt&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">rp</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="n">h</span><span class="p">:</span>
+            <span class="n">lhs</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">model</span><span class="o">.</span><span class="n">gen</span><span class="p">[</span><span class="n">h</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">te</span><span class="p">]</span> <span class="o">-</span> <span class="n">model</span><span class="o">.</span><span class="n">gen</span><span class="p">[</span><span class="n">h</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">te</span><span class="p">]</span>
+                <span class="o">-</span> <span class="n">rp</span> <span class="o">*</span> <span class="n">model</span><span class="o">.</span><span class="n">cap_existing</span><span class="p">[</span><span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">te</span><span class="p">]</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="n">model</span><span class="o">.</span><span class="n">add_linear_constraint</span><span class="p">(</span><span class="n">lhs</span><span class="p">,</span> <span class="n">poi</span><span class="o">.</span><span class="n">Leq</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="AddGenerationConstraints.ramping_down_rule"><a class="viewcode-back" href="../../../api/prepshot._model.generation.html#prepshot._model.generation.AddGenerationConstraints.ramping_down_rule">[docs]</a>    <span class="k">def</span> <span class="nf">ramping_down_rule</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">h</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">m</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">z</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">te</span> <span class="p">:</span> <span class="nb">str</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">poi</span><span class="o">.</span><span class="n">ConstraintIndex</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Ramping down limits.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        h : int</span>
+<span class="sd">            Hour.</span>
+<span class="sd">        m : int</span>
+<span class="sd">            Month.</span>
+<span class="sd">        y : int</span>
+<span class="sd">            Year.</span>
+<span class="sd">        z : str</span>
+<span class="sd">            Zone.</span>
+<span class="sd">        te : str</span>
+<span class="sd">            Technology.</span>
+<span class="sd">            </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        poi.ConstraintIndex</span>
+<span class="sd">            The constraint of the model.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span>
+        <span class="n">rd</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;ramp_down&#39;</span><span class="p">][</span><span class="n">te</span><span class="p">]</span> <span class="o">*</span> <span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;dt&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">rd</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="n">h</span><span class="p">:</span>
+            <span class="n">lhs</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">model</span><span class="o">.</span><span class="n">gen</span><span class="p">[</span><span class="n">h</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">te</span><span class="p">]</span> <span class="o">-</span> <span class="n">model</span><span class="o">.</span><span class="n">gen</span><span class="p">[</span><span class="n">h</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">te</span><span class="p">]</span>
+                <span class="o">-</span> <span class="n">rd</span> <span class="o">*</span> <span class="n">model</span><span class="o">.</span><span class="n">cap_existing</span><span class="p">[</span><span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">te</span><span class="p">]</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="n">model</span><span class="o">.</span><span class="n">add_linear_constraint</span><span class="p">(</span><span class="n">lhs</span><span class="p">,</span> <span class="n">poi</span><span class="o">.</span><span class="n">Leq</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div></div>
+</pre></div>
+
+</div>
+</div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023-2025, Zhanwei Liu and Xiaogang He (GPL-3.0).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<!-- , "de":"#", "es":"#", "fr":"#" -->
+
+
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Read the Docs</span>
+    <!-- v: latest () -->
+    <!-- v: 0.1 -->
+    latest
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    
+
+    <dl>
+      <dt>Languages</dt>
+      
+        <dd><a href="#">en</a></dd>
+      
+    </dl>
+    <!-- <dl>
+      <dt>Versions</dt>
+      
+        <dd><a href="#">stable</a></dd>
+      
+        <dd><a href="#">latest</a></dd>
+      
+    </dl> -->
+    <dl>
+      
+      <dt>On Read the Docs</dt>
+        <dd>
+          <a href="https://github.com/PREP-NexT/PREP-SHOT/tree/main">Project Home</a>
+        </dd>
+        <!-- <dd>
+          <a href="///projects//builds/">Builds</a>
+        </dd> -->
+        <dd>
+          <a href="https://github.com/PREP-NexT/PREP-SHOT/raw/gh-pages/_static/PREP-SHOT.pdf">PDF</a>
+        </dd>
+    </dl>
+
+    <hr>
+    <small>
+      <span>Hosted by <a href="https://readthedocs.org">Read the Docs</a></span>
+      <span> · </span>
+      <a href="https://docs.readthedocs.io/page/privacy-policy.html">Privacy Policy</a>
+    </small>
+
+    
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

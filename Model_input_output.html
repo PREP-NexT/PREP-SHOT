@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+<meta property="og:title" content="Model Inputs/Outputs" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="Model_input_output.html" />
+<meta property="og:site_name" content="PREP-SHOT documentation" />
+<meta property="og:description" content="The model requires several input parameters, provided via input files. These parameters, their dimensions, and descriptions are as follows: Inputs: The parameters used, their desciptions, and their..." />
+<meta name="description" content="The model requires several input parameters, provided via input files. These parameters, their dimensions, and descriptions are as follows: Inputs: The parameters used, their desciptions, and their..." />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Model Inputs/Outputs &mdash; PREP-SHOT (latest) documentation in English</title>
+
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="_static/tabs.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/algolia.css" type="text/css" />
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/custom.css?5" type="text/css" />
+      <link rel="stylesheet" href="_static/css/dev.css" type="text/css" />
+    <link rel="shortcut icon" href="_static/logo.png"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+        <script src="_static/js/custom.js?3"></script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+        <script defer="defer" src="_static/js/algolia.js"></script>
+    <script src="_static/js/theme.js"></script><meta name="theme-color" content="#3d8fcc">
+  
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Tutorial" href="Tutorial.html" />
+    <link rel="prev" title="Installation" href="Installation.html" />
+<meta name="doc_version" content="latest">
+<meta name="doc_is_latest" content="">
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html">
+            <img src="_static/SVG-03.svg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                latest
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Installation.html#step-1-download-prep-shot">Step 1: Download PREP-SHOT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Installation.html#step-2-install-dependencies">Step 2: Install dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Installation.html#step-3-run-an-example-optional">Step 3: Run an example (Optional)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Installation.html#step-4-run-your-own-model">Step 4: Run your own model</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Model Inputs/Outputs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#inputs">Inputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#outputs">Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#execute-various-scenarios">Execute various scenarios</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#setting-global-parameters">Setting global parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial.html">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Tutorial.html#scenario-background">Scenario Background</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Mathematical_notations.html">Mathematical Notation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Mathematical_notations.html#unit-list">Unit List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Mathematical_notations.html#set-list">Set List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Mathematical_notations.html#variable-list">Variable List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Mathematical_notations.html#parameter-list">Parameter List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Mathematical_notations.html#objective-functions">Objective Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#costs">Costs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#factors">Factors</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Mathematical_notations.html#constraints">Constraints</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#retirement">Retirement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#carbon-emission">Carbon Emission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#power-balance">Power Balance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#transmission">Transmission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#power-output">Power Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#power-output-variation">Power output variation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#energy-storage">Energy storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#water-balance">Water balance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#reservoir-outflow">Reservoir outflow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#reservoir-storage">Reservoir storage</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Forum.html">Discussion</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Forum.html#github-discussions">GitHub Discussions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Forum.html#private-queries">Private Queries</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Contribution.html">Contribution</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Contribution.html#development-process">Development Process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Contribution.html#building-documentation">Building Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Contribution.html#contributing-guidelines">Contributing Guidelines</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-0-1-0-jun-24-2024">Version 0.1.0 - Jun 24, 2024</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-0-1-1-jul-11-2024">Version 0.1.1 - Jul 11, 2024</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#added">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#fixed">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#changed">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#deprecated">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-0-1-2-jul-22-2024">Version 0.1.2 - Jul 22, 2024</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id2">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id3">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id4">Changed</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/prepshot.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/prepshot.set_up.html">set_up</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.set_up.html#prepshot.set_up.initialize_environment"><code class="docutils literal notranslate"><span class="pre">initialize_environment()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.set_up.html#prepshot.set_up.parse_cli_arguments"><code class="docutils literal notranslate"><span class="pre">parse_cli_arguments()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/prepshot.logs.html">logs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.logs.html#prepshot.logs.log_parameter_info"><code class="docutils literal notranslate"><span class="pre">log_parameter_info()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.logs.html#prepshot.logs.setup_logging"><code class="docutils literal notranslate"><span class="pre">setup_logging()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.logs.html#prepshot.logs.timer"><code class="docutils literal notranslate"><span class="pre">timer()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/prepshot.load_data.html">load_data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.load_data.html#prepshot.load_data.compute_cost_factors"><code class="docutils literal notranslate"><span class="pre">compute_cost_factors()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.load_data.html#prepshot.load_data.extract_config_data"><code class="docutils literal notranslate"><span class="pre">extract_config_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.load_data.html#prepshot.load_data.extract_sets"><code class="docutils literal notranslate"><span class="pre">extract_sets()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.load_data.html#prepshot.load_data.load_excel_data"><code class="docutils literal notranslate"><span class="pre">load_excel_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.load_data.html#prepshot.load_data.load_json"><code class="docutils literal notranslate"><span class="pre">load_json()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.load_data.html#prepshot.load_data.process_data"><code class="docutils literal notranslate"><span class="pre">process_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.load_data.html#prepshot.load_data.read_excel"><code class="docutils literal notranslate"><span class="pre">read_excel()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/prepshot.solver.html">solver</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.solver.html#prepshot.solver.get_solver"><code class="docutils literal notranslate"><span class="pre">get_solver()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.solver.html#prepshot.solver.set_solver_parameters"><code class="docutils literal notranslate"><span class="pre">set_solver_parameters()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.solver.html#prepshot.solver.solve_model"><code class="docutils literal notranslate"><span class="pre">solve_model()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/prepshot.model.html">model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.model.html#prepshot.model.create_model"><code class="docutils literal notranslate"><span class="pre">create_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.model.html#prepshot.model.define_basic_sets"><code class="docutils literal notranslate"><span class="pre">define_basic_sets()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.model.html#prepshot.model.define_complex_sets"><code class="docutils literal notranslate"><span class="pre">define_complex_sets()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.model.html#prepshot.model.define_constraints"><code class="docutils literal notranslate"><span class="pre">define_constraints()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.model.html#prepshot.model.define_model"><code class="docutils literal notranslate"><span class="pre">define_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.model.html#prepshot.model.define_variables"><code class="docutils literal notranslate"><span class="pre">define_variables()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/prepshot._model.html">constraints</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot._model.co2.html">co2</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.co2.html#prepshot._model.co2.AddCo2EmissionConstraints"><code class="docutils literal notranslate"><span class="pre">AddCo2EmissionConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot._model.cost.html">cost</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.cost.html#prepshot._model.cost.AddCostObjective"><code class="docutils literal notranslate"><span class="pre">AddCostObjective</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot._model.demand.html">demand</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.demand.html#prepshot._model.demand.AddDemandConstraints"><code class="docutils literal notranslate"><span class="pre">AddDemandConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot._model.generation.html">generation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.generation.html#prepshot._model.generation.AddGenerationConstraints"><code class="docutils literal notranslate"><span class="pre">AddGenerationConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot._model.head_iteration.html">head_iteration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.head_iteration.html#prepshot._model.head_iteration.compute_error"><code class="docutils literal notranslate"><span class="pre">compute_error()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.head_iteration.html#prepshot._model.head_iteration.initialize_waterhead"><code class="docutils literal notranslate"><span class="pre">initialize_waterhead()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.head_iteration.html#prepshot._model.head_iteration.process_model_solution"><code class="docutils literal notranslate"><span class="pre">process_model_solution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.head_iteration.html#prepshot._model.head_iteration.run_model_iteration"><code class="docutils literal notranslate"><span class="pre">run_model_iteration()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot._model.hydro.html">hydro</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.hydro.html#prepshot._model.hydro.AddHydropowerConstraints"><code class="docutils literal notranslate"><span class="pre">AddHydropowerConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot._model.investment.html">investment</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.investment.html#prepshot._model.investment.AddInvestmentConstraints"><code class="docutils literal notranslate"><span class="pre">AddInvestmentConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot._model.nondispatchable.html">nondispatchable</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.nondispatchable.html#prepshot._model.nondispatchable.AddNondispatchableConstraints"><code class="docutils literal notranslate"><span class="pre">AddNondispatchableConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot._model.storage.html">storage</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.storage.html#prepshot._model.storage.AddStorageConstraints"><code class="docutils literal notranslate"><span class="pre">AddStorageConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot._model.transmission.html">transmission</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.transmission.html#prepshot._model.transmission.AddTransmissionConstraints"><code class="docutils literal notranslate"><span class="pre">AddTransmissionConstraints</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/prepshot.utils.html">utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.utils.html#prepshot.utils.calc_cost_factor"><code class="docutils literal notranslate"><span class="pre">calc_cost_factor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.utils.html#prepshot.utils.calc_inv_cost_factor"><code class="docutils literal notranslate"><span class="pre">calc_inv_cost_factor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.utils.html#prepshot.utils.cartesian_product"><code class="docutils literal notranslate"><span class="pre">cartesian_product()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.utils.html#prepshot.utils.check_positive"><code class="docutils literal notranslate"><span class="pre">check_positive()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.utils.html#prepshot.utils.interpolate_z_by_q_or_s"><code class="docutils literal notranslate"><span class="pre">interpolate_z_by_q_or_s()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/prepshot.output_data.html">output_data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.output_data.html#prepshot.output_data.create_data_array"><code class="docutils literal notranslate"><span class="pre">create_data_array()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.output_data.html#prepshot.output_data.extract_results_hydro"><code class="docutils literal notranslate"><span class="pre">extract_results_hydro()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.output_data.html#prepshot.output_data.extract_results_non_hydro"><code class="docutils literal notranslate"><span class="pre">extract_results_non_hydro()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.output_data.html#prepshot.output_data.save_result"><code class="docutils literal notranslate"><span class="pre">save_result()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.output_data.html#prepshot.output_data.save_to_excel"><code class="docutils literal notranslate"><span class="pre">save_to_excel()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.output_data.html#prepshot.output_data.update_output_filename"><code class="docutils literal notranslate"><span class="pre">update_output_filename()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Citations.html">Citation Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Citations.html#publications-by-topic">Publications by Topic</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="References.html">References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PREP-SHOT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+<li>
+	<div style="font-size: 105%;font-weight: 600;">
+		
+	</div>
+	<ul class="wy-breadcrumbs">
+		
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Model Inputs/Outputs</li>
+	</ul>
+</li>
+
+
+<li style="float: right; text-align: right;">
+	<ul>
+		
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/PREP-NexT/PREP-SHOT/blob/main/doc/source/Model_input_output.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+	</ul>
+
+	<style>
+		.godot-edit-guidelines {
+			font-size: 14px;
+			float: right;
+			clear: both;
+			padding-top: 4px;
+		}
+
+		@media screen and (max-width: 480px) {
+			.godot-edit-guidelines {
+				display: none;
+			}
+		}
+	</style>
+	<a class="godot-edit-guidelines" href="https://prep-next.github.io/PREP-SHOT/Changelog.html#contributing-to-prep-shot">
+		Learn how to contribute!
+	</a>
+</li>
+
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+<div itemprop="articleBody">
+  
+
+  
+  <section id="model-inputs-outputs">
+<span id="model-input-output"></span><h1>Model Inputs/Outputs<a class="headerlink" href="#model-inputs-outputs" title="Permalink to this heading">¶</a></h1>
+<p>The model requires several input parameters, provided via input files. These parameters, their dimensions, and descriptions are as follows:</p>
+<section id="inputs">
+<h2>Inputs<a class="headerlink" href="#inputs" title="Permalink to this heading">¶</a></h2>
+<p>The parameters used, their desciptions, and their input file name in the model are as follows:</p>
+<table class="colwidths-given docutils align-default" id="id9">
+<caption><span class="caption-text">Parameters</span><a class="headerlink" href="#id9" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 60%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter [Unit]</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Input file <a class="footnote-reference brackets" href="#id5" id="id1">1</a></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>historical capacity <a class="footnote-reference brackets" href="#id6" id="id2">2</a></p>
+<p>[MW]</p>
+</td>
+<td><p>The capacity of each technology in each zone for each year, taking into account the number of years that each technology has been in operation starting from the beginning of the planning period.</p></td>
+<td><p>historical_capacity</p></td>
+</tr>
+<tr class="row-odd"><td><p>capacity factor [N/A]</p></td>
+<td><p>Capacity factor of different non-dispatchable technologies.</p></td>
+<td><p>capacity_factor</p></td>
+</tr>
+<tr class="row-even"><td><p>carbon emission</p>
+<p>limit [tCO2]</p>
+</td>
+<td><p>Carbon emission limit of different zones.</p></td>
+<td><p>carbon_emission_limit</p></td>
+</tr>
+<tr class="row-odd"><td><p>emission factor</p>
+<p>[tCO2/MWh]</p>
+</td>
+<td><p>Emission factor of different technologies.</p></td>
+<td><p>emission_factor</p></td>
+</tr>
+<tr class="row-even"><td><p>water delay time [N/A]</p></td>
+<td><p>Water delay time of connection between reservoirs.</p></td>
+<td><p>water_delay_time</p></td>
+</tr>
+<tr class="row-odd"><td><p>demand [MW]</p></td>
+<td><p>Demand of different balancing authorities.</p></td>
+<td><p>demand</p></td>
+</tr>
+<tr class="row-even"><td><p>discount factor [N/A]</p></td>
+<td><p>Discount factor for each year.</p></td>
+<td><p>discount_factor</p></td>
+</tr>
+<tr class="row-odd"><td><p>distance [km]</p></td>
+<td><p>Distance of different pair of zones.</p></td>
+<td><p>distance</p></td>
+</tr>
+<tr class="row-even"><td><p>discharge efficiency [N/A]</p></td>
+<td><p>Discharge efficiency of storage technologies.</p></td>
+<td><p>discharge_</p>
+<p>efficiency</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p>charge efficiency [N/A]</p></td>
+<td><p>Charge efficiency of storage technologies.</p></td>
+<td><p>charge_</p>
+<p>efficiency</p>
+</td>
+</tr>
+<tr class="row-even"><td><p>energy to</p>
+<p>power ratio [MWh/MW]</p>
+</td>
+<td><p>Power to energy ratio ratio of storage technologies.</p></td>
+<td><p>energy_to_</p>
+<p>power_ratio</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p>fuel price [dollar/MWh]</p></td>
+<td><p>Fuel price of different technologies.</p></td>
+<td><p>fuel_price</p></td>
+</tr>
+<tr class="row-even"><td><p>Predefined hydropower <a class="footnote-reference brackets" href="#id7" id="id3">3</a> [MW]</p></td>
+<td><p>Predefined hydropower output of all reservoirs.</p></td>
+<td><p>predefined_hydropower</p></td>
+</tr>
+<tr class="row-odd"><td><p>inflow [m3/s]</p></td>
+<td><p>Inflow of all reservoirs.</p></td>
+<td><p>inflow</p></td>
+</tr>
+<tr class="row-even"><td><p>initial energy</p>
+<p>storage level [1/MWh]</p>
+</td>
+<td><p>Initial energy storage level of different storage technologies.</p></td>
+<td><p>initial_energy_</p>
+<p>storage_level</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p>lifetime [yr]</p></td>
+<td><p>Lifetime of different technologies.</p></td>
+<td><p>lifetime</p></td>
+</tr>
+<tr class="row-even"><td><p>new technology</p>
+<p>lower bound [MW]</p>
+</td>
+<td><p>Lower bound of newly-built installed capacity of different technologies for each investment year.</p></td>
+<td><p>new_technology_</p>
+<p>lower_bound</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p>new technology</p>
+<p>upper bound [MW]</p>
+</td>
+<td><p>Upper bound of newly-built installed capacity of different technologies for each investment year.</p></td>
+<td><p>new_technology_</p>
+<p>upper_bound</p>
+</td>
+</tr>
+<tr class="row-even"><td><p>ramp down [1/MW]</p></td>
+<td><p>Ramp down rate of different technologies.</p></td>
+<td><p>ramp_down</p></td>
+</tr>
+<tr class="row-odd"><td><p>ramp up [1/MW]</p></td>
+<td><p>Ramp up rate of different technologies.</p></td>
+<td><p>ramp_up</p></td>
+</tr>
+<tr class="row-even"><td><p>reservoir characteristics</p>
+<p>[As per data sheet]</p>
+</td>
+<td><p>Reservoir characteristics data includes designed water head, maximum storage, minimum storage, operational efficiency, area of affiliation, installed capacity, maximum power output, minimum power output, maximum outflow, minimum outflow, and maximum generation outflow.</p></td>
+<td><p>reservoir_</p>
+<p>characteristics</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p>reservoir storage</p>
+<p>upper bound [m3]</p>
+</td>
+<td><p>Upper bound of volume of hydropower reservoirs.</p></td>
+<td><p>reservoir_storage</p>
+<p>_upper_bound</p>
+</td>
+</tr>
+<tr class="row-even"><td><p>reservoir storage</p>
+<p>lower bound [m3]</p>
+</td>
+<td><p>Lower bound of volume of hydropower reservoirs.</p></td>
+<td><p>reservoir_storage_</p>
+<p>lower_bound</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p>final reservoir</p>
+<p>storage level [m3]</p>
+</td>
+<td><p>Final volume of hydropower reservoirs.</p></td>
+<td><p>final_reservoir_</p>
+<p>storage_level</p>
+</td>
+</tr>
+<tr class="row-even"><td><p>initial reservoir</p>
+<p>storage level [m3]</p>
+</td>
+<td><p>Initial volume of hydropower reservoirs.</p></td>
+<td><p>initial_reservoir_</p>
+<p>storage_level</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p>technology fixed OM cost</p>
+<p>[dollar/MW/yr]</p>
+</td>
+<td><p>Fixed operation and maintenance cost of different technologies.</p></td>
+<td><p>technology_fixed_</p>
+<p>OM_cost</p>
+</td>
+</tr>
+<tr class="row-even"><td><p>technology variable</p>
+<p>OM cost [dollar/MW/yr]</p>
+</td>
+<td><p>Variable operation and maintenance costs of different technologies.</p></td>
+<td><p>technology_variable_</p>
+<p>OM_cost</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p>technology investment</p>
+<p>cost [dollar/MW]</p>
+</td>
+<td><p>Investment cost of different technologies.</p></td>
+<td><p>technology_investment</p>
+<p>_cost</p>
+</td>
+</tr>
+<tr class="row-even"><td><p>technology portfolio [MW]</p></td>
+<td><p>Existing total installed capacity across all zones.</p></td>
+<td><p>technology_</p>
+<p>portfolio</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p>technology</p>
+<p>upper bound <a class="footnote-reference brackets" href="#id8" id="id4">4</a> [MW]</p>
+</td>
+<td><p>Upper bound of installed capacity of different technologies.</p></td>
+<td><p>technology_upper_</p>
+<p>bound</p>
+</td>
+</tr>
+<tr class="row-even"><td><p>transmission line</p>
+<p>existing capacity</p>
+<p>[MW]</p>
+</td>
+<td><p>Capacity of existing transmission lines (if there is no exising nor planned transmission lines between two specific zones, leave the data entries blank).</p></td>
+<td><p>transmission_line_</p>
+<p>existing_capacity</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p>transmission line</p>
+<p>efficiency [N/A]</p>
+</td>
+<td><p>Efficiency of transmission lines across all zones.</p></td>
+<td><p>transmission_line_</p>
+<p>efficiency</p>
+</td>
+</tr>
+<tr class="row-even"><td><p>transmission line</p>
+<p>fixed OM cost</p>
+<p>[dollar/MW/yr]</p>
+</td>
+<td><p>Fixed operation and maintenance costs of transmission lines.</p></td>
+<td><p>transmission_line_</p>
+<p>fixed_OM_cost</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p>transmission line</p>
+<p>variable OM cost</p>
+<p>[dollar/MW/yr]</p>
+</td>
+<td><p>Variable operations and maintenance costs of transmission lines.</p></td>
+<td><p>transmission_line</p>
+<p>_variable_cost</p>
+</td>
+</tr>
+<tr class="row-even"><td><p>transmission line</p>
+<p>investment cost</p>
+<p>[dollar/MW/km]</p>
+</td>
+<td><p>Investment cost of transmission lines.</p></td>
+<td><p>transmission_line_</p>
+<p>investment_cost</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p>transmission line</p>
+<p>lifetime [yr]</p>
+</td>
+<td><p>Lifetime of transmission lines.</p></td>
+<td><p>transmission_line_</p>
+<p>lifetime</p>
+</td>
+</tr>
+<tr class="row-even"><td><p>technology type [N/A]</p></td>
+<td><p>Categories of different technologies.</p></td>
+<td><p>technology_type</p></td>
+</tr>
+<tr class="row-odd"><td><p>reservoir tailrace</p>
+<p>level-discharge function</p>
+<p>[m &amp; m3/s]</p>
+</td>
+<td><p>Relationship between tailrace level and total discharge for different reservoirs.</p></td>
+<td><p>reservoir_tailrace_</p>
+<p>level_discharge_</p>
+<p>function</p>
+</td>
+</tr>
+<tr class="row-even"><td><p>reservoir forebay</p>
+<p>level-volume function</p>
+<p>[m &amp; m3]</p>
+</td>
+<td><p>Relationship between forebay level and volume for different reservoirs</p></td>
+<td><p>reservoir_forebay_</p>
+<p>level_volume_</p>
+<p>function</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p><cite>inf</cite> refers to Infinity, indicating that there is no upper bound.</p></li>
+<li><p><cite>None</cite> refers to a null value for current item.</p></li>
+</ul>
+</div>
+</section>
+<section id="outputs">
+<h2>Outputs<a class="headerlink" href="#outputs" title="Permalink to this heading">¶</a></h2>
+<p>The output of the model is stored in a NetCDF file, please refer to this <a class="reference external" href="https://xiaoganghe.github.io/python-climate-visuals/chapters/data-analytics/xarray-basic.html">simple tutorial</a> and <a class="reference external" href="https://docs.xarray.dev/en/stable/">official documentation</a> of Xarray to understand how to manipulate NetCDF files.</p>
+<p>The output file contains the following variables:</p>
+<table class="colwidths-given docutils align-default" id="id10">
+<caption><span class="caption-text">Output Variables</span><a class="headerlink" href="#id10" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 70%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Variable name [Unit]</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>trans_import [MW]</p></td>
+<td><p>The electrical power transmitted from Zone 1 and effectively received by Zone 2 through the transmission line, after adjusting for transmission losses.</p></td>
+</tr>
+<tr class="row-odd"><td><p>trans_export [MW]</p></td>
+<td><p>The electrical power initially sent out by Zone 1 for transmission to Zone 2 via the transmission line, before adjusting for any transmission and distribution losses during its journey to Zone 2.</p></td>
+</tr>
+<tr class="row-even"><td><p>gen [MW]</p></td>
+<td><p>Power output of different technologies during user-defined time interval.</p></td>
+</tr>
+<tr class="row-odd"><td><p>install [MW]</p></td>
+<td><p>Existing installed capacity of different technologies.</p></td>
+</tr>
+<tr class="row-even"><td><p>carbon [Ton]</p></td>
+<td><p>Carbon emissions across different years.</p></td>
+</tr>
+<tr class="row-odd"><td><p>charge [MW]</p></td>
+<td><p>Charged electricity of different storage technologies.</p></td>
+</tr>
+<tr class="row-even"><td><p>cost [dollar]</p></td>
+<td><p>Total cost (including total investment cost, total variable OM cost, and total fixed OM cost) over the planning period.</p></td>
+</tr>
+<tr class="row-odd"><td><p>cost_breakdown [dollar]</p></td>
+<td><p>Breakdown of total cost (including total investment cost, total variable OM cost, and total fixed OM cost) over the planning period, by zone, year, and technology.</p></td>
+</tr>
+<tr class="row-even"><td><p>cost_var [dollar]</p></td>
+<td><p>Total variable OM cost (including technology variable OM cost, transmission line variable OM cost, and fuel cost) over the planning period.</p></td>
+</tr>
+<tr class="row-odd"><td><p>cost_var_breakdown [dollar]</p></td>
+<td><p>Breakdown of total variable OM cost (including technology variable OM cost, transmission line variable OM cost, and fuel cost) over the planning period, by zone, year, and technology.</p></td>
+</tr>
+<tr class="row-even"><td><p>cost_fix [dollar]</p></td>
+<td><p>Total fixed OM cost (including technology fixed OM cost, transmission line fixed OM cost) over the planning period.</p></td>
+</tr>
+<tr class="row-odd"><td><p>cost_fix_breakdown [dollar]</p></td>
+<td><p>Breakdown of total fixed OM cost (including technology fixed OM cost, transmission line fixed OM cost) over the planning period, by zone, year, and technology.</p></td>
+</tr>
+<tr class="row-even"><td><p>cost_newtech [dollar]</p></td>
+<td><p>Total investment cost of technologies over the planning period.</p></td>
+</tr>
+<tr class="row-odd"><td><p>cost_newtech_breakdown [dollar]</p></td>
+<td><p>Breakdown of total investment cost of technologies over the planning period, by zone, year, and technology.</p></td>
+</tr>
+<tr class="row-even"><td><p>cost_newline [dollar]</p></td>
+<td><p>Investment cost of transmission lines over the planning period.</p></td>
+</tr>
+<tr class="row-odd"><td><p>cost_newline_breakdown [dollar]</p></td>
+<td><p>Breakdown of total investment cost of transmission lines over the planning period, by zone, year, and technology.</p></td>
+</tr>
+<tr class="row-even"><td><p>income [dollar]</p></td>
+<td><p>Saved cost due to abstracted water resources over the planning period.</p></td>
+</tr>
+<tr class="row-odd"><td><p>genflow [m3/s]</p></td>
+<td><p>Generated water flow of different reservoirs.</p></td>
+</tr>
+<tr class="row-even"><td><p>spillflow [m3/s]</p></td>
+<td><p>Spilled water flow of different reservoirs.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="execute-various-scenarios">
+<h2>Execute various scenarios<a class="headerlink" href="#execute-various-scenarios" title="Permalink to this heading">¶</a></h2>
+<p>By employing command-line parameters, you can execute different scenarios using the model. For example, if you wish to run a scenario referred to as &quot;low demand,&quot; you can prepare input data named <code class="docutils literal notranslate"><span class="pre">demand_low.xlsx</span></code>. Subsequently, when running the model, you can utilize command-line parameters to specify the scenario value. For instance, you can execute the model by executing the command <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">run.py</span> <span class="pre">--demand=low</span></code>.</p>
+</section>
+<section id="setting-global-parameters">
+<h2>Setting global parameters<a class="headerlink" href="#setting-global-parameters" title="Permalink to this heading">¶</a></h2>
+<p>This section will guide you on how to tune the PREP-SHOT model parameters to compute the energy system for your needs. After you have prepared your input data based on the previous sections, you can proceed to tune the model parameters before you run it.</p>
+<p>Within the root directory of the model, you will find a JSON file containing the parameters that you can tune for the model, named <code class="docutils literal notranslate"><span class="pre">config.json</span></code>. This file contains the following parameters:</p>
+<table class="colwidths-given docutils align-left">
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 70%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Model Parameter</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>input_folder</p></td>
+<td><p>Specifies the name of the folder containing the input data.</p></td>
+</tr>
+<tr class="row-odd"><td><p>output_filename</p></td>
+<td><p>Specifies the name of the output file.</p></td>
+</tr>
+<tr class="row-even"><td><p>hour</p></td>
+<td><p>Specifies the number of hours in each time period.</p></td>
+</tr>
+<tr class="row-odd"><td><p>month</p></td>
+<td><p>Specifies the number of months in each time period.</p></td>
+</tr>
+<tr class="row-even"><td><p>dt</p></td>
+<td><p>Specifies the timestep for the simulation in hours.</p></td>
+</tr>
+<tr class="row-odd"><td><p>hours_in_year</p></td>
+<td><p>Specifies the number of hours in a year. Typically, this is set to 8760.</p></td>
+</tr>
+<tr class="row-even"><td><p>isinflow</p></td>
+<td><p>Specifies whether to include inflow in the optimization problem. It can be used by assigning <cite>isinflow</cite> = <cite>true</cite> or <cite>false</cite>.</p></td>
+</tr>
+<tr class="row-odd"><td><p>error_threshold</p></td>
+<td><p>Specifies the error threshold for the model, while iterating for a solution. This parameter controls the convergence of the hydro model.</p></td>
+</tr>
+<tr class="row-even"><td><p>iteration_number</p></td>
+<td><p>Specifies the maximum number of iterations for the hydro model, while iterating for a solution.</p></td>
+</tr>
+<tr class="row-odd"><td><p>solver</p></td>
+<td><p>Specifies the solver to be used for the optimization problem.</p></td>
+</tr>
+<tr class="row-even"><td><p>solver_path</p></td>
+<td><p>Specifies the path of the dynamic library of solver. This is required while automatic detection of the installation directory of the solver fails. Please provide refer to <a class="reference external" href="https://metab0t.github.io/PyOptInterface/getting_started.html#setup-of-optimizers">PyOptInterface documentation</a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>solver_parameters</strong></p></td>
+<td><p>Specifies the solver-specific parameters for <a class="reference external" href="https://docs.mosek.com/latest/capi/parameters.html">mosek</a>, <a class="reference external" href="https://www.gurobi.com/documentation/11.0/refman/parameters.html">gurobi</a>, <a class="reference external" href="https://ergo-code.github.io/HiGHS/dev/options/definitions/">highs</a>, and <a class="reference external" href="https://guide.coap.online/copt/en-doc/parameter.html">copt</a>.</p></td>
+</tr>
+</tbody>
+</table>
+<p>After you have tuned the parameters, you can run the model by following the steps in the <a class="reference internal" href="Installation.html#installation"><span class="std std-ref">Installation</span></a> page.</p>
+<p>You can also try out the model with the sample data provided in the <code class="docutils literal notranslate"><span class="pre">input</span></code> folder. Refer to the <a class="reference internal" href="#model-input-output"><span class="std std-ref">Model Inputs/Outputs</span></a> page for a walkthrough of this example, inspried by real-world data.</p>
+<p class="rubric">Footnotes</p>
+<dl class="footnote brackets">
+<dt class="label" id="id5"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>The input files format is <code class="docutils literal notranslate"><span class="pre">.xlsx</span></code>.</p>
+</dd>
+<dt class="label" id="id6"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>For instance, assuming the planning period spans from 2020 to 2050, with 2020 being the starting point, let's consider a technology that has been in operation since 2019. In this case, 2020 would mark its 2nd year of operation within the planning period. These inputs are useful for modelling the retirement of existing technologies.</p>
+</dd>
+<dt class="label" id="id7"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
+<dd><p>To model the simplified hydropower operation.</p>
+</dd>
+<dt class="label" id="id8"><span class="brackets"><a class="fn-backref" href="#id4">4</a></span></dt>
+<dd><p>To model the potential of technologies with land, fuel, and water constraints.</p>
+</dd>
+</dl>
+</section>
+</section>
+
+
+</div>
+</div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Tutorial.html" class="btn btn-neutral float-right" title="Tutorial" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023-2025, Zhanwei Liu and Xiaogang He (GPL-3.0).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<!-- , "de":"#", "es":"#", "fr":"#" -->
+
+
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Read the Docs</span>
+    <!-- v: latest () -->
+    <!-- v: 0.1 -->
+    latest
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    
+
+    <dl>
+      <dt>Languages</dt>
+      
+        <dd><a href="#">en</a></dd>
+      
+    </dl>
+    <!-- <dl>
+      <dt>Versions</dt>
+      
+        <dd><a href="#">stable</a></dd>
+      
+        <dd><a href="#">latest</a></dd>
+      
+    </dl> -->
+    <dl>
+      
+      <dt>On Read the Docs</dt>
+        <dd>
+          <a href="https://github.com/PREP-NexT/PREP-SHOT/tree/main">Project Home</a>
+        </dd>
+        <!-- <dd>
+          <a href="///projects//builds/">Builds</a>
+        </dd> -->
+        <dd>
+          <a href="https://github.com/PREP-NexT/PREP-SHOT/raw/gh-pages/_static/PREP-SHOT.pdf">PDF</a>
+        </dd>
+    </dl>
+
+    <hr>
+    <small>
+      <span>Hosted by <a href="https://readthedocs.org">Read the Docs</a></span>
+      <span> · </span>
+      <a href="https://docs.readthedocs.io/page/privacy-policy.html">Privacy Policy</a>
+    </small>
+
+    
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+<meta property="og:title" content="hydro" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="api/prepshot._model.hydro.html" />
+<meta property="og:site_name" content="PREP-SHOT documentation" />
+<meta property="og:description" content="This module contains functions related to hydropower technologies. Water balance of reservoirs.. Similar to the storage technologies, changes in reservoir storage ({\rm{storage}}_{s,h,m,y}^{\rm{res..." />
+<meta name="description" content="This module contains functions related to hydropower technologies. Water balance of reservoirs.. Similar to the storage technologies, changes in reservoir storage ({\rm{storage}}_{s,h,m,y}^{\rm{res..." />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>hydro &mdash; PREP-SHOT (latest) documentation in English</title>
+
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/algolia.css" type="text/css" />
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/custom.css?5" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/dev.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/logo.png"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script async="async" src="../_static/es5/tex-chtml.js"></script>
+        <script src="../_static/js/custom.js?3"></script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+        <script defer="defer" src="../_static/js/algolia.js"></script>
+    <script src="../_static/js/theme.js"></script><meta name="theme-color" content="#3d8fcc">
+  
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="investment" href="prepshot._model.investment.html" />
+    <link rel="prev" title="head_iteration" href="prepshot._model.head_iteration.html" />
+<meta name="doc_version" content="latest">
+<meta name="doc_is_latest" content="">
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html">
+            <img src="../_static/SVG-03.svg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                latest
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Installation.html#step-1-download-prep-shot">Step 1: Download PREP-SHOT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Installation.html#step-2-install-dependencies">Step 2: Install dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Installation.html#step-3-run-an-example-optional">Step 3: Run an example (Optional)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Installation.html#step-4-run-your-own-model">Step 4: Run your own model</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Model_input_output.html">Model Inputs/Outputs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Model_input_output.html#inputs">Inputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Model_input_output.html#outputs">Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Model_input_output.html#execute-various-scenarios">Execute various scenarios</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Model_input_output.html#setting-global-parameters">Setting global parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Tutorial.html">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorial.html#scenario-background">Scenario Background</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Mathematical_notations.html">Mathematical Notation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Mathematical_notations.html#unit-list">Unit List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Mathematical_notations.html#set-list">Set List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Mathematical_notations.html#variable-list">Variable List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Mathematical_notations.html#parameter-list">Parameter List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Mathematical_notations.html#objective-functions">Objective Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Mathematical_notations.html#costs">Costs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Mathematical_notations.html#factors">Factors</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Mathematical_notations.html#constraints">Constraints</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Mathematical_notations.html#retirement">Retirement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Mathematical_notations.html#carbon-emission">Carbon Emission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Mathematical_notations.html#power-balance">Power Balance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Mathematical_notations.html#transmission">Transmission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Mathematical_notations.html#power-output">Power Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Mathematical_notations.html#power-output-variation">Power output variation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Mathematical_notations.html#energy-storage">Energy storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Mathematical_notations.html#water-balance">Water balance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Mathematical_notations.html#reservoir-outflow">Reservoir outflow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Mathematical_notations.html#reservoir-storage">Reservoir storage</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Forum.html">Discussion</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Forum.html#github-discussions">GitHub Discussions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Forum.html#private-queries">Private Queries</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Contribution.html">Contribution</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Contribution.html#development-process">Development Process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Contribution.html#building-documentation">Building Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Contribution.html#contributing-guidelines">Contributing Guidelines</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Changelog.html#version-0-1-0-jun-24-2024">Version 0.1.0 - Jun 24, 2024</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Changelog.html#version-0-1-1-jul-11-2024">Version 0.1.1 - Jul 11, 2024</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#added">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#fixed">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#changed">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#deprecated">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Changelog.html#version-0-1-2-jul-22-2024">Version 0.1.2 - Jul 22, 2024</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id2">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id3">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id4">Changed</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="prepshot.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="prepshot.set_up.html">set_up</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.set_up.html#prepshot.set_up.initialize_environment"><code class="docutils literal notranslate"><span class="pre">initialize_environment()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.set_up.html#prepshot.set_up.parse_cli_arguments"><code class="docutils literal notranslate"><span class="pre">parse_cli_arguments()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="prepshot.logs.html">logs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.logs.html#prepshot.logs.log_parameter_info"><code class="docutils literal notranslate"><span class="pre">log_parameter_info()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.logs.html#prepshot.logs.setup_logging"><code class="docutils literal notranslate"><span class="pre">setup_logging()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.logs.html#prepshot.logs.timer"><code class="docutils literal notranslate"><span class="pre">timer()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="prepshot.load_data.html">load_data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.load_data.html#prepshot.load_data.compute_cost_factors"><code class="docutils literal notranslate"><span class="pre">compute_cost_factors()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.load_data.html#prepshot.load_data.extract_config_data"><code class="docutils literal notranslate"><span class="pre">extract_config_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.load_data.html#prepshot.load_data.extract_sets"><code class="docutils literal notranslate"><span class="pre">extract_sets()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.load_data.html#prepshot.load_data.load_excel_data"><code class="docutils literal notranslate"><span class="pre">load_excel_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.load_data.html#prepshot.load_data.load_json"><code class="docutils literal notranslate"><span class="pre">load_json()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.load_data.html#prepshot.load_data.process_data"><code class="docutils literal notranslate"><span class="pre">process_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.load_data.html#prepshot.load_data.read_excel"><code class="docutils literal notranslate"><span class="pre">read_excel()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="prepshot.solver.html">solver</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.solver.html#prepshot.solver.get_solver"><code class="docutils literal notranslate"><span class="pre">get_solver()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.solver.html#prepshot.solver.set_solver_parameters"><code class="docutils literal notranslate"><span class="pre">set_solver_parameters()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.solver.html#prepshot.solver.solve_model"><code class="docutils literal notranslate"><span class="pre">solve_model()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="prepshot.model.html">model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.model.html#prepshot.model.create_model"><code class="docutils literal notranslate"><span class="pre">create_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.model.html#prepshot.model.define_basic_sets"><code class="docutils literal notranslate"><span class="pre">define_basic_sets()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.model.html#prepshot.model.define_complex_sets"><code class="docutils literal notranslate"><span class="pre">define_complex_sets()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.model.html#prepshot.model.define_constraints"><code class="docutils literal notranslate"><span class="pre">define_constraints()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.model.html#prepshot.model.define_model"><code class="docutils literal notranslate"><span class="pre">define_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.model.html#prepshot.model.define_variables"><code class="docutils literal notranslate"><span class="pre">define_variables()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="prepshot._model.html">constraints</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="prepshot._model.co2.html">co2</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="prepshot._model.co2.html#prepshot._model.co2.AddCo2EmissionConstraints"><code class="docutils literal notranslate"><span class="pre">AddCo2EmissionConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot._model.cost.html">cost</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="prepshot._model.cost.html#prepshot._model.cost.AddCostObjective"><code class="docutils literal notranslate"><span class="pre">AddCostObjective</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot._model.demand.html">demand</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="prepshot._model.demand.html#prepshot._model.demand.AddDemandConstraints"><code class="docutils literal notranslate"><span class="pre">AddDemandConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot._model.generation.html">generation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="prepshot._model.generation.html#prepshot._model.generation.AddGenerationConstraints"><code class="docutils literal notranslate"><span class="pre">AddGenerationConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot._model.head_iteration.html">head_iteration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="prepshot._model.head_iteration.html#prepshot._model.head_iteration.compute_error"><code class="docutils literal notranslate"><span class="pre">compute_error()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot._model.head_iteration.html#prepshot._model.head_iteration.initialize_waterhead"><code class="docutils literal notranslate"><span class="pre">initialize_waterhead()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot._model.head_iteration.html#prepshot._model.head_iteration.process_model_solution"><code class="docutils literal notranslate"><span class="pre">process_model_solution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot._model.head_iteration.html#prepshot._model.head_iteration.run_model_iteration"><code class="docutils literal notranslate"><span class="pre">run_model_iteration()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">hydro</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#prepshot._model.hydro.AddHydropowerConstraints"><code class="docutils literal notranslate"><span class="pre">AddHydropowerConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot._model.investment.html">investment</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="prepshot._model.investment.html#prepshot._model.investment.AddInvestmentConstraints"><code class="docutils literal notranslate"><span class="pre">AddInvestmentConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot._model.nondispatchable.html">nondispatchable</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="prepshot._model.nondispatchable.html#prepshot._model.nondispatchable.AddNondispatchableConstraints"><code class="docutils literal notranslate"><span class="pre">AddNondispatchableConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot._model.storage.html">storage</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="prepshot._model.storage.html#prepshot._model.storage.AddStorageConstraints"><code class="docutils literal notranslate"><span class="pre">AddStorageConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot._model.transmission.html">transmission</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="prepshot._model.transmission.html#prepshot._model.transmission.AddTransmissionConstraints"><code class="docutils literal notranslate"><span class="pre">AddTransmissionConstraints</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="prepshot.utils.html">utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.utils.html#prepshot.utils.calc_cost_factor"><code class="docutils literal notranslate"><span class="pre">calc_cost_factor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.utils.html#prepshot.utils.calc_inv_cost_factor"><code class="docutils literal notranslate"><span class="pre">calc_inv_cost_factor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.utils.html#prepshot.utils.cartesian_product"><code class="docutils literal notranslate"><span class="pre">cartesian_product()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.utils.html#prepshot.utils.check_positive"><code class="docutils literal notranslate"><span class="pre">check_positive()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.utils.html#prepshot.utils.interpolate_z_by_q_or_s"><code class="docutils literal notranslate"><span class="pre">interpolate_z_by_q_or_s()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="prepshot.output_data.html">output_data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.output_data.html#prepshot.output_data.create_data_array"><code class="docutils literal notranslate"><span class="pre">create_data_array()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.output_data.html#prepshot.output_data.extract_results_hydro"><code class="docutils literal notranslate"><span class="pre">extract_results_hydro()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.output_data.html#prepshot.output_data.extract_results_non_hydro"><code class="docutils literal notranslate"><span class="pre">extract_results_non_hydro()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.output_data.html#prepshot.output_data.save_result"><code class="docutils literal notranslate"><span class="pre">save_result()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.output_data.html#prepshot.output_data.save_to_excel"><code class="docutils literal notranslate"><span class="pre">save_to_excel()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.output_data.html#prepshot.output_data.update_output_filename"><code class="docutils literal notranslate"><span class="pre">update_output_filename()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Citations.html">Citation Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Citations.html#publications-by-topic">Publications by Topic</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../References.html">References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PREP-SHOT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+<li>
+	<div style="font-size: 105%;font-weight: 600;">
+		
+	</div>
+	<ul class="wy-breadcrumbs">
+		
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="prepshot.html">API Reference</a></li>
+          <li class="breadcrumb-item"><a href="prepshot._model.html">constraints</a></li>
+      <li class="breadcrumb-item active">hydro</li>
+	</ul>
+</li>
+
+
+<li style="float: right; text-align: right;">
+	<ul>
+		
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/PREP-NexT/PREP-SHOT/blob/main/doc/source/api/prepshot._model.hydro.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+	</ul>
+
+	<style>
+		.godot-edit-guidelines {
+			font-size: 14px;
+			float: right;
+			clear: both;
+			padding-top: 4px;
+		}
+
+		@media screen and (max-width: 480px) {
+			.godot-edit-guidelines {
+				display: none;
+			}
+		}
+	</style>
+	<a class="godot-edit-guidelines" href="https://prep-next.github.io/PREP-SHOT/Changelog.html#contributing-to-prep-shot">
+		Learn how to contribute!
+	</a>
+</li>
+
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+<div itemprop="articleBody">
+  
+
+  
+  <section id="module-prepshot._model.hydro">
+<span id="hydro"></span><h1>hydro<a class="headerlink" href="#module-prepshot._model.hydro" title="Permalink to this heading">¶</a></h1>
+<p>This module contains functions related to hydropower technologies.</p>
+<ol class="arabic simple">
+<li><p>Water balance of reservoirs.</p></li>
+</ol>
+<p>Similar to the storage technologies, changes in reservoir storage
+(<span class="math notranslate nohighlight">\({\rm{storage}}_{s,h,m,y}^{\rm{reservoir}}\)</span>) in two successive periods
+should be balanced by total inflow
+(<span class="math notranslate nohighlight">\({\rm{inflow}}_{s,h,m,y}^{\rm{total}}\)</span>) and total outflow
+(<span class="math notranslate nohighlight">\({\rm{outflow}}_{s,h,m,y}^{\rm{total}}\)</span>):</p>
+<div class="math notranslate nohighlight">
+\[{\rm{storage}}_{s,h,m,y}^{\rm{reservoir}}-
+{\rm{storage}}_{s,h-1,m,y}^{\rm{reservoir}}=
+\Delta h\times3600\times\left({\rm{inflow}}_{s,h,m,y}^{\rm{total}}
+-{\rm{outflow}}_{s,h,m,y}^{\rm{total}}\right)\quad\forall s,h,m,y\]</div>
+<p>Here <span class="math notranslate nohighlight">\({\rm{inflow}}_{s,h,m,y}^{\rm{total}}\)</span> consists of two parts:
+the total outflow received from all immediate upstream reservoirs
+(<span class="math notranslate nohighlight">\(\sum_{{\rm{su}}\in{\mathcal{IU}}_s}{{\rm{outflow}}_
+{{\rm{su}},h-\tau_{{\rm{su}},s},m,y}^{\rm{total}}}\)</span>)
+and the net inflow (also called incremental inflow) of the drainage area
+controlled by this hydropower reservoir
+(<span class="math notranslate nohighlight">\({{\rm{INFLOW}}}_{s,h,m,y}^{\rm{net}}\)</span>),
+which can be expressed as follows:</p>
+<div class="math notranslate nohighlight">
+\[{\rm{inflow}}_{s,h,m,y}^{\rm{total}}
+={{\rm{INFLOW}}}_{s,h,m,y}^{\rm{net}}+\sum_{{\rm{su}}\in
+{\mathcal{IU}}_s}{{\rm{outflow}}_{{\rm{su}},h-
+\tau_{{\rm{su}},s},m,y}^{\rm{total}}}\quad\forall s,h,m,y\]</div>
+<p>Note that PREP-SHOT assumes a constant water travel (or propagation) time
+(<span class="math notranslate nohighlight">\({\tau}_{{\rm{su}},s}\)</span>). The total outflow of each reservoir consists
+of three parts: upstream water withdrawal (i.e., water used for non-hydro
+purposes such as agriculture irrigation and urban water supply)
+(<span class="math notranslate nohighlight">\({\rm{outflow}}_{s,h,m,y}^{\rm{withdraw}}\)</span>), generation flow
+(i.e., water flow through the turbines of the hydropower plant)
+(<span class="math notranslate nohighlight">\({\rm{outflow}}_{s,h,m,y}^{\rm{gen}}\)</span>) and spillage flow
+(i.e., water spilled over the spillways)
+(<span class="math notranslate nohighlight">\({\rm{outflow}}_{s,h,m,y}^{\rm{spillage}}\)</span>):</p>
+<div class="math notranslate nohighlight">
+\[{\rm{outflow}}_{s,h,m,y}^{\rm{total}}
+={\rm{outflow}}_{s,h,m,y}^{\rm{withdraw}}
++{\rm{outflow}}_{s,h,m,y}^{\rm{gen}}
++{\rm{outflow}}_{s,h,m,y}^{\rm{spillage}}\quad\forall s,h,m,y\]</div>
+<ol class="arabic simple" start="2">
+<li><p>Reservoir outflow</p></li>
+</ol>
+<p>The generation flow and spillage flow of the reservoir are limited by the
+maximum outflow capacity of turbines (<span class="math notranslate nohighlight">\({\rm{OUTFLOW}}_s^{\rm{gen}}\)</span>)
+and spillway (<span class="math notranslate nohighlight">\({\rm{OUTFLOW}}_s^{\rm{spillage}}\)</span>), respectively.
+The sum of these two parts also needs to meet the minimum outflow required
+(<span class="math notranslate nohighlight">\({{\rm{OUTFLOW}}}_s\)</span>) for other purposes
+(e.g., ecological flow, shipping flow). These constraints are summarized as:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}{\rm{outflow}}_{s,h,m,y}^{\rm{gen}}\le{\rm{OUTFLOW}}_s^{\rm{gen}}
+\quad\forall s,h,m,y\\{\rm{outflow}}_{s,h,m,y}^{\rm{spillage}}\le
+{\rm{OUTFLOW}}_s^{\rm{spillage}}\quad\forall s,h,m,y\\{{\rm{OUTFLOW}}}_s\le {\rm{outflow}}_{s,h,m,y}^{\rm{gen}}
++{\rm{outflow}}_{s,h,m,y}^{\rm{spillage}}\quad\forall s,h,m,y\end{aligned}\end{align} \]</div>
+<ol class="arabic simple" start="3">
+<li><p>Reservoir storage</p></li>
+</ol>
+<p>The initial (when <span class="math notranslate nohighlight">\(h=h_{\rm{start}}\)</span>) and terminal
+(when <span class="math notranslate nohighlight">\(h=h_{\rm{end}}\)</span>) storage
+(<span class="math notranslate nohighlight">\({\rm{storage}}_{s,h=h_{\rm{start}},m,y}^{\rm{reservoir}}\)</span>
+and <span class="math notranslate nohighlight">\({\rm{storage}}_{s,h=h_{\rm{end}},m,y}^{\rm{reservoir}}\)</span>)
+of hydropower reservoir in each month of each year should be assigned as:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}{\rm{storage}}_{s,h=h_{\rm{start}},m,y}^{\rm{reservoir}}
+={{\rm{STORAGE}}}_{s,m,y}^{\rm{initreservoir}}\quad\forall s,m,y\\{\rm{storage}}_{s,h=h_{\rm{end}},m,y}^{\rm{reservoir}}
+={{\rm{STORAGE}}}_{s,m,y}^{\rm{endreservoir}}\quad\forall s,m,y\end{aligned}\end{align} \]</div>
+<p>The reservoir storage is bounded between the maximum
+(<span class="math notranslate nohighlight">\({\overline{{\rm{STORAGE}}}}_s^{\rm{reservoir}}\)</span>) and minimum storage
+(<span class="math notranslate nohighlight">\({\underline{{\rm{STORAGE}}}}_s^{\rm{reservoir}}\)</span>) depending on the
+functions (e.g., flood control, recreation, and water supply) of the reservoir:</p>
+<div class="math notranslate nohighlight">
+\[{\underline{{\rm{STORAGE}}}}_s^{\rm{reservoir}}\le
+{\rm{storage}}_{s,h,m,y}^{\rm{reservoir}}\le
+{\overline{{\rm{STORAGE}}}}_s^{\rm{reservoir}}\quad\forall s,h,m,y\]</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="prepshot._model.hydro.AddHydropowerConstraints">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">prepshot._model.hydro.</span></span><span class="sig-name descname"><span class="pre">AddHydropowerConstraints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/prepshot/_model/hydro.html#AddHydropowerConstraints"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#prepshot._model.hydro.AddHydropowerConstraints" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class for hydropower constraints and calculations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>model</strong> (<em>object</em>) -- </p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot._model.hydro.AddHydropowerConstraints.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/prepshot/_model/hydro.html#AddHydropowerConstraints.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#prepshot._model.hydro.AddHydropowerConstraints.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize the class. Here I define the variables needed and the
+constraints for the hydropower model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>model</strong> (<em>object</em>) -- Model container which is a dict-like objective and includes
+parameters, variables and constraints.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot._model.hydro.AddHydropowerConstraints.end_storage_rule">
+<span class="sig-name descname"><span class="pre">end_storage_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/prepshot/_model/hydro.html#AddHydropowerConstraints.end_storage_rule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#prepshot._model.hydro.AddHydropowerConstraints.end_storage_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determine storage of reservoir in the terminal hour of each month.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>s</strong> (<em>str</em>) -- hydropower plant.</p></li>
+<li><p><strong>m</strong> (<em>int</em>) -- Month.</p></li>
+<li><p><strong>y</strong> (<em>int</em>) -- Year.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The constraint of the model.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>poi.ConstraintIndex</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot._model.hydro.AddHydropowerConstraints.genflow_up_bound_rule">
+<span class="sig-name descname"><span class="pre">genflow_up_bound_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/prepshot/_model/hydro.html#AddHydropowerConstraints.genflow_up_bound_rule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#prepshot._model.hydro.AddHydropowerConstraints.genflow_up_bound_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Upper bound of generation flow.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>s</strong> (<em>str</em>) -- hydropower plant.</p></li>
+<li><p><strong>h</strong> (<em>int</em>) -- Hour.</p></li>
+<li><p><strong>m</strong> (<em>int</em>) -- Month.</p></li>
+<li><p><strong>y</strong> (<em>int</em>) -- Year.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The constraint of the model.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>poi.ConstraintIndex</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot._model.hydro.AddHydropowerConstraints.hydro_output_rule">
+<span class="sig-name descname"><span class="pre">hydro_output_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/prepshot/_model/hydro.html#AddHydropowerConstraints.hydro_output_rule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#prepshot._model.hydro.AddHydropowerConstraints.hydro_output_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hydropower output of all hydropower plants across each zone.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>h</strong> (<em>int</em>) -- Hour.</p></li>
+<li><p><strong>m</strong> (<em>int</em>) -- Month.</p></li>
+<li><p><strong>y</strong> (<em>int</em>) -- Year.</p></li>
+<li><p><strong>z</strong> (<em>str</em>) -- Zone.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The constraint of the model.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>poi.ConstraintIndex</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot._model.hydro.AddHydropowerConstraints.inflow_rule">
+<span class="sig-name descname"><span class="pre">inflow_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/prepshot/_model/hydro.html#AddHydropowerConstraints.inflow_rule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#prepshot._model.hydro.AddHydropowerConstraints.inflow_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define hydrolic connnect between cascade reservoirs, total inflow of
+downsteam reservoir = natural inflow + upstream outflow from upsteam
+reservoir(s).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>s</strong> (<em>str</em>) -- hydropower plant.</p></li>
+<li><p><strong>h</strong> (<em>int</em>) -- Hour.</p></li>
+<li><p><strong>m</strong> (<em>int</em>) -- Month.</p></li>
+<li><p><strong>y</strong> (<em>int</em>) -- Year.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Total inflow of reservoir.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>poi.ExprBuilder</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot._model.hydro.AddHydropowerConstraints.init_storage_rule">
+<span class="sig-name descname"><span class="pre">init_storage_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/prepshot/_model/hydro.html#AddHydropowerConstraints.init_storage_rule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#prepshot._model.hydro.AddHydropowerConstraints.init_storage_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determine storage of reservoir in the initial hour of each month.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>s</strong> (<em>str</em>) -- hydropower plant.</p></li>
+<li><p><strong>m</strong> (<em>int</em>) -- Month.</p></li>
+<li><p><strong>y</strong> (<em>int</em>) -- Year.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The constraint of the model.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>poi.ConstraintIndex</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot._model.hydro.AddHydropowerConstraints.outflow_low_bound_rule">
+<span class="sig-name descname"><span class="pre">outflow_low_bound_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/prepshot/_model/hydro.html#AddHydropowerConstraints.outflow_low_bound_rule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#prepshot._model.hydro.AddHydropowerConstraints.outflow_low_bound_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lower bound of total outflow.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>s</strong> (<em>str</em>) -- hydropower plant.</p></li>
+<li><p><strong>h</strong> (<em>int</em>) -- Hour.</p></li>
+<li><p><strong>m</strong> (<em>int</em>) -- Month.</p></li>
+<li><p><strong>y</strong> (<em>int</em>) -- Year.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The constraint of the model.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>poi.ConstraintIndex</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot._model.hydro.AddHydropowerConstraints.outflow_rule">
+<span class="sig-name descname"><span class="pre">outflow_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/prepshot/_model/hydro.html#AddHydropowerConstraints.outflow_rule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#prepshot._model.hydro.AddHydropowerConstraints.outflow_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Total outflow of reservoir is equal to the sum of generation and
+spillage.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>s</strong> (<em>str</em>) -- hydropower plant.</p></li>
+<li><p><strong>h</strong> (<em>int</em>) -- Hour.</p></li>
+<li><p><strong>m</strong> (<em>int</em>) -- Month.</p></li>
+<li><p><strong>y</strong> (<em>int</em>) -- Year.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Total outflow of reservoir.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>poi.ExprBuilder</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot._model.hydro.AddHydropowerConstraints.outflow_up_bound_rule">
+<span class="sig-name descname"><span class="pre">outflow_up_bound_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/prepshot/_model/hydro.html#AddHydropowerConstraints.outflow_up_bound_rule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#prepshot._model.hydro.AddHydropowerConstraints.outflow_up_bound_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Upper bound of total outflow.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>s</strong> (<em>str</em>) -- hydropower plant.</p></li>
+<li><p><strong>h</strong> (<em>int</em>) -- Hour.</p></li>
+<li><p><strong>m</strong> (<em>int</em>) -- Month.</p></li>
+<li><p><strong>y</strong> (<em>int</em>) -- Year.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The constraint of the model.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>poi.ConstraintIndex</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot._model.hydro.AddHydropowerConstraints.output_calc_rule">
+<span class="sig-name descname"><span class="pre">output_calc_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/prepshot/_model/hydro.html#AddHydropowerConstraints.output_calc_rule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#prepshot._model.hydro.AddHydropowerConstraints.output_calc_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hydropower production calculation. Head parameter is specified after
+building the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>s</strong> (<em>str</em>) -- hydropower plant.</p></li>
+<li><p><strong>h</strong> (<em>int</em>) -- Hour.</p></li>
+<li><p><strong>m</strong> (<em>int</em>) -- Month.</p></li>
+<li><p><strong>y</strong> (<em>int</em>) -- Year.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The constraint of the model.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>poi.ConstraintIndex</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot._model.hydro.AddHydropowerConstraints.output_low_bound_rule">
+<span class="sig-name descname"><span class="pre">output_low_bound_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/prepshot/_model/hydro.html#AddHydropowerConstraints.output_low_bound_rule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#prepshot._model.hydro.AddHydropowerConstraints.output_low_bound_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lower bound of hydropower output.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>s</strong> (<em>str</em>) -- hydropower plant.</p></li>
+<li><p><strong>h</strong> (<em>int</em>) -- Hour.</p></li>
+<li><p><strong>m</strong> (<em>int</em>) -- Month.</p></li>
+<li><p><strong>y</strong> (<em>int</em>) -- Year.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The constraint of the model.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>poi.ConstraintIndex</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot._model.hydro.AddHydropowerConstraints.output_up_bound_rule">
+<span class="sig-name descname"><span class="pre">output_up_bound_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/prepshot/_model/hydro.html#AddHydropowerConstraints.output_up_bound_rule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#prepshot._model.hydro.AddHydropowerConstraints.output_up_bound_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Upper bound of hydropower output.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>s</strong> (<em>str</em>) -- hydropower plant.</p></li>
+<li><p><strong>h</strong> (<em>int</em>) -- Hour.</p></li>
+<li><p><strong>m</strong> (<em>int</em>) -- Month.</p></li>
+<li><p><strong>y</strong> (<em>int</em>) -- Year.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The constraint of the model.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>poi.ConstraintIndex</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot._model.hydro.AddHydropowerConstraints.storage_low_bound_rule">
+<span class="sig-name descname"><span class="pre">storage_low_bound_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/prepshot/_model/hydro.html#AddHydropowerConstraints.storage_low_bound_rule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#prepshot._model.hydro.AddHydropowerConstraints.storage_low_bound_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lower bound of reservoir storage.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>s</strong> (<em>str</em>) -- hydropower plant.</p></li>
+<li><p><strong>h</strong> (<em>int</em>) -- Hour.</p></li>
+<li><p><strong>m</strong> (<em>int</em>) -- Month.</p></li>
+<li><p><strong>y</strong> (<em>int</em>) -- Year.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The constraint of the model.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>poi.ConstraintIndex</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot._model.hydro.AddHydropowerConstraints.storage_up_bound_rule">
+<span class="sig-name descname"><span class="pre">storage_up_bound_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/prepshot/_model/hydro.html#AddHydropowerConstraints.storage_up_bound_rule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#prepshot._model.hydro.AddHydropowerConstraints.storage_up_bound_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Upper bound of reservoir storage.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>s</strong> (<em>str</em>) -- hydropower plant.</p></li>
+<li><p><strong>h</strong> (<em>int</em>) -- Hour.</p></li>
+<li><p><strong>m</strong> (<em>int</em>) -- Month.</p></li>
+<li><p><strong>y</strong> (<em>int</em>) -- Year.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The constraint of the model.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>poi.ConstraintIndex</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot._model.hydro.AddHydropowerConstraints.water_balance_rule">
+<span class="sig-name descname"><span class="pre">water_balance_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/prepshot/_model/hydro.html#AddHydropowerConstraints.water_balance_rule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#prepshot._model.hydro.AddHydropowerConstraints.water_balance_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Water balance of reservoir, i.e., storage[t] = storage[t-1] +
+net_storage[t].</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>s</strong> (<em>str</em>) -- hydropower plant.</p></li>
+<li><p><strong>h</strong> (<em>int</em>) -- Hour.</p></li>
+<li><p><strong>m</strong> (<em>int</em>) -- Month.</p></li>
+<li><p><strong>y</strong> (<em>int</em>) -- Year.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The constraint of the model.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>poi.ConstraintIndex</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+</div>
+</div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="prepshot._model.head_iteration.html" class="btn btn-neutral float-left" title="head_iteration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="prepshot._model.investment.html" class="btn btn-neutral float-right" title="investment" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023-2025, Zhanwei Liu and Xiaogang He (GPL-3.0).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<!-- , "de":"#", "es":"#", "fr":"#" -->
+
+
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Read the Docs</span>
+    <!-- v: latest () -->
+    <!-- v: 0.1 -->
+    latest
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    
+
+    <dl>
+      <dt>Languages</dt>
+      
+        <dd><a href="#">en</a></dd>
+      
+    </dl>
+    <!-- <dl>
+      <dt>Versions</dt>
+      
+        <dd><a href="#">stable</a></dd>
+      
+        <dd><a href="#">latest</a></dd>
+      
+    </dl> -->
+    <dl>
+      
+      <dt>On Read the Docs</dt>
+        <dd>
+          <a href="https://github.com/PREP-NexT/PREP-SHOT/tree/main">Project Home</a>
+        </dd>
+        <!-- <dd>
+          <a href="///projects//builds/">Builds</a>
+        </dd> -->
+        <dd>
+          <a href="https://github.com/PREP-NexT/PREP-SHOT/raw/gh-pages/_static/PREP-SHOT.pdf">PDF</a>
+        </dd>
+    </dl>
+
+    <hr>
+    <small>
+      <span>Hosted by <a href="https://readthedocs.org">Read the Docs</a></span>
+      <span> · </span>
+      <a href="https://docs.readthedocs.io/page/privacy-policy.html">Privacy Policy</a>
+    </small>
+
+    
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
