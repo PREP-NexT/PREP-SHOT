@@ -503,7 +503,7 @@ And we can calculate the variable factor as follows:
 
 .. math::
 
-  \text{factor}_{y}^{var} &= (1+r)^{1-m_y}\frac{1-(1+r)^{-k_y}}{r} \\
+  \text{factor}_{y}^\text{var} &= (1+r)^{1-m_y}\frac{1-(1+r)^{-k_y}}{r} \\
   \\
   m_{y} &= y - y_\text{min} \\
   \\
@@ -513,7 +513,7 @@ And we can calculate the variable factor as follows:
 
 We can equate the fixed factor with the variable factor as follows:
 
-.. math:: \text{factor}_{y}^\text{fix} = factor_{y}^\text{var}
+.. math:: \text{factor}_{y}^\text{fix} = \text{factor}_{y}^\text{var}
 
 **Investment Factor**
 
@@ -555,27 +555,20 @@ Let's focus on the time periods that fall within the modelled time horizon (indi
 
 .. math::
   
-  k = y_{max} - y
+  k = y_\text{max} - y
 
 Using :math:`k`, we can calculate the net present value as follows:
 
 .. math::
 
-  \text{net present value} =
-  \begin{cases} 
-  \frac{\frac{A}{(1+r)} + \frac{A}{(1+r)^2} + \cdots + \frac{A}{(1+r)^{min(n, k)}}}{(1+r)^m} & \text{if }n \le k \\
-  \\
-  \text{total present value} & \text{if }n > k \\
-  \\
-  \frac{A\frac{1-(1+r)^{-k}}{r}}{(1+r)^m} = P\frac{i}{1-(1+i)^{-n}}\times\frac{1-(1+r)^{-k}}{r(1+r)^m} & \text{otherwise} \\
-  \\
-  \end{cases}
+  \text{net present value} = \frac{\frac{A}{(1+r)} + \frac{A}{(1+r)^2} + \cdots + \frac{A}{(1+r)^{\text{min}(n, k)}}}{(1+r)^m} = A \times \frac{1-(1+r)^{-\text{min}(n,k)}}{r(1+r)^m}
+
 
 And we can calculate the investment factor as follows:
 
 .. math::
 
-  factor_{y}^{inv} = \frac{i}{1-(1+i)^{-n}}\times\frac{1-(1+r)^{-min(n,k)}}{r(1+r)^m} \\
+  \text{factor}_{y}^\text{inv} = \frac{i}{1-(1+i)^{-n}}\times\frac{1-(1+r)^{-\text{min}(n,k)}}{r(1+r)^m} \\
   \\
 
 Constraints
