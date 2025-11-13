@@ -59,6 +59,14 @@ class AddTransmissionConstraints:
             model.hour, model.month, model.year, model.zone, model.zone,
             rule=self.trans_up_bound_rule
         )
+        model.trans_capacity_up_bound_cons = poi.make_tupledict(
+            model.year, model.zone, model.zone,
+            rule=self.trans_capacity_up_bound_rule
+        )
+        model.trans_capacity_low_bound_cons = poi.make_tupledict(
+            model.year, model.zone, model.zone,
+            rule=self.trans_capacity_low_bound_rule
+        )
 
     def trans_physical_rule(
         self, y : int, z : str, z1 : str
@@ -174,3 +182,61 @@ class AddTransmissionConstraints:
         lhs = model.trans_export[h, m, y, z, z1]                              \
             - model.cap_lines_existing[y, z, z1]
         return model.add_linear_constraint(lhs, poi.Leq, 0)
+    
+    def trans_capacity_up_bound_rule(
+        self, y : int, z : str, z1 : str
+    ) -> poi.ConstraintIndex:
+        """Transmission line capacity is less than or equal to the 
+        prescribed upper bound.
+
+        Parameters
+        ----------
+        h : int
+            Hour.
+        m : int
+            Month.
+        y : int
+            Year.
+        z : str
+            Zone.
+        z1 : str
+            Zone.
+
+        Returns
+        -------
+        poi.ConstraintIndex
+            The constraint of the model.
+        """
+        model = self.model
+        lhs = model.cap_lines_existing[y, z, z1]                              \
+            - model.params['transmission_line_capacity_upper_bound'][z, z1]
+        return model.add_linear_constraint(lhs, poi.Leq, 0)
+
+    def trans_capacity_low_bound_rule(
+        self, y : int, z : str, z1 : str
+    ) -> poi.ConstraintIndex:
+        """Transmission line capacity is greater than or equal to the 
+        prescribed lower bound.
+
+        Parameters
+        ----------
+        h : int
+            Hour.
+        m : int
+            Month.
+        y : int
+            Year.
+        z : str
+            Zone.
+        z1 : str
+            Zone.
+
+        Returns
+        -------
+        poi.ConstraintIndex
+            The constraint of the model.
+        """
+        model = self.model
+        lhs = model.cap_lines_existing[y, z, z1]                              \
+            - model.params['transmission_line_capacity_lower_bound'][z, z1]
+        return model.add_linear_constraint(lhs, poi.Geq, 0)

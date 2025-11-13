@@ -120,6 +120,9 @@ def extract_results_non_hydro(model : object) -> xr.Dataset:
     data_vars['cost'] = xr.DataArray(
         data = model.get_value(model.cost)
     )
+    data_vars['line_capacity'] = create_data_array(
+        model.cap_lines_existing, ['year', 'zone1', 'zone2'], 'MW', model
+    )
 
     return xr.Dataset(data_vars)
 
