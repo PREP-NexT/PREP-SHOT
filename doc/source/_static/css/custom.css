@@ -1622,3 +1622,13 @@ p + .classref-constant {
 .wy-breadcrumbs li a:first-child {
     padding-left: 0;
 }
+
+
+/* modification from zhanwei */
+/* Force ALL table columns to wrap, including first column */
+.wy-table-responsive table td,
+.wy-table-responsive table th {
+    white-space: normal !important;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+}
