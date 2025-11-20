@@ -26,6 +26,6 @@ If you use specific version of PREP-SHOT, please cite the appropriate publicatio
    * - `Integrated water-sediment-energy modeling framework <https://github.com/PREP-NexT/Mekong-Energy-Sediment>`_
      - Lower Mekong Region
      - Xu, B., Liu, Z., Yan, S., Schmitt, RJP  & He, X. (2025). Strategizing renewable energy transitions to preserve sediment transport integrity. Nature Sustainability, https://doi.org/10.1038/s41893-025-01626-5
-   * - Climate extremes and energy system resilience 
+   * - `Climate extremes and energy system resilience <https://github.com/PREP-NexT/PREP-SHOT>`_
      - Lower Mekong Region
      - Xie, J., Liu, Z., Yan, S. et al. Variable renewable energy pathways in the Lower Mekong Basin under projected river flow extremes. Commun Earth Environ 6, 928 (2025). https://doi.org/10.1038/s43247-025-02861-6
