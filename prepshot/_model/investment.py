@@ -213,7 +213,7 @@ class AddInvestmentConstraints:
         new_tech = poi.quicksum(
             model.cap_newtech[yy, z, te]
             for yy in year[:year.index(y) + 1]
-            if y - yy < lt[te, y]
+            if y - yy < lt[te, yy]
         )
         cap_existing += new_tech
         cap_existing += model.remaining_technology[y, z, te]
