@@ -144,6 +144,22 @@
         "first_col_only": false,
         "drop_na": true
     },
+    "transmission_line_capacity_upper_bound": {
+        "file_name": "transmission_line_capacity_upper_bound",
+        "index_cols": [0],
+        "header_rows": [0],
+        "unstack_levels": [0],
+        "first_col_only": false,
+        "drop_na": true
+    },
+    "transmission_line_capacity_lower_bound": {
+        "file_name": "transmission_line_capacity_lower_bound",
+        "index_cols": [0],
+        "header_rows": [0],
+        "unstack_levels": [0],
+        "first_col_only": false,
+        "drop_na": true
+    },
     "ramp_down": {
         "file_name": "ramp_down",
         "index_cols": [0],
