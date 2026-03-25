@@ -211,7 +211,7 @@ def run_model_iteration(
         else:
             error = compute_error(old_waterhead, new_waterhead)
         errors.append(error)
-        logging.info('Water head error: %.2f%%', error)
+        logging.info('Water head error: %.2f%%', error * 100)
         if error < error_threshold:
             return True
 
