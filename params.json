@@ -131,7 +131,7 @@
     "new_technology_lower_bound": {
         "file_name": "new_technology_lower_bound",
         "index_cols": [0],
-        "header_rows": [0],
+        "header_rows": [0, 1],
         "unstack_levels": [0],
         "first_col_only": false,
         "drop_na": true
@@ -139,7 +139,7 @@
     "new_technology_upper_bound": {
         "file_name": "new_technology_upper_bound",
         "index_cols": [0],
-        "header_rows": [0],
+        "header_rows": [0, 1],
         "unstack_levels": [0],
         "first_col_only": false,
         "drop_na": true
@@ -226,6 +226,38 @@
     },
     "technology_upper_bound": {
         "file_name": "technology_upper_bound",
+        "index_cols": [0],
+        "header_rows": [0, 1],
+        "unstack_levels": [0],
+        "first_col_only": false,
+        "drop_na": true
+    },
+    "technology_lower_bound": {
+        "file_name": "technology_lower_bound",
+        "index_cols": [0],
+        "header_rows": [0, 1],
+        "unstack_levels": [0],
+        "first_col_only": false,
+        "drop_na": true
+    },
+    "carbon_tax": {
+        "file_name": "carbon_tax",
+        "index_cols": [0],
+        "header_rows": [0],
+        "unstack_levels": [0],
+        "first_col_only": false,
+        "drop_na": true
+    },
+    "carbon_offset_price": {
+        "file_name": "carbon_offset_price",
+        "index_cols": [0],
+        "header_rows": [0],
+        "unstack_levels": [0],
+        "first_col_only": false,
+        "drop_na": true
+    },
+    "carbon_offset_limit": {
+        "file_name": "carbon_offset_limit",
         "index_cols": [0],
         "header_rows": [0],
         "unstack_levels": [0],

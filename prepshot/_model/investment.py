@@ -65,6 +65,10 @@ class AddInvestmentConstraints:
             model.year, model.zone, model.tech,
             rule=self.tech_up_bound_rule
         )
+        model.tech_low_bound_cons = poi.make_tupledict(
+            model.year, model.zone, model.tech,
+            rule=self.tech_low_bound_rule
+        )
         model.new_tech_up_bound_cons = poi.make_tupledict(
             model.year, model.zone, model.tech,
             rule=self.new_tech_up_bound_rule
@@ -95,11 +99,38 @@ class AddInvestmentConstraints:
             The constraint of the model.
         """
         model = self.model
-        tub =  model.params['technology_upper_bound'][te, z]
+        tub =  model.params['technology_upper_bound'][z, te, y]
         if tub != np.Inf:
             lhs = model.cap_existing[y, z, te] - tub
             return model.add_linear_constraint(lhs, poi.Leq, 0)
         return None
+
+    def tech_low_bound_rule(
+        self, y : int, z : str, te : str
+    ) -> poi.ConstraintIndex:
+        """Allowed capacity of commercial operation technology is greater than
+        or equal to the predefined lower bound.
+
+        Parameters
+        ----------
+        y : int
+            Year.
+        z : str
+            Zone.
+        te : str
+            Technology.
+
+        Returns
+        -------
+        poi.ConstraintIndex
+            The constraint of the model.
+        """
+        model = self.model
+        tlb = model.params['technology_lower_bound'][z, te, y]
+        if tlb == 0:
+            return None
+        lhs = model.cap_existing[y, z, te] - tlb
+        return model.add_linear_constraint(lhs, poi.Geq, 0)
 
     def new_tech_up_bound_rule(
         self, y : int, z : str, te : str
@@ -114,14 +145,14 @@ class AddInvestmentConstraints:
             Zone.
         te : str
             Technology.
-            
+
         Returns
         -------
         poi.ConstraintIndex
             The constraint of the model.
         """
         model = self.model
-        ntub = model.params['new_technology_upper_bound'][te, z]
+        ntub = model.params['new_technology_upper_bound'][z, te, y]
         if ntub != np.Inf:
             lhs = model.cap_newtech[y, z, te] - ntub
             return model.add_linear_constraint(lhs, poi.Leq, 0)
@@ -147,7 +178,7 @@ class AddInvestmentConstraints:
             The constraint of the model.
         """
         model = self.model
-        ntlb = model.params['new_technology_lower_bound'][te, z]
+        ntlb = model.params['new_technology_lower_bound'][z, te, y]
         lhs = model.cap_newtech[y, z, te] - ntlb
         return model.add_linear_constraint(lhs, poi.Geq, 0)
 

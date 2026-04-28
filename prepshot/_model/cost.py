@@ -76,9 +76,13 @@ class AddCostObjective:
         model.cost_newtech = self.newtech_cost_rule()
         model.cost_fix = self.fix_cost_rule()
         model.cost_newline = self.newline_cost_rule()
+        model.cost_carbon = self.carbon_cost_rule()
+        model.cost_carbon_offset = self.carbon_offset_cost_rule()
         model.income = self.income_rule()
         model.cost = model.cost_var + model.cost_newtech                     \
-            + model.cost_fix + model.cost_newline - model.income
+            + model.cost_fix + model.cost_newline                            \
+            + model.cost_carbon + model.cost_carbon_offset                   \
+            - model.income
         model.set_objective(model.cost, sense=poi.ObjectiveSense.Minimize)
     def fuel_cost_breakdown(
         self, y : int, z : str, te : str
@@ -351,6 +355,83 @@ class AddCostObjective:
             rule=self.cost_newline_breakdown
         )
         return poi.quicksum(model.cost_newline_breakdown)
+
+    def carbon_cost_breakdown(
+        self, y : int, z : str
+    ) -> poi.ExprBuilder:
+        """Carbon-tax cost breakdown by year and zone.
+
+        Tax is applied to net zonal emissions (raw emissions minus purchased
+        offsets), in line with the carbon-market accounting convention.
+
+        Parameters
+        ----------
+        y : int
+            Year.
+        z : str
+            Zone.
+
+        Returns
+        -------
+        poi.ExprBuilder
+            Carbon-tax cost at a given year and zone.
+        """
+        model = self.model
+        ct = model.params['carbon_tax'][z, y]
+        vf = model.params['var_factor'][y]
+        return ct * model.carbon_capacity[y, z] * vf
+
+    def carbon_offset_cost_breakdown(
+        self, y : int, z : str
+    ) -> poi.ExprBuilder:
+        """Cost of purchased carbon offsets by year and zone.
+
+        Parameters
+        ----------
+        y : int
+            Year.
+        z : str
+            Zone.
+
+        Returns
+        -------
+        poi.ExprBuilder
+            Carbon-offset cost at a given year and zone.
+        """
+        model = self.model
+        cop = model.params['carbon_offset_price'][z, y]
+        vf = model.params['var_factor'][y]
+        return cop * model.carbon_offset[y, z] * vf
+
+    def carbon_cost_rule(self) -> poi.ExprBuilder:
+        """Total carbon-tax cost over all years and zones.
+
+        Returns
+        -------
+        poi.ExprBuilder
+            Total carbon-tax cost.
+        """
+        model = self.model
+        model.cost_carbon_breakdown = poi.make_tupledict(
+            model.year, model.zone,
+            rule=self.carbon_cost_breakdown
+        )
+        return poi.quicksum(model.cost_carbon_breakdown)
+
+    def carbon_offset_cost_rule(self) -> poi.ExprBuilder:
+        """Total cost of purchased carbon offsets over all years and zones.
+
+        Returns
+        -------
+        poi.ExprBuilder
+            Total carbon-offset cost.
+        """
+        model = self.model
+        model.cost_carbon_offset_breakdown = poi.make_tupledict(
+            model.year, model.zone,
+            rule=self.carbon_offset_cost_breakdown
+        )
+        return poi.quicksum(model.cost_carbon_offset_breakdown)
 
     def fix_cost_rule(self) -> poi.ExprBuilder:
         """Fixed O&M cost of technologies and transmission lines.

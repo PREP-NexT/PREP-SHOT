@@ -36,6 +36,9 @@ class AddCo2EmissionConstraints:
 
         """
         self.model = model
+        model.carbon_offset = model.add_variables(
+            model.year, model.zone, lb=0
+        )
         model.carbon_breakdown = poi.make_tupledict(
             model.year, model.zone, model.tech,
             rule=self.carbon_breakdown
@@ -51,6 +54,10 @@ class AddCo2EmissionConstraints:
         model.emission_limit_cons = poi.make_tupledict(
             model.year,
             rule=self.emission_limit_rule
+        )
+        model.carbon_offset_limit_cons = poi.make_tupledict(
+            model.year, model.zone,
+            rule=self.carbon_offset_limit_rule
         )
 
     def emission_limit_rule(self, y : int) -> poi.ConstraintIndex:
@@ -92,8 +99,35 @@ class AddCo2EmissionConstraints:
 
     def emission_calc_by_zone_rule(
         self, y : int, z : str
+    ) -> poi.ExprBuilder:
+        """Calculation of annual net carbon emissions by zone, after subtracting
+        purchased carbon offsets.
+
+        Parameters
+        ----------
+        y : int
+            Planned year.
+        z : str
+            Zone.
+
+        Returns
+        -------
+        poi.ExprBuilder
+            An expression for net zonal emissions.
+        """
+        model = self.model
+        return poi.quicksum(model.carbon_breakdown.select(y, z, '*'))         \
+            - model.carbon_offset[y, z]
+
+    def carbon_offset_limit_rule(
+        self, y : int, z : str
     ) -> poi.ConstraintIndex:
-        """Calculation of annual carbon emissions by zone.
+        """Limit purchased carbon offsets to a fraction of raw zonal emissions.
+
+        ``carbon_offset[y,z] <= rate * raw_emissions[y,z]``
+
+        where ``raw_emissions = carbon_capacity + carbon_offset`` (i.e. the
+        emissions before offsets are deducted).
 
         Parameters
         ----------
@@ -108,7 +142,10 @@ class AddCo2EmissionConstraints:
             A constraint of the model.
         """
         model = self.model
-        return poi.quicksum(model.carbon_breakdown.select(y, z, '*'))
+        rate = model.params['carbon_offset_limit'][z, y]
+        raw_emissions = poi.quicksum(model.carbon_breakdown.select(y, z, '*'))
+        lhs = model.carbon_offset[y, z] - rate * raw_emissions
+        return model.add_linear_constraint(lhs, poi.Leq, 0)
 
     def carbon_breakdown(
         self,
