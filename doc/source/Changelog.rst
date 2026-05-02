@@ -146,3 +146,25 @@ Fixed
 * Legacy ``params.json`` files (pre-v1.1.0, no ``_schema_version`` stamp)
   now produce a clear migration hint instead of a downstream
   ``KeyError`` / ``FileNotFoundError``.
+
+
+Version 1.1.2 - May 2, 2026
+-------------------------------
+
+Added
++++++
+
+* ``tests/test_regression.py``: end-to-end regression test that runs the
+  full ``python run.py`` flow on the canonical ``input/`` dataset and
+  locks in the final-iteration objective (``1.8793771299e+11``) with a
+  1 % tolerance. Set ``PREPSHOT_SKIP_SLOW=1`` to skip it (≈150 s).
+
+Fixed
++++++
+
+* ``prepshot/set_up.py`` now skips underscore-prefixed metadata keys
+  (e.g. ``_schema_version``) when iterating ``params.json`` to build the
+  argparse list. Without this fix v1.1.1 raised ``TypeError: 'int' object
+  is not subscriptable`` at the start of ``initialize_environment``,
+  breaking ``python run.py`` end-to-end despite the schema guard inside
+  ``process_data`` working in isolation.

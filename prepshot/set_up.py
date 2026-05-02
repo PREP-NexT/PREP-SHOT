@@ -62,7 +62,10 @@ def initialize_environment(config_files : Dict[str, str]) -> Dict[str, Any]:
     log_parameter_info(config_data)
 
     params = load_json(params_filename)
-    params_list = [params[key]["file_name"] for key in params]
+    # Underscore-prefixed keys (e.g. _schema_version) are metadata stamps,
+    # not input-file descriptors; skip them when iterating params.
+    file_param_keys = [k for k in params if not k.startswith("_")]
+    params_list = [params[key]["file_name"] for key in file_param_keys]
     args = parse_cli_arguments(params_list)
 
     # Determine the input folder path.
@@ -70,7 +73,7 @@ def initialize_environment(config_files : Dict[str, str]) -> Dict[str, Any]:
     input_filepath = path.join(filepath, input_filename)
 
     # Update params with command-line arguments if provided.
-    for param in params.keys():
+    for param in file_param_keys:
         if getattr(args, param) is not None:
             params[param]["file_name"] = params[param]["file_name"] \
                 + f"_{getattr(args, param)}"
