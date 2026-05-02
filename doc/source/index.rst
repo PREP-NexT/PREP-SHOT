@@ -63,6 +63,7 @@ To browse the documentation offline, you can `download a PDF copy <https://githu
    Forum
    Contribution
    Changelog
+   Stability
    api/prepshot
    Citations
    References

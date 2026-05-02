@@ -1,5 +1,6 @@
 {
-    
+    "_schema_version": 1,
+
     "historical_capacity": {
         "file_name": "historical_capacity",
         "index_cols": [0],

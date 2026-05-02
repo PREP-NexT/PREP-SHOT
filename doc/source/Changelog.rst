@@ -69,3 +69,53 @@ Changed
 * Refactored `extract_results_non_hydro` in `output_data.py` to extract common features for different variables, simplifying the code.
 * Removed definitions of complex sets and opted for simple sets wherever possible to streamline the code.
 * Refactor: Organize import order of modules according to PEP 8 guidelines: (1) Grouped standard library imports at the top; (2) Followed by third-party library imports; (3) Local application/library imports at the bottom.
+
+
+Version 1.0 - Jul 21, 2025
+-------------------------------
+
+First v1.0 release. Aggregates all changes since v0.1.2 (PRs #23–#34). See
+the GitHub release notes for the full list. Notable highlights:
+
+* Bug fixes and refinements to constraint definitions.
+* Documentation improvements and added publications.
+* Stabilized PyOptInterface integration.
+
+
+Version 1.1.0 - May 2, 2026
+-------------------------------
+
+.. note::
+   **v1.x is a rapid-evolution series.** Breaking input-format changes may
+   occur on minor version bumps. API and input-schema stability will be
+   promised with v2.0.0. See :doc:`Stability`.
+
+Added
++++++
+
+* Time-varying capacity bounds: ``technology_upper_bound``,
+  ``technology_lower_bound``, ``new_technology_upper_bound``, and
+  ``new_technology_lower_bound`` are now indexed by ``(zone, tech, year)``.
+* Re-introduced ``technology_lower_bound`` constraint on ``cap_existing``.
+* Carbon market:
+
+  * ``carbon_offset[y, z]`` decision variable.
+  * ``carbon_tax`` cost term in the objective.
+  * ``carbon_offset_price`` cost term in the objective.
+  * Fractional ``carbon_offset_limit`` constraint
+    (``offset <= rate * raw zonal emissions``).
+  * ``carbon_capacity[y, z]`` now nets out purchased offsets.
+
+* ``southeast_asia/`` dataset migrated to the new schema.
+* ``params.json`` now stamps ``_schema_version: 1``.
+
+Changed (Breaking)
+++++++++++++++++++
+
+* Bound input files reshaped from ``(tech, zone)`` to ``(zone, tech, year)``.
+* Four new required input files: ``technology_lower_bound``,
+  ``carbon_tax``, ``carbon_offset_price``, ``carbon_offset_limit``. The
+  shipped defaults are zero-filled, which keeps the carbon-market feature
+  dormant.
+* ``params.json`` files without ``_schema_version`` are rejected by the
+  loader.
