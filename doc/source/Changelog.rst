@@ -254,6 +254,46 @@ Removed
   that were replaced in v0.1.1 by the generic ``read_excel`` helper.
   The test file had been a silent import error since then.
 
+
+Version 1.3.1 - May 2, 2026
+-------------------------------
+
+Security / dependency hygiene release. Bumps declared dependency floors
+to clear known CVEs in the previously pinned old releases (the
+v0.1.x-era pins were 2-4 years old).
+
+Changed
++++++++
+
+* ``pyproject.toml`` and ``requirements.txt`` floors raised to:
+
+  * ``numpy>=1.26.0,<2.0``
+  * ``scipy>=1.11.4``
+  * ``pandas>=1.5.3,<2.0``
+  * ``xarray>=2023.4.0,<2024``
+  * ``openpyxl>=3.1.2``
+  * ``xlsxwriter>=3.1.0``
+
+* ``pandas`` and ``numpy`` are temporarily capped below 2.0 because
+  pandas 2.x's ``DataFrame.unstack`` no longer accepts duplicate
+  column-level values (which the wide input format relies on). The
+  cap will be lifted in a future release once ``read_excel`` is
+  rewritten to not rely on ``unstack``.
+
+Tested with
++++++++++++
+
+* numpy 1.26.4, scipy 1.13.1, pandas 1.5.3, xarray 2023.12.0,
+  openpyxl 3.1.5, xlsxwriter 3.2.9, pyoptinterface 0.2.5,
+  highsbox 1.7.0. Full test suite (13 tests) passes.
+
+Migration notes
++++++++++++++++
+
+* Existing environments should run ``pip install -U -r requirements.txt``
+  (or ``pip install -e .`` if you use the editable install) to pick up
+  the bumped dependency versions.
+
 Migration notes
 +++++++++++++++
 

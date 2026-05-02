@@ -25,14 +25,14 @@ classifiers = [
     "Topic :: Scientific/Engineering",
 ]
 dependencies = [
-    "numpy>=1.22",
-    "scipy>=1.7",
-    "pandas>=1.5",
-    "xarray>=0.20",
-    "openpyxl>=3.0",
-    "xlsxwriter>=3.2",
-    "pyoptinterface>=0.2",
-    "highsbox>=1.7",
+    "numpy>=1.26.0,<2.0",
+    "scipy>=1.11.4",
+    "pandas>=1.5.3,<2.0",
+    "xarray>=2023.4.0,<2024",
+    "openpyxl>=3.1.2",
+    "xlsxwriter>=3.1.0",
+    "pyoptinterface>=0.2.5",
+    "highsbox>=1.7.0",
 ]
 
 [project.optional-dependencies]
