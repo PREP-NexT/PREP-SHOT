@@ -75,7 +75,7 @@ class AddCo2EmissionConstraints:
         """
         model = self.model
         limit = model.params['carbon_emission_limit']
-        if limit[y] == np.Inf:
+        if limit[y] == np.inf:
             return None
         lhs = model.carbon[y] - limit[y]
         return model.add_linear_constraint(lhs, poi.Leq, 0)

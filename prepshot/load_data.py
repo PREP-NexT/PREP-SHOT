@@ -147,18 +147,24 @@ def load_excel_data(
 ) -> None:
     """Load input data based on the provided parameters.
 
-    Despite the legacy name, this function dispatches on ``"format"``:
+    The function dispatches on ``"format"``:
 
-    * ``"format": "wide"`` (default) -- load from an ``.xlsx`` file using
-      pandas ``read_excel`` + ``unstack`` per the legacy schema.
-    * ``"format": "long"`` -- load from a ``.csv`` file in tidy form
-      (dimension columns first, value column last).
+    * ``"format": "long"`` (default) -- load from a ``.csv`` file in tidy
+      form (dimension columns first, value column last). See
+      :func:`read_long_csv`.
+    * ``"format": "table"`` -- load from a ``.csv`` file with multiple
+      value columns, returned as a DataFrame so consumers can use
+      ``groupby``, column-by-name access, etc.
 
     Each entry may also declare ``"required": false`` and a ``"default"``
     value. If the file for an optional parameter is missing, the loader
     silently substitutes the default (or an empty dict if none is given)
     and logs a debug message. Required parameters with missing files
     still terminate the process.
+
+    The legacy function name is kept for backwards-compatible imports;
+    despite the ``_excel_`` in the name, all on-disk inputs are CSV as
+    of v1.5.0.
 
     Parameters
     ----------
@@ -350,46 +356,6 @@ def compute_cost_factors(data_store : dict) -> None:
             data_store["var_factor"][year] = calc_cost_factor(
                 discount_rate, year, y_min, next_year
             )
-
-
-def read_excel(
-    filename, index_cols, header_rows, unstack_levels=None,
-    first_col_only=False, dropna=True
-) -> pd.DataFrame:
-    """Read data from an Excel file into a pandas DataFrame.
-
-    Parameters
-    ----------
-    filename : str
-        The name of the input Excel file.
-    index_cols : list
-        List of column names to be used as index.
-    header_rows : list
-        List of rows to be used as header.
-    unstack_levels : list, optional
-        List of levels to be unstacked, by default None
-    first_col_only : bool, optional
-        Whether to keep only the first column, by default False
-    dropna : bool, optional
-        Whether to drop rows with NaN values, by default True
-
-    Returns
-    -------
-    pandas.DataFrame
-        A DataFrame containing the data from the Excel file.
-    """
-    df = pd.read_excel(io=filename, index_col=index_cols, header=header_rows)
-
-    if unstack_levels:
-        df = df.unstack(level=unstack_levels)
-
-    if first_col_only:
-        df = df.iloc[:, 0]
-
-    if dropna:
-        df = df.dropna().to_dict()
-
-    return df
 
 
 def process_data(

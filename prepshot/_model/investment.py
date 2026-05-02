@@ -100,7 +100,7 @@ class AddInvestmentConstraints:
         """
         model = self.model
         tub =  model.params['technology_upper_bound'][z, te, y]
-        if tub != np.Inf:
+        if tub != np.inf:
             lhs = model.cap_existing[y, z, te] - tub
             return model.add_linear_constraint(lhs, poi.Leq, 0)
         return None
@@ -153,7 +153,7 @@ class AddInvestmentConstraints:
         """
         model = self.model
         ntub = model.params['new_technology_upper_bound'][z, te, y]
-        if ntub != np.Inf:
+        if ntub != np.inf:
             lhs = model.cap_newtech[y, z, te] - ntub
             return model.add_linear_constraint(lhs, poi.Leq, 0)
         return None

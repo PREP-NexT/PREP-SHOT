@@ -531,11 +531,50 @@ metadata stamp ``"_schema_version": 2``, then minimal long-format
 entries (``"format": "long"`` / ``"format": "table"``) without the
 legacy wide-format keys.
 
-Migration notes
-+++++++++++++++
 
-* Existing input directories are unaffected -- the carbon-market files
-  shipped in v1.1.0 still load if present.
-* When adding new features in the future, prefer ``"required": false,
-  "default": ...`` so users only need to prepare files for features they
-  actually use. See ``prepshot/load_data.py::load_excel_data``.
+Version 1.6.0 - May 3, 2026
+-------------------------------
+
+Cleanup release. The wide-Excel reading machinery is removed, the
+migration tool is rewritten to work under pandas >= 2.0, and the
+``pandas<2.0`` / ``numpy<2.0`` caps from v1.3.1 are lifted.
+
+Removed
++++++++
+
+* ``prepshot.load_data.read_excel`` -- deleted. Nothing in the runtime
+  path used it after v1.5.0; the migration tool now has its own
+  ``pd.read_excel`` call.
+
+Changed
++++++++
+
+* ``tools/migrate_to_long.py`` rewritten to be self-contained:
+
+  - Bundles its own copy of the v1.4.x wide-format spec (since the
+    on-disk ``params.json`` is now v1.5.0 long-format and no longer
+    carries that information).
+  - Uses a custom ``flatten_wide_to_dict`` helper that replicates the
+    v1.4.x ``unstack``-based key ordering by direct cell iteration.
+    Works under pandas >= 2.0 (which rejects ``unstack`` on
+    DataFrames with duplicate column-level values).
+  - Verified to produce byte-equivalent output to the shipped
+    v1.5.0 ``input/`` CSVs (modulo annotation columns) for all 38
+    dict-shape parameters.
+
+* ``pyproject.toml`` and ``requirements.txt`` floors raised:
+
+  - ``numpy>=1.26.0`` (no upper cap)
+  - ``pandas>=2.0.0`` (no upper cap)
+  - ``xarray>=2023.10.0`` (no upper cap)
+
+* Tested with numpy 2.0.2, pandas 2.3.3, xarray 2024.7.0; full
+  test suite passes (22 tests, end-to-end regression objective
+  unchanged at 1.879e+11).
+
+Fixed
++++++
+
+* ``np.Inf`` references in ``prepshot/_model/investment.py`` and
+  ``prepshot/_model/co2.py`` replaced with ``np.inf`` (``np.Inf``
+  was removed in numpy 2.0).
