@@ -371,6 +371,166 @@ Migration notes
   long-format.
 * Future features should prefer long-format from the start.
 
+
+Version 1.5.0 - May 2, 2026
+-------------------------------
+
+.. note::
+   **Schema bump 1 -> 2.** This is a breaking input-format change.
+   Existing input directories must be migrated. See migration notes
+   below.
+
+Every input is now a CSV. The unstack-based wide-Excel code path is
+no longer used by the loader at runtime, though ``read_excel`` remains
+in ``prepshot/load_data.py`` for the migration tool's benefit (a full
+v1.4.x -> v1.5.0 migration tool is on the v1.6.0 roadmap).
+
+The ``pandas<2.0`` cap from v1.3.1 is *still in place* in v1.5.0 because
+``read_excel`` (used by the migration tool) calls ``unstack``. Once the
+migration tool no longer needs ``read_excel`` (v1.6.0), the cap will
+be lifted.
+
+Added
++++++
+
+* ``tools/migrate_to_long.py`` -- runnable migration script that
+  converts a directory of wide-format Excel inputs to long-format CSVs
+  using the legacy params.json spec for shape information. Run as::
+
+      python tools/migrate_to_long.py /path/to/your/input_dir
+
+* Tailored schema-1 -> schema-2 migration hint in ``check_schema``:
+  users feeding a v1.4.x or earlier params.json now get a clear
+  pointer at ``tools/migrate_to_long.py`` instead of a generic version
+  mismatch error.
+
+Changed (Breaking)
+++++++++++++++++++
+
+* ``params.json`` schema bumped to ``_schema_version: 2``. Files with
+  ``_schema_version: 1`` are rejected with a migration hint.
+* All Group-1/2 parameters in ``input/`` and ``southeast_asia/`` have
+  been converted from wide ``.xlsx`` to long ``.csv``:
+
+  - Capacity / cost: ``technology_*``, ``transmission_line_*``,
+    ``capacity_factor``, ``new_technology_*_bound``, ``lifetime``,
+    ``fuel_price``, ``technology_portfolio``, ``technology_type``,
+    ``historical_capacity``, ``initial_energy_storage_level``,
+    ``charge_efficiency``, ``discharge_efficiency``,
+    ``energy_to_power_ratio``, ``ramp_up``, ``ramp_down``.
+  - Time-series / spatial: ``demand``, ``inflow``,
+    ``predefined_hydropower``, ``distance``,
+    ``reservoir_storage_upper_bound``, ``reservoir_storage_lower_bound``,
+    ``initial_reservoir_storage_level``,
+    ``final_reservoir_storage_level``.
+  - Domain: ``carbon_emission_limit``, ``emission_factor``,
+    ``carbon_offset_price``, ``carbon_offset_limit``, ``discount_factor``.
+
+* ``params.json`` entries for migrated parameters now declare just
+  ``"format": "long"`` plus ``drop_na`` (and ``required``/``default``
+  if optional). The wide-format-specific keys (``index_cols``,
+  ``header_rows``, ``unstack_levels``, ``first_col_only``) are dropped.
+
+Annotation columns
+++++++++++++++++++
+
+Long-format CSVs now support **annotation columns** -- human-readable
+metadata that lives alongside the data but is ignored by the model
+loader. Following the TransitionZero convention:
+
+* Every long CSV has a ``unit`` column (e.g. ``MWh``, ``USD/tonneCO2``,
+  ``m3/s``).
+* The eight per-field reservoir CSVs additionally have a ``name``
+  column with the human-readable station name (e.g. "Grand Coulee")
+  alongside the ``stcd`` ID.
+
+The loader filters out columns whose name (case-insensitive) is in
+the annotation set ``{unit, units, name, commodity, comment, comments,
+description, desc, note, notes, label}``, or that ends in ``_name``
+(``zone_name``, ``tech_name``, etc.). These columns never appear in
+the dim-key tuples, so model code is unaffected.
+
+Two new unit tests cover annotation handling:
+``test_unit_column_filtered`` and
+``test_name_and_other_annotation_columns_filtered``.
+
+Column renames for clarity
+++++++++++++++++++++++++++
+
+Several cryptic abbreviations have been replaced with self-describing
+names across the input CSVs and model code:
+
+* ``stcd`` (and ``station`` for params that previously used that name)
+  -> ``station_id`` everywhere -- inputs, ``model.station``,
+  ``params['station_id']``, local variables.
+* ``POWER_ID`` / ``NEXTPOWER_ID`` (water_delay_time)
+  -> ``upstream_station_id`` / ``downstream_station_id``.
+* ``Z`` / ``Q`` / ``V`` in the piecewise-function lookups
+  -> ``tailrace_level`` / ``discharge`` / ``forebay_level`` /
+  ``volume`` (the same axis was being repurposed: ``Z`` meant
+  tailrace level in one file and forebay level in the other).
+* ``coeff`` -> ``coefficient``, ``GQ_max`` -> ``generation_flow_max``,
+  ``N_min`` / ``N_max`` -> ``capacity_min`` / ``capacity_max`` for the
+  per-field reservoir CSVs.
+
+Group 3 migration
++++++++++++++++++
+
+The four "table-shaped" parameters are now CSVs as well:
+
+* ``water_delay_time``, ``reservoir_tailrace_level_discharge_function``,
+  ``reservoir_forebay_level_volume_function`` -- already 3-column long
+  internally; resaved as CSV and loaded via the new ``format: "table"``
+  dispatch (returns a DataFrame for downstream ``groupby``/column
+  access).
+* ``reservoir_characteristics`` -- previously one wide table with ~13
+  fields per station -- has been **split into 8 single-field long
+  CSVs**, one per field the model actually uses:
+
+  - ``reservoir_zone``, ``reservoir_coefficient``,
+    ``reservoir_outflow_min``, ``reservoir_outflow_max``,
+    ``reservoir_generation_flow_max``, ``reservoir_capacity_min``,
+    ``reservoir_capacity_max``, ``reservoir_head``.
+
+  Four field renames in the process (``coeff`` -> ``coefficient``,
+  ``GQ_max`` -> ``generation_flow_max``, ``N_min`` -> ``capacity_min``,
+  ``N_max`` -> ``capacity_max``) for clarity. The three descriptive
+  fields (``name``, ``short_name``, ``type``) that the model never
+  referenced have been dropped.
+
+* ``params.json`` gains a new ``"format": "table"`` value alongside
+  ``"format": "long"`` for parameters consumed as DataFrames rather
+  than dicts.
+
+Model code (9 sites in ``hydro.py`` / ``head_iteration.py`` /
+``load_data.py``) updated to read from the new per-field params:
+``params['reservoir_characteristics']['<field>', s]`` becomes
+``params['reservoir_<field>'][s]``. The end-to-end regression test
+confirms the model objective is unchanged after the refactor.
+
+Migration notes
++++++++++++++++
+
+The shipped ``input/`` and ``southeast_asia/`` directories are already
+in v1.5.0 shape. For custom input directories (e.g. scenario forks
+such as ``input_s100_baseline_*``):
+
+* ``tools/migrate_to_long.py`` covers the dict-shape parameters; run::
+
+      python tools/migrate_to_long.py /path/to/your/input_dir
+
+* The four Group-3 parameters and ``reservoir_characteristics``'s
+  field-split are not yet automated. Until the v1.6.0 expanded
+  migration tool ships, use the shipped ``input/`` directory as a
+  reference for the new file shapes, or open an issue if you need
+  porting help.
+
+Custom ``params.json`` files (i.e. anyone who has forked params.json)
+will need to mirror the canonical v1.5.0 file shipped in this release:
+metadata stamp ``"_schema_version": 2``, then minimal long-format
+entries (``"format": "long"`` / ``"format": "table"``) without the
+legacy wide-format keys.
+
 Migration notes
 +++++++++++++++
 

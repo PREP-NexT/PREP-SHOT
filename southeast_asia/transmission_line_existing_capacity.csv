@@ -1,0 +1,15 @@
+zone1,zone2,unit,value
+Cambodia,Laos,MW,0.0
+Cambodia,Thailand,MW,120.0
+Cambodia,Vietnam,MW,400.0
+Laos,Cambodia,MW,0.0
+Laos,Myanmar,MW,0.0
+Laos,Thailand,MW,2205.0
+Laos,Vietnam,MW,248.0
+Myanmar,Laos,MW,0.0
+Myanmar,Thailand,MW,0.0
+Thailand,Cambodia,MW,120.0
+Thailand,Laos,MW,2205.0
+Thailand,Myanmar,MW,0.0
+Vietnam,Cambodia,MW,400.0
+Vietnam,Laos,MW,248.0

@@ -1,0 +1,6 @@
+tech,unit,value
+Coal,category,dispatchable
+Hydro,category,hydro
+Solar,category,nondispatchable
+Wind,category,nondispatchable
+Storage,category,storage

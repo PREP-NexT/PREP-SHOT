@@ -289,9 +289,16 @@ def interpolate_z_by_q_or_s(
     Union[np.ndarray, float]
         Interpolated values.
     """
-    zqv_station = zqv[(zqv.name == int(name)) | (zqv.name == str(name))]
-    x = zqv_station.Q if 'Q' in zqv_station.columns else zqv_station.V
-    f_zqv = interpolate.interp1d(x, zqv_station.Z, fill_value='extrapolate')
+    zqv_station = zqv[
+        (zqv.station_id == int(name)) | (zqv.station_id == str(name))
+    ]
+    if 'discharge' in zqv_station.columns:
+        x = zqv_station.discharge
+        z = zqv_station.tailrace_level
+    else:
+        x = zqv_station.volume
+        z = zqv_station.forebay_level
+    f_zqv = interpolate.interp1d(x, z, fill_value='extrapolate')
     return f_zqv(qs)
 
 def cartesian_product(

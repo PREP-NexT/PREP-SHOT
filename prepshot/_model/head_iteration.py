@@ -52,7 +52,7 @@ def initialize_waterhead(
 
     for s in stations:
         old_waterhead.loc[s, :] = [
-            params['reservoir_characteristics']['head', s]
+            params['reservoir_head'][s]
         ] * (len(hour) * len(month) * len(year))
     return old_waterhead, new_waterhead
 
@@ -113,7 +113,7 @@ def process_model_solution(
     """
     idx = pd.IndexSlice
     for s, h, m, y in cartesian_product(stations, hour, month, year):
-        efficiency = params['reservoir_characteristics']['coeff', s]
+        efficiency = params['reservoir_coefficient'][s]
         model.set_normalized_coefficient(
             model.output_calc_cons[s, h, m, y],
             model.genflow[s, h, m, y],
@@ -130,28 +130,28 @@ def process_model_solution(
         new_waterhead = old_waterhead
         return True
     # Iterate over each station to update water head data.
-    for stcd in stations:
+    for station_id in stations:
         outflow = np.array([[
-            [model.get_value(model.outflow[int(stcd), h, m, y]) for h in hour]
+            [model.get_value(model.outflow[int(station_id), h, m, y]) for h in hour]
             for m in month] for y in year]
         )
         storage = np.array([[
-            [model.get_value(model.storage_reservoir[int(stcd), h, m, y])
+            [model.get_value(model.storage_reservoir[int(station_id), h, m, y])
             for h in model.hour_p] for m in month] for y in year]
         )
 
         tail = interpolate_z_by_q_or_s(
-            str(stcd), outflow,
+            str(station_id), outflow,
             params['reservoir_tailrace_level_discharge_function']
         )
         storage = interpolate_z_by_q_or_s(
-            str(stcd), storage, params['reservoir_forebay_level_volume_function']
+            str(station_id), storage, params['reservoir_forebay_level_volume_function']
         )
 
         # Calculate the new water head.
         fore = (storage[:, :, :hour[-1]] + storage[:, :, 1:]) / 2
         h = np.maximum(fore - tail, 0)
-        new_waterhead.loc[int(stcd), :] = h.ravel()
+        new_waterhead.loc[int(station_id), :] = h.ravel()
     return True
 
 def run_model_iteration(
@@ -183,7 +183,7 @@ def run_model_iteration(
 
     # Initialize water head.
     stations, years, months, hours =                                          \
-        params['stcd'], params['year'], params['month'], params['hour']
+        params['station_id'], params['year'], params['month'], params['hour']
     old_waterhead, new_waterhead = initialize_waterhead(
         stations, years, months, hours, params
     )

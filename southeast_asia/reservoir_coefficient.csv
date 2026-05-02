@@ -1,0 +1,58 @@
+station_id,name,unit,coefficient
+112,Nam Ou 7,MW/(m*m3/s),8.5
+117,Nam Ngay,MW/(m*m3/s),8.5
+119,Nam Ou 6,MW/(m*m3/s),8.5
+127,Nam Ou 5,MW/(m*m3/s),8.5
+132,Nam Pok,MW/(m*m3/s),8.5
+134,Nam Ou 4,MW/(m*m3/s),8.5
+144,Nam Pha,MW/(m*m3/s),8.5
+151,Nam Ko,MW/(m*m3/s),8.5
+162,Nam Ou 2,MW/(m*m3/s),8.5
+171,Nam Tha 1,MW/(m*m3/s),8.5
+175,Nam Ou 1,MW/(m*m3/s),8.5
+181,Nam Beng,MW/(m*m3/s),8.5
+194,Nam Khan 3 (Down),MW/(m*m3/s),8.5
+195,Nam Khan 2,MW/(m*m3/s),8.5
+206,Mekong at Xayabuly,MW/(m*m3/s),8.5
+207,Nam Ngum 3,MW/(m*m3/s),8.5
+209,Nam Pouy 1,MW/(m*m3/s),8.5
+212,Nam Ngum 2,MW/(m*m3/s),8.5
+214,Nam Ngiep 1,MW/(m*m3/s),8.5
+215,Nam Lik 1-2,MW/(m*m3/s),8.5
+218,Nam Ngum 1,MW/(m*m3/s),8.5
+219,Nam Lik 1,MW/(m*m3/s),8.5
+224,Nam Ngiep-regulating dam,MW/(m*m3/s),8.5
+226,Nam Poun,MW/(m*m3/s),8.5
+234,Nam Theun1,MW/(m*m3/s),8.5
+236,Theun-Hinboun exp. (NG8),MW/(m*m3/s),8.5
+237,Theun-Hinboun,MW/(m*m3/s),8.5
+284,Ubol Ratana,MW/(m*m3/s),8.5
+302,Huai Kum,MW/(m*m3/s),8.5
+323,Xe Kong 5,MW/(m*m3/s),8.5
+327,Xeset 1,MW/(m*m3/s),8.5
+331,Xedon 2,MW/(m*m3/s),8.5
+343,Xelabam,MW/(m*m3/s),8.5
+351,Xekaman 3,MW/(m*m3/s),8.5
+358,Pak Mun,MW/(m*m3/s),8.5
+365,Xe Kaman 2B,MW/(m*m3/s),8.5
+366,Xekaman-Sanxay,MW/(m*m3/s),8.5
+367,Xe Nam Noy 5,MW/(m*m3/s),8.5
+374,Xe Kaman 2A,MW/(m*m3/s),8.5
+375,Xekatam,MW/(m*m3/s),8.5
+389,Xekaman 1,MW/(m*m3/s),8.5
+392,Lam Ta Khong P.S.,MW/(m*m3/s),8.5
+404,Nam Kong 1,MW/(m*m3/s),8.5
+409,Nam Kong 2,MW/(m*m3/s),8.5
+410,Plei Krong,MW/(m*m3/s),8.5
+415,Yali,MW/(m*m3/s),8.5
+416,Se San 3,MW/(m*m3/s),8.5
+419,Se San 3A,MW/(m*m3/s),8.5
+428,Se San 4,MW/(m*m3/s),8.5
+430,Se San 4A,MW/(m*m3/s),8.5
+441,Mekong at Don sahong,MW/(m*m3/s),8.5
+448,Lower Se San 2,MW/(m*m3/s),8.5
+502,Sre Pok 4,MW/(m*m3/s),8.5
+504,Sre Pok 3,MW/(m*m3/s),8.5
+511,Dray Hlinh 2,MW/(m*m3/s),8.5
+514,Buon Kuop,MW/(m*m3/s),8.5
+527,Buon Tua Srah,MW/(m*m3/s),8.5

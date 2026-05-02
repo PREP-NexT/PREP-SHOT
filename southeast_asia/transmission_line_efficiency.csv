@@ -1,0 +1,15 @@
+zone1,zone2,unit,value
+Cambodia,Laos,fraction,0.99
+Cambodia,Thailand,fraction,0.99
+Cambodia,Vietnam,fraction,0.99
+Laos,Cambodia,fraction,0.99
+Laos,Myanmar,fraction,0.99
+Laos,Thailand,fraction,0.99
+Laos,Vietnam,fraction,0.99
+Myanmar,Laos,fraction,0.99
+Myanmar,Thailand,fraction,0.99
+Thailand,Cambodia,fraction,0.99
+Thailand,Laos,fraction,0.99
+Thailand,Myanmar,fraction,0.99
+Vietnam,Cambodia,fraction,0.99
+Vietnam,Laos,fraction,0.99

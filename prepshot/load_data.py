@@ -20,7 +20,27 @@ from prepshot.utils import calc_inv_cost_factor, calc_cost_factor
 # whenever a breaking change to the params.json / input/ shape lands. See
 # doc/source/Stability.rst and doc/source/Changelog.rst for the migration
 # story across versions.
-CURRENT_SCHEMA = 1
+#
+# Schema 1 (v1.1.0): wide-format xlsx with hierarchical headers.
+# Schema 2 (v1.5.0): long-format CSV (tidy) is the default; only the
+#     four "Group 3" table-shaped lookups remain wide.
+CURRENT_SCHEMA = 2
+
+
+# Column names treated as annotations / metadata in long-format CSVs.
+# The loader filters them out before keying so they never appear in the
+# dim tuples. Any column whose name (case-insensitive) is in this set,
+# or that ends in "_name" (e.g. zone_name, tech_name, station_name),
+# is treated as a comment column rather than a dimension.
+_LONG_CSV_META_COLS = frozenset({
+    "unit", "units",
+    "name",
+    "commodity",
+    "comment", "comments",
+    "description", "desc",
+    "note", "notes",
+    "label",
+})
 
 
 def check_schema(params_info : dict) -> None:
@@ -46,6 +66,15 @@ def check_schema(params_info : dict) -> None:
             "doc/source/Stability.rst."
         )
     if stamped != CURRENT_SCHEMA:
+        if stamped == 1 and CURRENT_SCHEMA >= 2:
+            raise RuntimeError(
+                "params.json declares _schema_version=1, which used wide "
+                "Excel inputs. Schema 2 (v1.5.0+) uses long-format CSV. "
+                "Run 'python tools/migrate_to_long.py <input_dir>' to "
+                "convert your input files, then bump _schema_version to "
+                f"{CURRENT_SCHEMA} in params.json. See "
+                "doc/source/Changelog.rst for full migration notes."
+            )
         raise RuntimeError(
             f"params.json declares _schema_version={stamped}, but this "
             f"PREP-SHOT release requires _schema_version={CURRENT_SCHEMA}. "
@@ -142,8 +171,8 @@ def load_excel_data(
         Dictionary to store loaded data.
     """
     for key, value in params_info.items():
-        fmt = value.get("format", "wide")
-        ext = "csv" if fmt == "long" else "xlsx"
+        fmt = value.get("format", "long")
+        ext = "csv"
         filename = path.join(input_folder, f"{value['file_name']}.{ext}")
         required = value.get("required", True)
         try:
@@ -152,14 +181,15 @@ def load_excel_data(
                     filename,
                     dropna=value.get("drop_na", True),
                 )
+            elif fmt == "table":
+                # Inherently table-shaped data (e.g. piecewise-function
+                # lookups, delay matrices). Loaded as a DataFrame so the
+                # consumer can slice by columns / groupby.
+                data_store[key] = pd.read_csv(filename)
             else:
-                data_store[key] = read_excel(
-                    filename,
-                    value["index_cols"],
-                    value["header_rows"],
-                    value["unstack_levels"],
-                    value["first_col_only"],
-                    value["drop_na"]
+                raise ValueError(
+                    f"Unknown format {fmt!r} for parameter {key}; expected "
+                    "'long' or 'table'."
                 )
         except FileNotFoundError as e:
             if required:
@@ -214,6 +244,18 @@ def read_long_csv(filename : str, dropna : bool = True) -> dict:
         Mapping from dimension key (or tuple of keys) to the value.
     """
     df = pd.read_csv(filename)
+    # Drop documentation-only annotation columns. These are
+    # human-readable annotations stored alongside the data (the
+    # TransitionZero pattern: an ID column paired with a friendly name
+    # column, plus per-row unit/commodity tags). The loader treats them
+    # as informational so they never appear in the dim-key tuples.
+    meta_cols = [
+        c for c in df.columns
+        if c.strip().lower() in _LONG_CSV_META_COLS
+        or c.strip().lower().endswith("_name")
+    ]
+    if meta_cols:
+        df = df.drop(columns=meta_cols)
     if dropna:
         df = df.dropna()
     cols = list(df.columns)
@@ -224,10 +266,26 @@ def read_long_csv(filename : str, dropna : bool = True) -> dict:
         )
     dim_cols = cols[:-1]
     value_col = cols[-1]
+
+    # Cell-level type coercion. When a CSV value column mixes numeric and
+    # string entries (e.g. reservoir_characteristics has both "Grand
+    # Coulee" and 6765 in its value column), pandas reads the whole
+    # column as strings. Try float per cell so numeric values come back
+    # as numbers; non-numeric strings are passed through unchanged.
+    def _coerce(v):
+        if isinstance(v, str):
+            try:
+                return float(v)
+            except ValueError:
+                return v
+        return v
+
+    values = [_coerce(v) for v in df[value_col]]
+
     if len(dim_cols) == 1:
-        return dict(zip(df[dim_cols[0]], df[value_col]))
+        return dict(zip(df[dim_cols[0]], values))
     keys = list(zip(*(df[c] for c in dim_cols)))
-    return dict(zip(keys, df[value_col]))
+    return dict(zip(keys, values))
 
 
 def extract_sets(data_store : dict) -> None:
@@ -239,10 +297,9 @@ def extract_sets(data_store : dict) -> None:
         Dictionary containing loaded parameters.
     """
     data_store["year"] = sorted(list(data_store["discount_factor"].keys()))
-    if "reservoir_characteristics" in data_store.keys():
-        data_store["stcd"] = list({
-            i[1] for i in data_store["reservoir_characteristics"].keys()
-        })
+    if "reservoir_zone" in data_store.keys():
+        # reservoir_zone is keyed by station_id (single-dim long format).
+        data_store["station_id"] = list(data_store["reservoir_zone"].keys())
     data_store["hour"] = sorted({
         i[3] for i in data_store["demand"].keys() if isinstance(i[3], int)
     })

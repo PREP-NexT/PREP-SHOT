@@ -1,0 +1,10 @@
+zone1,zone2,unit,value
+BA1,BA1,km,0.0
+BA1,BA2,km,200.0
+BA1,BA3,km,100.0
+BA2,BA1,km,200.0
+BA2,BA2,km,0.0
+BA2,BA3,km,300.0
+BA3,BA1,km,100.0
+BA3,BA2,km,300.0
+BA3,BA3,km,0.0

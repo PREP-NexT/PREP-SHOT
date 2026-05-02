@@ -1,0 +1,58 @@
+station_id,name,unit,outflow_max
+112,Nam Ou 7,m3/s,60000.0
+117,Nam Ngay,m3/s,60000.0
+119,Nam Ou 6,m3/s,60000.0
+127,Nam Ou 5,m3/s,60000.0
+132,Nam Pok,m3/s,60000.0
+134,Nam Ou 4,m3/s,60000.0
+144,Nam Pha,m3/s,60000.0
+151,Nam Ko,m3/s,60000.0
+162,Nam Ou 2,m3/s,60000.0
+171,Nam Tha 1,m3/s,60000.0
+175,Nam Ou 1,m3/s,60000.0
+181,Nam Beng,m3/s,60000.0
+194,Nam Khan 3 (Down),m3/s,60000.0
+195,Nam Khan 2,m3/s,60000.0
+206,Mekong at Xayabuly,m3/s,60000.0
+207,Nam Ngum 3,m3/s,60000.0
+209,Nam Pouy 1,m3/s,60000.0
+212,Nam Ngum 2,m3/s,60000.0
+214,Nam Ngiep 1,m3/s,60000.0
+215,Nam Lik 1-2,m3/s,60000.0
+218,Nam Ngum 1,m3/s,60000.0
+219,Nam Lik 1,m3/s,60000.0
+224,Nam Ngiep-regulating dam,m3/s,60000.0
+226,Nam Poun,m3/s,60000.0
+234,Nam Theun1,m3/s,60000.0
+236,Theun-Hinboun exp. (NG8),m3/s,60000.0
+237,Theun-Hinboun,m3/s,60000.0
+284,Ubol Ratana,m3/s,60000.0
+302,Huai Kum,m3/s,60000.0
+323,Xe Kong 5,m3/s,60000.0
+327,Xeset 1,m3/s,60000.0
+331,Xedon 2,m3/s,60000.0
+343,Xelabam,m3/s,60000.0
+351,Xekaman 3,m3/s,60000.0
+358,Pak Mun,m3/s,60000.0
+365,Xe Kaman 2B,m3/s,60000.0
+366,Xekaman-Sanxay,m3/s,60000.0
+367,Xe Nam Noy 5,m3/s,60000.0
+374,Xe Kaman 2A,m3/s,60000.0
+375,Xekatam,m3/s,60000.0
+389,Xekaman 1,m3/s,60000.0
+392,Lam Ta Khong P.S.,m3/s,60000.0
+404,Nam Kong 1,m3/s,60000.0
+409,Nam Kong 2,m3/s,60000.0
+410,Plei Krong,m3/s,60000.0
+415,Yali,m3/s,60000.0
+416,Se San 3,m3/s,60000.0
+419,Se San 3A,m3/s,60000.0
+428,Se San 4,m3/s,60000.0
+430,Se San 4A,m3/s,60000.0
+441,Mekong at Don sahong,m3/s,60000.0
+448,Lower Se San 2,m3/s,60000.0
+502,Sre Pok 4,m3/s,60000.0
+504,Sre Pok 3,m3/s,60000.0
+511,Dray Hlinh 2,m3/s,60000.0
+514,Buon Kuop,m3/s,60000.0
+527,Buon Tua Srah,m3/s,60000.0

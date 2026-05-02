@@ -121,17 +121,13 @@ The Python API is stable across the v1.x series; it is the recommended
 surface for downstream code that depends on PREP-SHOT. See the Stability
 page for the full stability policy.
 
-Input formats: wide Excel and long CSV
-+++++++++++++++++++++++++++++++++++++++
+Input formats: long CSV (default) and wide Excel (legacy)
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-Most input parameters are read from wide-format Excel files (one
-spreadsheet per parameter, with hierarchical row/column headers
-encoding the dimensions). As of v1.4.0, parameters can also be read
-from long-format ("tidy") CSVs via a ``"format": "long"`` flag in
-``params.json``.
-
-A long-format CSV places dimension columns first, value column last.
-For example, ``carbon_tax`` is shipped as a long CSV:
+As of v1.5.0, almost all input parameters are read from long-format
+("tidy") CSV files. A long-format CSV places the dimension columns
+first and the value column last. For example, ``carbon_tax`` is
+shipped as:
 
 .. code:: text
 
@@ -140,10 +136,37 @@ For example, ``carbon_tax`` is shipped as a long CSV:
     BA1,2025,0
     BA2,2020,0
 
-Both formats produce the same internal dictionary shape, so model
-code (``params['carbon_tax'][zone, year]``) is unchanged regardless
-of which format the file is on disk. New parameters can be born
-long-format without disturbing existing wide-format inputs.
+Each ``params.json`` entry declares its format. Long-format entries
+are minimal:
+
+.. code:: json
+
+    "carbon_tax": {
+        "file_name": "carbon_tax",
+        "format": "long",
+        "drop_na": true,
+        "required": false,
+        "default": 0
+    }
+
+Four "Group 3" inherently table-shaped lookups (``water_delay_time``,
+``reservoir_characteristics``, ``reservoir_tailrace_level_discharge_function``,
+``reservoir_forebay_level_volume_function``) remain in wide-Excel
+format pending the v1.6.0 release.
+
+Migrating an existing input directory
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you have a custom input directory inherited from v1.4.x or earlier,
+run the migration tool once to convert the wide-Excel files to long
+CSV:
+
+.. code:: bash
+
+    python tools/migrate_to_long.py /path/to/your/input_dir
+
+After migration the loader will accept the directory under the v1.5.0
+schema (``_schema_version: 2``).
 
 
 

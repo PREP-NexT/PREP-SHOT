@@ -1,0 +1,7 @@
+zone1,zone2,unit,value
+BA1,BA2,MW,0.0
+BA1,BA3,MW,0.0
+BA2,BA1,MW,0.0
+BA2,BA3,MW,0.0
+BA3,BA1,MW,0.0
+BA3,BA2,MW,0.0

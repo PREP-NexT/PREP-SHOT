@@ -86,6 +86,32 @@ class TestReadLongCsv(unittest.TestCase):
         with self.assertRaises(ValueError):
             read_long_csv(path)
 
+    def test_unit_column_filtered(self):
+        """A 'unit' annotation column is dropped before keying so it
+        does not appear in the output dict's tuple keys."""
+        path = self._write("with_unit.csv", (
+            "zone,year,unit,value\n"
+            "BA1,2020,USD/tonne,3\n"
+            "BA2,2025,USD/tonne,5\n"
+        ))
+        result = read_long_csv(path)
+        # Keys are still (zone, year), not (zone, year, unit).
+        self.assertEqual(result[("BA1", 2020)], 3)
+        self.assertEqual(result[("BA2", 2025)], 5)
+
+    def test_name_and_other_annotation_columns_filtered(self):
+        """`name`, `commodity`, columns ending in `_name`, etc., are all
+        treated as annotations and filtered out before keying."""
+        path = self._write("with_annotations.csv", (
+            "station_id,name,zone_name,unit,zone\n"
+            "1,Grand Coulee,Singapore,zone_code,BA1\n"
+            "2,Chief Joseph,Singapore,zone_code,BA1\n"
+        ))
+        result = read_long_csv(path)
+        # Only `station_id` survives as a dim; `zone` is the value column.
+        self.assertEqual(result[1], "BA1")
+        self.assertEqual(result[2], "BA1")
+
 
 class TestLongFormatDispatch(unittest.TestCase):
     """The format dispatch in load_excel_data picks the right reader."""

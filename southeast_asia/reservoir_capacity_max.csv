@@ -1,0 +1,58 @@
+station_id,name,unit,capacity_max
+112,Nam Ou 7,MW,210.0
+117,Nam Ngay,MW,1.2
+119,Nam Ou 6,MW,180.0
+127,Nam Ou 5,MW,240.0
+132,Nam Pok,MW,2.6
+134,Nam Ou 4,MW,132.0
+144,Nam Pha,MW,180.0
+151,Nam Ko,MW,1.5
+162,Nam Ou 2,MW,120.0
+171,Nam Tha 1,MW,168.0
+175,Nam Ou 1,MW,180.0
+181,Nam Beng,MW,36.0
+194,Nam Khan 3 (Down),MW,60.0
+195,Nam Khan 2,MW,130.0
+206,Mekong at Xayabuly,MW,1260.0
+207,Nam Ngum 3,MW,480.0
+209,Nam Pouy 1,MW,60.0
+212,Nam Ngum 2,MW,615.0
+214,Nam Ngiep 1,MW,272.0
+215,Nam Lik 1-2,MW,100.0
+218,Nam Ngum 1,MW,155.0
+219,Nam Lik 1,MW,64.0
+224,Nam Ngiep-regulating dam,MW,18.0
+226,Nam Poun,MW,50.0
+234,Nam Theun1,MW,600.0
+236,Theun-Hinboun exp. (NG8),MW,60.0
+237,Theun-Hinboun,MW,220.0
+284,Ubol Ratana,MW,25.2
+302,Huai Kum,MW,1.18
+323,Xe Kong 5,MW,330.0
+327,Xeset 1,MW,45.0
+331,Xedon 2,MW,20.0
+343,Xelabam,MW,5.0
+351,Xekaman 3,MW,250.0
+358,Pak Mun,MW,136.0
+365,Xe Kaman 2B,MW,100.0
+366,Xekaman-Sanxay,MW,32.0
+367,Xe Nam Noy 5,MW,20.0
+374,Xe Kaman 2A,MW,64.0
+375,Xekatam,MW,68.0
+389,Xekaman 1,MW,290.0
+392,Lam Ta Khong P.S.,MW,500.0
+404,Nam Kong 1,MW,150.0
+409,Nam Kong 2,MW,66.0
+410,Plei Krong,MW,100.0
+415,Yali,MW,720.0
+416,Se San 3,MW,260.0
+419,Se San 3A,MW,96.0
+428,Se San 4,MW,360.0
+430,Se San 4A,MW,63.0
+441,Mekong at Don sahong,MW,260.0
+448,Lower Se San 2,MW,400.0
+502,Sre Pok 4,MW,80.0
+504,Sre Pok 3,MW,220.0
+511,Dray Hlinh 2,MW,16.0
+514,Buon Kuop,MW,280.0
+527,Buon Tua Srah,MW,86.0

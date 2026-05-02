@@ -121,35 +121,35 @@ class AddHydropowerConstraints:
             # Pre-computed dict for lookup efficiency
             # Replaces repetitive DataFrame queries with direct memory access
             self.wdt_dict = {
-                k: v[['POWER_ID', 'delay']].values
-                for k, v in model.params['water_delay_time'].groupby('NEXTPOWER_ID')
+                k: v[['upstream_station_id', 'delay']].values
+                for k, v in model.params['water_delay_time'].groupby('downstream_station_id')
             }
             self.station_zone = {
-                s: model.params['reservoir_characteristics']['zone', s]
+                s: model.params['reservoir_zone'][s]
                 for s in model.station
             }
             self.efficiency_cache = {
-                s: model.params['reservoir_characteristics']['coeff', s]
+                s: model.params['reservoir_coefficient'][s]
                 for s in model.station
             }
             self.min_outflow_cache = {
-                s: model.params['reservoir_characteristics']['outflow_min', s]
+                s: model.params['reservoir_outflow_min'][s]
                 for s in model.station
             }
             self.max_outflow_cache = {
-                s: model.params['reservoir_characteristics']['outflow_max', s]
+                s: model.params['reservoir_outflow_max'][s]
                 for s in model.station
             }
             self.max_genflow_cache = {
-                s: model.params['reservoir_characteristics']['GQ_max', s]
+                s: model.params['reservoir_generation_flow_max'][s]
                 for s in model.station
             }
             self.min_capacity_cache = {
-                s: model.params['reservoir_characteristics']['N_min', s]
+                s: model.params['reservoir_capacity_min'][s]
                 for s in model.station
             }
             self.max_capacity_cache = {
-                s: model.params['reservoir_characteristics']['N_max', s]
+                s: model.params['reservoir_capacity_max'][s]
                 for s in model.station
             }
             # Define variables and constraints

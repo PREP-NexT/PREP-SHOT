@@ -1,0 +1,16 @@
+station_id,name,unit,outflow_max
+1,Grand Coulee,m3/s,6920.0
+2,Chief Joseph,m3/s,7073.0
+3,Wells,m3/s,7804.0
+4,Rocky Reach,m3/s,7917.0
+5,Rock Island,m3/s,7942.0
+6,Wanapum,m3/s,8662.0
+7,Priest Rapids,m3/s,8936.0
+8,Lower Granite,m3/s,4995.0
+9,Little Goose,m3/s,4819.0
+10,Lower Monumental,m3/s,5006.0
+11,Ice Harbor,m3/s,5142.0
+12,McNary,m3/s,12895.0
+13,John Day,m3/s,13226.0
+14,The Dalles,m3/s,12847.0
+15,Bonneville,m3/s,13156.0

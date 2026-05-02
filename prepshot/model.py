@@ -73,7 +73,7 @@ def define_basic_sets(model : object) -> None:
         tech_set = [k for k, v in tech_category.items() if v == tech_type]
         setattr(model, f"{tech_type}_tech", tech_set)
     if params['isinflow']:
-        model.station = params['stcd']
+        model.station = params['station_id']
 
 def define_complex_sets(model : object) -> None:
     """Create complex sets based on simple sets and some conditations. The

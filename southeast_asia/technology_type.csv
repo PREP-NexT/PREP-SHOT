@@ -1,0 +1,10 @@
+tech,unit,value
+Coal,category,dispatchable
+Oil,category,dispatchable
+Gas,category,dispatchable
+Hydro,category,hydro
+Solar,category,nondispatchable
+Wind,category,nondispatchable
+Bioenergy,category,dispatchable
+HPS,category,storage
+Li-ion,category,storage

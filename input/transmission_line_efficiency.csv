@@ -1,0 +1,7 @@
+zone1,zone2,unit,value
+BA1,BA2,fraction,0.94
+BA1,BA3,fraction,0.94
+BA2,BA1,fraction,0.94
+BA2,BA3,fraction,0.94
+BA3,BA1,fraction,0.94
+BA3,BA2,fraction,0.94

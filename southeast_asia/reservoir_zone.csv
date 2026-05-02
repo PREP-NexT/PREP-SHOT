@@ -1,0 +1,58 @@
+station_id,name,unit,zone
+112,Nam Ou 7,zone_code,Laos
+117,Nam Ngay,zone_code,Laos
+119,Nam Ou 6,zone_code,Laos
+127,Nam Ou 5,zone_code,Laos
+132,Nam Pok,zone_code,Laos
+134,Nam Ou 4,zone_code,Laos
+144,Nam Pha,zone_code,Laos
+151,Nam Ko,zone_code,Laos
+162,Nam Ou 2,zone_code,Laos
+171,Nam Tha 1,zone_code,Laos
+175,Nam Ou 1,zone_code,Laos
+181,Nam Beng,zone_code,Laos
+194,Nam Khan 3 (Down),zone_code,Laos
+195,Nam Khan 2,zone_code,Laos
+206,Mekong at Xayabuly,zone_code,Laos
+207,Nam Ngum 3,zone_code,Laos
+209,Nam Pouy 1,zone_code,Laos
+212,Nam Ngum 2,zone_code,Laos
+214,Nam Ngiep 1,zone_code,Laos
+215,Nam Lik 1-2,zone_code,Laos
+218,Nam Ngum 1,zone_code,Laos
+219,Nam Lik 1,zone_code,Laos
+224,Nam Ngiep-regulating dam,zone_code,Laos
+226,Nam Poun,zone_code,Laos
+234,Nam Theun1,zone_code,Laos
+236,Theun-Hinboun exp. (NG8),zone_code,Laos
+237,Theun-Hinboun,zone_code,Laos
+284,Ubol Ratana,zone_code,Thailand
+302,Huai Kum,zone_code,Thailand
+323,Xe Kong 5,zone_code,Laos
+327,Xeset 1,zone_code,Laos
+331,Xedon 2,zone_code,Laos
+343,Xelabam,zone_code,Laos
+351,Xekaman 3,zone_code,Laos
+358,Pak Mun,zone_code,Thailand
+365,Xe Kaman 2B,zone_code,Laos
+366,Xekaman-Sanxay,zone_code,Laos
+367,Xe Nam Noy 5,zone_code,Laos
+374,Xe Kaman 2A,zone_code,Laos
+375,Xekatam,zone_code,Laos
+389,Xekaman 1,zone_code,Laos
+392,Lam Ta Khong P.S.,zone_code,Thailand
+404,Nam Kong 1,zone_code,Laos
+409,Nam Kong 2,zone_code,Laos
+410,Plei Krong,zone_code,Vietnam
+415,Yali,zone_code,Vietnam
+416,Se San 3,zone_code,Vietnam
+419,Se San 3A,zone_code,Vietnam
+428,Se San 4,zone_code,Vietnam
+430,Se San 4A,zone_code,Vietnam
+441,Mekong at Don sahong,zone_code,Laos
+448,Lower Se San 2,zone_code,Cambodia
+502,Sre Pok 4,zone_code,Vietnam
+504,Sre Pok 3,zone_code,Vietnam
+511,Dray Hlinh 2,zone_code,Vietnam
+514,Buon Kuop,zone_code,Vietnam
+527,Buon Tua Srah,zone_code,Vietnam

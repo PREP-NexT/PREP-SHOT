@@ -1,0 +1,10 @@
+tech,unit,value
+Coal,fraction,0.35
+Oil,fraction,1.0
+Gas,fraction,1.0
+Hydro,fraction,1.0
+Solar,fraction,1.0
+Wind,fraction,1.0
+Bioenergy,fraction,1.0
+HPS,fraction,1.0
+Li-ion,fraction,1.0

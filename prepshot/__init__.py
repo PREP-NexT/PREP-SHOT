@@ -1,6 +1,6 @@
 """ Description: PREP-SHOT package metadata.
 """
-__version__ = "1.4.0"
+__version__ = "1.5.0"
 __author__ = "Zhanwei Liu"
 __email__ = "liuzhanwei@u.nus.edu"
 __license__ = "MIT"
