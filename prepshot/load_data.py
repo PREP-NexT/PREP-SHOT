@@ -8,6 +8,7 @@ and Excel files.
 import json
 import sys
 import logging
+from collections import defaultdict
 from os import path
 
 import pandas as pd
@@ -117,6 +118,12 @@ def load_excel_data(
 ) -> None:
     """Load data from Excel files based on the provided parameters.
 
+    Each entry in ``params_info`` may declare ``"required": false`` and a
+    ``"default"`` value. If the file for an optional parameter is missing,
+    the loader silently substitutes the declared default (or an empty
+    dict, if no default is given) and logs a debug message. Required
+    parameters with missing files still terminate the process.
+
     Parameters
     ----------
     input_folder : str
@@ -127,9 +134,10 @@ def load_excel_data(
     data_store : dict
         Dictionary to store loaded data.
     """
-    try:
-        for key, value in params_info.items():
-            filename = path.join(input_folder, f"{value['file_name']}.xlsx")
+    for key, value in params_info.items():
+        filename = path.join(input_folder, f"{value['file_name']}.xlsx")
+        required = value.get("required", True)
+        try:
             data_store[key] = read_excel(
                 filename,
                 value["index_cols"],
@@ -138,9 +146,23 @@ def load_excel_data(
                 value["first_col_only"],
                 value["drop_na"]
             )
-    except FileNotFoundError as e:
-        logging.error("Error loading %s data: %s", value["file_name"], e)
-        sys.exit(1)
+        except FileNotFoundError as e:
+            if required:
+                logging.error("Error loading %s data: %s", value["file_name"], e)
+                sys.exit(1)
+            default = value.get("default", {})
+            if not isinstance(default, dict):
+                # Scalar default: wrap in a defaultdict so any tuple-key
+                # lookup (e.g. params['carbon_tax'][z, y]) returns the
+                # scalar without the model code needing to know whether
+                # the file was loaded or not.
+                scalar = default
+                default = defaultdict(lambda: scalar)
+            data_store[key] = default
+            logging.debug(
+                "Optional input '%s' not found at %s; using default.",
+                key, filename,
+            )
 
 
 def extract_sets(data_store : dict) -> None:

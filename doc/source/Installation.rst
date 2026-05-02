@@ -26,9 +26,24 @@ Assuming you have already `installed Python <https://www.python.org/downloads/>`
 .. code:: bash
 
     cd PREP-SHOT
-    conda create -n prep-shot python=3.8
+    conda create -n prep-shot python=3.9
     conda activate prep-shot
     pip install -r requirements.txt
+
+Alternatively, install PREP-SHOT itself as an editable Python package
+(this also pulls in the dependencies declared in ``pyproject.toml``):
+
+.. code:: bash
+
+    pip install -e .
+
+A PyPI release (``pip install prepshot``) is planned alongside the v2.0
+stability promise. Until then, to pin a specific version in another
+project, install directly from GitHub:
+
+.. code:: bash
+
+    pip install git+https://github.com/PREP-NexT/PREP-SHOT@v1.3.0
 
 Step 3: Run an example (Optional)
 ++++++++++++++++++++++++++++++++++
@@ -38,6 +53,16 @@ Once the environment is activated, you can run an example of :ref:`Tutorial` wit
 .. code:: bash
 
     python run.py
+
+If you used ``pip install -e .`` in Step 2 you also have two additional,
+equivalent entry points that work from any directory containing a
+``config.json`` and ``params.json``:
+
+.. code:: bash
+
+    prepshot
+    # or
+    python -m prepshot
 
 You can also run examples using Jupyter notebooks located in the `./example/` directory.
 
@@ -52,6 +77,49 @@ You can prepare your input data referring to the example in the `input` and `sou
 .. code:: bash
 
     python run.py
+
+Step 5: Use PREP-SHOT as a Python library
++++++++++++++++++++++++++++++++++++++++++++
+
+After ``pip install -e .`` (or ``pip install prepshot`` once PyPI ships),
+PREP-SHOT can be imported and driven directly from your own Python code.
+
+The simplest entry point is ``prepshot.cli.main``, which mirrors the
+behaviour of the ``prepshot`` console script and runs a full
+build-solve-save cycle on a directory containing ``config.json`` and
+``params.json``:
+
+.. code:: python
+
+    from prepshot.cli import main
+
+    solved = main(root_dir="/path/to/my/scenario")
+    if not solved:
+        raise RuntimeError("PREP-SHOT did not reach optimality")
+
+For finer-grained control -- for example, to run multiple scenarios in
+the same Python process, inspect the model after solving, or skip the
+default Excel output -- use the lower-level functions:
+
+.. code:: python
+
+    from prepshot.set_up import initialize_environment
+    from prepshot.model import create_model
+    from prepshot.solver import solve_model
+
+    parameters = initialize_environment({
+        "filepath": "/path/to/scenario",
+        "config_filename": "/path/to/scenario/config.json",
+        "params_filename": "/path/to/scenario/params.json",
+    })
+
+    model = create_model(parameters)
+    solved = solve_model(model, parameters)
+    print("objective:", model.get_value(model.cost))
+
+The Python API is stable across the v1.x series; it is the recommended
+surface for downstream code that depends on PREP-SHOT. See the Stability
+page for the full stability policy.
 
 
 

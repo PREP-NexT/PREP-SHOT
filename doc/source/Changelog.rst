@@ -203,3 +203,62 @@ Migration notes
   (or ``python -m prepshot``) from any directory containing
   ``config.json`` and ``params.json``.
 * Existing: ``python run.py`` still works as before -- no action needed.
+
+
+Version 1.3.0 - May 2, 2026
+-------------------------------
+
+Features can now ship with optional input files. New parameters declared
+``"required": false`` in ``params.json`` no longer force every existing
+input directory to provide a matching Excel file -- a sensible default
+is used when the file is absent.
+
+Added
++++++
+
+* ``params.json`` entries support two new keys:
+
+  * ``"required"`` (bool, default ``true``): when ``false``, a missing
+    input file is tolerated.
+  * ``"default"`` (any, default ``{}``): the value substituted when an
+    optional input file is missing. Scalar defaults are wrapped in a
+    ``defaultdict`` so model-side tuple-key lookups
+    (``params['foo'][z, y]``) keep working unchanged.
+
+* ``tests/test_optional_inputs.py`` covers required-missing-terminates,
+  optional-missing-uses-scalar-default, and optional-missing-no-default
+  (empty dict).
+
+Changed
++++++++
+
+* The four carbon-market / technology_lower_bound entries in
+  ``params.json`` are now marked ``"required": false, "default": 0``,
+  so input directories that pre-date v1.1.0 (or any future input dir
+  that does not use these features) no longer need to ship the
+  zero-filled Excel files.
+* ``README.md`` now documents the editable-install path
+  (``pip install -e .``) and the ``prepshot`` / ``python -m prepshot``
+  console-script entry points introduced in v1.2.0.
+* ``doc/source/Installation.rst`` extended with a "Use PREP-SHOT as a
+  Python library" section that shows both the high-level
+  ``prepshot.cli.main(root_dir=...)`` entry point and the low-level
+  ``initialize_environment`` / ``create_model`` / ``solve_model`` flow
+  for downstream code that imports PREP-SHOT programmatically.
+
+Removed
++++++++
+
+* ``tests/test_prepshot.py`` -- removed. It exercised the legacy
+  ``load_data``, ``read_four_dims``, ``read_three_dims`` etc. APIs
+  that were replaced in v0.1.1 by the generic ``read_excel`` helper.
+  The test file had been a silent import error since then.
+
+Migration notes
++++++++++++++++
+
+* Existing input directories are unaffected -- the carbon-market files
+  shipped in v1.1.0 still load if present.
+* When adding new features in the future, prefer ``"required": false,
+  "default": ...`` so users only need to prepare files for features they
+  actually use. See ``prepshot/load_data.py::load_excel_data``.

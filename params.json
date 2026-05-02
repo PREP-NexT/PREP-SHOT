@@ -239,7 +239,9 @@
         "header_rows": [0, 1],
         "unstack_levels": [0],
         "first_col_only": false,
-        "drop_na": true
+        "drop_na": true,
+        "required": false,
+        "default": 0
     },
     "carbon_tax": {
         "file_name": "carbon_tax",
@@ -247,7 +249,9 @@
         "header_rows": [0],
         "unstack_levels": [0],
         "first_col_only": false,
-        "drop_na": true
+        "drop_na": true,
+        "required": false,
+        "default": 0
     },
     "carbon_offset_price": {
         "file_name": "carbon_offset_price",
@@ -255,7 +259,9 @@
         "header_rows": [0],
         "unstack_levels": [0],
         "first_col_only": false,
-        "drop_na": true
+        "drop_na": true,
+        "required": false,
+        "default": 0
     },
     "carbon_offset_limit": {
         "file_name": "carbon_offset_limit",
@@ -263,7 +269,9 @@
         "header_rows": [0],
         "unstack_levels": [0],
         "first_col_only": false,
-        "drop_na": true
+        "drop_na": true,
+        "required": false,
+        "default": 0
     },
     "technology_variable_OM_cost": {
         "file_name": "technology_variable_OM_cost",

@@ -59,10 +59,26 @@ This section includes a brief tutorial on running your first PREP-SHOT model.
 
     ```bash
     cd PREP-SHOT
-    conda create -n prep-shot python=3.8
+    conda create -n prep-shot python=3.9
     conda activate prep-shot
     pip install -r requirements.txt
     ```
+
+    Alternatively, install PREP-SHOT itself as an editable package (this also pulls in the dependencies declared in `pyproject.toml`):
+
+    ```bash
+    pip install -e .
+    ```
+
+    With the editable install you can run PREP-SHOT from any directory containing `config.json` and `params.json`:
+
+    ```bash
+    prepshot
+    # or
+    python -m prepshot
+    ```
+
+    A PyPI release is planned with v2.0; until then, use `pip install git+https://github.com/PREP-NexT/PREP-SHOT@<tag>` to pin a specific version.
 
 3. Run your first model
 
