@@ -15,6 +15,44 @@ import pandas as pd
 from prepshot.utils import calc_inv_cost_factor, calc_cost_factor
 
 
+# The input-file schema version this PREP-SHOT release expects. Bumped
+# whenever a breaking change to the params.json / input/ shape lands. See
+# doc/source/Stability.rst and doc/source/Changelog.rst for the migration
+# story across versions.
+CURRENT_SCHEMA = 1
+
+
+def check_schema(params_info : dict) -> None:
+    """Validate that ``params.json`` declares a compatible ``_schema_version``.
+
+    Raises a :class:`RuntimeError` with a clear migration hint if the file
+    is missing the stamp or carries a different version than this release
+    supports.
+
+    Parameters
+    ----------
+    params_info : dict
+        Parsed contents of ``params.json``.
+    """
+    stamped = params_info.get("_schema_version")
+    if stamped is None:
+        raise RuntimeError(
+            "params.json is missing '_schema_version'. This file was likely "
+            "written for an older PREP-SHOT release (pre-v1.1.0). Add "
+            f"'\"_schema_version\": {CURRENT_SCHEMA}' as the first key in "
+            "params.json, and make sure your input directory matches the "
+            f"v{CURRENT_SCHEMA} schema. See doc/source/Changelog.rst and "
+            "doc/source/Stability.rst."
+        )
+    if stamped != CURRENT_SCHEMA:
+        raise RuntimeError(
+            f"params.json declares _schema_version={stamped}, but this "
+            f"PREP-SHOT release requires _schema_version={CURRENT_SCHEMA}. "
+            "Migrate your input directory and update the stamp; see "
+            "doc/source/Changelog.rst for the migration story."
+        )
+
+
 def load_json(file_path : str) -> dict:
     """Load data from a JSON file.
 
@@ -227,8 +265,12 @@ def process_data(
     dict
         Dictionary containing processed parameters.
     """
+    check_schema(params_info)
+    file_params = {
+        k: v for k, v in params_info.items() if not k.startswith("_")
+    }
     data_store = {}
-    load_excel_data(input_folder, params_info, data_store)
+    load_excel_data(input_folder, file_params, data_store)
     extract_sets(data_store)
     compute_cost_factors(data_store)
 

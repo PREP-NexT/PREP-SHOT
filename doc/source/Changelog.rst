@@ -119,3 +119,30 @@ Changed (Breaking)
   dormant.
 * ``params.json`` files without ``_schema_version`` are rejected by the
   loader.
+
+
+Version 1.1.1 - May 2, 2026
+-------------------------------
+
+Added
++++++
+
+* ``prepshot.load_data.CURRENT_SCHEMA`` constant and a ``check_schema()``
+  guard that validates ``params.json`` carries a compatible
+  ``_schema_version`` before any input is loaded.
+* ``tests/test_schema_version.py`` covering the happy path plus
+  rejection of missing, older, and newer schema stamps.
+
+Changed
++++++++
+
+* ``process_data`` now filters out keys beginning with ``_`` (such as
+  ``_schema_version``) before iterating the parameter list, so metadata
+  stamps cannot accidentally be treated as input files.
+
+Fixed
++++++
+
+* Legacy ``params.json`` files (pre-v1.1.0, no ``_schema_version`` stamp)
+  now produce a clear migration hint instead of a downstream
+  ``KeyError`` / ``FileNotFoundError``.
