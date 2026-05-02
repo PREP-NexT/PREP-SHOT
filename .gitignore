@@ -19,3 +19,13 @@ __pycache__/
 *.swp
 *.swo
 .DS_Store
+
+# Scenario / debugging input directories (kept locally, not part of repo)
+/input_s*/
+
+# Solver license files
+/y/
+*.lic
+
+# Claude Code skills (local; not part of public repo)
+/.claude/
