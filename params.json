@@ -245,10 +245,7 @@
     },
     "carbon_tax": {
         "file_name": "carbon_tax",
-        "index_cols": [0],
-        "header_rows": [0],
-        "unstack_levels": [0],
-        "first_col_only": false,
+        "format": "long",
         "drop_na": true,
         "required": false,
         "default": 0

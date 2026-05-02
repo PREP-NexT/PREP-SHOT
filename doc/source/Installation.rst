@@ -121,6 +121,30 @@ The Python API is stable across the v1.x series; it is the recommended
 surface for downstream code that depends on PREP-SHOT. See the Stability
 page for the full stability policy.
 
+Input formats: wide Excel and long CSV
++++++++++++++++++++++++++++++++++++++++
+
+Most input parameters are read from wide-format Excel files (one
+spreadsheet per parameter, with hierarchical row/column headers
+encoding the dimensions). As of v1.4.0, parameters can also be read
+from long-format ("tidy") CSVs via a ``"format": "long"`` flag in
+``params.json``.
+
+A long-format CSV places dimension columns first, value column last.
+For example, ``carbon_tax`` is shipped as a long CSV:
+
+.. code:: text
+
+    zone,year,value
+    BA1,2020,0
+    BA1,2025,0
+    BA2,2020,0
+
+Both formats produce the same internal dictionary shape, so model
+code (``params['carbon_tax'][zone, year]``) is unchanged regardless
+of which format the file is on disk. New parameters can be born
+long-format without disturbing existing wide-format inputs.
+
 
 
 

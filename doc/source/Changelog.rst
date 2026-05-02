@@ -313,6 +313,64 @@ The fast tests give contributors a quick green/red signal on every PR;
 the regression test on ``main`` catches any change that would alter the
 model's optimal objective on the canonical ``input/`` dataset.
 
+
+Version 1.4.0 - May 2, 2026
+-------------------------------
+
+PREP-SHOT now supports long-format ("tidy") CSV inputs as a parallel
+option to the wide-Excel format. New parameters can be born long-format
+without disturbing existing wide-format inputs; existing parameters can
+migrate one at a time when convenient.
+
+Why long-format
++++++++++++++++
+
+Adding a dimension to a long-format file is a non-breaking column add,
+not a reshape. This eliminates the recurring "the bound files were
+reshaped from (tech, zone) to (zone, tech, year)" class of breakage,
+which historically required migrating every existing input directory.
+
+Long-format is the canonical input shape used by OSeMOSYS, GenX,
+Switch, and PyPSA -- researchers familiar with those tools will find
+the convention intuitive.
+
+Added
++++++
+
+* ``prepshot/load_data.py::read_long_csv`` -- new reader for tidy CSVs.
+  Convention: dimension columns first, value column last. Output dict
+  shape matches what the wide-format reader produces for the same
+  parameter (scalar keys for 1 dim, tuple keys for 2+ dims), so model
+  code is unchanged regardless of which format is on disk.
+* ``params.json`` entries support a new ``"format": "long"`` key.
+  When set, the loader looks for ``<file_name>.csv`` instead of
+  ``<file_name>.xlsx``, and skips the wide-format-specific keys
+  (``index_cols``, ``header_rows``, ``unstack_levels``,
+  ``first_col_only``).
+* ``tests/test_long_format.py`` -- 7 unit tests covering 1-dim, 2-dim,
+  and 3-dim CSV reading; NaN-row dropping; format dispatch in
+  ``load_excel_data``; and the optional-input fallback for long-format.
+
+Changed
++++++++
+
+* ``carbon_tax`` migrated from wide-Excel to long-CSV as the working
+  demonstration of the new format. ``input/carbon_tax.csv`` and
+  ``southeast_asia/carbon_tax.csv`` replace the corresponding
+  ``carbon_tax.xlsx`` files. The data and model behavior are identical
+  -- the regression test passes unchanged at ``1.879e+11`` objective.
+
+Migration notes
++++++++++++++++
+
+* No action needed for existing input directories that are not based
+  on the canonical ``input/`` -- their wide-format files keep working.
+* Users with custom ``carbon_tax.xlsx`` files who pull v1.4.0 should
+  convert them to ``carbon_tax.csv`` (zone, year, value columns) and
+  drop the old xlsx, since ``params.json`` now declares carbon_tax as
+  long-format.
+* Future features should prefer long-format from the start.
+
 Migration notes
 +++++++++++++++
 

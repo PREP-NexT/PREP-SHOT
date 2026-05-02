@@ -116,13 +116,20 @@ def extract_config_data(config_data : dict) -> dict:
 def load_excel_data(
     input_folder : str, params_info : dict, data_store : dict
 ) -> None:
-    """Load data from Excel files based on the provided parameters.
+    """Load input data based on the provided parameters.
 
-    Each entry in ``params_info`` may declare ``"required": false`` and a
-    ``"default"`` value. If the file for an optional parameter is missing,
-    the loader silently substitutes the declared default (or an empty
-    dict, if no default is given) and logs a debug message. Required
-    parameters with missing files still terminate the process.
+    Despite the legacy name, this function dispatches on ``"format"``:
+
+    * ``"format": "wide"`` (default) -- load from an ``.xlsx`` file using
+      pandas ``read_excel`` + ``unstack`` per the legacy schema.
+    * ``"format": "long"`` -- load from a ``.csv`` file in tidy form
+      (dimension columns first, value column last).
+
+    Each entry may also declare ``"required": false`` and a ``"default"``
+    value. If the file for an optional parameter is missing, the loader
+    silently substitutes the default (or an empty dict if none is given)
+    and logs a debug message. Required parameters with missing files
+    still terminate the process.
 
     Parameters
     ----------
@@ -135,17 +142,25 @@ def load_excel_data(
         Dictionary to store loaded data.
     """
     for key, value in params_info.items():
-        filename = path.join(input_folder, f"{value['file_name']}.xlsx")
+        fmt = value.get("format", "wide")
+        ext = "csv" if fmt == "long" else "xlsx"
+        filename = path.join(input_folder, f"{value['file_name']}.{ext}")
         required = value.get("required", True)
         try:
-            data_store[key] = read_excel(
-                filename,
-                value["index_cols"],
-                value["header_rows"],
-                value["unstack_levels"],
-                value["first_col_only"],
-                value["drop_na"]
-            )
+            if fmt == "long":
+                data_store[key] = read_long_csv(
+                    filename,
+                    dropna=value.get("drop_na", True),
+                )
+            else:
+                data_store[key] = read_excel(
+                    filename,
+                    value["index_cols"],
+                    value["header_rows"],
+                    value["unstack_levels"],
+                    value["first_col_only"],
+                    value["drop_na"]
+                )
         except FileNotFoundError as e:
             if required:
                 logging.error("Error loading %s data: %s", value["file_name"], e)
@@ -163,6 +178,56 @@ def load_excel_data(
                 "Optional input '%s' not found at %s; using default.",
                 key, filename,
             )
+
+
+def read_long_csv(filename : str, dropna : bool = True) -> dict:
+    """Read a long-format ("tidy") CSV input file.
+
+    The convention is: dimension columns first, value column last. For
+    example a 2-dim input ``carbon_tax`` looks like::
+
+        zone,year,value
+        BA1,2020,0
+        BA1,2025,5
+        BA2,2020,0
+
+    The returned dict matches the shape produced by the wide-format
+    reader for the same parameter:
+
+    * 1 dimension column -> ``{key: value}`` (scalar keys)
+    * 2+ dimension columns -> ``{(d1, d2, ...): value}`` (tuple keys)
+
+    The ORDER of the dimension columns in the CSV determines the order
+    of elements in the output keys, so model-side lookups work
+    unchanged regardless of which format the file is in on disk.
+
+    Parameters
+    ----------
+    filename : str
+        Path to the CSV file.
+    dropna : bool
+        If True, rows with any NaN are dropped before keying.
+
+    Returns
+    -------
+    dict
+        Mapping from dimension key (or tuple of keys) to the value.
+    """
+    df = pd.read_csv(filename)
+    if dropna:
+        df = df.dropna()
+    cols = list(df.columns)
+    if len(cols) < 2:
+        raise ValueError(
+            f"Long-format CSV {filename} needs at least one dimension column "
+            f"plus a value column; got columns {cols}."
+        )
+    dim_cols = cols[:-1]
+    value_col = cols[-1]
+    if len(dim_cols) == 1:
+        return dict(zip(df[dim_cols[0]], df[value_col]))
+    keys = list(zip(*(df[c] for c in dim_cols)))
+    return dict(zip(keys, df[value_col]))
 
 
 def extract_sets(data_store : dict) -> None:
