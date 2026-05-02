@@ -294,6 +294,25 @@ Migration notes
   (or ``pip install -e .`` if you use the editable install) to pick up
   the bumped dependency versions.
 
+
+Version 1.3.2 - May 2, 2026
+-------------------------------
+
+Continuous-integration release. The full unit-test suite now runs
+automatically on every push and pull request via GitHub Actions.
+
+Added
++++++
+
+* ``.github/workflows/test.yml``: matrix-tests on Python 3.9 / 3.10 /
+  3.11. Runs the fast unit tests (schema, optional inputs, utils) on
+  every push and PR; runs the slow end-to-end regression test only on
+  pushes to ``main`` to keep PR feedback fast.
+
+The fast tests give contributors a quick green/red signal on every PR;
+the regression test on ``main`` catches any change that would alter the
+model's optimal objective on the canonical ``input/`` dataset.
+
 Migration notes
 +++++++++++++++
 
