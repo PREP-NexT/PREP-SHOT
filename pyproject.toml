@@ -1,0 +1,61 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "prepshot"
+dynamic = ["version"]
+description = "Pathways for Renewable Energy Planning coupling Short-term Hydropower OperaTion (PREP-SHOT)"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+authors = [
+    {name = "Zhanwei Liu", email = "liuzhanwei@u.nus.edu"},
+]
+keywords = ["energy-systems", "optimization", "hydropower", "linear-programming"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering",
+]
+dependencies = [
+    "numpy>=1.22",
+    "scipy>=1.7",
+    "pandas>=1.5",
+    "xarray>=0.20",
+    "openpyxl>=3.0",
+    "xlsxwriter>=3.2",
+    "pyoptinterface>=0.2",
+    "highsbox>=1.7",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7",
+]
+docs = [
+    "sphinx>=5",
+    "sphinx-rtd-theme",
+]
+
+[project.urls]
+Homepage = "https://github.com/PREP-NexT/PREP-SHOT"
+Documentation = "https://prep-shot.readthedocs.io"
+Issues = "https://github.com/PREP-NexT/PREP-SHOT/issues"
+Changelog = "https://github.com/PREP-NexT/PREP-SHOT/blob/main/doc/source/Changelog.rst"
+
+[project.scripts]
+prepshot = "prepshot.cli:main"
+
+[tool.setuptools.dynamic]
+version = {attr = "prepshot.__version__"}
+
+[tool.setuptools.packages.find]
+include = ["prepshot*"]
+exclude = ["tests*", "doc*", "tools*", "toolkit*", "example*", "input*", "southeast_asia*", "log*", "output*"]

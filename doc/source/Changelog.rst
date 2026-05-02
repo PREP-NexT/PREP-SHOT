@@ -74,7 +74,7 @@ Changed
 Version 1.0 - Jul 21, 2025
 -------------------------------
 
-First v1.0 release. Aggregates all changes since v0.1.2 (PRs #23–#34). See
+First v1.0 release. Aggregates all changes since v0.1.2 (PRs #23-#34). See
 the GitHub release notes for the full list. Notable highlights:
 
 * Bug fixes and refinements to constraint definitions.
@@ -88,7 +88,7 @@ Version 1.1.0 - May 2, 2026
 .. note::
    **v1.x is a rapid-evolution series.** Breaking input-format changes may
    occur on minor version bumps. API and input-schema stability will be
-   promised with v2.0.0. See :doc:`Stability`.
+   promised with v2.0.0. See the Stability page.
 
 Added
 +++++
@@ -157,7 +157,7 @@ Added
 * ``tests/test_regression.py``: end-to-end regression test that runs the
   full ``python run.py`` flow on the canonical ``input/`` dataset and
   locks in the final-iteration objective (``1.8793771299e+11``) with a
-  1 % tolerance. Set ``PREPSHOT_SKIP_SLOW=1`` to skip it (≈150 s).
+  1 % tolerance. Set ``PREPSHOT_SKIP_SLOW=1`` to skip it (about 150 s).
 
 Fixed
 +++++
@@ -168,3 +168,38 @@ Fixed
   is not subscriptable`` at the start of ``initialize_environment``,
   breaking ``python run.py`` end-to-end despite the schema guard inside
   ``process_data`` working in isolation.
+
+
+Version 1.2.0 - May 2, 2026
+-------------------------------
+
+PREP-SHOT is now installable as a Python package.
+
+Added
++++++
+
+* ``pyproject.toml`` at the repo root, declaring ``prepshot`` as an
+  installable package with pinned-but-flexible dependency floors. Allows
+  ``pip install -e .`` for local development and ``pip install prepshot``
+  once published to PyPI.
+* ``prepshot/cli.py`` -- ``main()`` entry point that looks for
+  ``config.json`` and ``params.json`` in the current working directory.
+* ``prepshot/__main__.py`` -- enables ``python -m prepshot`` invocation.
+* Console-script entry point ``prepshot`` (declared in
+  ``[project.scripts]``).
+
+Changed
++++++++
+
+* ``run.py`` is now a thin backward-compatible shim that delegates to
+  ``prepshot.cli.main``. It preserves the legacy file-relative path
+  behavior (``config.json`` / ``params.json`` next to ``run.py``), so
+  existing ``python run.py`` workflows continue to work unchanged.
+
+Migration notes
++++++++++++++++
+
+* New: ``pip install -e .`` from the repo root, then run ``prepshot``
+  (or ``python -m prepshot``) from any directory containing
+  ``config.json`` and ``params.json``.
+* Existing: ``python run.py`` still works as before -- no action needed.
