@@ -59,12 +59,12 @@ class TestUtils(unittest.TestCase):
         qs_beyond_val = 400
         qs_beyoud_arr = [-50, 200, 400]
         zq = pd.DataFrame({
-            'station_id' : [name] * 3,
+            'tech' : [name] * 3,
             'discharge' : [0, 200, 300],
             'tailrace_level' : [0, 100, 200]
         })
         zs = pd.DataFrame({
-            'station_id' : [name] * 3,
+            'tech' : [name] * 3,
             'volume' : [0, 200, 300],
             'forebay_level' : [0, 100, 200]
         })

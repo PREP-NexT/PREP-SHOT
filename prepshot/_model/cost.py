@@ -105,7 +105,7 @@ class AddCostObjective:
         """
         model = self.model
         fp = model.params['fuel_price'][te, y]
-        vf = model.params['var_factor'][y]
+        vf = model.params['var_factor'][y, z]
         w = model.params['weight']
         return (1 / w * fp * vf
             * poi.quicksum(model.gen.select('*', '*', y, z, te)))
@@ -133,7 +133,8 @@ class AddCostObjective:
         """
         model = self.model
         lvc = model.params['transmission_line_variable_OM_cost'][z, z1]
-        vf = model.params['var_factor'][y]
+        # Source-zone discount for inter-zone transmission costs.
+        vf = model.params['var_factor'][y, z]
         w = model.params['weight']
         return (0.5 / w * lvc * vf
             * poi.quicksum(model.trans_export.select('*', '*', y, z, z1)))
@@ -160,7 +161,7 @@ class AddCostObjective:
         """
         model = self.model
         tvc = model.params['technology_variable_OM_cost'][te, y]
-        vf = model.params['var_factor'][y]
+        vf = model.params['var_factor'][y, z]
         w = model.params['weight']
         return (1 / w * tvc * vf
             * poi.quicksum(model.gen.select('*', '*', y, z, te)))
@@ -189,7 +190,7 @@ class AddCostObjective:
         model = self.model
         lfc = model.params['transmission_line_fixed_OM_cost']
         ff = model.params['fix_factor']
-        return lfc[z, z1] * model.cap_lines_existing[y, z, z1] * ff[y] * 0.5
+        return lfc[z, z1] * model.cap_lines_existing[y, z, z1] * ff[y, z] * 0.5
 
     def cost_fix_tech_breakdown(
         self, y : int, z : str, te : str
@@ -213,7 +214,7 @@ class AddCostObjective:
         """
         model = self.model
         tfc = model.params['technology_fixed_OM_cost'][te, y]
-        ff = model.params['fix_factor'][y]
+        ff = model.params['fix_factor'][y, z]
         return  tfc * model.cap_existing[y, z, te] * ff
 
     def cost_newtech_breakdown(
@@ -238,7 +239,7 @@ class AddCostObjective:
         """
         model = self.model
         tic = model.params['technology_investment_cost'][te, y]
-        ivf = model.params['inv_factor'][te, y]
+        ivf = model.params['inv_factor'][te, y, z]
         return tic * model.cap_newtech[y, z, te] * ivf
 
     def cost_newline_breakdown(
@@ -264,7 +265,8 @@ class AddCostObjective:
         model = self.model
         lic = model.params['transmission_line_investment_cost'][z, z1]
         d = model.params['distance'][z, z1]
-        ivf = model.params['trans_inv_factor'][y]
+        # Source-zone discount for inter-zone transmission investment.
+        ivf = model.params['trans_inv_factor'][y, z]
         capacity_invested_line = model.cap_newline[y, z, z1]
         return lic * capacity_invested_line * d * ivf * 0.5
 
@@ -282,8 +284,12 @@ class AddCostObjective:
             coef = 3600 * model.params['dt'] * model.params['price']
             vf = model.params['var_factor']
             w = model.params['weight']
+            # Each hydro plant has a home zone -- use that zone's
+            # var_factor for discounting the plant's water-withdrawal
+            # income.
+            station_zone = model.params['reservoir_zone']
             income = sum(
-                model.withdraw[s, h, m, y] * coef * vf[y]
+                model.withdraw[s, h, m, y] * coef * vf[y, station_zone[s]]
                 for s in model.station
                 for h in model.hour
                 for m in model.month
@@ -378,7 +384,7 @@ class AddCostObjective:
         """
         model = self.model
         ct = model.params['carbon_tax'][z, y]
-        vf = model.params['var_factor'][y]
+        vf = model.params['var_factor'][y, z]
         return ct * model.carbon_capacity[y, z] * vf
 
     def carbon_offset_cost_breakdown(
@@ -400,7 +406,7 @@ class AddCostObjective:
         """
         model = self.model
         cop = model.params['carbon_offset_price'][z, y]
-        vf = model.params['var_factor'][y]
+        vf = model.params['var_factor'][y, z]
         return cop * model.carbon_offset[y, z] * vf
 
     def carbon_cost_rule(self) -> poi.ExprBuilder:

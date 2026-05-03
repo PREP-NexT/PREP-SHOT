@@ -1,0 +1,3 @@
+limit_id,year,unit,value,zones
+system_cap,2020,tonneCO2,inf,"Cambodia,Laos,Myanmar,Thailand,Vietnam"
+system_cap,2030,tonneCO2,146000000.0,"Cambodia,Laos,Myanmar,Thailand,Vietnam"

@@ -1,0 +1,12 @@
+limit_id,year,unit,value,zones
+system_cap,2020,tonneCO2,200000,"BA1,BA2,BA3"
+system_cap,2021,tonneCO2,180000,"BA1,BA2,BA3"
+system_cap,2022,tonneCO2,160000,"BA1,BA2,BA3"
+system_cap,2023,tonneCO2,140000,"BA1,BA2,BA3"
+system_cap,2024,tonneCO2,120000,"BA1,BA2,BA3"
+system_cap,2025,tonneCO2,100000,"BA1,BA2,BA3"
+system_cap,2026,tonneCO2,80000,"BA1,BA2,BA3"
+system_cap,2027,tonneCO2,60000,"BA1,BA2,BA3"
+system_cap,2028,tonneCO2,40000,"BA1,BA2,BA3"
+system_cap,2029,tonneCO2,20000,"BA1,BA2,BA3"
+system_cap,2030,tonneCO2,0,"BA1,BA2,BA3"

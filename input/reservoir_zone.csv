@@ -1,16 +1,16 @@
-station_id,name,unit,zone
-1,Grand Coulee,zone_code,BA1
-2,Chief Joseph,zone_code,BA1
-3,Wells,zone_code,BA1
-4,Rocky Reach,zone_code,BA1
-5,Rock Island,zone_code,BA1
-6,Wanapum,zone_code,BA1
-7,Priest Rapids,zone_code,BA1
-8,Lower Granite,zone_code,BA2
-9,Little Goose,zone_code,BA2
-10,Lower Monumental,zone_code,BA2
-11,Ice Harbor,zone_code,BA2
-12,McNary,zone_code,BA3
-13,John Day,zone_code,BA3
-14,The Dalles,zone_code,BA3
-15,Bonneville,zone_code,BA3
+tech,unit,zone
+Grand_Coulee,zone_code,BA1
+Chief_Joseph,zone_code,BA1
+Wells,zone_code,BA1
+Rocky_Reach,zone_code,BA1
+Rock_Island,zone_code,BA1
+Wanapum,zone_code,BA1
+Priest_Rapids,zone_code,BA1
+Lower_Granite,zone_code,BA2
+Little_Goose,zone_code,BA2
+Lower_Monumental,zone_code,BA2
+Ice_Harbor,zone_code,BA2
+McNary,zone_code,BA3
+John_Day,zone_code,BA3
+The_Dalles,zone_code,BA3
+Bonneville,zone_code,BA3

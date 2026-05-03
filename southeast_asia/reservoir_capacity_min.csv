@@ -1,58 +1,58 @@
-station_id,name,unit,capacity_min
-112,Nam Ou 7,MW,0.0
-117,Nam Ngay,MW,0.0
-119,Nam Ou 6,MW,0.0
-127,Nam Ou 5,MW,0.0
-132,Nam Pok,MW,0.0
-134,Nam Ou 4,MW,0.0
-144,Nam Pha,MW,0.0
-151,Nam Ko,MW,0.0
-162,Nam Ou 2,MW,0.0
-171,Nam Tha 1,MW,0.0
-175,Nam Ou 1,MW,0.0
-181,Nam Beng,MW,0.0
-194,Nam Khan 3 (Down),MW,0.0
-195,Nam Khan 2,MW,0.0
-206,Mekong at Xayabuly,MW,0.0
-207,Nam Ngum 3,MW,0.0
-209,Nam Pouy 1,MW,0.0
-212,Nam Ngum 2,MW,0.0
-214,Nam Ngiep 1,MW,0.0
-215,Nam Lik 1-2,MW,0.0
-218,Nam Ngum 1,MW,0.0
-219,Nam Lik 1,MW,0.0
-224,Nam Ngiep-regulating dam,MW,0.0
-226,Nam Poun,MW,0.0
-234,Nam Theun1,MW,0.0
-236,Theun-Hinboun exp. (NG8),MW,0.0
-237,Theun-Hinboun,MW,0.0
-284,Ubol Ratana,MW,0.0
-302,Huai Kum,MW,0.0
-323,Xe Kong 5,MW,0.0
-327,Xeset 1,MW,0.0
-331,Xedon 2,MW,0.0
-343,Xelabam,MW,0.0
-351,Xekaman 3,MW,0.0
-358,Pak Mun,MW,0.0
-365,Xe Kaman 2B,MW,0.0
-366,Xekaman-Sanxay,MW,0.0
-367,Xe Nam Noy 5,MW,0.0
-374,Xe Kaman 2A,MW,0.0
-375,Xekatam,MW,0.0
-389,Xekaman 1,MW,0.0
-392,Lam Ta Khong P.S.,MW,0.0
-404,Nam Kong 1,MW,0.0
-409,Nam Kong 2,MW,0.0
-410,Plei Krong,MW,0.0
-415,Yali,MW,0.0
-416,Se San 3,MW,0.0
-419,Se San 3A,MW,0.0
-428,Se San 4,MW,0.0
-430,Se San 4A,MW,0.0
-441,Mekong at Don sahong,MW,0.0
-448,Lower Se San 2,MW,0.0
-502,Sre Pok 4,MW,0.0
-504,Sre Pok 3,MW,0.0
-511,Dray Hlinh 2,MW,0.0
-514,Buon Kuop,MW,0.0
-527,Buon Tua Srah,MW,0.0
+tech,unit,capacity_min
+Nam_Ou_7,MW,0.0
+Nam_Ngay,MW,0.0
+Nam_Ou_6,MW,0.0
+Nam_Ou_5,MW,0.0
+Nam_Pok,MW,0.0
+Nam_Ou_4,MW,0.0
+Nam_Pha,MW,0.0
+Nam_Ko,MW,0.0
+Nam_Ou_2,MW,0.0
+Nam_Tha_1,MW,0.0
+Nam_Ou_1,MW,0.0
+Nam_Beng,MW,0.0
+Nam_Khan_3_(Down),MW,0.0
+Nam_Khan_2,MW,0.0
+Mekong_at_Xayabuly,MW,0.0
+Nam_Ngum_3,MW,0.0
+Nam_Pouy_1,MW,0.0
+Nam_Ngum_2,MW,0.0
+Nam_Ngiep_1,MW,0.0
+Nam_Lik_1-2,MW,0.0
+Nam_Ngum_1,MW,0.0
+Nam_Lik_1,MW,0.0
+Nam_Ngiep-regulating_dam,MW,0.0
+Nam_Poun,MW,0.0
+Nam_Theun1,MW,0.0
+Theun-Hinboun_exp._(NG8),MW,0.0
+Theun-Hinboun,MW,0.0
+Ubol_Ratana,MW,0.0
+Huai_Kum,MW,0.0
+Xe_Kong_5,MW,0.0
+Xeset_1,MW,0.0
+Xedon_2,MW,0.0
+Xelabam,MW,0.0
+Xekaman_3,MW,0.0
+Pak_Mun,MW,0.0
+Xe_Kaman_2B,MW,0.0
+Xekaman-Sanxay,MW,0.0
+Xe_Nam_Noy_5,MW,0.0
+Xe_Kaman_2A,MW,0.0
+Xekatam,MW,0.0
+Xekaman_1,MW,0.0
+Lam_Ta_Khong_P.S.,MW,0.0
+Nam_Kong_1,MW,0.0
+Nam_Kong_2,MW,0.0
+Plei_Krong,MW,0.0
+Yali,MW,0.0
+Se_San_3,MW,0.0
+Se_San_3A,MW,0.0
+Se_San_4,MW,0.0
+Se_San_4A,MW,0.0
+Mekong_at_Don_sahong,MW,0.0
+Lower_Se_San_2,MW,0.0
+Sre_Pok_4,MW,0.0
+Sre_Pok_3,MW,0.0
+Dray_Hlinh_2,MW,0.0
+Buon_Kuop,MW,0.0
+Buon_Tua_Srah,MW,0.0

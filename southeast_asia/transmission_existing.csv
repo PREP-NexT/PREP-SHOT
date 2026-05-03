@@ -1,0 +1,15 @@
+zone1,zone2,commission_year,unit,value
+Cambodia,Laos,2020,MW,0.0
+Cambodia,Thailand,2020,MW,120.0
+Cambodia,Vietnam,2020,MW,400.0
+Laos,Cambodia,2020,MW,0.0
+Laos,Myanmar,2020,MW,0.0
+Laos,Thailand,2020,MW,2205.0
+Laos,Vietnam,2020,MW,248.0
+Myanmar,Laos,2020,MW,0.0
+Myanmar,Thailand,2020,MW,0.0
+Thailand,Cambodia,2020,MW,120.0
+Thailand,Laos,2020,MW,2205.0
+Thailand,Myanmar,2020,MW,0.0
+Vietnam,Cambodia,2020,MW,400.0
+Vietnam,Laos,2020,MW,248.0

@@ -97,9 +97,20 @@ class AddGenerationConstraints:
             Model object depending on the solver.
         """
         self.model = model
+        # Pre-compute fast (tech, zone, year, month, hour) -> per-unit
+        # bound dicts. Both files are optional; missing entries fall
+        # back to defaults (p_max_pu = 1, p_min_pu = 0). This unifies
+        # the previous capacity-factor-bounded VRE constraint and the
+        # cap-bounded dispatchable constraint into one rule.
+        self._p_max_pu = dict(model.params.get('max_gen_profile') or {})
+        self._p_min_pu = dict(model.params.get('min_gen_profile') or {})
         model.gen_up_bound_cons = poi.make_tupledict(
             model.hour, model.month, model.year, model.zone, model.tech,
             rule=self.gen_up_bound_rule
+        )
+        model.gen_low_bound_cons = poi.make_tupledict(
+            model.hour, model.month, model.year, model.zone, model.tech,
+            rule=self.gen_low_bound_rule
         )
         model.ramping_up_cons = poi.make_tupledict(
             model.hour, model.month, model.year, model.zone, model.tech,
@@ -113,30 +124,35 @@ class AddGenerationConstraints:
     def gen_up_bound_rule(
         self, h : int, m : int, y : int, z : str, te : str
     ) -> poi.ConstraintIndex:
-        """Generation is less than or equal to the existing capacity.
+        """gen[h,m,y,z,te] <= cap_existing × p_max_pu × dt.
 
-        Parameters
-        ----------
-        h : int
-            Hour.
-        m : int
-            Month.
-        y : int
-            Year.
-        z : str
-            Zone.
-        te : str
-            Technology.
-            
-        Returns
-        -------
-        poi.ConstraintIndex
-            The constraint of the model.
+        Defaults to p_max_pu = 1 (full capacity) when the tech has no
+        entry in tech_max_gen_profile.csv. Variable renewables specify
+        a time-varying p_max_pu < 1 to cap by capacity factor; must-run
+        techs set p_max_pu = p_min_pu to lock generation to a profile.
         """
         model = self.model
+        p_max_pu = self._p_max_pu.get((te, z, y, m, h), 1)
         lhs = model.gen[h, m, y, z, te] \
-            - model.cap_existing[y, z, te] * model.params['dt']
+            - model.cap_existing[y, z, te] * p_max_pu * model.params['dt']
         return model.add_linear_constraint(lhs, poi.Leq, 0)
+
+    def gen_low_bound_rule(
+        self, h : int, m : int, y : int, z : str, te : str
+    ) -> poi.ConstraintIndex:
+        """gen[h,m,y,z,te] >= cap_existing × p_min_pu × dt.
+
+        Defaults to p_min_pu = 0 (no minimum) when the tech has no
+        entry in tech_min_gen_profile.csv. Set p_min_pu > 0 for
+        must-run plants with a minimum stable load.
+        """
+        model = self.model
+        p_min_pu = self._p_min_pu.get((te, z, y, m, h), 0)
+        if p_min_pu == 0:
+            return None  # trivial constraint; gen is already lb=0
+        lhs = model.gen[h, m, y, z, te] \
+            - model.cap_existing[y, z, te] * p_min_pu * model.params['dt']
+        return model.add_linear_constraint(lhs, poi.Geq, 0)
 
 
     def ramping_up_rule(

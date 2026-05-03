@@ -65,8 +65,12 @@ def initialize_environment(config_files : Dict[str, str]) -> Dict[str, Any]:
     # Underscore-prefixed keys (e.g. _schema_version) are metadata stamps,
     # not input-file descriptors; skip them when iterating params.
     file_param_keys = [k for k in params if not k.startswith("_")]
-    params_list = [params[key]["file_name"] for key in file_param_keys]
-    args = parse_cli_arguments(params_list)
+    # CLI arguments are registered by param-key name (the dict key in
+    # params.json), not by file_name -- the two can diverge after a file
+    # rename (e.g. key='existing_fleet', file_name='fleet_existing'). The
+    # CLI value is appended as a suffix to the file_name, so users still
+    # opt into a scenario via --<param_key> <suffix>.
+    args = parse_cli_arguments(file_param_keys)
 
     # Determine the input folder path.
     input_filename = str(config_data['general_parameters']['input_folder'])

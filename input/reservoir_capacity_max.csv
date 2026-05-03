@@ -1,16 +1,16 @@
-station_id,name,unit,capacity_max
-1,Grand Coulee,MW,5054.0
-2,Chief Joseph,MW,2234.0
-3,Wells,MW,741.0
-4,Rocky Reach,MW,1126.0
-5,Rock Island,MW,482.0
-6,Wanapum,MW,890.0
-7,Priest Rapids,MW,828.0
-8,Lower Granite,MW,747.0
-9,Little Goose,MW,748.0
-10,Lower Monumental,MW,784.0
-11,Ice Harbor,MW,525.0
-12,McNary,MW,1022.0
-13,John Day,MW,1943.0
-14,The Dalles,MW,1414.0
-15,Bonneville,MW,921.0
+tech,unit,capacity_max
+Grand_Coulee,MW,5054.0
+Chief_Joseph,MW,2234.0
+Wells,MW,741.0
+Rocky_Reach,MW,1126.0
+Rock_Island,MW,482.0
+Wanapum,MW,890.0
+Priest_Rapids,MW,828.0
+Lower_Granite,MW,747.0
+Little_Goose,MW,748.0
+Lower_Monumental,MW,784.0
+Ice_Harbor,MW,525.0
+McNary,MW,1022.0
+John_Day,MW,1943.0
+The_Dalles,MW,1414.0
+Bonneville,MW,921.0

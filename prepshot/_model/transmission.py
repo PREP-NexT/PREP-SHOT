@@ -43,6 +43,15 @@ class AddTransmissionConstraints:
             Model object depending on the solver.
         """
         self.model = model
+        # Pre-compute fast lookups from the table-format candidates df
+        # (cols: zone1, zone2, year, unit, capacity_min, capacity_max).
+        cand = model.params['transmission_candidates']
+        self._cand_min = {
+            (r.zone1, r.zone2, r.year): r.capacity_min for _, r in cand.iterrows()
+        }
+        self._cand_max = {
+            (r.zone1, r.zone2, r.year): r.capacity_max for _, r in cand.iterrows()
+        }
         model.cap_lines_existing = poi.make_tupledict(
             model.year, model.zone, model.zone,
             rule=self.trans_capacity_rule
@@ -54,6 +63,14 @@ class AddTransmissionConstraints:
         model.trans_physical_cons = poi.make_tupledict(
             model.year, model.zone, model.zone,
             rule=self.trans_physical_rule
+        )
+        model.new_line_up_bound_cons = poi.make_tupledict(
+            model.year, model.zone, model.zone,
+            rule=self.new_line_up_bound_rule
+        )
+        model.new_line_low_bound_cons = poi.make_tupledict(
+            model.year, model.zone, model.zone,
+            rule=self.new_line_low_bound_rule
         )
         model.trans_up_bound_cons = poi.make_tupledict(
             model.hour, model.month, model.year, model.zone, model.zone,
@@ -107,8 +124,17 @@ class AddTransmissionConstraints:
         """
         model = self.model
         year = model.params['year']
-        lc = model.params['transmission_line_existing_capacity']
-        remaining_capacity_line = lc[z, z1]
+        lifetime = model.params['transmission_line_lifetime']
+        existing = model.params['transmission_existing']
+        # Sum over (zone1, zone2, commission_year) entries that are
+        # still in service in year y: cy <= y < cy + lifetime[z, z1].
+        # transmission_line_lifetime has not been changed in this
+        # release; it remains keyed by (zone1, zone2).
+        lt = lifetime.get((z, z1), 0)
+        remaining_capacity_line = sum(
+            cap for (zz1, zz2, cy), cap in existing.items()
+            if zz1 == z and zz2 == z1 and cy <= y < cy + lt
+        )
         cap_lines_existing = poi.ExprBuilder()
         new_capacity_line = poi.quicksum(
             model.cap_newline[yy, z, z1] for yy in year[:year.index(y) + 1]
@@ -116,6 +142,35 @@ class AddTransmissionConstraints:
         cap_lines_existing += new_capacity_line
         cap_lines_existing += remaining_capacity_line
         return cap_lines_existing
+
+    def new_line_up_bound_rule(
+        self, y : int, z : str, z1 : str
+    ) -> poi.ConstraintIndex:
+        """Upper bound on new transmission capacity built in (y, z, z1).
+
+        Default for missing (z, z1, y) is 0 -- the candidates table is
+        the canonical list of buildable line-year combinations.
+        """
+        model = self.model
+        ub = self._cand_max.get((z, z1, y), 0)
+        if ub == float('inf'):
+            return None
+        lhs = model.cap_newline[y, z, z1] - ub
+        return model.add_linear_constraint(lhs, poi.Leq, 0)
+
+    def new_line_low_bound_rule(
+        self, y : int, z : str, z1 : str
+    ) -> poi.ConstraintIndex:
+        """Lower bound on new transmission capacity built in (y, z, z1).
+        Default 0; redundant with the variable's lb=0 unless the user
+        sets a positive minimum.
+        """
+        model = self.model
+        lb = self._cand_min.get((z, z1, y), 0)
+        if lb == 0:
+            return None
+        lhs = model.cap_newline[y, z, z1] - lb
+        return model.add_linear_constraint(lhs, poi.Geq, 0)
 
     def trans_balance_rule(
         self, h : int, m : int, y : int, z : str, z1 : str

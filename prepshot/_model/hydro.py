@@ -115,14 +115,21 @@ class AddHydropowerConstraints:
         """
         self.model = model
         self.is_inflow = model.params['isinflow']
-        self.hydro_type = [i for i, j in model.params['technologies'].items() if j == 'hydro']
+        techs_df = model.params['technologies']
+        self.hydro_type = techs_df.loc[
+            techs_df['carrier'] == 'hydro', 'tech'
+        ].tolist()
+        # `main_hydro` was the old single aggregate-Hydro tech name.
+        # As of v1.8.0 each hydro plant is its own tech; `main_hydro`
+        # remains as a non-empty/None flag for callers checking
+        # "any hydro present at all".
         self.main_hydro = self.hydro_type[0] if self.hydro_type else None
         if self.is_inflow:
             # Pre-computed dict for lookup efficiency
             # Replaces repetitive DataFrame queries with direct memory access
             self.wdt_dict = {
-                k: v[['upstream_station_id', 'delay']].values
-                for k, v in model.params['water_delay_time'].groupby('downstream_station_id')
+                k: v[['upstream_tech', 'delay']].values
+                for k, v in model.params['water_delay_time'].groupby('downstream_tech')
             }
             self.station_zone = {
                 s: model.params['reservoir_zone'][s]
@@ -205,8 +212,13 @@ class AddHydropowerConstraints:
                 model.station, model.hour, model.month, model.year,
                 rule=self.output_up_bound_rule
             )
+        # One constraint per hydro station (now a first-class tech),
+        # binding its gen variable to either water-flow output (when
+        # isinflow=True) or the must-run profile (when isinflow=False).
+        # gen[*, *, y, z, te] is automatically zero in zones != te's
+        # home zone because cap_existing[y, z, te] = 0 there.
         model.hydro_output_cons = poi.make_tupledict(
-            model.hour, model.month, model.year, model.zone,
+            self.hydro_type, model.hour, model.month, model.year,
             rule=self.hydro_output_rule
         )
 
@@ -332,7 +344,7 @@ class AddHydropowerConstraints:
         """
         model = self.model
         hour_period = model.hour_p
-        init_storage = model.params['initial_reservoir_storage_level'][m, s]
+        init_storage = model.params['initial_reservoir_storage_level'][s]
         lhs = model.storage_reservoir[s, hour_period[0], m, y] - init_storage
         return model.add_linear_constraint(lhs, poi.Eq, 0)
 
@@ -357,7 +369,7 @@ class AddHydropowerConstraints:
         """
         model = self.model
         hour_period = model.hour_p
-        final_storage = model.params['final_reservoir_storage_level'][m, s]
+        final_storage = model.params['final_reservoir_storage_level'][s]
         lhs = model.storage_reservoir[s, hour_period[-1], m, y] - final_storage
         return model.add_linear_constraint(lhs, poi.Eq, 0)
 
@@ -461,7 +473,7 @@ class AddHydropowerConstraints:
             The constraint of the model.
         """
         model = self.model
-        min_storage = model.params['reservoir_storage_lower_bound'][s, m, h]
+        min_storage = model.params['reservoir_storage_min'][s, m, h]
         lhs = model.storage_reservoir[s, h, m, y] - min_storage
         return model.add_linear_constraint(lhs, poi.Geq, 0)
 
@@ -487,7 +499,7 @@ class AddHydropowerConstraints:
             The constraint of the model.
         """
         model = self.model
-        max_storage = model.params['reservoir_storage_upper_bound'][s, m, h]
+        max_storage = model.params['reservoir_storage_max'][s, m, h]
         lhs = model.storage_reservoir[s, h, m, y] - max_storage
         return model.add_linear_constraint(lhs, poi.Leq, 0)
 
@@ -574,42 +586,46 @@ class AddHydropowerConstraints:
         return model.add_linear_constraint(lhs, poi.Eq, 0)
 
     def hydro_output_rule(
-        self, h : int, m : int, y : int, z : str
+        self, te : str, h : int, m : int, y : int
     ) -> poi.ConstraintIndex:
-        """Hydropower output of all hydropower plants across each zone.
+        """Bind the generation variable for a hydro plant to its
+        physical output (when isinflow=True) or to its must-run profile
+        (when isinflow=False).
 
         Parameters
         ----------
+        te : str
+            Hydro plant tech name.
         h : int
             Hour.
         m : int
             Month.
         y : int
             Year.
-        z : str
-            Zone.
-            
+
         Returns
         -------
         poi.ConstraintIndex
             The constraint of the model.
         """
-        if not self.main_hydro:
+        if not self.hydro_type:
             return None
         model = self.model
         dt = model.params['dt']
-        predifined_hydro = model.params['predefined_hydropower']
-        lhs = poi.ExprBuilder()
 
         if self.is_inflow:
-            lhs += poi.quicksum(
-                model.output[s, h, m, y] * dt
-                for s in model.station if self.station_zone.get(s) == z
+            # Bind plant gen to its physical water-flow output.
+            z = self.station_zone[te]
+            lhs = (
+                model.output[te, h, m, y] * dt - model.gen[h, m, y, z, te]
             )
-            lhs -= model.gen[h, m, y, z, self.main_hydro]
-        else:
-            lhs += (
-                model.gen[h, m, y, z, self.main_hydro] -
-                predifined_hydro['Hydro', z, y, m, h] * dt
+            return model.add_linear_constraint(
+                lhs, poi.Eq, 0, name=f'Hydro_output_{y}_{m}_{h}_{te}'
             )
-        return model.add_linear_constraint(lhs, poi.Eq, 0, name=f'Hydro_output_{y}_{m}_{h}_{z}')
+
+        # isinflow=False: hydro plants act like dispatchable techs --
+        # their generation is bounded only by the unified
+        # gen_up_bound / gen_low_bound (cap * p_max_pu / cap * p_min_pu).
+        # To force a fixed must-run profile, set
+        # tech_min_gen_profile = tech_max_gen_profile for the plant.
+        return None

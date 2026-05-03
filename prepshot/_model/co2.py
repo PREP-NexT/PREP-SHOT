@@ -51,34 +51,30 @@ class AddCo2EmissionConstraints:
             model.year,
             rule=self.emission_calc_rule
         )
-        model.emission_limit_cons = poi.make_tupledict(
-            model.year,
-            rule=self.emission_limit_rule
-        )
+        # Carbon emission limits: one row per (limit_id, year) in
+        # policy_carbon_emission_limit.csv with cols
+        #   limit_id, year, unit, value, zones
+        # where `zones` is a comma-separated list of member zone codes.
+        # Each row becomes one LP constraint:
+        #   sum(carbon_capacity[year, z] for z in zones) <= value
+        emission_limits_df = model.params['carbon_emission_limit']
+        for _, lr in emission_limits_df.iterrows():
+            if lr['value'] == np.inf:
+                continue
+            member_zones = [z.strip() for z in str(lr['zones']).split(',') if z.strip()]
+            if not member_zones:
+                continue
+            lhs = poi.quicksum(
+                model.carbon_capacity[lr['year'], z] for z in member_zones
+            ) - lr['value']
+            model.add_linear_constraint(
+                lhs, poi.Leq, 0,
+                name=f"emission_limit_{lr['limit_id']}_{lr['year']}",
+            )
         model.carbon_offset_limit_cons = poi.make_tupledict(
             model.year, model.zone,
             rule=self.carbon_offset_limit_rule
         )
-
-    def emission_limit_rule(self, y : int) -> poi.ConstraintIndex:
-        """Annual carbon emission limits across all zones and technologies.
-        
-        Parameters
-        ----------
-        y : int
-            Planned year.
-            
-        Returns
-        -------
-        poi.ConstraintIndex
-            A constraint of the model.
-        """
-        model = self.model
-        limit = model.params['carbon_emission_limit']
-        if limit[y] == np.inf:
-            return None
-        lhs = model.carbon[y] - limit[y]
-        return model.add_linear_constraint(lhs, poi.Leq, 0)
 
     def emission_calc_rule(self, y : int) -> poi.ConstraintIndex:
         """Calculation of annual carbon emission across all zones and

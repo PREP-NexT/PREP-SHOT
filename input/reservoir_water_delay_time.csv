@@ -1,0 +1,15 @@
+upstream_tech,downstream_tech,delay
+Grand_Coulee,Chief_Joseph,1
+Chief_Joseph,Wells,0
+Wells,Rocky_Reach,1
+Rocky_Reach,Rock_Island,0
+Rock_Island,Wanapum,2
+Wanapum,Priest_Rapids,1
+Lower_Granite,Little_Goose,1
+Little_Goose,Lower_Monumental,1
+Lower_Monumental,Ice_Harbor,1
+Priest_Rapids,McNary,2
+Ice_Harbor,McNary,1
+McNary,John_Day,2
+John_Day,The_Dalles,1
+The_Dalles,Bonneville,1

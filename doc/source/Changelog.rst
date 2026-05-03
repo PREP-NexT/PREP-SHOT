@@ -635,3 +635,92 @@ Changed
   ``technologies`` (was ``technology_type``).
 * ``prepshot/_model/hydro.py`` reads the hydro-tech list from
   ``technologies`` (was ``technology_type``).
+
+
+Version 1.8.0 - May 3, 2026
+-------------------------------
+
+PyPSA-style data model. The fixed ``resource_type`` enum is replaced
+with a free-form ``carrier`` string plus boolean per-tech behavior
+flags; any tech can now bound its dispatch with time-varying
+``p_max_pu`` / ``p_min_pu`` profiles, removing the need for separate
+``capacity_factor`` and ``must_run`` paths. Hydro plants are first-class
+techs (carrier ``hydro``) instead of an aggregate ``Hydro``. Input
+files gain consistent domain prefixes (``tech_``, ``reservoir_``,
+``transmission_``, ``storage_``, ``policy_``, ``economic_``) and
+adopt ``max`` / ``min`` instead of mixed ``upper_bound`` / ``lower_bound``.
+Existing capacity and candidates are now structured symmetrically for
+both plants and transmission lines.
+
+The regression test confirms the model objective is unchanged at
+``1.880e+11`` for the canonical ``input/`` dataset across all
+intermediate refactors.
+
+Added
++++++
+
+* ``input/tech_registry.csv`` (was ``technologies.csv``) -- per-tech
+  registry with columns ``tech``, ``name``, ``carrier``, ``is_storage``.
+  Replaces the rigid ``resource_type`` enum.
+* ``input/tech_max_gen_profile.csv`` and
+  ``input/tech_min_gen_profile.csv`` -- optional time-varying upper /
+  lower bounds on dispatch (PyPSA's ``p_max_pu`` / ``p_min_pu``).
+  Subsumes the ``capacity_factor`` and ``must_run`` paths.
+* ``input/transmission_candidates.csv`` -- symmetric counterpart to
+  ``tech_candidates.csv`` for new transmission lines, with columns
+  ``zone1, zone2, year, unit, capacity_min, capacity_max``.
+* ``input/transmission_existing.csv`` -- now keyed by
+  ``(zone1, zone2, commission_year)`` and respects ``transmission_lifetime``,
+  matching the existing-fleet structure for plants.
+* Per-zone discount factor: ``input/economic_discount_factor.csv`` is
+  keyed by ``(zone, year)``; cost factors propagate through ``cost.py``.
+* Custom carbon-emission-limit regions in
+  ``input/policy_carbon_emission_limit.csv``: each row carries a
+  comma-separated ``zones`` field, allowing arbitrary multi-zone
+  caps without per-zone duplication.
+
+Removed
++++++++
+
+* ``prepshot/_model/nondispatchable.py`` -- subsumed by the unified
+  ``gen_up_bound_rule`` / ``gen_low_bound_rule`` in
+  ``prepshot/_model/generation.py``.
+* ``predefined_hydropower.csv`` and the ``must_run`` else-branch in
+  ``hydro.py`` -- replaced by ``tech_min_gen_profile.csv``.
+* ``capacity_factor.csv`` -- replaced by ``tech_max_gen_profile.csv``.
+
+Changed
++++++++
+
+* **Naming sweep:** all ``upper_bound`` / ``lower_bound`` files,
+  param keys, and DataFrame columns renamed to ``max`` / ``min``:
+
+  - ``tech_upper_bound.csv`` ⟶ ``tech_capacity_max.csv``
+  - ``tech_lower_bound.csv`` ⟶ ``tech_capacity_min.csv``
+  - ``reservoir_storage_upper_bound.csv`` ⟶ ``reservoir_storage_max.csv``
+  - ``reservoir_storage_lower_bound.csv`` ⟶ ``reservoir_storage_min.csv``
+  - ``tech_candidates.csv`` columns ``lower_bound`` / ``upper_bound``
+    ⟶ ``capacity_min`` / ``capacity_max``
+  - ``transmission_candidates.csv`` columns: same rename.
+
+* **File prefixes:** input files regrouped by domain.
+  ``hydro_inflow.csv`` ⟶ ``reservoir_inflow.csv``;
+  ``charge_efficiency.csv`` ⟶ ``storage_charge_efficiency.csv``;
+  ``carbon_tax.csv`` ⟶ ``policy_carbon_tax.csv``;
+  ``discount_factor.csv`` ⟶ ``economic_discount_factor.csv``; etc.
+* **Hydro plants are first-class techs.** Each plant appears in
+  ``tech_registry.csv`` with ``carrier='hydro'``; reservoir
+  parameters are keyed per station (no ``main_hydro`` aggregation).
+* **Demand units.** ``demand.csv`` now carries instantaneous power
+  in MW (PyPSA convention). The nodal balance constraint multiplies
+  by ``dt`` to convert to MWh per timestep, matching ``gen`` /
+  ``charge`` which were already in MWh.
+* ``prepshot/model.py::define_basic_sets`` derives ``hydro_tech``,
+  ``storage_tech``, and ``dispatchable_tech`` from the registry's
+  ``carrier`` and ``is_storage`` columns rather than a fixed enum.
+* ``prepshot/_model/generation.py`` defines a single pair of
+  generation bound rules using ``p_max_pu`` / ``p_min_pu`` lookups,
+  replacing the per-resource-type branches.
+* ``prepshot/_model/transmission.py`` builds existing transmission
+  capacity by summing over ``(zone1, zone2, commission_year)`` entries
+  still in service, mirroring ``tech_lifetime_rule``.

@@ -1,58 +1,58 @@
-station_id,name,unit,capacity_max
-112,Nam Ou 7,MW,210.0
-117,Nam Ngay,MW,1.2
-119,Nam Ou 6,MW,180.0
-127,Nam Ou 5,MW,240.0
-132,Nam Pok,MW,2.6
-134,Nam Ou 4,MW,132.0
-144,Nam Pha,MW,180.0
-151,Nam Ko,MW,1.5
-162,Nam Ou 2,MW,120.0
-171,Nam Tha 1,MW,168.0
-175,Nam Ou 1,MW,180.0
-181,Nam Beng,MW,36.0
-194,Nam Khan 3 (Down),MW,60.0
-195,Nam Khan 2,MW,130.0
-206,Mekong at Xayabuly,MW,1260.0
-207,Nam Ngum 3,MW,480.0
-209,Nam Pouy 1,MW,60.0
-212,Nam Ngum 2,MW,615.0
-214,Nam Ngiep 1,MW,272.0
-215,Nam Lik 1-2,MW,100.0
-218,Nam Ngum 1,MW,155.0
-219,Nam Lik 1,MW,64.0
-224,Nam Ngiep-regulating dam,MW,18.0
-226,Nam Poun,MW,50.0
-234,Nam Theun1,MW,600.0
-236,Theun-Hinboun exp. (NG8),MW,60.0
-237,Theun-Hinboun,MW,220.0
-284,Ubol Ratana,MW,25.2
-302,Huai Kum,MW,1.18
-323,Xe Kong 5,MW,330.0
-327,Xeset 1,MW,45.0
-331,Xedon 2,MW,20.0
-343,Xelabam,MW,5.0
-351,Xekaman 3,MW,250.0
-358,Pak Mun,MW,136.0
-365,Xe Kaman 2B,MW,100.0
-366,Xekaman-Sanxay,MW,32.0
-367,Xe Nam Noy 5,MW,20.0
-374,Xe Kaman 2A,MW,64.0
-375,Xekatam,MW,68.0
-389,Xekaman 1,MW,290.0
-392,Lam Ta Khong P.S.,MW,500.0
-404,Nam Kong 1,MW,150.0
-409,Nam Kong 2,MW,66.0
-410,Plei Krong,MW,100.0
-415,Yali,MW,720.0
-416,Se San 3,MW,260.0
-419,Se San 3A,MW,96.0
-428,Se San 4,MW,360.0
-430,Se San 4A,MW,63.0
-441,Mekong at Don sahong,MW,260.0
-448,Lower Se San 2,MW,400.0
-502,Sre Pok 4,MW,80.0
-504,Sre Pok 3,MW,220.0
-511,Dray Hlinh 2,MW,16.0
-514,Buon Kuop,MW,280.0
-527,Buon Tua Srah,MW,86.0
+tech,unit,capacity_max
+Nam_Ou_7,MW,210.0
+Nam_Ngay,MW,1.2
+Nam_Ou_6,MW,180.0
+Nam_Ou_5,MW,240.0
+Nam_Pok,MW,2.6
+Nam_Ou_4,MW,132.0
+Nam_Pha,MW,180.0
+Nam_Ko,MW,1.5
+Nam_Ou_2,MW,120.0
+Nam_Tha_1,MW,168.0
+Nam_Ou_1,MW,180.0
+Nam_Beng,MW,36.0
+Nam_Khan_3_(Down),MW,60.0
+Nam_Khan_2,MW,130.0
+Mekong_at_Xayabuly,MW,1260.0
+Nam_Ngum_3,MW,480.0
+Nam_Pouy_1,MW,60.0
+Nam_Ngum_2,MW,615.0
+Nam_Ngiep_1,MW,272.0
+Nam_Lik_1-2,MW,100.0
+Nam_Ngum_1,MW,155.0
+Nam_Lik_1,MW,64.0
+Nam_Ngiep-regulating_dam,MW,18.0
+Nam_Poun,MW,50.0
+Nam_Theun1,MW,600.0
+Theun-Hinboun_exp._(NG8),MW,60.0
+Theun-Hinboun,MW,220.0
+Ubol_Ratana,MW,25.2
+Huai_Kum,MW,1.18
+Xe_Kong_5,MW,330.0
+Xeset_1,MW,45.0
+Xedon_2,MW,20.0
+Xelabam,MW,5.0
+Xekaman_3,MW,250.0
+Pak_Mun,MW,136.0
+Xe_Kaman_2B,MW,100.0
+Xekaman-Sanxay,MW,32.0
+Xe_Nam_Noy_5,MW,20.0
+Xe_Kaman_2A,MW,64.0
+Xekatam,MW,68.0
+Xekaman_1,MW,290.0
+Lam_Ta_Khong_P.S.,MW,500.0
+Nam_Kong_1,MW,150.0
+Nam_Kong_2,MW,66.0
+Plei_Krong,MW,100.0
+Yali,MW,720.0
+Se_San_3,MW,260.0
+Se_San_3A,MW,96.0
+Se_San_4,MW,360.0
+Se_San_4A,MW,63.0
+Mekong_at_Don_sahong,MW,260.0
+Lower_Se_San_2,MW,400.0
+Sre_Pok_4,MW,80.0
+Sre_Pok_3,MW,220.0
+Dray_Hlinh_2,MW,16.0
+Buon_Kuop,MW,280.0
+Buon_Tua_Srah,MW,86.0

@@ -129,29 +129,30 @@ def process_model_solution(
         # If fixed head is True, do not update water head.
         new_waterhead = old_waterhead
         return True
-    # Iterate over each station to update water head data.
+    # Iterate over each station (station_id is now a tech name string).
     for station_id in stations:
         outflow = np.array([[
-            [model.get_value(model.outflow[int(station_id), h, m, y]) for h in hour]
+            [model.get_value(model.outflow[station_id, h, m, y]) for h in hour]
             for m in month] for y in year]
         )
         storage = np.array([[
-            [model.get_value(model.storage_reservoir[int(station_id), h, m, y])
+            [model.get_value(model.storage_reservoir[station_id, h, m, y])
             for h in model.hour_p] for m in month] for y in year]
         )
 
         tail = interpolate_z_by_q_or_s(
-            str(station_id), outflow,
+            station_id, outflow,
             params['reservoir_tailrace_level_discharge_function']
         )
         storage = interpolate_z_by_q_or_s(
-            str(station_id), storage, params['reservoir_forebay_level_volume_function']
+            station_id, storage,
+            params['reservoir_forebay_level_volume_function']
         )
 
         # Calculate the new water head.
         fore = (storage[:, :, :hour[-1]] + storage[:, :, 1:]) / 2
         h = np.maximum(fore - tail, 0)
-        new_waterhead.loc[int(station_id), :] = h.ravel()
+        new_waterhead.loc[station_id, :] = h.ravel()
     return True
 
 def run_model_iteration(

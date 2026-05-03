@@ -289,9 +289,14 @@ def interpolate_z_by_q_or_s(
     Union[np.ndarray, float]
         Interpolated values.
     """
-    zqv_station = zqv[
-        (zqv.station_id == int(name)) | (zqv.station_id == str(name))
-    ]
+    # Match by string tech name; fallback to int comparison for backwards
+    # compatibility with legacy datasets that still use integer station IDs.
+    zqv_station = zqv[zqv.tech == name]
+    if zqv_station.empty:
+        try:
+            zqv_station = zqv[zqv.tech == int(name)]
+        except (ValueError, TypeError):
+            pass
     if 'discharge' in zqv_station.columns:
         x = zqv_station.discharge
         z = zqv_station.tailrace_level

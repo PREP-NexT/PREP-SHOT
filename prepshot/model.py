@@ -12,7 +12,6 @@ from prepshot._model.cost import AddCostObjective
 from prepshot._model.co2 import AddCo2EmissionConstraints
 from prepshot._model.hydro import AddHydropowerConstraints
 from prepshot._model.storage import AddStorageConstraints
-from prepshot._model.nondispatchable import AddNondispatchableConstraints
 from prepshot._model.transmission import AddTransmissionConstraints
 from prepshot._model.investment import AddInvestmentConstraints
 from prepshot.logs import timer
@@ -56,24 +55,41 @@ def define_basic_sets(model : object) -> None:
     """
     params = model.params
     basic_sets = ["year", "zone", "tech", "hour", "month"]
-    tech_types = ["storage", "nondispatchable", "dispatchable", "hydro"]
-
-    model.tech_types = tech_types
     for set_name in basic_sets:
         setattr(model, set_name, params[set_name])
     # TODO: Generate the hour_p set based on the hour set
     model.hour_p = [0] + params['hour']
-    tech_category = params['technologies']
-    # tech_category: {
-    #    'Coal': 'dispatchable',
-    #    'Solar': 'nondispatchable',
-    #    ...
-    # }
-    for tech_type in tech_types:
-        tech_set = [k for k, v in tech_category.items() if v == tech_type]
-        setattr(model, f"{tech_type}_tech", tech_set)
+
+    # PyPSA-style: a free-form `carrier` string plus per-tech behavior
+    # flags. Hydropower is a special-cased carrier (carrier == 'hydro')
+    # so the existing reservoir / water-flow constraints continue to
+    # apply unchanged. Other behaviors (VRE, storage, must-run) are
+    # driven by the boolean flag columns rather than a fixed type enum.
+    techs_df = params['technologies']
+
+    def _tech_filter(mask):
+        return techs_df.loc[mask, 'tech'].tolist()
+
+    model.hydro_tech = _tech_filter(techs_df['carrier'] == 'hydro')
+    model.storage_tech = _tech_filter(techs_df['is_storage'].astype(bool))
+    # PyPSA-style: variable / must-run / curtailable behaviors are no
+    # longer flag-driven. Any tech can have a time-varying max/min
+    # generation profile via tech_max_gen_profile.csv /
+    # tech_min_gen_profile.csv. The unified per-tech generation bound
+    # constraint lives in AddGenerationConstraints.
+    # `dispatchable_tech` = anything that's not hydro and not storage
+    # (i.e. its generation is bounded by cap × p_max_pu).
+    special_mask = (
+        (techs_df['carrier'] == 'hydro')
+        | techs_df['is_storage'].astype(bool)
+    )
+    model.dispatchable_tech = _tech_filter(~special_mask)
+    model.tech_types = ['dispatchable_tech', 'hydro_tech', 'storage_tech']
     if params['isinflow']:
-        model.station = params['station_id']
+        # Hydro plants are first-class techs (carrier='hydro');
+        # model.station is the list of those tech names for
+        # backwards-compat with the hydro module.
+        model.station = model.hydro_tech
 
 def define_complex_sets(model : object) -> None:
     """Create complex sets based on simple sets and some conditations. The
@@ -88,10 +104,15 @@ def define_complex_sets(model : object) -> None:
     model : object
         Model to be solved.
     """
-    trans_sets = model.params['transmission_line_existing_capacity'].keys()
+    # transmission_existing is keyed by (zone1, zone2, commission_year);
+    # auto-pad missing zone pairs (e.g. self-loops) with a sentinel
+    # commission_year=0 entry of value=0. Efficiency padding uses the
+    # 2-tuple key it always had.
+    trans_pairs = {(z1, z2) for (z1, z2, _cy) in
+                   model.params['transmission_existing'].keys()}
     for z_i, z1_i in cartesian_product(model.zone, model.zone):
-        if (z_i, z1_i) not in trans_sets:
-            model.params['transmission_line_existing_capacity'][z_i, z1_i] = 0
+        if (z_i, z1_i) not in trans_pairs:
+            model.params['transmission_existing'][z_i, z1_i, 0] = 0
             model.params['transmission_line_efficiency'][z_i, z1_i] = 0
             # TODO: Set the capacity of new transmission lines to 0
 
@@ -153,7 +174,6 @@ def define_constraints(model : object) -> None:
     AddGenerationConstraints(model)
     AddTransmissionConstraints(model)
     AddCo2EmissionConstraints(model)
-    AddNondispatchableConstraints(model)
     AddStorageConstraints(model)
     AddHydropowerConstraints(model)
     AddDemandConstraints(model)

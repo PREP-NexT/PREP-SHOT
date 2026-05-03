@@ -302,9 +302,13 @@ def extract_sets(data_store : dict) -> None:
     data_store : dict
         Dictionary containing loaded parameters.
     """
-    data_store["year"] = sorted(list(data_store["discount_factor"].keys()))
+    # discount_factor is now keyed by (zone, year) -- extract the year
+    # set from the second element of each tuple key.
+    data_store["year"] = sorted({y for (_, y) in data_store["discount_factor"].keys()})
     if "reservoir_zone" in data_store.keys():
-        # reservoir_zone is keyed by station_id (single-dim long format).
+        # reservoir_zone is keyed by hydro plant tech name (single-dim
+        # long format). station_id is kept as an alias for back-compat
+        # with code that referred to the old separate-station concept.
         data_store["station_id"] = list(data_store["reservoir_zone"].keys())
     data_store["hour"] = sorted({
         i[3] for i in data_store["demand"].keys() if isinstance(i[3], int)
@@ -313,7 +317,7 @@ def extract_sets(data_store : dict) -> None:
         i[2] for i in data_store["demand"].keys() if isinstance(i[2], int)
     })
     data_store["zone"] = list({i[0] for i in data_store["demand"].keys()})
-    data_store["tech"] = list(data_store["technologies"].keys())
+    data_store["tech"] = data_store["technologies"]["tech"].tolist()
 
 
 def compute_cost_factors(data_store : dict) -> None:
@@ -325,37 +329,41 @@ def compute_cost_factors(data_store : dict) -> None:
     data_store : dict
         Dictionary containing loaded parameters.
     """
-    # Initialize dictionaries for computed cost factors.
+    # Cost factors are computed per-zone because the discount rate can
+    # differ by region (different cost of capital). Indices:
+    #   trans_inv_factor[year, zone]
+    #   inv_factor[tech, year, zone]
+    #   fix_factor[year, zone]
+    #   var_factor[year, zone]
     data_store["trans_inv_factor"] = {}
     data_store["inv_factor"] = {}
     data_store["fix_factor"] = {}
     data_store["var_factor"] = {}
 
-    # Initialize parameters for cost factor calculations.
     trans_line_lifetime = max(data_store["transmission_line_lifetime"].values())
     lifetime = data_store["lifetime"]
     y_min, y_max = min(data_store["year"]), max(data_store["year"])
 
-    # Calculate cost factors
-    for tech in data_store["tech"]:
-        for year in data_store["year"]:
-            discount_rate = data_store["discount_factor"][year]
-            next_year = year+1 if year == y_max                               \
-                else data_store["year"][data_store["year"].index(year) + 1]
-            data_store["trans_inv_factor"][year] = calc_inv_cost_factor(
-                trans_line_lifetime, discount_rate, year, discount_rate,
-                y_min, y_max
-            )
-            data_store["inv_factor"][tech, year] = calc_inv_cost_factor(
-                lifetime[tech, year], discount_rate, year, discount_rate,
-                y_min, y_max
-            )
-            data_store["fix_factor"][year] = calc_cost_factor(
-                discount_rate, year, y_min, next_year
-            )
-            data_store["var_factor"][year] = calc_cost_factor(
-                discount_rate, year, y_min, next_year
-            )
+    for zone in data_store["zone"]:
+        for tech in data_store["tech"]:
+            for year in data_store["year"]:
+                discount_rate = data_store["discount_factor"][zone, year]
+                next_year = year + 1 if year == y_max                          \
+                    else data_store["year"][data_store["year"].index(year) + 1]
+                data_store["trans_inv_factor"][year, zone] = calc_inv_cost_factor(
+                    trans_line_lifetime, discount_rate, year, discount_rate,
+                    y_min, y_max
+                )
+                data_store["inv_factor"][tech, year, zone] = calc_inv_cost_factor(
+                    lifetime[tech, year], discount_rate, year, discount_rate,
+                    y_min, y_max
+                )
+                data_store["fix_factor"][year, zone] = calc_cost_factor(
+                    discount_rate, year, y_min, next_year
+                )
+                data_store["var_factor"][year, zone] = calc_cost_factor(
+                    discount_rate, year, y_min, next_year
+                )
 
 
 def process_data(

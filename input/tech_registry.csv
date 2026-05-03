@@ -1,0 +1,20 @@
+tech,name,carrier,is_storage
+Coal,Coal,coal,False
+Solar,Solar,solar,False
+Wind,Wind,wind,False
+Storage,Storage,battery,True
+Grand_Coulee,Grand Coulee,hydro,False
+Chief_Joseph,Chief Joseph,hydro,False
+Wells,Wells,hydro,False
+Rocky_Reach,Rocky Reach,hydro,False
+Rock_Island,Rock Island,hydro,False
+Wanapum,Wanapum,hydro,False
+Priest_Rapids,Priest Rapids,hydro,False
+Lower_Granite,Lower Granite,hydro,False
+Little_Goose,Little Goose,hydro,False
+Lower_Monumental,Lower Monumental,hydro,False
+Ice_Harbor,Ice Harbor,hydro,False
+McNary,McNary,hydro,False
+John_Day,John Day,hydro,False
+The_Dalles,The Dalles,hydro,False
+Bonneville,Bonneville,hydro,False

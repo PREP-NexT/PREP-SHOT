@@ -53,6 +53,20 @@ class AddInvestmentConstraints:
             Model object depending on the solver.
         """
         self.model = model
+        # Pre-compute fast (zone, tech, year) -> bound dicts from the
+        # expansion_candidates DataFrame. The DataFrame is loaded as
+        # format:"table" because it has two value columns
+        # (capacity_min and capacity_max); we materialize it into dicts
+        # here for constant-time lookup inside the rule callbacks.
+        candidates = model.params['expansion_candidates']
+        self.candidate_min = {
+            (r.zone, r.tech, r.year): r.capacity_min
+            for _, r in candidates.iterrows()
+        }
+        self.candidate_max = {
+            (r.zone, r.tech, r.year): r.capacity_max
+            for _, r in candidates.iterrows()
+        }
         model.remaining_technology = poi.make_tupledict(
             model.year, model.zone, model.tech,
             rule=self.tech_lifetime_rule
@@ -99,7 +113,7 @@ class AddInvestmentConstraints:
             The constraint of the model.
         """
         model = self.model
-        tub =  model.params['technology_upper_bound'][z, te, y]
+        tub =  model.params['technology_capacity_max'][z, te, y]
         if tub != np.inf:
             lhs = model.cap_existing[y, z, te] - tub
             return model.add_linear_constraint(lhs, poi.Leq, 0)
@@ -126,7 +140,7 @@ class AddInvestmentConstraints:
             The constraint of the model.
         """
         model = self.model
-        tlb = model.params['technology_lower_bound'][z, te, y]
+        tlb = model.params['technology_capacity_min'][z, te, y]
         if tlb == 0:
             return None
         lhs = model.cap_existing[y, z, te] - tlb
@@ -152,7 +166,10 @@ class AddInvestmentConstraints:
             The constraint of the model.
         """
         model = self.model
-        ntub = model.params['new_technology_upper_bound'][z, te, y]
+        # If (z, te, y) is not in expansion_candidates, this combination
+        # cannot be expanded -- the file is the canonical list of
+        # buildable options. Default upper bound: 0.
+        ntub = self.candidate_max.get((z, te, y), 0)
         if ntub != np.inf:
             lhs = model.cap_newtech[y, z, te] - ntub
             return model.add_linear_constraint(lhs, poi.Leq, 0)
@@ -178,7 +195,7 @@ class AddInvestmentConstraints:
             The constraint of the model.
         """
         model = self.model
-        ntlb = model.params['new_technology_lower_bound'][z, te, y]
+        ntlb = self.candidate_min.get((z, te, y), 0)
         lhs = model.cap_newtech[y, z, te] - ntlb
         return model.add_linear_constraint(lhs, poi.Geq, 0)
 

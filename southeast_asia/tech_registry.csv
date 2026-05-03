@@ -1,0 +1,66 @@
+tech,name,carrier,is_storage
+Coal,Coal,coal,False
+Oil,Oil,oil,False
+Gas,Gas,gas,False
+Solar,Solar,solar,False
+Wind,Wind,wind,False
+Bioenergy,Bioenergy,biomass,False
+HPS,HPS,pumped_hydro,True
+Li-ion,Li-ion,battery,True
+Nam_Ou_7,Nam Ou 7,hydro,False
+Nam_Ngay,Nam Ngay,hydro,False
+Nam_Ou_6,Nam Ou 6,hydro,False
+Nam_Ou_5,Nam Ou 5,hydro,False
+Nam_Pok,Nam Pok,hydro,False
+Nam_Ou_4,Nam Ou 4,hydro,False
+Nam_Pha,Nam Pha,hydro,False
+Nam_Ko,Nam Ko,hydro,False
+Nam_Ou_2,Nam Ou 2,hydro,False
+Nam_Tha_1,Nam Tha 1,hydro,False
+Nam_Ou_1,Nam Ou 1,hydro,False
+Nam_Beng,Nam Beng,hydro,False
+Nam_Khan_3_(Down),Nam Khan 3 (Down),hydro,False
+Nam_Khan_2,Nam Khan 2,hydro,False
+Mekong_at_Xayabuly,Mekong at Xayabuly,hydro,False
+Nam_Ngum_3,Nam Ngum 3,hydro,False
+Nam_Pouy_1,Nam Pouy 1,hydro,False
+Nam_Ngum_2,Nam Ngum 2,hydro,False
+Nam_Ngiep_1,Nam Ngiep 1,hydro,False
+Nam_Lik_1-2,Nam Lik 1-2,hydro,False
+Nam_Ngum_1,Nam Ngum 1,hydro,False
+Nam_Lik_1,Nam Lik 1,hydro,False
+Nam_Ngiep-regulating_dam,Nam Ngiep-regulating dam,hydro,False
+Nam_Poun,Nam Poun,hydro,False
+Nam_Theun1,Nam Theun1,hydro,False
+Theun-Hinboun_exp._(NG8),Theun-Hinboun exp. (NG8),hydro,False
+Theun-Hinboun,Theun-Hinboun,hydro,False
+Ubol_Ratana,Ubol Ratana,hydro,False
+Huai_Kum,Huai Kum,hydro,False
+Xe_Kong_5,Xe Kong 5,hydro,False
+Xeset_1,Xeset 1,hydro,False
+Xedon_2,Xedon 2,hydro,False
+Xelabam,Xelabam,hydro,False
+Xekaman_3,Xekaman 3,hydro,False
+Pak_Mun,Pak Mun,hydro,False
+Xe_Kaman_2B,Xe Kaman 2B,hydro,False
+Xekaman-Sanxay,Xekaman-Sanxay,hydro,False
+Xe_Nam_Noy_5,Xe Nam Noy 5,hydro,False
+Xe_Kaman_2A,Xe Kaman 2A,hydro,False
+Xekatam,Xekatam,hydro,False
+Xekaman_1,Xekaman 1,hydro,False
+Lam_Ta_Khong_P.S.,Lam Ta Khong P.S.,hydro,False
+Nam_Kong_1,Nam Kong 1,hydro,False
+Nam_Kong_2,Nam Kong 2,hydro,False
+Plei_Krong,Plei Krong,hydro,False
+Yali,Yali,hydro,False
+Se_San_3,Se San 3,hydro,False
+Se_San_3A,Se San 3A,hydro,False
+Se_San_4,Se San 4,hydro,False
+Se_San_4A,Se San 4A,hydro,False
+Mekong_at_Don_sahong,Mekong at Don sahong,hydro,False
+Lower_Se_San_2,Lower Se San 2,hydro,False
+Sre_Pok_4,Sre Pok 4,hydro,False
+Sre_Pok_3,Sre Pok 3,hydro,False
+Dray_Hlinh_2,Dray Hlinh 2,hydro,False
+Buon_Kuop,Buon Kuop,hydro,False
+Buon_Tua_Srah,Buon Tua Srah,hydro,False

@@ -65,6 +65,7 @@ class AddDemandConstraints:
         """
         model = self.model
         load = model.params['demand']
+        dt = model.params['dt']
         imp_z = poi.quicksum(
             model.trans_import[h, m, y, z1, z] for z1 in model.zone
         )
@@ -77,7 +78,10 @@ class AddDemandConstraints:
         charge_z = poi.quicksum(
             model.charge[h, m, y, z, te] for te in model.storage_tech
         )
-        demand_z = load[z, y, m, h]
+        # demand[z, y, m, h] is in MW (instantaneous power, PyPSA-style);
+        # multiply by dt to get MWh per timestep -- matching gen and
+        # charge which are already in MWh per timestep.
+        demand_z = load[z, y, m, h] * dt
         lhs = demand_z - (imp_z - exp_z + gen_z - charge_z)
         return model.add_linear_constraint(lhs, poi.Eq, 0)
  

@@ -46,7 +46,7 @@ class TestReadLongCsv(unittest.TestCase):
 
     def test_three_dim_tuple_keys(self):
         """A 3-dim CSV produces 3-tuple keys."""
-        path = self._write("technology_lower_bound.csv", (
+        path = self._write("tech_capacity_min.csv", (
             "zone,tech,year,value\n"
             "BA1,Coal,2020,0\n"
             "BA1,Hydro,2025,500\n"

@@ -1,16 +1,16 @@
-station_id,name,unit,coefficient
-1,Grand Coulee,MW/(m*m3/s),8.83
-2,Chief Joseph,MW/(m*m3/s),8.93
-3,Wells,MW/(m*m3/s),8.53
-4,Rocky Reach,MW/(m*m3/s),8.93
-5,Rock Island,MW/(m*m3/s),8.24
-6,Wanapum,MW/(m*m3/s),8.44
-7,Priest Rapids,MW/(m*m3/s),8.24
-8,Lower Granite,MW/(m*m3/s),8.24
-9,Little Goose,MW/(m*m3/s),8.53
-10,Lower Monumental,MW/(m*m3/s),8.63
-11,Ice Harbor,MW/(m*m3/s),8.53
-12,McNary,MW/(m*m3/s),8.34
-13,John Day,MW/(m*m3/s),8.63
-14,The Dalles,MW/(m*m3/s),8.83
-15,Bonneville,MW/(m*m3/s),8.53
+tech,unit,coefficient
+Grand_Coulee,MW/(m*m3/s),8.83
+Chief_Joseph,MW/(m*m3/s),8.93
+Wells,MW/(m*m3/s),8.53
+Rocky_Reach,MW/(m*m3/s),8.93
+Rock_Island,MW/(m*m3/s),8.24
+Wanapum,MW/(m*m3/s),8.44
+Priest_Rapids,MW/(m*m3/s),8.24
+Lower_Granite,MW/(m*m3/s),8.24
+Little_Goose,MW/(m*m3/s),8.53
+Lower_Monumental,MW/(m*m3/s),8.63
+Ice_Harbor,MW/(m*m3/s),8.53
+McNary,MW/(m*m3/s),8.34
+John_Day,MW/(m*m3/s),8.63
+The_Dalles,MW/(m*m3/s),8.83
+Bonneville,MW/(m*m3/s),8.53
