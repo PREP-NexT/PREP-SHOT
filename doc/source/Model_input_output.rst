@@ -3,426 +3,411 @@
 Model Inputs/Outputs
 =====================
 
-The model requires several input parameters, provided via input files. These parameters, their dimensions, and descriptions are as follows:
+PREP-SHOT loads its inputs from a folder of CSV files and writes its
+results to a NetCDF file. ``params.json`` (in the repo root) maps each
+model parameter to its CSV file name, declares whether the file is
+required, and supplies a default value when an optional file is absent.
+
+Input file format
+-----------------
+
+Since v1.5.0, all inputs are **long-format ("tidy") CSV** -- one
+dimension column per index plus a single ``value`` column at the end.
+Annotation columns named ``unit``, ``name``, ``commodity``, ``comment``,
+``note``, ``label``, or any column ending in ``_name`` are treated as
+documentation and ignored by the loader. A typical 2-dim file looks
+like::
+
+    zone,year,unit,value
+    BA1,2020,USD/tonneCO2,0
+    BA1,2025,USD/tonneCO2,5
+    BA2,2020,USD/tonneCO2,0
+
+Four "Group 3" lookups (carbon emission limits, expansion candidates,
+piecewise reservoir functions, water delay matrix, technology registry)
+remain wide tables loaded as DataFrames -- they have multiple value
+columns and the model code slices them by name.
+
+The current input-file schema version is stamped at the top of
+``params.json`` as ``"_schema_version": 2``. See ``Stability.rst`` and
+``Changelog.rst`` for migration notes from older releases.
+
+File-name prefixes group inputs by domain:
+
+* ``demand`` -- electricity demand
+* ``economic_`` -- discount factors
+* ``finance_`` -- (optional) WACC and public-debt accounting
+* ``policy_`` -- carbon limits, taxes, offsets
+* ``reservoir_`` -- per-station reservoir parameters
+* ``storage_`` -- storage-tech parameters
+* ``tech_`` -- technology registry, costs, capacity, profiles
+* ``transmission_`` -- transmission-line parameters
 
 Inputs
-------------------------
+------
 
-The parameters used, their desciptions, and their input file name in the model are as follows:
+Required inputs
+~~~~~~~~~~~~~~~
 
-.. list-table:: Parameters
-  :widths: 20 60 20
+.. list-table::
+  :widths: 22 56 22
   :header-rows: 1
 
   * - Parameter [Unit]
     - Description
-    - Input file [#]_ 
+    - Input file
 
-  * - historical capacity [#]_ 
-  
-      [MW]
-    - The capacity of each technology in each zone for each year, taking into account the number of years that each technology has been in operation starting from the beginning of the planning period.
-    - historical_capacity
-
-  * - capacity factor [N/A]
-    - Capacity factor of different non-dispatchable technologies.
-    - capacity_factor
-    
-  * - carbon emission  
-  
-      limit [tCO2]
-    - Carbon emission limit of different zones.
-    - carbon_emission_limit
-    
-  * - emission factor 
-  
-      [tCO2/MWh]
-    - Emission factor of different technologies.
-    - emission_factor
-    
-  * - water delay time [N/A]
-    - Water delay time of connection between reservoirs.
-    - water_delay_time
-    
   * - demand [MW]
-    - Demand of different balancing authorities.
+    - Hourly electricity demand by zone, year, and month-hour. PREP-SHOT
+      multiplies by ``dt`` internally to convert MW to MWh per timestep,
+      matching ``gen`` and ``charge``.
     - demand
-    
-  * - discount factor [N/A]
-    - Discount factor for each year.
-    - discount_factor
-    
-  * - distance [km]
-    - Distance of different pair of zones.
-    - distance
-    
-  * - discharge efficiency [N/A]
-    - Discharge efficiency of storage technologies.
-    - discharge\_
-    
-      efficiency
-    
-  * - charge efficiency [N/A]
-    - Charge efficiency of storage technologies.
-    - charge\_
-      
-      efficiency
-    
-  * - energy to 
-  
-      power ratio [MWh/MW]
-    - Power to energy ratio ratio of storage technologies.
-    - energy_to\_
-    
-      power_ratio
-    
-  * - fuel price [dollar/MWh]
-    - Fuel price of different technologies.
-    - fuel_price
-    
-  * - Predefined hydropower [#]_ [MW]
-    - Predefined hydropower output of all reservoirs.
-    - predefined_hydropower
-    
-  * - inflow [m3/s]
-    - Inflow of all reservoirs.
-    - inflow
-    
-  * - initial energy 
-      
-      storage level [1/MWh]
-    - Initial energy storage level of different storage technologies.
-    - initial_energy\_
-    
-      storage_level
-    
-  * - lifetime [yr]
-    - Lifetime of different technologies.
-    - lifetime
-    
-  * - new technology 
-  
-      lower bound [MW]
-    - Lower bound of newly-built installed capacity of different technologies for each investment year.
-    - new_technology\_
-    
-      lower_bound
-    
-  * - new technology 
-  
-      upper bound [MW]
-    - Upper bound of newly-built installed capacity of different technologies for each investment year.
-    - new_technology\_
-      
-      upper_bound
-    
-  * - ramp down [1/MW]
-    - Ramp down rate of different technologies.
-    - ramp_down
-    
-  * - ramp up [1/MW]
-    - Ramp up rate of different technologies.
-    - ramp_up
-    
-  * - reservoir characteristics 
-  
-      [As per data sheet]
-    - Reservoir characteristics data includes designed water head, maximum storage, minimum storage, operational efficiency, area of affiliation, installed capacity, maximum power output, minimum power output, maximum outflow, minimum outflow, and maximum generation outflow.
-    - reservoir\_
-      
-      characteristics
+  * - economic discount factor [fraction]
+    - Discount rate per zone and year. Used to discount fixed, variable,
+      and (when finance is OFF) investment cash flows.
+    - economic_discount_factor
 
-  * - reservoir storage
-      
-      upper bound [m3]
-    - Upper bound of volume of hydropower reservoirs.
-    - reservoir_storage
-       
-      _upper_bound
+  * - tech registry [N/A]
+    - Per-technology metadata: ``tech``, ``name``, ``carrier`` (free-form
+      string -- ``hydro`` is special-cased), ``is_storage`` (boolean
+      flag). Drives the model's hydro / storage / dispatchable
+      partitioning.
+    - tech_registry
+  * - tech existing fleet [MW]
+    - One row per existing-capacity block: ``(tech, zone,
+      commission_year, capacity)``. Sparse -- only non-zero entries
+      listed. Replaced ``historical_capacity`` in v1.7.0.
+    - tech_existing
+  * - tech candidates [MW]
+    - Buildable expansion options per ``(zone, tech, year)`` with
+      ``capacity_min`` / ``capacity_max`` columns. Absence of an entry
+      means "this combination cannot be expanded".
+    - tech_candidates
+  * - tech capacity max [MW]
+    - Upper bound on total installed capacity per ``(zone, tech, year)``.
+      ``inf`` disables the cap.
+    - tech_capacity_max
+  * - tech lifetime [yr]
+    - Per-tech, per-vintage lifetime. Looked up at the commissioning
+      year, so a unit built in ``cy`` retires at ``cy + lifetime[te,
+      cy]``. (Bug fixed in v1.8.1.)
+    - tech_lifetime
 
-  * - reservoir storage 
-  
-      lower bound [m3]
-    - Lower bound of volume of hydropower reservoirs.
-    - reservoir_storage\_
-      
-      lower_bound
-    
-  * - final reservoir 
-  
-      storage level [m3]
-    - Final volume of hydropower reservoirs.
-    - final_reservoir\_
-    
-      storage_level
-    
-  * - initial reservoir 
-  
-      storage level [m3]
-    - Initial volume of hydropower reservoirs.
-    - initial_reservoir\_
-      
-      storage_level
-    
-  * - technology fixed OM cost 
-  
-      [dollar/MW/yr]
-    - Fixed operation and maintenance cost of different technologies.
-    - technology_fixed\_
-    
-      OM_cost
+  * - tech investment cost [dollar/MW]
+    - Overnight investment cost per tech and year.
+    - tech_investment_cost
+  * - tech fixed OM cost [dollar/MW/yr]
+    - Fixed O&M cost per tech and year.
+    - tech_fixed_OM_cost
+  * - tech variable OM cost [dollar/MWh]
+    - Variable O&M cost per tech and year.
+    - tech_variable_OM_cost
+  * - tech fuel price [dollar/MWh]
+    - Fuel price per tech and year.
+    - tech_fuel_price
+  * - tech emission factor [tCO2/MWh]
+    - Emission factor per tech, year, and zone.
+    - tech_emission_factor
+  * - tech ramp up / ramp down [1/MW]
+    - Hourly ramp limits per tech and year.
+    - tech_ramp_up,
+      tech_ramp_down
 
-  * - technology variable 
-      
-      OM cost [dollar/MW/yr]
-    - Variable operation and maintenance costs of different technologies.
-    - technology_variable\_
-    
-      OM_cost
-    
-  * - technology investment
-      
-      cost [dollar/MW]
-    - Investment cost of different technologies.
-    - technology_investment
-    
-      _cost
-    
-  * - technology portfolio [MW]
-    - Existing total installed capacity across all zones.
-    - technology\_
-    
-      portfolio
-    
-  * - technology 
-      
-      upper bound [#]_ [MW]
-    - Upper bound of installed capacity of different technologies.
-    - technology_upper\_
-    
-      bound
-    
-  * - transmission line
+  * - storage charge / discharge efficiency [fraction]
+    - Round-trip efficiency of storage technologies.
+    - storage_charge_efficiency,
+      storage_discharge_efficiency
+  * - storage energy-to-power ratio [MWh/MW]
+    - Energy capacity per unit of power capacity for storage
+      technologies.
+    - storage_energy_to_power_ratio
+  * - storage initial level [fraction]
+    - Initial state of charge of storage technologies (fraction of
+      energy capacity).
+    - storage_initial_level
 
-      existing capacity 
+  * - transmission existing [MW]
+    - Existing transmission-line capacity per ``(zone1, zone2,
+      commission_year)``. Lifetime-driven retirements via
+      ``transmission_lifetime``. Symmetric to ``tech_existing``.
+    - transmission_existing
+  * - transmission candidates [MW]
+    - Buildable transmission options per ``(zone1, zone2, year)`` with
+      ``capacity_min`` / ``capacity_max`` columns.
+    - transmission_candidates
+  * - transmission distance [km]
+    - Inter-zone distance (drives investment cost).
+    - transmission_distance
+  * - transmission efficiency [fraction]
+    - Per-line transmission efficiency.
+    - transmission_efficiency
+  * - transmission investment cost [dollar/MW/km]
+    - Per-line investment cost (multiplied by distance).
+    - transmission_investment_cost
+  * - transmission fixed / variable OM cost
+    - Per-line fixed and variable O&M costs.
+    - transmission_fixed_OM_cost,
+      transmission_variable_OM_cost
+  * - transmission lifetime [yr]
+    - Per-line lifetime; controls retirements of the existing fleet.
+    - transmission_lifetime
 
-      [MW]
-    - Capacity of existing transmission lines (if there is no exising nor planned transmission lines between two specific zones, leave the data entries blank).
-    - transmission_line\_
-       
-      existing_capacity   
+Hydropower inputs (active when ``isinflow=true`` in ``config.json``)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  * - transmission line 
-  
-      efficiency [N/A]
-    - Efficiency of transmission lines across all zones.
-    - transmission_line\_
-    
-      efficiency
+Hydro plants are first-class technologies (``carrier='hydro'`` in
+``tech_registry``); these per-station reservoir parameters tie them to
+the rest of the model.
 
-  * - transmission line 
-      
-      fixed OM cost 
-      
-      [dollar/MW/yr]
-    - Fixed operation and maintenance costs of transmission lines.
-    - transmission_line\_
-       
-      fixed_OM_cost
-    
-  * - transmission line 
-  
-      variable OM cost
-  
-      [dollar/MW/yr]
-    - Variable operations and maintenance costs of transmission lines.
-    - transmission_line
-    
-      _variable_cost
-    
-  * - transmission line
-
-      investment cost 
-
-      [dollar/MW/km]
-    - Investment cost of transmission lines.
-    - transmission_line\_
-       
-      investment_cost
-
-  * - transmission line 
-  
-      lifetime [yr]
-    - Lifetime of transmission lines.
-    - transmission_line\_
-    
-      lifetime
-    
-  * - technology type [N/A]
-    - Categories of different technologies.
-    - technology_type
-    
-  * - reservoir tailrace 
-  
-      level-discharge function 
-      
-      [m & m3/s]
-    - Relationship between tailrace level and total discharge for different reservoirs.
-    - reservoir_tailrace\_
-    
-      level_discharge\_
-      
-      function
-    
-  * - reservoir forebay 
-  
-      level-volume function 
-      
-      [m & m3]
-    - Relationship between forebay level and volume for different reservoirs
-    - reservoir_forebay\_
-    
-      level_volume\_
-      
-      function
-
-.. note:: 
-  
-  * `inf` refers to Infinity, indicating that there is no upper bound.
-  * `None` refers to a null value for current item.
-
-Outputs
-------------------
-The output of the model is stored in a NetCDF file, please refer to this `simple tutorial <https://xiaoganghe.github.io/python-climate-visuals/chapters/data-analytics/xarray-basic.html>`_ and `official documentation <https://docs.xarray.dev/en/stable/>`_ of Xarray to understand how to manipulate NetCDF files.
-
-The output file contains the following variables:
-
-.. list-table:: Output Variables
-  :widths: 30 70
+.. list-table::
+  :widths: 22 56 22
   :header-rows: 1
 
-  * - Variable name [Unit]
+  * - Parameter [Unit]
     - Description
-  
-  * - trans_import [MW]
-    - The electrical power transmitted from Zone 1 and effectively received by Zone 2 through the transmission line, after adjusting for transmission losses.
+    - Input file
 
-  * - trans_export [MW]
-    - The electrical power initially sent out by Zone 1 for transmission to Zone 2 via the transmission line, before adjusting for any transmission and distribution losses during its journey to Zone 2.
+  * - reservoir zone
+    - Maps each hydro station to its home zone.
+    - reservoir_zone
+  * - reservoir inflow [m**3/s]
+    - Hourly inflow per station.
+    - reservoir_inflow
+  * - reservoir water delay time [N/A]
+    - Travel time matrix between connected reservoirs (table format).
+    - reservoir_water_delay_time
+  * - reservoir coefficient
+    - Power-generation coefficient per station.
+    - reservoir_coefficient
+  * - reservoir head [m]
+    - Designed water head per station.
+    - reservoir_head
+  * - reservoir capacity max / min [MW]
+    - Installed-capacity bounds per station.
+    - reservoir_capacity_max,
+      reservoir_capacity_min
+  * - reservoir outflow max / min, generation flow max [m**3/s]
+    - Outflow and generation-flow constraints per station, hour, month.
+    - reservoir_outflow_max,
+      reservoir_outflow_min,
+      reservoir_generation_flow_max
+  * - reservoir storage max / min [m**3]
+    - Volume bounds per station, month, hour.
+    - reservoir_storage_max,
+      reservoir_storage_min
+  * - reservoir initial / final storage level [m**3]
+    - Volume of each station at the start / end of each year.
+    - reservoir_initial_storage_level,
+      reservoir_final_storage_level
+  * - reservoir tailrace level-discharge function [m and m**3/s]
+    - Piecewise lookup of tailrace level as a function of total discharge
+      (table format).
+    - reservoir_tailrace_level_discharge_function
+  * - reservoir forebay level-volume function [m and m**3]
+    - Piecewise lookup of forebay level as a function of volume (table
+      format).
+    - reservoir_forebay_level_volume_function
 
-  * - gen [MW]
-    - Power output of different technologies during user-defined time interval.
+Optional inputs (skipped when absent)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  * - install [MW]
-    - Existing installed capacity of different technologies.
+.. list-table::
+  :widths: 22 56 22
+  :header-rows: 1
 
-  * - carbon [Ton]
-    - Carbon emissions across different years.
+  * - Parameter [Unit]
+    - Description (default when absent)
+    - Input file
 
-  * - charge [MW]
-    - Charged electricity of different storage technologies.
+  * - tech max gen profile [fraction]
+    - Time-varying upper bound on dispatch (PyPSA-style ``p_max_pu``).
+      Default: ``1`` (no cap below installed capacity). Replaced
+      ``capacity_factor`` in v1.8.0.
+    - tech_max_gen_profile
+  * - tech min gen profile [fraction]
+    - Time-varying lower bound on dispatch (``p_min_pu``). Default:
+      ``0``. Subsumes the legacy "must-run" behavior.
+    - tech_min_gen_profile
+  * - tech capacity min [MW]
+    - Floor on total installed capacity per ``(zone, tech, year)``.
+      Default: ``0``.
+    - tech_capacity_min
 
-  * - cost [dollar]
-    - Total cost (including total investment cost, total variable OM cost, and total fixed OM cost) over the planning period.
+  * - policy carbon emission limit [tCO2]
+    - Cap on net emissions per limit-region (rows carry a comma-separated
+      ``zones`` field; one row per region per year). Wide-table format.
+    - policy_carbon_emission_limit
+  * - policy carbon tax [dollar/tCO2]
+    - Per-zone, per-year carbon tax on net emissions. Default: ``0``.
+    - policy_carbon_tax
+  * - policy carbon offset price [dollar/tCO2]
+    - Per-zone, per-year offset price. Default: ``0``.
+    - policy_carbon_offset_price
+  * - policy carbon offset limit [tCO2]
+    - Per-zone, per-year limit on offsets that may be purchased.
+      Default: ``0``.
+    - policy_carbon_offset_limit
 
-  * - cost_breakdown [dollar]
-    - Breakdown of total cost (including total investment cost, total variable OM cost, and total fixed OM cost) over the planning period, by zone, year, and technology.
+  * - finance public / private debt ratio [fraction]
+    - Per-tech share of project capital financed by public and private
+      debt. Equity ratio is the residual ``1 - public - private``.
+      Activates the v1.9.0 finance module.
+    - finance_public_debt_ratio,
+      finance_private_debt_ratio
+  * - finance cost of public / private debt, private equity [fraction]
+    - Per-(tech, zone) cost of each financing tranche. Combined into a
+      project-level WACC that discounts construction outlays.
+    - finance_cost_of_public_debt,
+      finance_cost_of_private_debt,
+      finance_cost_of_private_equity
+  * - finance public debt max system / zone [dollar]
+    - System-wide and per-zone caps on public debt taken in each year.
+      ``inf`` (or a missing entry) disables the cap.
+    - finance_public_debt_max_system,
+      finance_public_debt_max_zone
 
-  * - cost_var [dollar]
-    - Total variable OM cost (including technology variable OM cost, transmission line variable OM cost, and fuel cost) over the planning period.
+.. note::
 
-  * - cost_var_breakdown [dollar]
-    - Breakdown of total variable OM cost (including technology variable OM cost, transmission line variable OM cost, and fuel cost) over the planning period, by zone, year, and technology.
+  * ``inf`` in a value cell means "no upper bound" -- the model skips
+    the corresponding constraint.
+  * Empty cells (NaN) are dropped by the loader for files declared with
+    ``"drop_na": true``.
+  * The finance module is OFF unless ``finance_public_debt_ratio.csv``
+    is provided. With finance OFF, ``inv_factor`` falls back to the
+    zonal discount rate -- so a fresh deployment without finance inputs
+    matches the v1.8.x objective exactly.
 
-  * - cost_fix [dollar]
-    - Total fixed OM cost (including technology fixed OM cost, transmission line fixed OM cost) over the planning period.
+Outputs
+-------
 
-  * - cost_fix_breakdown [dollar]
-    - Breakdown of total fixed OM cost (including technology fixed OM cost, transmission line fixed OM cost) over the planning period, by zone, year, and technology.
+Results are written to a NetCDF file (``year.nc`` by default; see
+``output_filename`` in ``config.json``). Use `xarray
+<https://docs.xarray.dev/en/stable/>`_ to read it; this `tutorial
+<https://xiaoganghe.github.io/python-climate-visuals/chapters/data-analytics/xarray-basic.html>`_
+is a good entry point.
 
-  * - cost_newtech [dollar]
-    - Total investment cost of technologies over the planning period.
+.. list-table:: Output Variables
+  :widths: 26 14 60
+  :header-rows: 1
 
-  * - cost_newtech_breakdown [dollar]
-    - Breakdown of total investment cost of technologies over the planning period, by zone, year, and technology.
+  * - Variable name
+    - Unit
+    - Description
 
-  * - cost_newline [dollar]
-    - Investment cost of transmission lines over the planning period.
+  * - trans_export
+    - MWh per timestep
+    - Power dispatched from ``zone1`` toward ``zone2`` in each
+      ``(hour, month, year)``, before transmission losses.
+  * - gen
+    - MWh per timestep
+    - Generation per ``(tech, zone, hour, month, year)``.
+  * - install
+    - MW
+    - Total installed capacity per ``(year, zone, tech)`` after
+      additions and retirements.
+  * - charge
+    - MWh per timestep
+    - Storage charging energy per ``(tech, zone, hour, month, year)``.
+  * - carbon, carbon_breakdown
+    - tCO2
+    - Total emissions per year, and the per-(year, zone, tech)
+      breakdown.
+  * - cost
+    - dollar
+    - Net present value of total system cost over the planning horizon.
+  * - cost_var, cost_var_breakdown
+    - dollar
+    - Variable O&M + fuel cost (total and per-(year, zone, tech)).
+  * - cost_fix, cost_fix_breakdown
+    - dollar
+    - Fixed O&M cost (total and per-(year, zone, tech)).
+  * - cost_newtech, cost_newtech_breakdown
+    - dollar
+    - Discounted investment cost of new tech additions (total and
+      per-(year, zone, tech)).
+  * - cost_newline, cost_newline_breakdown
+    - dollar
+    - Discounted investment cost of new transmission lines (total and
+      per-(year, zone1, zone2)).
+  * - public_debt_newtech [#opt]_
+    - dollar
+    - Discounted public-debt obligation incurred by new-tech
+      investments. Emitted only when the v1.9.0 finance module is
+      active.
+  * - income
+    - dollar
+    - Discounted income from water-withdrawal services (only when
+      ``isinflow=true``).
+  * - genflow, spillflow
+    - m**3/s
+    - Per-station hydro generation flow and spill flow (only when
+      ``isinflow=true``).
 
-  * - cost_newline_breakdown [dollar]
-    - Breakdown of total investment cost of transmission lines over the planning period, by zone, year, and technology.
+.. [#opt] Optional output -- present in the NetCDF file only when
+   ``finance_public_debt_ratio.csv`` is provided.
 
-  * - income [dollar]
-    - Saved cost due to abstracted water resources over the planning period.
+Running scenarios
+-----------------
 
-  * - genflow [m3/s]
-    - Generated water flow of different reservoirs.
+You can swap any single input file at the command line via
+``--<param_key> <suffix>``. PREP-SHOT appends the suffix to the
+parameter's ``file_name`` and loads the resulting CSV instead. For
+example, to run a "low demand" scenario, prepare a
+``demand_low.csv`` file in the input folder and invoke::
 
-  * - spillflow [m3/s]
-    - Spilled water flow of different reservoirs.
+  python run.py --demand=low
 
-Execute various scenarios
--------------------------
-By employing command-line parameters, you can execute different scenarios using the model. For example, if you wish to run a scenario referred to as "low demand," you can prepare input data named ``demand_low.xlsx``. Subsequently, when running the model, you can utilize command-line parameters to specify the scenario value. For instance, you can execute the model by executing the command ``python run.py --demand=low``. 
+CLI flags are registered by **param key** (the dict key in
+``params.json``), not by file name -- the two can diverge after a
+file rename.
 
 Setting global parameters
---------------------------
+-------------------------
 
-This section will guide you on how to tune the PREP-SHOT model parameters to compute the energy system for your needs. After you have prepared your input data based on the previous sections, you can proceed to tune the model parameters before you run it.
-
-Within the root directory of the model, you will find a JSON file containing the parameters that you can tune for the model, named ``config.json``. This file contains the following parameters:
+``config.json`` (in the repo root) holds the model-wide settings:
 
 .. list-table::
    :widths: 30 70
    :header-rows: 1
    :align: left
 
-   * - Model Parameter
+   * - Setting
      - Description
 
    * - input_folder
-     - Specifies the name of the folder containing the input data.
-
+     - Folder containing the input CSVs (relative to the repo root).
    * - output_filename
-     - Specifies the name of the output file.
-
+     - Name of the NetCDF results file written under ``output/``.
    * - hour
-     - Specifies the number of hours in each time period.
-
+     - Number of representative hours per period.
    * - month
-     - Specifies the number of months in each time period.
-
+     - Number of representative months per period.
    * - dt
-     - Specifies the timestep for the simulation in hours.
-
+     - Hours per timestep. ``demand`` is in MW; the balance constraint
+       multiplies by ``dt`` to convert to MWh per timestep.
    * - hours_in_year
-     - Specifies the number of hours in a year. Typically, this is set to 8760.
-
+     - Hours-per-year scalar used for cost rollups (typically 8760).
    * - isinflow
-     - Specifies whether to include inflow in the optimization problem. It can be used by assigning `isinflow` = `true` or `false`. 
-
+     - Toggles the hydropower / reservoir constraints. With ``false``,
+       the model skips all reservoir math.
    * - error_threshold
-     - Specifies the error threshold for the model, while iterating for a solution. This parameter controls the convergence of the hydro model.
-
+     - Convergence threshold for the hydropower head-iteration loop.
    * - iteration_number
-     - Specifies the maximum number of iterations for the hydro model, while iterating for a solution.
-
+     - Maximum head-iteration count.
    * - solver
-     - Specifies the solver to be used for the optimization problem.
-
+     - Optimization solver: ``highs``, ``gurobi``, ``copt``, ``mosek``,
+       etc. (passed through to PyOptInterface).
    * - solver_path
-     - Specifies the path of the dynamic library of solver. This is required while automatic detection of the installation directory of the solver fails. Please provide refer to `PyOptInterface documentation <https://metab0t.github.io/PyOptInterface/getting_started.html#setup-of-optimizers>`_.
+     - Path to the solver's dynamic library; only needed when auto-
+       detection fails. See the
+       `PyOptInterface setup notes <https://metab0t.github.io/PyOptInterface/getting_started.html#setup-of-optimizers>`_.
+   * - solver_parameters
+     - Solver-specific options for `mosek
+       <https://docs.mosek.com/latest/capi/parameters.html>`_, `gurobi
+       <https://www.gurobi.com/documentation/11.0/refman/parameters.html>`_,
+       `highs <https://ergo-code.github.io/HiGHS/dev/options/definitions/>`_,
+       and `copt <https://guide.coap.online/copt/en-doc/parameter.html>`_.
 
-   * - **solver_parameters**
-     - Specifies the solver-specific parameters for `mosek <https://docs.mosek.com/latest/capi/parameters.html>`_, `gurobi <https://www.gurobi.com/documentation/11.0/refman/parameters.html>`_, `highs <https://ergo-code.github.io/HiGHS/dev/options/definitions/>`_, and `copt <https://guide.coap.online/copt/en-doc/parameter.html>`_.
-
-After you have tuned the parameters, you can run the model by following the steps in the :ref:`installation` page.
-
-You can also try out the model with the sample data provided in the ``input`` folder. Refer to the :ref:`Model_input_output` page for a walkthrough of this example, inspried by real-world data.
-
-.. rubric:: Footnotes
-.. [#] The input files format is ``.xlsx``.
-.. [#] For instance, assuming the planning period spans from 2020 to 2050, with 2020 being the starting point, let's consider a technology that has been in operation since 2019. In this case, 2020 would mark its 2nd year of operation within the planning period. These inputs are useful for modelling the retirement of existing technologies.
-.. [#] To model the simplified hydropower operation.
-.. [#] To model the potential of technologies with land, fuel, and water constraints.
-
+After tuning ``config.json``, run the model as described in
+:ref:`installation`. The shipped ``input/`` folder is a working
+self-contained example.
