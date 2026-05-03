@@ -724,3 +724,26 @@ Changed
 * ``prepshot/_model/transmission.py`` builds existing transmission
   capacity by summing over ``(zone1, zone2, commission_year)`` entries
   still in service, mirroring ``tech_lifetime_rule``.
+
+
+Version 1.8.1 - May 3, 2026
+-------------------------------
+
+Fixed
++++++
+
+* ``prepshot/_model/investment.py``: retirement check now looks up
+  ``lifetime`` at the commissioning year, not the current modeled
+  year, so units built at vintage ``cy`` retire after
+  ``cy + lifetime[te, cy]`` regardless of any later parameter
+  changes. Bug present in two locations:
+
+  - ``tech_lifetime_rule`` (existing-fleet retirement, introduced
+    by the v1.7.0 refactor): ``lifetime[te, y]`` -> ``lifetime[te, cy]``.
+  - ``remaining_capacity_rule`` (new-build retirement, original
+    PR #47 by Quan YUAN): ``lt[te, y]`` -> ``lt[te, yy]``.
+
+  The shipped ``input/tech_lifetime.csv`` has constant lifetime
+  across years for every tech, so the regression objective is
+  unchanged at ``1.880e+11``. The bug only manifests when users
+  supply time-varying lifetimes (e.g. modeling tech improvement).

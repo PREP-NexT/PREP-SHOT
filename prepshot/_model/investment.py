@@ -220,14 +220,16 @@ class AddInvestmentConstraints:
             The expression of the model.
         """
         model = self.model
-        lifetime = model.params['lifetime'][te, y]
+        lt = model.params['lifetime']
         fleet = model.params['existing_fleet']
         # An existing fleet entry (te, z, commission_year) -> capacity is
         # in service in year y when commission_year <= y < commission_year
-        # + lifetime. We sum capacity across all such commission years.
+        # + lifetime. Lifetime is looked up at the commissioning year
+        # cy, not the current year y -- once a unit is built, its
+        # lifetime is fixed at construction.
         return poi.quicksum(
             cap for (t, zz, cy), cap in fleet.items()
-            if t == te and zz == z and cy <= y < cy + lifetime
+            if t == te and zz == z and cy <= y < cy + lt[te, cy]
         )
 
     def remaining_capacity_rule(
@@ -263,7 +265,7 @@ class AddInvestmentConstraints:
         new_tech = poi.quicksum(
             model.cap_newtech[yy, z, te]
             for yy in year[:year.index(y) + 1]
-            if y - yy < lt[te, y]
+            if y - yy < lt[te, yy]
         )
         cap_existing += new_tech
         cap_existing += model.remaining_technology[y, z, te]
