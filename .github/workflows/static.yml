@@ -12,7 +12,7 @@ jobs:
         run: |
           pip install -r ./doc/requirements.txt
           sudo apt-get update -qy
-          sudo apt-get install -y texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra texlive-xetex latexmk pandoc
+          sudo apt-get install -y texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra texlive-xetex latexmk pandoc xindy
       - name: Sphinx build
         run: |
           cd doc
