@@ -43,6 +43,11 @@ docs = [
     "sphinx>=5",
     "sphinx-rtd-theme",
 ]
+notebook = [
+    "jupyterlab>=4",
+    "matplotlib>=3.5",
+    "h5netcdf>=1.0",
+]
 
 [project.urls]
 Homepage = "https://github.com/PREP-NexT/PREP-SHOT"

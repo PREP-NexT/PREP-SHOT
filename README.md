@@ -11,7 +11,8 @@
   <a href="https://twitter.com/PREPNexT_Lab"><img src="https://img.shields.io/twitter/follow/PREPNexT_Lab.svg?label=Follow&style=social" alt="Twitter Follow"></a>
   <a href="https://github.com/PREP-NexT/PREP-SHOT"><img src="https://img.shields.io/github/license/PREP-NexT/PREP-SHOT.svg" alt="License"></a>
   <a href="https://github.com/PREP-NexT/PREP-SHOT"><img src="https://badges.frapsoft.com/os/v1/open-source.svg?v=103" alt="Download"></a>
-  <a href="https://colab.research.google.com/github/PREP-NexT/PREP-SHOT/blob/main/example/single_node_with_hydro/main.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Google Colab"></a>
+  <a href="https://mybinder.org/v2/gh/PREP-NexT/PREP-SHOT/main?labpath=doc%2Fsource%2FQuickstart.ipynb"><img src="https://mybinder.org/badge_logo.svg" alt="Binder"></a>
+  <a href="https://colab.research.google.com/github/PREP-NexT/PREP-SHOT/blob/main/doc/source/Quickstart.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Google Colab"></a>
 </p>
 
 <p align="center">
@@ -47,7 +48,9 @@ The clean energy transition is our new moonshot to combat climate change – an 
 
 ## Getting Started
 
-This section includes a brief tutorial on running your first PREP-SHOT model.
+The fastest way to try PREP-SHOT is in a hosted notebook -- click either badge above to run [`doc/source/Quickstart.ipynb`](doc/source/Quickstart.ipynb) in your browser. Binder is anonymous; Colab needs a Google account but starts faster. Both finish a full solve + plot in about five minutes.
+
+For a local setup follow the steps below.
 
 1. Clone the repo
 
