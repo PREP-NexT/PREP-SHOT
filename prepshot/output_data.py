@@ -16,9 +16,10 @@ from prepshot.utils import cartesian_product
 
 
 def create_data_array(
-    data : dict, dims : list, unit : str, model : object
+    data : dict, dims : list, unit : str, model : object,
+    extractor=None,
 ) -> xr.DataArray:
-    """Create a xarray DataArray with specified data, dimensions, coordinates 
+    """Create a xarray DataArray with specified data, dimensions, coordinates
     and units.
 
     Parameters
@@ -31,17 +32,24 @@ def create_data_array(
         The unit of the data.
     model : object
         The model object.
+    extractor : callable, optional
+        Function that turns a tupledict entry into a scalar. Defaults
+        to ``model.get_value`` (primal values for a variable
+        tupledict). Pass ``model.get_constraint_dual`` to extract
+        shadow prices from a constraint tupledict.
 
     Returns
     -------
     xr.DataArray
         A DataArray with the specified data, dimensions, coordinates and units.
     """
+    if extractor is None:
+        extractor = model.get_value
     coords = {dim:getattr(model, dim) for dim in dims}
     index_tuple = cartesian_product(*coords.values())
     if len(dims) == 1:
         index_tuple = [i[0] for i in index_tuple]
-    data_values = data.map(model.get_value)
+    data_values = data.map(extractor)
     data = np.array(
         [data_values[tuple_] for tuple_ in index_tuple]
     ).reshape([len(coord) for coord in coords.values()])
@@ -107,6 +115,26 @@ def extract_results_non_hydro(model : object) -> xr.Dataset:
     )
     data_vars['carbon_breakdown'] = create_data_array(
         model.carbon_breakdown, ['year', 'zone', 'tech'], 'Ton', model)
+    # Shadow price (dual) of the nodal power-balance constraint --
+    # the locational marginal price of one extra MWh of demand at
+    # each (hour, month, year, zone). The constraint is posed as
+    # 'demand - supply == 0', so the raw dual is negative-of-LMP; we
+    # flip the sign here to follow the standard convention (positive
+    # marginal cost of one more MWh of demand). Discounted to NPV:
+    # divide by var_factor[y, z] to get undiscounted real-year LMPs.
+    # Skipped silently if the solver did not return duals (e.g. MIP,
+    # infeasible).
+    try:
+        data_vars['shadow_price_demand'] = create_data_array(
+            model.power_balance_cons,
+            ['hour', 'month', 'year', 'zone'],
+            'dollar/MWh (NPV)', model,
+            extractor=lambda c: -model.get_constraint_dual(c),
+        )
+    except Exception as e:
+        logging.warning(
+            "Could not extract demand-balance shadow prices: %s", e
+        )
     data_vars['cost_var'] = xr.DataArray(model.get_value(model.cost_var))
     data_vars['cost_fix'] = xr.DataArray(model.get_value(model.cost_fix))
     data_vars['cost_newtech'] = xr.DataArray(

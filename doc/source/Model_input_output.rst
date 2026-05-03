@@ -329,6 +329,15 @@ is a good entry point.
     - dollar
     - Discounted investment cost of new transmission lines (total and
       per-(year, zone1, zone2)).
+  * - shadow_price_demand
+    - dollar/MWh (NPV)
+    - Locational marginal price -- the marginal cost of meeting one
+      extra MWh of demand at each ``(hour, month, year, zone)``.
+      Discounted to NPV; divide by ``var_factor[year, zone]`` to
+      recover undiscounted real-year prices. Sign flipped from the raw
+      dual so positive means "more expensive to serve more demand".
+      Skipped (with a warning logged) if the solver does not return
+      duals (e.g. MIP).
   * - public_debt_newtech [#opt]_
     - dollar
     - Discounted public-debt obligation incurred by new-tech

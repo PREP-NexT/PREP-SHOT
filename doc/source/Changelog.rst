@@ -812,3 +812,31 @@ Notes
 * Cap rules treat both missing entries and ``+inf`` as "no
   constraint", matching the candidates / carbon-emission-limit
   conventions elsewhere in the model.
+
+
+Version 1.9.1 - May 3, 2026
+-------------------------------
+
+Added
++++++
+
+* New output variable ``shadow_price_demand`` -- the dual of the
+  nodal power-balance constraint, exposing the locational marginal
+  price (LMP) at each ``(hour, month, year, zone)``. Sign is
+  flipped from the raw dual so positive values mean "more
+  expensive to serve more demand", matching the convention used by
+  PyPSA / Switch / GenX. Discounted to NPV; divide by
+  ``var_factor[year, zone]`` to recover undiscounted real-year
+  prices.
+* ``prepshot/output_data.py::create_data_array`` gained an
+  ``extractor`` parameter so the same helper can lift either primal
+  values (``model.get_value``, the default) or duals
+  (``model.get_constraint_dual``) out of a tupledict.
+
+Notes
++++++
+
+* The shadow-price extraction is wrapped in a try/except: if the
+  solver does not return duals (e.g. for a MIP solve, or after an
+  infeasible run), a warning is logged and the variable is omitted
+  from the NetCDF file rather than aborting the run.
