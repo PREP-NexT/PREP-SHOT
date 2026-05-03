@@ -313,7 +313,7 @@ def extract_sets(data_store : dict) -> None:
         i[2] for i in data_store["demand"].keys() if isinstance(i[2], int)
     })
     data_store["zone"] = list({i[0] for i in data_store["demand"].keys()})
-    data_store["tech"] = list(data_store["technology_type"].keys())
+    data_store["tech"] = list(data_store["technologies"].keys())
 
 
 def compute_cost_factors(data_store : dict) -> None:

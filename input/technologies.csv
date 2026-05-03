@@ -1,0 +1,6 @@
+tech,type
+Coal,dispatchable
+Hydro,hydro
+Solar,nondispatchable
+Wind,nondispatchable
+Storage,storage

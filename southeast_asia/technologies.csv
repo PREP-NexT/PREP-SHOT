@@ -1,0 +1,10 @@
+tech,type
+Coal,dispatchable
+Oil,dispatchable
+Gas,dispatchable
+Hydro,hydro
+Solar,nondispatchable
+Wind,nondispatchable
+Bioenergy,dispatchable
+HPS,storage
+Li-ion,storage

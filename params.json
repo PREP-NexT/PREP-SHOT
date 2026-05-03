@@ -1,7 +1,7 @@
 {
     "_schema_version": 2,
-    "historical_capacity": {
-        "file_name": "historical_capacity",
+    "existing_fleet": {
+        "file_name": "existing_fleet",
         "format": "long",
         "drop_na": true
     },
@@ -170,11 +170,6 @@
         "format": "long",
         "drop_na": true
     },
-    "technology_portfolio": {
-        "file_name": "technology_portfolio",
-        "format": "long",
-        "drop_na": true
-    },
     "technology_upper_bound": {
         "file_name": "technology_upper_bound",
         "format": "long",
@@ -243,8 +238,8 @@
         "format": "long",
         "drop_na": true
     },
-    "technology_type": {
-        "file_name": "technology_type",
+    "technologies": {
+        "file_name": "technologies",
         "format": "long",
         "drop_na": true
     },

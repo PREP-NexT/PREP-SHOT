@@ -115,7 +115,7 @@ class AddHydropowerConstraints:
         """
         self.model = model
         self.is_inflow = model.params['isinflow']
-        self.hydro_type = [i for i, j in model.params['technology_type'].items() if j == 'hydro']
+        self.hydro_type = [i for i, j in model.params['technologies'].items() if j == 'hydro']
         self.main_hydro = self.hydro_type[0] if self.hydro_type else None
         if self.is_inflow:
             # Pre-computed dict for lookup efficiency

@@ -204,12 +204,14 @@ class AddInvestmentConstraints:
         """
         model = self.model
         lifetime = model.params['lifetime'][te, y]
-        service_time = y - model.params['year'][0]
-        hcap = model.params['historical_capacity']
-        remaining_time = int(lifetime - service_time)
-        if remaining_time <= 0:
-            return 0
-        return poi.quicksum(hcap[z, te, a] for a in range(0, remaining_time))
+        fleet = model.params['existing_fleet']
+        # An existing fleet entry (te, z, commission_year) -> capacity is
+        # in service in year y when commission_year <= y < commission_year
+        # + lifetime. We sum capacity across all such commission years.
+        return poi.quicksum(
+            cap for (t, zz, cy), cap in fleet.items()
+            if t == te and zz == z and cy <= y < cy + lifetime
+        )
 
     def remaining_capacity_rule(
         self, y : int, z : str, te : str

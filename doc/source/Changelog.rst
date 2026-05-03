@@ -578,3 +578,60 @@ Fixed
 * ``np.Inf`` references in ``prepshot/_model/investment.py`` and
   ``prepshot/_model/co2.py`` replaced with ``np.inf`` (``np.Inf``
   was removed in numpy 2.0).
+
+
+Version 1.7.0 - May 3, 2026
+-------------------------------
+
+Data-model cleanup ahead of the v1.8.0 PyPSA-style API. The
+existing-fleet representation is reshaped from an awkward
+``(zone, tech, age)`` "historical capacity" table to a tidy
+``(tech, zone, commission_year)`` "existing fleet" table, and the
+single-purpose ``technology_type`` file is renamed to ``technologies``
+so it can grow into a per-tech registry.
+
+Added
++++++
+
+* ``input/existing_fleet.csv`` and ``southeast_asia/existing_fleet.csv``
+  -- one row per existing-capacity block (tech, zone, commission year,
+  capacity). Sparse representation: only non-zero entries are listed.
+* ``technologies.csv`` (replaces ``technology_type.csv``) with columns
+  ``tech`` and ``type``. Designed to grow into a richer per-tech
+  registry (e.g. ``description``, ``category``, ``co2_intensity_class``)
+  alongside the v1.8.0 API work.
+
+Removed
++++++++
+
+* ``historical_capacity.csv`` -- replaced by ``existing_fleet.csv``.
+  The ``age`` dimension is gone; capacity blocks now record an
+  explicit ``commission_year``, which is unambiguous and survives
+  schedule shifts.
+* ``technology_portfolio.csv`` -- file existed in the schema but was
+  never referenced by any model rule (all values were 0 in the
+  shipped data). Dead code; deleted.
+* ``technology_type.csv`` -- renamed to ``technologies.csv`` (see
+  Added).
+
+Changed
++++++++
+
+* ``prepshot/_model/investment.py::tech_lifetime_rule`` rewritten:
+
+  - **Before:** sum ``historical_capacity[zone, tech, age]`` for
+    ``age`` in ``[0, lifetime - service_time)``.
+  - **After:** sum ``existing_fleet[tech, zone, commission_year]``
+    for all commission years where
+    ``commission_year <= y < commission_year + lifetime``.
+
+  The two formulations are mathematically equivalent for the shipped
+  data; the regression test confirms the model objective is unchanged
+  at ``1.879e+11``.
+
+* ``prepshot/load_data.py::extract_sets`` derives the ``tech`` set
+  from ``technologies`` (was ``technology_type``).
+* ``prepshot/model.py::define_basic_sets`` reads tech categories from
+  ``technologies`` (was ``technology_type``).
+* ``prepshot/_model/hydro.py`` reads the hydro-tech list from
+  ``technologies`` (was ``technology_type``).

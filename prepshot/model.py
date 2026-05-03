@@ -63,7 +63,7 @@ def define_basic_sets(model : object) -> None:
         setattr(model, set_name, params[set_name])
     # TODO: Generate the hour_p set based on the hour set
     model.hour_p = [0] + params['hour']
-    tech_category = params['technology_type']
+    tech_category = params['technologies']
     # tech_category: {
     #    'Coal': 'dispatchable',
     #    'Solar': 'nondispatchable',
