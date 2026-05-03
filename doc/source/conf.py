@@ -58,7 +58,17 @@ extensions = [
     "sphinx.ext.viewcode",
     "sphinx.ext.napoleon",
     "sphinxcontrib.video",
+    "nbsphinx",
 ]
+
+# Notebooks ship with cached outputs; the doc build does NOT
+# re-execute them. Re-run a notebook locally and commit the new
+# outputs whenever model behavior changes (the regression test
+# catches code drift; manual re-execution catches doc drift).
+nbsphinx_execute = "never"
+# Hide the per-cell prompt prefixes ("[1]:", "[2]:") in rendered HTML
+# -- the docs read better as a narrative than as a REPL transcript.
+nbsphinx_prompt_width = "0"
 
 autodoc_typehints = 'description'
 
