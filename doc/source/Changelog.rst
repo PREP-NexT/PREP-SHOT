@@ -768,11 +768,11 @@ Added
   - ``public_debt_newtech[y, z, te]`` -- discounted public-debt
     obligation incurred by each new-tech investment, exported in
     the ``year.nc`` results.
-  - System-wide cap: ``Σ_z Σ_te public_debt_newtech[y, ·, ·]``
-    ``<= public_debt_max_system[y]``. Skipped when missing or
+  - System-wide cap: ``sum over (z, te) of public_debt_newtech[y, z, te]
+    <= public_debt_max_system[y]``. Skipped when missing or
     ``+inf``.
-  - Per-zone cap: ``Σ_te public_debt_newtech[y, z, ·]``
-    ``<= public_debt_max_zone[z, y]``. Same skip behavior.
+  - Per-zone cap: ``sum over te of public_debt_newtech[y, z, te]
+    <= public_debt_max_zone[z, y]``. Same skip behavior.
 
 * ``prepshot/utils.py::calc_interest_rate`` -- weighted-average cost
   of capital from public-debt / private-debt / equity tranches.
