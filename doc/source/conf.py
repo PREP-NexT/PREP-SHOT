@@ -274,6 +274,13 @@ file_insertion_enabled = False
 
 # -- Options for LaTeX output ---------------------------------------------
 
+# xelatex handles Unicode (arrows, em-dashes, sigmas, etc.) natively;
+# pdflatex requires per-glyph LaTeX shims and crashes on the
+# pandas/xarray repr characters that the Quickstart notebook bakes
+# into its cell outputs. The CI runner needs texlive-xetex installed
+# (see .github/workflows/static.yml).
+latex_engine = "xelatex"
+
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
