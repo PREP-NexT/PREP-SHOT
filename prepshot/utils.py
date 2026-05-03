@@ -148,6 +148,55 @@ def check_positive(*values : Union[int, float]) -> None:
         if value <= 0:
             raise ValueError("All arguments must be greater than 0.")
 
+def calc_interest_rate(
+    public_debt_ratio : float,
+    private_debt_ratio : float,
+    cost_of_public_debt : float,
+    cost_of_private_equity : float,
+    cost_of_private_debt : float,
+) -> float:
+    """Weighted-average cost of capital for a single project.
+
+    Combines public-debt, private-debt and equity tranches into a
+    single project-level interest rate that the investment cost factor
+    uses to discount construction outlays. Equity ratio is the
+    residual ``1 - public_debt_ratio - private_debt_ratio``.
+
+    Parameters
+    ----------
+    public_debt_ratio : float
+        Share of project capital financed by public debt, in [0, 1].
+    private_debt_ratio : float
+        Share financed by private debt, in [0, 1].
+    cost_of_public_debt : float
+        Annual interest rate on the public-debt tranche.
+    cost_of_private_equity : float
+        Required annual return on the equity tranche.
+    cost_of_private_debt : float
+        Annual interest rate on the private-debt tranche.
+
+    Returns
+    -------
+    float
+        Weighted-average interest rate for the project.
+
+    Raises
+    ------
+    ValueError
+        If any of the three ratios is negative or their sum exceeds 1.
+    """
+    equity_ratio = 1 - public_debt_ratio - private_debt_ratio
+    if (public_debt_ratio < 0) or (private_debt_ratio < 0) or (equity_ratio < 0):
+        raise ValueError(
+            "Debt and equity ratios must be non-negative and sum to 1 "
+            "or less."
+        )
+    return (
+        public_debt_ratio * cost_of_public_debt
+        + private_debt_ratio * cost_of_private_debt
+        + equity_ratio * cost_of_private_equity
+    )
+
 def calc_inv_cost_factor(
     dep_period : int,
     interest_rate : float,

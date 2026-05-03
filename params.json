@@ -256,5 +256,51 @@
         "file_name": "reservoir_forebay_level_volume_function",
         "format": "table",
         "drop_na": false
+    },
+    "public_debt_ratio": {
+        "file_name": "finance_public_debt_ratio",
+        "format": "long",
+        "drop_na": true,
+        "required": false
+    },
+    "private_debt_ratio": {
+        "file_name": "finance_private_debt_ratio",
+        "format": "long",
+        "drop_na": true,
+        "required": false,
+        "default": 0
+    },
+    "cost_of_public_debt": {
+        "file_name": "finance_cost_of_public_debt",
+        "format": "long",
+        "drop_na": true,
+        "required": false,
+        "default": 0
+    },
+    "cost_of_private_debt": {
+        "file_name": "finance_cost_of_private_debt",
+        "format": "long",
+        "drop_na": true,
+        "required": false,
+        "default": 0
+    },
+    "cost_of_private_equity": {
+        "file_name": "finance_cost_of_private_equity",
+        "format": "long",
+        "drop_na": true,
+        "required": false,
+        "default": 0
+    },
+    "public_debt_max_system": {
+        "file_name": "finance_public_debt_max_system",
+        "format": "long",
+        "drop_na": true,
+        "required": false
+    },
+    "public_debt_max_zone": {
+        "file_name": "finance_public_debt_max_zone",
+        "format": "long",
+        "drop_na": true,
+        "required": false
     }
 }

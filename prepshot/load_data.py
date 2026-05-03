@@ -13,7 +13,9 @@ from os import path
 
 import pandas as pd
 
-from prepshot.utils import calc_inv_cost_factor, calc_cost_factor
+from prepshot.utils import (
+    calc_inv_cost_factor, calc_cost_factor, calc_interest_rate,
+)
 
 
 # The input-file schema version this PREP-SHOT release expects. Bumped
@@ -344,18 +346,35 @@ def compute_cost_factors(data_store : dict) -> None:
     lifetime = data_store["lifetime"]
     y_min, y_max = min(data_store["year"]), max(data_store["year"])
 
+    # Optional WACC: when the user supplies a finance model
+    # (public_debt_ratio + cost-of-capital tables), inv_factor
+    # discounts the construction outlay at a project-level WACC; fixed
+    # / variable / transmission factors keep using the zonal discount
+    # rate. With finance disabled, WACC == discount_rate, preserving
+    # the v1.8.x objective.
+    have_finance = bool(data_store.get("public_debt_ratio"))
     for zone in data_store["zone"]:
         for tech in data_store["tech"]:
             for year in data_store["year"]:
                 discount_rate = data_store["discount_factor"][zone, year]
                 next_year = year + 1 if year == y_max                          \
                     else data_store["year"][data_store["year"].index(year) + 1]
+                if have_finance:
+                    interest_rate = calc_interest_rate(
+                        data_store["public_debt_ratio"][tech],
+                        data_store["private_debt_ratio"][tech],
+                        data_store["cost_of_public_debt"][tech, zone],
+                        data_store["cost_of_private_equity"][tech, zone],
+                        data_store["cost_of_private_debt"][tech, zone],
+                    )
+                else:
+                    interest_rate = discount_rate
                 data_store["trans_inv_factor"][year, zone] = calc_inv_cost_factor(
                     trans_line_lifetime, discount_rate, year, discount_rate,
                     y_min, y_max
                 )
                 data_store["inv_factor"][tech, year, zone] = calc_inv_cost_factor(
-                    lifetime[tech, year], discount_rate, year, discount_rate,
+                    lifetime[tech, year], interest_rate, year, discount_rate,
                     y_min, y_max
                 )
                 data_store["fix_factor"][year, zone] = calc_cost_factor(

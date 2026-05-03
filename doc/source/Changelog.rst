@@ -747,3 +747,68 @@ Fixed
   across years for every tech, so the regression objective is
   unchanged at ``1.880e+11``. The bug only manifests when users
   supply time-varying lifetimes (e.g. modeling tech improvement).
+
+
+Version 1.9.0 - May 3, 2026
+-------------------------------
+
+Optional finance module: weighted-average cost of capital (WACC) for
+new-build investment, plus public-debt accounting and caps.
+Backported from the dev branch (commit ``bfd9de6``, "add finance
+module") and adapted to the v1.8.x long-format / per-zone /
+``max``-naming conventions. The feature is OFF by default; the
+regression objective is unchanged at ``1.880e+11`` for the canonical
+``input/`` dataset.
+
+Added
++++++
+
+* ``prepshot/_model/finance.py`` with ``AddFinanceConstraints``:
+
+  - ``public_debt_newtech[y, z, te]`` -- discounted public-debt
+    obligation incurred by each new-tech investment, exported in
+    the ``year.nc`` results.
+  - System-wide cap: ``Σ_z Σ_te public_debt_newtech[y, ·, ·]``
+    ``<= public_debt_max_system[y]``. Skipped when missing or
+    ``+inf``.
+  - Per-zone cap: ``Σ_te public_debt_newtech[y, z, ·]``
+    ``<= public_debt_max_zone[z, y]``. Same skip behavior.
+
+* ``prepshot/utils.py::calc_interest_rate`` -- weighted-average cost
+  of capital from public-debt / private-debt / equity tranches.
+* Seven new optional inputs (all ``required: false``):
+  ``finance_public_debt_ratio.csv`` (per-tech),
+  ``finance_private_debt_ratio.csv`` (per-tech),
+  ``finance_cost_of_public_debt.csv`` (per-tech, per-zone),
+  ``finance_cost_of_private_debt.csv`` (per-tech, per-zone),
+  ``finance_cost_of_private_equity.csv`` (per-tech, per-zone),
+  ``finance_public_debt_max_system.csv`` (per-year),
+  ``finance_public_debt_max_zone.csv`` (per-zone, per-year).
+
+Changed
++++++++
+
+* ``prepshot/load_data.py::compute_cost_factors`` -- when finance
+  inputs are present, ``inv_factor[tech, year, zone]`` discounts
+  the construction outlay at the project-level WACC instead of the
+  zonal discount rate. Fixed/variable/transmission factors continue
+  to use the zonal discount rate. With finance OFF (no inputs),
+  ``WACC == discount_rate`` and the legacy behavior is preserved.
+* ``prepshot/model.py::create_model`` -- ``AddFinanceConstraints``
+  is wired in only when ``params['public_debt_ratio']`` is
+  populated, so users without finance inputs see no extra
+  variables, constraints, or output variables.
+* ``prepshot/output_data.py::extract_results_non_hydro`` -- emits
+  ``public_debt_newtech`` only when finance is enabled.
+
+Notes
++++++
+
+* The dev-branch commit used wide-Excel inputs and ``np.Inf``;
+  this backport uses long-format CSV, ``np.inf``, and the
+  v1.8.0 ``max``/``min`` naming convention (e.g.
+  ``public_debt_max_system`` rather than
+  ``public_debt_upper_bound_system``).
+* Cap rules treat both missing entries and ``+inf`` as "no
+  constraint", matching the candidates / carbon-emission-limit
+  conventions elsewhere in the model.
