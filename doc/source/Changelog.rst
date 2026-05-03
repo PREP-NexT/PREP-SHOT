@@ -695,19 +695,19 @@ Changed
 * **Naming sweep:** all ``upper_bound`` / ``lower_bound`` files,
   param keys, and DataFrame columns renamed to ``max`` / ``min``:
 
-  - ``tech_upper_bound.csv`` ⟶ ``tech_capacity_max.csv``
-  - ``tech_lower_bound.csv`` ⟶ ``tech_capacity_min.csv``
-  - ``reservoir_storage_upper_bound.csv`` ⟶ ``reservoir_storage_max.csv``
-  - ``reservoir_storage_lower_bound.csv`` ⟶ ``reservoir_storage_min.csv``
+  - ``tech_upper_bound.csv`` -> ``tech_capacity_max.csv``
+  - ``tech_lower_bound.csv`` -> ``tech_capacity_min.csv``
+  - ``reservoir_storage_upper_bound.csv`` -> ``reservoir_storage_max.csv``
+  - ``reservoir_storage_lower_bound.csv`` -> ``reservoir_storage_min.csv``
   - ``tech_candidates.csv`` columns ``lower_bound`` / ``upper_bound``
-    ⟶ ``capacity_min`` / ``capacity_max``
+    -> ``capacity_min`` / ``capacity_max``
   - ``transmission_candidates.csv`` columns: same rename.
 
 * **File prefixes:** input files regrouped by domain.
-  ``hydro_inflow.csv`` ⟶ ``reservoir_inflow.csv``;
-  ``charge_efficiency.csv`` ⟶ ``storage_charge_efficiency.csv``;
-  ``carbon_tax.csv`` ⟶ ``policy_carbon_tax.csv``;
-  ``discount_factor.csv`` ⟶ ``economic_discount_factor.csv``; etc.
+  ``hydro_inflow.csv`` -> ``reservoir_inflow.csv``;
+  ``charge_efficiency.csv`` -> ``storage_charge_efficiency.csv``;
+  ``carbon_tax.csv`` -> ``policy_carbon_tax.csv``;
+  ``discount_factor.csv`` -> ``economic_discount_factor.csv``; etc.
 * **Hydro plants are first-class techs.** Each plant appears in
   ``tech_registry.csv`` with ``carrier='hydro'``; reservoir
   parameters are keyed per station (no ``main_hydro`` aggregation).
