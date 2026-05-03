@@ -57,6 +57,7 @@ To browse the documentation offline, you can `download a PDF copy <https://githu
 
    Overview <self>
    Installation
+   Quickstart
    Model_input_output
    Tutorial
    Mathematical_notations
