@@ -180,7 +180,10 @@ class AddGenerationConstraints:
         """
         model = self.model
         rp = model.params['ramp_up'][te] * model.params['dt']
-        if rp < 1 < h:
+        # Skip when ramp limit isn't binding (rp >= 1 means a unit can
+        # ramp from 0 to full output in one step), or for the first
+        # hour of the modelled window (no h-1 in the set).
+        if rp < 1 and h > model.hour[0]:
             lhs = (
                 model.gen[h, m, y, z, te] - model.gen[h-1, m, y, z, te]
                 - rp * model.cap_existing[y, z, te]
@@ -213,7 +216,7 @@ class AddGenerationConstraints:
         """
         model = self.model
         rd = model.params['ramp_down'][te] * model.params['dt']
-        if rd < 1 < h:
+        if rd < 1 and h > model.hour[0]:
             lhs = (
                 model.gen[h-1, m, y, z, te] - model.gen[h, m, y, z, te]
                 - rd * model.cap_existing[y, z, te]

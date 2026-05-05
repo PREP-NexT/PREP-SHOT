@@ -253,15 +253,17 @@ class AddHydropowerConstraints:
         # Assume the delay time is a constant by default. Other routing methods
         # can be implemented here such as Muskingum method, piecewise linear
         # routing method, etc.
+        # When the delayed hour falls before the modelled period, wrap
+        # cyclically into [hour[0], hour[-1]]. The modular form below
+        # works for any window starting at hour[0] >= 1 (CEM uses
+        # hour=[1..N] so it lands at N; PCM rolling windows wrap into
+        # the same window -- approximate, but the alternative is a
+        # cross-window state variable which Phase A doesn't model).
+        period_len = hour[-1] - hour[0] + 1
         for ups, delay in up_streams:
-            delay = int(int(delay)/dt)
-            if h - delay >= hour[0]:
-                t = h - delay
-            else:
-                t = hour[-1] + h - delay
-            while t < hour[0]:
-                # when water delay time delay exceeded 24 hours
-                t += int(24/dt)
+            delay = int(int(delay) / dt)
+            offset = (h - delay - hour[0]) % period_len
+            t = hour[0] + offset
             up_stream_outflow += model.outflow[ups, t, m, y]
         return up_stream_outflow + model.params['inflow'][s, y, m, h]
 
@@ -353,6 +355,12 @@ class AddHydropowerConstraints:
     ) -> poi.ConstraintIndex:
         """Determine storage of reservoir in the terminal hour of each month.
 
+        For PCM rolling-horizon windows, the end of one window flows
+        into the start of the next, so we skip the terminal-storage
+        equality (params['skip_end_storage'] = True). The storage
+        upper / lower bounds still apply, so the trajectory stays
+        within [storage_min, storage_max].
+
         Parameters
         ----------
         s : str
@@ -365,9 +373,11 @@ class AddHydropowerConstraints:
         Returns
         -------
         poi.ConstraintIndex
-            The constraint of the model.
+            The constraint of the model, or ``None`` when skipped.
         """
         model = self.model
+        if model.params.get('skip_end_storage', False):
+            return None
         hour_period = model.hour_p
         final_storage = model.params['final_reservoir_storage_level'][s]
         lhs = model.storage_reservoir[s, hour_period[-1], m, y] - final_storage

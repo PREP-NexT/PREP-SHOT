@@ -143,6 +143,7 @@ def extract_config_data(config_data : dict) -> dict:
     required_config_data = {
         'dt': dt,
         'price': price,
+        'hours_in_year': hours_in_year,
         'weight': (month * hour * dt) / hours_in_year,
         'solver': config_data['solver_parameters'],
         'isinflow': includes_hydrological_constraints,

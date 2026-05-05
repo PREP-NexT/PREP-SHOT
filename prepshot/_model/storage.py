@@ -158,8 +158,11 @@ class AddStorageConstraints:
         esl = model.params['initial_energy_storage_level'][te, z]
         epr = model.params['energy_to_power_ratio'][te]
         dt = model.params['dt']
+        # storage[hour_p[0], ...] is the prior-hour anchor: hour 0 in
+        # CEM mode (where model.hour starts at 1), or h_first - 1 in a
+        # PCM rolling-horizon window.
         lhs = (
-            model.storage[0, m, y, z, te]
+            model.storage[model.hour_p[0], m, y, z, te]
             - esl * model.cap_existing[y, z, te] * epr * dt
         )
         return model.add_linear_constraint(lhs, poi.Eq, 0)
@@ -186,10 +189,15 @@ class AddStorageConstraints:
             The constraint of the model.
         """
         model = self.model
+        # PCM windows want SOC to flow into the next window, so skip
+        # the cyclical close-the-loop equality. Storage upper / lower
+        # bounds keep the trajectory inside [0, cap].
+        if model.params.get('skip_end_storage', False):
+            return None
         h_init = model.params['hour'][-1]
         lhs = (
             model.storage[h_init, m, y, z, te]
-            - model.storage[0, m, y, z, te]
+            - model.storage[model.hour_p[0], m, y, z, te]
         )
         return model.add_linear_constraint(lhs, poi.Eq, 0)
 

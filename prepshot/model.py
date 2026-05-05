@@ -60,8 +60,15 @@ def define_basic_sets(model : object) -> None:
     basic_sets = ["year", "zone", "tech", "hour", "month"]
     for set_name in basic_sets:
         setattr(model, set_name, params[set_name])
-    # TODO: Generate the hour_p set based on the hour set
-    model.hour_p = [0] + params['hour']
+    # hour_p is the hour set augmented with one "previous" hour at the
+    # front, used as the anchor for storage / reservoir balances:
+    # storage[h] = storage[h-1] + ... links each hour to the prior one,
+    # and storage[hour_p[0]] = initial_storage closes the chain.
+    # For CEM (hour starts at 1) hour_p[0] = 0; for PCM windows
+    # starting at h_first, hour_p[0] = h_first - 1, so the prior-hour
+    # anchor lives just outside the window.
+    hours_list = list(params['hour'])
+    model.hour_p = [hours_list[0] - 1] + hours_list
 
     # PyPSA-style: a free-form `carrier` string plus per-tech behavior
     # flags. Hydropower is a special-cased carrier (carrier == 'hydro')
