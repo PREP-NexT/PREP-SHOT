@@ -283,28 +283,6 @@ htmlhelp_basename = "PREP-SHOTdoc"
 # Enable directives that insert the contents of external files
 file_insertion_enabled = False
 
-# -- Options for LaTeX output ---------------------------------------------
-
-# xelatex handles Unicode (arrows, em-dashes, sigmas, etc.) natively;
-# pdflatex requires per-glyph LaTeX shims and crashes on the
-# pandas/xarray repr characters that the Quickstart notebook bakes
-# into its cell outputs. The CI runner needs texlive-xetex installed
-# (see .github/workflows/static.yml).
-latex_engine = "xelatex"
-
-# Grouping the document tree into LaTeX files. List of tuples
-# (source start file, target name, title,
-#  author, documentclass [howto, manual, or own class]).
-latex_documents = [
-    (
-        master_doc,
-        "PREP-SHOT.tex",
-        "PREP-SHOT Documentation",
-        "Zhanwei Liu and Xiaogang He",
-        "manual",
-    ),
-]
-
 # -- Options for linkcheck builder ----------------------------------------
 
 # disable checking urls with about.html#this_part_of_page anchors

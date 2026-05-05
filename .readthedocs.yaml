@@ -18,10 +18,8 @@ sphinx:
   fail_on_warning: false
 
 formats:
-  # HTML zip download alongside the live HTML site. PDF / EPUB are
-  # disabled here -- pdflatex needs xelatex + xindy + texlive-xetex for
-  # the notebook outputs and that combo is fragile on RTD's build image;
-  # ship HTML only and link the GitHub-Actions-built PDF if needed.
+  # HTML zip download alongside the live HTML site.
+  # PDF / EPUB intentionally disabled (we ship HTML only).
   - htmlzip
 
 python:
