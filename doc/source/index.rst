@@ -47,6 +47,15 @@ Key Features
 * It allows the input of multiple scenarios for specific parameters.
 * As a pure Python program, it benefits from the use of `pandas <https://pandas.pydata.org/>`_ and `Xarray <https://docs.xarray.dev/en/stable/>`_, simplifying complex data analysis and promoting extensibility.
 
+New to power-system modeling?
+-----------------------------
+Four free primers we recommend reading alongside PREP-SHOT:
+
+* `Electric Grid and Markets 101 <https://docs.nrel.gov/docs/fy25osti/91864.pdf>`_ (NREL, 2024) -- how the bulk power system actually works.
+* `Power Sector Modeling 101 <https://www.energy.gov/sites/prod/files/2016/02/f30/EPSA_Power_Sector_Modeling_FINAL_021816_0.pdf>`_ (US DOE EPSA, 2016) -- the model families PREP-SHOT belongs to and where their assumptions break.
+* `Beginner's Guide to Understanding Power System Model Results for Long-Term Resource Plans <https://docs.nrel.gov/docs/fy24osti/87105.pdf>`_ (NREL, 2023) -- how to read a capacity-expansion result.
+* `Advanced Guide to Understanding Power System Model Results for Long-Term Resource Plans <https://docs.nrel.gov/docs/fy24osti/88337.pdf>`_ (NREL, 2024) -- deeper sequel: reliability metrics, reserve margin, transmission congestion.
+
 Offline documentation
 ----------------------
 To browse the documentation offline, download a `zipped HTML copy <https://prep-shot.readthedocs.io/_/downloads/en/stable/htmlzip/>`_ from Read the Docs (also accessible via the version-switcher at the bottom-left of every page).
