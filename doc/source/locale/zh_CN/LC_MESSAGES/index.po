@@ -3,7 +3,6 @@
 # This file is distributed under the same license as the PREP-SHOT package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PREP-SHOT latest\n"
@@ -21,31 +20,31 @@ msgstr ""
 
 #: ../../source/index.rst:24 ../../source/index.rst:91
 msgid "Overview"
-msgstr ""
+msgstr "概述"
 
 #: ../../source/index.rst:91
 msgid "Getting Started"
-msgstr ""
+msgstr "快速入门"
 
 #: ../../source/index.rst:100
 msgid "User Guide"
-msgstr ""
+msgstr "用户指南"
 
 #: ../../source/index.rst:110
 msgid "Reference"
-msgstr ""
+msgstr "参考"
 
 #: ../../source/index.rst:119
 msgid "Community"
-msgstr ""
+msgstr "社区"
 
 #: ../../source/index.rst:4
 msgid "Welcome to the PREP-SHOT Documentation"
-msgstr ""
+msgstr "欢迎阅读 PREP-SHOT 文档"
 
 #: ../../source/index.rst
 msgid "Authors"
-msgstr ""
+msgstr "作者"
 
 #: ../../source/index.rst:6
 msgid ""
@@ -56,7 +55,7 @@ msgstr ""
 
 #: ../../source/index.rst
 msgid "Contributors"
-msgstr ""
+msgstr "贡献者"
 
 #: ../../source/index.rst:7
 msgid ""
@@ -71,7 +70,7 @@ msgstr ""
 
 #: ../../source/index.rst
 msgid "Organization"
-msgstr ""
+msgstr "所属机构"
 
 #: ../../source/index.rst:8
 msgid "`National University of Singapore <https://nus.edu.sg/>`_"
@@ -79,7 +78,7 @@ msgstr ""
 
 #: ../../source/index.rst
 msgid "Version"
-msgstr ""
+msgstr "版本"
 
 #: ../../source/index.rst:9
 msgid "|release|"
@@ -87,7 +86,7 @@ msgstr ""
 
 #: ../../source/index.rst
 msgid "Date"
-msgstr ""
+msgstr "日期"
 
 #: ../../source/index.rst:10
 msgid "|today|"
@@ -95,7 +94,7 @@ msgstr ""
 
 #: ../../source/index.rst
 msgid "Copyright"
-msgstr ""
+msgstr "版权"
 
 #: ../../source/index.rst:11
 msgid ""
@@ -113,6 +112,9 @@ msgid ""
 "model, offering advanced solutions for multi-scale, intertemporal, and "
 "cost-effective expansion of energy systems and transmission lines."
 msgstr ""
+"**PREP-SHOT** (**P**\\ athways for **R**\\ enewable **E**\\ nergy **P**\\"
+" lanning coupling **S**\\ hort-term **H**\\ ydropower **O**\\ pera\\ "
+"**T**\\ ion) 是一个透明、模块化的开源能源扩展模型,为能源系统与输电网络的多尺度、跨时段、低成本扩展规划提供先进解决方案。"
 
 #: ../../source/index.rst:32
 msgid ""
@@ -126,6 +128,11 @@ msgid ""
 " into a single unit, PREP-SHOT is uniquely designed to address these "
 "oversights."
 msgstr ""
+"本模型相较于现有能源扩展模型,对水电运行过程的刻画更深入。`urbs "
+"<https://urbs.readthedocs.io/en/latest/>`_ 等模型可能将水电视为固定过程,而 `GenX "
+"<https://genxproject.github.io/GenX/dev/>`_、`PLEXOS "
+"<https://www.energyexemplar.com/plexos>`_ "
+"等模型可能无法充分体现水头的动态特性、或者将多座水电站合并为一个机组。PREP-SHOT 专为弥补这些不足而设计。"
 
 #: ../../source/index.rst:34
 msgid ""
@@ -138,32 +145,34 @@ msgid ""
 "variability of hydropower output, particularly in regions with a large "
 "number of cascade hydropower stations."
 msgstr ""
+"本模型显式考虑电站级的水头动力学 (即随时间变化的水头与库容) "
+"与区域电网中所有水电站的系统级网络拓扑,因此能够更准确地反映水电运行与能源系统扩展之间的多尺度动态反馈。此外,它能够真实模拟水电出力的总量与时空变化,在梯级水电站众多的区域尤为有效。"
 
 #: ../../source/index.rst:36
 msgid ""
 "With PREP-SHOT, we aim to answer key questions related to the future of "
 "energy planning and utilization:"
-msgstr ""
+msgstr "借助 PREP-SHOT,我们致力于回答未来能源规划与利用方面的关键问题:"
 
 #: ../../source/index.rst:38
 msgid ""
 "How can we effectively plan an energy portfolio and new transmission "
 "capacity under deep uncertainty?"
-msgstr ""
+msgstr "如何在深度不确定性下有效规划能源组合与新增输电容量?"
 
 #: ../../source/index.rst:39
 msgid ""
 "How can we quantify the impacts of variable hydropower on the generation "
 "and capacity of future energy portfolios?"
-msgstr ""
+msgstr "如何量化水电出力波动对未来能源组合中发电量与装机容量的影响?"
 
 #: ../../source/index.rst:42
 msgid "How It Works"
-msgstr ""
+msgstr "工作原理"
 
 #: ../../source/index.rst:-1
 msgid "overview of PREP-SHOT"
-msgstr ""
+msgstr "PREP-SHOT 概览"
 
 #: ../../source/index.rst:48
 msgid "Source: :cite:t:`liu2023`."
@@ -171,7 +180,7 @@ msgstr ""
 
 #: ../../source/index.rst:51
 msgid "Architecture"
-msgstr ""
+msgstr "架构"
 
 #: ../../source/index.rst:53
 msgid ""
@@ -179,6 +188,8 @@ msgid ""
 "with the ``PyOptInterface`` modeling layer, hands it to the solver, and "
 "writes the solved variables back as a NetCDF file:"
 msgstr ""
+"PREP-SHOT 从算例目录读取 CSV,使用 ``PyOptInterface`` 建模层构建线性规划,交由求解器求解,再将求解结果写回 "
+"NetCDF 文件:"
 
 #: ../../source/index.rst:69
 msgid ""
@@ -190,26 +201,30 @@ msgid ""
 "(controlled by ``iteration_number`` and ``error_threshold`` in "
 "``config.json``)."
 msgstr ""
+"``examples/`` 下的每个算例目录都是自包含的 (``config.json`` + ``params.json`` + "
+"``input/``);程序从该目录发现所需的全部资源。虚线箭头表示水头迭代循环:PREP-SHOT "
+"在固定水头下求解,然后从新得到的水库轨迹重新计算水头并再次求解,直到收敛 (由 ``config.json`` 中的 "
+"``iteration_number`` 与 ``error_threshold`` 控制)。"
 
 #: ../../source/index.rst:78
 msgid "Key Features"
-msgstr ""
+msgstr "核心特性"
 
 #: ../../source/index.rst:79
 msgid ""
 "PREP-SHOT is an optimization model based on linear programming for energy"
 " systems with multiple zones."
-msgstr ""
+msgstr "PREP-SHOT 是一个基于线性规划的多区域能源系统优化模型。"
 
 #: ../../source/index.rst:80
 msgid "It aims to minimize costs while meeting the given demand time series."
-msgstr ""
+msgstr "在满足给定需求时序的前提下,最小化总成本。"
 
 #: ../../source/index.rst:81
 msgid ""
 "By default, it operates on hourly-spaced time steps, but this can be "
 "adjusted."
-msgstr ""
+msgstr "默认按小时步长运行,可根据需要调整。"
 
 #: ../../source/index.rst:82
 msgid ""
@@ -217,6 +232,8 @@ msgid ""
 "generated in a NetCDF format using `Xarray "
 "<https://docs.xarray.dev/en/stable/>`_."
 msgstr ""
+"输入数据采用长格式 (\"整洁\") CSV;输出数据通过 `Xarray "
+"<https://docs.xarray.dev/en/stable/>`_ 写入 NetCDF 格式。"
 
 #: ../../source/index.rst:83
 msgid ""
@@ -225,10 +242,14 @@ msgid ""
 "<https://www.copt.de/>`_, and `MOSEK <https://www.mosek.com/>`_ via "
 "`PyOptInterface <https://github.com/metab0t/PyOptInterface>`_."
 msgstr ""
+"通过 `PyOptInterface <https://github.com/metab0t/PyOptInterface>`_ "
+"支持多种求解器,如 `HiGHS <https://github.com/jump-dev/HiGHS.jl>`_、`GUROBI "
+"<https://www.gurobi.com/>`_、`COPT <https://www.copt.de/>`_、`MOSEK "
+"<https://www.mosek.com/>`_。"
 
 #: ../../source/index.rst:84
 msgid "It allows the input of multiple scenarios for specific parameters."
-msgstr ""
+msgstr "支持对特定参数输入多套情景。"
 
 #: ../../source/index.rst:85
 msgid ""
@@ -237,10 +258,12 @@ msgid ""
 "<https://docs.xarray.dev/en/stable/>`_, simplifying complex data analysis"
 " and promoting extensibility."
 msgstr ""
+"作为纯 Python 程序,可借助 `pandas <https://pandas.pydata.org/>`_ 与 `Xarray "
+"<https://docs.xarray.dev/en/stable/>`_ 简化复杂的数据分析,提升可扩展性。"
 
 #: ../../source/index.rst:88
 msgid "Offline documentation"
-msgstr ""
+msgstr "离线文档"
 
 #: ../../source/index.rst:89
 msgid ""
@@ -249,10 +272,13 @@ msgid ""
 "the Docs (also accessible via the version-switcher at the bottom-left of "
 "every page)."
 msgstr ""
+"如需离线阅读,可在 Read the Docs 上下载 `HTML 压缩包 <https://prep-"
+"shot.readthedocs.io/_/downloads/en/stable/htmlzip/>`_ "
+"(也可通过每页左下角的版本切换器访问)。"
 
 #: ../../source/index.rst:130
 msgid "Indices and tables"
-msgstr ""
+msgstr "索引与表"
 
 #: ../../source/index.rst:131
 msgid ":ref:`genindex`"

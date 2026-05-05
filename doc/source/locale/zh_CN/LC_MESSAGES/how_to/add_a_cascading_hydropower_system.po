@@ -3,7 +3,6 @@
 # This file is distributed under the same license as the PREP-SHOT package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PREP-SHOT latest\n"
@@ -21,14 +20,14 @@ msgstr ""
 
 #: ../../source/how_to/add_a_cascading_hydropower_system.rst:2
 msgid "Add a cascading hydropower system"
-msgstr ""
+msgstr "新增梯级水电系统"
 
 #: ../../source/how_to/add_a_cascading_hydropower_system.rst:4
 msgid ""
 "**Goal.** Introduce a multi-station hydropower cascade (e.g. a new river "
 "basin) into a scenario, with per-station reservoir physics and inter-"
 "station water-delay routing."
-msgstr ""
+msgstr "**目标。** 在算例中引入一个多站点的梯级水电系统 (如新的流域),包含按电站建立的水库物理过程和站间水流延迟路由。"
 
 #: ../../source/how_to/add_a_cascading_hydropower_system.rst:8
 msgid ""
@@ -39,36 +38,40 @@ msgid ""
 "scenario (``examples/southeast_asia``, 57 stations) and the Thailand "
 "scenario (``examples/thailand``, 13 stations) for fully-worked examples."
 msgstr ""
+"这是 \"新增技术\" 中最重的秘籍,因为在 PREP-SHOT 中每个水电站都是一等技术 (而非聚合在一起)。每个电站在 "
+"``tech_registry.csv`` 中占一行,并在约 10 个水库相关文件中各占一行。完整示例可参阅随仓库提供的湄公河下游算例 "
+"(``examples/southeast_asia``,57 个电站) 与泰国算例 (``examples/thailand``,13 "
+"个电站)。"
 
 #: ../../source/how_to/add_a_cascading_hydropower_system.rst:17
 msgid "Steps"
-msgstr ""
+msgstr "步骤"
 
 #: ../../source/how_to/add_a_cascading_hydropower_system.rst:19
 msgid ""
 "**1. Pick station slugs.** No spaces; dots stripped. Example for a "
 "3-station cascade:"
-msgstr ""
+msgstr "**1. 选定电站 slug。** 不允许空格,需去掉点号。一个 3 站梯级的例子:"
 
 #: ../../source/how_to/add_a_cascading_hydropower_system.rst:26
 msgid "**2. Register each as a hydro tech.** In ``tech_registry.csv``:"
-msgstr ""
+msgstr "**2. 将每个电站注册为水电技术。** 在 ``tech_registry.csv`` 中:"
 
 #: ../../source/how_to/add_a_cascading_hydropower_system.rst:35
 msgid ""
 "The ``carrier='hydro'`` is special-cased; the model loads the reservoir-"
 "physics constraint stack for these techs."
-msgstr ""
+msgstr "``carrier='hydro'`` 是特殊处理的;模型会为这些技术加载完整的水库物理约束。"
 
 #: ../../source/how_to/add_a_cascading_hydropower_system.rst:38
 msgid "**3. Map each station to a zone.** In ``reservoir_zone.csv``:"
-msgstr ""
+msgstr "**3. 将每个电站映射到区域。** 在 ``reservoir_zone.csv`` 中:"
 
 #: ../../source/how_to/add_a_cascading_hydropower_system.rst:47
 msgid ""
 "**4. Populate per-station reservoir parameters.** Each of these files "
 "needs one row per station:"
-msgstr ""
+msgstr "**4. 填写按电站的水库参数。** 以下文件每个电站各占一行:"
 
 #: ../../source/how_to/add_a_cascading_hydropower_system.rst:60
 msgid ""
@@ -79,24 +82,29 @@ msgid ""
 "``reservoir_initial_storage_level.csv`` and "
 "``reservoir_final_storage_level.csv``."
 msgstr ""
+"**5. 随时间变化的输入。** ``reservoir_inflow.csv`` 需为每个 ``(station, year, month, "
+"hour)`` 提供一行;``reservoir_storage_max.csv`` 与 "
+"``reservoir_storage_min.csv`` 同理 (虽然这些通常在月内恒定)。期初/期末库容写入 "
+"``reservoir_initial_storage_level.csv`` 与 "
+"``reservoir_final_storage_level.csv``。"
 
 #: ../../source/how_to/add_a_cascading_hydropower_system.rst:67
 msgid ""
 "**6. Cascade routing.** Define water travel time between connected "
 "stations in ``reservoir_water_delay_time.csv``:"
-msgstr ""
+msgstr "**6. 梯级路由。** 在 ``reservoir_water_delay_time.csv`` 中定义相连电站之间的水流时间:"
 
 #: ../../source/how_to/add_a_cascading_hydropower_system.rst:76
 msgid ""
 "Delay is in hours. Stations with no downstream entry are terminal (water "
 "leaves the modeled system)."
-msgstr ""
+msgstr "延迟单位为小时。无下游条目的电站为末端 (水流离开建模系统)。"
 
 #: ../../source/how_to/add_a_cascading_hydropower_system.rst:79
 msgid ""
 "**7. Piecewise functions.** Two more files describe the non-linear "
 "hydropower physics, both in long-format with per-station rows:"
-msgstr ""
+msgstr "**7. 分段函数。** 还有两个文件用长格式按电站描述非线性水电物理:"
 
 #: ../../source/how_to/add_a_cascading_hydropower_system.rst:82
 msgid ""
@@ -112,13 +120,13 @@ msgstr ""
 
 #: ../../source/how_to/add_a_cascading_hydropower_system.rst:87
 msgid "PREP-SHOT linearizes these inside the head-iteration loop."
-msgstr ""
+msgstr "PREP-SHOT 在水头迭代循环中将其线性化。"
 
 #: ../../source/how_to/add_a_cascading_hydropower_system.rst:89
 msgid ""
 "**8. Existing capacity (optional).** If the cascade is partly already "
 "built:"
-msgstr ""
+msgstr "**8. 已有装机 (可选)。** 若梯级中部分电站已建成:"
 
 #: ../../source/how_to/add_a_cascading_hydropower_system.rst:98
 msgid ""
@@ -127,14 +135,17 @@ msgid ""
 "variable_OM_cost, investment_cost, ramp_up, ramp_down) -- each station "
 "needs a row, even if mostly zeros (no fuel, no emissions)."
 msgstr ""
+"**9. 按技术的文件。** 别忘了 8 个与水库无关的按技术索引文件 "
+"(lifetime、fuel_price、emission_factor、fixed_OM_cost、variable_OM_cost、investment_cost、ramp_up、ramp_down)——每个电站都需一行,即便绝大多数为零"
+" (无燃料、无排放)。"
 
 #: ../../source/how_to/add_a_cascading_hydropower_system.rst:104
 msgid "Verify"
-msgstr ""
+msgstr "验证"
 
 #: ../../source/how_to/add_a_cascading_hydropower_system.rst:123
 msgid "Common pitfalls"
-msgstr ""
+msgstr "常见陷阱"
 
 #: ../../source/how_to/add_a_cascading_hydropower_system.rst:125
 msgid ""
@@ -143,6 +154,9 @@ msgid ""
 "``reservoir_*`` files, and the per-tech files. Mistyping one breaks the "
 "load."
 msgstr ""
+"**slug 必须保持一致。** 同一个电站名必须出现在每个引用它的 CSV "
+"中:``tech_registry``、``reservoir_zone``、所有 ``reservoir_*`` "
+"文件以及按技术索引的文件。任何一处拼错都会导致加载失败。"
 
 #: ../../source/how_to/add_a_cascading_hydropower_system.rst:129
 msgid ""
@@ -150,6 +164,8 @@ msgid ""
 "leaves; ``downstream_tech`` is the next station downstream. Reversing "
 "them silently produces nonsense."
 msgstr ""
+"**梯级方向。** ``upstream_tech`` 始终是水离开的那个电站;``downstream_tech`` "
+"是其下游的下一个电站。颠倒这两列会静默地产生无意义的结果。"
 
 #: ../../source/how_to/add_a_cascading_hydropower_system.rst:132
 msgid ""
@@ -157,6 +173,8 @@ msgid ""
 "month, hour). With config ``hour=8760, month=1``, that's 8760 rows per "
 "station -- big but unavoidable. Reduce hour count during development."
 msgstr ""
+"**入流数据形状。** ``reservoir_inflow.csv`` 按 (站、年、月、时) 索引。在 ``hour=8760, "
+"month=1`` 配置下,每站为 8760 行——较大但不可避免。开发期间可减小 hour 数量。"
 
 #: ../../source/how_to/add_a_cascading_hydropower_system.rst:136
 msgid ""
@@ -166,10 +184,13 @@ msgid ""
 "many hours, the LP will be reported infeasible by HiGHS with no slack "
 "indication. Check your bounds."
 msgstr ""
+"**约束可能导致模型不可行。** 若任一电站的 ``reservoir_outflow_min`` 大于 "
+"``reservoir_outflow_max``,或所需出力在过多小时数中超过 ``capacity_max``,HiGHS "
+"会报告不可行,但不会给出松弛信息。请检查你的上下界。"
 
 #: ../../source/how_to/add_a_cascading_hydropower_system.rst:142
 msgid ""
 "Looking at ``examples/southeast_asia/input/`` is the fastest way to see "
 "what a complete 57-station cascade dataset looks like."
-msgstr ""
+msgstr "查看 ``examples/southeast_asia/input/`` 是了解完整 57 站梯级数据集长什么样的最快方法。"
 

@@ -3,7 +3,6 @@
 # This file is distributed under the same license as the PREP-SHOT package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PREP-SHOT latest\n"
@@ -21,29 +20,33 @@ msgstr ""
 
 #: ../../source/how_to/add_a_technology.rst:2
 msgid "Add a new technology"
-msgstr ""
+msgstr "新增一个技术"
 
 #: ../../source/how_to/add_a_technology.rst:4
 msgid ""
 "**Goal.** Introduce a new generation tech (e.g. ``Geothermal``) into an "
 "existing scenario."
-msgstr ""
+msgstr "**目标。** 在已有算例中引入一个新的发电技术 (如 ``Geothermal``)。"
 
 #: ../../source/how_to/add_a_technology.rst:7
 msgid ""
 "A tech is a row in ``tech_registry.csv`` plus rows in every per-tech "
 "input file. Adding one is mostly mechanical CSV editing; no code changes."
 msgstr ""
+"一个技术对应 ``tech_registry.csv`` 中的一行,加上每个按技术索引的输入文件中的一行。添加新技术主要是机械的 CSV "
+"编辑,无需修改代码。"
 
 #: ../../source/how_to/add_a_technology.rst:12
 msgid "Steps"
-msgstr ""
+msgstr "步骤"
 
 #: ../../source/how_to/add_a_technology.rst:14
 msgid ""
 "**1. Pick a slug and register the tech.** Open "
 "``examples/<scenario>/input/tech_registry.csv`` and add a row:"
 msgstr ""
+"**1. 选定 slug 并注册技术。** 打开 ``examples/<scenario>/input/tech_registry.csv`` "
+"并新增一行:"
 
 #: ../../source/how_to/add_a_technology.rst:22
 msgid ""
@@ -51,28 +54,30 @@ msgid ""
 "dots). The ``carrier`` is a free-form string; pick something meaningful "
 "(``geothermal``, ``nuclear``, ``hydrogen``)."
 msgstr ""
+"``tech`` 列是其他文件中通用的 slug (不含空格、不含点)。``carrier`` 为自由格式字符串;请选取有意义的取值 "
+"(``geothermal``、``nuclear``、``hydrogen`` 等)。"
 
 #: ../../source/how_to/add_a_technology.rst:26
 msgid ""
 "**2. Add rows to every per-tech input file.** The model loads the "
 "following per-tech files; each needs a row for the new tech:"
-msgstr ""
+msgstr "**2. 在每个按技术索引的输入文件中新增一行。** 模型读取以下按技术索引的文件,每个文件都需为新技术新增一行:"
 
 #: ../../source/how_to/add_a_technology.rst:37
 msgid "For example in ``tech_lifetime.csv``:"
-msgstr ""
+msgstr "例如在 ``tech_lifetime.csv`` 中:"
 
 #: ../../source/how_to/add_a_technology.rst:44
 msgid ""
 "If the new tech has time-varying availability (like solar / wind), add it"
 " to ``tech_max_gen_profile.csv`` as well."
-msgstr ""
+msgstr "如果新技术具有随时间变化的可用度 (如光伏 / 风电),还需将其加入 ``tech_max_gen_profile.csv``。"
 
 #: ../../source/how_to/add_a_technology.rst:47
 msgid ""
 "**3. Optionally: existing capacity.** If some Geothermal is already built"
 " before the planning horizon starts, add it to ``tech_existing.csv``:"
-msgstr ""
+msgstr "**3. 可选:已有装机。** 若规划期开始前已有 Geothermal 投运,在 ``tech_existing.csv`` 中加入一行:"
 
 #: ../../source/how_to/add_a_technology.rst:56
 msgid ""
@@ -80,28 +85,30 @@ msgid ""
 "new Geothermal, add rows to ``tech_candidates.csv`` with non-zero "
 "``capacity_max``:"
 msgstr ""
+"**4. 可选:扩展候选。** 若希望优化器可新建 Geothermal,在 ``tech_candidates.csv`` 中加入 "
+"``capacity_max`` 不为零的行:"
 
 #: ../../source/how_to/add_a_technology.rst:66
 msgid ""
 "A missing entry means \"this combination cannot be expanded\"; "
 "``capacity_max=0`` has the same effect."
-msgstr ""
+msgstr "条目缺失意味着 \"此组合不可扩展\";``capacity_max=0`` 等同于此。"
 
 #: ../../source/how_to/add_a_technology.rst:69
 msgid "**5. Re-run.**"
-msgstr ""
+msgstr "**5. 重新运行。**"
 
 #: ../../source/how_to/add_a_technology.rst:77
 msgid "Verify"
-msgstr ""
+msgstr "验证"
 
 #: ../../source/how_to/add_a_technology.rst:79
 msgid "Open the output NetCDF and confirm the new tech appears:"
-msgstr ""
+msgstr "打开输出 NetCDF,确认新技术出现:"
 
 #: ../../source/how_to/add_a_technology.rst:89
 msgid "Common pitfalls"
-msgstr ""
+msgstr "常见陷阱"
 
 #: ../../source/how_to/add_a_technology.rst:91
 msgid ""
@@ -109,12 +116,14 @@ msgid ""
 "``tech_registry.csv``. The loader raises a ``KeyError`` mid- build if any"
 " per-tech file is missing the new slug."
 msgstr ""
+"**slug 拼写错误。** slug 必须在所有 CSV 文件和 ``tech_registry.csv`` "
+"中保持完全一致。任何按技术索引的文件缺少新 slug,加载器都会在构建过程中抛出 ``KeyError``。"
 
 #: ../../source/how_to/add_a_technology.rst:94
 msgid ""
 "**Forgetting ``tech_capacity_max``.** Missing rows result in a "
 "``KeyError``. Use ``inf`` for unbounded."
-msgstr ""
+msgstr "**忘记填写 ``tech_capacity_max``。** 缺少行会触发 ``KeyError``。如不限上限,请使用 ``inf``。"
 
 #: ../../source/how_to/add_a_technology.rst:96
 msgid ""
@@ -123,6 +132,8 @@ msgid ""
 "``storage_discharge_efficiency.csv``, "
 "``storage_energy_to_power_ratio.csv``, and ``storage_initial_level.csv``."
 msgstr ""
+"**储能技术需补充额外文件。** 若注册表中 ``is_storage=True``,还需填写 "
+"``storage_charge_efficiency.csv``、``storage_discharge_efficiency.csv``、``storage_energy_to_power_ratio.csv``、``storage_initial_level.csv``。"
 
 #: ../../source/how_to/add_a_technology.rst:102
 msgid ""
@@ -130,4 +141,6 @@ msgid ""
 ":doc:`add_a_cascading_hydropower_system` -- the reservoir physics adds "
 "another ~10 files per tech."
 msgstr ""
+"对水电 (``carrier='hydro'``) 而言,请参见 :doc:`add_a_cascading_hydropower_system`"
+" —— 水库物理过程会为每个技术再增加约 10 个文件。"
 

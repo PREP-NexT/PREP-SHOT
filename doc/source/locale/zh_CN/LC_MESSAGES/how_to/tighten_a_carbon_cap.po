@@ -3,7 +3,6 @@
 # This file is distributed under the same license as the PREP-SHOT package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PREP-SHOT latest\n"
@@ -21,13 +20,13 @@ msgstr ""
 
 #: ../../source/how_to/tighten_a_carbon_cap.rst:2
 msgid "Tighten a carbon cap"
-msgstr ""
+msgstr "收紧碳排放上限"
 
 #: ../../source/how_to/tighten_a_carbon_cap.rst:4
 msgid ""
 "**Goal.** Run a counterfactual with a stricter system-wide CO2 cap "
 "without overwriting the baseline."
-msgstr ""
+msgstr "**目标。** 在不覆盖基线的前提下,运行一个更严格的系统级 CO2 上限的反事实情景。"
 
 #: ../../source/how_to/tighten_a_carbon_cap.rst:7
 msgid ""
@@ -35,16 +34,19 @@ msgid ""
 "Pass ``--<param>=<suffix>`` and PREP-SHOT loads ``<file>_<suffix>.csv`` "
 "instead of ``<file>.csv``. Output names get the same suffix."
 msgstr ""
+"PREP-SHOT 为 ``params.json`` 中的每个输入文件注册了命令行参数。传入 ``--<param>=<suffix"
+">``,PREP-SHOT 会加载 ``<file>_<suffix>.csv`` 而非 "
+"``<file>.csv``。输出文件名也会带上同样的后缀。"
 
 #: ../../source/how_to/tighten_a_carbon_cap.rst:13
 msgid "Steps"
-msgstr ""
+msgstr "步骤"
 
 #: ../../source/how_to/tighten_a_carbon_cap.rst:15
 msgid ""
 "**1. Copy the baseline policy file as a new variant.** From inside "
 "``examples/<scenario>/input/``:"
-msgstr ""
+msgstr "**1. 将基线策略文件复制为新变体。** 进入 ``examples/<scenario>/input/`` 后执行:"
 
 #: ../../source/how_to/tighten_a_carbon_cap.rst:23
 #, python-format
@@ -53,57 +55,61 @@ msgid ""
 "unit, value, zones)``. Open in your editor and change the cap from "
 "``146000000`` (baseline) to ``80000000`` (about 55% of baseline):"
 msgstr ""
+"**2. 编辑新文件中 2030 年的上限。** 表格结构为 ``(limit_id, year, unit, value, "
+"zones)``。在编辑器中打开,把上限从 ``146000000`` (基线) 改为 ``80000000`` (约为基线的 55%):"
 
 #: ../../source/how_to/tighten_a_carbon_cap.rst:34
 msgid "**3. Re-run with the variant flag.**"
-msgstr ""
+msgstr "**3. 使用变体参数重新运行。**"
 
 #: ../../source/how_to/tighten_a_carbon_cap.rst:41
 msgid ""
 "Output goes to ``output/baseline_tight.nc`` (or whatever your "
 "``output_filename`` is, with ``_tight`` appended)."
 msgstr ""
+"结果输出至 ``output/baseline_tight.nc`` (或你定义的 ``output_filename`` 加上 "
+"``_tight``)。"
 
 #: ../../source/how_to/tighten_a_carbon_cap.rst:45
 msgid "Verify"
-msgstr ""
+msgstr "验证"
 
 #: ../../source/how_to/tighten_a_carbon_cap.rst:47
 msgid "Compare baseline vs tight by total cost and by 2030 emissions:"
-msgstr ""
+msgstr "通过总成本和 2030 年排放量比较基线与收紧情景:"
 
 #: ../../source/how_to/tighten_a_carbon_cap.rst:60
 msgid ""
 "The tight cap forces the model to either build more zero-carbon capacity,"
 " dispatch existing zero-carbon capacity harder, or import clean power "
 "from neighboring zones -- whichever is cheapest."
-msgstr ""
+msgstr "更严格的上限迫使模型要么建设更多零碳容量,要么更高强度地调度已有零碳容量,要么从邻近区域进口清洁电力—— 三者中选最便宜的一项。"
 
 #: ../../source/how_to/tighten_a_carbon_cap.rst:65
 msgid "Custom cap regions"
-msgstr ""
+msgstr "自定义上限区域"
 
 #: ../../source/how_to/tighten_a_carbon_cap.rst:67
 msgid ""
 "The ``zones`` column accepts any comma-separated subset. For a Vietnam-"
 "only cap:"
-msgstr ""
+msgstr "``zones`` 列可以接受任意以逗号分隔的子集。例如仅针对越南的上限:"
 
 #: ../../source/how_to/tighten_a_carbon_cap.rst:75
 msgid ""
 "Multiple ``limit_id`` rows for the same year stack as additional "
 "constraints."
-msgstr ""
+msgstr "同一年内多行 ``limit_id`` 会叠加为附加约束。"
 
 #: ../../source/how_to/tighten_a_carbon_cap.rst:79
 msgid "Common pitfalls"
-msgstr ""
+msgstr "常见陷阱"
 
 #: ../../source/how_to/tighten_a_carbon_cap.rst:81
 msgid ""
 "**Quote the zones string.** A comma inside an unquoted CSV cell splits "
 "the column. Always wrap multi-zone lists in double quotes."
-msgstr ""
+msgstr "**给 zones 字符串加引号。** 未加引号的 CSV 单元中的逗号会被当作列分隔符。多区域列表务必用双引号包裹。"
 
 #: ../../source/how_to/tighten_a_carbon_cap.rst:83
 msgid ""
@@ -112,6 +118,9 @@ msgid ""
 "``policy_carbon_emission_limit_tight.csv``, NOT "
 "``policy_carbon_emission_limit-tight.csv``."
 msgstr ""
+"**CLI 后缀必须是合法的文件名后缀。** ``--carbon_emission_limit=tight`` 会查找 "
+"``policy_carbon_emission_limit_tight.csv``,而非 "
+"``policy_carbon_emission_limit-tight.csv``。"
 
 #: ../../source/how_to/tighten_a_carbon_cap.rst:87
 msgid ""
@@ -120,4 +129,6 @@ msgid ""
 "giving you the wrong answer rather than an error. Double-check zone "
 "spelling against ``demand.csv``."
 msgstr ""
+"**所有上限区域必须使用已有的区域名。** 拼写错误会静默生成一个无约束意义的条件 (没有区域贡献),给出错误答案而非报错。请对照 "
+"``demand.csv`` 仔细核对区域拼写。"
 

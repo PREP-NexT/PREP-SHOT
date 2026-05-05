@@ -3,7 +3,6 @@
 # This file is distributed under the same license as the PREP-SHOT package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PREP-SHOT latest\n"
@@ -21,7 +20,7 @@ msgstr ""
 
 #: ../../source/how_to/index.rst:4
 msgid "How-To Recipes"
-msgstr ""
+msgstr "如何做(How-To)"
 
 #: ../../source/how_to/index.rst:6
 msgid ""
@@ -30,4 +29,6 @@ msgid ""
 "result. They assume you've worked through :doc:`../Quickstart` once and "
 "know how to run a solve."
 msgstr ""
+"针对常见的 \"我想做 X\" 类问题给出简短、聚焦的解答。每个秘籍自包含:问题描述、代码或 CSV 修改、预期结果。前提是你已完成一次 "
+":doc:`../Quickstart`,知道如何运行求解。"
 

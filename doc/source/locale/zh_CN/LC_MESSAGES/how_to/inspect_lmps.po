@@ -3,7 +3,6 @@
 # This file is distributed under the same license as the PREP-SHOT package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PREP-SHOT latest\n"
@@ -21,14 +20,14 @@ msgstr ""
 
 #: ../../source/how_to/inspect_lmps.rst:2
 msgid "Inspect locational marginal prices"
-msgstr ""
+msgstr "查看节点边际电价 (LMP)"
 
 #: ../../source/how_to/inspect_lmps.rst:4
 msgid ""
 "**Goal.** Read PREP-SHOT's :term:`LMP` output and use it to diagnose "
 "binding constraints, compare zones, and back-cast wholesale-price "
 "trajectories."
-msgstr ""
+msgstr "**目标。** 读取 PREP-SHOT 的 :term:`LMP` 输出,用以诊断起作用的约束、比较区域差异、回溯批发电价轨迹。"
 
 #: ../../source/how_to/inspect_lmps.rst:8
 msgid ""
@@ -37,14 +36,16 @@ msgid ""
 "PREP-SHOT exposes them as ``shadow_price_demand`` in the result NetCDF "
 "since v1.9.1."
 msgstr ""
+"LMP 是节点功率平衡约束的对偶变量——在每个 ``(hour, month, year, zone)`` 处多供一兆瓦时需求的边际成本。自 "
+"v1.9.1 起,PREP-SHOT 将其作为 ``shadow_price_demand`` 写入结果 NetCDF。"
 
 #: ../../source/how_to/inspect_lmps.rst:14
 msgid "Recipe"
-msgstr ""
+msgstr "做法"
 
 #: ../../source/how_to/inspect_lmps.rst:38
 msgid "Sign convention"
-msgstr ""
+msgstr "符号约定"
 
 #: ../../source/how_to/inspect_lmps.rst:40
 msgid ""
@@ -54,28 +55,31 @@ msgid ""
 "because the demand-balance constraint is posed as ``demand - supply == "
 "0``) before writing the NetCDF."
 msgstr ""
+"``shadow_price_demand`` 中的 LMP **当满足更多需求更昂贵时为正**——这是 PyPSA、Switch、GenX "
+"等模型采用的标准约定。PREP-SHOT 在写入 NetCDF 前会内部翻转 HiGHS 原始对偶值的符号 (原始值为负,因为需求平衡约束写作 "
+"``demand - supply == 0``)。"
 
 #: ../../source/how_to/inspect_lmps.rst:47
 msgid "NPV vs real-year prices"
-msgstr ""
+msgstr "净现值 vs 实际年度价格"
 
 #: ../../source/how_to/inspect_lmps.rst:49
 msgid ""
 "LMPs are written in **NPV-discounted USD per MWh**. To recover "
 "undiscounted real-year prices, divide by the variable-cost factor for "
 "that year and zone:"
-msgstr ""
+msgstr "LMP 以 **净现值折现的 USD/MWh** 写入。如要恢复未折现的实际年度价格,需除以对应年份和区域的可变成本系数:"
 
 #: ../../source/how_to/inspect_lmps.rst:61
 msgid ""
 "For most analyses (relative-zone comparisons, peak-hour identification, "
 "trend over the planning horizon), the NPV scaling is harmless and keeps "
 "the cross-zone comparison meaningful."
-msgstr ""
+msgstr "对大多数分析 (区域间相对比较、峰值时段识别、规划期内趋势) 而言,NPV 折现是无害的,并能保持跨区域比较的可信度。"
 
 #: ../../source/how_to/inspect_lmps.rst:66
 msgid "Common pitfalls"
-msgstr ""
+msgstr "常见陷阱"
 
 #: ../../source/how_to/inspect_lmps.rst:68
 msgid ""
@@ -84,6 +88,8 @@ msgid ""
 "extraction is wrapped in try/except: a warning logs and the variable is "
 "omitted rather than crashing the run."
 msgstr ""
+"**MIP 求解不返回对偶值。** 若 NetCDF 中缺少 ``shadow_price_demand``,说明本次求解是 MIP "
+"(或不可行)。v1.9.1 的提取过程包在 try/except 中:会记录警告并省略该变量,而不会导致运行崩溃。"
 
 #: ../../source/how_to/inspect_lmps.rst:72
 msgid ""
@@ -92,6 +98,8 @@ msgid ""
 "in another (energy-arbitrage). Don't read a single hour's LMP as \"the "
 "price\"; average over a day or week."
 msgstr ""
+"**储能区域会扭曲短期 LMP。** 起作用的储能荷电状态约束会在某个小时表现为 LMP 尖峰,而在另一时刻表现为洼地 "
+"(能量套利)。不要把单一小时的 LMP 当作 \"电价\";应当按日或按周取平均。"
 
 #: ../../source/how_to/inspect_lmps.rst:76
 msgid ""
@@ -100,10 +108,14 @@ msgid ""
 "8760-hour year. A handful of representative peak hours can dominate the "
 "average."
 msgstr ""
+"**需求曲线形状很重要。** PREP-SHOT 使用典型小时 / 月。所得 LMP 反映的是被采样的小时,而非完整的 8760 "
+"小时全年。少数几个典型峰值小时可能主导平均值。"
 
 #: ../../source/how_to/inspect_lmps.rst:81
 msgid ""
 "For the underlying constraint (``power_balance_cons`` in "
 "``prepshot/_model/demand.py``), see :doc:`../Mathematical_notations`."
 msgstr ""
+"底层约束 (``prepshot/_model/demand.py`` 中的 ``power_balance_cons``) 参见 "
+":doc:`../Mathematical_notations`。"
 

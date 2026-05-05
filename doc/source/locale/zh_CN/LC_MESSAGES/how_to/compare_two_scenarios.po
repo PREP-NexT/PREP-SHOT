@@ -3,7 +3,6 @@
 # This file is distributed under the same license as the PREP-SHOT package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PREP-SHOT latest\n"
@@ -21,13 +20,13 @@ msgstr ""
 
 #: ../../source/how_to/compare_two_scenarios.rst:2
 msgid "Compare two scenarios"
-msgstr ""
+msgstr "对比两个情景"
 
 #: ../../source/how_to/compare_two_scenarios.rst:4
 msgid ""
 "**Goal.** Quantify what changes between a baseline and a counterfactual "
 "-- total cost, capacity mix, generation by carrier, LMPs."
-msgstr ""
+msgstr "**目标。** 量化基线与反事实情景之间的差异——总成本、装机结构、按载体的发电量、LMP。"
 
 #: ../../source/how_to/compare_two_scenarios.rst:8
 msgid ""
@@ -35,26 +34,28 @@ msgid ""
 "an ``xarray.Dataset`` with the same variables, so subtraction and "
 "`groupby` work directly."
 msgstr ""
+"结果 NetCDF 让并排比较变得简单:每个文件都是一个 ``xarray.Dataset``,变量名一致,因此可以直接做减法和 "
+"`groupby`。"
 
 #: ../../source/how_to/compare_two_scenarios.rst:13
 msgid "Setup"
-msgstr ""
+msgstr "准备"
 
 #: ../../source/how_to/compare_two_scenarios.rst:15
 msgid "Run two scenarios using the suffix flag (see :doc:`tighten_a_carbon_cap`):"
-msgstr ""
+msgstr "使用后缀参数运行两个情景 (参见 :doc:`tighten_a_carbon_cap`):"
 
 #: ../../source/how_to/compare_two_scenarios.rst:25
 msgid "Recipe"
-msgstr ""
+msgstr "做法"
 
 #: ../../source/how_to/compare_two_scenarios.rst:65
 msgid "Plot the capacity reshuffle"
-msgstr ""
+msgstr "绘制装机重组"
 
 #: ../../source/how_to/compare_two_scenarios.rst:83
 msgid "Common pitfalls"
-msgstr ""
+msgstr "常见陷阱"
 
 #: ../../source/how_to/compare_two_scenarios.rst:85
 msgid ""
@@ -62,6 +63,8 @@ msgid ""
 "``hour`` or ``month`` settings, ``ds_a - ds_b`` will fail with a "
 "broadcast error. Keep configs in lockstep when comparing."
 msgstr ""
+"**维度不一致。** 如果两个情景的 ``hour`` 或 ``month`` 设置不同,``ds_a - ds_b`` "
+"会因广播错误而失败。比较时请保持配置一致。"
 
 #: ../../source/how_to/compare_two_scenarios.rst:89
 msgid ""
@@ -69,6 +72,8 @@ msgid ""
 "per timestep. Don't mix without dividing by ``var_factor[year, zone]`` "
 "for unit conversion."
 msgstr ""
+"**净现值 vs 名义值。** ``ds.cost`` 已折现为净现值;``ds.gen`` 单位为每时段 MWh。不要在未除以 "
+"``var_factor[year, zone]`` 进行单位转换的情况下混用。"
 
 #: ../../source/how_to/compare_two_scenarios.rst:92
 msgid ""
@@ -76,6 +81,8 @@ msgid ""
 "a dict comprehension over a list of suffixes: ``{s: "
 "xr.open_dataset(f\"output/baseline_{s}.nc\") for s in suffixes}``."
 msgstr ""
+"**多情景批量处理。** 当变体超过两个时,把模式提升为对后缀列表的字典推导:``{s: "
+"xr.open_dataset(f\"output/baseline_{s}.nc\") for s in suffixes}``。"
 
 #: ../../source/how_to/compare_two_scenarios.rst:96
 msgid ""
@@ -83,4 +90,6 @@ msgid ""
 ":doc:`../examples/southeast_asia/SoutheastAsia` (the SoutheastAsia "
 "notebook walks through this exact pattern in cells 18-20)."
 msgstr ""
+"完整的端到端对比示例参见 :doc:`../examples/southeast_asia/SoutheastAsia` "
+"(SoutheastAsia 笔记本的第 18-20 单元演示了这一模式)。"
 

@@ -3,7 +3,6 @@
 # This file is distributed under the same license as the PREP-SHOT package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PREP-SHOT latest\n"
@@ -21,21 +20,21 @@ msgstr ""
 
 #: ../../source/Contribution.rst:4
 msgid "Contribution"
-msgstr ""
+msgstr "贡献指南"
 
 #: ../../source/Contribution.rst:6
 msgid ""
 "We welcome and appreciate contributions for the RPEP-SHOT library. Here "
 "are the steps to contribute:"
-msgstr ""
+msgstr "我们欢迎并感谢对 PREP-SHOT 库的贡献。贡献流程如下:"
 
 #: ../../source/Contribution.rst:9
 msgid "Development Process"
-msgstr ""
+msgstr "开发流程"
 
 #: ../../source/Contribution.rst:11
 msgid "**Create an Issue**"
-msgstr ""
+msgstr "**创建 Issue**"
 
 #: ../../source/Contribution.rst:13
 msgid ""
@@ -43,36 +42,40 @@ msgid ""
 "please create an `issue <https://github.com/PREP-NexT/PREP-"
 "SHOT/issues>`_."
 msgstr ""
+"如果你发现 bug 或有改进 / 新功能的想法,请创建 `issue <https://github.com/PREP-NexT/PREP-"
+"SHOT/issues>`_。"
 
 #: ../../source/Contribution.rst:15
 msgid "**Fork the Repository**"
-msgstr ""
+msgstr "**Fork 仓库**"
 
 #: ../../source/Contribution.rst:17
 msgid ""
 "You can fork the `PREP-SHOT repository <https://github.com/PREP-NexT"
 "/PREP-SHOT>`_ on GitHub."
 msgstr ""
+"你可以在 GitHub 上 fork `PREP-SHOT 仓库 <https://github.com/PREP-NexT/PREP-"
+"SHOT>`_。"
 
 #: ../../source/Contribution.rst:19
 msgid "**Create a Branch**"
-msgstr ""
+msgstr "**创建分支**"
 
 #: ../../source/Contribution.rst:21
 msgid ""
 "Create a new branch in your forked repository and name the branch "
 "according to the feature or fix you're working on."
-msgstr ""
+msgstr "在你 fork 的仓库中创建新分支,并以正在处理的功能或修复命名。"
 
 #: ../../source/Contribution.rst:23
 msgid "**Commit Changes**"
-msgstr ""
+msgstr "**提交修改**"
 
 #: ../../source/Contribution.rst:25
 msgid ""
 "Make changes in your branch. Once you've made improvements or bug fixes "
 "to the project, commit the changes with a meaningful commit message."
-msgstr ""
+msgstr "在该分支中进行修改。完成改进或 bug 修复后,使用有意义的提交信息提交。"
 
 #: ../../source/Contribution.rst:27
 msgid ""
@@ -82,11 +85,11 @@ msgstr ""
 
 #: ../../source/Contribution.rst:34
 msgid "To check your code for PEP8 compliance, run:"
-msgstr ""
+msgstr "检查代码是否符合 PEP8,运行:"
 
 #: ../../source/Contribution.rst:41
 msgid "**Start a Pull Request**"
-msgstr ""
+msgstr "**发起 Pull Request**"
 
 #: ../../source/Contribution.rst:43
 msgid ""
@@ -94,46 +97,48 @@ msgid ""
 "from your forked repository to the main PREP-SHOT repository. Describe "
 "your changes in the pull request."
 msgstr ""
+"从你 fork 的仓库向主 PREP-SHOT 仓库发起 `pull request <https://github.com/PREP-NexT"
+"/PREP-SHOT/pulls>`_。在 PR 描述中说明你的修改。"
 
 #: ../../source/Contribution.rst:45
 msgid "**Code Review**"
-msgstr ""
+msgstr "**代码评审**"
 
 #: ../../source/Contribution.rst:47
 msgid ""
 "Maintainers of the PREP-SHOT project will review your code. They may ask "
 "for changes or improvements before the code is merged into the main "
 "codebase."
-msgstr ""
+msgstr "PREP-SHOT 维护者会评审你的代码。他们可能会在代码合入主分支前要求改动或改进。"
 
 #: ../../source/Contribution.rst:49
 msgid ""
 "Please ensure that you update tests as necessary when you're contributing"
 " code, and follow the coding conventions established in the rest of the "
 "project."
-msgstr ""
+msgstr "贡献代码时请按需更新测试,并遵循项目其他部分既有的编码规范。"
 
 #: ../../source/Contribution.rst:52
 msgid "Building Documentation"
-msgstr ""
+msgstr "构建文档"
 
 #: ../../source/Contribution.rst:54
 msgid ""
 "The documentation is built using Sphinx. To build the documentation, you "
 "need to install the required packages using the following command:"
-msgstr ""
+msgstr "文档使用 Sphinx 构建。构建前请先用以下命令安装所需包:"
 
 #: ../../source/Contribution.rst:60
 msgid "You can build the documentation using the following command:"
-msgstr ""
+msgstr "随后可用以下命令构建文档:"
 
 #: ../../source/Contribution.rst:69
 msgid "The documentation will be built in the `doc/build` directory."
-msgstr ""
+msgstr "文档将构建在 `doc/build` 目录下。"
 
 #: ../../source/Contribution.rst:72
 msgid "Contributing Guidelines"
-msgstr ""
+msgstr "贡献规范"
 
 #: ../../source/Contribution.rst:74
 msgid ""
@@ -142,4 +147,6 @@ msgid ""
 "use the `Pylint <https://pylint.readthedocs.io/en/stable/>`_ tool to "
 "check your code for PEP8 compliance."
 msgstr ""
+"PREP-SHOT 采用 Python 编写,遵循 PEP8 编码规范。请确保你的代码符合 PEP8。可使用 `Pylint "
+"<https://pylint.readthedocs.io/en/stable/>`_ 工具检查 PEP8 合规性。"
 
