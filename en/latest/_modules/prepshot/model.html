@@ -297,6 +297,16 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../Changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-16-0-may-6-2026">Version 1.16.0 - May 6, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#default-product-set">Default product set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#schema-change-breaking">Schema change (BREAKING)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#constraints">Constraints</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#output">Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#eligibility-defaults-shipped">Eligibility defaults shipped</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#default-requirement-values">Default requirement values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#regression">Regression</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-15-0-may-6-2026">Version 1.15.0 - May 6, 2026</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#added">Added</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#changed">Changed</a></li>
@@ -551,9 +561,7 @@
 <span class="kn">from</span> <span class="nn">prepshot._model.finance</span> <span class="kn">import</span> <span class="n">AddFinanceConstraints</span>
 <span class="kn">from</span> <span class="nn">prepshot._model.reserve</span> <span class="kn">import</span> <span class="n">AddReserveConstraints</span>
 <span class="kn">from</span> <span class="nn">prepshot._model.dc_flow</span> <span class="kn">import</span> <span class="n">AddDCFlowConstraints</span>
-<span class="kn">from</span> <span class="nn">prepshot._model.unit_commitment</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">AddUnitCommitmentConstraints</span><span class="p">,</span> <span class="n">add_uc_cost_terms</span><span class="p">,</span>
-<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">prepshot._model.unit_commitment</span> <span class="kn">import</span> <span class="n">AddUnitCommitmentConstraints</span>
 <span class="kn">from</span> <span class="nn">prepshot.logs</span> <span class="kn">import</span> <span class="n">timer</span>
 <span class="kn">from</span> <span class="nn">prepshot.solver</span> <span class="kn">import</span> <span class="n">get_solver</span>
 <span class="kn">from</span> <span class="nn">prepshot.solver</span> <span class="kn">import</span> <span class="n">set_solver_parameters</span>
@@ -692,13 +700,9 @@
         <span class="n">model</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">zone</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">zone</span><span class="p">,</span> <span class="n">lb</span><span class="o">=</span><span class="mi">0</span>
     <span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;is_reserve&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
-        <span class="n">model</span><span class="o">.</span><span class="n">reserve_up</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">add_variables</span><span class="p">(</span>
-            <span class="n">model</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">zone</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">tech</span><span class="p">,</span> <span class="n">lb</span><span class="o">=</span><span class="mi">0</span>
-        <span class="p">)</span>
-        <span class="n">model</span><span class="o">.</span><span class="n">reserve_down</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">add_variables</span><span class="p">(</span>
-            <span class="n">model</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">zone</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">tech</span><span class="p">,</span> <span class="n">lb</span><span class="o">=</span><span class="mi">0</span>
-        <span class="p">)</span>
+    <span class="c1"># Reserve variables are created INSIDE AddReserveConstraints (v1.16)</span>
+    <span class="c1"># because the product set comes from the eligibility CSV at runtime</span>
+    <span class="c1"># rather than being a fixed list here. Skip if reserve is off.</span>
 
     <span class="k">if</span> <span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;isinflow&#39;</span><span class="p">]:</span>
         <span class="n">model</span><span class="o">.</span><span class="n">genflow</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">add_variables</span><span class="p">(</span>
