@@ -1,0 +1,1472 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+<meta property="og:title" content="Quickstart (30 minutes)" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="Quickstart.html" />
+<meta property="og:site_name" content="PREP-SHOT documentation" />
+<meta property="og:description" content="Run online (zero install): Open in Colab – click and run; needs a Google account. Run locally: clone the repo and install with the notebook extra: Goal: take a fresh checkout of PREP-SHOT, solve th..." />
+<meta name="description" content="Run online (zero install): Open in Colab – click and run; needs a Google account. Run locally: clone the repo and install with the notebook extra: Goal: take a fresh checkout of PREP-SHOT, solve th..." />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Quickstart (30 minutes) &mdash; PREP-SHOT (latest) documentation in English</title>
+
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="_static/tabs.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/algolia.css" type="text/css" />
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/custom.css?6" type="text/css" />
+      <link rel="stylesheet" href="_static/css/dev.css" type="text/css" />
+    <link rel="shortcut icon" href="_static/logo.png"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="_static/es5/tex-chtml.js"></script>
+        <script src="_static/js/custom.js?3"></script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+        <script defer="defer" src="_static/js/algolia.js"></script>
+    <script src="_static/js/theme.js"></script><meta name="theme-color" content="#3d8fcc">
+  
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Model Inputs/Outputs" href="Model_input_output.html" />
+    <link rel="prev" title="Installation" href="Installation.html" />
+<meta name="doc_version" content="latest">
+<meta name="doc_is_latest" content="">
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html">
+            <img src="_static/SVG-03.svg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                latest
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Installation.html#step-1-download">Step 1: Download</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Installation.html#step-2-install">Step 2: Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Installation.html#step-3-run-a-scenario">Step 3: Run a scenario</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Installation.html#step-4-use-prep-shot-as-a-python-library">Step 4: Use PREP-SHOT as a Python library</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Quickstart (30 minutes)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Scenario-background">Scenario background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Step-1-–-Install-(5-minutes)">Step 1 – Install (5 minutes)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Step-2-–-Solve-the-shipped-example-(5-minutes)">Step 2 – Solve the shipped example (5 minutes)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Step-3-–-Open-the-results-(10-minutes)">Step 3 – Open the results (10 minutes)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Step-4-–-Change-one-input-and-re-solve-(5-minutes)">Step 4 – Change one input and re-solve (5 minutes)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Step-5-–-Where-to-next">Step 5 – Where to next</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Model_input_output.html">Model Inputs/Outputs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Model_input_output.html#input-file-format">Input file format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Model_input_output.html#inputs">Inputs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Model_input_output.html#required-inputs">Required inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Model_input_output.html#hydropower-inputs-active-when-isinflow-true-in-config-json">Hydropower inputs (active when <code class="docutils literal notranslate"><span class="pre">isinflow=true</span></code> in <code class="docutils literal notranslate"><span class="pre">config.json</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Model_input_output.html#optional-inputs-skipped-when-absent">Optional inputs (skipped when absent)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Model_input_output.html#outputs">Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Model_input_output.html#running-scenarios">Running scenarios</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Model_input_output.html#setting-global-parameters">Setting global parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Mathematical_notations.html">Mathematical Notation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Mathematical_notations.html#unit-list">Unit List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Mathematical_notations.html#set-list">Set List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Mathematical_notations.html#variable-list">Variable List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Mathematical_notations.html#parameter-list">Parameter List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Mathematical_notations.html#objective-functions">Objective Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#costs">Costs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#factors">Factors</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Mathematical_notations.html#constraints">Constraints</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#retirement">Retirement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#carbon-emission">Carbon Emission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#power-balance">Power Balance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#transmission">Transmission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#power-output">Power Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#power-output-variation">Power output variation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#energy-storage">Energy storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#water-balance">Water balance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#reservoir-outflow">Reservoir outflow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#reservoir-storage">Reservoir storage</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="how_to/index.html">How-To Recipes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="how_to/add_a_technology.html">Add a new technology</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="how_to/add_a_technology.html#steps">Steps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="how_to/add_a_technology.html#verify">Verify</a></li>
+<li class="toctree-l3"><a class="reference internal" href="how_to/add_a_technology.html#common-pitfalls">Common pitfalls</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="how_to/tighten_a_carbon_cap.html">Tighten a carbon cap</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="how_to/tighten_a_carbon_cap.html#steps">Steps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="how_to/tighten_a_carbon_cap.html#verify">Verify</a></li>
+<li class="toctree-l3"><a class="reference internal" href="how_to/tighten_a_carbon_cap.html#custom-cap-regions">Custom cap regions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="how_to/tighten_a_carbon_cap.html#common-pitfalls">Common pitfalls</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="how_to/compare_two_scenarios.html">Compare two scenarios</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="how_to/compare_two_scenarios.html#setup">Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="how_to/compare_two_scenarios.html#recipe">Recipe</a></li>
+<li class="toctree-l3"><a class="reference internal" href="how_to/compare_two_scenarios.html#plot-the-capacity-reshuffle">Plot the capacity reshuffle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="how_to/compare_two_scenarios.html#common-pitfalls">Common pitfalls</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="how_to/inspect_lmps.html">Inspect locational marginal prices</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="how_to/inspect_lmps.html#recipe">Recipe</a></li>
+<li class="toctree-l3"><a class="reference internal" href="how_to/inspect_lmps.html#sign-convention">Sign convention</a></li>
+<li class="toctree-l3"><a class="reference internal" href="how_to/inspect_lmps.html#npv-vs-real-year-prices">NPV vs real-year prices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="how_to/inspect_lmps.html#common-pitfalls">Common pitfalls</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="how_to/add_a_cascading_hydropower_system.html">Add a cascading hydropower system</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="how_to/add_a_cascading_hydropower_system.html#steps">Steps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="how_to/add_a_cascading_hydropower_system.html#verify">Verify</a></li>
+<li class="toctree-l3"><a class="reference internal" href="how_to/add_a_cascading_hydropower_system.html#common-pitfalls">Common pitfalls</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/prepshot.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/prepshot.set_up.html">set_up</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.set_up.html#prepshot.set_up.initialize_environment"><code class="docutils literal notranslate"><span class="pre">initialize_environment()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.set_up.html#prepshot.set_up.parse_cli_arguments"><code class="docutils literal notranslate"><span class="pre">parse_cli_arguments()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/prepshot.logs.html">logs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.logs.html#prepshot.logs.log_parameter_info"><code class="docutils literal notranslate"><span class="pre">log_parameter_info()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.logs.html#prepshot.logs.setup_logging"><code class="docutils literal notranslate"><span class="pre">setup_logging()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.logs.html#prepshot.logs.timer"><code class="docutils literal notranslate"><span class="pre">timer()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/prepshot.load_data.html">load_data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.load_data.html#prepshot.load_data.check_schema"><code class="docutils literal notranslate"><span class="pre">check_schema()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.load_data.html#prepshot.load_data.compute_cost_factors"><code class="docutils literal notranslate"><span class="pre">compute_cost_factors()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.load_data.html#prepshot.load_data.extract_config_data"><code class="docutils literal notranslate"><span class="pre">extract_config_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.load_data.html#prepshot.load_data.extract_sets"><code class="docutils literal notranslate"><span class="pre">extract_sets()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.load_data.html#prepshot.load_data.load_excel_data"><code class="docutils literal notranslate"><span class="pre">load_excel_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.load_data.html#prepshot.load_data.load_json"><code class="docutils literal notranslate"><span class="pre">load_json()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.load_data.html#prepshot.load_data.process_data"><code class="docutils literal notranslate"><span class="pre">process_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.load_data.html#prepshot.load_data.read_long_csv"><code class="docutils literal notranslate"><span class="pre">read_long_csv()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/prepshot.solver.html">solver</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.solver.html#prepshot.solver.get_solver"><code class="docutils literal notranslate"><span class="pre">get_solver()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.solver.html#prepshot.solver.set_solver_parameters"><code class="docutils literal notranslate"><span class="pre">set_solver_parameters()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.solver.html#prepshot.solver.solve_model"><code class="docutils literal notranslate"><span class="pre">solve_model()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/prepshot.model.html">model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.model.html#prepshot.model.create_model"><code class="docutils literal notranslate"><span class="pre">create_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.model.html#prepshot.model.define_basic_sets"><code class="docutils literal notranslate"><span class="pre">define_basic_sets()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.model.html#prepshot.model.define_complex_sets"><code class="docutils literal notranslate"><span class="pre">define_complex_sets()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.model.html#prepshot.model.define_constraints"><code class="docutils literal notranslate"><span class="pre">define_constraints()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.model.html#prepshot.model.define_model"><code class="docutils literal notranslate"><span class="pre">define_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.model.html#prepshot.model.define_variables"><code class="docutils literal notranslate"><span class="pre">define_variables()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/prepshot._model.html">constraints</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot._model.co2.html">co2</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.co2.html#prepshot._model.co2.AddCo2EmissionConstraints"><code class="docutils literal notranslate"><span class="pre">AddCo2EmissionConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot._model.cost.html">cost</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.cost.html#prepshot._model.cost.AddCostObjective"><code class="docutils literal notranslate"><span class="pre">AddCostObjective</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot._model.demand.html">demand</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.demand.html#prepshot._model.demand.AddDemandConstraints"><code class="docutils literal notranslate"><span class="pre">AddDemandConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot._model.generation.html">generation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.generation.html#prepshot._model.generation.AddGenerationConstraints"><code class="docutils literal notranslate"><span class="pre">AddGenerationConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot._model.head_iteration.html">head_iteration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.head_iteration.html#prepshot._model.head_iteration.compute_error"><code class="docutils literal notranslate"><span class="pre">compute_error()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.head_iteration.html#prepshot._model.head_iteration.initialize_waterhead"><code class="docutils literal notranslate"><span class="pre">initialize_waterhead()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.head_iteration.html#prepshot._model.head_iteration.process_model_solution"><code class="docutils literal notranslate"><span class="pre">process_model_solution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.head_iteration.html#prepshot._model.head_iteration.run_model_iteration"><code class="docutils literal notranslate"><span class="pre">run_model_iteration()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot._model.hydro.html">hydro</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.hydro.html#prepshot._model.hydro.AddHydropowerConstraints"><code class="docutils literal notranslate"><span class="pre">AddHydropowerConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot._model.investment.html">investment</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.investment.html#prepshot._model.investment.AddInvestmentConstraints"><code class="docutils literal notranslate"><span class="pre">AddInvestmentConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot._model.nondispatchable.html">nondispatchable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot._model.storage.html">storage</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.storage.html#prepshot._model.storage.AddStorageConstraints"><code class="docutils literal notranslate"><span class="pre">AddStorageConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot._model.transmission.html">transmission</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.transmission.html#prepshot._model.transmission.AddTransmissionConstraints"><code class="docutils literal notranslate"><span class="pre">AddTransmissionConstraints</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/prepshot.utils.html">utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.utils.html#prepshot.utils.calc_cost_factor"><code class="docutils literal notranslate"><span class="pre">calc_cost_factor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.utils.html#prepshot.utils.calc_interest_rate"><code class="docutils literal notranslate"><span class="pre">calc_interest_rate()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.utils.html#prepshot.utils.calc_inv_cost_factor"><code class="docutils literal notranslate"><span class="pre">calc_inv_cost_factor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.utils.html#prepshot.utils.cartesian_product"><code class="docutils literal notranslate"><span class="pre">cartesian_product()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.utils.html#prepshot.utils.check_positive"><code class="docutils literal notranslate"><span class="pre">check_positive()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.utils.html#prepshot.utils.interpolate_z_by_q_or_s"><code class="docutils literal notranslate"><span class="pre">interpolate_z_by_q_or_s()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/prepshot.output_data.html">output_data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.output_data.html#prepshot.output_data.create_data_array"><code class="docutils literal notranslate"><span class="pre">create_data_array()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.output_data.html#prepshot.output_data.extract_results_hydro"><code class="docutils literal notranslate"><span class="pre">extract_results_hydro()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.output_data.html#prepshot.output_data.extract_results_non_hydro"><code class="docutils literal notranslate"><span class="pre">extract_results_non_hydro()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.output_data.html#prepshot.output_data.save_result"><code class="docutils literal notranslate"><span class="pre">save_result()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.output_data.html#prepshot.output_data.save_to_excel"><code class="docutils literal notranslate"><span class="pre">save_to_excel()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.output_data.html#prepshot.output_data.update_output_filename"><code class="docutils literal notranslate"><span class="pre">update_output_filename()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Stability.html">Stability policy</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Stability.html#v1-x-research-evolving-current">v1.x -- research / evolving (current)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Stability.html#v2-0-stable-planned">v2.0 -- stable (planned)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-0-1-0-jun-24-2024">Version 0.1.0 - Jun 24, 2024</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-0-1-1-jul-11-2024">Version 0.1.1 - Jul 11, 2024</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#added">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#fixed">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#changed">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#deprecated">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-0-1-2-jul-22-2024">Version 0.1.2 - Jul 22, 2024</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id2">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id3">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id4">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-0-jul-21-2025">Version 1.0 - Jul 21, 2025</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-1-0-may-2-2026">Version 1.1.0 - May 2, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id5">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#changed-breaking">Changed (Breaking)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-1-1-may-2-2026">Version 1.1.1 - May 2, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id6">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id7">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id8">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-1-2-may-2-2026">Version 1.1.2 - May 2, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id9">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id10">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-2-0-may-2-2026">Version 1.2.0 - May 2, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id11">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id12">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#migration-notes">Migration notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-3-0-may-2-2026">Version 1.3.0 - May 2, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id13">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id14">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#removed">Removed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-3-1-may-2-2026">Version 1.3.1 - May 2, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id15">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#tested-with">Tested with</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id16">Migration notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-3-2-may-2-2026">Version 1.3.2 - May 2, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id17">Added</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-4-0-may-2-2026">Version 1.4.0 - May 2, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#why-long-format">Why long-format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id18">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id19">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id20">Migration notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-5-0-may-2-2026">Version 1.5.0 - May 2, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id21">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id22">Changed (Breaking)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#annotation-columns">Annotation columns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#column-renames-for-clarity">Column renames for clarity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#group-3-migration">Group 3 migration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id23">Migration notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-6-0-may-3-2026">Version 1.6.0 - May 3, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id24">Removed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id25">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id26">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-7-0-may-3-2026">Version 1.7.0 - May 3, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id27">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id28">Removed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id29">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-8-0-may-3-2026">Version 1.8.0 - May 3, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id30">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id31">Removed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id32">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-8-1-may-3-2026">Version 1.8.1 - May 3, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id33">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-9-0-may-3-2026">Version 1.9.0 - May 3, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id34">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id35">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#notes">Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-9-1-may-3-2026">Version 1.9.1 - May 3, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id36">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id37">Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-10-0-may-5-2026">Version 1.10.0 - May 5, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id38">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id39">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id40">Removed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-11-0-may-5-2026">Version 1.11.0 - May 5, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id41">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id42">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id43">Removed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-11-1-may-5-2026">Version 1.11.1 - May 5, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id44">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id45">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id46">Removed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id47">Notes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Community</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Forum.html">Discussion</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Forum.html#github-discussions">GitHub Discussions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Forum.html#private-queries">Private Queries</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Contribution.html">Contribution</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Contribution.html#development-process">Development Process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Contribution.html#building-documentation">Building Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Contribution.html#contributing-guidelines">Contributing Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Contribution.html#translating-the-documentation">Translating the Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Citations.html">Citation Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Citations.html#publications-by-topic">Publications by Topic</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="References.html">References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PREP-SHOT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+<li>
+	<div style="font-size: 105%;font-weight: 600;">
+		
+	</div>
+	<ul class="wy-breadcrumbs">
+		
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Quickstart (30 minutes)</li>
+	</ul>
+</li>
+
+
+<li style="float: right; text-align: right;">
+	<ul>
+		
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/PREP-NexT/PREP-SHOT/blob/main/doc/source/Quickstart.ipynb" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+	</ul>
+
+	<style>
+		.godot-edit-guidelines {
+			font-size: 14px;
+			float: right;
+			clear: both;
+			padding-top: 4px;
+		}
+
+		@media screen and (max-width: 480px) {
+			.godot-edit-guidelines {
+				display: none;
+			}
+		}
+	</style>
+	<a class="godot-edit-guidelines" href="https://prep-next.github.io/PREP-SHOT/Changelog.html#contributing-to-prep-shot">
+		Learn how to contribute!
+	</a>
+</li>
+
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+<div itemprop="articleBody">
+  
+
+  
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 0;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars and line breaks on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+    white-space: pre;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt .copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+.jp-RenderedHTMLCommon table,
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+.jp-RenderedHTMLCommon thead,
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+.jp-RenderedHTMLCommon tr,
+.jp-RenderedHTMLCommon th,
+.jp-RenderedHTMLCommon td,
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+.jp-RenderedHTMLCommon th,
+div.rendered_html th {
+  font-weight: bold;
+}
+.jp-RenderedHTMLCommon tbody tr:nth-child(odd),
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+.jp-RenderedHTMLCommon tbody tr:hover,
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<p><strong>Run online (zero install):</strong> <a class="reference external" href="https://colab.research.google.com/github/PREP-NexT/PREP-SHOT/blob/main/doc/source/Quickstart.ipynb">Open in Colab</a> – click and run; needs a Google account.</p>
+<p><strong>Run locally:</strong> clone the repo and install with the <code class="docutils literal notranslate"><span class="pre">notebook</span></code> extra:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/PREP-NexT/PREP-SHOT.git
+<span class="nb">cd</span><span class="w"> </span>PREP-SHOT
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.<span class="o">[</span>notebook<span class="o">]</span>
+jupyter<span class="w"> </span>lab<span class="w"> </span>doc/source/Quickstart.ipynb
+</pre></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># On Google Colab, install PREP-SHOT and clone the repo so the</span>
+<span class="c1"># path-walk below can locate run.py / config.json. No-op on</span>
+<span class="c1"># Local installs already have prepshot importable.</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">google.colab</span>  <span class="c1"># type: ignore  # noqa: F401</span>
+    <span class="n">IS_COLAB</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="n">IS_COLAB</span> <span class="o">=</span> <span class="kc">False</span>
+
+<span class="k">if</span> <span class="n">IS_COLAB</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">os</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="s1">&#39;/content/PREP-SHOT&#39;</span><span class="p">):</span>
+        <span class="o">!</span>git<span class="w"> </span>clone<span class="w"> </span>--depth<span class="o">=</span><span class="m">1</span><span class="w"> </span>https://github.com/PREP-NexT/PREP-SHOT.git<span class="w"> </span>/content/PREP-SHOT
+    <span class="o">%</span><span class="k">cd</span> /content/PREP-SHOT
+    <span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>--quiet<span class="w"> </span>-e<span class="w"> </span>.
+    <span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>--quiet<span class="w"> </span>matplotlib<span class="w"> </span>h5netcdf
+<br/></pre></div>
+</div>
+</div>
+<section id="Quickstart-(30-minutes)">
+<h1>Quickstart (30 minutes)<a class="headerlink" href="#Quickstart-(30-minutes)" title="Permalink to this heading">¶</a></h1>
+<p>Goal: take a fresh checkout of PREP-SHOT, solve the shipped example, read the results, change one input, and re-solve – all in about half an hour. No prior knowledge of capacity-expansion modeling is assumed; everything happens against the <code class="docutils literal notranslate"><span class="pre">examples/three_zone/</span></code> dataset that ships with the repo.</p>
+<p>If anything in this page does not work for you, please open a <a class="reference external" href="https://github.com/PREP-NexT/PREP-SHOT/issues">GitHub issue</a> – we read every report and a broken Quickstart is the bug we most want to know about.</p>
+<section id="Scenario-background">
+<h2>Scenario background<a class="headerlink" href="#Scenario-background" title="Permalink to this heading">¶</a></h2>
+<p>The shipped <code class="docutils literal notranslate"><span class="pre">examples/three_zone/</span></code> dataset is inspired by real-world data, drawing primarily from the U.S. Energy Information Administration (<a class="reference external" href="https://www.eia.gov/electricity/gridmonitor/dashboard/electric_overview/regional/REG-NW">EIA</a>), the U.S. Army Corps of Engineers (<a class="reference external" href="https://www.nwd-wc.usace.army.mil/dd/common/dataquery/www/">USACE</a>), and the U.S. National Renewable Energy Laboratory (<a class="reference external" href="https://atb.nrel.gov/electricity/2022/data">NREL</a>).</p>
+<p>It models a cascading hydropower system of <strong>15 interconnected stations</strong> across <strong>three balancing authorities</strong> – BA1, BA2, and BA3 – each with distinct jurisdictional connections to their local reservoirs. Aside from hydropower, no other existing generation or transmission is in place; the model decides what to build from four candidate technologies (coal, wind, solar, energy storage) along an electric-mix pathway from 2020 to 2030 toward zero-carbon emissions. We use a 48-hour representative
+period for the analysis.</p>
+</section>
+<section id="Step-1-–-Install-(5-minutes)">
+<h2>Step 1 – Install (5 minutes)<a class="headerlink" href="#Step-1-–-Install-(5-minutes)" title="Permalink to this heading">¶</a></h2>
+<p>PREP-SHOT requires Python 3.9 or newer. Conda is recommended so the optimization-solver dependencies stay isolated:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>prep-shot<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.11<span class="w"> </span>-y
+conda<span class="w"> </span>activate<span class="w"> </span>prep-shot
+
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/PREP-NexT/PREP-SHOT.git
+<span class="nb">cd</span><span class="w"> </span>PREP-SHOT
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+</pre></div>
+</div>
+<p>The default solver is the open-source <a class="reference external" href="https://highs.dev/">HiGHS</a>, installed automatically as a wheel. To use a commercial solver (Gurobi, COPT, MOSEK) instead, set <code class="docutils literal notranslate"><span class="pre">solver</span></code> in the scenario’s <code class="docutils literal notranslate"><span class="pre">config.json</span></code> – see the <a class="reference internal" href="Model_input_output.html"><span class="doc">Model Inputs/Outputs page</span></a>.</p>
+</section>
+<section id="Step-2-–-Solve-the-shipped-example-(5-minutes)">
+<h2>Step 2 – Solve the shipped example (5 minutes)<a class="headerlink" href="#Step-2-–-Solve-the-shipped-example-(5-minutes)" title="Permalink to this heading">¶</a></h2>
+<p>The repo ships a self-contained 3-zone, 11-year example in <code class="docutils literal notranslate"><span class="pre">examples/three_zone/</span></code>. We solve it programmatically so this notebook works regardless of the working directory.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">io</span>
+<span class="kn">import</span> <span class="nn">tempfile</span>
+<span class="kn">import</span> <span class="nn">pathlib</span>
+
+<span class="c1"># Notebooks inherit the kernel launcher&#39;s argv; clear it so</span>
+<span class="c1"># prepshot.set_up.parse_cli_arguments() sees no scenario flags.</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">argv</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;notebook&#39;</span><span class="p">]</span>
+
+<span class="c1"># Locate the repo root (the dir containing run.py).</span>
+<span class="n">repo_root</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span>
+<span class="k">while</span> <span class="ow">not</span> <span class="p">(</span><span class="n">repo_root</span> <span class="o">/</span> <span class="s1">&#39;run.py&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">repo_root</span> <span class="o">==</span> <span class="n">repo_root</span><span class="o">.</span><span class="n">parent</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+            <span class="s1">&#39;Could not find PREP-SHOT repo root; run this notebook &#39;</span>
+            <span class="s1">&#39;from a checkout of PREP-NexT/PREP-SHOT.&#39;</span>
+        <span class="p">)</span>
+    <span class="n">repo_root</span> <span class="o">=</span> <span class="n">repo_root</span><span class="o">.</span><span class="n">parent</span>
+<span class="n">scenario</span> <span class="o">=</span> <span class="n">repo_root</span> <span class="o">/</span> <span class="s1">&#39;examples&#39;</span> <span class="o">/</span> <span class="s1">&#39;three_zone&#39;</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Scenario: </span><span class="si">{</span><span class="n">scenario</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Scenario: /Users/energy/01-doing/PREP-SHOT-tutorial/PREP-SHOT/examples/three_zone
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">prepshot.cli</span> <span class="kn">import</span> <span class="n">main</span>
+
+<span class="c1"># HiGHS writes its progress log via C-level stdout (file</span>
+<span class="c1"># descriptor 1), which bypasses Python&#39;s sys.stdout. Redirect</span>
+<span class="c1"># the file descriptor to a tempfile during the solve so the</span>
+<span class="c1"># notebook output stays readable.</span>
+<span class="n">log</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="s1">&#39;w+&#39;</span><span class="p">,</span> <span class="n">delete</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;prepshot_solve_&#39;</span><span class="p">)</span>
+<span class="n">log_path</span> <span class="o">=</span> <span class="n">log</span><span class="o">.</span><span class="n">name</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+<span class="n">saved</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">dup</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">os</span><span class="o">.</span><span class="n">dup2</span><span class="p">(</span><span class="n">log</span><span class="o">.</span><span class="n">fileno</span><span class="p">(),</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">cwd_before</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+<span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">scenario</span><span class="p">)</span>  <span class="c1"># solve_model writes output/ relative to cwd</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">solved</span> <span class="o">=</span> <span class="n">main</span><span class="p">(</span><span class="n">root_dir</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">scenario</span><span class="p">))</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">dup2</span><span class="p">(</span><span class="n">saved</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">saved</span><span class="p">)</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">cwd_before</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;log: </span><span class="si">{</span><span class="n">log_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+2026-05-05 10:08:15 INFO: Set parameter solver to value highs
+2026-05-05 10:08:15 INFO: Set parameter input folder to value input
+2026-05-05 10:08:15 INFO: Set parameter output_filename to value year.nc
+2026-05-05 10:08:15 INFO: Set parameter time_length to value 48
+2026-05-05 10:08:15 INFO: Start running &#39;create_model&#39;
+2026-05-05 10:08:15 INFO: Loaded HiGHS library: /Users/energy/miniconda3/envs/prep-shot/lib/python3.9/site-packages/highsbox/highs_dist/lib/libhighs.dylib
+2026-05-05 10:08:15 INFO: Loaded highs library automatically.
+2026-05-05 10:08:16 INFO: Finished &#39;create_model&#39; in 1.33 seds
+2026-05-05 10:08:16 INFO: Start running &#39;solve_model&#39;
+2026-05-05 10:08:16 INFO: Starting iteration recorded at 2026-05-05 10:08:16.
+2026-05-05 10:08:31 INFO: Water head error: 371.93%
+2026-05-05 10:11:14 INFO: Water head error: 23.38%
+2026-05-05 10:12:11 INFO: Water head error: 19.46%
+2026-05-05 10:12:11 WARNING: Ending iteration recorded at 2026-05-05 10:12:11.Failed to converge. Maximum iteration exceeded.
+2026-05-05 10:12:11 INFO: Finished &#39;solve_model&#39; in 234.56 seds
+2026-05-05 10:12:11 INFO: Start running &#39;extract_results_hydro&#39;
+2026-05-05 10:12:11 INFO: Start running &#39;extract_results_non_hydro&#39;
+2026-05-05 10:12:11 INFO: Finished &#39;extract_results_non_hydro&#39; in 0.03 seds
+2026-05-05 10:12:11 INFO: Finished &#39;extract_results_hydro&#39; in 0.04 seds
+2026-05-05 10:12:11 INFO: Results are written to ./output/year.nc
+2026-05-05 10:12:11 INFO: Start running &#39;save_to_excel&#39;
+2026-05-05 10:12:16 INFO: Finished &#39;save_to_excel&#39; in 5.41 seds
+2026-05-05 10:12:16 INFO: Results are written to separate excel files
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+log: /var/folders/y_/ypyrt83d1hl9fhjtt_ftpwg00000gn/T/prepshot_solve_nd6kj4sl
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Pick out the final objective value from the captured log.</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">log_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">log</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="n">objective_lines</span> <span class="o">=</span> <span class="p">[</span><span class="n">l</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">log</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span> <span class="k">if</span> <span class="s1">&#39;Objective value&#39;</span> <span class="ow">in</span> <span class="n">l</span><span class="p">]</span>
+<span class="k">if</span> <span class="n">objective_lines</span><span class="p">:</span>
+    <span class="c1"># The solve runs `iteration_number` head iterations; each</span>
+    <span class="c1"># prints an objective. The last one is what matters.</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">objective_lines</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Solved: </span><span class="si">{</span><span class="n">solved</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Objective value     :  1.8804965672e+11
+Solved: True
+</pre></div></div>
+</div>
+<p>On commodity hardware the default settings (48 hours, 1 representative month, 3 head iterations) finish in around 2 minutes. The solver log will report <code class="docutils literal notranslate"><span class="pre">Objective</span> <span class="pre">value</span> <span class="pre">:</span> <span class="pre">1.8809...e+11</span></code>, and a NetCDF file appears under <code class="docutils literal notranslate"><span class="pre">output/</span></code>. Everything in the rest of this notebook reads from that file.</p>
+<p>The log lines <code class="docutils literal notranslate"><span class="pre">Water</span> <span class="pre">head</span> <span class="pre">error:</span> <span class="pre">...</span></code> and the warning <code class="docutils literal notranslate"><span class="pre">Failed</span> <span class="pre">to</span> <span class="pre">converge.</span> <span class="pre">Maximum</span> <span class="pre">iteration</span> <span class="pre">exceeded.</span></code> are normal for the default settings: PREP-SHOT runs three head-iteration rounds and reports the final residual. Bump <code class="docutils literal notranslate"><span class="pre">iteration_number</span></code> in the scenario’s <code class="docutils literal notranslate"><span class="pre">config.json</span></code> if you want a tighter (slower) converged solve.</p>
+</section>
+<section id="Step-3-–-Open-the-results-(10-minutes)">
+<h2>Step 3 – Open the results (10 minutes)<a class="headerlink" href="#Step-3-–-Open-the-results-(10-minutes)" title="Permalink to this heading">¶</a></h2>
+<p>PREP-SHOT writes results in <a class="reference external" href="https://docs.xarray.dev">xarray</a>’s NetCDF format, so any tool that reads NetCDF can consume them.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="n">config</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">((</span><span class="n">scenario</span> <span class="o">/</span> <span class="s1">&#39;config.json&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">())</span>
+<span class="c1"># config stores the filename WITHOUT extension; the model writes</span>
+<span class="c1"># both .nc (xarray) and .xlsx alongside each other.</span>
+<span class="n">output_path</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">scenario</span> <span class="o">/</span> <span class="s1">&#39;output&#39;</span>
+    <span class="o">/</span> <span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;general_parameters&#39;</span><span class="p">][</span><span class="s1">&#39;output_filename&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;.nc&#39;</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Reading results from: </span><span class="si">{</span><span class="n">output_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="n">output_path</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">data_vars</span><span class="p">))</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Reading results from: /Users/energy/01-doing/PREP-SHOT-tutorial/PREP-SHOT/examples/three_zone/output/year.nc
+[&#39;carbon&#39;, &#39;carbon_breakdown&#39;, &#39;charge&#39;, &#39;cost&#39;, &#39;cost_fix&#39;, &#39;cost_fix_breakdown&#39;, &#39;cost_newline&#39;, &#39;cost_newline_breakdown&#39;, &#39;cost_newtech&#39;, &#39;cost_newtech_breakdown&#39;, &#39;cost_var&#39;, &#39;cost_var_breakdown&#39;, &#39;gen&#39;, &#39;genflow&#39;, &#39;income&#39;, &#39;install&#39;, &#39;public_debt_newtech&#39;, &#39;shadow_price_demand&#39;, &#39;spillflow&#39;, &#39;trans_export&#39;]
+</pre></div></div>
+</div>
+<p>Three things worth a first look:</p>
+<p><strong>1. Total cost.</strong> A single number, the NPV of system cost over the planning horizon.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total cost: $</span><span class="si">{</span><span class="nb">float</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">cost</span><span class="p">)</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Total cost: $188,049,656,721
+</pre></div></div>
+</div>
+<p><strong>2. Installed capacity over time.</strong> Which technologies expanded, in which zones, and when.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">install_by_year</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="s2">&quot;install&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="s2">&quot;zone&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">()</span>
+<span class="n">install_by_year</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>tech</th>
+      <th>Coal</th>
+      <th>Solar</th>
+      <th>Wind</th>
+      <th>Storage</th>
+      <th>Grand_Coulee</th>
+      <th>Chief_Joseph</th>
+      <th>Wells</th>
+      <th>Rocky_Reach</th>
+      <th>Rock_Island</th>
+      <th>Wanapum</th>
+      <th>Priest_Rapids</th>
+      <th>Lower_Granite</th>
+      <th>Little_Goose</th>
+      <th>Lower_Monumental</th>
+      <th>Ice_Harbor</th>
+      <th>McNary</th>
+      <th>John_Day</th>
+      <th>The_Dalles</th>
+      <th>Bonneville</th>
+    </tr>
+    <tr>
+      <th>year</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2020</th>
+      <td>34.526238</td>
+      <td>0.000000</td>
+      <td>28044.058684</td>
+      <td>1.109202e-13</td>
+      <td>5054.0</td>
+      <td>2234.0</td>
+      <td>741.0</td>
+      <td>1126.0</td>
+      <td>482.0</td>
+      <td>890.0</td>
+      <td>828.0</td>
+      <td>747.0</td>
+      <td>748.0</td>
+      <td>784.0</td>
+      <td>525.0</td>
+      <td>1022.0</td>
+      <td>1943.0</td>
+      <td>1414.0</td>
+      <td>921.0</td>
+    </tr>
+    <tr>
+      <th>2021</th>
+      <td>34.526238</td>
+      <td>0.000000</td>
+      <td>28044.058684</td>
+      <td>1.109202e-13</td>
+      <td>5054.0</td>
+      <td>2234.0</td>
+      <td>741.0</td>
+      <td>1126.0</td>
+      <td>482.0</td>
+      <td>890.0</td>
+      <td>828.0</td>
+      <td>747.0</td>
+      <td>748.0</td>
+      <td>784.0</td>
+      <td>525.0</td>
+      <td>1022.0</td>
+      <td>1943.0</td>
+      <td>1414.0</td>
+      <td>921.0</td>
+    </tr>
+    <tr>
+      <th>2022</th>
+      <td>34.526238</td>
+      <td>0.000000</td>
+      <td>28044.058684</td>
+      <td>1.109202e-13</td>
+      <td>5054.0</td>
+      <td>2234.0</td>
+      <td>741.0</td>
+      <td>1126.0</td>
+      <td>482.0</td>
+      <td>890.0</td>
+      <td>828.0</td>
+      <td>747.0</td>
+      <td>748.0</td>
+      <td>784.0</td>
+      <td>525.0</td>
+      <td>1022.0</td>
+      <td>1943.0</td>
+      <td>1414.0</td>
+      <td>921.0</td>
+    </tr>
+    <tr>
+      <th>2023</th>
+      <td>34.526238</td>
+      <td>0.000000</td>
+      <td>28044.058684</td>
+      <td>1.109202e-13</td>
+      <td>5054.0</td>
+      <td>2234.0</td>
+      <td>741.0</td>
+      <td>1126.0</td>
+      <td>482.0</td>
+      <td>890.0</td>
+      <td>828.0</td>
+      <td>747.0</td>
+      <td>748.0</td>
+      <td>784.0</td>
+      <td>525.0</td>
+      <td>1022.0</td>
+      <td>1943.0</td>
+      <td>1414.0</td>
+      <td>921.0</td>
+    </tr>
+    <tr>
+      <th>2024</th>
+      <td>34.526238</td>
+      <td>19256.365123</td>
+      <td>28044.058684</td>
+      <td>1.109202e-13</td>
+      <td>5054.0</td>
+      <td>2234.0</td>
+      <td>741.0</td>
+      <td>1126.0</td>
+      <td>482.0</td>
+      <td>890.0</td>
+      <td>828.0</td>
+      <td>747.0</td>
+      <td>748.0</td>
+      <td>784.0</td>
+      <td>525.0</td>
+      <td>1022.0</td>
+      <td>1943.0</td>
+      <td>1414.0</td>
+      <td>921.0</td>
+    </tr>
+    <tr>
+      <th>2025</th>
+      <td>34.526238</td>
+      <td>19256.365123</td>
+      <td>28044.058684</td>
+      <td>1.109202e-13</td>
+      <td>5054.0</td>
+      <td>2234.0</td>
+      <td>741.0</td>
+      <td>1126.0</td>
+      <td>482.0</td>
+      <td>890.0</td>
+      <td>828.0</td>
+      <td>747.0</td>
+      <td>748.0</td>
+      <td>784.0</td>
+      <td>525.0</td>
+      <td>1022.0</td>
+      <td>1943.0</td>
+      <td>1414.0</td>
+      <td>921.0</td>
+    </tr>
+    <tr>
+      <th>2026</th>
+      <td>34.526238</td>
+      <td>26561.715951</td>
+      <td>29957.801139</td>
+      <td>6.589525e-14</td>
+      <td>5054.0</td>
+      <td>2234.0</td>
+      <td>741.0</td>
+      <td>1126.0</td>
+      <td>482.0</td>
+      <td>890.0</td>
+      <td>828.0</td>
+      <td>747.0</td>
+      <td>748.0</td>
+      <td>784.0</td>
+      <td>525.0</td>
+      <td>1022.0</td>
+      <td>1943.0</td>
+      <td>1414.0</td>
+      <td>921.0</td>
+    </tr>
+    <tr>
+      <th>2027</th>
+      <td>34.526238</td>
+      <td>26561.715951</td>
+      <td>29957.801139</td>
+      <td>6.589525e-14</td>
+      <td>5054.0</td>
+      <td>2234.0</td>
+      <td>741.0</td>
+      <td>1126.0</td>
+      <td>482.0</td>
+      <td>890.0</td>
+      <td>828.0</td>
+      <td>747.0</td>
+      <td>748.0</td>
+      <td>784.0</td>
+      <td>525.0</td>
+      <td>1022.0</td>
+      <td>1943.0</td>
+      <td>1414.0</td>
+      <td>921.0</td>
+    </tr>
+    <tr>
+      <th>2028</th>
+      <td>34.526238</td>
+      <td>26561.715951</td>
+      <td>29957.801139</td>
+      <td>6.589525e-14</td>
+      <td>5054.0</td>
+      <td>2234.0</td>
+      <td>741.0</td>
+      <td>1126.0</td>
+      <td>482.0</td>
+      <td>890.0</td>
+      <td>828.0</td>
+      <td>747.0</td>
+      <td>748.0</td>
+      <td>784.0</td>
+      <td>525.0</td>
+      <td>1022.0</td>
+      <td>1943.0</td>
+      <td>1414.0</td>
+      <td>921.0</td>
+    </tr>
+    <tr>
+      <th>2029</th>
+      <td>34.526238</td>
+      <td>39334.186600</td>
+      <td>29957.801139</td>
+      <td>6.589525e-14</td>
+      <td>5054.0</td>
+      <td>2234.0</td>
+      <td>741.0</td>
+      <td>1126.0</td>
+      <td>482.0</td>
+      <td>890.0</td>
+      <td>828.0</td>
+      <td>747.0</td>
+      <td>748.0</td>
+      <td>784.0</td>
+      <td>525.0</td>
+      <td>1022.0</td>
+      <td>1943.0</td>
+      <td>1414.0</td>
+      <td>921.0</td>
+    </tr>
+    <tr>
+      <th>2030</th>
+      <td>34.526238</td>
+      <td>39334.186600</td>
+      <td>29957.801139</td>
+      <td>6.589525e-14</td>
+      <td>5054.0</td>
+      <td>2234.0</td>
+      <td>741.0</td>
+      <td>1126.0</td>
+      <td>482.0</td>
+      <td>890.0</td>
+      <td>828.0</td>
+      <td>747.0</td>
+      <td>748.0</td>
+      <td>784.0</td>
+      <td>525.0</td>
+      <td>1022.0</td>
+      <td>1943.0</td>
+      <td>1414.0</td>
+      <td>921.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p><strong>3. Locational marginal prices (shadow prices on demand).</strong> This is the dual of the power-balance constraint – the marginal cost of one extra MWh of demand at each <code class="docutils literal notranslate"><span class="pre">(hour,</span> <span class="pre">month,</span> <span class="pre">year,</span> <span class="pre">zone)</span></code>. Useful for diagnosing where the system is most stressed.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># LMP at zone BA1 in 2025, averaged over the modeled month:</span>
+<span class="n">lmp</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="s2">&quot;shadow_price_demand&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">zone</span><span class="o">=</span><span class="s2">&quot;BA1&quot;</span><span class="p">,</span> <span class="n">year</span><span class="o">=</span><span class="mi">2025</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="s2">&quot;month&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">lmp</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;xarray.DataArray &#39;shadow_price_demand&#39; (hour: 48)&gt; Size: 384B
+array([ 0.00000000e+00,  2.33266957e-13,  2.39959157e-13,  0.00000000e+00,
+        0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
+        0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
+        0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
+       -9.41463675e-14,  0.00000000e+00,  0.00000000e+00,  1.93438793e-02,
+        0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
+        0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
+        0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
+        0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
+        0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
+        0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
+        0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00])
+Coordinates:
+  * hour     (hour) int64 384B 1 2 3 4 5 6 7 8 9 ... 40 41 42 43 44 45 46 47 48
+    year     int64 8B 2025
+    zone     &lt;U3 12B &#39;BA1&#39;
+</pre></div></div>
+</div>
+<p>Values in <code class="docutils literal notranslate"><span class="pre">shadow_price_demand</span></code> are <strong>NPV-discounted</strong> dollars per MWh. To recover undiscounted real-year prices, divide by the year’s variable-cost factor (computed in <code class="docutils literal notranslate"><span class="pre">prepshot.load_data.compute_cost_factors</span></code>).</p>
+<p>A minimal generation-mix chart:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">gen_by_tech</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">ds</span><span class="p">[</span><span class="s2">&quot;gen&quot;</span><span class="p">]</span>
+    <span class="o">.</span><span class="n">sum</span><span class="p">([</span><span class="s2">&quot;hour&quot;</span><span class="p">,</span> <span class="s2">&quot;month&quot;</span><span class="p">,</span> <span class="s2">&quot;zone&quot;</span><span class="p">])</span>  <span class="c1"># sum over time and space</span>
+    <span class="o">.</span><span class="n">to_pandas</span><span class="p">()</span>                     <span class="c1"># rows=year, cols=tech</span>
+    <span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">lower</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>                   <span class="c1"># storage net-discharge can be ~0; clamp</span>
+<span class="p">)</span>
+<span class="c1"># Drop techs that never generate (e.g. storage round-trips to ~0):</span>
+<span class="n">gen_by_tech</span> <span class="o">=</span> <span class="n">gen_by_tech</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">gen_by_tech</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">gen_by_tech</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">area</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Generation (MWh)&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Generation mix over the planning horizon&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;center left&quot;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/Quickstart_19_0.png" src="_images/Quickstart_19_0.png" />
+</div>
+</div>
+</section>
+<section id="Step-4-–-Change-one-input-and-re-solve-(5-minutes)">
+<h2>Step 4 – Change one input and re-solve (5 minutes)<a class="headerlink" href="#Step-4-–-Change-one-input-and-re-solve-(5-minutes)" title="Permalink to this heading">¶</a></h2>
+<p>Every input is a CSV under <code class="docutils literal notranslate"><span class="pre">examples/three_zone/</span></code>. To see how the model responds to a change, try one of these single-file edits.</p>
+<p><strong>Option A – bump demand 20% in one zone.</strong> Open <code class="docutils literal notranslate"><span class="pre">examples/three_zone/demand.csv</span></code> (long format: <code class="docutils literal notranslate"><span class="pre">zone,</span> <span class="pre">year,</span> <span class="pre">month,</span> <span class="pre">hour,</span> <span class="pre">unit,</span> <span class="pre">value</span></code>) and multiply the BA1 column by 1.2 in your editor of choice. Then re-run from <code class="docutils literal notranslate"><span class="pre">examples/three_zone/</span></code> (<code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">examples/three_zone</span> <span class="pre">&amp;&amp;</span> <span class="pre">python</span> <span class="pre">-m</span> <span class="pre">prepshot</span></code>). The objective will rise – the model has to build more capacity or import more from neighboring zones to serve the extra load. <code class="docutils literal notranslate"><span class="pre">shadow_price_demand</span></code> at BA1 should also increase in the most constrained
+hours.</p>
+<p><strong>Option B – introduce a carbon tax.</strong> Open <code class="docutils literal notranslate"><span class="pre">examples/three_zone/policy_carbon_tax.csv</span></code> and replace the <code class="docutils literal notranslate"><span class="pre">value</span></code> column with a non-zero number (e.g. <code class="docutils literal notranslate"><span class="pre">50</span></code> USD/tonneCO2). Re-run from the scenario directory; the generation mix should shift away from coal and gas toward zero-carbon technologies, raising <code class="docutils literal notranslate"><span class="pre">cost_carbon</span></code> in the breakdown.</p>
+<p><strong>Tip – run scenarios without overwriting your baseline.</strong> Save your modified file as <code class="docutils literal notranslate"><span class="pre">examples/three_zone/demand_high.csv</span></code> and run <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">prepshot</span> <span class="pre">--demand=high</span></code> from inside <code class="docutils literal notranslate"><span class="pre">examples/three_zone/</span></code>. PREP-SHOT appends the suffix to the file name, so the baseline <code class="docutils literal notranslate"><span class="pre">demand.csv</span></code> is left untouched. Output goes to <code class="docutils literal notranslate"><span class="pre">examples/three_zone/output/year_high.nc</span></code>.</p>
+</section>
+<section id="Step-5-–-Where-to-next">
+<h2>Step 5 – Where to next<a class="headerlink" href="#Step-5-–-Where-to-next" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="Model_input_output.html"><span class="doc">Model Inputs/Outputs</span></a> – full input / output reference, including optional carbon-market and finance modules.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">`examples/southeast_asia/SoutheastAsia.ipynb</span></code> &lt;../../examples/southeast_asia/SoutheastAsia.ipynb&gt;`__ – a realistic case study (Lower Mekong basin, 5 countries, 57 cascading reservoirs).</p></li>
+<li><p><a class="reference internal" href="Mathematical_notations.html"><span class="doc">Mathematical Notation</span></a> – the underlying linear program.</p></li>
+<li><p><a class="reference internal" href="Changelog.html"><span class="doc">Changelog</span></a> – what’s new in each release.</p></li>
+</ul>
+<p>If you used PREP-SHOT in published work, please cite it – see the <a class="reference internal" href="Citations.html"><span class="doc">Citation Guide</span></a>. And if you ran into something rough, the fastest fix is to file an issue on <a class="reference external" href="https://github.com/PREP-NexT/PREP-SHOT/issues">GitHub</a>.</p>
+</section>
+</section>
+
+
+</div>
+</div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Model_input_output.html" class="btn btn-neutral float-right" title="Model Inputs/Outputs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023-2025, Zhanwei Liu and Xiaogang He (GPL-3.0).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> v: latest</span>
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dt>Versions</dt>
+      
+        <dd class="rtd-current-item">
+          <a href="/PREP-SHOT/en/latest/">latest</a>
+        </dd>
+      
+        <dd>
+          <a href="/PREP-SHOT/en/v1.0/">v1.0</a>
+        </dd>
+      
+    </dl>
+    <dl>
+      <dt>On GitHub</dt>
+      <dd><a href="https://github.com/PREP-NexT/PREP-SHOT">Project home</a></dd>
+      <dd><a href="https://github.com/PREP-NexT/PREP-SHOT/issues">Issues</a></dd>
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
