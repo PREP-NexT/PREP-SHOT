@@ -57,12 +57,12 @@ solver, and writes the solved variables back as a NetCDF file:
 .. mermaid::
 
    flowchart LR
-       A[examples/&lt;scenario&gt;/<br/>config.json + params.json + input/] --> B[load_data.py<br/>read_long_csv]
-       B --> C[model.py<br/>create_model]
-       C --> D[solver.py<br/>solve_model]
-       D --> E[output_data.py<br/>extract_results]
-       E --> F[output/&lt;name&gt;.nc<br/>+ .xlsx]
-       D -. head iteration<br/>(if isinflow=true) .-> C
+       A["examples/scenario/\nconfig.json\nparams.json\ninput/"] --> B["load_data.py\nread_long_csv"]
+       B --> C["model.py\ncreate_model"]
+       C --> D["solver.py\nsolve_model"]
+       D --> E["output_data.py\nextract_results"]
+       E --> F["output/name.nc\n+ .xlsx"]
+       D -. "head iteration\n(if isinflow=true)" .-> C
        style A fill:#e3f2fd
        style F fill:#e8f5e9
 
