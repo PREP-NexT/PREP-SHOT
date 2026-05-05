@@ -3,7 +3,6 @@
 # This file is distributed under the same license as the PREP-SHOT package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PREP-SHOT latest\n"
@@ -21,31 +20,33 @@ msgstr ""
 
 #: ../../source/Installation.rst:4
 msgid "Installation"
-msgstr ""
+msgstr "安装"
 
 #: ../../source/Installation.rst:6
 msgid ""
 "This page covers PREP-SHOT setup and library use. For a hands-on first "
 "solve, see :doc:`Quickstart`."
-msgstr ""
+msgstr "本页讲解 PREP-SHOT 的安装和作为 Python 库的使用方式。若想直接动手完成一次求解,请参阅 :doc:`Quickstart`。"
 
 #: ../../source/Installation.rst:11
 msgid "Step 1: Download"
-msgstr ""
+msgstr "第 1 步:下载"
 
 #: ../../source/Installation.rst:13
 msgid "Clone the repository:"
-msgstr ""
+msgstr "克隆代码仓库:"
 
 #: ../../source/Installation.rst:19
 msgid ""
 "Or download a `zip archive <https://github.com/PREP-NexT/PREP-"
 "SHOT/archive/refs/heads/main.zip>`__."
 msgstr ""
+"或下载 `zip 压缩包 <https://github.com/PREP-NexT/PREP-"
+"SHOT/archive/refs/heads/main.zip>`__。"
 
 #: ../../source/Installation.rst:23
 msgid "Step 2: Install"
-msgstr ""
+msgstr "第 2 步:安装"
 
 #: ../../source/Installation.rst:25
 msgid ""
@@ -53,6 +54,8 @@ msgid ""
 "/user-guide/tasks/manage-environments.html>`_ is recommended so the "
 "optimization-solver dependencies stay isolated:"
 msgstr ""
+"建议使用单独的 `conda 环境 <https://conda.io/projects/conda/en/latest/user-"
+"guide/tasks/manage-environments.html>`_,以便隔离求解器依赖:"
 
 #: ../../source/Installation.rst:36
 msgid ""
@@ -62,55 +65,62 @@ msgid ""
 "wheel; commercial solvers need a separate install and a ``solver`` change"
 " in the scenario's ``config.json``."
 msgstr ""
+"``pip install -e .`` 会以可编辑模式安装 PREP-SHOT,并自动安装 ``pyproject.toml`` "
+"中声明的所有运行时依赖。默认求解器 `HiGHS <https://highs.dev/>`_ 以 wheel "
+"形式自动安装;商用求解器需另行安装,并在算例的 ``config.json`` 中修改 ``solver`` 字段。"
 
 #: ../../source/Installation.rst:44
 msgid "HiGHS (default)"
-msgstr ""
+msgstr "HiGHS (默认)"
 
 #: ../../source/Installation.rst:46
 msgid ""
 "No extra install needed -- ``pip install -e .`` already pulled in "
 "``highsbox``, which ships HiGHS as a wheel. Confirm with:"
 msgstr ""
+"无需额外安装—— ``pip install -e .`` 已经引入了 ``highsbox``,它将 HiGHS 以 wheel "
+"形式提供。可用以下命令验证:"
 
 #: ../../source/Installation.rst:53 ../../source/Installation.rst:69
 #: ../../source/Installation.rst:84 ../../source/Installation.rst:99
 msgid "In ``config.json``:"
-msgstr ""
+msgstr "在 ``config.json`` 中:"
 
 #: ../../source/Installation.rst:59
 msgid "Gurobi"
-msgstr ""
+msgstr "Gurobi"
 
 #: ../../source/Installation.rst:61
 msgid ""
 "Install Gurobi from `gurobi.com <https://www.gurobi.com/features"
 "/academic-named-user-license/>`_ and obtain an academic license. Then:"
 msgstr ""
+"从 `gurobi.com <https://www.gurobi.com/features/academic-named-user-"
+"license/>`_ 下载并安装 Gurobi,申请学术许可证。然后执行:"
 
 #: ../../source/Installation.rst:75
 msgid "COPT"
-msgstr ""
+msgstr "COPT"
 
 #: ../../source/Installation.rst:77
 msgid ""
 "Install COPT from `copt.de <https://www.copt.de/>`_; academic licenses "
 "are free. Then:"
-msgstr ""
+msgstr "从 `copt.de <https://www.copt.de/>`_ 下载并安装 COPT;学术许可证免费。然后执行:"
 
 #: ../../source/Installation.rst:90
 msgid "MOSEK"
-msgstr ""
+msgstr "MOSEK"
 
 #: ../../source/Installation.rst:92
 msgid ""
 "Install MOSEK from `mosek.com <https://www.mosek.com/>`_; an academic "
 "license is free. Then:"
-msgstr ""
+msgstr "从 `mosek.com <https://www.mosek.com/>`_ 下载并安装 MOSEK;学术许可证免费。然后执行:"
 
 #: ../../source/Installation.rst:105
 msgid "Optional dependency groups:"
-msgstr ""
+msgstr "可选依赖组:"
 
 #: ../../source/Installation.rst:112
 msgid ""
@@ -118,10 +128,12 @@ msgid ""
 "stability promise. To pin a specific version meanwhile, install directly "
 "from GitHub:"
 msgstr ""
+"我们计划随 v2.0 稳定性承诺一同发布 PyPI 版本 (``pip install "
+"prepshot``)。在此之前,如需锁定特定版本,可直接从 GitHub 安装:"
 
 #: ../../source/Installation.rst:122
 msgid "Step 3: Run a scenario"
-msgstr ""
+msgstr "第 3 步:运行算例"
 
 #: ../../source/Installation.rst:124
 msgid ""
@@ -129,6 +141,8 @@ msgid ""
 " and run from inside it; see :doc:`Quickstart` for a hands-on walkthrough"
 " on the ``three_zone`` dataset."
 msgstr ""
+"``examples/`` 下的每个子目录都是一个自包含的算例。任选其一,进入该目录运行;参见 :doc:`Quickstart` 对 "
+"``three_zone`` 数据集的完整动手演练。"
 
 #: ../../source/Installation.rst:133
 msgid ""
@@ -137,16 +151,21 @@ msgid ""
 "countries, 57 reservoirs), and ``thailand`` (single-zone with 13 Mekong-"
 "basin reservoirs)."
 msgstr ""
+"仓库随附三个算例:``three_zone`` (人工合成的 3 区域算例,被 :doc:`Quickstart` "
+"使用)、``southeast_asia`` (湄公河下游,5 个国家,57 座水库)、``thailand`` (单一区域,13 "
+"座湄公河流域水库)。"
 
 #: ../../source/Installation.rst:138
 msgid ""
 "To run your own scenario, copy ``examples/three_zone/`` as a starting "
 "template and edit ``input/*.csv`` + ``config.json``."
 msgstr ""
+"如要运行自定义算例,可复制 ``examples/three_zone/`` 作为起始模板,然后编辑 ``input/*.csv`` 与 "
+"``config.json``。"
 
 #: ../../source/Installation.rst:143
 msgid "Step 4: Use PREP-SHOT as a Python library"
-msgstr ""
+msgstr "第 4 步:作为 Python 库使用 PREP-SHOT"
 
 #: ../../source/Installation.rst:145
 msgid ""
@@ -156,13 +175,16 @@ msgid ""
 "runs a full build-solve-save cycle on a directory containing "
 "``config.json`` and ``params.json``:"
 msgstr ""
+"在执行 ``pip install -e .`` 之后,可以直接从你自己的 Python 代码中导入和驱动 PREP-SHOT。最简单的入口是 "
+"``prepshot.cli.main``,它与 ``prepshot`` 命令行脚本等价,会在含有 ``config.json`` 与 "
+"``params.json`` 的目录上完整执行 \"建模—求解—保存\" 全过程:"
 
 #: ../../source/Installation.rst:159
 msgid ""
 "For finer-grained control -- multiple scenarios in the same Python "
 "process, inspecting the model after solving, skipping the default Excel "
 "output -- use the lower-level functions:"
-msgstr ""
+msgstr "如需更精细的控制——同一 Python 进程中运行多个算例、求解后查看模型、跳过默认 Excel 输出——可使用更底层的函数:"
 
 #: ../../source/Installation.rst:179
 msgid ""
@@ -170,4 +192,6 @@ msgid ""
 "surface for downstream code that depends on PREP-SHOT. See "
 ":doc:`Stability` for the full stability policy."
 msgstr ""
+"Python API 在整个 v1.x 系列保持稳定,是依赖 PREP-SHOT 的下游代码推荐使用的接口。完整的稳定性政策参见 "
+":doc:`Stability`。"
 
