@@ -6,8 +6,8 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="Changelog.html" />
 <meta property="og:site_name" content="PREP-SHOT documentation" />
-<meta property="og:description" content="Here, you'll find notable changes for each version of PREP-SHOT. Version 1.12.0 - May 5, 2026: New feature: operating-reserve constraints (LP relaxation, no unit commitment). Each plant's headroom ..." />
-<meta name="description" content="Here, you'll find notable changes for each version of PREP-SHOT. Version 1.12.0 - May 5, 2026: New feature: operating-reserve constraints (LP relaxation, no unit commitment). Each plant's headroom ..." />
+<meta property="og:description" content="Here, you'll find notable changes for each version of PREP-SHOT. Version 1.12.0 - May 5, 2026: New feature: operating-reserve constraints (LP relaxation, no unit commitment). Two reserve directions..." />
+<meta name="description" content="Here, you'll find notable changes for each version of PREP-SHOT. Version 1.12.0 - May 5, 2026: New feature: operating-reserve constraints (LP relaxation, no unit commitment). Two reserve directions..." />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Changelog &mdash; PREP-SHOT (latest) 简体中文文档</title>
 
@@ -548,43 +548,59 @@
 <section id="version-1-12-0-may-5-2026">
 <h2>Version 1.12.0 - May 5, 2026<a class="headerlink" href="#version-1-12-0-may-5-2026" title="此标题的永久链接">¶</a></h2>
 <p>New feature: operating-reserve constraints (LP relaxation, no unit
-commitment). Each plant's headroom on dispatched capacity can count
-toward a zonal reserve requirement; non-eligible techs (typically
-solar / wind / storage discharge) are forced to zero. The relaxation
-matches GenX's &quot;no-UC&quot; mode and is acceptable for capacity-expansion
-planning, not for sub-hourly dispatch studies.</p>
+commitment). Two reserve directions are tracked -- <strong>up</strong> (capacity
+available to ramp dispatch up if demand spikes / a unit trips) and
+<strong>down</strong> (capacity available to ramp down if VRE over-generates or
+load drops). Each plant's headroom above and below its current
+dispatch counts toward the corresponding zonal requirement;
+non-eligible techs (typically solar / wind / storage discharge) are
+forced to zero in both directions. The relaxation matches GenX's
+&quot;no-UC&quot; mode and is acceptable for capacity-expansion planning, not
+for sub-hourly dispatch studies.</p>
 <section id="added">
 <h3>Added<a class="headerlink" href="#added" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">prepshot/_model/reserve.py</span></code> -- new constraint class
-<code class="docutils literal notranslate"><span class="pre">AddReserveConstraints</span></code> with two rules per timestep:</p>
+<code class="docutils literal notranslate"><span class="pre">AddReserveConstraints</span></code> with four rules per timestep:</p>
 <ul>
-<li><p><strong>headroom</strong>: <code class="docutils literal notranslate"><span class="pre">reserve[h,m,y,z,t]</span> <span class="pre">&lt;=</span> <span class="pre">cap_existing[y,z,t]</span> <span class="pre">*</span>
+<li><p><strong>headroom up</strong>: <code class="docutils literal notranslate"><span class="pre">reserve_up[h,m,y,z,t]</span> <span class="pre">&lt;=</span> <span class="pre">cap_existing</span> <span class="pre">*</span>
 <span class="pre">p_max_pu</span> <span class="pre">*</span> <span class="pre">dt</span> <span class="pre">-</span> <span class="pre">gen[h,m,y,z,t]</span></code> for eligible techs (forced to 0
 otherwise).</p></li>
-<li><p><strong>requirement</strong>: <code class="docutils literal notranslate"><span class="pre">sum_t</span> <span class="pre">reserve[h,m,y,z,t]</span> <span class="pre">&gt;=</span>
-<span class="pre">reserve_requirement[z,y]</span> <span class="pre">*</span> <span class="pre">dt</span></code> per (zone, year, hour).</p></li>
+<li><p><strong>headroom down</strong>: <code class="docutils literal notranslate"><span class="pre">reserve_down[h,m,y,z,t]</span> <span class="pre">&lt;=</span> <span class="pre">gen[h,m,y,z,t]</span>
+<span class="pre">-</span> <span class="pre">cap_existing</span> <span class="pre">*</span> <span class="pre">p_min_pu</span> <span class="pre">*</span> <span class="pre">dt</span></code> for eligible techs (forced to 0
+otherwise).</p></li>
+<li><p><strong>requirement up / down</strong>: <code class="docutils literal notranslate"><span class="pre">sum_t</span> <span class="pre">reserve_&lt;dir&gt;[h,m,y,z,t]</span> <span class="pre">&gt;=</span>
+<span class="pre">reserve_requirement_&lt;dir&gt;[z,y]</span> <span class="pre">*</span> <span class="pre">dt</span></code> per (zone, year, hour).</p></li>
 </ul>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">model.reserve</span></code> decision variable (<code class="docutils literal notranslate"><span class="pre">hour</span> <span class="pre">x</span> <span class="pre">month</span> <span class="pre">x</span> <span class="pre">year</span> <span class="pre">x</span> <span class="pre">zone</span> <span class="pre">x</span>
-<span class="pre">tech</span></code>), gated by <code class="docutils literal notranslate"><span class="pre">config.reserve_parameters.is_reserve</span></code>. When the
-flag is missing or <code class="docutils literal notranslate"><span class="pre">false</span></code> the variable + constraints are not
-built, so any pre-1.12 <code class="docutils literal notranslate"><span class="pre">config.json</span></code> is byte-compatible.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">model.reserve_up</span></code> and <code class="docutils literal notranslate"><span class="pre">model.reserve_down</span></code> decision variables
+(<code class="docutils literal notranslate"><span class="pre">hour</span> <span class="pre">x</span> <span class="pre">month</span> <span class="pre">x</span> <span class="pre">year</span> <span class="pre">x</span> <span class="pre">zone</span> <span class="pre">x</span> <span class="pre">tech</span></code>), both gated by
+<code class="docutils literal notranslate"><span class="pre">config.reserve_parameters.is_reserve</span></code>. When the flag is missing
+or <code class="docutils literal notranslate"><span class="pre">false</span></code> the variables + constraints are not built, so any
+pre-1.12 <code class="docutils literal notranslate"><span class="pre">config.json</span></code> is byte-compatible.</p></li>
 <li><p>New optional inputs in every shipped example:</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">tech_reserve_eligible.csv</span></code> (cols <code class="docutils literal notranslate"><span class="pre">tech,</span> <span class="pre">eligible</span></code>):
 dispatchable carriers (coal, gas, oil, bioenergy, hydro, nuclear,
 geothermal) default to <code class="docutils literal notranslate"><span class="pre">1</span></code>; solar / wind / storage default to
-<code class="docutils literal notranslate"><span class="pre">0</span></code>. Edit the CSV to fine-tune per scenario.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">reserve_requirement.csv</span></code> (cols <code class="docutils literal notranslate"><span class="pre">zone,</span> <span class="pre">year,</span> <span class="pre">unit,</span> <span class="pre">value</span></code>):
-per-zone-year reserve requirement in MW. Defaults to a flat
-placeholder per example -- 100 MW for <code class="docutils literal notranslate"><span class="pre">three_zone</span></code>, 500 MW per
-zone for <code class="docutils literal notranslate"><span class="pre">southeast_asia</span></code>, 1500 MW for <code class="docutils literal notranslate"><span class="pre">thailand</span></code> (~5 % of
-Thailand 2023 peak).</p></li>
+<code class="docutils literal notranslate"><span class="pre">0</span></code>. A single eligibility flag covers both directions -- thermal
+plants and dispatchable hydro can ramp either way; storage and VRE
+can't.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">reserve_requirement_up.csv</span></code> and <code class="docutils literal notranslate"><span class="pre">reserve_requirement_down.csv</span></code>
+(cols <code class="docutils literal notranslate"><span class="pre">zone,</span> <span class="pre">year,</span> <span class="pre">unit,</span> <span class="pre">value</span></code>): per-zone-year reserve in MW.
+Both default to the same placeholder per example -- 100 MW for
+<code class="docutils literal notranslate"><span class="pre">three_zone</span></code>, 500 MW per zone for <code class="docutils literal notranslate"><span class="pre">southeast_asia</span></code>, 1500 MW for
+<code class="docutils literal notranslate"><span class="pre">thailand</span></code> (~5 % of Thailand 2023 peak). Override either file
+independently to tune the directions.</p></li>
 </ul>
 </li>
-<li><p>New <code class="docutils literal notranslate"><span class="pre">reserve_parameters</span></code> block in each example's <code class="docutils literal notranslate"><span class="pre">config.json</span></code>
-with <code class="docutils literal notranslate"><span class="pre">&quot;is_reserve&quot;:</span> <span class="pre">true</span></code>.</p></li>
+<li><p>New <code class="docutils literal notranslate"><span class="pre">reserve_parameters</span></code> block in each example's <code class="docutils literal notranslate"><span class="pre">config.json</span></code>.
+Set to <code class="docutils literal notranslate"><span class="pre">&quot;is_reserve&quot;:</span> <span class="pre">true</span></code> for <code class="docutils literal notranslate"><span class="pre">three_zone</span></code> and <code class="docutils literal notranslate"><span class="pre">thailand</span></code> (~4
+minutes per solve, acceptable). Set to <code class="docutils literal notranslate"><span class="pre">&quot;is_reserve&quot;:</span> <span class="pre">false</span></code> for
+<code class="docutils literal notranslate"><span class="pre">southeast_asia</span></code> because the up+down constraints over 288 hours x
+5 zones x 65 techs (mostly per-station hydro) push HiGHS to 25+
+minutes -- too slow for an example dataset. The CSVs are still
+shipped so flipping the flag works out of the box.</p></li>
 </ul>
 </section>
 <section id="changed">
@@ -592,9 +608,10 @@ with <code class="docutils literal notranslate"><span class="pre">&quot;is_reser
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">tests/test_regression.py</span></code>: <code class="docutils literal notranslate"><span class="pre">EXPECTED_OBJECTIVE</span></code> for the
 <code class="docutils literal notranslate"><span class="pre">three_zone</span></code> regression bumped from <code class="docutils literal notranslate"><span class="pre">1.8793771299e11</span></code> (v1.1.1
-baseline) to <code class="docutils literal notranslate"><span class="pre">1.8812919540e11</span></code>. The reserve constraint forces
-some dispatched headroom on eligible techs, which raises total NPV
-cost by ~0.1 %.</p></li>
+baseline) to <code class="docutils literal notranslate"><span class="pre">1.8874579528e11</span></code>. The reserve constraints (up + down
+together) force some dispatched headroom above and below the
+operating point on eligible techs, which raises total NPV cost by
+~0.4 %.</p></li>
 </ul>
 </section>
 <section id="fixed">

@@ -628,6 +628,18 @@
     <span class="p">)</span>
     <span class="n">data_vars</span><span class="p">[</span><span class="s1">&#39;carbon_breakdown&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">create_data_array</span><span class="p">(</span>
         <span class="n">model</span><span class="o">.</span><span class="n">carbon_breakdown</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;zone&#39;</span><span class="p">,</span> <span class="s1">&#39;tech&#39;</span><span class="p">],</span> <span class="s1">&#39;Ton&#39;</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
+    <span class="c1"># Operating-reserve allocations (only when the reserve module ran).</span>
+    <span class="c1"># Same shape as `gen`; eligible techs may carry positive headroom</span>
+    <span class="c1"># above (`reserve_up`) and below (`reserve_down`) their dispatch.</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s1">&#39;reserve_up&#39;</span><span class="p">):</span>
+        <span class="n">data_vars</span><span class="p">[</span><span class="s1">&#39;reserve_up&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">create_data_array</span><span class="p">(</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">reserve_up</span><span class="p">,</span>
+            <span class="p">[</span><span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;zone&#39;</span><span class="p">,</span> <span class="s1">&#39;tech&#39;</span><span class="p">],</span> <span class="s1">&#39;MWh&#39;</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">data_vars</span><span class="p">[</span><span class="s1">&#39;reserve_down&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">create_data_array</span><span class="p">(</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">reserve_down</span><span class="p">,</span>
+            <span class="p">[</span><span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;zone&#39;</span><span class="p">,</span> <span class="s1">&#39;tech&#39;</span><span class="p">],</span> <span class="s1">&#39;MWh&#39;</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span>
+        <span class="p">)</span>
     <span class="c1"># Shadow price (dual) of the nodal power-balance constraint --</span>
     <span class="c1"># the locational marginal price of one extra MWh of demand at</span>
     <span class="c1"># each (hour, month, year, zone). The constraint is posed as</span>
