@@ -1,13 +1,19 @@
-{# Custom version flyout for sphinx_rtd_theme.
-   Hosted on GitHub Pages: https://prep-next.github.io/PREP-SHOT/en/<slug>/
-   `current_slug` is set in conf.py via html_context. #}
+{# Custom version + language flyout for sphinx_rtd_theme.
+   Hosted on GitHub Pages: https://prep-next.github.io/PREP-SHOT/<lang>/<slug>/
+   - `current_slug` is set in conf.py via html_context.
+   - `language` is Sphinx's built-in (e.g. 'en', 'zh_CN').
+   Chinese only exists for /latest/, so v1.0 readers clicking 简体中文
+   land on /zh_CN/latest/ as a fallback. #}
 {% set current_slug = current_slug | default('latest') -%}
-{% set listed_versions = [('latest', '/PREP-SHOT/en/latest/'),
+{% set current_lang = language | default('en') -%}
+{% set listed_versions = [('latest', '/PREP-SHOT/' ~ current_lang ~ '/latest/'),
                           ('v1.0',   '/PREP-SHOT/en/v1.0/')] -%}
+{% set listed_languages = [('English',  'en',    '/PREP-SHOT/en/' ~ current_slug ~ '/'),
+                           ('简体中文', 'zh_CN', '/PREP-SHOT/zh_CN/latest/')] -%}
 
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
-    <span class="fa fa-book"> v: {{ current_slug }}</span>
+    <span class="fa fa-book"> v: {{ current_slug }} ({{ current_lang }})</span>
     <span class="fa fa-caret-down"></span>
   </span>
   <div class="rst-other-versions">
@@ -16,6 +22,14 @@
       {% for slug, url in listed_versions %}
         <dd{% if slug == current_slug %} class="rtd-current-item"{% endif %}>
           <a href="{{ url }}">{{ slug }}</a>
+        </dd>
+      {% endfor %}
+    </dl>
+    <dl>
+      <dt>Languages</dt>
+      {% for label, code, url in listed_languages %}
+        <dd{% if code == current_lang %} class="rtd-current-item"{% endif %}>
+          <a href="{{ url }}">{{ label }}</a>
         </dd>
       {% endfor %}
     </dl>

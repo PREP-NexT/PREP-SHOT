@@ -35,22 +35,43 @@ jobs:
           sudo apt-get update -qy
           sudo apt-get install -y pandoc
 
-      - name: Sphinx build
+      - name: Compile translations
+        # .po -> .mo so sphinx-build can serve translated strings.
+        run: sphinx-intl build -d doc/source/locale
+
+      - name: Sphinx build (English)
         env:
           DOCS_VERSION_SLUG: ${{ steps.slug.outputs.slug }}
         run: |
-          cd doc
-          make clean
-          make html
+          rm -rf doc/build
+          sphinx-build -b html doc/source doc/build/html-en
 
-      - name: Deploy version subdir
+      - name: Sphinx build (Chinese, main only)
+        if: github.ref_name == 'main'
+        env:
+          DOCS_VERSION_SLUG: ${{ steps.slug.outputs.slug }}
+          READTHEDOCS_LANGUAGE: zh_CN
+        run: |
+          sphinx-build -b html doc/source doc/build/html-zh_CN
+
+      - name: Deploy English subdir
         if: github.event_name != 'pull_request'
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
-          publish_dir: ./doc/build/html
+          publish_dir: ./doc/build/html-en
           destination_dir: en/${{ steps.slug.outputs.slug }}
+          keep_files: true
+
+      - name: Deploy Chinese subdir (main only)
+        if: github.event_name != 'pull_request' && github.ref_name == 'main'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: ./doc/build/html-zh_CN
+          destination_dir: zh_CN/${{ steps.slug.outputs.slug }}
           keep_files: true
 
       - name: Write root redirect (main only)
