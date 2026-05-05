@@ -660,7 +660,10 @@
     <span class="p">)</span>
 
     <span class="k">if</span> <span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;is_reserve&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
-        <span class="n">model</span><span class="o">.</span><span class="n">reserve</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">add_variables</span><span class="p">(</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">reserve_up</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">add_variables</span><span class="p">(</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">zone</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">tech</span><span class="p">,</span> <span class="n">lb</span><span class="o">=</span><span class="mi">0</span>
+        <span class="p">)</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">reserve_down</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">add_variables</span><span class="p">(</span>
             <span class="n">model</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">zone</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">tech</span><span class="p">,</span> <span class="n">lb</span><span class="o">=</span><span class="mi">0</span>
         <span class="p">)</span>
 

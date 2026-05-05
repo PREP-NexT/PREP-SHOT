@@ -7,52 +7,69 @@ Version 1.12.0 - May 5, 2026
 -------------------------------
 
 New feature: operating-reserve constraints (LP relaxation, no unit
-commitment). Each plant's headroom on dispatched capacity can count
-toward a zonal reserve requirement; non-eligible techs (typically
-solar / wind / storage discharge) are forced to zero. The relaxation
-matches GenX's "no-UC" mode and is acceptable for capacity-expansion
-planning, not for sub-hourly dispatch studies.
+commitment). Two reserve directions are tracked -- **up** (capacity
+available to ramp dispatch up if demand spikes / a unit trips) and
+**down** (capacity available to ramp down if VRE over-generates or
+load drops). Each plant's headroom above and below its current
+dispatch counts toward the corresponding zonal requirement;
+non-eligible techs (typically solar / wind / storage discharge) are
+forced to zero in both directions. The relaxation matches GenX's
+"no-UC" mode and is acceptable for capacity-expansion planning, not
+for sub-hourly dispatch studies.
 
 Added
 +++++
 
 * ``prepshot/_model/reserve.py`` -- new constraint class
-  ``AddReserveConstraints`` with two rules per timestep:
+  ``AddReserveConstraints`` with four rules per timestep:
 
-  - **headroom**: ``reserve[h,m,y,z,t] <= cap_existing[y,z,t] *
+  - **headroom up**: ``reserve_up[h,m,y,z,t] <= cap_existing *
     p_max_pu * dt - gen[h,m,y,z,t]`` for eligible techs (forced to 0
     otherwise).
-  - **requirement**: ``sum_t reserve[h,m,y,z,t] >=
-    reserve_requirement[z,y] * dt`` per (zone, year, hour).
+  - **headroom down**: ``reserve_down[h,m,y,z,t] <= gen[h,m,y,z,t]
+    - cap_existing * p_min_pu * dt`` for eligible techs (forced to 0
+    otherwise).
+  - **requirement up / down**: ``sum_t reserve_<dir>[h,m,y,z,t] >=
+    reserve_requirement_<dir>[z,y] * dt`` per (zone, year, hour).
 
-* ``model.reserve`` decision variable (``hour x month x year x zone x
-  tech``), gated by ``config.reserve_parameters.is_reserve``. When the
-  flag is missing or ``false`` the variable + constraints are not
-  built, so any pre-1.12 ``config.json`` is byte-compatible.
+* ``model.reserve_up`` and ``model.reserve_down`` decision variables
+  (``hour x month x year x zone x tech``), both gated by
+  ``config.reserve_parameters.is_reserve``. When the flag is missing
+  or ``false`` the variables + constraints are not built, so any
+  pre-1.12 ``config.json`` is byte-compatible.
 
 * New optional inputs in every shipped example:
 
   - ``tech_reserve_eligible.csv`` (cols ``tech, eligible``):
     dispatchable carriers (coal, gas, oil, bioenergy, hydro, nuclear,
     geothermal) default to ``1``; solar / wind / storage default to
-    ``0``. Edit the CSV to fine-tune per scenario.
-  - ``reserve_requirement.csv`` (cols ``zone, year, unit, value``):
-    per-zone-year reserve requirement in MW. Defaults to a flat
-    placeholder per example -- 100 MW for ``three_zone``, 500 MW per
-    zone for ``southeast_asia``, 1500 MW for ``thailand`` (~5 % of
-    Thailand 2023 peak).
+    ``0``. A single eligibility flag covers both directions -- thermal
+    plants and dispatchable hydro can ramp either way; storage and VRE
+    can't.
+  - ``reserve_requirement_up.csv`` and ``reserve_requirement_down.csv``
+    (cols ``zone, year, unit, value``): per-zone-year reserve in MW.
+    Both default to the same placeholder per example -- 100 MW for
+    ``three_zone``, 500 MW per zone for ``southeast_asia``, 1500 MW for
+    ``thailand`` (~5 % of Thailand 2023 peak). Override either file
+    independently to tune the directions.
 
-* New ``reserve_parameters`` block in each example's ``config.json``
-  with ``"is_reserve": true``.
+* New ``reserve_parameters`` block in each example's ``config.json``.
+  Set to ``"is_reserve": true`` for ``three_zone`` and ``thailand`` (~4
+  minutes per solve, acceptable). Set to ``"is_reserve": false`` for
+  ``southeast_asia`` because the up+down constraints over 288 hours x
+  5 zones x 65 techs (mostly per-station hydro) push HiGHS to 25+
+  minutes -- too slow for an example dataset. The CSVs are still
+  shipped so flipping the flag works out of the box.
 
 Changed
 +++++++
 
 * ``tests/test_regression.py``: ``EXPECTED_OBJECTIVE`` for the
   ``three_zone`` regression bumped from ``1.8793771299e11`` (v1.1.1
-  baseline) to ``1.8812919540e11``. The reserve constraint forces
-  some dispatched headroom on eligible techs, which raises total NPV
-  cost by ~0.1 %.
+  baseline) to ``1.8874579528e11``. The reserve constraints (up + down
+  together) force some dispatched headroom above and below the
+  operating point on eligible techs, which raises total NPV cost by
+  ~0.4 %.
 
 Fixed
 +++++
