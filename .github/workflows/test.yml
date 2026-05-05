@@ -3,8 +3,16 @@ name: tests
 on:
   push:
     branches: [main]
+    paths-ignore:
+      - 'doc/**'
+      - '**/*.md'
+      - '.github/workflows/static.yml'
   pull_request:
     branches: [main]
+    paths-ignore:
+      - 'doc/**'
+      - '**/*.md'
+      - '.github/workflows/static.yml'
   workflow_dispatch:
 
 jobs:
