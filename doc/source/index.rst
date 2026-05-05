@@ -10,9 +10,19 @@ Welcome to the PREP-SHOT Documentation
 :Date: |today|
 :Copyright:  The model code is licensed under the `GNU General Public License 3.0 <https://github.com/PREP-NexT/PREP-SHOT/blob/main/LICENSE>`_. This documentation is licensed under a `Creative Commons Attribution 4.0 International <http://creativecommons.org/licenses/by/4.0/>`_ license.
 
+.. raw:: html
+
+   <p>
+   <a href="Quickstart.html"><strong>Get started in 30 minutes</strong></a> &middot;
+   <a href="Installation.html">Install</a> &middot;
+   <a href="how_to/index.html">How-to recipes</a> &middot;
+   <a href="Model_input_output.html">Inputs / outputs reference</a> &middot;
+   <a href="https://github.com/PREP-NexT/PREP-SHOT">GitHub</a>
+   </p>
+
 Overview
 --------
-**PREP-SHOT** (**P**\ athways for **R**\ enewable **E**\ nergy **P**\ lanning coupling **S**\ hort-term **H**\ ydropower **O**\ pera\ **T**\ ion) is a transparent, modular, and open-source energy expansion model, offering advanced solutions for multi-scale, intertemporal, and cost-effective expansion of energy systems and transmission lines. 
+**PREP-SHOT** (**P**\ athways for **R**\ enewable **E**\ nergy **P**\ lanning coupling **S**\ hort-term **H**\ ydropower **O**\ pera\ **T**\ ion) is a transparent, modular, and open-source energy expansion model, offering advanced solutions for multi-scale, intertemporal, and cost-effective expansion of energy systems and transmission lines.
 
 .. video:: https://github.com/PREP-NexT/PREP-SHOT/releases/download/v1.0/20250717_prep_shot.mp4
    :width: 100%
@@ -37,12 +47,39 @@ How It Works
 
 Source: :cite:t:`liu2023`.
 
+Architecture
+------------
+
+PREP-SHOT reads CSVs from a scenario directory, builds a linear
+program with the ``PyOptInterface`` modeling layer, hands it to the
+solver, and writes the solved variables back as a NetCDF file:
+
+.. mermaid::
+
+   flowchart LR
+       A[examples/&lt;scenario&gt;/<br/>config.json + params.json + input/] --> B[load_data.py<br/>read_long_csv]
+       B --> C[model.py<br/>create_model]
+       C --> D[solver.py<br/>solve_model]
+       D --> E[output_data.py<br/>extract_results]
+       E --> F[output/&lt;name&gt;.nc<br/>+ .xlsx]
+       D -. head iteration<br/>(if isinflow=true) .-> C
+       style A fill:#e3f2fd
+       style F fill:#e8f5e9
+
+Each scenario directory under ``examples/`` is self-contained
+(``config.json`` + ``params.json`` + ``input/``); the package
+discovers everything from there. The dashed arrow is the head-
+iteration loop: PREP-SHOT solves at fixed water heads, recomputes
+heads from the resulting reservoir trajectory, and re-solves until
+convergence (controlled by ``iteration_number`` and
+``error_threshold`` in ``config.json``).
+
 Key Features
 ------------
 * PREP-SHOT is an optimization model based on linear programming for energy systems with multiple zones.
 * It aims to minimize costs while meeting the given demand time series.
 * By default, it operates on hourly-spaced time steps, but this can be adjusted.
-* The input data is in Excel format, while output data is generated in a NetCDF format using `Xarray <https://docs.xarray.dev/en/stable/>`_.
+* The input data is in long-format ("tidy") CSV, while output data is generated in a NetCDF format using `Xarray <https://docs.xarray.dev/en/stable/>`_.
 * It supports multiple types of solvers such as `HiGHS <https://github.com/jump-dev/HiGHS.jl>`_ , `GUROBI <https://www.gurobi.com/>`_, `COPT <https://www.copt.de/>`_, and `MOSEK <https://www.mosek.com/>`_ via `PyOptInterface <https://github.com/metab0t/PyOptInterface>`_.
 * It allows the input of multiple scenarios for specific parameters.
 * As a pure Python program, it benefits from the use of `pandas <https://pandas.pydata.org/>`_ and `Xarray <https://docs.xarray.dev/en/stable/>`_, simplifying complex data analysis and promoting extensibility.
@@ -53,19 +90,39 @@ To browse the documentation offline, you can `download a PDF copy <https://githu
 
 .. toctree::
    :hidden:
+   :caption: Getting Started
    :maxdepth: 2
 
    Overview <self>
    Installation
    Quickstart
+
+.. toctree::
+   :hidden:
+   :caption: User Guide
+   :maxdepth: 2
+
    Model_input_output
-   Tutorial
    Mathematical_notations
+   Glossary
+   how_to/index
+
+.. toctree::
+   :hidden:
+   :caption: Reference
+   :maxdepth: 2
+
+   api/prepshot
+   Stability
+   Changelog
+
+.. toctree::
+   :hidden:
+   :caption: Community
+   :maxdepth: 2
+
    Forum
    Contribution
-   Changelog
-   Stability
-   api/prepshot
    Citations
    References
 

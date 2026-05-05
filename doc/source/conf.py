@@ -58,6 +58,7 @@ extensions = [
     "sphinx.ext.viewcode",
     "sphinx.ext.napoleon",
     "sphinxcontrib.video",
+    "sphinxcontrib.mermaid",
     "nbsphinx",
 ]
 
@@ -119,6 +120,16 @@ if not on_rtd:
 
 # Specify the site name for the Open Graph extension.
 ogp_site_name = "PREP-SHOT documentation"
+
+# RTD theme: render an "Edit on GitHub" link in the top-right of every
+# page so readers can fix typos / reword paragraphs without cloning.
+html_context = {
+    "display_github": True,
+    "github_user": "PREP-NexT",
+    "github_repo": "PREP-SHOT",
+    "github_version": "main",
+    "conf_py_path": "/doc/source/",
+}
 
 if not os.getenv("SPHINX_NO_GDSCRIPT"):
     extensions.append("gdscript")

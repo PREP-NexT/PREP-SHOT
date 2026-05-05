@@ -891,3 +891,69 @@ Removed
 * ``toolkit/`` -- merged into ``tools/`` (single namespace for
   one-off scripts).
 * Empty ``.gitattributes``.
+
+
+Version 1.11.0 - May 5, 2026
+-------------------------------
+
+Documentation polish: better navigation, more reference content, no
+new features.
+
+Added
++++++
+
+* ``doc/source/Glossary.rst`` -- a reference for the energy-modeling,
+  hydropower, and optimization terminology used throughout the docs
+  (~50 entries: capacity expansion, head iteration, LMP, NPV,
+  carrier, cascading hydropower, WACC, ...).
+* ``doc/source/how_to/`` -- a new "How-To Recipes" section with five
+  short, focused walkthroughs for common tasks:
+
+  - ``add_a_technology`` -- introduce a new generation tech via
+    CSV edits.
+  - ``tighten_a_carbon_cap`` -- run a counterfactual without
+    overwriting the baseline.
+  - ``compare_two_scenarios`` -- side-by-side analysis with xarray.
+  - ``inspect_lmps`` -- read the v1.9.1 ``shadow_price_demand``
+    output.
+  - ``add_a_cascading_hydropower_system`` -- introduce a multi-
+    station cascade with reservoir physics.
+
+* Architecture diagram on the landing page (``index.rst``), drawn
+  with the new ``sphinxcontrib-mermaid`` extension. Shows the data
+  flow from scenario directory through ``load_data`` /
+  ``create_model`` / ``solve_model`` / ``extract_results`` and back
+  out as NetCDF.
+* "Edit on GitHub" link in the top-right of every page (via
+  ``html_context`` in ``conf.py``) so readers can fix typos and
+  rephrase paragraphs without cloning.
+* Solver-choice tabs (``HiGHS``/``Gurobi``/``COPT``/``MOSEK``) in
+  ``Installation.rst``, leaning on the existing ``sphinx_tabs``
+  extension.
+* Quick-link bar on the landing page above the Overview section
+  (Get started / Install / How-to / Inputs / GitHub).
+
+Changed
++++++++
+
+* The sidebar is now grouped into four sections via separate
+  ``toctree`` directives: **Getting Started** (Installation,
+  Quickstart), **User Guide** (Model Inputs/Outputs, Math notation,
+  Glossary, How-to recipes), **Reference** (API, Stability,
+  Changelog), **Community** (Forum, Contribution, Citations,
+  References). Replaces the previous flat 10-page list.
+* The Quickstart now includes a "Scenario background" section
+  (3 BAs, 15 hydropower stations, 2020-2030 zero-carbon pathway) --
+  previously a separate Tutorial page.
+
+Removed
++++++++
+
+* ``doc/source/Tutorial.rst`` -- a 47-line page that only contained
+  scenario context and a redirect to Quickstart. Its content moved
+  into the Quickstart's intro.
+* Duplicate "Run an example" / "Run your own model" instructions
+  from ``Installation.rst`` -- now a 1-line pointer to Quickstart.
+* "Input formats" and "Migrating an existing input directory"
+  sections from ``Installation.rst`` -- redundant with
+  ``Model_input_output.rst``.

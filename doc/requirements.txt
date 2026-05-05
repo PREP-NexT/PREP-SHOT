@@ -8,6 +8,7 @@ sphinxext-opengraph==0.7.5
 sphinxcontrib-bibtex==2.6.1
 sphinx_copybutton==0.5.2
 sphinxcontrib-video==0.4.1
+sphinxcontrib-mermaid>=0.9
 nbsphinx>=0.8,<0.9
 ipykernel>=6.0
 scipy

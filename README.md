@@ -87,7 +87,7 @@ For a local setup follow the steps below.
 
     Equivalent entry points: `prepshot` (console script) or `python /path/to/run.py .`.
 
-This example is inspired by real-world data. For a detailed elaboration of this tutorial, check out the [Tutorial Page](https://prep-next.github.io/PREP-SHOT/Tutorial.html) in our documentation.
+This example is inspired by real-world data. For a hands-on walkthrough, see the [Quickstart](https://prep-next.github.io/PREP-SHOT/Quickstart.html) in our documentation.
 
 By default, PREP-SHOT uses the open-source [HiGHS](https://github.com/jump-dev/HiGHS.jl) solver. Solver-specific parameters are specified in the scenario's ``config.json``. We also support the following commercial solvers:
 
