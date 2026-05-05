@@ -19,5 +19,9 @@
     },
     "reserve_parameters": {
         "is_reserve": true
+    },
+    "dc_parameters": {
+        "is_dc_flow": true,
+        "reference_zone": "BA1"
     }
 }

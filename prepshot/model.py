@@ -16,6 +16,7 @@ from prepshot._model.transmission import AddTransmissionConstraints
 from prepshot._model.investment import AddInvestmentConstraints
 from prepshot._model.finance import AddFinanceConstraints
 from prepshot._model.reserve import AddReserveConstraints
+from prepshot._model.dc_flow import AddDCFlowConstraints
 from prepshot.logs import timer
 from prepshot.solver import get_solver
 from prepshot.solver import set_solver_parameters
@@ -183,6 +184,7 @@ def define_constraints(model : object) -> None:
     AddInvestmentConstraints(model)
     AddGenerationConstraints(model)
     AddTransmissionConstraints(model)
+    AddDCFlowConstraints(model)
     AddCo2EmissionConstraints(model)
     AddStorageConstraints(model)
     AddHydropowerConstraints(model)

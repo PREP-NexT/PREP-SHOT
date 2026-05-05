@@ -134,6 +134,10 @@ def extract_config_data(config_data : dict) -> dict:
     is_reserve = bool(
         config_data.get('reserve_parameters', {}).get('is_reserve', False)
     )
+    # DC linearised power-flow is opt-in for the same reason.
+    dc_params = config_data.get('dc_parameters') or {}
+    is_dc_flow = bool(dc_params.get('is_dc_flow', False))
+    reference_zone = dc_params.get('reference_zone')  # None -> first zone
 
     # Create dictionary with necessary configuration data.
     required_config_data = {
@@ -145,6 +149,8 @@ def extract_config_data(config_data : dict) -> dict:
         'error_threshold': error_threshold,
         'iteration_number': iteration_number,
         'is_reserve': is_reserve,
+        'is_dc_flow': is_dc_flow,
+        'reference_zone': reference_zone,
     }
 
     return required_config_data

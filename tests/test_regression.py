@@ -41,13 +41,15 @@ SKIP_SLOW = os.environ.get('PREPSHOT_SKIP_SLOW') == '1'
 class TestRegressionDefaultInput(unittest.TestCase):
     """Lock in the final objective for the canonical ``examples/three_zone/`` dataset."""
 
-    # Re-baselined at v1.12.0 with config.json defaults (hour=48,
-    # month=1, isinflow=True, iteration_number=3, is_reserve=True).
-    # Was 1.8793771299e11 at v1.1.1; the operating-reserve module
-    # (both up and down directions) raised it ~0.4 % by forcing
-    # dispatched headroom above and below the operating point on
-    # eligible techs.
-    EXPECTED_OBJECTIVE = 1.8878269786e11
+    # Re-baselined at v1.13.0 with config.json defaults (hour=48,
+    # month=1, isinflow=True, iteration_number=3, is_reserve=True,
+    # is_dc_flow=True). Drift over time:
+    #   v1.1.1  : 1.8793771299e11  -- transport model, no reserve
+    #   v1.12.0 : 1.8878269786e11  -- + reserve up/down (~+0.4 %)
+    #   v1.13.0 : 1.8967979487e11  -- + DC flow Kirchhoff constraint
+    #                                 (~+0.5 % from forcing flow to
+    #                                 follow phase-angle differences)
+    EXPECTED_OBJECTIVE = 1.8967979487e11
     # 1 % tolerance — head iteration is non-trivial; this absorbs minor
     # numerical differences across HiGHS minor versions and platforms
     # without being so loose it stops catching real regressions.

@@ -323,5 +323,12 @@
         "drop_na": true,
         "required": false,
         "default": 0
+    },
+    "transmission_susceptance": {
+        "file_name": "transmission_susceptance",
+        "format": "long",
+        "drop_na": true,
+        "required": false,
+        "default": 0
     }
 }

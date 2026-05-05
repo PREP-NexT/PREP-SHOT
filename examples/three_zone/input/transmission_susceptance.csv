@@ -1,0 +1,4 @@
+zone1,zone2,unit,value
+BA1,BA2,MW/rad,1000.0
+BA1,BA3,MW/rad,1000.0
+BA2,BA3,MW/rad,1000.0
