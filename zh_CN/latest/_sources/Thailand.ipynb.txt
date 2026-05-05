@@ -5,7 +5,7 @@
    "id": "86c13570",
    "metadata": {},
    "source": [
-    "# Single-zone Thailand example\n",
+    "# Thailand (single-zone)\n",
     "\n",
     "A single-zone (Thailand) capacity-expansion run with **13 cascading Mekong-basin reservoirs** -- Bhumibol, Sirikit, Srinagarind, Vajiralongkorn, Rajjaprabha, etc. Migrated from the v1.4-era xlsx dataset to the v1.9 long-format CSV schema; all per-station reservoir physics (head, tailrace-discharge curves, forebay-volume curves) preserved.\n",
     "\n",
@@ -16,7 +16,7 @@
     "python run.py\n",
     "```\n",
     "\n",
-    "The cells below explore the dataset shape and read the result NetCDF. They run fast (no solve)."
+    "The cells below explore the dataset shape and read the result NetCDF. They run fast (no solve).\n"
    ]
   },
   {
@@ -459,7 +459,7 @@
     "### Annual generation mix\n",
     "\n",
     "Annual TWh per technology. Note how much of the load is met by gas\n",
-    "and coal — the dataset has no carbon cap, so the dispatch is\n",
+    "and coal \u2014 the dataset has no carbon cap, so the dispatch is\n",
     "driven purely by variable cost."
    ]
   },
@@ -570,7 +570,7 @@
     "\n",
     "All costs are NPV-discounted to the start year. With no expansion\n",
     "(carbon cap is `inf` in this scenario), `cost_newtech` and\n",
-    "`cost_newline` are 0 — the model only pays operating costs on the\n",
+    "`cost_newline` are 0 \u2014 the model only pays operating costs on the\n",
     "existing fleet."
    ]
   },
