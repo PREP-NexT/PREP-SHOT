@@ -1,38 +1,54 @@
 name: Docs
-on: [push, pull_request, workflow_dispatch]
+on:
+  push:
+    branches: [main, v1.0.x]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
 jobs:
-  docs:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout + LFS
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
-          lfs: true  # Enable Git LFS for large files
+          lfs: true
 
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+      - name: Resolve version slug
+        id: slug
+        run: |
+          case "${GITHUB_REF_NAME}" in
+            main)   echo "slug=latest" >> "$GITHUB_OUTPUT" ;;
+            v1.0.x) echo "slug=v1.0"   >> "$GITHUB_OUTPUT" ;;
+            *)      echo "slug=${GITHUB_REF_NAME}" >> "$GITHUB_OUTPUT" ;;
+          esac
+
+      - uses: actions/setup-python@v5
         with:
-          python-version: '3.12.0'
+          python-version: '3.11'
+
       - name: Install dependencies
         run: |
           pip install -r ./doc/requirements.txt
           sudo apt-get update -qy
-          sudo apt-get install -y texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra latexmk
+          sudo apt-get install -y pandoc
+
       - name: Sphinx build
+        env:
+          DOCS_VERSION_SLUG: ${{ steps.slug.outputs.slug }}
         run: |
           cd doc
           make clean
           make html
-      - name: Generate offline PDF
-        run: |
-          cd doc
-          make latexpdf
-          mv build/latex/*.pdf build/html/_static/
-      - name: Deploy
+
+      - name: Deploy version subdir
+        if: github.event_name != 'pull_request'
         uses: peaceiris/actions-gh-pages@v3
-        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
         with:
-          publish_branch: gh-pages
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./doc/build/html/
-          force_orphan: true
+          publish_branch: gh-pages
+          publish_dir: ./doc/build/html
+          destination_dir: en/${{ steps.slug.outputs.slug }}
+          keep_files: true
