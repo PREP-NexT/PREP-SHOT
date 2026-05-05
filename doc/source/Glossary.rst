@@ -85,9 +85,6 @@ terminology used throughout PREP-SHOT.
       reservoir, etc. Contrasts with :term:`variable renewable energy`
       (VRE).
 
-   downwasher
-      Not a model term. (Just checking you read the glossary.)
-
    forebay level
       The water-surface elevation behind the dam (upstream of the
       generators). Determines the gross head and thus the generation
