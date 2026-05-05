@@ -1,0 +1,20 @@
+{
+    "general_parameters": {
+        "input_folder": "input",
+        "output_folder": "output",
+        "output_filename": "baseline",
+        "hour": 288,
+        "month": 1,
+        "dt": 1,
+        "hours_in_year": 8760,
+        "price": 0.01
+    },
+    "hydro_parameters": {
+        "isinflow": true,
+        "error_threshold": 0.001,
+        "iteration_number": 3
+    },
+    "solver_parameters": {
+        "solver": "highs"
+    }
+}

@@ -11,8 +11,7 @@
   <a href="https://twitter.com/PREPNexT_Lab"><img src="https://img.shields.io/twitter/follow/PREPNexT_Lab.svg?label=Follow&style=social" alt="Twitter Follow"></a>
   <a href="https://github.com/PREP-NexT/PREP-SHOT"><img src="https://img.shields.io/github/license/PREP-NexT/PREP-SHOT.svg" alt="License"></a>
   <a href="https://github.com/PREP-NexT/PREP-SHOT"><img src="https://badges.frapsoft.com/os/v1/open-source.svg?v=103" alt="Download"></a>
-  <a href="https://mybinder.org/v2/gh/PREP-NexT/PREP-SHOT/main?labpath=doc%2Fsource%2FQuickstart.ipynb"><img src="https://mybinder.org/badge_logo.svg" alt="Binder"></a>
-  <a href="https://colab.research.google.com/github/PREP-NexT/PREP-SHOT/blob/main/doc/source/Quickstart.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Google Colab"></a>
+  <a href="https://colab.research.google.com/github/PREP-NexT/PREP-SHOT/blob/main/doc/source/Quickstart.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Google Colab (Quickstart)"></a>
 </p>
 
 <p align="center">
@@ -48,7 +47,9 @@ The clean energy transition is our new moonshot to combat climate change – an 
 
 ## Getting Started
 
-The fastest way to try PREP-SHOT is in a hosted notebook -- click either badge above to run [`doc/source/Quickstart.ipynb`](doc/source/Quickstart.ipynb) in your browser. Binder is anonymous; Colab needs a Google account but starts faster. Both finish a full solve + plot in about five minutes.
+The fastest way to try PREP-SHOT is in a hosted notebook -- click the Colab badge above to run [`doc/source/Quickstart.ipynb`](doc/source/Quickstart.ipynb) in your browser. A full solve + plot finishes in about five minutes.
+
+For a more realistic case study, see [`examples/southeast_asia/SoutheastAsia.ipynb`](examples/southeast_asia/SoutheastAsia.ipynb) -- a walkthrough of the Lower Mekong basin dataset that ships with PREP-SHOT (5 countries, 57 cascading hydropower stations, 2030 carbon cap).
 
 For a local setup follow the steps below.
 
@@ -73,25 +74,22 @@ For a local setup follow the steps below.
     pip install -e .
     ```
 
-    With the editable install you can run PREP-SHOT from any directory containing `config.json` and `params.json`:
-
-    ```bash
-    prepshot
-    # or
-    python -m prepshot
-    ```
-
     A PyPI release is planned with v2.0; until then, use `pip install git+https://github.com/PREP-NexT/PREP-SHOT@<tag>` to pin a specific version.
 
 3. Run your first model
 
+    Each subdirectory of `examples/` is a self-contained scenario (`config.json` + `params.json` + `input/`). Pick one and run from inside it:
+
     ```bash
-    python run.py
+    cd examples/three_zone     # or southeast_asia, thailand
+    python -m prepshot
     ```
+
+    Equivalent entry points: `prepshot` (console script) or `python /path/to/run.py .`.
 
 This example is inspired by real-world data. For a detailed elaboration of this tutorial, check out the [Tutorial Page](https://prep-next.github.io/PREP-SHOT/Tutorial.html) in our documentation.
 
-By default, PREP-SHOT uses open-source [HiGHS](https://github.com/jump-dev/HiGHS.jl) solver. Solver-specific parameters are specified in the ``config.json`` file, which should be located in the current working directory. Additionaly, we provide the option to use one of the following three commercial solvers:
+By default, PREP-SHOT uses the open-source [HiGHS](https://github.com/jump-dev/HiGHS.jl) solver. Solver-specific parameters are specified in the scenario's ``config.json``. We also support the following commercial solvers:
 
 + [Gurobi](https://www.gurobi.com/)
 + [COPT](https://www.copt.de/)

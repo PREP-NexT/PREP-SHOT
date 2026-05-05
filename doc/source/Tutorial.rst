@@ -5,6 +5,18 @@ Tutorial
 
 In this tutorial, we'll guide you through running your first PREP-SHOT model! This example will illustrate an electricity capacity expansion scenario.
 
+.. seealso::
+
+   For a hands-on walkthrough see the :doc:`Quickstart` notebook
+   (3-zone synthetic dataset, 5-minute solve, includes a generation-mix
+   plot and an LMP slice).
+
+   For a realistic case study see
+   `examples/southeast_asia/SoutheastAsia.ipynb <https://github.com/PREP-NexT/PREP-SHOT/blob/main/examples/southeast_asia/SoutheastAsia.ipynb>`_
+   -- a walkthrough of the Lower Mekong dataset (5 countries, 57
+   cascading hydropower stations, 2030 carbon cap).
+   Open it directly on `Colab <https://colab.research.google.com/github/PREP-NexT/PREP-SHOT/blob/main/examples/southeast_asia/SoutheastAsia.ipynb>`_.
+
 Scenario Background
 -------------------
 

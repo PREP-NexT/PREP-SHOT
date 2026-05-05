@@ -48,35 +48,44 @@ project, install directly from GitHub:
 Step 3: Run an example (Optional)
 ++++++++++++++++++++++++++++++++++
 
-Once the environment is activated, you can run an example of :ref:`Tutorial` with the following command:
+Each subdirectory of ``examples/`` is a self-contained scenario
+(``config.json`` + ``params.json`` + ``input/``). Pick one and run from
+inside it:
 
 .. code:: bash
 
-    python run.py
-
-If you used ``pip install -e .`` in Step 2 you also have two additional,
-equivalent entry points that work from any directory containing a
-``config.json`` and ``params.json``:
-
-.. code:: bash
-
-    prepshot
-    # or
+    cd examples/three_zone
     python -m prepshot
 
-You can also run examples using Jupyter notebooks located in the `./example/` directory.
+Equivalent entry points (after ``pip install -e .``):
 
-PREP-SHOT default solve models using open-source solver `HiGHS <https://highs.dev/>`_. also support commercial solvers, including `Gurobi <https://www.gurobi.com/features/academic-named-user-license/>`_, `COPT <https://www.copt.de/>`_ and `MOSEK <https://www.mosek.com/>`_. They offer academic licenses. To use these solvers, you need to install them and modify the solver in the `config.json` file.
+.. code:: bash
+
+    prepshot                       # console script (any cwd)
+    python /path/to/run.py .       # explicit path
+
+Three scenarios ship with the repo: ``three_zone`` (synthetic 3-zone,
+used by :ref:`Quickstart`), ``southeast_asia`` (Lower Mekong,
+5 countries, 57 reservoirs), and ``thailand`` (single-zone with
+13 Mekong-basin reservoirs).
+
+PREP-SHOT default solve models using open-source solver `HiGHS <https://highs.dev/>`_. It also support commercial solvers, including `Gurobi <https://www.gurobi.com/features/academic-named-user-license/>`_, `COPT <https://www.copt.de/>`_ and `MOSEK <https://www.mosek.com/>`_. They offer academic licenses. To use these solvers, you need to install them and modify the ``solver`` field in the scenario's ``config.json`` file.
 
 
 Step 4: Run your own model
 +++++++++++++++++++++++++++
 
-You can prepare your input data referring to the example in the `input` and `southeast` folder. The detailed input data are introduced in the :ref:`Tutorial`. After preparing the input data, you can modify the `config.json` file to set the solver and other parameters. Then you can run your model with the following command:
+To run your own scenario, copy one of the ``examples/`` directories as
+a starting template, edit its ``input/`` CSV files, and tweak its
+``config.json`` (number of representative hours/months, solver
+choice, hydropower convergence threshold). Then run from inside it:
 
 .. code:: bash
 
-    python run.py
+    cp -r examples/three_zone examples/my_scenario
+    # ... edit examples/my_scenario/input/*.csv and config.json ...
+    cd examples/my_scenario
+    python -m prepshot
 
 Step 5: Use PREP-SHOT as a Python library
 +++++++++++++++++++++++++++++++++++++++++++

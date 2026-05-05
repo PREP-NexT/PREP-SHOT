@@ -7,8 +7,8 @@ Usage::
 
 This tool is for users with custom input directories that pre-date
 v1.5.0 and still contain wide-format ``.xlsx`` files. The shipped
-``input/`` and ``southeast_asia/`` directories were already migrated
-in the v1.5.0 release.
+``examples/three_zone/`` and ``examples/southeast_asia/`` directories were
+already migrated in the v1.5.0 release.
 
 The tool is **self-contained**: it bundles its own copy of the
 v1.4.x wide-format spec (since by the time you run it, ``params.json``

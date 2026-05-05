@@ -1,9 +1,9 @@
-"""End-to-end regression test against the canonical ``input/`` dataset.
+"""End-to-end regression test against the canonical ``examples/three_zone/`` dataset.
 
 This test is the safety net that catches accidental changes to model
 formulation, input loading, the cost objective, or the hydropower
 head-iteration loop. It runs the full ``python run.py`` flow on the
-standard ``input/`` dataset and locks in the final-iteration objective
+standard ``examples/three_zone/`` dataset and locks in the final-iteration objective
 value captured at the v1.1.x baseline.
 
 If a future change perturbs the value beyond the tolerance, that is a
@@ -30,6 +30,7 @@ except ImportError:
 
 
 REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+SCENARIO_DIR = os.path.join(REPO_ROOT, 'examples', 'three_zone')
 SKIP_SLOW = os.environ.get('PREPSHOT_SKIP_SLOW') == '1'
 
 
@@ -38,7 +39,7 @@ SKIP_SLOW = os.environ.get('PREPSHOT_SKIP_SLOW') == '1'
 )
 @unittest.skipIf(SKIP_SLOW, "PREPSHOT_SKIP_SLOW=1 set; skipping slow test")
 class TestRegressionDefaultInput(unittest.TestCase):
-    """Lock in the final objective for the canonical ``input/`` dataset."""
+    """Lock in the final objective for the canonical ``examples/three_zone/`` dataset."""
 
     # Captured at v1.1.1 with config.json defaults (hour=48, month=1,
     # isinflow=True, iteration_number=3). This is the value reported by
@@ -52,19 +53,24 @@ class TestRegressionDefaultInput(unittest.TestCase):
     def test_default_input_full_solve(self):
         """Run the full python-run.py flow and check the final objective."""
         # initialize_environment uses argparse on sys.argv, so isolate it.
+        # solve_model writes output relative to cwd, so cd into the scenario
+        # directory for the whole test and restore on exit.
         argv_before = sys.argv
+        cwd_before = os.getcwd()
         sys.argv = [argv_before[0]]
+        os.chdir(SCENARIO_DIR)
         try:
             parameters = initialize_environment({
-                'filepath': REPO_ROOT,
-                'config_filename': os.path.join(REPO_ROOT, 'config.json'),
-                'params_filename': os.path.join(REPO_ROOT, 'params.json'),
+                'filepath': SCENARIO_DIR,
+                'config_filename': os.path.join(SCENARIO_DIR, 'config.json'),
+                'params_filename': os.path.join(SCENARIO_DIR, 'params.json'),
             })
+
+            model = create_model(parameters)
+            solved = solve_model(model, parameters)
         finally:
             sys.argv = argv_before
-
-        model = create_model(parameters)
-        solved = solve_model(model, parameters)
+            os.chdir(cwd_before)
         self.assertTrue(solved, "solve_model returned False")
 
         objective = model.get_value(model.cost)

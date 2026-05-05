@@ -63,4 +63,4 @@ version = {attr = "prepshot.__version__"}
 
 [tool.setuptools.packages.find]
 include = ["prepshot*"]
-exclude = ["tests*", "doc*", "tools*", "toolkit*", "example*", "input*", "southeast_asia*", "log*", "output*"]
+exclude = ["tests*", "doc*", "tools*", "examples*", "log*", "output*"]

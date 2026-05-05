@@ -1,0 +1,20 @@
+tech,name,carrier,is_storage
+Coal,Coal,coal,False
+Gas,Gas,gas,False
+Bioenergy,Bioenergy,biomass,False
+Solar,Solar,solar,False
+Wind,Wind,wind,False
+HPS,HPS,pumped_hydro,True
+Bhumibol,Bhumibol,hydro,False
+Sirikit,Sirikit,hydro,False
+Chulabhorn,Chulabhorn,hydro,False
+Nam_Pung,Nam Pung,hydro,False
+Pak_Mun,Pak Mun,hydro,False
+Siridhorn,Siridhorn,hydro,False
+Ubol_Ratana,Ubol Ratana,hydro,False
+Bang_Lang,Bang Lang,hydro,False
+Kaeng_Krachan,Kaeng Krachan,hydro,False
+Rajjaprabha,Rajjaprabha,hydro,False
+Srinagarind,Srinagarind,hydro,False
+Tha_Thung_Na,Tha Thung Na,hydro,False
+Vajiralongkorn,Vajiralongkorn,hydro,False

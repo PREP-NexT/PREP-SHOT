@@ -1,15 +1,14 @@
-# Log and output directories
-/log/*
-!/log/.gitkeep
-
-/output/*
-!/output/.gitkeep
+# Runtime log and output directories. Auto-created by set_up.py /
+# output_data.py at run time; never tracked.
+/log/
+/output/
 
 # Python compiled files and other common Python ignores
 *.pyc
 *.pyo
 *.egg-info/
 __pycache__/
+/.pytest_cache/
 
 # Sphinx documentation builds
 /doc/build/

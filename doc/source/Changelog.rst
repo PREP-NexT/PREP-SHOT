@@ -840,3 +840,54 @@ Notes
   solver does not return duals (e.g. for a MIP solve, or after an
   infeasible run), a warning is logged and the variable is omitted
   from the NetCDF file rather than aborting the run.
+
+
+Version 1.10.0 - May 5, 2026
+-------------------------------
+
+Repository housekeeping. Each shipped scenario is now self-contained
+under ``examples/`` with its own ``config.json`` + ``params.json`` +
+``input/``. There is no longer a "default" scenario at the repo
+root -- users explicitly pick one with ``cd examples/<scenario>``.
+
+Added
++++++
+
+* ``examples/thailand/`` -- the legacy ``single_node_with_hydro/``
+  dataset migrated from v1.4 wide-format Excel to the v1.9 long-CSV
+  schema. 13 cascading Mekong-basin reservoirs (Bhumibol, Sirikit,
+  Srinagarind, ...) modeled per-station; ``Large Hydropower``
+  capacity allocated by ``N_max``. ``main.ipynb`` rewritten as
+  ``Thailand.ipynb`` with the v1.9 API.
+* ``examples/three_zone/{config.json, params.json, input/}`` --
+  the canonical 3-zone synthetic dataset (used by Quickstart and
+  the regression test) now self-contained.
+* ``examples/southeast_asia/{config.json, params.json, input/,
+  SoutheastAsia.ipynb}`` -- the Lower Mekong scenario also
+  self-contained, with its own dataset directory.
+
+Changed
++++++++
+
+* ``run.py`` now takes an optional positional scenario-directory
+  argument (defaults to ``cwd``). Without args, expects to be run
+  from inside an ``examples/<scenario>/`` directory.
+* ``tests/test_regression.py`` ``cd``s into ``examples/three_zone/``
+  for the duration of the solve.
+* ``prepshot/logs.py`` -- fixed mkdir bug (was creating ``log/``'s
+  parent, not ``log/`` itself); the directory is now auto-created
+  on first run rather than tracked in git.
+* ``examples/single_node_with_hydro/`` -> ``examples/thailand/``
+  (consistent geography-based naming with ``southeast_asia/``).
+
+Removed
++++++++
+
+* Repo-root ``config.json`` and ``params.json`` (no default scenario).
+* Repo-root ``log/`` and ``output/`` directories (now ignored as
+  runtime artifacts).
+* ``binder/`` (Binder launcher config) -- cold start was too slow.
+  Colab remains as the online launcher.
+* ``toolkit/`` -- merged into ``tools/`` (single namespace for
+  one-off scripts).
+* Empty ``.gitattributes``.

@@ -15,11 +15,12 @@ from functools import wraps
 def setup_logging() -> None:
     """Set up logging configuration for the model run.
     """
-    # Ensure the log directory exists.
-    Path('log').parent.mkdir(parents=True, exist_ok=True)
-
-    # Create a log file with a timestamp.
+    # Ensure the log directory itself exists. (The previous version
+    # called .parent.mkdir(...) which only created the parent, not
+    # `log/` itself.) The directory is no longer tracked in git --
+    # set_up creates it lazily for each run.
     log_dir = Path('log')
+    log_dir.mkdir(parents=True, exist_ok=True)
     log_time = time.strftime("%Y-%m-%d-%H-%M-%S")
     log_file = log_dir / f'main_{log_time}.log'
 
