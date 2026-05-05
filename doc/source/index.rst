@@ -86,7 +86,7 @@ Key Features
 
 Offline documentation
 ----------------------
-To browse the documentation offline, you can `download a PDF copy <https://github.com/PREP-NexT/PREP-SHOT/raw/gh-pages/_static/PREP-SHOT.pdf>`_ for offline reading (Synchronize updates with online documentation).
+To browse the documentation offline, download a `zipped HTML copy <https://prep-shot.readthedocs.io/_/downloads/en/stable/htmlzip/>`_ from Read the Docs (also accessible via the version-switcher at the bottom-left of every page).
 
 .. toctree::
    :hidden:

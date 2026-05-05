@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://prep-next.github.io/PREP-SHOT/">
+  <a href="https://prep-shot.readthedocs.io/en/stable/">
     <img src="https://user-images.githubusercontent.com/50036800/221886195-3113531b-f9c4-4c6a-bb66-612c8b9c3d9a.png" width="550" alt="PREP-SHOT logo">
   </a>
 </p>
@@ -11,6 +11,7 @@
   <a href="https://twitter.com/PREPNexT_Lab"><img src="https://img.shields.io/twitter/follow/PREPNexT_Lab.svg?label=Follow&style=social" alt="Twitter Follow"></a>
   <a href="https://github.com/PREP-NexT/PREP-SHOT"><img src="https://img.shields.io/github/license/PREP-NexT/PREP-SHOT.svg" alt="License"></a>
   <a href="https://github.com/PREP-NexT/PREP-SHOT"><img src="https://badges.frapsoft.com/os/v1/open-source.svg?v=103" alt="Download"></a>
+  <a href="https://prep-shot.readthedocs.io/"><img src="https://readthedocs.org/projects/prep-shot/badge/?version=latest" alt="Documentation Status"></a>
   <a href="https://colab.research.google.com/github/PREP-NexT/PREP-SHOT/blob/main/doc/source/Quickstart.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Google Colab (Quickstart)"></a>
 </p>
 
@@ -27,7 +28,7 @@
 
 **PREP-SHOT** (**P**athways for **R**enewable **E**nergy **P**lanning coupling **S**hort-term **H**ydropower **O**pera**T**ion) is a transparent, modular, and open-source energy expansion model, offering advanced solutions for multi-scale, intertemporal, and cost-effective expansion of energy systems and transmission lines. It's developed by [Zhanwei Liu](https://www.researchgate.net/profile/Zhanwei-Liu-4) and [Xiaogang He](http://hydro.iis.u-tokyo.ac.jp/~hexg/) from the [PREP-NexT](https://github.com/PREP-NexT) Lab at the [National University of Singapore](https://nus.edu.sg/).
 ![PREPSHOT_Update07](https://github.com/user-attachments/assets/4b3bd966-39c3-4845-b4c2-8c5e5c0b93a5)
-For more information, please visit the [Official Documentation](https://prep-next.github.io/PREP-SHOT/).
+For more information, please visit the [Official Documentation](https://prep-shot.readthedocs.io/en/stable/).
 
 This project is licensed under the [GNU General Public License 3.0](https://github.com/PREP-NexT/PREP-SHOT/blob/main/LICENSE).
 
@@ -87,7 +88,7 @@ For a local setup follow the steps below.
 
     Equivalent entry points: `prepshot` (console script) or `python /path/to/run.py .`.
 
-This example is inspired by real-world data. For a hands-on walkthrough, see the [Quickstart](https://prep-next.github.io/PREP-SHOT/Quickstart.html) in our documentation.
+This example is inspired by real-world data. For a hands-on walkthrough, see the [Quickstart](https://prep-shot.readthedocs.io/en/stable/Quickstart.html) in our documentation.
 
 By default, PREP-SHOT uses the open-source [HiGHS](https://github.com/jump-dev/HiGHS.jl) solver. Solver-specific parameters are specified in the scenario's ``config.json``. We also support the following commercial solvers:
 
@@ -97,7 +98,7 @@ By default, PREP-SHOT uses the open-source [HiGHS](https://github.com/jump-dev/H
 
 ## 🤝 How to Contribute
 
-To contribute to this project, please read our [Contributing Guidelines](https://prep-next.github.io/PREP-SHOT/Changelog.html#contributing-to-prep-shot).
+To contribute to this project, please read our [Contributing Guidelines](https://prep-shot.readthedocs.io/en/stable/Changelog.html#contributing-to-prep-shot).
 
 ## Versioning
 
@@ -105,7 +106,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Citing PREP-SHOT
 
-See the [Citation Guide](https://prep-next.github.io/PREP-SHOT/Citations.html).
+See the [Citation Guide](https://prep-shot.readthedocs.io/en/stable/Citations.html).
 
 Please use the following logo if you use PREP-SHOT:
 
