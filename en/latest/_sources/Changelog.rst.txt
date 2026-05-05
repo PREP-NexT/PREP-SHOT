@@ -3,6 +3,75 @@ Changelog
 
 Here, you'll find notable changes for each version of PREP-SHOT.
 
+Version 1.13.0 - May 5, 2026
+-------------------------------
+
+New feature: optional **DC linearised power flow** for inter-zone
+transmission. Layered on top of the existing transport-model
+``trans_export`` variables -- the LP capacity bound stays in place;
+DC flow adds Kirchhoff's voltage law via phase-angle differences.
+First step toward production-cost-model fidelity.
+
+Added
++++++
+
+* ``prepshot/_model/dc_flow.py`` -- ``AddDCFlowConstraints`` class.
+
+  - **theta variable**: ``model.theta[h, m, y, z]``, free in
+    ``[-pi, pi]``. Created only when the module is enabled.
+  - **reference bus**: ``theta[h, m, y, ref_zone] = 0`` per timestep,
+    pinning the otherwise translation-invariant solution.
+  - **flow equation**: for every unordered zone pair ``(z1, z2)`` with
+    a positive susceptance ``b``,
+
+    .. math::
+
+        \\text{trans\\_export}_{z_1,z_2} - \\text{trans\\_export}_{z_2,z_1}
+          = b \\cdot (\\theta_{z_1} - \\theta_{z_2}) \\cdot \\Delta h
+
+    Each pair gets ONE constraint (alphabetical ordering avoids
+    duplicates). Pairs with ``b = 0`` -- electrically disconnected --
+    are skipped, so the constraint structure matches the network
+    topology.
+  - **stays LP**: no binaries, no non-convexity. Adds ``|hour| x
+    |month| x |year|`` reference-bus equalities plus
+    ``|hour| x |month| x |year| x N_pairs`` flow equalities.
+
+* New optional input file in every shipped example:
+
+  - ``transmission_susceptance.csv`` (cols ``zone1, zone2, unit,
+    value``): per-pair susceptance in MW/rad. Defaults derived from
+    line capacity: ``b = max(2 * existing_capacity_MW, 1000)``, so a
+    ~0.5 rad angle difference saturates the line. Override per pair
+    to fine-tune.
+
+* New ``dc_parameters`` block in each example's ``config.json``:
+
+  - ``three_zone``: ``is_dc_flow=true``, ``reference_zone=BA1``.
+  - ``thailand``: ``is_dc_flow=false`` (single-zone, nothing to
+    constrain).
+  - ``southeast_asia``: ``is_dc_flow=true``,
+    ``reference_zone=Thailand``.
+
+* ``prepshot/load_data.py`` reads the new config block (default
+  ``is_dc_flow=false`` if the section is missing -- pre-1.13
+  ``config.json`` files are byte-compatible).
+
+Changed
++++++++
+
+* ``tests/test_regression.py``: ``EXPECTED_OBJECTIVE`` for the
+  ``three_zone`` regression bumped to ``1.8967979487e11``. Drift
+  history kept inline for traceability:
+
+  - v1.1.1  -> ``1.8793771299e11``  (transport, no reserve)
+  - v1.12.0 -> ``1.8878269786e11``  (+ reserve up/down)
+  - v1.13.0 -> ``1.8967979487e11``  (+ DC flow Kirchhoff)
+
+  Each step is a real model upgrade, not solver drift; the regression
+  test catches accidental cost regressions, and the layered baselines
+  let future readers see what each feature added.
+
 Version 1.12.0 - May 5, 2026
 -------------------------------
 
