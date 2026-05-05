@@ -115,17 +115,19 @@ def extract_results_non_hydro(model : object) -> xr.Dataset:
     )
     data_vars['carbon_breakdown'] = create_data_array(
         model.carbon_breakdown, ['year', 'zone', 'tech'], 'Ton', model)
-    # Operating-reserve allocations (only when the reserve module ran).
-    # Same shape as `gen`; eligible techs may carry positive headroom
-    # above (`reserve_up`) and below (`reserve_down`) their dispatch.
-    if hasattr(model, 'reserve_up'):
-        data_vars['reserve_up'] = create_data_array(
-            model.reserve_up,
-            ['hour', 'month', 'year', 'zone', 'tech'], 'MWh', model,
-        )
-        data_vars['reserve_down'] = create_data_array(
-            model.reserve_down,
-            ['hour', 'month', 'year', 'zone', 'tech'], 'MWh', model,
+    # Operating-reserve allocations (multi-product, v1.16).
+    # `reserve` is dimensioned (hour, month, year, zone, tech, product),
+    # where the product axis comes from the eligibility CSV (typically
+    # regulation_up / regulation_down / spinning / non_spinning).
+    if hasattr(model, 'reserve') and getattr(model, 'reserve_products', None):
+        # Borrow the per-product axis the reserve module stashes on
+        # the model. create_data_array's dim list must match the
+        # variable's index order.
+        model.product = list(model.reserve_products)  # for create_data_array
+        data_vars['reserve'] = create_data_array(
+            model.reserve,
+            ['hour', 'month', 'year', 'zone', 'tech', 'product'],
+            'MWh', model,
         )
     # Shadow price (dual) of the nodal power-balance constraint --
     # the locational marginal price of one extra MWh of demand at

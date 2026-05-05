@@ -1,87 +1,147 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""Operating-reserve constraints, two directions (LP relaxation).
+"""Granular operating-reserve constraints (multi-product, LP relaxation).
 
-PREP-SHOT is a pure LP. True spinning-reserve modelling needs a binary
-"unit is online" variable, which would push the model into MILP land.
-This module ships the standard LP relaxation: any plant whose dispatched
-capacity has spare headroom can count that headroom toward reserve, with
-no separate online/offline distinction. Acceptable for capacity-expansion
-planning (hourly operations are smoothed); not acceptable for chronological
-unit-commitment studies.
+Generalises the v1.12 / v1.14 reserve module from "one reserve_up +
+one reserve_down" to **named reserve products**, each with its own
+eligibility and zonal requirement -- matching the structure of real
+ancillary-services markets (CAISO, ERCOT, MISO, etc.) and the way
+GenX, ReEDS, and PowNet model reserves.
 
-Two reserve directions are tracked:
+Default product set
+===================
 
-* **Up reserve** -- capacity available to *increase* output if demand
-  spikes or another plant trips. Bounded above by the gap between
-  dispatched output and the unit's max:
+Four products ship by default. The direction (up vs down) is encoded
+in the product *name* and inferred by the suffix:
 
-  .. math::
+* ``regulation_up`` -- frequency regulation, increase output
+* ``regulation_down`` -- frequency regulation, decrease output
+* ``spinning`` -- contingency reserve, online + ready, up-only
+* ``non_spinning`` -- contingency reserve, may be offline, up-only
 
-      \\text{reserve\\_up}_{h,m,y,z,t} \\le
-      \\text{cap}_{y,z,t}\\cdot p^{\\max}_{t,z,y,m,h}\\cdot \\Delta h
-      - \\text{gen}_{h,m,y,z,t}
+The full set is read from the ``reserve_eligible`` CSV (column
+``product``); any product name that ends in ``_down`` is treated as
+a down-direction product, everything else is up.
 
-* **Down reserve** -- capacity available to *decrease* output if a
-  variable-renewable plant over-generates or load drops. Bounded above
-  by the gap between dispatched output and the unit's minimum stable
-  load:
+Constraints
+===========
 
-  .. math::
+Per ``(h, m, y, z, te)`` and per direction ``d`` -- *headroom is
+shared across products in the same direction* (otherwise we would
+double-count: a unit's spare megawatts can serve regulation OR
+spinning, not both at the same instant):
 
-      \\text{reserve\\_down}_{h,m,y,z,t} \\le
-      \\text{gen}_{h,m,y,z,t}
-      - \\text{cap}_{y,z,t}\\cdot p^{\\min}_{t,z,y,m,h}\\cdot \\Delta h
+.. math::
 
-Non-eligible techs (typically solar / wind / storage discharge) are
-forced to ``reserve_up = reserve_down = 0`` regardless of headroom.
-Eligibility is read once from ``tech_reserve_eligible.csv`` and applied
-to both directions.
+    \\sum_{p \\in \\text{products}_d} \\text{reserve}_{h,m,y,z,t,p}
+      + \\text{gen}_{h,m,y,z,t}
+    \\le \\text{cap}_{y,z,t} \\cdot p^{\\max}_{t,z,y,m,h} \\cdot \\Delta h
+    \\quad (d = \\text{up})
 
-Per-zone-year requirements are read from two separate CSVs, both in
-MW (multiplied by ``dt`` internally to match ``gen``'s MWh-per-timestep
-unit):
+.. math::
 
-* ``reserve_requirement_up.csv`` -- size for contingency / load growth
-* ``reserve_requirement_down.csv`` -- size for over-generation absorption
+    \\sum_{p \\in \\text{products}_d} \\text{reserve}_{h,m,y,z,t,p}
+    \\le \\text{gen}_{h,m,y,z,t}
+      - \\text{cap}_{y,z,t} \\cdot p^{\\min}_{t,z,y,m,h} \\cdot \\Delta h
+    \\quad (d = \\text{down})
 
-Both are optional; missing rows / files default to 0 and yield
-trivially-satisfied constraints.
+Per ``(h, m, y, z, p)`` zonal requirement:
 
-The whole module is gated by ``config.json.reserve_parameters.is_reserve``;
-when that flag is ``False`` the variables and constraints are not built,
-preserving byte-for-byte behaviour for any pre-1.12 ``config.json``.
+.. math::
 
-No cost term is added: reserve is "free" in this LP relaxation. If you
-want to penalise holding reserve (e.g. a small per-MWh opportunity
-cost), add it to ``cost.py`` -- the variables are exposed as
-``model.reserve_up`` and ``model.reserve_down``.
+    \\sum_{t} \\text{reserve}_{h,m,y,z,t,p}
+    \\ge \\text{REQ}_{z,y,p} \\cdot \\Delta h
+
+Non-eligible (tech, product) cells are forced to zero. Products with
+no eligible techs in a zone produce a non-binding requirement.
+
+Inputs
+======
+
+* ``tech_reserve_eligible.csv`` -- columns ``tech, product, eligible``.
+  Missing rows default to ``eligible=0``. v1.12 files (cols ``tech,
+  eligible``) are NOT readable by this module; migrate by:
+
+      old:  Coal,1
+      new:  Coal,regulation_up,1
+            Coal,regulation_down,1
+            Coal,spinning,1
+            Coal,non_spinning,1
+
+* ``reserve_requirement.csv`` -- columns ``zone, year, product, unit,
+  value``. Missing rows default to 0 (non-binding).
+
+Module is gated by ``config.json.reserve_parameters.is_reserve``;
+when off, no variables / constraints are built.
 """
 import pyoptinterface as poi
 
 
+def _is_down_product(product: str) -> bool:
+    """``True`` for down-direction products (suffix ``_down``).
+
+    Convention chosen so the eligibility CSV stays a single column;
+    new products encode their direction in the name (e.g.
+    ``flex_ramp_up``, ``flex_ramp_down``).
+    """
+    return product.endswith('_down')
+
+
 class AddReserveConstraints:
-    """Operating-reserve constraints, up and down directions."""
+    """Granular operating-reserve constraints (multi-product)."""
 
     def __init__(self, model: object) -> None:
         self.model = model
         if not model.params.get('is_reserve', False):
             return
 
-        # Eligibility lookup with default False. Allows the input file
-        # to be partial -- techs not listed are treated as ineligible.
-        eligible = model.params.get('reserve_eligible') or {}
+        # Eligibility: dict[(tech, product) -> 0/1]. The set of
+        # *products* is harvested from this dict's keys (any product
+        # mentioned for any tech). Keeps the schema lean -- no
+        # separate "products" file.
+        elig = model.params.get('reserve_eligible') or {}
+        if not elig:
+            # No eligibility data -> nothing to constrain.
+            model.reserve_products = []
+            return
+
+        products = sorted({p for (_, p) in elig.keys()})
+        model.reserve_products = products
+        self.products_up = [p for p in products if not _is_down_product(p)]
+        self.products_down = [p for p in products if _is_down_product(p)]
+
+        # Per-(tech, product) eligibility lookup; default False.
         self.is_eligible = {
-            t: bool(eligible.get(t, False)) for t in model.tech
+            (t, p): bool(elig.get((t, p), False))
+            for t in model.tech for p in products
         }
 
-        # Same p_max_pu / p_min_pu sources as gen_up_bound_rule /
-        # gen_low_bound_rule -- keeps the headroom constraints aligned
-        # with the dispatch bounds.
+        # Same p_max_pu / p_min_pu sources as gen_up_bound_rule.
         self._p_max_pu = dict(model.params.get('max_gen_profile') or {})
         self._p_min_pu = dict(model.params.get('min_gen_profile') or {})
 
+        # Decision variable: reserve[h, m, y, z, t, p] in MWh / step.
+        # Single 6-D variable; the v1.12 reserve_up / reserve_down
+        # become the sum across products in their respective direction.
+        model.reserve = model.add_variables(
+            model.hour, model.month, model.year,
+            model.zone, model.tech, products,
+            lb=0,
+        )
+
+        # Lock non-eligible (tech, product) cells to 0. We prefer this
+        # over relying on the LP optimum because the requirement
+        # constraint sums across techs -- if non-eligible techs are
+        # free to take any value, the requirement is trivial.
+        model.reserve_non_eligible_cons = poi.make_tupledict(
+            model.hour, model.month, model.year,
+            model.zone, model.tech, products,
+            rule=self.non_eligible_zero_rule,
+        )
+
+        # Two headroom rules per (h, m, y, z, te) -- one per direction
+        # -- summing across products in that direction.
         model.reserve_headroom_up_cons = poi.make_tupledict(
             model.hour, model.month, model.year, model.zone, model.tech,
             rule=self.headroom_up_rule,
@@ -90,81 +150,79 @@ class AddReserveConstraints:
             model.hour, model.month, model.year, model.zone, model.tech,
             rule=self.headroom_down_rule,
         )
-        model.reserve_requirement_up_cons = poi.make_tupledict(
-            model.hour, model.month, model.year, model.zone,
-            rule=self.requirement_up_rule,
-        )
-        model.reserve_requirement_down_cons = poi.make_tupledict(
-            model.hour, model.month, model.year, model.zone,
-            rule=self.requirement_down_rule,
+
+        # Per-(h, m, y, z, product) zonal requirement.
+        model.reserve_requirement_cons = poi.make_tupledict(
+            model.hour, model.month, model.year, model.zone, products,
+            rule=self.requirement_rule,
         )
 
-    def headroom_up_rule(
-        self, h: int, m: int, y: int, z: str, te: str
-    ) -> poi.ConstraintIndex:
-        """Up-reserve bounded by spare capacity above current dispatch."""
+    # ------------------------------------------------------------------
+    # Rules
+
+    def non_eligible_zero_rule(self, h, m, y, z, te, p):
+        """Force ``reserve[..., te, p] = 0`` when (te, p) isn't eligible."""
+        if self.is_eligible[(te, p)]:
+            return None
+        return self.model.add_linear_constraint(
+            self.model.reserve[h, m, y, z, te, p], poi.Eq, 0
+        )
+
+    def headroom_up_rule(self, h, m, y, z, te):
+        """``sum_{p in up} reserve[..., p] + gen <= cap * p_max * dt``."""
+        if not self.products_up:
+            return None
+        # Skip when no (te, p) in up direction is eligible -- the sum
+        # would be zero by the non_eligible rule, leaving the trivial
+        # `gen <= cap * p_max * dt` (already enforced by gen_up_bound).
+        if not any(self.is_eligible[(te, p)] for p in self.products_up):
+            return None
         model = self.model
-        if not self.is_eligible[te]:
-            return model.add_linear_constraint(
-                model.reserve_up[h, m, y, z, te], poi.Eq, 0
-            )
         p_max_pu = self._p_max_pu.get((te, z, y, m, h), 1)
         dt = model.params['dt']
         lhs = (
-            model.reserve_up[h, m, y, z, te]
+            poi.quicksum(
+                model.reserve[h, m, y, z, te, p] for p in self.products_up
+            )
             + model.gen[h, m, y, z, te]
             - model.cap_existing[y, z, te] * p_max_pu * dt
         )
         return model.add_linear_constraint(lhs, poi.Leq, 0)
 
-    def headroom_down_rule(
-        self, h: int, m: int, y: int, z: str, te: str
-    ) -> poi.ConstraintIndex:
-        """Down-reserve bounded by margin above the dispatch floor."""
+    def headroom_down_rule(self, h, m, y, z, te):
+        """``sum_{p in down} reserve[..., p] <= gen - cap * p_min * dt``."""
+        if not self.products_down:
+            return None
+        if not any(self.is_eligible[(te, p)] for p in self.products_down):
+            return None
         model = self.model
-        if not self.is_eligible[te]:
-            return model.add_linear_constraint(
-                model.reserve_down[h, m, y, z, te], poi.Eq, 0
-            )
         p_min_pu = self._p_min_pu.get((te, z, y, m, h), 0)
         dt = model.params['dt']
-        # reserve_down <= gen - cap * p_min_pu * dt
-        # rearranged: reserve_down - gen + cap * p_min_pu * dt <= 0
         lhs = (
-            model.reserve_down[h, m, y, z, te]
+            poi.quicksum(
+                model.reserve[h, m, y, z, te, p]
+                for p in self.products_down
+            )
             - model.gen[h, m, y, z, te]
             + model.cap_existing[y, z, te] * p_min_pu * dt
         )
         return model.add_linear_constraint(lhs, poi.Leq, 0)
 
-    def requirement_up_rule(
-        self, h: int, m: int, y: int, z: str
-    ) -> poi.ConstraintIndex:
-        """Zonal up-reserve requirement (MW input, scaled by dt)."""
-        return self._requirement(h, m, y, z, 'up')
+    def requirement_rule(self, h, m, y, z, p):
+        """``sum_t reserve[..., t, p] >= REQ[z, y, p] * dt``.
 
-    def requirement_down_rule(
-        self, h: int, m: int, y: int, z: str
-    ) -> poi.ConstraintIndex:
-        """Zonal down-reserve requirement (MW input, scaled by dt)."""
-        return self._requirement(h, m, y, z, 'down')
-
-    def _requirement(self, h, m, y, z, direction):
-        """Shared body for the up / down zonal requirement constraint.
-
-        ``direction`` is ``'up'`` or ``'down'``; both the param key
-        (``reserve_requirement_<direction>``) and the model variable
-        (``reserve_<direction>``) follow the same naming, so a single
-        helper covers both rules.
+        Requirement file ``reserve_requirement.csv`` cols
+        ``zone, year, product, unit, value``. Missing rows -> 0 (the
+        constraint becomes ``0 >= 0`` and is skipped here for solver
+        cleanliness).
         """
         model = self.model
-        req_lookup = model.params.get(f'reserve_requirement_{direction}') or {}
-        req_mw = req_lookup.get((z, y), 0)
+        req_lookup = model.params.get('reserve_requirement') or {}
+        req_mw = req_lookup.get((z, y, p), 0)
         if req_mw == 0:
             return None
-        reserve_var = getattr(model, f'reserve_{direction}')
         dt = model.params['dt']
         lhs = poi.quicksum(
-            reserve_var[h, m, y, z, t] for t in model.tech
+            model.reserve[h, m, y, z, t, p] for t in model.tech
         ) - req_mw * dt
         return model.add_linear_constraint(lhs, poi.Geq, 0)

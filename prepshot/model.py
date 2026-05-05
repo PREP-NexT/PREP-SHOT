@@ -17,9 +17,7 @@ from prepshot._model.investment import AddInvestmentConstraints
 from prepshot._model.finance import AddFinanceConstraints
 from prepshot._model.reserve import AddReserveConstraints
 from prepshot._model.dc_flow import AddDCFlowConstraints
-from prepshot._model.unit_commitment import (
-    AddUnitCommitmentConstraints, add_uc_cost_terms,
-)
+from prepshot._model.unit_commitment import AddUnitCommitmentConstraints
 from prepshot.logs import timer
 from prepshot.solver import get_solver
 from prepshot.solver import set_solver_parameters
@@ -158,13 +156,9 @@ def define_variables(model : object) -> None:
         model.hour, model.month, model.year, model.zone, model.zone, lb=0
     )
 
-    if model.params.get('is_reserve', False):
-        model.reserve_up = model.add_variables(
-            model.hour, model.month, model.year, model.zone, model.tech, lb=0
-        )
-        model.reserve_down = model.add_variables(
-            model.hour, model.month, model.year, model.zone, model.tech, lb=0
-        )
+    # Reserve variables are created INSIDE AddReserveConstraints (v1.16)
+    # because the product set comes from the eligibility CSV at runtime
+    # rather than being a fixed list here. Skip if reserve is off.
 
     if model.params['isinflow']:
         model.genflow = model.add_variables(

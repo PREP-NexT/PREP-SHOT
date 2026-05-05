@@ -310,15 +310,8 @@
         "required": false,
         "default": 0
     },
-    "reserve_requirement_up": {
-        "file_name": "reserve_requirement_up",
-        "format": "long",
-        "drop_na": true,
-        "required": false,
-        "default": 0
-    },
-    "reserve_requirement_down": {
-        "file_name": "reserve_requirement_down",
+    "reserve_requirement": {
+        "file_name": "reserve_requirement",
         "format": "long",
         "drop_na": true,
         "required": false,

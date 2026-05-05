@@ -1,0 +1,5 @@
+zone,year,product,unit,value
+Thailand,2023,regulation_up,MW,150.0
+Thailand,2023,regulation_down,MW,150.0
+Thailand,2023,spinning,MW,450.0
+Thailand,2023,non_spinning,MW,750.0

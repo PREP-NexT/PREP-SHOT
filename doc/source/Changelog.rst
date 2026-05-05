@@ -3,6 +3,105 @@ Changelog
 
 Here, you'll find notable changes for each version of PREP-SHOT.
 
+Version 1.16.0 - May 6, 2026
+-------------------------------
+
+Generalises the reserve module from a single up/down pair to **named
+reserve products**, matching the structure of real ancillary-services
+markets and the way GenX, ReEDS, and PowNet model reserves. Closes
+**Phase D** of the PCM-fidelity roadmap (Phase A = PCM mode in v1.14;
+Phase B = UC overlay in v1.15; Phase C = DC flow in v1.13).
+
+Default product set
++++++++++++++++++++
+
+Four products ship by default. The direction (up vs down) is encoded
+in the product *name* (suffix ``_down`` -> down direction):
+
+* ``regulation_up`` / ``regulation_down`` -- frequency regulation,
+  fast governor response.
+* ``spinning`` -- contingency reserve, online + ready, up-only.
+* ``non_spinning`` -- contingency reserve, may be offline (in a real
+  UC; in our LP relaxation it's just a slower-response reserve),
+  up-only.
+
+Adding a new product (e.g. ``flex_ramp_up``, ``flex_ramp_down``)
+requires no code change -- just rows in the eligibility CSV.
+
+Schema change (BREAKING)
+++++++++++++++++++++++++
+
+* ``tech_reserve_eligible.csv``: cols ``(tech, eligible)`` ->
+  ``(tech, product, eligible)``. v1.12-v1.15 files need migration: each
+  old row becomes one row per product the tech is eligible for.
+
+* ``reserve_requirement_up.csv`` + ``reserve_requirement_down.csv``
+  consolidated into ``reserve_requirement.csv`` with cols
+  ``(zone, year, product, unit, value)``. Direction inferred from
+  product name.
+
+* ``params.json`` schema entries ``reserve_requirement_up`` /
+  ``reserve_requirement_down`` replaced by a single
+  ``reserve_requirement`` entry.
+
+Migration ships in-place: the three example datasets all have new
+CSVs in v1.16. v1.16 will not read v1.12-v1.15 reserve files.
+
+Constraints
++++++++++++
+
+The headroom is now **shared across products in the same direction**
+(otherwise a unit's spare megawatts would be double-counted across
+regulation + spinning):
+
+  for each (h, m, y, z, te) and direction d in {up, down}:
+    sum_{p in products_d} reserve[h,m,y,z,t,p] + (gen if d=up else
+      -gen + cap*p_min*dt) <= cap * p_max * dt
+
+Per-product zonal requirement:
+
+  for each (h, m, y, z, p):
+    sum_t reserve[h,m,y,z,t,p] >= REQ[z,y,p] * dt
+
+Output
+++++++
+
+The two ``reserve_up`` / ``reserve_down`` xarray DataArrays are
+replaced by a single ``reserve`` array dimensioned
+``(hour, month, year, zone, tech, product)``. Slice on ``product``
+to recover the v1.12-style per-direction view.
+
+Eligibility defaults shipped
+++++++++++++++++++++++++++++
+
+By carrier (in ``tech_registry.csv``):
+
+* coal / oil / gas / bioenergy / biomass: all 4 products.
+* nuclear: spinning + non_spinning only (slow ramp).
+* geothermal: regulation_up + spinning + non_spinning.
+* hydro (including cascading per-station): regulation_up,
+  regulation_down, spinning. Excludes non_spinning (hydro can't
+  black-start as quickly as a peaker).
+* solar / wind / storage discharge: not eligible (storage will get
+  proper regulation eligibility in v1.17 once the UC overlay
+  understands charging-mode reserve).
+
+Default requirement values
+++++++++++++++++++++++++++
+
+The single ``value`` from ``reserve_requirement_up.csv`` (v1.15) is
+split across products as: regulation_up 10 %, regulation_down 10 %,
+spinning 30 %, non_spinning 50 %. So the total reserve commitment
+stays the same as v1.15 -- this commit is a generalisation of
+structure, not a tightening of policy.
+
+Regression
+++++++++++
+
+``three_zone`` ``EXPECTED_OBJECTIVE`` 1.9070270274e11 ->
+1.9070043702e11 (~0.001 % drift -- numerically identical at this
+tolerance, since total reserve is unchanged).
+
 Version 1.15.0 - May 6, 2026
 -------------------------------
 
