@@ -58,7 +58,6 @@ extensions = [
     "sphinx.ext.viewcode",
     "sphinx.ext.napoleon",
     "sphinxcontrib.video",
-    "sphinxcontrib.mermaid",
     "nbsphinx",
 ]
 

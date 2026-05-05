@@ -47,33 +47,6 @@ How It Works
 
 Source: :cite:t:`liu2023`.
 
-Architecture
-------------
-
-PREP-SHOT reads CSVs from a scenario directory, builds a linear
-program with the ``PyOptInterface`` modeling layer, hands it to the
-solver, and writes the solved variables back as a NetCDF file:
-
-.. mermaid::
-
-   flowchart LR
-       A["examples/scenario/\nconfig.json\nparams.json\ninput/"] --> B["load_data.py\nread_long_csv"]
-       B --> C["model.py\ncreate_model"]
-       C --> D["solver.py\nsolve_model"]
-       D --> E["output_data.py\nextract_results"]
-       E --> F["output/name.nc\n+ .xlsx"]
-       D -. "head iteration\n(if isinflow=true)" .-> C
-       style A fill:#e3f2fd
-       style F fill:#e8f5e9
-
-Each scenario directory under ``examples/`` is self-contained
-(``config.json`` + ``params.json`` + ``input/``); the package
-discovers everything from there. The dashed arrow is the head-
-iteration loop: PREP-SHOT solves at fixed water heads, recomputes
-heads from the resulting reservoir trajectory, and re-solves until
-convergence (controlled by ``iteration_number`` and
-``error_threshold`` in ``config.json``).
-
 Key Features
 ------------
 * PREP-SHOT is an optimization model based on linear programming for energy systems with multiple zones.
