@@ -1,7 +1,8 @@
 # Runtime log and output directories. Auto-created by set_up.py /
-# output_data.py at run time; never tracked.
-/log/
-/output/
+# output_data.py at run time; never tracked. Match anywhere in the
+# tree (each example's own log/ and output/ are also runtime).
+log/
+output/
 
 # Python compiled files and other common Python ignores
 *.pyc
