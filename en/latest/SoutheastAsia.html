@@ -1,0 +1,1731 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+<meta property="og:title" content="Tutorial: Lower Mekong Basin (Southeast Asia)" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="SoutheastAsia.html" />
+<meta property="og:site_name" content="PREP-SHOT documentation" />
+<meta property="og:description" content="A walkthrough of the Southeast Asia case study that ships with PREP-SHOT: capacity expansion across 5 countries(Cambodia, Laos, Myanmar, Thailand, Vietnam) from 2020 to 2030, with 57 cascading hydr..." />
+<meta name="description" content="A walkthrough of the Southeast Asia case study that ships with PREP-SHOT: capacity expansion across 5 countries(Cambodia, Laos, Myanmar, Thailand, Vietnam) from 2020 to 2030, with 57 cascading hydr..." />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Tutorial: Lower Mekong Basin (Southeast Asia) &mdash; PREP-SHOT (latest) documentation in English</title>
+
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="_static/tabs.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/algolia.css" type="text/css" />
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/custom.css?6" type="text/css" />
+      <link rel="stylesheet" href="_static/css/dev.css" type="text/css" />
+    <link rel="shortcut icon" href="_static/logo.png"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="_static/es5/tex-chtml.js"></script>
+        <script src="_static/js/custom.js?3"></script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+        <script defer="defer" src="_static/js/algolia.js"></script>
+    <script src="_static/js/theme.js"></script><meta name="theme-color" content="#3d8fcc">
+  
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Model Inputs/Outputs" href="Model_input_output.html" />
+    <link rel="prev" title="Quickstart (30 minutes)" href="Quickstart.html" />
+<meta name="doc_version" content="latest">
+<meta name="doc_is_latest" content="">
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html">
+            <img src="_static/SVG-03.svg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                latest
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Installation.html#step-1-download">Step 1: Download</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Installation.html#step-2-install">Step 2: Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Installation.html#step-3-run-a-scenario">Step 3: Run a scenario</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Installation.html#step-4-use-prep-shot-as-a-python-library">Step 4: Use PREP-SHOT as a Python library</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Quickstart.html">Quickstart (30 minutes)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Quickstart.html#Scenario-background">Scenario background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Quickstart.html#Step-1-–-Install-(5-minutes)">Step 1 – Install (5 minutes)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Quickstart.html#Step-2-–-Solve-the-shipped-example-(5-minutes)">Step 2 – Solve the shipped example (5 minutes)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Quickstart.html#Step-3-–-Open-the-results-(10-minutes)">Step 3 – Open the results (10 minutes)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Quickstart.html#Step-4-–-Change-one-input-and-re-solve-(5-minutes)">Step 4 – Change one input and re-solve (5 minutes)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Quickstart.html#Step-5-–-Where-to-next">Step 5 – Where to next</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Tutorial: Lower Mekong Basin (Southeast Asia)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#1.-The-scenario">1. The scenario</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#2.-Demand-profiles-by-country">2. Demand profiles by country</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#3.-The-existing-fleet-(2020)">3. The existing fleet (2020)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#4.-Per-station-hydropower">4. Per-station hydropower</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#5.-Inter-country-transmission">5. Inter-country transmission</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#6.-Running-a-full-capacity-expansion-solve">6. Running a full capacity-expansion solve</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#7.-Post-solve-diagnostics:-common-plots-from-a-solved-baseline">7. Post-solve diagnostics: common plots from a solved baseline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#7.1-Capacity-buildout">7.1 Capacity buildout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#7.2-Generation-mix">7.2 Generation mix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#7.3-Emissions-vs-the-carbon-cap">7.3 Emissions vs the carbon cap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#7.4-Cost-breakdown">7.4 Cost breakdown</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#8.-What-this-case-study-shows-that-aggregated-models-miss">8. What this case study shows that aggregated models miss</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Where-to-next">Where to next</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Model_input_output.html">Model Inputs/Outputs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Model_input_output.html#input-file-format">Input file format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Model_input_output.html#inputs">Inputs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Model_input_output.html#required-inputs">Required inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Model_input_output.html#hydropower-inputs-active-when-isinflow-true-in-config-json">Hydropower inputs (active when <code class="docutils literal notranslate"><span class="pre">isinflow=true</span></code> in <code class="docutils literal notranslate"><span class="pre">config.json</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Model_input_output.html#optional-inputs-skipped-when-absent">Optional inputs (skipped when absent)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Model_input_output.html#outputs">Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Model_input_output.html#running-scenarios">Running scenarios</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Model_input_output.html#setting-global-parameters">Setting global parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Mathematical_notations.html">Mathematical Notation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Mathematical_notations.html#unit-list">Unit List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Mathematical_notations.html#set-list">Set List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Mathematical_notations.html#variable-list">Variable List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Mathematical_notations.html#parameter-list">Parameter List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Mathematical_notations.html#objective-functions">Objective Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#costs">Costs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#factors">Factors</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Mathematical_notations.html#constraints">Constraints</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#retirement">Retirement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#carbon-emission">Carbon Emission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#power-balance">Power Balance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#transmission">Transmission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#power-output">Power Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#power-output-variation">Power output variation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#energy-storage">Energy storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#water-balance">Water balance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#reservoir-outflow">Reservoir outflow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#reservoir-storage">Reservoir storage</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="how_to/index.html">How-To Recipes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="how_to/add_a_technology.html">Add a new technology</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="how_to/add_a_technology.html#steps">Steps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="how_to/add_a_technology.html#verify">Verify</a></li>
+<li class="toctree-l3"><a class="reference internal" href="how_to/add_a_technology.html#common-pitfalls">Common pitfalls</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="how_to/tighten_a_carbon_cap.html">Tighten a carbon cap</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="how_to/tighten_a_carbon_cap.html#steps">Steps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="how_to/tighten_a_carbon_cap.html#verify">Verify</a></li>
+<li class="toctree-l3"><a class="reference internal" href="how_to/tighten_a_carbon_cap.html#custom-cap-regions">Custom cap regions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="how_to/tighten_a_carbon_cap.html#common-pitfalls">Common pitfalls</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="how_to/compare_two_scenarios.html">Compare two scenarios</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="how_to/compare_two_scenarios.html#setup">Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="how_to/compare_two_scenarios.html#recipe">Recipe</a></li>
+<li class="toctree-l3"><a class="reference internal" href="how_to/compare_two_scenarios.html#plot-the-capacity-reshuffle">Plot the capacity reshuffle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="how_to/compare_two_scenarios.html#common-pitfalls">Common pitfalls</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="how_to/inspect_lmps.html">Inspect locational marginal prices</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="how_to/inspect_lmps.html#recipe">Recipe</a></li>
+<li class="toctree-l3"><a class="reference internal" href="how_to/inspect_lmps.html#sign-convention">Sign convention</a></li>
+<li class="toctree-l3"><a class="reference internal" href="how_to/inspect_lmps.html#npv-vs-real-year-prices">NPV vs real-year prices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="how_to/inspect_lmps.html#common-pitfalls">Common pitfalls</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="how_to/add_a_cascading_hydropower_system.html">Add a cascading hydropower system</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="how_to/add_a_cascading_hydropower_system.html#steps">Steps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="how_to/add_a_cascading_hydropower_system.html#verify">Verify</a></li>
+<li class="toctree-l3"><a class="reference internal" href="how_to/add_a_cascading_hydropower_system.html#common-pitfalls">Common pitfalls</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/prepshot.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/prepshot.set_up.html">set_up</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.set_up.html#prepshot.set_up.initialize_environment"><code class="docutils literal notranslate"><span class="pre">initialize_environment()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.set_up.html#prepshot.set_up.parse_cli_arguments"><code class="docutils literal notranslate"><span class="pre">parse_cli_arguments()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/prepshot.logs.html">logs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.logs.html#prepshot.logs.log_parameter_info"><code class="docutils literal notranslate"><span class="pre">log_parameter_info()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.logs.html#prepshot.logs.setup_logging"><code class="docutils literal notranslate"><span class="pre">setup_logging()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.logs.html#prepshot.logs.timer"><code class="docutils literal notranslate"><span class="pre">timer()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/prepshot.load_data.html">load_data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.load_data.html#prepshot.load_data.check_schema"><code class="docutils literal notranslate"><span class="pre">check_schema()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.load_data.html#prepshot.load_data.compute_cost_factors"><code class="docutils literal notranslate"><span class="pre">compute_cost_factors()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.load_data.html#prepshot.load_data.extract_config_data"><code class="docutils literal notranslate"><span class="pre">extract_config_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.load_data.html#prepshot.load_data.extract_sets"><code class="docutils literal notranslate"><span class="pre">extract_sets()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.load_data.html#prepshot.load_data.load_excel_data"><code class="docutils literal notranslate"><span class="pre">load_excel_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.load_data.html#prepshot.load_data.load_json"><code class="docutils literal notranslate"><span class="pre">load_json()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.load_data.html#prepshot.load_data.process_data"><code class="docutils literal notranslate"><span class="pre">process_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.load_data.html#prepshot.load_data.read_long_csv"><code class="docutils literal notranslate"><span class="pre">read_long_csv()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/prepshot.solver.html">solver</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.solver.html#prepshot.solver.get_solver"><code class="docutils literal notranslate"><span class="pre">get_solver()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.solver.html#prepshot.solver.set_solver_parameters"><code class="docutils literal notranslate"><span class="pre">set_solver_parameters()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.solver.html#prepshot.solver.solve_model"><code class="docutils literal notranslate"><span class="pre">solve_model()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/prepshot.model.html">model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.model.html#prepshot.model.create_model"><code class="docutils literal notranslate"><span class="pre">create_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.model.html#prepshot.model.define_basic_sets"><code class="docutils literal notranslate"><span class="pre">define_basic_sets()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.model.html#prepshot.model.define_complex_sets"><code class="docutils literal notranslate"><span class="pre">define_complex_sets()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.model.html#prepshot.model.define_constraints"><code class="docutils literal notranslate"><span class="pre">define_constraints()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.model.html#prepshot.model.define_model"><code class="docutils literal notranslate"><span class="pre">define_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.model.html#prepshot.model.define_variables"><code class="docutils literal notranslate"><span class="pre">define_variables()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/prepshot._model.html">constraints</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot._model.co2.html">co2</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.co2.html#prepshot._model.co2.AddCo2EmissionConstraints"><code class="docutils literal notranslate"><span class="pre">AddCo2EmissionConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot._model.cost.html">cost</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.cost.html#prepshot._model.cost.AddCostObjective"><code class="docutils literal notranslate"><span class="pre">AddCostObjective</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot._model.demand.html">demand</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.demand.html#prepshot._model.demand.AddDemandConstraints"><code class="docutils literal notranslate"><span class="pre">AddDemandConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot._model.generation.html">generation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.generation.html#prepshot._model.generation.AddGenerationConstraints"><code class="docutils literal notranslate"><span class="pre">AddGenerationConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot._model.head_iteration.html">head_iteration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.head_iteration.html#prepshot._model.head_iteration.compute_error"><code class="docutils literal notranslate"><span class="pre">compute_error()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.head_iteration.html#prepshot._model.head_iteration.initialize_waterhead"><code class="docutils literal notranslate"><span class="pre">initialize_waterhead()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.head_iteration.html#prepshot._model.head_iteration.process_model_solution"><code class="docutils literal notranslate"><span class="pre">process_model_solution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.head_iteration.html#prepshot._model.head_iteration.run_model_iteration"><code class="docutils literal notranslate"><span class="pre">run_model_iteration()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot._model.hydro.html">hydro</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.hydro.html#prepshot._model.hydro.AddHydropowerConstraints"><code class="docutils literal notranslate"><span class="pre">AddHydropowerConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot._model.investment.html">investment</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.investment.html#prepshot._model.investment.AddInvestmentConstraints"><code class="docutils literal notranslate"><span class="pre">AddInvestmentConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot._model.nondispatchable.html">nondispatchable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot._model.storage.html">storage</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.storage.html#prepshot._model.storage.AddStorageConstraints"><code class="docutils literal notranslate"><span class="pre">AddStorageConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot._model.transmission.html">transmission</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.transmission.html#prepshot._model.transmission.AddTransmissionConstraints"><code class="docutils literal notranslate"><span class="pre">AddTransmissionConstraints</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/prepshot.utils.html">utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.utils.html#prepshot.utils.calc_cost_factor"><code class="docutils literal notranslate"><span class="pre">calc_cost_factor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.utils.html#prepshot.utils.calc_interest_rate"><code class="docutils literal notranslate"><span class="pre">calc_interest_rate()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.utils.html#prepshot.utils.calc_inv_cost_factor"><code class="docutils literal notranslate"><span class="pre">calc_inv_cost_factor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.utils.html#prepshot.utils.cartesian_product"><code class="docutils literal notranslate"><span class="pre">cartesian_product()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.utils.html#prepshot.utils.check_positive"><code class="docutils literal notranslate"><span class="pre">check_positive()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.utils.html#prepshot.utils.interpolate_z_by_q_or_s"><code class="docutils literal notranslate"><span class="pre">interpolate_z_by_q_or_s()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/prepshot.output_data.html">output_data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.output_data.html#prepshot.output_data.create_data_array"><code class="docutils literal notranslate"><span class="pre">create_data_array()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.output_data.html#prepshot.output_data.extract_results_hydro"><code class="docutils literal notranslate"><span class="pre">extract_results_hydro()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.output_data.html#prepshot.output_data.extract_results_non_hydro"><code class="docutils literal notranslate"><span class="pre">extract_results_non_hydro()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.output_data.html#prepshot.output_data.save_result"><code class="docutils literal notranslate"><span class="pre">save_result()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.output_data.html#prepshot.output_data.save_to_excel"><code class="docutils literal notranslate"><span class="pre">save_to_excel()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.output_data.html#prepshot.output_data.update_output_filename"><code class="docutils literal notranslate"><span class="pre">update_output_filename()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Stability.html">Stability policy</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Stability.html#v1-x-research-evolving-current">v1.x -- research / evolving (current)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Stability.html#v2-0-stable-planned">v2.0 -- stable (planned)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-0-1-0-jun-24-2024">Version 0.1.0 - Jun 24, 2024</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-0-1-1-jul-11-2024">Version 0.1.1 - Jul 11, 2024</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#added">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#fixed">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#changed">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#deprecated">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-0-1-2-jul-22-2024">Version 0.1.2 - Jul 22, 2024</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id2">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id3">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id4">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-0-jul-21-2025">Version 1.0 - Jul 21, 2025</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-1-0-may-2-2026">Version 1.1.0 - May 2, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id5">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#changed-breaking">Changed (Breaking)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-1-1-may-2-2026">Version 1.1.1 - May 2, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id6">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id7">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id8">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-1-2-may-2-2026">Version 1.1.2 - May 2, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id9">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id10">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-2-0-may-2-2026">Version 1.2.0 - May 2, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id11">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id12">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#migration-notes">Migration notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-3-0-may-2-2026">Version 1.3.0 - May 2, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id13">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id14">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#removed">Removed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-3-1-may-2-2026">Version 1.3.1 - May 2, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id15">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#tested-with">Tested with</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id16">Migration notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-3-2-may-2-2026">Version 1.3.2 - May 2, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id17">Added</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-4-0-may-2-2026">Version 1.4.0 - May 2, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#why-long-format">Why long-format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id18">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id19">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id20">Migration notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-5-0-may-2-2026">Version 1.5.0 - May 2, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id21">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id22">Changed (Breaking)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#annotation-columns">Annotation columns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#column-renames-for-clarity">Column renames for clarity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#group-3-migration">Group 3 migration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id23">Migration notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-6-0-may-3-2026">Version 1.6.0 - May 3, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id24">Removed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id25">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id26">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-7-0-may-3-2026">Version 1.7.0 - May 3, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id27">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id28">Removed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id29">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-8-0-may-3-2026">Version 1.8.0 - May 3, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id30">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id31">Removed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id32">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-8-1-may-3-2026">Version 1.8.1 - May 3, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id33">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-9-0-may-3-2026">Version 1.9.0 - May 3, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id34">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id35">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#notes">Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-9-1-may-3-2026">Version 1.9.1 - May 3, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id36">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id37">Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-10-0-may-5-2026">Version 1.10.0 - May 5, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id38">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id39">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id40">Removed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-11-0-may-5-2026">Version 1.11.0 - May 5, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id41">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id42">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id43">Removed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-11-1-may-5-2026">Version 1.11.1 - May 5, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id44">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id45">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id46">Removed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id47">Notes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Community</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Forum.html">Discussion</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Forum.html#github-discussions">GitHub Discussions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Forum.html#private-queries">Private Queries</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Contribution.html">Contribution</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Contribution.html#development-process">Development Process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Contribution.html#building-documentation">Building Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Contribution.html#contributing-guidelines">Contributing Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Contribution.html#translating-the-documentation">Translating the Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Citations.html">Citation Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Citations.html#publications-by-topic">Publications by Topic</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="References.html">References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PREP-SHOT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+<li>
+	<div style="font-size: 105%;font-weight: 600;">
+		
+	</div>
+	<ul class="wy-breadcrumbs">
+		
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Tutorial: Lower Mekong Basin (Southeast Asia)</li>
+	</ul>
+</li>
+
+
+<li style="float: right; text-align: right;">
+	<ul>
+		
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/PREP-NexT/PREP-SHOT/blob/main/doc/source/SoutheastAsia.ipynb" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+	</ul>
+
+	<style>
+		.godot-edit-guidelines {
+			font-size: 14px;
+			float: right;
+			clear: both;
+			padding-top: 4px;
+		}
+
+		@media screen and (max-width: 480px) {
+			.godot-edit-guidelines {
+				display: none;
+			}
+		}
+	</style>
+	<a class="godot-edit-guidelines" href="https://prep-next.github.io/PREP-SHOT/Changelog.html#contributing-to-prep-shot">
+		Learn how to contribute!
+	</a>
+</li>
+
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+<div itemprop="articleBody">
+  
+
+  
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 0;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars and line breaks on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+    white-space: pre;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt .copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+.jp-RenderedHTMLCommon table,
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+.jp-RenderedHTMLCommon thead,
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+.jp-RenderedHTMLCommon tr,
+.jp-RenderedHTMLCommon th,
+.jp-RenderedHTMLCommon td,
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+.jp-RenderedHTMLCommon th,
+div.rendered_html th {
+  font-weight: bold;
+}
+.jp-RenderedHTMLCommon tbody tr:nth-child(odd),
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+.jp-RenderedHTMLCommon tbody tr:hover,
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<section id="Tutorial:-Lower-Mekong-Basin-(Southeast-Asia)">
+<h1>Tutorial: Lower Mekong Basin (Southeast Asia)<a class="headerlink" href="#Tutorial:-Lower-Mekong-Basin-(Southeast-Asia)" title="Permalink to this heading">¶</a></h1>
+<p>A walkthrough of the <strong>Southeast Asia case study</strong> that ships with PREP-SHOT: capacity expansion across <strong>5 countries</strong> (Cambodia, Laos, Myanmar, Thailand, Vietnam) from 2020 to 2030, with <strong>57 cascading hydropower stations</strong> in the Mekong basin and a <strong>system-wide carbon cap</strong> of 146 MtCO2 in 2030.</p>
+<p>This notebook complements the <a class="reference external" href="../doc/source/Quickstart.ipynb">Quickstart</a>. The Quickstart uses a small synthetic 3-zone dataset and walks through running a solve in 5 minutes; this tutorial focuses on a <strong>realistic dataset</strong> – understanding its structure, exploring the demand and existing fleet, and pointing you at the commands to run a full multi-zone, multi-year capacity-expansion solve.</p>
+<p><strong>Run online:</strong> <a class="reference external" href="https://colab.research.google.com/github/PREP-NexT/PREP-SHOT/blob/main/examples/southeast_asia/SoutheastAsia.ipynb">Open in Colab</a> – click and run.</p>
+<p><strong>Run locally:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/PREP-NexT/PREP-SHOT.git
+<span class="nb">cd</span><span class="w"> </span>PREP-SHOT
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.<span class="o">[</span>notebook<span class="o">]</span>
+jupyter<span class="w"> </span>lab<span class="w"> </span>examples/southeast_asia/SoutheastAsia.ipynb
+</pre></div>
+</div>
+<p><strong>What this tutorial covers:</strong></p>
+<ol class="arabic simple">
+<li><p>The Lower Mekong scenario in plain English</p></li>
+<li><p>Demand profiles by country</p></li>
+<li><p>The existing 2020 fleet – conventional, storage, and hydro</p></li>
+<li><p>Per-station hydropower (the feature that distinguishes PREP-SHOT from PyPSA / GenX)</p></li>
+<li><p>Inter-country transmission topology</p></li>
+<li><p>How to run a full capacity-expansion solve on this dataset</p></li>
+<li><p>What this case study reveals that aggregated models would miss</p></li>
+</ol>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># On Google Colab, install PREP-SHOT and clone the repo. No-op on</span>
+<span class="c1"># Local installs already have prepshot importable.</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">google.colab</span>  <span class="c1"># type: ignore  # noqa: F401</span>
+    <span class="n">IS_COLAB</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="n">IS_COLAB</span> <span class="o">=</span> <span class="kc">False</span>
+
+<span class="k">if</span> <span class="n">IS_COLAB</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">os</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="s1">&#39;/content/PREP-SHOT&#39;</span><span class="p">):</span>
+        <span class="o">!</span>git<span class="w"> </span>clone<span class="w"> </span>--depth<span class="o">=</span><span class="m">1</span><span class="w"> </span>https://github.com/PREP-NexT/PREP-SHOT.git<span class="w"> </span>/content/PREP-SHOT
+    <span class="o">%</span><span class="k">cd</span> /content/PREP-SHOT
+    <span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>--quiet<span class="w"> </span>matplotlib<span class="w"> </span>pandas
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pathlib</span>
+
+<span class="c1"># Walk up from cwd to find the repo root (the dir with run.py),</span>
+<span class="c1"># then point SEA_DIR at examples/southeast_asia/input/. Works</span>
+<span class="c1"># whether the kernel is launched from the repo root, from</span>
+<span class="c1"># examples/southeast_asia/, or from anywhere in between.</span>
+<span class="n">repo_root</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span>
+<span class="k">while</span> <span class="ow">not</span> <span class="p">(</span><span class="n">repo_root</span> <span class="o">/</span> <span class="s1">&#39;run.py&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">repo_root</span> <span class="o">==</span> <span class="n">repo_root</span><span class="o">.</span><span class="n">parent</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+            <span class="s1">&#39;Could not find PREP-SHOT repo root; run this notebook &#39;</span>
+            <span class="s1">&#39;from a checkout of PREP-NexT/PREP-SHOT.&#39;</span>
+        <span class="p">)</span>
+    <span class="n">repo_root</span> <span class="o">=</span> <span class="n">repo_root</span><span class="o">.</span><span class="n">parent</span>
+<span class="n">SEA_DIR</span> <span class="o">=</span> <span class="n">repo_root</span> <span class="o">/</span> <span class="s1">&#39;examples&#39;</span> <span class="o">/</span> <span class="s1">&#39;southeast_asia&#39;</span> <span class="o">/</span> <span class="s1">&#39;input&#39;</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Repo root: </span><span class="si">{</span><span class="n">repo_root</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Dataset:   </span><span class="si">{</span><span class="n">SEA_DIR</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Repo root: /Users/energy/01-doing/PREP-SHOT-tutorial/PREP-SHOT
+Dataset:   /Users/energy/01-doing/PREP-SHOT-tutorial/PREP-SHOT/examples/southeast_asia/input
+</pre></div></div>
+</div>
+<section id="1.-The-scenario">
+<h2>1. The scenario<a class="headerlink" href="#1.-The-scenario" title="Permalink to this heading">¶</a></h2>
+<p>The Lower Mekong basin spans five Southeast Asian countries with very different power systems:</p>
+<ul class="simple">
+<li><p><strong>Cambodia, Laos, Myanmar</strong> – small, hydro-dominant, mostly exporters (especially Laos, the ‘battery of Southeast Asia’)</p></li>
+<li><p><strong>Thailand, Vietnam</strong> – large, fossil-heavy, importers</p></li>
+</ul>
+<p>The shared resource is the Mekong river system: 57 cascading hydropower stations whose operation in one country affects downstream flows in another. Adding a coal plant in Vietnam, expanding solar in Thailand, or building a new dam in Laos all interact through the system-wide power balance, the international transmission grid, and – in 2030 – a system-wide 146 MtCO2 emission cap.</p>
+<p>PREP-SHOT models this as a single capacity-expansion linear program, picking the least-cost technology mix in each country for each modeled year subject to demand, fuel, transmission, reservoir, and carbon constraints.</p>
+</section>
+<section id="2.-Demand-profiles-by-country">
+<h2>2. Demand profiles by country<a class="headerlink" href="#2.-Demand-profiles-by-country" title="Permalink to this heading">¶</a></h2>
+<p>Hourly load shape across the 5 zones. Vietnam and Thailand dominate consumption; Cambodia, Laos, and Myanmar are an order of magnitude smaller. The dataset uses 288 representative hours per month across 12 months, so the chart below shows one representative day’s shape from January 2030.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+
+<span class="n">demand</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">SEA_DIR</span> <span class="o">/</span> <span class="s1">&#39;demand.csv&#39;</span><span class="p">)</span>
+<span class="n">shape</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">demand</span><span class="p">[(</span><span class="n">demand</span><span class="o">.</span><span class="n">year</span> <span class="o">==</span> <span class="mi">2030</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">demand</span><span class="o">.</span><span class="n">month</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">demand</span><span class="o">.</span><span class="n">hour</span> <span class="o">&lt;=</span> <span class="mi">24</span><span class="p">)]</span>
+    <span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;zone&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;value&#39;</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">shape</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Hour of representative day&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Demand (MW)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Hourly demand by country -- January 2030 representative day&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;center left&#39;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">))</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Approximate annual demand totals by country and year</span>
+<span class="n">annual</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">demand</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;zone&#39;</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">])[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span>
+    <span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="s1">&#39;year&#39;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">annual</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/SoutheastAsia_5_0.png" src="_images/SoutheastAsia_5_0.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>year</th>
+      <th>2020</th>
+      <th>2030</th>
+    </tr>
+    <tr>
+      <th>zone</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Cambodia</th>
+      <td>261445.0</td>
+      <td>607673.0</td>
+    </tr>
+    <tr>
+      <th>Laos</th>
+      <td>167179.0</td>
+      <td>414307.0</td>
+    </tr>
+    <tr>
+      <th>Myanmar</th>
+      <td>794647.0</td>
+      <td>1037239.0</td>
+    </tr>
+    <tr>
+      <th>Thailand</th>
+      <td>6383687.0</td>
+      <td>8332514.0</td>
+    </tr>
+    <tr>
+      <th>Vietnam</th>
+      <td>6999481.0</td>
+      <td>12535004.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+</section>
+<section id="3.-The-existing-fleet-(2020)">
+<h2>3. The existing fleet (2020)<a class="headerlink" href="#3.-The-existing-fleet-(2020)" title="Permalink to this heading">¶</a></h2>
+<p>What’s already built. Vietnam dominates with <strong>21.6 GW of coal</strong> and <strong>16.7 GW of solar</strong>; Thailand has <strong>27.9 GW of gas</strong>. The 57 hydropower stations are split across Laos (41), Vietnam (11), Thailand (4), and Cambodia (1) – we’ll handle them separately below.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fleet</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">SEA_DIR</span> <span class="o">/</span> <span class="s1">&#39;tech_existing.csv&#39;</span><span class="p">)</span>
+
+<span class="n">conventional</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Coal&#39;</span><span class="p">,</span> <span class="s1">&#39;Oil&#39;</span><span class="p">,</span> <span class="s1">&#39;Gas&#39;</span><span class="p">,</span> <span class="s1">&#39;Solar&#39;</span><span class="p">,</span> <span class="s1">&#39;Wind&#39;</span><span class="p">,</span> <span class="s1">&#39;Bioenergy&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;HPS&#39;</span><span class="p">,</span> <span class="s1">&#39;Li-ion&#39;</span><span class="p">]</span>
+<span class="n">fleet_conv</span> <span class="o">=</span> <span class="n">fleet</span><span class="p">[</span><span class="n">fleet</span><span class="o">.</span><span class="n">tech</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">conventional</span><span class="p">)]</span>
+
+<span class="n">stack</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">fleet_conv</span>
+    <span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;zone&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;tech&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;capacity&#39;</span><span class="p">,</span>
+                 <span class="n">aggfunc</span><span class="o">=</span><span class="s1">&#39;sum&#39;</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">conventional</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">stack</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Existing capacity in 2020 (MW)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Conventional + storage capacity by country (2020)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;center left&#39;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="n">stack</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/SoutheastAsia_7_0.png" src="_images/SoutheastAsia_7_0.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>tech</th>
+      <th>Coal</th>
+      <th>Oil</th>
+      <th>Gas</th>
+      <th>Solar</th>
+      <th>Wind</th>
+      <th>Bioenergy</th>
+      <th>HPS</th>
+      <th>Li-ion</th>
+    </tr>
+    <tr>
+      <th>zone</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Cambodia</th>
+      <td>675.0</td>
+      <td>644.0</td>
+      <td>0.0</td>
+      <td>237.0</td>
+      <td>0.0</td>
+      <td>31.0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Laos</th>
+      <td>1978.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Myanmar</th>
+      <td>120.0</td>
+      <td>25.0</td>
+      <td>3341.0</td>
+      <td>180.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Thailand</th>
+      <td>6114.0</td>
+      <td>369.0</td>
+      <td>27920.0</td>
+      <td>2856.0</td>
+      <td>1486.0</td>
+      <td>2213.0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Vietnam</th>
+      <td>21554.0</td>
+      <td>1706.0</td>
+      <td>7152.0</td>
+      <td>16656.0</td>
+      <td>582.0</td>
+      <td>365.0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+</section>
+<section id="4.-Per-station-hydropower">
+<h2>4. Per-station hydropower<a class="headerlink" href="#4.-Per-station-hydropower" title="Permalink to this heading">¶</a></h2>
+<p>PREP-SHOT’s distinguishing feature is <strong>per-station</strong> hydropower. Each row in <code class="docutils literal notranslate"><span class="pre">tech_registry.csv</span></code> with <code class="docutils literal notranslate"><span class="pre">carrier='hydro'</span></code> is a physical station with its own reservoir, head-discharge curve, and inflow time series. The model tracks water mass balance between cascading stations explicitly. PyPSA, GenX, and similar models aggregate hydropower into a single per-zone tech, losing the cascade physics.</p>
+<p>Most stations sit on the Lao Mekong tributaries (the Nam-* series, plus the Xe-Kong, Se-San, Sre Pok cascades extending into Vietnam and Cambodia).</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">stations</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">SEA_DIR</span> <span class="o">/</span> <span class="s1">&#39;reservoir_zone.csv&#39;</span><span class="p">)</span>
+<span class="n">stations</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">stations</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+<span class="n">by_zone</span> <span class="o">=</span> <span class="n">stations</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;zone&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">by_zone</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;steelblue&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Number of hydro stations&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Hydropower stations per country&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">by_zone</span><span class="o">.</span><span class="n">values</span><span class="p">):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">),</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Total hydropower stations: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">stations</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Sample station names:&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">stations</span><span class="o">.</span><span class="n">tech</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">8</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  </span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;  ...&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/SoutheastAsia_9_0.png" src="_images/SoutheastAsia_9_0.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Total hydropower stations: 57
+Sample station names:
+  Nam_Ou_7
+  Nam_Ngay
+  Nam_Ou_6
+  Nam_Ou_5
+  Nam_Pok
+  Nam_Ou_4
+  Nam_Pha
+  Nam_Ko
+  ...
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Each station has reservoir-physics parameters: head, capacity</span>
+<span class="c1"># bounds, storage bounds, generation efficiency. Sample the</span>
+<span class="c1"># largest 10 stations by capacity:</span>
+<span class="n">head</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">SEA_DIR</span> <span class="o">/</span> <span class="s1">&#39;reservoir_head.csv&#39;</span><span class="p">)</span>
+<span class="n">cap</span>  <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">SEA_DIR</span> <span class="o">/</span> <span class="s1">&#39;reservoir_capacity_max.csv&#39;</span><span class="p">)</span>
+<span class="n">merged</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">head</span><span class="p">[[</span><span class="s1">&#39;tech&#39;</span><span class="p">,</span> <span class="s1">&#39;head&#39;</span><span class="p">]]</span>
+    <span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">cap</span><span class="p">[[</span><span class="s1">&#39;tech&#39;</span><span class="p">,</span> <span class="s1">&#39;capacity_max&#39;</span><span class="p">]],</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;tech&#39;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">stations</span><span class="p">[[</span><span class="s1">&#39;tech&#39;</span><span class="p">,</span> <span class="s1">&#39;zone&#39;</span><span class="p">]],</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;tech&#39;</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">merged</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;station&#39;</span><span class="p">,</span> <span class="s1">&#39;head_m&#39;</span><span class="p">,</span> <span class="s1">&#39;capacity_max_MW&#39;</span><span class="p">,</span> <span class="s1">&#39;zone&#39;</span><span class="p">]</span>
+<span class="n">merged</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;capacity_max_MW&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>station</th>
+      <th>head_m</th>
+      <th>capacity_max_MW</th>
+      <th>zone</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>14</th>
+      <td>Mekong_at_Xayabuly</td>
+      <td>29.0</td>
+      <td>1260.0</td>
+      <td>Laos</td>
+    </tr>
+    <tr>
+      <th>45</th>
+      <td>Yali</td>
+      <td>190.0</td>
+      <td>720.0</td>
+      <td>Vietnam</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>Nam_Ngum_2</td>
+      <td>159.5</td>
+      <td>615.0</td>
+      <td>Laos</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>Nam_Theun1</td>
+      <td>130.0</td>
+      <td>600.0</td>
+      <td>Laos</td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>Lam_Ta_Khong_P.S.</td>
+      <td>360.0</td>
+      <td>500.0</td>
+      <td>Thailand</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>Nam_Ngum_3</td>
+      <td>301.0</td>
+      <td>480.0</td>
+      <td>Laos</td>
+    </tr>
+    <tr>
+      <th>51</th>
+      <td>Lower_Se_San_2</td>
+      <td>28.5</td>
+      <td>400.0</td>
+      <td>Cambodia</td>
+    </tr>
+    <tr>
+      <th>48</th>
+      <td>Se_San_4</td>
+      <td>56.0</td>
+      <td>360.0</td>
+      <td>Vietnam</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>Xe_Kong_5</td>
+      <td>180.0</td>
+      <td>330.0</td>
+      <td>Laos</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>Xekaman_1</td>
+      <td>101.2</td>
+      <td>290.0</td>
+      <td>Laos</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+</section>
+<section id="5.-Inter-country-transmission">
+<h2>5. Inter-country transmission<a class="headerlink" href="#5.-Inter-country-transmission" title="Permalink to this heading">¶</a></h2>
+<p>Existing inter-country transmission capacity (MW). Most flows today route through Laos and Thailand. The transmission candidates table allows any pair to expand.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">trans</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">SEA_DIR</span> <span class="o">/</span> <span class="s1">&#39;transmission_existing.csv&#39;</span><span class="p">)</span>
+<span class="n">trans</span> <span class="o">=</span> <span class="n">trans</span><span class="p">[</span><span class="n">trans</span><span class="o">.</span><span class="n">value</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">matrix</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span>
+    <span class="n">index</span><span class="o">=</span><span class="s1">&#39;zone1&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;zone2&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;value&#39;</span><span class="p">,</span>
+    <span class="n">aggfunc</span><span class="o">=</span><span class="s1">&#39;sum&#39;</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">matrix</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>zone2</th>
+      <th>Cambodia</th>
+      <th>Laos</th>
+      <th>Thailand</th>
+      <th>Vietnam</th>
+    </tr>
+    <tr>
+      <th>zone1</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Cambodia</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>120.0</td>
+      <td>400.0</td>
+    </tr>
+    <tr>
+      <th>Laos</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>2205.0</td>
+      <td>248.0</td>
+    </tr>
+    <tr>
+      <th>Thailand</th>
+      <td>120.0</td>
+      <td>2205.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>Vietnam</th>
+      <td>400.0</td>
+      <td>248.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+</section>
+<section id="6.-Running-a-full-capacity-expansion-solve">
+<h2>6. Running a full capacity-expansion solve<a class="headerlink" href="#6.-Running-a-full-capacity-expansion-solve" title="Permalink to this heading">¶</a></h2>
+<p>This dataset is fully self-contained: <code class="docutils literal notranslate"><span class="pre">examples/southeast_asia/</span></code> ships its own <code class="docutils literal notranslate"><span class="pre">config.json</span></code>, <code class="docutils literal notranslate"><span class="pre">params.json</span></code>, and <code class="docutils literal notranslate"><span class="pre">input/</span></code> – exactly the same layout as <code class="docutils literal notranslate"><span class="pre">examples/three_zone/</span></code> or <code class="docutils literal notranslate"><span class="pre">examples/thailand/</span></code>. To run a full solve, treat that directory as the working root:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># from the repo root</span>
+<span class="nb">cd</span><span class="w"> </span>examples/southeast_asia
+python<span class="w"> </span>-m<span class="w"> </span>prepshot
+</pre></div>
+</div>
+<p>The shipped config uses 288 representative hours x 12 months at 3 head iterations – the dataset’s native resolution. Expect about 30 minutes on commodity hardware. Drop <code class="docutils literal notranslate"><span class="pre">hour</span></code> to 24 and <code class="docutils literal notranslate"><span class="pre">month</span></code> to 1 for a quicker (less accurate) sanity solve. Results land in <code class="docutils literal notranslate"><span class="pre">examples/southeast_asia/output/baseline.nc</span></code>.</p>
+<p><strong>Counterfactual scenarios</strong> without overwriting the baseline:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Tighter 2030 carbon cap: prepare a modified file</span>
+<span class="nb">cd</span><span class="w"> </span>examples/southeast_asia/input
+cp<span class="w"> </span>policy_carbon_emission_limit.csv<span class="w"> </span>policy_carbon_emission_limit_tight.csv
+<span class="c1"># (then edit the 2030 row&#39;s value column to 80000000)</span>
+
+<span class="nb">cd</span><span class="w"> </span>..<span class="w">   </span><span class="c1"># back to examples/southeast_asia</span>
+python<span class="w"> </span>-m<span class="w"> </span>prepshot<span class="w"> </span>--carbon_emission_limit<span class="o">=</span>tight
+<span class="c1"># results -&gt; output/baseline_tight.nc</span>
+</pre></div>
+</div>
+<p>PREP-SHOT registers a CLI flag for every <code class="docutils literal notranslate"><span class="pre">params.json</span></code> key; the flag value is appended as a suffix to the input file name and to the output netCDF. See <a class="reference external" href="../../doc/source/Model_input_output.rst">Model Inputs/Outputs</a> for the full list of overrideable inputs.</p>
+</section>
+<section id="7.-Post-solve-diagnostics:-common-plots-from-a-solved-baseline">
+<h2>7. Post-solve diagnostics: common plots from a solved baseline<a class="headerlink" href="#7.-Post-solve-diagnostics:-common-plots-from-a-solved-baseline" title="Permalink to this heading">¶</a></h2>
+<p>Once <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">run.py</span></code> finishes, results land in <code class="docutils literal notranslate"><span class="pre">examples/southeast_asia/output/baseline.nc</span></code> (and <code class="docutils literal notranslate"><span class="pre">.xlsx</span></code>). The cells below load that file and produce the four plots that answer the most common questions about an expansion-planning result:</p>
+<ol class="arabic simple">
+<li><p><strong>Capacity buildout by zone × tech × year</strong>: how the fleet evolves</p></li>
+<li><p><strong>Generation mix by zone × tech</strong>: what’s actually serving demand</p></li>
+<li><p><strong>Emissions vs the cap</strong>: whether the carbon constraint is binding</p></li>
+<li><p><strong>Cost breakdown</strong>: where the NPV dollars go</p></li>
+</ol>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># Read from the .xlsx mirror so the cell works without a netCDF4</span>
+<span class="c1"># build (the .xlsx contains the same numbers as baseline.nc).</span>
+<span class="n">OUT</span> <span class="o">=</span> <span class="n">SEA_DIR</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s1">&#39;output&#39;</span> <span class="o">/</span> <span class="s1">&#39;baseline.xlsx&#39;</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">OUT</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+    <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s1">&#39;No solved baseline at </span><span class="si">{</span><span class="n">OUT</span><span class="si">}</span><span class="s1">. Run `python run.py` from &#39;</span>
+        <span class="sa">f</span><span class="s1">&#39;examples/southeast_asia/ first.&#39;</span>
+    <span class="p">)</span>
+<span class="n">xl</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">ExcelFile</span><span class="p">(</span><span class="n">OUT</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Sheets:&#39;</span><span class="p">,</span> <span class="n">xl</span><span class="o">.</span><span class="n">sheet_names</span><span class="p">[:</span><span class="mi">8</span><span class="p">],</span> <span class="s1">&#39;...&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Sheets: [&#39;trans_export&#39;, &#39;gen&#39;, &#39;install&#39;, &#39;carbon&#39;, &#39;charge&#39;, &#39;cost_var_breakdown&#39;, &#39;cost_fix_breakdown&#39;, &#39;cost_newtech_breakdown&#39;] ...
+</pre></div></div>
+</div>
+<section id="7.1-Capacity-buildout">
+<h3>7.1 Capacity buildout<a class="headerlink" href="#7.1-Capacity-buildout" title="Permalink to this heading">¶</a></h3>
+<p>Per-zone stacked bars by technology, comparing 2020 (existing) to 2030 (after expansion). Cambodia’s 2030 column is the most striking — it grows from ~2 GW to ~140 GW because the model uses Cambodia as a renewable-rich exporter to Vietnam and Thailand once the carbon cap binds.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">inst</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">xl</span><span class="p">,</span> <span class="s1">&#39;install&#39;</span><span class="p">)</span>
+<span class="n">techs_order</span> <span class="o">=</span> <span class="p">(</span><span class="n">inst</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;tech&#39;</span><span class="p">)[</span><span class="s1">&#39;install&#39;</span><span class="p">]</span>
+               <span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+<span class="n">zones</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">inst</span><span class="p">[</span><span class="s1">&#39;zone&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">zones</span><span class="p">),</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">z</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="n">zones</span><span class="p">):</span>
+    <span class="n">sub</span> <span class="o">=</span> <span class="p">(</span><span class="n">inst</span><span class="p">[</span><span class="n">inst</span><span class="o">.</span><span class="n">zone</span> <span class="o">==</span> <span class="n">z</span><span class="p">]</span>
+           <span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;tech&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;install&#39;</span><span class="p">)</span>
+           <span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+    <span class="n">sub</span> <span class="o">=</span> <span class="n">sub</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="n">t</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">techs_order</span> <span class="k">if</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">sub</span><span class="o">.</span><span class="n">columns</span><span class="p">])</span>
+    <span class="p">(</span><span class="n">sub</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+        <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+        <span class="n">legend</span><span class="o">=</span><span class="p">(</span><span class="n">z</span> <span class="o">==</span> <span class="n">zones</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;tab20&#39;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Capacity (GW)&#39;</span> <span class="k">if</span> <span class="n">z</span> <span class="o">==</span> <span class="n">zones</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;center left&#39;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span>
+                <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Installed capacity by zone and year&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.02</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/var/folders/y_/ypyrt83d1hl9fhjtt_ftpwg00000gn/T/ipykernel_7869/768360123.py:23: UserWarning: Tight layout not applied. The bottom and top margins cannot be made large enough to accommodate all Axes decorations.
+  plt.tight_layout()
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/SoutheastAsia_17_1.png" src="_images/SoutheastAsia_17_1.png" />
+</div>
+</div>
+</section>
+<section id="7.2-Generation-mix">
+<h3>7.2 Generation mix<a class="headerlink" href="#7.2-Generation-mix" title="Permalink to this heading">¶</a></h3>
+<p>Same layout, but summing <code class="docutils literal notranslate"><span class="pre">gen</span></code> over (hour, month) to get annual TWh. The point of the chart: which technologies actually run, vs. which are just installed (peakers may have lots of capacity but very low utilization).</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gen</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">xl</span><span class="p">,</span> <span class="s1">&#39;gen&#39;</span><span class="p">)</span>
+<span class="c1"># gen is keyed by (hour, month, year, zone, tech); aggregate to</span>
+<span class="c1"># annual TWh per (year, zone, tech).</span>
+<span class="n">g_annual</span> <span class="o">=</span> <span class="n">gen</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;zone&#39;</span><span class="p">,</span> <span class="s1">&#39;tech&#39;</span><span class="p">])[</span><span class="s1">&#39;gen&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">g_annual</span><span class="p">[</span><span class="s1">&#39;gen_TWh&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">g_annual</span><span class="p">[</span><span class="s1">&#39;gen&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="mf">1e6</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">zones</span><span class="p">),</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">z</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="n">zones</span><span class="p">):</span>
+    <span class="n">sub</span> <span class="o">=</span> <span class="p">(</span><span class="n">g_annual</span><span class="p">[</span><span class="n">g_annual</span><span class="o">.</span><span class="n">zone</span> <span class="o">==</span> <span class="n">z</span><span class="p">]</span>
+           <span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;tech&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;gen_TWh&#39;</span><span class="p">)</span>
+           <span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+    <span class="n">sub</span> <span class="o">=</span> <span class="n">sub</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="n">t</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">techs_order</span> <span class="k">if</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">sub</span><span class="o">.</span><span class="n">columns</span><span class="p">])</span>
+    <span class="n">sub</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+        <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+        <span class="n">legend</span><span class="o">=</span><span class="p">(</span><span class="n">z</span> <span class="o">==</span> <span class="n">zones</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;tab20&#39;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Generation (TWh, modeled period)&#39;</span> <span class="k">if</span> <span class="n">z</span> <span class="o">==</span> <span class="n">zones</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;center left&#39;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span>
+                <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Generation by zone, year, and technology&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.02</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/var/folders/y_/ypyrt83d1hl9fhjtt_ftpwg00000gn/T/ipykernel_7869/428247067.py:24: UserWarning: Tight layout not applied. The bottom and top margins cannot be made large enough to accommodate all Axes decorations.
+  plt.tight_layout()
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/SoutheastAsia_19_1.png" src="_images/SoutheastAsia_19_1.png" />
+</div>
+</div>
+</section>
+<section id="7.3-Emissions-vs-the-carbon-cap">
+<h3>7.3 Emissions vs the carbon cap<a class="headerlink" href="#7.3-Emissions-vs-the-carbon-cap" title="Permalink to this heading">¶</a></h3>
+<p>The system-wide carbon cap is <code class="docutils literal notranslate"><span class="pre">inf</span></code> in 2020 (unconstrained) and 146 MtCO2 in 2030. Emissions in 2030 should sit exactly on the cap if it’s binding — that’s how you can tell the constraint is doing work.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">co2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">xl</span><span class="p">,</span> <span class="s1">&#39;carbon&#39;</span><span class="p">)</span>
+<span class="n">co2</span><span class="p">[</span><span class="s1">&#39;carbon_Mt&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">co2</span><span class="p">[</span><span class="s1">&#39;carbon&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="mf">1e6</span>
+
+<span class="n">cap</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">SEA_DIR</span> <span class="o">/</span> <span class="s1">&#39;policy_carbon_emission_limit.csv&#39;</span><span class="p">)</span>
+<span class="n">cap_finite</span> <span class="o">=</span> <span class="n">cap</span><span class="p">[</span><span class="n">cap</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">cap_finite</span><span class="p">[</span><span class="s1">&#39;cap_Mt&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cap_finite</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="mf">1e6</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">co2</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">],</span> <span class="n">co2</span><span class="p">[</span><span class="s1">&#39;carbon_Mt&#39;</span><span class="p">],</span> <span class="n">width</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+       <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#cc4444&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Emissions&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">cap_finite</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">hlines</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;cap_Mt&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">2</span><span class="p">,</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span>
+              <span class="n">colors</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linestyles</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+              <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Cap&#39;</span> <span class="k">if</span> <span class="n">_</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Year&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;CO2 emissions (Mt)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;System-wide emissions vs carbon cap&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">co2</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">co2</span><span class="p">[[</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;carbon_Mt&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/SoutheastAsia_21_0.png" src="_images/SoutheastAsia_21_0.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+ year  carbon_Mt
+ 2020 351.785646
+ 2030 146.000000
+</pre></div></div>
+</div>
+</section>
+<section id="7.4-Cost-breakdown">
+<h3>7.4 Cost breakdown<a class="headerlink" href="#7.4-Cost-breakdown" title="Permalink to this heading">¶</a></h3>
+<p>Total NPV cost is the sum of:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">cost_var</span></code>: variable O&amp;M + fuel</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cost_fix</span></code>: fixed O&amp;M on existing + new fleet</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cost_newtech</span></code>: capex annuity for new generation</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cost_newline</span></code>: capex annuity for new transmission</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">−income</span></code>: water-withdrawal revenue (subtracted from cost)</p></li>
+</ul>
+<p>All values are NPV-discounted to year_min (2020).</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">components</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;cost_var&#39;</span><span class="p">,</span> <span class="s1">&#39;cost_fix&#39;</span><span class="p">,</span> <span class="s1">&#39;cost_newtech&#39;</span><span class="p">,</span> <span class="s1">&#39;cost_newline&#39;</span><span class="p">]</span>
+<span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">xl</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="mf">1e9</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">components</span><span class="p">]</span>
+<span class="n">income</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">xl</span><span class="p">,</span> <span class="s1">&#39;income&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="mf">1e9</span>
+<span class="n">total</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">xl</span><span class="p">,</span> <span class="s1">&#39;cost&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="mf">1e9</span>
+
+<span class="n">labels</span> <span class="o">=</span> <span class="n">components</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;income (-)&#39;</span><span class="p">,</span> <span class="s1">&#39;total&#39;</span><span class="p">]</span>
+<span class="n">vals</span> <span class="o">=</span> <span class="n">values</span> <span class="o">+</span> <span class="p">[</span><span class="o">-</span><span class="n">income</span><span class="p">,</span> <span class="n">total</span><span class="p">]</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;#4477aa&#39;</span><span class="p">,</span> <span class="s1">&#39;#66ccee&#39;</span><span class="p">,</span> <span class="s1">&#39;#228833&#39;</span><span class="p">,</span> <span class="s1">&#39;#ccbb44&#39;</span><span class="p">,</span>
+          <span class="s1">&#39;#ee6677&#39;</span><span class="p">,</span> <span class="s1">&#39;#aa3377&#39;</span><span class="p">]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">vals</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">vals</span><span class="p">):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="k">if</span> <span class="n">v</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="k">else</span> <span class="o">-</span><span class="mi">3</span><span class="p">),</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">v</span><span class="si">:</span><span class="s1">,.1f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;NPV cost (B USD)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Cost decomposition (NPV, B USD)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/SoutheastAsia_23_0.png" src="_images/SoutheastAsia_23_0.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="8.-What-this-case-study-shows-that-aggregated-models-miss">
+<h2>8. What this case study shows that aggregated models miss<a class="headerlink" href="#8.-What-this-case-study-shows-that-aggregated-models-miss" title="Permalink to this heading">¶</a></h2>
+<p>Three things this dataset reveals that you couldn’t get from PyPSA’s or GenX’s standard hydro abstractions:</p>
+<p><strong>1. Cascade interactions across borders.</strong> A new dam upstream in Laos changes downstream flow at every station below it – potentially across the Cambodia / Vietnam border. The 57-station model captures this; an aggregated ‘Hydro_Laos’ tech does not.</p>
+<p><strong>2. Endogenous water-head dynamics.</strong> Each station’s generation efficiency depends on its current reservoir level via the tailrace-discharge and forebay-volume curves. PREP-SHOT’s head-iteration loop solves the LP, recomputes heads from the operational schedule, and re-solves until convergence.</p>
+<p><strong>3. Where carbon abatement actually lives.</strong> Because the model tracks each zone’s emissions separately under a system-wide cap, the optimization shows where the cheapest abatement is across borders – not just inside each country’s boundary. For the Mekong, the answer is usually ‘don’t build new Vietnam coal; import Lao hydro instead’ – but the optimal trade depends on transmission build cost, hydropower seasonality, and carbon-cap tightness, all of which the model handles endogenously.</p>
+</section>
+<section id="Where-to-next">
+<h2>Where to next<a class="headerlink" href="#Where-to-next" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="../../doc/source/Quickstart.ipynb">Quickstart</a> – the simpler 3-zone walkthrough with a full executed solve.</p></li>
+<li><p><a class="reference external" href="../../doc/source/Model_input_output.rst">Model Inputs/Outputs</a> – every input and output documented.</p></li>
+<li><p><a class="reference external" href="../../doc/source/Mathematical_notations.rst">Mathematical Notation</a> – the underlying linear program.</p></li>
+<li><p><a class="reference external" href="../../doc/source/Changelog.rst">Changelog</a> – v1.7 hydropower first-class, v1.8 PyPSA-style behavior flags, v1.9 finance module + LMPs.</p></li>
+</ul>
+<p>If you used PREP-SHOT in published work, please cite it (see the <a class="reference external" href="../../doc/source/Citations.rst">Citation Guide</a>). Issues, discussions, and PRs welcome at <a class="reference external" href="https://github.com/PREP-NexT/PREP-SHOT">github.com/PREP-NexT/PREP-SHOT</a>.</p>
+</section>
+</section>
+
+
+</div>
+</div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Quickstart.html" class="btn btn-neutral float-left" title="Quickstart (30 minutes)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Model_input_output.html" class="btn btn-neutral float-right" title="Model Inputs/Outputs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023-2025, Zhanwei Liu and Xiaogang He (GPL-3.0).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> v: latest (en)</span>
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dt>Versions</dt>
+      
+        <dd class="rtd-current-item">
+          <a href="/PREP-SHOT/en/latest/">latest</a>
+        </dd>
+      
+        <dd>
+          <a href="/PREP-SHOT/en/v1.0/">v1.0</a>
+        </dd>
+      
+    </dl>
+    <dl>
+      <dt>Languages</dt>
+      
+        <dd class="rtd-current-item">
+          <a href="/PREP-SHOT/en/latest/">English</a>
+        </dd>
+      
+        <dd>
+          <a href="/PREP-SHOT/zh_CN/latest/">简体中文</a>
+        </dd>
+      
+    </dl>
+    <dl>
+      <dt>On GitHub</dt>
+      <dd><a href="https://github.com/PREP-NexT/PREP-SHOT">Project home</a></dd>
+      <dd><a href="https://github.com/PREP-NexT/PREP-SHOT/issues">Issues</a></dd>
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
