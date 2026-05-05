@@ -15,6 +15,7 @@ from prepshot._model.storage import AddStorageConstraints
 from prepshot._model.transmission import AddTransmissionConstraints
 from prepshot._model.investment import AddInvestmentConstraints
 from prepshot._model.finance import AddFinanceConstraints
+from prepshot._model.reserve import AddReserveConstraints
 from prepshot.logs import timer
 from prepshot.solver import get_solver
 from prepshot.solver import set_solver_parameters
@@ -146,6 +147,11 @@ def define_variables(model : object) -> None:
         model.hour, model.month, model.year, model.zone, model.zone, lb=0
     )
 
+    if model.params.get('is_reserve', False):
+        model.reserve = model.add_variables(
+            model.hour, model.month, model.year, model.zone, model.tech, lb=0
+        )
+
     if model.params['isinflow']:
         model.genflow = model.add_variables(
             model.station, model.hour, model.month, model.year, lb=0
@@ -177,6 +183,7 @@ def define_constraints(model : object) -> None:
     AddCo2EmissionConstraints(model)
     AddStorageConstraints(model)
     AddHydropowerConstraints(model)
+    AddReserveConstraints(model)
     AddDemandConstraints(model)
 
 @timer

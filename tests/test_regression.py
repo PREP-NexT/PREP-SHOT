@@ -41,10 +41,11 @@ SKIP_SLOW = os.environ.get('PREPSHOT_SKIP_SLOW') == '1'
 class TestRegressionDefaultInput(unittest.TestCase):
     """Lock in the final objective for the canonical ``examples/three_zone/`` dataset."""
 
-    # Captured at v1.1.1 with config.json defaults (hour=48, month=1,
-    # isinflow=True, iteration_number=3). This is the value reported by
-    # ``model.get_value(model.cost)`` after solve_model returns.
-    EXPECTED_OBJECTIVE = 1.8793771299e11
+    # Re-baselined at v1.12.0 with config.json defaults (hour=48,
+    # month=1, isinflow=True, iteration_number=3, is_reserve=True).
+    # Was 1.8793771299e11 at v1.1.1; the operating-reserve module
+    # raised it ~0.1 % by forcing dispatched headroom on eligible techs.
+    EXPECTED_OBJECTIVE = 1.8812919540e11
     # 1 % tolerance — head iteration is non-trivial; this absorbs minor
     # numerical differences across HiGHS minor versions and platforms
     # without being so loose it stops catching real regressions.

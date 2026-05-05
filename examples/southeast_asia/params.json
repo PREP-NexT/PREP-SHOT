@@ -302,5 +302,19 @@
         "format": "long",
         "drop_na": true,
         "required": false
+    },
+    "reserve_eligible": {
+        "file_name": "tech_reserve_eligible",
+        "format": "long",
+        "drop_na": true,
+        "required": false,
+        "default": 0
+    },
+    "reserve_requirement": {
+        "file_name": "reserve_requirement",
+        "format": "long",
+        "drop_na": true,
+        "required": false,
+        "default": 0
     }
 }

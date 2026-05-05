@@ -3,6 +3,71 @@ Changelog
 
 Here, you'll find notable changes for each version of PREP-SHOT.
 
+Version 1.12.0 - May 5, 2026
+-------------------------------
+
+New feature: operating-reserve constraints (LP relaxation, no unit
+commitment). Each plant's headroom on dispatched capacity can count
+toward a zonal reserve requirement; non-eligible techs (typically
+solar / wind / storage discharge) are forced to zero. The relaxation
+matches GenX's "no-UC" mode and is acceptable for capacity-expansion
+planning, not for sub-hourly dispatch studies.
+
+Added
++++++
+
+* ``prepshot/_model/reserve.py`` -- new constraint class
+  ``AddReserveConstraints`` with two rules per timestep:
+
+  - **headroom**: ``reserve[h,m,y,z,t] <= cap_existing[y,z,t] *
+    p_max_pu * dt - gen[h,m,y,z,t]`` for eligible techs (forced to 0
+    otherwise).
+  - **requirement**: ``sum_t reserve[h,m,y,z,t] >=
+    reserve_requirement[z,y] * dt`` per (zone, year, hour).
+
+* ``model.reserve`` decision variable (``hour x month x year x zone x
+  tech``), gated by ``config.reserve_parameters.is_reserve``. When the
+  flag is missing or ``false`` the variable + constraints are not
+  built, so any pre-1.12 ``config.json`` is byte-compatible.
+
+* New optional inputs in every shipped example:
+
+  - ``tech_reserve_eligible.csv`` (cols ``tech, eligible``):
+    dispatchable carriers (coal, gas, oil, bioenergy, hydro, nuclear,
+    geothermal) default to ``1``; solar / wind / storage default to
+    ``0``. Edit the CSV to fine-tune per scenario.
+  - ``reserve_requirement.csv`` (cols ``zone, year, unit, value``):
+    per-zone-year reserve requirement in MW. Defaults to a flat
+    placeholder per example -- 100 MW for ``three_zone``, 500 MW per
+    zone for ``southeast_asia``, 1500 MW for ``thailand`` (~5 % of
+    Thailand 2023 peak).
+
+* New ``reserve_parameters`` block in each example's ``config.json``
+  with ``"is_reserve": true``.
+
+Changed
++++++++
+
+* ``tests/test_regression.py``: ``EXPECTED_OBJECTIVE`` for the
+  ``three_zone`` regression bumped from ``1.8793771299e11`` (v1.1.1
+  baseline) to ``1.8812919540e11``. The reserve constraint forces
+  some dispatched headroom on eligible techs, which raises total NPV
+  cost by ~0.1 %.
+
+Fixed
++++++
+
+* ``examples/southeast_asia/input/reservoir_{initial,final}_storage_
+  level.csv``: relaxed from ``= storage_max`` to ``= 0.5 *
+  storage_max`` for all 57 stations. The previous setting forced
+  each reservoir to start AND end the year at full capacity, leaving
+  zero swing room. HiGHS sometimes accepted the tight feasible region
+  (commit ``06e1286`` was such a case), but presolve flagged it as
+  infeasible on most runs and reliably so once any new constraint
+  was layered on top -- including the reserve module added in this
+  release. Half-full is also a more realistic annual-average
+  operating point for these reservoirs.
+
 Version 1.11.1 - May 5, 2026
 -------------------------------
 

@@ -129,6 +129,11 @@ def extract_config_data(config_data : dict) -> dict:
     iteration_number = int(
         config_data['hydro_parameters']['iteration_number']
     )
+    # Reserve module is opt-in. Missing section -> disabled, preserves
+    # behavior of any pre-reserve config.json.
+    is_reserve = bool(
+        config_data.get('reserve_parameters', {}).get('is_reserve', False)
+    )
 
     # Create dictionary with necessary configuration data.
     required_config_data = {
@@ -138,7 +143,8 @@ def extract_config_data(config_data : dict) -> dict:
         'solver': config_data['solver_parameters'],
         'isinflow': includes_hydrological_constraints,
         'error_threshold': error_threshold,
-        'iteration_number': iteration_number
+        'iteration_number': iteration_number,
+        'is_reserve': is_reserve,
     }
 
     return required_config_data
