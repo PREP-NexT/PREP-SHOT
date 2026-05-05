@@ -6,8 +6,8 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="Glossary.html" />
 <meta property="og:site_name" content="PREP-SHOT documentation" />
-<meta property="og:description" content="A reference for the energy-modeling, hydropower, and optimization terminology used throughout PREP-SHOT. capacity expansion, The optimization problem of deciding what new generation, storage, and t..." />
-<meta name="description" content="A reference for the energy-modeling, hydropower, and optimization terminology used throughout PREP-SHOT. capacity expansion, The optimization problem of deciding what new generation, storage, and t..." />
+<meta property="og:description" content="A reference for the energy-modeling, hydropower, and optimization terminology used throughout PREP-SHOT. Further reading: Excellent free primers from NREL and DOE, useful as orientation if the term..." />
+<meta name="description" content="A reference for the energy-modeling, hydropower, and optimization terminology used throughout PREP-SHOT. Further reading: Excellent free primers from NREL and DOE, useful as orientation if the term..." />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Glossary &mdash; PREP-SHOT (latest) documentation in English</title>
 
@@ -158,7 +158,11 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Glossary</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Glossary</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#further-reading">Further reading</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#terminology">Terminology</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="how_to/index.html">How-To Recipes</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="how_to/add_a_technology.html">Add a new technology</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="how_to/add_a_technology.html#steps">Steps</a></li>
@@ -584,6 +588,35 @@
 <span id="id1"></span><h1>Glossary<a class="headerlink" href="#glossary" title="Permalink to this heading">¶</a></h1>
 <p>A reference for the energy-modeling, hydropower, and optimization
 terminology used throughout PREP-SHOT.</p>
+<section id="further-reading">
+<h2>Further reading<a class="headerlink" href="#further-reading" title="Permalink to this heading">¶</a></h2>
+<p>Excellent free primers from NREL and DOE, useful as orientation if
+the terminology below is new:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.nrel.gov/docs/fy25osti/91864.pdf">Electric Grid and Markets 101</a>
+(NREL, 2024) -- how the bulk power system actually works:
+generation, transmission, ISOs/RTOs, day-ahead vs real-time
+markets, ancillary services. Start here if you're new to power
+systems.</p></li>
+<li><p><a class="reference external" href="https://www.energy.gov/sites/prod/files/2016/02/f30/EPSA_Power_Sector_Modeling_FINAL_021816_0.pdf">Power Sector Modeling 101</a>
+(US DOE EPSA, 2016) -- conceptual tour of the model families
+PREP-SHOT belongs to: capacity expansion vs production cost vs
+unit commitment, what each is for, where their assumptions break.</p></li>
+<li><p><a class="reference external" href="https://docs.nrel.gov/docs/fy24osti/87105.pdf">Beginner's Guide to Understanding Power System Model Results for
+Long-Term Resource Plans</a>
+(NREL, 2023) -- companion to PREP-SHOT's output: how to read a
+capacity-expansion result, what the buildouts and dispatch curves
+mean, common pitfalls when interpreting them.</p></li>
+<li><p><a class="reference external" href="https://docs.nrel.gov/docs/fy24osti/88337.pdf">Advanced Guide to Understanding Power System Model Results for
+Long-Term Resource Plans</a>
+(NREL, 2024) -- deeper sequel: reliability metrics, reserve
+margin reasoning, transmission congestion interpretation, and
+what differing capacity-expansion studies typically disagree
+about.</p></li>
+</ul>
+</section>
+<section id="terminology">
+<h2>Terminology<a class="headerlink" href="#terminology" title="Permalink to this heading">¶</a></h2>
 <dl class="glossary simple">
 <dt id="term-capacity-expansion">capacity expansion<a class="headerlink" href="#term-capacity-expansion" title="Permalink to this term">¶</a></dt><dd><p>The optimization problem of deciding what new generation,
 storage, and transmission to build over a multi-year planning
@@ -807,6 +840,7 @@ efficiency limits. The <code class="docutils literal notranslate"><span class="p
 <code class="docutils literal notranslate"><span class="pre">demand.csv</span></code>.</p>
 </dd>
 </dl>
+</section>
 </section>
 
 
