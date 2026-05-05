@@ -3,6 +3,50 @@ Changelog
 
 Here, you'll find notable changes for each version of PREP-SHOT.
 
+Version 1.14.1 - May 5, 2026
+-------------------------------
+
+Incremental fixes on top of the v1.14.0 PCM scaffold. Adds a
+non-cyclic hydro mode and battery SOC carryover. Multi-window
+rolling now solves on scenarios without binding min-outflow on
+cascaded hydro -- the cross-window cascade-state issue moves to
+v1.15+.
+
+Added
++++++
+
+* New ``cyclic_hydro`` param flag (default ``True`` for CEM
+  compatibility). When ``False`` (set automatically by
+  ``prepshot.pcm._build_window_params``), ``hydro.inflow_rule``
+  drops the upstream-cascade contribution at hours where
+  ``h - delay < hour[0]`` -- instead of wrapping modularly into the
+  same window. This makes each PCM window stand alone in time,
+  rather than implicitly looping its end into its beginning.
+* Battery SOC carryover in ``prepshot.pcm._extract_window_state``:
+  read each ``model.storage[terminal_hour, m, y, z, te]`` (in MWh),
+  divide by ``cap_existing[y,z,te] * energy_to_power_ratio[te] * dt``
+  to recover the per-unit-of-cap fraction that
+  ``initial_energy_storage_level`` expects, clamp to ``[0, 1]``, and
+  pass into the next window's params. Storage techs with zero
+  capacity are skipped (the next window's lookup defaults to 0).
+
+Known limitations
++++++++++++++++++
+
+* **Cascading hydro across windows**: at window boundaries,
+  downstream stations see only their natural (incremental) inflow
+  because the upstream's outflow during the lookback period lives in
+  the previous window's solve and isn't carried forward. When
+  downstream ``reservoir_outflow_min > natural_inflow``, water
+  balance drains storage below ``storage_min`` and the sub-problem is
+  infeasible. Workaround: run ``--horizon == --step ==
+  period_length`` (single-window). Permanent fix in v1.15+ via a
+  cross-window cascade-state vector.
+* **Annual carbon cap not rescaled to window length**: the naive
+  filter applies the full-year cap to each window. Not binding for
+  the shipped examples but wrong on principle; will rescale by
+  ``window_hours / hours_in_year`` in v1.15.
+
 Version 1.14.0 - May 5, 2026
 -------------------------------
 
