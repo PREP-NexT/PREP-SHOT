@@ -261,6 +261,10 @@ def _build_window_params(
     # set per-station initial storage from carried-over state
     if state.get('hydro_storage'):
         p['initial_reservoir_storage_level'] = dict(state['hydro_storage'])
+    if state.get('prior_outflow'):
+        # Cross-window cascade state, consumed by hydro.inflow_rule
+        # when the delayed hour falls before this window's hour[0].
+        p['prior_outflow'] = dict(state['prior_outflow'])
     if state.get('battery_storage'):
         # Merge: keep the dataset's default SOC for any (te, z) that
         # the previous window didn't write (e.g. zero-capacity slots).
@@ -277,7 +281,8 @@ def _build_window_params(
 def _extract_window_state(
     model, full_params: dict, terminal_hour: int
 ) -> dict:
-    """Read storage levels at ``terminal_hour`` to seed the next window.
+    """Read storage levels + cascade outflows at end of the committed
+    window to seed the next window.
 
     Hydro storage is clamped a small fraction inside ``[storage_min,
     storage_max]`` so floating-point boundary values from the LP
@@ -288,8 +293,23 @@ def _extract_window_state(
     ``params['initial_energy_storage_level']`` expects, using the
     same ``esl * cap * epr * dt`` relation as the
     ``init_energy_storage_rule``.
+
+    **Prior outflow state (v1.17+).** For each upstream station with a
+    delay ``D``, the next window's first ``D`` hours of downstream
+    inflow refer back to the upstream's outflow over hours
+    ``[terminal_hour - D + 1, terminal_hour]``. We extract those
+    values now and stash them as a flat
+    ``{(station, hour, month, year) -> m**3/s}`` lookup that the
+    next window's ``hydro.inflow_rule`` will consult when ``t <
+    hour[0]``. Without this, downstream stations would see only
+    natural inflow at window boundaries -- often infeasible when
+    ``min_outflow > natural_inflow``.
     """
-    state = {'hydro_storage': {}, 'battery_storage': {}}
+    state = {
+        'hydro_storage': {},
+        'battery_storage': {},
+        'prior_outflow': {},
+    }
     if full_params.get('isinflow') and hasattr(model, 'storage_reservoir'):
         smin = full_params.get('reservoir_storage_min') or {}
         smax = full_params.get('reservoir_storage_max') or {}
@@ -308,6 +328,35 @@ def _extract_window_state(
                     ))
                     val = min(max(val, lo + margin), hi - margin)
                     state['hydro_storage'][s] = val
+
+        # Prior outflow lookup: for every upstream-of-anyone station
+        # ``s`` and every absolute hour ``h_abs`` in
+        # ``[terminal_hour - max_delay + 1, terminal_hour]``, stash
+        # ``outflow[s, h_abs, m, y]``. The next window's
+        # ``hydro.inflow_rule`` keys this dict when ``t < hour[0]``.
+        wdt_df = full_params.get('water_delay_time')
+        if wdt_df is not None and hasattr(wdt_df, 'iterrows'):
+            upstream_stations = set(wdt_df['upstream_tech'].astype(str))
+            max_delay = int(wdt_df['delay'].max())
+        else:
+            upstream_stations = set()
+            max_delay = 0
+        for s in upstream_stations:
+            if s not in set(model.station):
+                continue
+            for offset in range(max_delay):
+                h_abs = terminal_hour - offset
+                if h_abs not in set(model.hour):
+                    continue
+                for m in model.month:
+                    for y in model.year:
+                        try:
+                            v = float(model.get_value(
+                                model.outflow[s, h_abs, m, y]
+                            ))
+                        except (KeyError, TypeError):
+                            continue
+                        state['prior_outflow'][(s, h_abs, m, y)] = v
 
     if hasattr(model, 'storage') and getattr(model, 'storage_tech', None):
         epr_lookup = full_params.get('energy_to_power_ratio') or {}

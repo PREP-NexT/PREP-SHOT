@@ -18,7 +18,7 @@
         "solver": "highs"
     },
     "reserve_parameters": {
-        "is_reserve": true
+        "is_reserve": false
     },
     "dc_parameters": {
         "is_dc_flow": true,

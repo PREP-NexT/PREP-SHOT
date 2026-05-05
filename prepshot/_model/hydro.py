@@ -257,13 +257,19 @@ class AddHydropowerConstraints:
         # * CEM (params['cyclic_hydro']=True default): treat the period
         #   as cyclic and wrap modularly into [hour[0], hour[-1]] --
         #   matches the original "hour=[1..N]" convention.
-        # * PCM rolling (cyclic_hydro=False): the upstream's
-        #   pre-window outflow lives in the prior window we already
-        #   committed; drop the term here (treat upstream contribution
-        #   as 0 for the boundary hours). Approximate but stable; the
-        #   energy is small relative to the natural inflow and only
-        #   affects the first ``max_delay`` hours of each window.
+        # * PCM rolling with prior_outflow state (v1.17+): the
+        #   upstream's outflow during the lookback period was solved
+        #   in the prior window; PCM stashes the last ``max_delay``
+        #   hours of outflow as a numeric lookup in
+        #   ``params['prior_outflow'][(ups, t, m, y)] -> m**3/s``.
+        #   We add the numeric value into the inflow expression as a
+        #   constant term, so the LP sees the cascade contribution.
+        # * PCM rolling without prior_outflow (v1.14.1): drop the
+        #   upstream term -- approximate, infeasible for downstream
+        #   stations whose ``min_outflow`` exceeds their natural
+        #   inflow.
         cyclic = model.params.get('cyclic_hydro', True)
+        prior = model.params.get('prior_outflow') or {}
         period_len = hour[-1] - hour[0] + 1
         for ups, delay in up_streams:
             delay_steps = int(int(delay) / dt)
@@ -272,8 +278,15 @@ class AddHydropowerConstraints:
                 if cyclic:
                     offset = (h - delay_steps - hour[0]) % period_len
                     t = hour[0] + offset
-                else:
-                    continue  # drop upstream term for this h
+                    up_stream_outflow += model.outflow[ups, t, m, y]
+                    continue
+                # Non-cyclic: try the prior-window state first.
+                key = (ups, t, m, y)
+                if key in prior:
+                    # Constant contribution; ExprBuilder accepts floats.
+                    up_stream_outflow += float(prior[key])
+                # else: drop the term (v1.14.1 fallback).
+                continue
             up_stream_outflow += model.outflow[ups, t, m, y]
         return up_stream_outflow + model.params['inflow'][s, y, m, h]
 

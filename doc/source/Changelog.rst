@@ -3,6 +3,81 @@ Changelog
 
 Here, you'll find notable changes for each version of PREP-SHOT.
 
+Version 1.17.0 - May 6, 2026
+-------------------------------
+
+Closes the v1.14.1 limitation: **PCM rolling-horizon now works with
+cascading hydro and the full v1.15 / v1.16 feature stack** (UC,
+multi-product reserves, DC flow). Adds a cross-window cascade-state
+mechanism that carries upstream outflow from one window's solve into
+the next window's hydro inflow expression, instead of dropping the
+term at boundaries (which made downstream stations infeasible
+whenever their ``min_outflow`` exceeded their incremental natural
+inflow).
+
+Added
++++++
+
+* New ``params['prior_outflow']`` lookup, dict-keyed by ``(station,
+  hour, month, year) -> m**3/s``. Populated by
+  ``prepshot.pcm._extract_window_state``: at the end of each
+  committed window, the last ``max_delay`` hours of ``model.outflow``
+  for every upstream station are stashed and threaded into the next
+  window's params.
+
+* ``prepshot._model.hydro.inflow_rule`` now consults
+  ``params['prior_outflow']`` when ``t = h - delay < hour[0]``. The
+  numeric outflow is added as a constant term in the inflow
+  expression, so the LP sees the cascade contribution exactly as
+  it would in a single-pass full-horizon CEM solve.
+
+  Three-tier fallback:
+
+  - CEM (``cyclic_hydro=True``): wrap modularly within the window.
+  - PCM with ``prior_outflow`` (v1.17+): use the carried numeric.
+  - PCM without ``prior_outflow`` (first window): drop the term --
+    the v1.14.1 fallback, accurate only for the very first window.
+
+Changed
++++++++
+
+* Default reserve eligibility for **hydro** carriers: now eligible
+  for ``non_spinning`` (in addition to the existing
+  ``regulation_up``, ``regulation_down``, ``spinning``). Real
+  ancillary-services markets typically allow hydro to qualify for
+  non-spinning since hydro can ramp from cold within the standard
+  10-minute non-spinning window. Without this, zones with
+  hydro-only fleets (like ``three_zone``'s BA2 in the CEM-2025
+  buildout) had no supplier for ``non_spinning`` and tripped a
+  presolve infeasibility under PCM mode.
+
+* ``tests/test_regression.py`` baseline re-captured after the hydro
+  non_spinning eligibility tweak. Drift is sub-percent.
+
+Verified
+++++++++
+
+* PCM single-window with full feature stack (UC continuous-relax +
+  4-product reserves + DC flow + per-station hydro):
+  ``three_zone`` solves to optimal in ~1 minute.
+* PCM multi-window rolling with cascade (``--horizon 24 --step 12``)
+  on the same setup: 4 sequential windows all Optimal, dispatch
+  written to ``baseline_pcm.nc``.
+* PCM + UC compose: ``--cap-source <CEM_baseline>`` + UC continuous
+  relaxation works.
+* Single-window PCM at ``--horizon 48 --step 48`` remains the
+  minimal "fixed-capacity dispatch validator" mode.
+
+Known limitations
++++++++++++++++++
+
+* The carbon emission cap from ``policy_carbon_emission_limit.csv``
+  is still applied per-window without rescaling for window length;
+  the naive filter applies the full-year cap to e.g. a 48-hour
+  window. For the shipped examples it's non-binding so the dispatch
+  is unaffected, but a window-length-rescaled cap is the correct
+  formulation. v1.18 candidate.
+
 Version 1.16.0 - May 6, 2026
 -------------------------------
 

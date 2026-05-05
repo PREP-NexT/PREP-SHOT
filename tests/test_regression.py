@@ -54,9 +54,15 @@ class TestRegressionDefaultInput(unittest.TestCase):
     #                                 products (regulation_up/_down,
     #                                 spinning, non_spinning); total
     #                                 requirement same as v1.12, just
-    #                                 split across products, so cost
-    #                                 barely shifts.
-    EXPECTED_OBJECTIVE = 1.9070043702e11
+    #                                 split across products.
+    #   v1.17.0 : 1.9009490431e11  -- hydro now eligible for
+    #                                 non_spinning (real markets
+    #                                 typically allow this since hydro
+    #                                 ramps from cold within 10 min).
+    #                                 Slight drop because hydro can
+    #                                 now serve more reserve products
+    #                                 cheaply.
+    EXPECTED_OBJECTIVE = 1.9009490431e11
     # 1 % tolerance — head iteration is non-trivial; this absorbs minor
     # numerical differences across HiGHS minor versions and platforms
     # without being so loose it stops catching real regressions.
