@@ -26,3 +26,8 @@ __pycache__/
 
 # Claude Code skills (local; not part of public repo)
 /.claude/
+
+# Local copies of NREL/DOE primer PDFs (linked from doc/source/index.rst
+# and Glossary.rst).  Backups for offline reading; not part of the
+# repo to avoid bloating clones.
+references/
