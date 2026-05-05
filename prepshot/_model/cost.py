@@ -71,6 +71,8 @@ class AddCostObjective:
     def define_objective(self) -> None:
         """Objective function of the model, to minimize total cost.
         """
+        from prepshot._model.unit_commitment import add_uc_cost_terms
+
         model = self.model
         model.cost_var = self.var_cost_rule()
         model.cost_newtech = self.newtech_cost_rule()
@@ -79,9 +81,14 @@ class AddCostObjective:
         model.cost_carbon = self.carbon_cost_rule()
         model.cost_carbon_offset = self.carbon_offset_cost_rule()
         model.income = self.income_rule()
+        # UC contribution: startup cost + no-load cost on online units.
+        # Returns a zero ExprBuilder when UC is disabled, so adding it
+        # unconditionally is safe.
+        model.cost_uc = add_uc_cost_terms(model)
         model.cost = model.cost_var + model.cost_newtech                     \
             + model.cost_fix + model.cost_newline                            \
             + model.cost_carbon + model.cost_carbon_offset                   \
+            + model.cost_uc                                                  \
             - model.income
         model.set_objective(model.cost, sense=poi.ObjectiveSense.Minimize)
     def fuel_cost_breakdown(

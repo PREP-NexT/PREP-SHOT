@@ -23,5 +23,9 @@
     "dc_parameters": {
         "is_dc_flow": true,
         "reference_zone": "BA1"
+    },
+    "uc_parameters": {
+        "is_uc": true,
+        "uc_relaxation": "continuous"
     }
 }

@@ -330,5 +330,47 @@
         "drop_na": true,
         "required": false,
         "default": 0
+    },
+    "uc_eligible": {
+        "file_name": "tech_uc_eligible",
+        "format": "long",
+        "drop_na": true,
+        "required": false,
+        "default": 0
+    },
+    "uc_unit_size": {
+        "file_name": "tech_unit_size",
+        "format": "long",
+        "drop_na": true,
+        "required": false,
+        "default": 1
+    },
+    "uc_min_up_time": {
+        "file_name": "tech_min_up_time",
+        "format": "long",
+        "drop_na": true,
+        "required": false,
+        "default": 1
+    },
+    "uc_min_down_time": {
+        "file_name": "tech_min_down_time",
+        "format": "long",
+        "drop_na": true,
+        "required": false,
+        "default": 1
+    },
+    "uc_startup_cost": {
+        "file_name": "tech_startup_cost",
+        "format": "long",
+        "drop_na": true,
+        "required": false,
+        "default": 0
+    },
+    "uc_no_load_cost": {
+        "file_name": "tech_no_load_cost",
+        "format": "long",
+        "drop_na": true,
+        "required": false,
+        "default": 0
     }
 }

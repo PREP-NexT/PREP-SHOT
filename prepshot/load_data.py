@@ -138,6 +138,12 @@ def extract_config_data(config_data : dict) -> dict:
     dc_params = config_data.get('dc_parameters') or {}
     is_dc_flow = bool(dc_params.get('is_dc_flow', False))
     reference_zone = dc_params.get('reference_zone')  # None -> first zone
+    # Unit commitment is opt-in. When on, the model becomes a MILP --
+    # several-fold slower than the underlying LP. Default off so any
+    # pre-1.15 config.json stays LP and behaves identically.
+    uc_params_cfg = config_data.get('uc_parameters') or {}
+    is_uc = bool(uc_params_cfg.get('is_uc', False))
+    uc_relaxation = uc_params_cfg.get('uc_relaxation', 'integer')
 
     # Create dictionary with necessary configuration data.
     required_config_data = {
@@ -152,6 +158,8 @@ def extract_config_data(config_data : dict) -> dict:
         'is_reserve': is_reserve,
         'is_dc_flow': is_dc_flow,
         'reference_zone': reference_zone,
+        'is_uc': is_uc,
+        'uc_relaxation': uc_relaxation,
     }
 
     return required_config_data

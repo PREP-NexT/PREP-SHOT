@@ -41,15 +41,21 @@ SKIP_SLOW = os.environ.get('PREPSHOT_SKIP_SLOW') == '1'
 class TestRegressionDefaultInput(unittest.TestCase):
     """Lock in the final objective for the canonical ``examples/three_zone/`` dataset."""
 
-    # Re-baselined at v1.13.0 with config.json defaults (hour=48,
+    # Re-baselined at v1.15.0 with config.json defaults (hour=48,
     # month=1, isinflow=True, iteration_number=3, is_reserve=True,
-    # is_dc_flow=True). Drift over time:
+    # is_dc_flow=True, is_uc=True, uc_relaxation="continuous").
+    # Drift history kept inline for traceability:
     #   v1.1.1  : 1.8793771299e11  -- transport model, no reserve
     #   v1.12.0 : 1.8878269786e11  -- + reserve up/down (~+0.4 %)
-    #   v1.13.0 : 1.8967979487e11  -- + DC flow Kirchhoff constraint
-    #                                 (~+0.5 % from forcing flow to
-    #                                 follow phase-angle differences)
-    EXPECTED_OBJECTIVE = 1.8967979487e11
+    #   v1.13.0 : 1.8967979487e11  -- + DC flow Kirchhoff (~+0.5 %)
+    #   v1.15.0 : 1.9070270274e11  -- + UC overlay (continuous relax)
+    #                                 (~+0.5 %; startup + no-load
+    #                                 costs added to the objective)
+    # Note: integer-MILP UC (uc_relaxation="integer") on three_zone
+    # takes 15-30 min per head-iteration -- too slow for the
+    # regression test. Switch to "integer" only for individual
+    # validation runs; tests stay on the continuous relaxation.
+    EXPECTED_OBJECTIVE = 1.9070270274e11
     # 1 % tolerance — head iteration is non-trivial; this absorbs minor
     # numerical differences across HiGHS minor versions and platforms
     # without being so loose it stops catching real regressions.

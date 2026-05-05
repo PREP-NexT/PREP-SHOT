@@ -17,6 +17,9 @@ from prepshot._model.investment import AddInvestmentConstraints
 from prepshot._model.finance import AddFinanceConstraints
 from prepshot._model.reserve import AddReserveConstraints
 from prepshot._model.dc_flow import AddDCFlowConstraints
+from prepshot._model.unit_commitment import (
+    AddUnitCommitmentConstraints, add_uc_cost_terms,
+)
 from prepshot.logs import timer
 from prepshot.solver import get_solver
 from prepshot.solver import set_solver_parameters
@@ -196,6 +199,7 @@ def define_constraints(model : object) -> None:
     AddStorageConstraints(model)
     AddHydropowerConstraints(model)
     AddReserveConstraints(model)
+    AddUnitCommitmentConstraints(model)
     AddDemandConstraints(model)
 
 @timer
