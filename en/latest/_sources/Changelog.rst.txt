@@ -3,6 +3,82 @@ Changelog
 
 Here, you'll find notable changes for each version of PREP-SHOT.
 
+Version 1.14.0 - May 5, 2026
+-------------------------------
+
+New mode: **production-cost-model (PCM)** with a rolling-horizon
+driver. Companion to the default capacity-expansion (CEM) flow in
+``run.py``: PCM takes a fixed fleet (from a prior CEM ``baseline.nc``
+or a user-supplied capacity CSV) and solves *only* hourly dispatch
+over a chosen year, in windows. PowNet- and PyPSA-style.
+
+This is the **Phase A scaffold** of the PCM-fidelity roadmap (Phase
+B = unit commitment overlay, Phase C = DC flow which already landed
+in v1.13). It's shipped as **alpha** -- single-window mode works
+end-to-end; multi-window rolling has a known cyclic-wrap interaction
+documented in the module docstring and tracked for v1.14.1.
+
+Added
++++++
+
+* ``prepshot/pcm.py`` -- new module + CLI entry point::
+
+      python -m prepshot.pcm <scenario_dir> --year 2025 \
+          --horizon 48 --step 48 [--cap-source baseline.nc]
+
+  Supports both ``.nc`` (CEM result) and ``.csv`` capacity sources.
+  Output lands in ``output/baseline_pcm.nc`` so it doesn't collide
+  with CEM's ``baseline.nc``.
+
+* New ``skip_end_storage`` param flag plumbed through
+  ``hydro.end_storage_rule`` and ``storage.end_energy_storage_rule``;
+  when ``True``, the cyclical "terminal storage = initial storage"
+  equality is dropped so PCM windows can have free terminal SOC
+  (carried into the next window).
+
+* ``prepshot.load_data.extract_config_data`` now also returns
+  ``hours_in_year`` so PCM windows can recompute the cost-objective
+  ``weight`` for shorter time slices.
+
+Changed
++++++++
+
+* ``model.hour_p`` now derives from ``hour[0]`` (``[hour[0] - 1] +
+  hour``) instead of being hardcoded to ``[0] + hour``. CEM behaviour
+  is unchanged because CEM uses ``hour=[1..N]``; PCM windows starting
+  at ``hour[0] > 1`` get the correct prior-hour anchor for storage
+  balances.
+
+* ``storage.init_energy_storage_rule`` and
+  ``storage.end_energy_storage_rule`` reference ``model.hour_p[0]``
+  instead of literal ``0`` for the prior-hour storage variable.
+
+* ``generation.ramping_up_rule`` / ``ramping_down_rule`` skip the
+  inter-hour delta when ``h == model.hour[0]`` (no ``h - 1`` in the
+  set). Was ``1 < h``, now ``h > model.hour[0]``.
+
+* ``hydro.inflow_rule`` rewrites the cyclic-wrap arithmetic to use
+  modular indexing relative to ``hour[0]``, ``hour[-1]`` instead of
+  the implicit ``[1..24]`` assumption. CEM behaviour is mathematically
+  identical for ``hour=[1..N]``.
+
+Known limitations (v1.14.0 alpha)
++++++++++++++++++++++++++++++++++
+
+* **Multi-window rolling is unstable.** The hydro module's cyclic
+  ``inflow_rule`` couples ``upstream.outflow[hour[-1]]`` to
+  ``downstream.inflow[hour[0]]`` within each window; with carry-over
+  state at ``hour[0]-1``, the second window's cyclic loop can have no
+  feasible point. Workaround: run with ``--horizon == --step ==
+  period_length`` (single-window PCM = fixed-capacity CEM dispatch).
+  v1.14.1 will switch hydro to a non-cyclic rolling form.
+
+* **Battery state carryover deferred.** ``initial_energy_storage_
+  level`` is per-unit-of-cap, not absolute MWh; an absolute-MWh
+  state extracted from a solved window doesn't compose with that
+  convention. Each window currently re-initialises batteries to the
+  dataset's default SOC. Fix in v1.14.1.
+
 Version 1.13.0 - May 5, 2026
 -------------------------------
 
