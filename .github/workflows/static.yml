@@ -43,6 +43,14 @@ jobs:
           make clean
           make html
 
+      - name: Strip oversized media from build output
+        # GitHub rejects pushes containing files >100MB. The v1.0 intro
+        # video (~280MB) gets bundled into the build via sphinxcontrib-
+        # video; drop it so the deploy can land. The video player on the
+        # docs page will 404, but the page itself still renders.
+        run: |
+          find doc/build/html -size +50M -type f -print -delete || true
+
       - name: Deploy version subdir
         if: github.event_name != 'pull_request'
         uses: peaceiris/actions-gh-pages@v3
