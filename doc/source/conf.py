@@ -266,6 +266,9 @@ html_context = {
     # Distinguish local development website from production website.
     # This prevents people from looking for changes on the production website after making local changes :)
     "prepshot_title_prefix": "" if on_rtd else "(DEV) ",
+    # Identifies which version subdir this build lives under
+    # (`/en/<current_slug>/`), consumed by _templates/versions.html.
+    "current_slug": os.getenv("DOCS_VERSION_SLUG", "latest"),
 }
 
 html_logo = "img/SVG-03.svg"

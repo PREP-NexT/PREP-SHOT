@@ -1,29 +1,83 @@
 name: Docs
-on: [push, pull_request, workflow_dispatch]
+on:
+  push:
+    branches: [main, v1.0.x]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
 jobs:
-  docs:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+      - uses: actions/checkout@v4
         with:
-          python-version: '3.12.0'
+          lfs: true
+
+      - name: Resolve version slug
+        id: slug
+        run: |
+          case "${GITHUB_REF_NAME}" in
+            main)   echo "slug=latest" >> "$GITHUB_OUTPUT" ;;
+            v1.0.x) echo "slug=v1.0"   >> "$GITHUB_OUTPUT" ;;
+            *)      echo "slug=${GITHUB_REF_NAME}" >> "$GITHUB_OUTPUT" ;;
+          esac
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
       - name: Install dependencies
         run: |
           pip install -r ./doc/requirements.txt
           sudo apt-get update -qy
-          # pandoc is needed by nbsphinx for notebook -> RST conversion.
           sudo apt-get install -y pandoc
+
       - name: Sphinx build
+        env:
+          DOCS_VERSION_SLUG: ${{ steps.slug.outputs.slug }}
         run: |
           cd doc
           make clean
           make html
-      - name: Deploy
+
+      - name: Deploy version subdir
+        if: github.event_name != 'pull_request'
         uses: peaceiris/actions-gh-pages@v3
-        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
         with:
-          publish_branch: gh-pages
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./doc/build/html/
-          force_orphan: true
+          publish_branch: gh-pages
+          publish_dir: ./doc/build/html
+          destination_dir: en/${{ steps.slug.outputs.slug }}
+          keep_files: true
+
+      - name: Write root redirect (main only)
+        if: github.event_name != 'pull_request' && github.ref_name == 'main'
+        run: |
+          mkdir -p root-out
+          cat > root-out/index.html <<'EOF'
+          <!doctype html>
+          <html lang="en">
+          <head>
+            <meta charset="utf-8">
+            <meta http-equiv="refresh" content="0; url=./en/latest/">
+            <link rel="canonical" href="./en/latest/">
+            <title>PREP-SHOT documentation</title>
+          </head>
+          <body>
+            <p>Redirecting to <a href="./en/latest/">/en/latest/</a>.</p>
+          </body>
+          </html>
+          EOF
+          touch root-out/.nojekyll
+
+      - name: Deploy root redirect (main only)
+        if: github.event_name != 'pull_request' && github.ref_name == 'main'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: ./root-out
+          keep_files: true
