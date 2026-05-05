@@ -1,0 +1,251 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023-2025, Zhanwei Liu and Xiaogang He (GPL-3.0)
+# This file is distributed under the same license as the PREP-SHOT package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PREP-SHOT latest\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-05 13:00+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh_CN\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/Quickstart.ipynb:8
+msgid ""
+"**Run online (zero install):** `Open in Colab "
+"<https://colab.research.google.com/github/PREP-NexT/PREP-"
+"SHOT/blob/main/doc/source/Quickstart.ipynb>`__ – click and run; needs a "
+"Google account."
+msgstr ""
+
+#: ../../source/Quickstart.ipynb:10
+msgid "**Run locally:** clone the repo and install with the ``notebook`` extra:"
+msgstr ""
+
+#: ../../source/Quickstart.ipynb:55
+msgid "Quickstart (30 minutes)"
+msgstr ""
+
+#: ../../source/Quickstart.ipynb:57
+msgid ""
+"Goal: take a fresh checkout of PREP-SHOT, solve the shipped example, read"
+" the results, change one input, and re-solve – all in about half an hour."
+" No prior knowledge of capacity-expansion modeling is assumed; everything"
+" happens against the ``examples/three_zone/`` dataset that ships with the"
+" repo."
+msgstr ""
+
+#: ../../source/Quickstart.ipynb:59
+msgid ""
+"If anything in this page does not work for you, please open a `GitHub "
+"issue <https://github.com/PREP-NexT/PREP-SHOT/issues>`__ – we read every "
+"report and a broken Quickstart is the bug we most want to know about."
+msgstr ""
+
+#: ../../source/Quickstart.ipynb:71
+msgid "Scenario background"
+msgstr ""
+
+#: ../../source/Quickstart.ipynb:73
+msgid ""
+"The shipped ``examples/three_zone/`` dataset is inspired by real-world "
+"data, drawing primarily from the U.S. Energy Information Administration "
+"(`EIA "
+"<https://www.eia.gov/electricity/gridmonitor/dashboard/electric_overview/regional"
+"/REG-NW>`__), the U.S. Army Corps of Engineers (`USACE <https://www.nwd-"
+"wc.usace.army.mil/dd/common/dataquery/www/>`__), and the U.S. National "
+"Renewable Energy Laboratory (`NREL "
+"<https://atb.nrel.gov/electricity/2022/data>`__)."
+msgstr ""
+
+#: ../../source/Quickstart.ipynb:75
+msgid ""
+"It models a cascading hydropower system of **15 interconnected stations**"
+" across **three balancing authorities** – BA1, BA2, and BA3 – each with "
+"distinct jurisdictional connections to their local reservoirs. Aside from"
+" hydropower, no other existing generation or transmission is in place; "
+"the model decides what to build from four candidate technologies (coal, "
+"wind, solar, energy storage) along an electric-mix pathway from 2020 to "
+"2030 toward zero-carbon emissions. We use a 48-hour representative period"
+" for the analysis."
+msgstr ""
+
+#: ../../source/Quickstart.ipynb:88
+msgid "Step 1 – Install (5 minutes)"
+msgstr ""
+
+#: ../../source/Quickstart.ipynb:90
+msgid ""
+"PREP-SHOT requires Python 3.9 or newer. Conda is recommended so the "
+"optimization-solver dependencies stay isolated:"
+msgstr ""
+
+#: ../../source/Quickstart.ipynb:101
+msgid ""
+"The default solver is the open-source `HiGHS <https://highs.dev/>`__, "
+"installed automatically as a wheel. To use a commercial solver (Gurobi, "
+"COPT, MOSEK) instead, set ``solver`` in the scenario’s ``config.json`` – "
+"see the `Model Inputs/Outputs page <Model_input_output.rst>`__."
+msgstr ""
+
+#: ../../source/Quickstart.ipynb:113
+msgid "Step 2 – Solve the shipped example (5 minutes)"
+msgstr ""
+
+#: ../../source/Quickstart.ipynb:115
+msgid ""
+"The repo ships a self-contained 3-zone, 11-year example in "
+"``examples/three_zone/``. We solve it programmatically so this notebook "
+"works regardless of the working directory."
+msgstr ""
+
+#: ../../source/Quickstart.ipynb:373
+msgid ""
+"On commodity hardware the default settings (48 hours, 1 representative "
+"month, 3 head iterations) finish in around 2 minutes. The solver log will"
+" report ``Objective value : 1.8809...e+11``, and a NetCDF file appears "
+"under ``output/``. Everything in the rest of this notebook reads from "
+"that file."
+msgstr ""
+
+#: ../../source/Quickstart.ipynb:375
+msgid ""
+"The log lines ``Water head error: ...`` and the warning ``Failed to "
+"converge. Maximum iteration exceeded.`` are normal for the default "
+"settings: PREP-SHOT runs three head-iteration rounds and reports the "
+"final residual. Bump ``iteration_number`` in the scenario’s "
+"``config.json`` if you want a tighter (slower) converged solve."
+msgstr ""
+
+#: ../../source/Quickstart.ipynb:387
+msgid "Step 3 – Open the results (10 minutes)"
+msgstr ""
+
+#: ../../source/Quickstart.ipynb:389
+msgid ""
+"PREP-SHOT writes results in `xarray <https://docs.xarray.dev>`__\\ ’s "
+"NetCDF format, so any tool that reads NetCDF can consume them."
+msgstr ""
+
+#: ../../source/Quickstart.ipynb:451
+msgid "Three things worth a first look:"
+msgstr ""
+
+#: ../../source/Quickstart.ipynb:453
+msgid ""
+"**1. Total cost.** A single number, the NPV of system cost over the "
+"planning horizon."
+msgstr ""
+
+#: ../../source/Quickstart.ipynb:498
+msgid ""
+"**2. Installed capacity over time.** Which technologies expanded, in "
+"which zones, and when."
+msgstr ""
+
+#: ../../source/Quickstart.ipynb:1026
+msgid ""
+"**3. Locational marginal prices (shadow prices on demand).** This is the "
+"dual of the power-balance constraint – the marginal cost of one extra MWh"
+" of demand at each ``(hour, month, year, zone)``. Useful for diagnosing "
+"where the system is most stressed."
+msgstr ""
+
+#: ../../source/Quickstart.ipynb:1121
+msgid ""
+"Values in ``shadow_price_demand`` are **NPV-discounted** dollars per MWh."
+" To recover undiscounted real-year prices, divide by the year’s variable-"
+"cost factor (computed in ``prepshot.load_data.compute_cost_factors``)."
+msgstr ""
+
+#: ../../source/Quickstart.ipynb:1123
+msgid "A minimal generation-mix chart:"
+msgstr ""
+
+#: ../../source/Quickstart.ipynb:1172
+msgid "Step 4 – Change one input and re-solve (5 minutes)"
+msgstr ""
+
+#: ../../source/Quickstart.ipynb:1174
+msgid ""
+"Every input is a CSV under ``examples/three_zone/``. To see how the model"
+" responds to a change, try one of these single-file edits."
+msgstr ""
+
+#: ../../source/Quickstart.ipynb:1176
+#, python-format
+msgid ""
+"**Option A – bump demand 20% in one zone.** Open "
+"``examples/three_zone/demand.csv`` (long format: ``zone, year, month, "
+"hour, unit, value``) and multiply the BA1 column by 1.2 in your editor of"
+" choice. Then re-run from ``examples/three_zone/`` (``cd "
+"examples/three_zone && python -m prepshot``). The objective will rise – "
+"the model has to build more capacity or import more from neighboring "
+"zones to serve the extra load. ``shadow_price_demand`` at BA1 should also"
+" increase in the most constrained hours."
+msgstr ""
+
+#: ../../source/Quickstart.ipynb:1179
+msgid ""
+"**Option B – introduce a carbon tax.** Open "
+"``examples/three_zone/policy_carbon_tax.csv`` and replace the ``value`` "
+"column with a non-zero number (e.g. ``50`` USD/tonneCO2). Re-run from the"
+" scenario directory; the generation mix should shift away from coal and "
+"gas toward zero-carbon technologies, raising ``cost_carbon`` in the "
+"breakdown."
+msgstr ""
+
+#: ../../source/Quickstart.ipynb:1181
+msgid ""
+"**Tip – run scenarios without overwriting your baseline.** Save your "
+"modified file as ``examples/three_zone/demand_high.csv`` and run ``python"
+" -m prepshot --demand=high`` from inside ``examples/three_zone/``. PREP-"
+"SHOT appends the suffix to the file name, so the baseline ``demand.csv`` "
+"is left untouched. Output goes to "
+"``examples/three_zone/output/year_high.nc``."
+msgstr ""
+
+#: ../../source/Quickstart.ipynb:1193
+msgid "Step 5 – Where to next"
+msgstr ""
+
+#: ../../source/Quickstart.ipynb:1195
+msgid ""
+"`Model Inputs/Outputs <Model_input_output.rst>`__ – full input / output "
+"reference, including optional carbon-market and finance modules."
+msgstr ""
+
+#: ../../source/Quickstart.ipynb:1196
+msgid ""
+"```examples/southeast_asia/SoutheastAsia.ipynb`` "
+"<../../examples/southeast_asia/SoutheastAsia.ipynb>`__ – a realistic case"
+" study (Lower Mekong basin, 5 countries, 57 cascading reservoirs)."
+msgstr ""
+
+#: ../../source/Quickstart.ipynb:1197
+msgid ""
+"`Mathematical Notation <Mathematical_notations.rst>`__ – the underlying "
+"linear program."
+msgstr ""
+
+#: ../../source/Quickstart.ipynb:1198
+msgid "`Changelog <Changelog.rst>`__ – what’s new in each release."
+msgstr ""
+
+#: ../../source/Quickstart.ipynb:1200
+msgid ""
+"If you used PREP-SHOT in published work, please cite it – see the "
+"`Citation Guide <Citations.rst>`__. And if you ran into something rough, "
+"the fastest fix is to file an issue on `GitHub <https://github.com/PREP-"
+"NexT/PREP-SHOT/issues>`__."
+msgstr ""
+

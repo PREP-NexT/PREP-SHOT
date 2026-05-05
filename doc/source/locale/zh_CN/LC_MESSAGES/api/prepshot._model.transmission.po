@@ -1,0 +1,194 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023-2025, Zhanwei Liu and Xiaogang He (GPL-3.0)
+# This file is distributed under the same license as the PREP-SHOT package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PREP-SHOT latest\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-05 13:00+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh_CN\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/api/prepshot._model.transmission.rst:2
+msgid "transmission"
+msgstr ""
+
+#: of prepshot._model.transmission:1
+msgid ""
+"This module contains transmission related functions. We simplify the "
+"transmission of electricity as a transportation model. The model computes"
+" the transmission loss for each hour, in each time period, for each year,"
+" from :math:`z_{\\rm{from}}` zone to :math:`z_{\\rm{to}}` zone, as "
+"follows:"
+msgstr ""
+
+#: of prepshot._model.transmission:7
+msgid ""
+"{\\rm{import}}_{h,m,y,z_{\\rm{from}},z_{\\rm{to}}}\n"
+"={\\rm{export}}_{h,m,y,z_{\\rm{from}},z_{\\rm{to}}}\\times\n"
+"\\eta_{z_{\\rm{from}},z_{\\rm{to}}}^{\\rm{trans}}\n"
+"\\quad\\forall h,m,y,z_{\\rm{from}}\\neq z_{\\rm{to}}"
+msgstr ""
+
+#: of prepshot._model.transmission:14
+msgid ""
+"This model assumes that the transmitted power of each transmission line "
+"is only constrained by the transmission capacity between two zones as "
+"follows:"
+msgstr ""
+
+#: of prepshot._model.transmission:17
+msgid ""
+"{\\rm{import}}_{h,m,y,z_{\\rm{from}},z_{\\rm{to}}}\\le\n"
+"{\\rm{cap}}_{y,z_{\\rm{from}},z_{\\rm{to}}}^{\\rm{existingline}}\n"
+"\\times\\Delta h\\quad\\forall h,m,y,z_{\\rm{from}}\\neq z_{\\rm{to}}\n"
+"\n"
+"{\\rm{export}}_{h,m,y,z_{\\rm{from}},z_{\\rm{to}}} \\le\n"
+"{\\rm{cap}}_{y,z_{\\rm{from}},z_{\\rm{to}}}^{\\rm{existingline}}\n"
+"\\times\\Delta h\\quad\\forall h,m,y,z_{\\rm{from}}\\neq z_{\\rm{to}}"
+msgstr ""
+
+#: of prepshot._model.transmission.AddTransmissionConstraints:1
+msgid "Bases: :py:class:`object`"
+msgstr ""
+
+#: of prepshot._model.transmission.AddTransmissionConstraints:1
+msgid "Add constraints for transmission lines while considering multiple zones."
+msgstr ""
+
+#: of prepshot._model.transmission.AddTransmissionConstraints
+#: prepshot._model.transmission.AddTransmissionConstraints.__init__
+#: prepshot._model.transmission.AddTransmissionConstraints.new_line_low_bound_rule
+#: prepshot._model.transmission.AddTransmissionConstraints.new_line_up_bound_rule
+#: prepshot._model.transmission.AddTransmissionConstraints.trans_balance_rule
+#: prepshot._model.transmission.AddTransmissionConstraints.trans_capacity_rule
+#: prepshot._model.transmission.AddTransmissionConstraints.trans_physical_rule
+#: prepshot._model.transmission.AddTransmissionConstraints.trans_up_bound_rule
+msgid "Parameters"
+msgstr ""
+
+#: of prepshot._model.transmission.AddTransmissionConstraints.__init__:1
+msgid "Initialize the class and add constraints."
+msgstr ""
+
+#: of prepshot._model.transmission.AddTransmissionConstraints.__init__:3
+msgid "Model object depending on the solver."
+msgstr ""
+
+#: of prepshot._model.transmission.AddTransmissionConstraints.__init__
+#: prepshot._model.transmission.AddTransmissionConstraints.new_line_low_bound_rule
+#: prepshot._model.transmission.AddTransmissionConstraints.new_line_up_bound_rule
+#: prepshot._model.transmission.AddTransmissionConstraints.trans_balance_rule
+#: prepshot._model.transmission.AddTransmissionConstraints.trans_capacity_rule
+#: prepshot._model.transmission.AddTransmissionConstraints.trans_physical_rule
+#: prepshot._model.transmission.AddTransmissionConstraints.trans_up_bound_rule
+msgid "Return type"
+msgstr ""
+
+#: of
+#: prepshot._model.transmission.AddTransmissionConstraints.new_line_low_bound_rule:1
+msgid ""
+"Lower bound on new transmission capacity built in (y, z, z1). Default 0; "
+"redundant with the variable's lb=0 unless the user sets a positive "
+"minimum."
+msgstr ""
+
+#: of
+#: prepshot._model.transmission.AddTransmissionConstraints.new_line_up_bound_rule:1
+msgid "Upper bound on new transmission capacity built in (y, z, z1)."
+msgstr ""
+
+#: of
+#: prepshot._model.transmission.AddTransmissionConstraints.new_line_up_bound_rule:3
+msgid ""
+"Default for missing (z, z1, y) is 0 -- the candidates table is the "
+"canonical list of buildable line-year combinations."
+msgstr ""
+
+#: of
+#: prepshot._model.transmission.AddTransmissionConstraints.trans_balance_rule:1
+msgid ""
+"Transmission balance, i.e., the electricity imported from zone z1 to zone"
+" z should be equal to the electricity exported from zone z to zone z1 "
+"multiplied by the transmission line efficiency."
+msgstr ""
+
+#: of
+#: prepshot._model.transmission.AddTransmissionConstraints.trans_balance_rule:5
+#: prepshot._model.transmission.AddTransmissionConstraints.trans_up_bound_rule:4
+msgid "Hour."
+msgstr ""
+
+#: of
+#: prepshot._model.transmission.AddTransmissionConstraints.trans_balance_rule:7
+#: prepshot._model.transmission.AddTransmissionConstraints.trans_up_bound_rule:6
+msgid "Month."
+msgstr ""
+
+#: of
+#: prepshot._model.transmission.AddTransmissionConstraints.trans_balance_rule:9
+#: prepshot._model.transmission.AddTransmissionConstraints.trans_capacity_rule:4
+#: prepshot._model.transmission.AddTransmissionConstraints.trans_physical_rule:3
+#: prepshot._model.transmission.AddTransmissionConstraints.trans_up_bound_rule:8
+msgid "Year."
+msgstr ""
+
+#: of
+#: prepshot._model.transmission.AddTransmissionConstraints.trans_balance_rule:11
+#: prepshot._model.transmission.AddTransmissionConstraints.trans_balance_rule:13
+#: prepshot._model.transmission.AddTransmissionConstraints.trans_capacity_rule:6
+#: prepshot._model.transmission.AddTransmissionConstraints.trans_capacity_rule:8
+#: prepshot._model.transmission.AddTransmissionConstraints.trans_physical_rule:5
+#: prepshot._model.transmission.AddTransmissionConstraints.trans_physical_rule:7
+#: prepshot._model.transmission.AddTransmissionConstraints.trans_up_bound_rule:10
+#: prepshot._model.transmission.AddTransmissionConstraints.trans_up_bound_rule:12
+msgid "Zone."
+msgstr ""
+
+#: of
+#: prepshot._model.transmission.AddTransmissionConstraints.trans_balance_rule
+#: prepshot._model.transmission.AddTransmissionConstraints.trans_capacity_rule
+#: prepshot._model.transmission.AddTransmissionConstraints.trans_physical_rule
+#: prepshot._model.transmission.AddTransmissionConstraints.trans_up_bound_rule
+msgid "Returns"
+msgstr ""
+
+#: of
+#: prepshot._model.transmission.AddTransmissionConstraints.trans_balance_rule:16
+#: prepshot._model.transmission.AddTransmissionConstraints.trans_physical_rule:10
+#: prepshot._model.transmission.AddTransmissionConstraints.trans_up_bound_rule:15
+msgid "The constraint of the model."
+msgstr ""
+
+#: of
+#: prepshot._model.transmission.AddTransmissionConstraints.trans_capacity_rule:1
+msgid ""
+"Transmission capacity equal to the sum of the existing capacity and the "
+"new capacity in previous planned years."
+msgstr ""
+
+#: of
+#: prepshot._model.transmission.AddTransmissionConstraints.trans_capacity_rule:11
+msgid "The expression of the model."
+msgstr ""
+
+#: of
+#: prepshot._model.transmission.AddTransmissionConstraints.trans_physical_rule:1
+msgid "Physical transmission lines."
+msgstr ""
+
+#: of
+#: prepshot._model.transmission.AddTransmissionConstraints.trans_up_bound_rule:1
+msgid "Transmitted power is less than or equal to the transmission line capacity."
+msgstr ""
+

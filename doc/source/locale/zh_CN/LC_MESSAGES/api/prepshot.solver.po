@@ -1,0 +1,79 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023-2025, Zhanwei Liu and Xiaogang He (GPL-3.0)
+# This file is distributed under the same license as the PREP-SHOT package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PREP-SHOT latest\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-05 13:00+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh_CN\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/api/prepshot.solver.rst:2
+msgid "solver"
+msgstr ""
+
+#: of prepshot.solver:1
+msgid "This module contains the definition of the solver class."
+msgstr ""
+
+#: of prepshot.solver.get_solver:1
+msgid "Retrieve the solver object based on parameters."
+msgstr ""
+
+#: of prepshot.solver.get_solver prepshot.solver.set_solver_parameters
+#: prepshot.solver.solve_model
+msgid "Parameters"
+msgstr ""
+
+#: of prepshot.solver.get_solver:3
+msgid "Configuration dictionary with solver details."
+msgstr ""
+
+#: of prepshot.solver.get_solver prepshot.solver.solve_model
+msgid "Returns"
+msgstr ""
+
+#: of prepshot.solver.get_solver:6
+msgid "Solver object based on the configuration."
+msgstr ""
+
+#: of prepshot.solver.get_solver prepshot.solver.set_solver_parameters
+#: prepshot.solver.solve_model
+msgid "Return type"
+msgstr ""
+
+#: of prepshot.solver.set_solver_parameters:1
+msgid "Set the solver-specific parameters for the model."
+msgstr ""
+
+#: of prepshot.solver.set_solver_parameters:3
+msgid "Model to configurable."
+msgstr ""
+
+#: of prepshot.solver.solve_model:1
+msgid "Solve the model using the provided parameters."
+msgstr ""
+
+#: of prepshot.solver.solve_model:3
+msgid "Model to solve."
+msgstr ""
+
+#: of prepshot.solver.solve_model:5
+msgid "Configuration parameters for solving the model."
+msgstr ""
+
+#: of prepshot.solver.solve_model:8
+msgid "True if the model is solved optimally, False otherwise."
+msgstr ""
+

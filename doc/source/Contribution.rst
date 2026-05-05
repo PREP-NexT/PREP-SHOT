@@ -72,3 +72,44 @@ Contributing Guidelines
 +++++++++++++++++++++++++++++++
 
 PREP-SHOT is written in Python and follows the PEP8 coding standard. Please ensure that your code follows the PEP8 coding standard. You can use the `Pylint <https://pylint.readthedocs.io/en/stable/>`_ tool to check your code for PEP8 compliance.
+
+
+Translating the Documentation
++++++++++++++++++++++++++++++++
+
+Translations live in-tree at ``doc/source/locale/<lang>/LC_MESSAGES/*.po``
+(one ``.po`` file per RST source file). The shipped Chinese (``zh_CN``)
+translation is incomplete; only the :ref:`Glossary` is currently
+translated. Help with the rest is welcome.
+
+**To translate (or update) a single page:**
+
+.. code-block:: bash
+
+    # 1. Extract / refresh the .pot template files from the English RST
+    sphinx-build -b gettext doc/source doc/build/gettext
+
+    # 2. Update the .po files for your target language
+    sphinx-intl update -p doc/build/gettext -l zh_CN -d doc/source/locale
+
+    # 3. Edit doc/source/locale/zh_CN/LC_MESSAGES/<page>.po
+    #    Fill in the empty msgstr "" entries with translations.
+
+    # 4. Compile .po -> .mo and build the Chinese site locally
+    sphinx-intl build -d doc/source/locale
+    READTHEDOCS_LANGUAGE=zh_CN sphinx-build -b html doc/source doc/build/html-zh
+
+    # 5. Check the result in doc/build/html-zh/, then commit only the
+    #    .po files (the .mo is regenerated on every build).
+
+**Adding a new language.** Pick the locale code (e.g. ``ja``,
+``de``, ``es``) and uncomment the entry in ``supported_languages``
+in ``doc/source/conf.py``. Then run step 2 above with your locale
+code instead of ``zh_CN``. Once at least one page is meaningfully
+translated, request that a maintainer create the corresponding
+"translation" project on Read the Docs so the language switcher
+picks it up.
+
+**Reviewing a translation.** Native speakers are very welcome to
+review translated ``.po`` files for tone and accuracy. Open a PR
+with your suggested changes; tag a maintainer for merging.

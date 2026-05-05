@@ -1,0 +1,140 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023-2025, Zhanwei Liu and Xiaogang He (GPL-3.0)
+# This file is distributed under the same license as the PREP-SHOT package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PREP-SHOT latest\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-05 13:00+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh_CN\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/api/prepshot.output_data.rst:2
+msgid "output_data"
+msgstr ""
+
+#: of prepshot.output_data:1
+msgid "This module contains functions to save solving results of models."
+msgstr ""
+
+#: of prepshot.output_data.create_data_array:1
+msgid ""
+"Create a xarray DataArray with specified data, dimensions, coordinates "
+"and units."
+msgstr ""
+
+#: of prepshot.output_data.create_data_array
+#: prepshot.output_data.extract_results_hydro
+#: prepshot.output_data.extract_results_non_hydro
+#: prepshot.output_data.save_result prepshot.output_data.save_to_excel
+#: prepshot.output_data.update_output_filename
+msgid "Parameters"
+msgstr ""
+
+#: of prepshot.output_data.create_data_array:4
+msgid "The data to be included in the DataArray."
+msgstr ""
+
+#: of prepshot.output_data.create_data_array:6
+msgid "The list of dimentions of the data."
+msgstr ""
+
+#: of prepshot.output_data.create_data_array:8
+msgid "The unit of the data."
+msgstr ""
+
+#: of prepshot.output_data.create_data_array:10
+msgid "The model object."
+msgstr ""
+
+#: of prepshot.output_data.create_data_array:12
+msgid ""
+"Function that turns a tupledict entry into a scalar. Defaults to "
+"``model.get_value`` (primal values for a variable tupledict). Pass "
+"``model.get_constraint_dual`` to extract shadow prices from a constraint "
+"tupledict."
+msgstr ""
+
+#: of prepshot.output_data.create_data_array
+#: prepshot.output_data.extract_results_hydro
+#: prepshot.output_data.extract_results_non_hydro
+#: prepshot.output_data.update_output_filename
+msgid "Returns"
+msgstr ""
+
+#: of prepshot.output_data.create_data_array:18
+msgid "A DataArray with the specified data, dimensions, coordinates and units."
+msgstr ""
+
+#: of prepshot.output_data.create_data_array
+#: prepshot.output_data.extract_results_hydro
+#: prepshot.output_data.extract_results_non_hydro
+#: prepshot.output_data.save_result prepshot.output_data.save_to_excel
+#: prepshot.output_data.update_output_filename
+msgid "Return type"
+msgstr ""
+
+#: of prepshot.output_data.extract_results_hydro:1
+msgid "Extracts results for hydro models."
+msgstr ""
+
+#: of prepshot.output_data.extract_results_hydro:3
+msgid "Model solved already."
+msgstr ""
+
+#: of prepshot.output_data.extract_results_hydro:6
+#: prepshot.output_data.extract_results_non_hydro:6
+msgid "A Dataset containing DataArrays for each attribute of the model."
+msgstr ""
+
+#: of prepshot.output_data.extract_results_non_hydro:1
+msgid "Extracts results for non-hydro models."
+msgstr ""
+
+#: of prepshot.output_data.extract_results_non_hydro:3
+msgid "Model object sloved already."
+msgstr ""
+
+#: of prepshot.output_data.save_result:1
+msgid "Extracts results from the provided model."
+msgstr ""
+
+#: of prepshot.output_data.save_result:3
+msgid "The model object to extract results from and save."
+msgstr ""
+
+#: of prepshot.output_data.save_to_excel:1
+msgid "Save the results to an Excel file."
+msgstr ""
+
+#: of prepshot.output_data.save_to_excel:3
+msgid "Dataset containing the results."
+msgstr ""
+
+#: of prepshot.output_data.save_to_excel:5
+#: prepshot.output_data.update_output_filename:3
+msgid "The name of the output file."
+msgstr ""
+
+#: of prepshot.output_data.update_output_filename:1
+msgid "Update the output filename based on the arguments."
+msgstr ""
+
+#: of prepshot.output_data.update_output_filename:5
+msgid "Arguments parsed by argparse."
+msgstr ""
+
+#: of prepshot.output_data.update_output_filename:8
+msgid "The updated output filename."
+msgstr ""
+

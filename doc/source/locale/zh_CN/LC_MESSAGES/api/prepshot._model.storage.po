@@ -1,0 +1,223 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023-2025, Zhanwei Liu and Xiaogang He (GPL-3.0)
+# This file is distributed under the same license as the PREP-SHOT package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PREP-SHOT latest\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-05 13:00+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh_CN\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/api/prepshot._model.storage.rst:2
+msgid "storage"
+msgstr ""
+
+#: of prepshot._model.storage:1
+msgid ""
+"This module contains energy storage related functions. Symmetrical energy"
+" storage system is considered in this module. It means that the energy "
+"storage system has the same power capacity for charging and discharging."
+msgstr ""
+
+#: of prepshot._model.storage:5
+msgid ""
+"Similar to the power discharging process, the charging power of storage "
+"technology :math:`e` (:math:`{\\rm{power}}_{h,m,y,z,e}^{{c}}`) is also "
+"limited by the existing installed capacity and technical minimum charging"
+" power (:math:`{\\underline{{\\rm{POWER}}}}_{h,m,y,z,e}^{{c}}`) as "
+"follows:"
+msgstr ""
+
+#: of prepshot._model.storage:10
+msgid ""
+"{\\underline{{\\rm{POWER}}}}_{h,m,y,z,e}^{{c}}\\times\n"
+"{\\rm{cap}}_{y,z,e}^{\\rm{existingtech}}\\le{\\rm{power}}_{h,m,y,z,e}^{{c}}"
+"\n"
+"\\le {\\rm{cap}}_{y,z,e}^{\\rm{existingtech}}\\quad\\forall h,m,y,z,e\n"
+"\\in {\\mathcal{STOR}}"
+msgstr ""
+
+#: of prepshot._model.storage:17
+msgid ""
+"The charging generation (:math:`{\\rm{charge}}_{h,m,y,z,e}`) and "
+":math:`{\\rm{power}}_{h,m,y,z,e}^{c}` need to meet the following formula:"
+msgstr ""
+
+#: of prepshot._model.storage:20
+msgid ""
+"{\\rm{charge}}_{h,m,y,z,e}={\\rm{power}}_{h,m,y,z,e}^{\\rm{c}}\\times\n"
+"\\Delta h{\\times\\eta}_{y,e}^{{\\rm{in}}}\n"
+"\\quad\\forall h,m,y,z,e\\in {\\mathcal{STOR}}"
+msgstr ""
+
+#: of prepshot._model.storage:26
+msgid ""
+"Changes in stored electricity "
+"(:math:`{\\rm{storage}}_{h,m,y,z,e}^{\\rm{energy}}`) in two successive "
+"periods should be balanced by the charging "
+"(:math:`{\\rm{charge}}_{h,m,y,z,e}`) and discharging "
+"(:math:`{\\rm{gen}}_{h,m,y,z,e}`) processes:"
+msgstr ""
+
+#: of prepshot._model.storage:31
+msgid ""
+"{\\rm{storage}}_{h,m,y,z,e}^{\\rm{energy}}-\n"
+"{\\rm{storage}}_{h-1,m,y,z,e}^{\\rm{energy}}\n"
+"={\\rm{charge}}_{h,m,y,z,e}-{\\rm{gen}}_{h,m,y,z,e}"
+msgstr ""
+
+#: of prepshot._model.storage:37
+msgid ""
+"In addition, the initial (when :math:`h=h_{ m{start}}`) stored "
+"electricity "
+"(:math:`{\\rm{storage}}_{h=h_{\\rm{start}},m,y,z,e}^{\\rm{energy}}`) of "
+"storage technology :math:`e` in each month of each year can be calculated"
+" based on the proportion of the maximum storage capacity, as follows:"
+msgstr ""
+
+#: of prepshot._model.storage:43
+msgid ""
+"{\\rm{storage}}_{h=h_{\\rm{start}},m,y,z,e}^{\\rm{energy}}\n"
+"={{\\rm{STORAGE}}}_{m,y,z,e}^{\\rm{energy}}\\times{{\\rm{EP}}}_e\\times\n"
+"{\\rm{cap}}_{y,z,e}^{\\rm{existingtech}}\\quad\\forall m,y,z,e\\in\n"
+"{\\mathcal{STOR}}"
+msgstr ""
+
+#: of prepshot._model.storage:50
+msgid ""
+"The instantaneous storage energy level "
+"(:math:`{\\rm{storage}}_{h,m,y,z,e}^{\\rm{energy}}`) of storage "
+"technology :math:`e` should not exceed the maximum energy storage "
+"capacity, as follows:"
+msgstr ""
+
+#: of prepshot._model.storage:54
+msgid ""
+"{\\rm{storage}}_{h,m,y,z,e}^{\\rm{energy}}\\le{{\\rm{EP}}}_e\\times\n"
+"{\\rm{cap}}_{y,z,e}^{\\rm{existingtech}}\n"
+"\\quad\\forall h,m,y,z,e\\in {\\mathcal{STOR}}"
+msgstr ""
+
+#: of prepshot._model.storage.AddStorageConstraints:1
+msgid "Bases: :py:class:`object`"
+msgstr ""
+
+#: of prepshot._model.storage.AddStorageConstraints:1
+msgid "Energy storage class."
+msgstr ""
+
+#: of prepshot._model.storage.AddStorageConstraints
+#: prepshot._model.storage.AddStorageConstraints.__init__
+#: prepshot._model.storage.AddStorageConstraints.end_energy_storage_rule
+#: prepshot._model.storage.AddStorageConstraints.energy_storage_balance_rule
+#: prepshot._model.storage.AddStorageConstraints.energy_storage_gen_rule
+#: prepshot._model.storage.AddStorageConstraints.energy_storage_up_bound_rule
+#: prepshot._model.storage.AddStorageConstraints.init_energy_storage_rule
+msgid "Parameters"
+msgstr ""
+
+#: of prepshot._model.storage.AddStorageConstraints.__init__:1
+msgid "Initialize the class and add constraints."
+msgstr ""
+
+#: of prepshot._model.storage.AddStorageConstraints.__init__:3
+msgid "Model object depending on the solver."
+msgstr ""
+
+#: of prepshot._model.storage.AddStorageConstraints.__init__
+#: prepshot._model.storage.AddStorageConstraints.end_energy_storage_rule
+#: prepshot._model.storage.AddStorageConstraints.energy_storage_balance_rule
+#: prepshot._model.storage.AddStorageConstraints.energy_storage_gen_rule
+#: prepshot._model.storage.AddStorageConstraints.energy_storage_up_bound_rule
+#: prepshot._model.storage.AddStorageConstraints.init_energy_storage_rule
+msgid "Return type"
+msgstr ""
+
+#: of prepshot._model.storage.AddStorageConstraints.end_energy_storage_rule:1
+msgid "End energy storage."
+msgstr ""
+
+#: of prepshot._model.storage.AddStorageConstraints.end_energy_storage_rule:3
+#: prepshot._model.storage.AddStorageConstraints.energy_storage_balance_rule:5
+#: prepshot._model.storage.AddStorageConstraints.energy_storage_gen_rule:5
+#: prepshot._model.storage.AddStorageConstraints.energy_storage_up_bound_rule:5
+#: prepshot._model.storage.AddStorageConstraints.init_energy_storage_rule:3
+msgid "Month."
+msgstr ""
+
+#: of prepshot._model.storage.AddStorageConstraints.end_energy_storage_rule:5
+#: prepshot._model.storage.AddStorageConstraints.energy_storage_balance_rule:7
+#: prepshot._model.storage.AddStorageConstraints.energy_storage_gen_rule:7
+#: prepshot._model.storage.AddStorageConstraints.energy_storage_up_bound_rule:7
+#: prepshot._model.storage.AddStorageConstraints.init_energy_storage_rule:5
+msgid "Year."
+msgstr ""
+
+#: of prepshot._model.storage.AddStorageConstraints.end_energy_storage_rule:7
+#: prepshot._model.storage.AddStorageConstraints.energy_storage_balance_rule:9
+#: prepshot._model.storage.AddStorageConstraints.energy_storage_gen_rule:9
+#: prepshot._model.storage.AddStorageConstraints.energy_storage_up_bound_rule:9
+#: prepshot._model.storage.AddStorageConstraints.init_energy_storage_rule:7
+msgid "Zone."
+msgstr ""
+
+#: of prepshot._model.storage.AddStorageConstraints.end_energy_storage_rule:9
+#: prepshot._model.storage.AddStorageConstraints.energy_storage_balance_rule:11
+#: prepshot._model.storage.AddStorageConstraints.energy_storage_gen_rule:11
+#: prepshot._model.storage.AddStorageConstraints.energy_storage_up_bound_rule:11
+#: prepshot._model.storage.AddStorageConstraints.init_energy_storage_rule:9
+msgid "Technology."
+msgstr ""
+
+#: of prepshot._model.storage.AddStorageConstraints.end_energy_storage_rule
+#: prepshot._model.storage.AddStorageConstraints.energy_storage_balance_rule
+#: prepshot._model.storage.AddStorageConstraints.energy_storage_gen_rule
+#: prepshot._model.storage.AddStorageConstraints.energy_storage_up_bound_rule
+#: prepshot._model.storage.AddStorageConstraints.init_energy_storage_rule
+msgid "Returns"
+msgstr ""
+
+#: of prepshot._model.storage.AddStorageConstraints.end_energy_storage_rule:12
+#: prepshot._model.storage.AddStorageConstraints.energy_storage_balance_rule:14
+#: prepshot._model.storage.AddStorageConstraints.energy_storage_gen_rule:14
+#: prepshot._model.storage.AddStorageConstraints.energy_storage_up_bound_rule:14
+#: prepshot._model.storage.AddStorageConstraints.init_energy_storage_rule:12
+msgid "The constraint of the model."
+msgstr ""
+
+#: of
+#: prepshot._model.storage.AddStorageConstraints.energy_storage_balance_rule:1
+msgid "Energy storage balance."
+msgstr ""
+
+#: of
+#: prepshot._model.storage.AddStorageConstraints.energy_storage_balance_rule:3
+#: prepshot._model.storage.AddStorageConstraints.energy_storage_gen_rule:3
+#: prepshot._model.storage.AddStorageConstraints.energy_storage_up_bound_rule:3
+msgid "Hour."
+msgstr ""
+
+#: of prepshot._model.storage.AddStorageConstraints.energy_storage_gen_rule:1
+msgid "Energy storage generation."
+msgstr ""
+
+#: of
+#: prepshot._model.storage.AddStorageConstraints.energy_storage_up_bound_rule:1
+msgid "Energy storage upper bound."
+msgstr ""
+
+#: of prepshot._model.storage.AddStorageConstraints.init_energy_storage_rule:1
+msgid "Initial energy storage."
+msgstr ""
+

@@ -1,0 +1,154 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023-2025, Zhanwei Liu and Xiaogang He (GPL-3.0)
+# This file is distributed under the same license as the PREP-SHOT package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PREP-SHOT latest\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-05 13:00+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh_CN\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/api/prepshot._model.co2.rst:2
+msgid "co2"
+msgstr ""
+
+#: of prepshot._model.co2:1
+msgid ""
+"This module contains the constraints and expressions related to carbon "
+"emissions. The model computes the carbon emissions for each year, based "
+"on the sum of carbon emissions from each zone, and from each technology "
+"as follows:"
+msgstr ""
+
+#: of prepshot._model.co2:6
+msgid ""
+"{\\rm{carbon}}_y=\\sum_{e\\in\\mathcal{E}}\\sum_{z\\in\\mathcal{Z}}\n"
+"\\sum_{m\\in\\mathcal{M}}\\sum_{h\\in\\mathcal{H}}\n"
+"\\left({{\\rm{CARBON}}}_{y,z,e}\\times\n"
+"{\\rm{gen}}_{h,m,y,z,e}\\right)\\quad\\forall y"
+msgstr ""
+
+#: of prepshot._model.co2:13
+msgid ""
+"The calculated carbon emission for each year lower than its upper bound, "
+"as follows:"
+msgstr ""
+
+#: of prepshot._model.co2:15
+msgid "{\\rm{carbon}}_y\\le{\\overline{{\\rm{CARBON}}}}_y\\quad\\forall y"
+msgstr ""
+
+#: of prepshot._model.co2.AddCo2EmissionConstraints:1
+msgid "Bases: :py:class:`object`"
+msgstr ""
+
+#: of prepshot._model.co2.AddCo2EmissionConstraints:1
+msgid "Class for carbon emission constraints and calculations."
+msgstr ""
+
+#: of prepshot._model.co2.AddCo2EmissionConstraints
+#: prepshot._model.co2.AddCo2EmissionConstraints.__init__
+#: prepshot._model.co2.AddCo2EmissionConstraints.carbon_breakdown
+#: prepshot._model.co2.AddCo2EmissionConstraints.carbon_offset_limit_rule
+#: prepshot._model.co2.AddCo2EmissionConstraints.emission_calc_by_zone_rule
+#: prepshot._model.co2.AddCo2EmissionConstraints.emission_calc_rule
+msgid "Parameters"
+msgstr ""
+
+#: of prepshot._model.co2.AddCo2EmissionConstraints.__init__:1
+msgid "Initialize the class."
+msgstr ""
+
+#: of prepshot._model.co2.AddCo2EmissionConstraints.__init__:3
+msgid "Model object depending on the solver."
+msgstr ""
+
+#: of prepshot._model.co2.AddCo2EmissionConstraints.__init__
+#: prepshot._model.co2.AddCo2EmissionConstraints.carbon_breakdown
+#: prepshot._model.co2.AddCo2EmissionConstraints.carbon_offset_limit_rule
+#: prepshot._model.co2.AddCo2EmissionConstraints.emission_calc_by_zone_rule
+#: prepshot._model.co2.AddCo2EmissionConstraints.emission_calc_rule
+msgid "Return type"
+msgstr ""
+
+#: of prepshot._model.co2.AddCo2EmissionConstraints.carbon_breakdown:1
+msgid "Carbon emission cost breakdown."
+msgstr ""
+
+#: of prepshot._model.co2.AddCo2EmissionConstraints.carbon_breakdown:3
+msgid "Year."
+msgstr ""
+
+#: of prepshot._model.co2.AddCo2EmissionConstraints.carbon_breakdown:5
+#: prepshot._model.co2.AddCo2EmissionConstraints.carbon_offset_limit_rule:10
+#: prepshot._model.co2.AddCo2EmissionConstraints.emission_calc_by_zone_rule:6
+msgid "Zone."
+msgstr ""
+
+#: of prepshot._model.co2.AddCo2EmissionConstraints.carbon_breakdown:7
+msgid "Technology."
+msgstr ""
+
+#: of prepshot._model.co2.AddCo2EmissionConstraints.carbon_breakdown
+#: prepshot._model.co2.AddCo2EmissionConstraints.carbon_offset_limit_rule
+#: prepshot._model.co2.AddCo2EmissionConstraints.emission_calc_by_zone_rule
+#: prepshot._model.co2.AddCo2EmissionConstraints.emission_calc_rule
+msgid "Returns"
+msgstr ""
+
+#: of prepshot._model.co2.AddCo2EmissionConstraints.carbon_breakdown:10
+msgid "The expression of the model."
+msgstr ""
+
+#: of prepshot._model.co2.AddCo2EmissionConstraints.carbon_offset_limit_rule:1
+msgid "Limit purchased carbon offsets to a fraction of raw zonal emissions."
+msgstr ""
+
+#: of prepshot._model.co2.AddCo2EmissionConstraints.carbon_offset_limit_rule:3
+msgid "``carbon_offset[y,z] <= rate * raw_emissions[y,z]``"
+msgstr ""
+
+#: of prepshot._model.co2.AddCo2EmissionConstraints.carbon_offset_limit_rule:5
+msgid ""
+"where ``raw_emissions = carbon_capacity + carbon_offset`` (i.e. the "
+"emissions before offsets are deducted)."
+msgstr ""
+
+#: of prepshot._model.co2.AddCo2EmissionConstraints.carbon_offset_limit_rule:8
+#: prepshot._model.co2.AddCo2EmissionConstraints.emission_calc_by_zone_rule:4
+#: prepshot._model.co2.AddCo2EmissionConstraints.emission_calc_rule:4
+msgid "Planned year."
+msgstr ""
+
+#: of prepshot._model.co2.AddCo2EmissionConstraints.carbon_offset_limit_rule:13
+#: prepshot._model.co2.AddCo2EmissionConstraints.emission_calc_rule:7
+msgid "A constraint of the model."
+msgstr ""
+
+#: of
+#: prepshot._model.co2.AddCo2EmissionConstraints.emission_calc_by_zone_rule:1
+msgid ""
+"Calculation of annual net carbon emissions by zone, after subtracting "
+"purchased carbon offsets."
+msgstr ""
+
+#: of
+#: prepshot._model.co2.AddCo2EmissionConstraints.emission_calc_by_zone_rule:9
+msgid "An expression for net zonal emissions."
+msgstr ""
+
+#: of prepshot._model.co2.AddCo2EmissionConstraints.emission_calc_rule:1
+msgid "Calculation of annual carbon emission across all zones and technologies."
+msgstr ""
+

@@ -1,0 +1,123 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023-2025, Zhanwei Liu and Xiaogang He (GPL-3.0)
+# This file is distributed under the same license as the PREP-SHOT package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PREP-SHOT latest\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-05 13:00+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh_CN\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/how_to/tighten_a_carbon_cap.rst:2
+msgid "Tighten a carbon cap"
+msgstr ""
+
+#: ../../source/how_to/tighten_a_carbon_cap.rst:4
+msgid ""
+"**Goal.** Run a counterfactual with a stricter system-wide CO2 cap "
+"without overwriting the baseline."
+msgstr ""
+
+#: ../../source/how_to/tighten_a_carbon_cap.rst:7
+msgid ""
+"PREP-SHOT registers a CLI flag for every input file in ``params.json``. "
+"Pass ``--<param>=<suffix>`` and PREP-SHOT loads ``<file>_<suffix>.csv`` "
+"instead of ``<file>.csv``. Output names get the same suffix."
+msgstr ""
+
+#: ../../source/how_to/tighten_a_carbon_cap.rst:13
+msgid "Steps"
+msgstr ""
+
+#: ../../source/how_to/tighten_a_carbon_cap.rst:15
+msgid ""
+"**1. Copy the baseline policy file as a new variant.** From inside "
+"``examples/<scenario>/input/``:"
+msgstr ""
+
+#: ../../source/how_to/tighten_a_carbon_cap.rst:23
+#, python-format
+msgid ""
+"**2. Edit the new file's 2030 cap.** The schema is ``(limit_id, year, "
+"unit, value, zones)``. Open in your editor and change the cap from "
+"``146000000`` (baseline) to ``80000000`` (about 55% of baseline):"
+msgstr ""
+
+#: ../../source/how_to/tighten_a_carbon_cap.rst:34
+msgid "**3. Re-run with the variant flag.**"
+msgstr ""
+
+#: ../../source/how_to/tighten_a_carbon_cap.rst:41
+msgid ""
+"Output goes to ``output/baseline_tight.nc`` (or whatever your "
+"``output_filename`` is, with ``_tight`` appended)."
+msgstr ""
+
+#: ../../source/how_to/tighten_a_carbon_cap.rst:45
+msgid "Verify"
+msgstr ""
+
+#: ../../source/how_to/tighten_a_carbon_cap.rst:47
+msgid "Compare baseline vs tight by total cost and by 2030 emissions:"
+msgstr ""
+
+#: ../../source/how_to/tighten_a_carbon_cap.rst:60
+msgid ""
+"The tight cap forces the model to either build more zero-carbon capacity,"
+" dispatch existing zero-carbon capacity harder, or import clean power "
+"from neighboring zones -- whichever is cheapest."
+msgstr ""
+
+#: ../../source/how_to/tighten_a_carbon_cap.rst:65
+msgid "Custom cap regions"
+msgstr ""
+
+#: ../../source/how_to/tighten_a_carbon_cap.rst:67
+msgid ""
+"The ``zones`` column accepts any comma-separated subset. For a Vietnam-"
+"only cap:"
+msgstr ""
+
+#: ../../source/how_to/tighten_a_carbon_cap.rst:75
+msgid ""
+"Multiple ``limit_id`` rows for the same year stack as additional "
+"constraints."
+msgstr ""
+
+#: ../../source/how_to/tighten_a_carbon_cap.rst:79
+msgid "Common pitfalls"
+msgstr ""
+
+#: ../../source/how_to/tighten_a_carbon_cap.rst:81
+msgid ""
+"**Quote the zones string.** A comma inside an unquoted CSV cell splits "
+"the column. Always wrap multi-zone lists in double quotes."
+msgstr ""
+
+#: ../../source/how_to/tighten_a_carbon_cap.rst:83
+msgid ""
+"**The CLI suffix must be a valid filename suffix.** "
+"``--carbon_emission_limit=tight`` looks for "
+"``policy_carbon_emission_limit_tight.csv``, NOT "
+"``policy_carbon_emission_limit-tight.csv``."
+msgstr ""
+
+#: ../../source/how_to/tighten_a_carbon_cap.rst:87
+msgid ""
+"**All cap regions must use existing zone names.** A typo silently "
+"produces a constraint that's vacuously satisfied (no zones contribute), "
+"giving you the wrong answer rather than an error. Double-check zone "
+"spelling against ``demand.csv``."
+msgstr ""
+

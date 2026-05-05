@@ -1,0 +1,83 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023-2025, Zhanwei Liu and Xiaogang He (GPL-3.0)
+# This file is distributed under the same license as the PREP-SHOT package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PREP-SHOT latest\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-05 13:00+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh_CN\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/Forum.rst:4
+msgid "Discussion"
+msgstr ""
+
+#: ../../source/Forum.rst:6
+msgid ""
+"We encourage our community to actively participate and engage in "
+"discussions. The diverse perspectives and feedback from our users are "
+"valuable to us and will help us improve the model and its documentation."
+msgstr ""
+
+#: ../../source/Forum.rst:8
+msgid ""
+"Check out the `FAQ <https://github.com/orgs/PREP-NexT/discussions/15>`_ "
+"page for answers to common questions."
+msgstr ""
+
+#: ../../source/Forum.rst:11
+msgid "GitHub Discussions"
+msgstr ""
+
+#: ../../source/Forum.rst:13
+msgid ""
+"Users can join us for public discussions on the `Discussions "
+"<https://github.com/orgs/PREP-NexT/discussions>`_ page in our GitHub "
+"repository."
+msgstr ""
+
+#: ../../source/Forum.rst:15
+msgid ""
+"Ask `questions <https://github.com/orgs/PREP-"
+"NexT/discussions/categories/q-a>`_ or seek clarifications."
+msgstr ""
+
+#: ../../source/Forum.rst:16
+msgid ""
+"Share `ideas <https://github.com/orgs/PREP-"
+"NexT/discussions/categories/ideas>`_ or best practices."
+msgstr ""
+
+#: ../../source/Forum.rst:17
+msgid ""
+"`Showcase <https://github.com/orgs/PREP-NexT/discussions/categories/show-"
+"and-tell>`_ how you have used the model for your projects and share your "
+"experiences."
+msgstr ""
+
+#: ../../source/Forum.rst:18
+msgid "Engage in constructive conversations with our community."
+msgstr ""
+
+#: ../../source/Forum.rst:21
+msgid "Private Queries"
+msgstr ""
+
+#: ../../source/Forum.rst:23
+msgid ""
+"If you have specific questions, feedback, or topics that are not suitable"
+" for public discussions, you may directly reach out to `Zhanwei Liu "
+"<mailto:liuzhanwei@u.nus.edu>`_."
+msgstr ""
+

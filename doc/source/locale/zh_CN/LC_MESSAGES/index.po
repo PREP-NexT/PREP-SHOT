@@ -1,0 +1,268 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023-2025, Zhanwei Liu and Xiaogang He (GPL-3.0)
+# This file is distributed under the same license as the PREP-SHOT package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PREP-SHOT latest\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-05 13:00+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh_CN\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/index.rst:24 ../../source/index.rst:91
+msgid "Overview"
+msgstr ""
+
+#: ../../source/index.rst:91
+msgid "Getting Started"
+msgstr ""
+
+#: ../../source/index.rst:100
+msgid "User Guide"
+msgstr ""
+
+#: ../../source/index.rst:110
+msgid "Reference"
+msgstr ""
+
+#: ../../source/index.rst:119
+msgid "Community"
+msgstr ""
+
+#: ../../source/index.rst:4
+msgid "Welcome to the PREP-SHOT Documentation"
+msgstr ""
+
+#: ../../source/index.rst
+msgid "Authors"
+msgstr ""
+
+#: ../../source/index.rst:6
+msgid ""
+"`Zhanwei Liu <https://scholar.google.com/citations?user=Zub5y2IAAAAJ>`_ "
+"(liuzhanwei@u.nus.edu), `Xiaogang He "
+"<http://hydro.iis.u-tokyo.ac.jp/~hexg/>`_ (hexg@nus.edu.sg)"
+msgstr ""
+
+#: ../../source/index.rst
+msgid "Contributors"
+msgstr ""
+
+#: ../../source/index.rst:7
+msgid ""
+"`Bo Xu <http://faculty.dlut.edu.cn/xubo12/zh_CN/index.htm>`_ "
+"(xubo_water@dlut.edu.cn), `Jingkai Xie <http://null>`_ "
+"(jingkai@nus.edu.sg), `Shuyue Yan <http://null>`_ (shuyue.yan@u.nus.edu) "
+", `Zhouyan Li <http://null>`_ (zhouyan@nus.edu.sg), `Quan Yuan "
+"<http://null>`_ (quanyuan@nus.edu.sg), `Kewei Zhang <http://null>`_ "
+"(kewei_zhang@u.nus.edu), `Yaozhong Cui <http://null>`_ "
+"(cuiyaozhong@u.nus.edu)"
+msgstr ""
+
+#: ../../source/index.rst
+msgid "Organization"
+msgstr ""
+
+#: ../../source/index.rst:8
+msgid "`National University of Singapore <https://nus.edu.sg/>`_"
+msgstr ""
+
+#: ../../source/index.rst
+msgid "Version"
+msgstr ""
+
+#: ../../source/index.rst:9
+msgid "|release|"
+msgstr ""
+
+#: ../../source/index.rst
+msgid "Date"
+msgstr ""
+
+#: ../../source/index.rst:10
+msgid "|today|"
+msgstr ""
+
+#: ../../source/index.rst
+msgid "Copyright"
+msgstr ""
+
+#: ../../source/index.rst:11
+msgid ""
+"The model code is licensed under the `GNU General Public License 3.0 "
+"<https://github.com/PREP-NexT/PREP-SHOT/blob/main/LICENSE>`_. This "
+"documentation is licensed under a `Creative Commons Attribution 4.0 "
+"International <http://creativecommons.org/licenses/by/4.0/>`_ license."
+msgstr ""
+
+#: ../../source/index.rst:25
+msgid ""
+"**PREP-SHOT** (**P**\\ athways for **R**\\ enewable **E**\\ nergy **P**\\"
+" lanning coupling **S**\\ hort-term **H**\\ ydropower **O**\\ pera\\ "
+"**T**\\ ion) is a transparent, modular, and open-source energy expansion "
+"model, offering advanced solutions for multi-scale, intertemporal, and "
+"cost-effective expansion of energy systems and transmission lines."
+msgstr ""
+
+#: ../../source/index.rst:32
+msgid ""
+"The model sets itself apart from existing energy expansion models through"
+" its deeper consideration of hydropower processes. While models such as "
+"`urbs <https://urbs.readthedocs.io/en/latest/>`_ might treat hydropower "
+"as fixed processes, and others like `GenX "
+"<https://genxproject.github.io/GenX/dev/>`_ and `PLEXOS "
+"<https://www.energyexemplar.com/plexos>`_ may not fully capture the "
+"dynamic nature of water heads or consolidate multiple hydropower stations"
+" into a single unit, PREP-SHOT is uniquely designed to address these "
+"oversights."
+msgstr ""
+
+#: ../../source/index.rst:34
+msgid ""
+"Our model explicitly considers the plant-level water head dynamics (i.e.,"
+" time-varying water head and storage) and the system-level network "
+"topology of all hydropower stations within a regional grid. This results "
+"in a more accurate reflection of the multi-scale dynamic feedbacks "
+"between hydropower operation and energy system expansion. Furthermore, it"
+" enables the realistic simulation of the magnitude and spatial-temporal "
+"variability of hydropower output, particularly in regions with a large "
+"number of cascade hydropower stations."
+msgstr ""
+
+#: ../../source/index.rst:36
+msgid ""
+"With PREP-SHOT, we aim to answer key questions related to the future of "
+"energy planning and utilization:"
+msgstr ""
+
+#: ../../source/index.rst:38
+msgid ""
+"How can we effectively plan an energy portfolio and new transmission "
+"capacity under deep uncertainty?"
+msgstr ""
+
+#: ../../source/index.rst:39
+msgid ""
+"How can we quantify the impacts of variable hydropower on the generation "
+"and capacity of future energy portfolios?"
+msgstr ""
+
+#: ../../source/index.rst:42
+msgid "How It Works"
+msgstr ""
+
+#: ../../source/index.rst:-1
+msgid "overview of PREP-SHOT"
+msgstr ""
+
+#: ../../source/index.rst:48
+msgid "Source: :cite:t:`liu2023`."
+msgstr ""
+
+#: ../../source/index.rst:51
+msgid "Architecture"
+msgstr ""
+
+#: ../../source/index.rst:53
+msgid ""
+"PREP-SHOT reads CSVs from a scenario directory, builds a linear program "
+"with the ``PyOptInterface`` modeling layer, hands it to the solver, and "
+"writes the solved variables back as a NetCDF file:"
+msgstr ""
+
+#: ../../source/index.rst:69
+msgid ""
+"Each scenario directory under ``examples/`` is self-contained "
+"(``config.json`` + ``params.json`` + ``input/``); the package discovers "
+"everything from there. The dashed arrow is the head- iteration loop: "
+"PREP-SHOT solves at fixed water heads, recomputes heads from the "
+"resulting reservoir trajectory, and re-solves until convergence "
+"(controlled by ``iteration_number`` and ``error_threshold`` in "
+"``config.json``)."
+msgstr ""
+
+#: ../../source/index.rst:78
+msgid "Key Features"
+msgstr ""
+
+#: ../../source/index.rst:79
+msgid ""
+"PREP-SHOT is an optimization model based on linear programming for energy"
+" systems with multiple zones."
+msgstr ""
+
+#: ../../source/index.rst:80
+msgid "It aims to minimize costs while meeting the given demand time series."
+msgstr ""
+
+#: ../../source/index.rst:81
+msgid ""
+"By default, it operates on hourly-spaced time steps, but this can be "
+"adjusted."
+msgstr ""
+
+#: ../../source/index.rst:82
+msgid ""
+"The input data is in long-format (\"tidy\") CSV, while output data is "
+"generated in a NetCDF format using `Xarray "
+"<https://docs.xarray.dev/en/stable/>`_."
+msgstr ""
+
+#: ../../source/index.rst:83
+msgid ""
+"It supports multiple types of solvers such as `HiGHS <https://github.com"
+"/jump-dev/HiGHS.jl>`_ , `GUROBI <https://www.gurobi.com/>`_, `COPT "
+"<https://www.copt.de/>`_, and `MOSEK <https://www.mosek.com/>`_ via "
+"`PyOptInterface <https://github.com/metab0t/PyOptInterface>`_."
+msgstr ""
+
+#: ../../source/index.rst:84
+msgid "It allows the input of multiple scenarios for specific parameters."
+msgstr ""
+
+#: ../../source/index.rst:85
+msgid ""
+"As a pure Python program, it benefits from the use of `pandas "
+"<https://pandas.pydata.org/>`_ and `Xarray "
+"<https://docs.xarray.dev/en/stable/>`_, simplifying complex data analysis"
+" and promoting extensibility."
+msgstr ""
+
+#: ../../source/index.rst:88
+msgid "Offline documentation"
+msgstr ""
+
+#: ../../source/index.rst:89
+msgid ""
+"To browse the documentation offline, download a `zipped HTML copy <https"
+"://prep-shot.readthedocs.io/_/downloads/en/stable/htmlzip/>`_ from Read "
+"the Docs (also accessible via the version-switcher at the bottom-left of "
+"every page)."
+msgstr ""
+
+#: ../../source/index.rst:130
+msgid "Indices and tables"
+msgstr ""
+
+#: ../../source/index.rst:131
+msgid ":ref:`genindex`"
+msgstr ""
+
+#: ../../source/index.rst:132
+msgid ":ref:`modindex`"
+msgstr ""
+
+#: ../../source/index.rst:133
+msgid ":ref:`search`"
+msgstr ""
+

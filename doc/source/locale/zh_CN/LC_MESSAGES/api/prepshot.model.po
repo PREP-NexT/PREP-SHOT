@@ -1,0 +1,111 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023-2025, Zhanwei Liu and Xiaogang He (GPL-3.0)
+# This file is distributed under the same license as the PREP-SHOT package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PREP-SHOT latest\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-05 13:00+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh_CN\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/api/prepshot.model.rst:2
+msgid "model"
+msgstr ""
+
+#: of prepshot.model:1
+msgid ""
+"This module defines the PREP-SHOT model. The model is created using the "
+"pyoptinterface library."
+msgstr ""
+
+#: of prepshot.model.create_model:1
+msgid "Create the PREP-SHOT model."
+msgstr ""
+
+#: of prepshot.model.create_model prepshot.model.define_basic_sets
+#: prepshot.model.define_complex_sets prepshot.model.define_constraints
+#: prepshot.model.define_model prepshot.model.define_variables
+msgid "Parameters"
+msgstr ""
+
+#: of prepshot.model.create_model:3
+msgid "Dictionary of parameters for the model."
+msgstr ""
+
+#: of prepshot.model.create_model prepshot.model.define_model
+msgid "Returns"
+msgstr ""
+
+#: of prepshot.model.create_model:6
+msgid "Model object."
+msgstr ""
+
+#: of prepshot.model.create_model prepshot.model.define_basic_sets
+#: prepshot.model.define_complex_sets prepshot.model.define_constraints
+#: prepshot.model.define_model prepshot.model.define_variables
+msgid "Return type"
+msgstr ""
+
+#: of prepshot.model.define_basic_sets:1
+msgid "Define sets for the model."
+msgstr ""
+
+#: of prepshot.model.define_basic_sets:3
+msgid "Model object to be solved."
+msgstr ""
+
+#: of prepshot.model.define_complex_sets:1
+msgid ""
+"Create complex sets based on simple sets and some conditations. The "
+"existing capacity between two zones is set to empty (i.e., No value is "
+"filled in the Excel cell), which means that these two zones cannot have "
+"newly built transmission lines. If you want to enable two zones which do "
+"not have any existing transmission lines, to build new transmission lines"
+" in the planning horizon, you need to set their capacity as zero "
+"explicitly."
+msgstr ""
+
+#: of prepshot.model.define_complex_sets:8 prepshot.model.define_constraints:3
+#: prepshot.model.define_variables:3
+msgid "Model to be solved."
+msgstr ""
+
+#: of prepshot.model.define_constraints:1
+msgid "Define constraints for the model."
+msgstr ""
+
+#: of prepshot.model.define_model:1
+msgid "This function creates the model class depending on predefined solver."
+msgstr ""
+
+#: of prepshot.model.define_model:3
+msgid "parameters for the model"
+msgstr ""
+
+#: of prepshot.model.define_model:6
+msgid "A pyoptinterface Model object depending on the solver"
+msgstr ""
+
+#: of prepshot.model.define_model
+msgid "Raises"
+msgstr ""
+
+#: of prepshot.model.define_model:9
+msgid "Unsupported or undefined solver"
+msgstr ""
+
+#: of prepshot.model.define_variables:1
+msgid "Define variables for the model."
+msgstr ""
+

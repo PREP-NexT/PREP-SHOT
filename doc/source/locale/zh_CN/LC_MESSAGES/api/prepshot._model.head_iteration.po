@@ -1,0 +1,133 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023-2025, Zhanwei Liu and Xiaogang He (GPL-3.0)
+# This file is distributed under the same license as the PREP-SHOT package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PREP-SHOT latest\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-05 13:00+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh_CN\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/api/prepshot._model.head_iteration.rst:2
+msgid "head_iteration"
+msgstr ""
+
+#: of prepshot._model.head_iteration:1
+msgid "This module contains utility functions related to the head iteration."
+msgstr ""
+
+#: of prepshot._model.head_iteration.compute_error:1
+msgid "Calculate the error of the water head."
+msgstr ""
+
+#: of prepshot._model.head_iteration.compute_error
+#: prepshot._model.head_iteration.initialize_waterhead
+#: prepshot._model.head_iteration.process_model_solution
+#: prepshot._model.head_iteration.run_model_iteration
+msgid "Parameters"
+msgstr ""
+
+#: of prepshot._model.head_iteration.compute_error:3
+#: prepshot._model.head_iteration.process_model_solution:15
+msgid "The water head before the solution."
+msgstr ""
+
+#: of prepshot._model.head_iteration.compute_error:5
+#: prepshot._model.head_iteration.process_model_solution:17
+msgid "The water head after the solution."
+msgstr ""
+
+#: of prepshot._model.head_iteration.compute_error
+#: prepshot._model.head_iteration.initialize_waterhead
+#: prepshot._model.head_iteration.process_model_solution
+#: prepshot._model.head_iteration.run_model_iteration
+msgid "Returns"
+msgstr ""
+
+#: of prepshot._model.head_iteration.compute_error:8
+msgid "The error of the water head."
+msgstr ""
+
+#: of prepshot._model.head_iteration.compute_error
+#: prepshot._model.head_iteration.initialize_waterhead
+#: prepshot._model.head_iteration.process_model_solution
+#: prepshot._model.head_iteration.run_model_iteration
+msgid "Return type"
+msgstr ""
+
+#: of prepshot._model.head_iteration.initialize_waterhead:1
+msgid "Initialize water head."
+msgstr ""
+
+#: of prepshot._model.head_iteration.initialize_waterhead:3
+msgid "List of stations."
+msgstr ""
+
+#: of prepshot._model.head_iteration.initialize_waterhead:5
+#: prepshot._model.head_iteration.process_model_solution:7
+msgid "List of years."
+msgstr ""
+
+#: of prepshot._model.head_iteration.initialize_waterhead:7
+#: prepshot._model.head_iteration.process_model_solution:9
+msgid "List of months."
+msgstr ""
+
+#: of prepshot._model.head_iteration.initialize_waterhead:9
+#: prepshot._model.head_iteration.process_model_solution:11
+msgid "List of hours."
+msgstr ""
+
+#: of prepshot._model.head_iteration.initialize_waterhead:11
+#: prepshot._model.head_iteration.process_model_solution:13
+#: prepshot._model.head_iteration.run_model_iteration:5
+msgid "Dictionary of parameters for the model."
+msgstr ""
+
+#: of prepshot._model.head_iteration.initialize_waterhead:14
+msgid ""
+"A tuple of two pandas.DataFrame objects, the first one is the old water "
+"head, the second one is the new water head."
+msgstr ""
+
+#: of prepshot._model.head_iteration.process_model_solution:1
+msgid "Process the solution of the model, updating the water head data."
+msgstr ""
+
+#: of prepshot._model.head_iteration.process_model_solution:3
+#: prepshot._model.head_iteration.run_model_iteration:3
+msgid "Model to be solved."
+msgstr ""
+
+#: of prepshot._model.head_iteration.process_model_solution:5
+msgid "List  f hydropower stations."
+msgstr ""
+
+#: of prepshot._model.head_iteration.process_model_solution:20
+#: prepshot._model.head_iteration.run_model_iteration:12
+msgid "True if the model is solved, False otherwise."
+msgstr ""
+
+#: of prepshot._model.head_iteration.run_model_iteration:1
+msgid "Run the model iteratively."
+msgstr ""
+
+#: of prepshot._model.head_iteration.run_model_iteration:7
+msgid "The error threshold, by default 0.001"
+msgstr ""
+
+#: of prepshot._model.head_iteration.run_model_iteration:9
+msgid "The maximum number of iterations, by default 5"
+msgstr ""
+

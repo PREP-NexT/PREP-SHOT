@@ -1,0 +1,86 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023-2025, Zhanwei Liu and Xiaogang He (GPL-3.0)
+# This file is distributed under the same license as the PREP-SHOT package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PREP-SHOT latest\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-05 13:00+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh_CN\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/how_to/compare_two_scenarios.rst:2
+msgid "Compare two scenarios"
+msgstr ""
+
+#: ../../source/how_to/compare_two_scenarios.rst:4
+msgid ""
+"**Goal.** Quantify what changes between a baseline and a counterfactual "
+"-- total cost, capacity mix, generation by carrier, LMPs."
+msgstr ""
+
+#: ../../source/how_to/compare_two_scenarios.rst:8
+msgid ""
+"The result NetCDF makes side-by-side comparison easy: each file is just "
+"an ``xarray.Dataset`` with the same variables, so subtraction and "
+"`groupby` work directly."
+msgstr ""
+
+#: ../../source/how_to/compare_two_scenarios.rst:13
+msgid "Setup"
+msgstr ""
+
+#: ../../source/how_to/compare_two_scenarios.rst:15
+msgid "Run two scenarios using the suffix flag (see :doc:`tighten_a_carbon_cap`):"
+msgstr ""
+
+#: ../../source/how_to/compare_two_scenarios.rst:25
+msgid "Recipe"
+msgstr ""
+
+#: ../../source/how_to/compare_two_scenarios.rst:65
+msgid "Plot the capacity reshuffle"
+msgstr ""
+
+#: ../../source/how_to/compare_two_scenarios.rst:83
+msgid "Common pitfalls"
+msgstr ""
+
+#: ../../source/how_to/compare_two_scenarios.rst:85
+msgid ""
+"**Mismatched dimensions.** If you ran the two scenarios with different "
+"``hour`` or ``month`` settings, ``ds_a - ds_b`` will fail with a "
+"broadcast error. Keep configs in lockstep when comparing."
+msgstr ""
+
+#: ../../source/how_to/compare_two_scenarios.rst:89
+msgid ""
+"**NPV-discounted vs nominal.** ``ds.cost`` is NPV; ``ds.gen`` is in MWh "
+"per timestep. Don't mix without dividing by ``var_factor[year, zone]`` "
+"for unit conversion."
+msgstr ""
+
+#: ../../source/how_to/compare_two_scenarios.rst:92
+msgid ""
+"**One-hot scenarios.** For more than two variants, lift the pattern into "
+"a dict comprehension over a list of suffixes: ``{s: "
+"xr.open_dataset(f\"output/baseline_{s}.nc\") for s in suffixes}``."
+msgstr ""
+
+#: ../../source/how_to/compare_two_scenarios.rst:96
+msgid ""
+"For a worked end-to-end comparison see "
+":doc:`../examples/southeast_asia/SoutheastAsia` (the SoutheastAsia "
+"notebook walks through this exact pattern in cells 18-20)."
+msgstr ""
+

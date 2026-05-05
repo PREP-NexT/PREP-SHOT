@@ -1,0 +1,387 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023-2025, Zhanwei Liu and Xiaogang He (GPL-3.0)
+# This file is distributed under the same license as the PREP-SHOT package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PREP-SHOT latest\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-05 13:00+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh_CN\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/api/prepshot._model.hydro.rst:2
+msgid "hydro"
+msgstr ""
+
+#: of prepshot._model.hydro:1
+msgid "This module contains functions related to hydropower technologies."
+msgstr ""
+
+#: of prepshot._model.hydro:3
+msgid "Water balance of reservoirs."
+msgstr ""
+
+#: of prepshot._model.hydro:5
+msgid ""
+"Similar to the storage technologies, changes in reservoir storage "
+"(:math:`{\\rm{storage}}_{s,h,m,y}^{\\rm{reservoir}}`) in two successive "
+"periods should be balanced by total inflow "
+"(:math:`{\\rm{inflow}}_{s,h,m,y}^{\\rm{total}}`) and total outflow "
+"(:math:`{\\rm{outflow}}_{s,h,m,y}^{\\rm{total}}`):"
+msgstr ""
+
+#: of prepshot._model.hydro:11
+msgid ""
+"{\\rm{storage}}_{s,h,m,y}^{\\rm{reservoir}}-\n"
+"{\\rm{storage}}_{s,h-1,m,y}^{\\rm{reservoir}}=\n"
+"\\Delta h\\times3600\\times\\left({\\rm{inflow}}_{s,h,m,y}^{\\rm{total}}\n"
+"-{\\rm{outflow}}_{s,h,m,y}^{\\rm{total}}\\right)\\quad\\forall s,h,m,y"
+msgstr ""
+
+#: of prepshot._model.hydro:18
+msgid ""
+"Here :math:`{\\rm{inflow}}_{s,h,m,y}^{\\rm{total}}` consists of two "
+"parts: the total outflow received from all immediate upstream reservoirs "
+"(:math:`\\sum_{{\\rm{su}}\\in{\\mathcal{IU}}_s}{{\\rm{outflow}}_ "
+"{{\\rm{su}},h-\\tau_{{\\rm{su}},s},m,y}^{\\rm{total}}}`) and the net "
+"inflow (also called incremental inflow) of the drainage area controlled "
+"by this hydropower reservoir "
+"(:math:`{{\\rm{INFLOW}}}_{s,h,m,y}^{\\rm{net}}`), which can be expressed "
+"as follows:"
+msgstr ""
+
+#: of prepshot._model.hydro:27
+msgid ""
+"{\\rm{inflow}}_{s,h,m,y}^{\\rm{total}}\n"
+"={{\\rm{INFLOW}}}_{s,h,m,y}^{\\rm{net}}+\\sum_{{\\rm{su}}\\in\n"
+"{\\mathcal{IU}}_s}{{\\rm{outflow}}_{{\\rm{su}},h-\n"
+"\\tau_{{\\rm{su}},s},m,y}^{\\rm{total}}}\\quad\\forall s,h,m,y"
+msgstr ""
+
+#: of prepshot._model.hydro:34
+msgid ""
+"Note that PREP-SHOT assumes a constant water travel (or propagation) time"
+" (:math:`{\\tau}_{{\\rm{su}},s}`). The total outflow of each reservoir "
+"consists of three parts: upstream water withdrawal (i.e., water used for "
+"non-hydro purposes such as agriculture irrigation and urban water supply)"
+" (:math:`{\\rm{outflow}}_{s,h,m,y}^{\\rm{withdraw}}`), generation flow "
+"(i.e., water flow through the turbines of the hydropower plant) "
+"(:math:`{\\rm{outflow}}_{s,h,m,y}^{\\rm{gen}}`) and spillage flow (i.e., "
+"water spilled over the spillways) "
+"(:math:`{\\rm{outflow}}_{s,h,m,y}^{\\rm{spillage}}`):"
+msgstr ""
+
+#: of prepshot._model.hydro:44
+msgid ""
+"{\\rm{outflow}}_{s,h,m,y}^{\\rm{total}}\n"
+"={\\rm{outflow}}_{s,h,m,y}^{\\rm{withdraw}}\n"
+"+{\\rm{outflow}}_{s,h,m,y}^{\\rm{gen}}\n"
+"+{\\rm{outflow}}_{s,h,m,y}^{\\rm{spillage}}\\quad\\forall s,h,m,y"
+msgstr ""
+
+#: of prepshot._model.hydro:51
+msgid "Reservoir outflow"
+msgstr ""
+
+#: of prepshot._model.hydro:53
+msgid ""
+"The generation flow and spillage flow of the reservoir are limited by the"
+" maximum outflow capacity of turbines "
+"(:math:`{\\rm{OUTFLOW}}_s^{\\rm{gen}}`) and spillway "
+"(:math:`{\\rm{OUTFLOW}}_s^{\\rm{spillage}}`), respectively. The sum of "
+"these two parts also needs to meet the minimum outflow required "
+"(:math:`{{\\rm{OUTFLOW}}}_s`) for other purposes (e.g., ecological flow, "
+"shipping flow). These constraints are summarized as:"
+msgstr ""
+
+#: of prepshot._model.hydro:60
+msgid ""
+"{\\rm{outflow}}_{s,h,m,y}^{\\rm{gen}}\\le{\\rm{OUTFLOW}}_s^{\\rm{gen}}\n"
+"\\quad\\forall s,h,m,y\n"
+"\n"
+"{\\rm{outflow}}_{s,h,m,y}^{\\rm{spillage}}\\le\n"
+"{\\rm{OUTFLOW}}_s^{\\rm{spillage}}\\quad\\forall s,h,m,y\n"
+"\n"
+"{{\\rm{OUTFLOW}}}_s\\le {\\rm{outflow}}_{s,h,m,y}^{\\rm{gen}}\n"
+"+{\\rm{outflow}}_{s,h,m,y}^{\\rm{spillage}}\\quad\\forall s,h,m,y"
+msgstr ""
+
+#: of prepshot._model.hydro:71
+msgid "Reservoir storage"
+msgstr ""
+
+#: of prepshot._model.hydro:73
+msgid ""
+"The initial (when :math:`h=h_{\\rm{start}}`) and terminal (when "
+":math:`h=h_{\\rm{end}}`) storage "
+"(:math:`{\\rm{storage}}_{s,h=h_{\\rm{start}},m,y}^{\\rm{reservoir}}` and "
+":math:`{\\rm{storage}}_{s,h=h_{\\rm{end}},m,y}^{\\rm{reservoir}}`) of "
+"hydropower reservoir in each month of each year should be assigned as:"
+msgstr ""
+
+#: of prepshot._model.hydro:79
+msgid ""
+"{\\rm{storage}}_{s,h=h_{\\rm{start}},m,y}^{\\rm{reservoir}}\n"
+"={{\\rm{STORAGE}}}_{s,m,y}^{\\rm{initreservoir}}\\quad\\forall s,m,y\n"
+"\n"
+"{\\rm{storage}}_{s,h=h_{\\rm{end}},m,y}^{\\rm{reservoir}}\n"
+"={{\\rm{STORAGE}}}_{s,m,y}^{\\rm{endreservoir}}\\quad\\forall s,m,y"
+msgstr ""
+
+#: of prepshot._model.hydro:87
+msgid ""
+"The reservoir storage is bounded between the maximum "
+"(:math:`{\\overline{{\\rm{STORAGE}}}}_s^{\\rm{reservoir}}`) and minimum "
+"storage (:math:`{\\underline{{\\rm{STORAGE}}}}_s^{\\rm{reservoir}}`) "
+"depending on the functions (e.g., flood control, recreation, and water "
+"supply) of the reservoir:"
+msgstr ""
+
+#: of prepshot._model.hydro:92
+msgid ""
+"{\\underline{{\\rm{STORAGE}}}}_s^{\\rm{reservoir}}\\le\n"
+"{\\rm{storage}}_{s,h,m,y}^{\\rm{reservoir}}\\le\n"
+"{\\overline{{\\rm{STORAGE}}}}_s^{\\rm{reservoir}}\\quad\\forall s,h,m,y"
+msgstr ""
+
+#: of prepshot._model.hydro.AddHydropowerConstraints:1
+msgid "Bases: :py:class:`object`"
+msgstr ""
+
+#: of prepshot._model.hydro.AddHydropowerConstraints:1
+msgid "Class for hydropower constraints and calculations."
+msgstr ""
+
+#: of prepshot._model.hydro.AddHydropowerConstraints
+#: prepshot._model.hydro.AddHydropowerConstraints.__init__
+#: prepshot._model.hydro.AddHydropowerConstraints.end_storage_rule
+#: prepshot._model.hydro.AddHydropowerConstraints.genflow_up_bound_rule
+#: prepshot._model.hydro.AddHydropowerConstraints.hydro_output_rule
+#: prepshot._model.hydro.AddHydropowerConstraints.inflow_rule
+#: prepshot._model.hydro.AddHydropowerConstraints.init_storage_rule
+#: prepshot._model.hydro.AddHydropowerConstraints.outflow_low_bound_rule
+#: prepshot._model.hydro.AddHydropowerConstraints.outflow_rule
+#: prepshot._model.hydro.AddHydropowerConstraints.outflow_up_bound_rule
+#: prepshot._model.hydro.AddHydropowerConstraints.output_calc_rule
+#: prepshot._model.hydro.AddHydropowerConstraints.output_low_bound_rule
+#: prepshot._model.hydro.AddHydropowerConstraints.output_up_bound_rule
+#: prepshot._model.hydro.AddHydropowerConstraints.storage_low_bound_rule
+#: prepshot._model.hydro.AddHydropowerConstraints.storage_up_bound_rule
+#: prepshot._model.hydro.AddHydropowerConstraints.water_balance_rule
+msgid "Parameters"
+msgstr ""
+
+#: of prepshot._model.hydro.AddHydropowerConstraints.__init__:1
+msgid ""
+"Initialize the class. Here I define the variables needed and the "
+"constraints for the hydropower model."
+msgstr ""
+
+#: of prepshot._model.hydro.AddHydropowerConstraints.__init__:4
+msgid ""
+"Model container which is a dict-like objective and includes parameters, "
+"variables and constraints."
+msgstr ""
+
+#: of prepshot._model.hydro.AddHydropowerConstraints.__init__
+#: prepshot._model.hydro.AddHydropowerConstraints.end_storage_rule
+#: prepshot._model.hydro.AddHydropowerConstraints.genflow_up_bound_rule
+#: prepshot._model.hydro.AddHydropowerConstraints.hydro_output_rule
+#: prepshot._model.hydro.AddHydropowerConstraints.inflow_rule
+#: prepshot._model.hydro.AddHydropowerConstraints.init_storage_rule
+#: prepshot._model.hydro.AddHydropowerConstraints.outflow_low_bound_rule
+#: prepshot._model.hydro.AddHydropowerConstraints.outflow_rule
+#: prepshot._model.hydro.AddHydropowerConstraints.outflow_up_bound_rule
+#: prepshot._model.hydro.AddHydropowerConstraints.output_calc_rule
+#: prepshot._model.hydro.AddHydropowerConstraints.output_low_bound_rule
+#: prepshot._model.hydro.AddHydropowerConstraints.output_up_bound_rule
+#: prepshot._model.hydro.AddHydropowerConstraints.storage_low_bound_rule
+#: prepshot._model.hydro.AddHydropowerConstraints.storage_up_bound_rule
+#: prepshot._model.hydro.AddHydropowerConstraints.water_balance_rule
+msgid "Return type"
+msgstr ""
+
+#: of prepshot._model.hydro.AddHydropowerConstraints.end_storage_rule:1
+msgid "Determine storage of reservoir in the terminal hour of each month."
+msgstr ""
+
+#: of prepshot._model.hydro.AddHydropowerConstraints.end_storage_rule:3
+#: prepshot._model.hydro.AddHydropowerConstraints.genflow_up_bound_rule:3
+#: prepshot._model.hydro.AddHydropowerConstraints.inflow_rule:5
+#: prepshot._model.hydro.AddHydropowerConstraints.init_storage_rule:3
+#: prepshot._model.hydro.AddHydropowerConstraints.outflow_low_bound_rule:3
+#: prepshot._model.hydro.AddHydropowerConstraints.outflow_rule:4
+#: prepshot._model.hydro.AddHydropowerConstraints.outflow_up_bound_rule:3
+#: prepshot._model.hydro.AddHydropowerConstraints.output_calc_rule:4
+#: prepshot._model.hydro.AddHydropowerConstraints.output_low_bound_rule:3
+#: prepshot._model.hydro.AddHydropowerConstraints.output_up_bound_rule:3
+#: prepshot._model.hydro.AddHydropowerConstraints.storage_low_bound_rule:3
+#: prepshot._model.hydro.AddHydropowerConstraints.storage_up_bound_rule:3
+#: prepshot._model.hydro.AddHydropowerConstraints.water_balance_rule:4
+msgid "hydropower plant."
+msgstr ""
+
+#: of prepshot._model.hydro.AddHydropowerConstraints.end_storage_rule:5
+#: prepshot._model.hydro.AddHydropowerConstraints.genflow_up_bound_rule:7
+#: prepshot._model.hydro.AddHydropowerConstraints.hydro_output_rule:9
+#: prepshot._model.hydro.AddHydropowerConstraints.inflow_rule:9
+#: prepshot._model.hydro.AddHydropowerConstraints.init_storage_rule:5
+#: prepshot._model.hydro.AddHydropowerConstraints.outflow_low_bound_rule:7
+#: prepshot._model.hydro.AddHydropowerConstraints.outflow_rule:8
+#: prepshot._model.hydro.AddHydropowerConstraints.outflow_up_bound_rule:7
+#: prepshot._model.hydro.AddHydropowerConstraints.output_calc_rule:8
+#: prepshot._model.hydro.AddHydropowerConstraints.output_low_bound_rule:7
+#: prepshot._model.hydro.AddHydropowerConstraints.output_up_bound_rule:7
+#: prepshot._model.hydro.AddHydropowerConstraints.storage_low_bound_rule:7
+#: prepshot._model.hydro.AddHydropowerConstraints.storage_up_bound_rule:7
+#: prepshot._model.hydro.AddHydropowerConstraints.water_balance_rule:8
+msgid "Month."
+msgstr ""
+
+#: of prepshot._model.hydro.AddHydropowerConstraints.end_storage_rule:7
+#: prepshot._model.hydro.AddHydropowerConstraints.genflow_up_bound_rule:9
+#: prepshot._model.hydro.AddHydropowerConstraints.hydro_output_rule:11
+#: prepshot._model.hydro.AddHydropowerConstraints.inflow_rule:11
+#: prepshot._model.hydro.AddHydropowerConstraints.init_storage_rule:7
+#: prepshot._model.hydro.AddHydropowerConstraints.outflow_low_bound_rule:9
+#: prepshot._model.hydro.AddHydropowerConstraints.outflow_rule:10
+#: prepshot._model.hydro.AddHydropowerConstraints.outflow_up_bound_rule:9
+#: prepshot._model.hydro.AddHydropowerConstraints.output_calc_rule:10
+#: prepshot._model.hydro.AddHydropowerConstraints.output_low_bound_rule:9
+#: prepshot._model.hydro.AddHydropowerConstraints.output_up_bound_rule:9
+#: prepshot._model.hydro.AddHydropowerConstraints.storage_low_bound_rule:9
+#: prepshot._model.hydro.AddHydropowerConstraints.storage_up_bound_rule:9
+#: prepshot._model.hydro.AddHydropowerConstraints.water_balance_rule:10
+msgid "Year."
+msgstr ""
+
+#: of prepshot._model.hydro.AddHydropowerConstraints.end_storage_rule
+#: prepshot._model.hydro.AddHydropowerConstraints.genflow_up_bound_rule
+#: prepshot._model.hydro.AddHydropowerConstraints.hydro_output_rule
+#: prepshot._model.hydro.AddHydropowerConstraints.inflow_rule
+#: prepshot._model.hydro.AddHydropowerConstraints.init_storage_rule
+#: prepshot._model.hydro.AddHydropowerConstraints.outflow_low_bound_rule
+#: prepshot._model.hydro.AddHydropowerConstraints.outflow_rule
+#: prepshot._model.hydro.AddHydropowerConstraints.outflow_up_bound_rule
+#: prepshot._model.hydro.AddHydropowerConstraints.output_calc_rule
+#: prepshot._model.hydro.AddHydropowerConstraints.output_low_bound_rule
+#: prepshot._model.hydro.AddHydropowerConstraints.output_up_bound_rule
+#: prepshot._model.hydro.AddHydropowerConstraints.storage_low_bound_rule
+#: prepshot._model.hydro.AddHydropowerConstraints.storage_up_bound_rule
+#: prepshot._model.hydro.AddHydropowerConstraints.water_balance_rule
+msgid "Returns"
+msgstr ""
+
+#: of prepshot._model.hydro.AddHydropowerConstraints.end_storage_rule:10
+#: prepshot._model.hydro.AddHydropowerConstraints.genflow_up_bound_rule:12
+#: prepshot._model.hydro.AddHydropowerConstraints.hydro_output_rule:14
+#: prepshot._model.hydro.AddHydropowerConstraints.init_storage_rule:10
+#: prepshot._model.hydro.AddHydropowerConstraints.outflow_low_bound_rule:12
+#: prepshot._model.hydro.AddHydropowerConstraints.outflow_up_bound_rule:12
+#: prepshot._model.hydro.AddHydropowerConstraints.output_calc_rule:13
+#: prepshot._model.hydro.AddHydropowerConstraints.output_low_bound_rule:12
+#: prepshot._model.hydro.AddHydropowerConstraints.output_up_bound_rule:12
+#: prepshot._model.hydro.AddHydropowerConstraints.storage_low_bound_rule:12
+#: prepshot._model.hydro.AddHydropowerConstraints.storage_up_bound_rule:12
+#: prepshot._model.hydro.AddHydropowerConstraints.water_balance_rule:13
+msgid "The constraint of the model."
+msgstr ""
+
+#: of prepshot._model.hydro.AddHydropowerConstraints.genflow_up_bound_rule:1
+msgid "Upper bound of generation flow."
+msgstr ""
+
+#: of prepshot._model.hydro.AddHydropowerConstraints.genflow_up_bound_rule:5
+#: prepshot._model.hydro.AddHydropowerConstraints.hydro_output_rule:7
+#: prepshot._model.hydro.AddHydropowerConstraints.inflow_rule:7
+#: prepshot._model.hydro.AddHydropowerConstraints.outflow_low_bound_rule:5
+#: prepshot._model.hydro.AddHydropowerConstraints.outflow_rule:6
+#: prepshot._model.hydro.AddHydropowerConstraints.outflow_up_bound_rule:5
+#: prepshot._model.hydro.AddHydropowerConstraints.output_calc_rule:6
+#: prepshot._model.hydro.AddHydropowerConstraints.output_low_bound_rule:5
+#: prepshot._model.hydro.AddHydropowerConstraints.output_up_bound_rule:5
+#: prepshot._model.hydro.AddHydropowerConstraints.storage_low_bound_rule:5
+#: prepshot._model.hydro.AddHydropowerConstraints.storage_up_bound_rule:5
+#: prepshot._model.hydro.AddHydropowerConstraints.water_balance_rule:6
+msgid "Hour."
+msgstr ""
+
+#: of prepshot._model.hydro.AddHydropowerConstraints.hydro_output_rule:1
+msgid ""
+"Bind the generation variable for a hydro plant to its physical output "
+"(when isinflow=True) or to its must-run profile (when isinflow=False)."
+msgstr ""
+
+#: of prepshot._model.hydro.AddHydropowerConstraints.hydro_output_rule:5
+msgid "Hydro plant tech name."
+msgstr ""
+
+#: of prepshot._model.hydro.AddHydropowerConstraints.inflow_rule:1
+msgid ""
+"Define hydrolic connnect between cascade reservoirs, total inflow of "
+"downsteam reservoir = natural inflow + upstream outflow from upsteam "
+"reservoir(s)."
+msgstr ""
+
+#: of prepshot._model.hydro.AddHydropowerConstraints.inflow_rule:14
+msgid "Total inflow of reservoir."
+msgstr ""
+
+#: of prepshot._model.hydro.AddHydropowerConstraints.init_storage_rule:1
+msgid "Determine storage of reservoir in the initial hour of each month."
+msgstr ""
+
+#: of prepshot._model.hydro.AddHydropowerConstraints.outflow_low_bound_rule:1
+msgid "Lower bound of total outflow."
+msgstr ""
+
+#: of prepshot._model.hydro.AddHydropowerConstraints.outflow_rule:1
+msgid "Total outflow of reservoir is equal to the sum of generation and spillage."
+msgstr ""
+
+#: of prepshot._model.hydro.AddHydropowerConstraints.outflow_rule:13
+msgid "Total outflow of reservoir."
+msgstr ""
+
+#: of prepshot._model.hydro.AddHydropowerConstraints.outflow_up_bound_rule:1
+msgid "Upper bound of total outflow."
+msgstr ""
+
+#: of prepshot._model.hydro.AddHydropowerConstraints.output_calc_rule:1
+msgid ""
+"Hydropower production calculation. Head parameter is specified after "
+"building the model."
+msgstr ""
+
+#: of prepshot._model.hydro.AddHydropowerConstraints.output_low_bound_rule:1
+msgid "Lower bound of hydropower output."
+msgstr ""
+
+#: of prepshot._model.hydro.AddHydropowerConstraints.output_up_bound_rule:1
+msgid "Upper bound of hydropower output."
+msgstr ""
+
+#: of prepshot._model.hydro.AddHydropowerConstraints.storage_low_bound_rule:1
+msgid "Lower bound of reservoir storage."
+msgstr ""
+
+#: of prepshot._model.hydro.AddHydropowerConstraints.storage_up_bound_rule:1
+msgid "Upper bound of reservoir storage."
+msgstr ""
+
+#: of prepshot._model.hydro.AddHydropowerConstraints.water_balance_rule:1
+msgid ""
+"Water balance of reservoir, i.e., storage[t] = storage[t-1] + "
+"net_storage[t]."
+msgstr ""
+

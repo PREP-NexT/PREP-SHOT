@@ -1,0 +1,242 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023-2025, Zhanwei Liu and Xiaogang He (GPL-3.0)
+# This file is distributed under the same license as the PREP-SHOT package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PREP-SHOT latest\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-05 13:00+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh_CN\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/api/prepshot._model.generation.rst:2
+msgid "generation"
+msgstr ""
+
+#: of prepshot._model.generation:1
+msgid ""
+"This module contains constraints related to technology generation. The "
+"power output of storage and each dispatchable (exclude hydropower) "
+"technology (:math:`{\\rm{power}}_{h,m,y,z,e}`) is limited by the existing"
+" installed capacity (:math:`{\\rm{cap}}_{y,z,e}^{\\rm{existingtech}}`) "
+"and minimum technical output, as follows:"
+msgstr ""
+
+#: of prepshot._model.generation:7
+msgid ""
+"{\\underline{{\\rm{POWER}}}}_{h,m,y,z,e}\\times\n"
+"{\\rm{cap}}_{y,z,e}^{\\rm{existingtech}}\\le{\\rm{power}}_{h,m,y,z,e}\\le"
+"\n"
+"{\\rm{cap}}_{y,z,e}^{\\rm{existingtech}}\\quad\\forall h,m,y,z,e\\in\n"
+"{\\mathcal{STOR}}\\ \\&\\ {\\mathcal{DISP}}"
+msgstr ""
+
+#: of prepshot._model.generation:14
+msgid ""
+"Since hydropower processes are explicitly modelled at the plant level in "
+"PREP-SHOT, total hydropower output in zone :math:`z` "
+"(:math:`{\\rm{power}}_{h,m,y,z,e={\\rm{hydro}}}`) is the sum of the "
+"plant-level hydropower output "
+"(:math:`{\\rm{power}}_{\\it{s,h,m,y}}^{\\rm{hydro}}`):"
+msgstr ""
+
+#: of prepshot._model.generation:20
+msgid ""
+"{\\rm{power}}_{h,m,y,z,e={\\rm{hydro}}}=\\sum_{s\\in{\\mathcal{SZ}}_z}\n"
+"{\\rm{power}}_{s,h,m,y}^{\\rm{hydro}}\\quad\\forall h,m,y,z"
+msgstr ""
+
+#: of prepshot._model.generation:25
+msgid ""
+"Here, calculation of :math:`{\\rm{power}}^{\\rm{hydro}}_{s,h,m,y}` is "
+"obtained by external net water head simulation procedure. In addition, "
+":math:`{\\rm{power}}^{\\rm{hydro}}_{s,h,m,y}` is bounded between the "
+"guaranteed minimum output "
+"(:math:`{\\underline{{\\rm{POWER}}}}_s^{\\rm{hydro}}`) and the nameplate "
+"capacity (:math:`{{\\rm{CAP}}}_s^{\\rm{hydro}}`), as follows:"
+msgstr ""
+
+#: of prepshot._model.generation:31
+msgid ""
+"Regardless of the technology type, actual power generation "
+"(:math:`{\\rm{gen}}_{h,m,y,z,e}`) in a corresponding period "
+":math:`\\Delta h` can be calculated based on the power output "
+"(:math:`{\\rm{power}}_{h,m,y,z,e}`) and the generation efficiency "
+"(:math:`\\eta_{y,e}^{\\rm{out}}`):"
+msgstr ""
+
+#: of prepshot._model.generation:36
+msgid ""
+"{\\rm{gen}}_{h,m,y,z,e} = {\\rm{power}}_{h,m,y,z,e}\\times\\Delta h\n"
+"\\times\\eta_{y,e}^{\\rm{out}}\\quad \\forall h,m,y,z,e\\in {\\mathcal{E}}"
+msgstr ""
+
+#: of prepshot._model.generation:41
+msgid ""
+"Note that :math:`\\eta_{y,e}^{\\rm{out}}=1` when :math:`e\\in "
+"{\\mathcal{E}}\\backslash {\\mathcal{STOR}}`."
+msgstr ""
+
+#: of prepshot._model.generation:44
+msgid ""
+"All technologies apart from dispatchable technology are limited by the "
+"so-called ramping capability, meaning that the variation of their power "
+"output in two successive periods is limited.  We introduce two non-"
+"negative auxiliary variables: increment (:math:`{ m{power}}_{h,m,y,z,e}^{"
+" m{up}}`) and decrement (:math:`{ m{power}}_{h,m,y,z,e}^{ m{down}}`) to "
+"describe changes in power output in two successive periods (from "
+":math:`h`-1 to :math:`h`) as follows:"
+msgstr ""
+
+#: of prepshot._model.generation:55
+msgid ""
+"{\\rm{power}}_{h,m,y,z,e}^{\\rm{up}}-{\\rm{power}}_{h,m,y,z,e}^{\\rm{down}}"
+"\n"
+"={\\rm{power}}_{h,m,y,z,e}-{\\rm{power}}_{h-1,m,y,z,e}\n"
+"\\quad\\forall h,m,y,z,e\\ \\in {\\mathcal{E}}\\backslash "
+"{\\mathcal{NDISP}}"
+msgstr ""
+
+#: of prepshot._model.generation:61
+msgid ""
+"When the power plant ramps up from :math:`h`-1 to :math:`h`, the minimum "
+"of :math:`{\\rm{power}}_{h,m,y,z,e}^{\\rm{up}}` is obtained when "
+":math:`{\\rm{power}}_{h,m,y,z,e}^{\\rm{down}}` becomes zero. Similarly, "
+"when the power plant ramps down from :math:`h`-1 to :math:`h`, the "
+"minimum of :math:`{\\rm{power}}_{h,m,y,z,e}^{\\rm{down}}` is obtained "
+"when :math:`{\\rm{power}}_{h,m,y,z,e}^{\\rm{up}}` becomes zero. "
+"Therefore, we can constrain the maximum ramping up and down respectively,"
+" as follows:"
+msgstr ""
+
+#: of prepshot._model.generation:69
+msgid ""
+"{\\rm{power}}_{h,m,y,z,e}^{\\rm{up}}\\le{{R}}_e^{\\rm{up}}\\times\n"
+"\\Delta h\\times {\\rm{cap}}_{y,z,e}^{\\rm{existingtech}}\\quad\n"
+"\\forall h,m,y,z,e\\in {\\mathcal{E}}\\backslash {\\mathcal{NDISP}}"
+msgstr ""
+
+#: of prepshot._model.generation:75
+msgid ""
+"{\\rm{power}}_{h,m,y,z,e}^{\\rm{down}}\\le{{R}}_e^{\\rm{down}}\\times\n"
+"\\Delta h\\times {\\rm{cap}}_{y,z,e}^{\\rm{existingtech}}\n"
+"\\quad\\forall h,m,y,z,e\\in {\\mathcal{E}}\\backslash {\\mathcal{NDISP}}"
+msgstr ""
+
+#: of prepshot._model.generation:81
+msgid ""
+"where :math:`{{R}}_e^{\\rm{up}}$/${{R}}_e^{\\rm{down}}` is the allowed "
+"maximum/minimum ramping up/down capacity of technology :math:`e` in two "
+"successive periods, expressed as a percentage of the existing capacity of"
+" storage technology :math:`e`."
+msgstr ""
+
+#: of prepshot._model.generation.AddGenerationConstraints:1
+msgid "Bases: :py:class:`object`"
+msgstr ""
+
+#: of prepshot._model.generation.AddGenerationConstraints:1
+msgid "Add constraints for generation in the model."
+msgstr ""
+
+#: of prepshot._model.generation.AddGenerationConstraints
+#: prepshot._model.generation.AddGenerationConstraints.__init__
+#: prepshot._model.generation.AddGenerationConstraints.gen_low_bound_rule
+#: prepshot._model.generation.AddGenerationConstraints.gen_up_bound_rule
+#: prepshot._model.generation.AddGenerationConstraints.ramping_down_rule
+#: prepshot._model.generation.AddGenerationConstraints.ramping_up_rule
+msgid "Parameters"
+msgstr ""
+
+#: of prepshot._model.generation.AddGenerationConstraints.__init__:1
+msgid "Initialize the class and add constraints."
+msgstr ""
+
+#: of prepshot._model.generation.AddGenerationConstraints.__init__:3
+msgid "Model object depending on the solver."
+msgstr ""
+
+#: of prepshot._model.generation.AddGenerationConstraints.__init__
+#: prepshot._model.generation.AddGenerationConstraints.gen_low_bound_rule
+#: prepshot._model.generation.AddGenerationConstraints.gen_up_bound_rule
+#: prepshot._model.generation.AddGenerationConstraints.ramping_down_rule
+#: prepshot._model.generation.AddGenerationConstraints.ramping_up_rule
+msgid "Return type"
+msgstr ""
+
+#: of prepshot._model.generation.AddGenerationConstraints.gen_low_bound_rule:1
+msgid "gen[h,m,y,z,te] >= cap_existing × p_min_pu × dt."
+msgstr ""
+
+#: of prepshot._model.generation.AddGenerationConstraints.gen_low_bound_rule:3
+msgid ""
+"Defaults to p_min_pu = 0 (no minimum) when the tech has no entry in "
+"tech_min_gen_profile.csv. Set p_min_pu > 0 for must-run plants with a "
+"minimum stable load."
+msgstr ""
+
+#: of prepshot._model.generation.AddGenerationConstraints.gen_up_bound_rule:1
+msgid "gen[h,m,y,z,te] <= cap_existing × p_max_pu × dt."
+msgstr ""
+
+#: of prepshot._model.generation.AddGenerationConstraints.gen_up_bound_rule:3
+msgid ""
+"Defaults to p_max_pu = 1 (full capacity) when the tech has no entry in "
+"tech_max_gen_profile.csv. Variable renewables specify a time-varying "
+"p_max_pu < 1 to cap by capacity factor; must-run techs set p_max_pu = "
+"p_min_pu to lock generation to a profile."
+msgstr ""
+
+#: of prepshot._model.generation.AddGenerationConstraints.ramping_down_rule:1
+msgid "Ramping down limits."
+msgstr ""
+
+#: of prepshot._model.generation.AddGenerationConstraints.ramping_down_rule:3
+#: prepshot._model.generation.AddGenerationConstraints.ramping_up_rule:3
+msgid "Hour."
+msgstr ""
+
+#: of prepshot._model.generation.AddGenerationConstraints.ramping_down_rule:5
+#: prepshot._model.generation.AddGenerationConstraints.ramping_up_rule:5
+msgid "Month."
+msgstr ""
+
+#: of prepshot._model.generation.AddGenerationConstraints.ramping_down_rule:7
+#: prepshot._model.generation.AddGenerationConstraints.ramping_up_rule:7
+msgid "Year."
+msgstr ""
+
+#: of prepshot._model.generation.AddGenerationConstraints.ramping_down_rule:9
+#: prepshot._model.generation.AddGenerationConstraints.ramping_up_rule:9
+msgid "Zone."
+msgstr ""
+
+#: of prepshot._model.generation.AddGenerationConstraints.ramping_down_rule:11
+#: prepshot._model.generation.AddGenerationConstraints.ramping_up_rule:11
+msgid "Technology."
+msgstr ""
+
+#: of prepshot._model.generation.AddGenerationConstraints.ramping_down_rule
+#: prepshot._model.generation.AddGenerationConstraints.ramping_up_rule
+msgid "Returns"
+msgstr ""
+
+#: of prepshot._model.generation.AddGenerationConstraints.ramping_down_rule:14
+#: prepshot._model.generation.AddGenerationConstraints.ramping_up_rule:14
+msgid "The constraint of the model."
+msgstr ""
+
+#: of prepshot._model.generation.AddGenerationConstraints.ramping_up_rule:1
+msgid "Ramping up limits."
+msgstr ""
+

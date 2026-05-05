@@ -1,0 +1,68 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023-2025, Zhanwei Liu and Xiaogang He (GPL-3.0)
+# This file is distributed under the same license as the PREP-SHOT package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PREP-SHOT latest\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-05 13:00+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh_CN\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/api/prepshot.logs.rst:2
+msgid "logs"
+msgstr ""
+
+#: of prepshot.logs:1
+msgid ""
+"This module contains functions to set up logging for the model run and to"
+" log the start and end of functions."
+msgstr ""
+
+#: of prepshot.logs.log_parameter_info:1
+msgid "Log key parameters used for the model."
+msgstr ""
+
+#: of prepshot.logs.log_parameter_info prepshot.logs.timer
+msgid "Parameters"
+msgstr ""
+
+#: of prepshot.logs.log_parameter_info:3
+msgid "Dictionary containing configuration data for the model."
+msgstr ""
+
+#: of prepshot.logs.log_parameter_info prepshot.logs.setup_logging
+#: prepshot.logs.timer
+msgid "Return type"
+msgstr ""
+
+#: of prepshot.logs.setup_logging:1
+msgid "Set up logging configuration for the model run."
+msgstr ""
+
+#: of prepshot.logs.timer:1
+msgid "Decorator to log the start and end of a function and its runtime."
+msgstr ""
+
+#: of prepshot.logs.timer:3
+msgid "The function to be decorated."
+msgstr ""
+
+#: of prepshot.logs.timer
+msgid "Returns"
+msgstr ""
+
+#: of prepshot.logs.timer:6
+msgid "The return value of decorated function."
+msgstr ""
+

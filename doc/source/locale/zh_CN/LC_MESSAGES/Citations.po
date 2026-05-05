@@ -1,0 +1,121 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023-2025, Zhanwei Liu and Xiaogang He (GPL-3.0)
+# This file is distributed under the same license as the PREP-SHOT package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PREP-SHOT latest\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-05 13:00+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh_CN\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/Citations.rst:4
+msgid "Citation Guide"
+msgstr ""
+
+#: ../../source/Citations.rst:6
+msgid ""
+"If you use PREP-SHOT for your work, please cite the appropriate "
+"publications. A list of all PREP-SHOT code related articles is available "
+"on `GitHub archive <https://github.com/PREP-NexT/PREP-SHOT/tags>`_ and "
+"can be downloaded as single Bibtex file: "
+":download:`prepshot_publications.bib <./prepshot_publications.bib>`."
+msgstr ""
+
+#: ../../source/Citations.rst:9
+msgid "Publications by Topic"
+msgstr ""
+
+#: ../../source/Citations.rst:11
+msgid ""
+"If you use specific version of PREP-SHOT, please cite the appropriate "
+"publications presenting these versions of PREP-SHOT according to the "
+"following table:"
+msgstr ""
+
+#: ../../source/Citations.rst:17
+msgid "Topic & Version used"
+msgstr ""
+
+#: ../../source/Citations.rst:18
+msgid "Region"
+msgstr ""
+
+#: ../../source/Citations.rst:19
+msgid "Publication to cite"
+msgstr ""
+
+#: ../../source/Citations.rst:20
+msgid "`*Any* <https://github.com/PREP-NexT/PREP-SHOT>`_"
+msgstr ""
+
+#: ../../source/Citations.rst:21
+msgid "China Southern Power Grid"
+msgstr ""
+
+#: ../../source/Citations.rst:22
+msgid ""
+"Liu, Z., & He, X. (2023). Balancing-oriented hydropower operation makes "
+"the clean energy transition more affordable and simultaneously boosts "
+"water security. Nature Water, 1(9), 778-789., "
+"https://www.nature.com/articles/s44221-023-00126-0"
+msgstr ""
+
+#: ../../source/Citations.rst:23
+msgid ""
+"`Hydropower-Wind-Solar Integration Capacity Configuration "
+"<https://github.com/caoyupu/PREP-SHOT-PLS>`_"
+msgstr ""
+
+#: ../../source/Citations.rst:24
+msgid "Yalong River Basin"
+msgstr ""
+
+#: ../../source/Citations.rst:25
+msgid ""
+"Cao, Y., Xu, B., Zhang, C., Li, F. F., & Liu, Z. (2025). Strategic Site-"
+"Level Planning of VRE Integration in Hydro-Wind-Solar Systems Under "
+"Uncertainty. Energy, 136523., "
+"https://doi.org/10.1016/j.energy.2025.136523"
+msgstr ""
+
+#: ../../source/Citations.rst:26
+msgid ""
+"`Integrated water-sediment-energy modeling framework <https://github.com"
+"/PREP-NexT/Mekong-Energy-Sediment>`_"
+msgstr ""
+
+#: ../../source/Citations.rst:27 ../../source/Citations.rst:30
+msgid "Lower Mekong Region"
+msgstr ""
+
+#: ../../source/Citations.rst:28
+msgid ""
+"Xu, B., Liu, Z., Yan, S., Schmitt, RJP  & He, X. (2025). Strategizing "
+"renewable energy transitions to preserve sediment transport integrity. "
+"Nature Sustainability, https://doi.org/10.1038/s41893-025-01626-5"
+msgstr ""
+
+#: ../../source/Citations.rst:29
+msgid ""
+"`Climate extremes and energy system resilience <https://github.com/PREP-"
+"NexT/PREP-SHOT>`_"
+msgstr ""
+
+#: ../../source/Citations.rst:31
+msgid ""
+"Xie, J., Liu, Z., Yan, S. et al. Variable renewable energy pathways in "
+"the Lower Mekong Basin under projected river flow extremes. Commun Earth "
+"Environ 6, 928 (2025). https://doi.org/10.1038/s43247-025-02861-6"
+msgstr ""
+

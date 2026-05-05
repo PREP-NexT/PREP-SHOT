@@ -1,0 +1,109 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023-2025, Zhanwei Liu and Xiaogang He (GPL-3.0)
+# This file is distributed under the same license as the PREP-SHOT package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PREP-SHOT latest\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-05 13:00+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh_CN\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/how_to/inspect_lmps.rst:2
+msgid "Inspect locational marginal prices"
+msgstr ""
+
+#: ../../source/how_to/inspect_lmps.rst:4
+msgid ""
+"**Goal.** Read PREP-SHOT's :term:`LMP` output and use it to diagnose "
+"binding constraints, compare zones, and back-cast wholesale-price "
+"trajectories."
+msgstr ""
+
+#: ../../source/how_to/inspect_lmps.rst:8
+msgid ""
+"LMPs are the dual of the nodal power-balance constraint -- the marginal "
+"cost of one extra MWh of demand at each ``(hour, month, year, zone)``. "
+"PREP-SHOT exposes them as ``shadow_price_demand`` in the result NetCDF "
+"since v1.9.1."
+msgstr ""
+
+#: ../../source/how_to/inspect_lmps.rst:14
+msgid "Recipe"
+msgstr ""
+
+#: ../../source/how_to/inspect_lmps.rst:38
+msgid "Sign convention"
+msgstr ""
+
+#: ../../source/how_to/inspect_lmps.rst:40
+msgid ""
+"LMPs in ``shadow_price_demand`` are **positive when serving more demand "
+"is more expensive** -- the standard convention used by PyPSA, Switch, and"
+" GenX. PREP-SHOT internally flips the raw HiGHS dual (which is negative "
+"because the demand-balance constraint is posed as ``demand - supply == "
+"0``) before writing the NetCDF."
+msgstr ""
+
+#: ../../source/how_to/inspect_lmps.rst:47
+msgid "NPV vs real-year prices"
+msgstr ""
+
+#: ../../source/how_to/inspect_lmps.rst:49
+msgid ""
+"LMPs are written in **NPV-discounted USD per MWh**. To recover "
+"undiscounted real-year prices, divide by the variable-cost factor for "
+"that year and zone:"
+msgstr ""
+
+#: ../../source/how_to/inspect_lmps.rst:61
+msgid ""
+"For most analyses (relative-zone comparisons, peak-hour identification, "
+"trend over the planning horizon), the NPV scaling is harmless and keeps "
+"the cross-zone comparison meaningful."
+msgstr ""
+
+#: ../../source/how_to/inspect_lmps.rst:66
+msgid "Common pitfalls"
+msgstr ""
+
+#: ../../source/how_to/inspect_lmps.rst:68
+msgid ""
+"**MIP solves don't return duals.** If ``shadow_price_demand`` is missing "
+"from the NetCDF, the solve was a MIP (or infeasible). The v1.9.1 "
+"extraction is wrapped in try/except: a warning logs and the variable is "
+"omitted rather than crashing the run."
+msgstr ""
+
+#: ../../source/how_to/inspect_lmps.rst:72
+msgid ""
+"**Storage zones distort short-horizon LMPs.** A binding storage state-of-"
+"charge constraint shows up as an LMP spike in one hour and a depression "
+"in another (energy-arbitrage). Don't read a single hour's LMP as \"the "
+"price\"; average over a day or week."
+msgstr ""
+
+#: ../../source/how_to/inspect_lmps.rst:76
+msgid ""
+"**Demand profile shape matters.** PREP-SHOT samples representative "
+"hours/months. The LMPs you get reflect the sampled hours, not the full "
+"8760-hour year. A handful of representative peak hours can dominate the "
+"average."
+msgstr ""
+
+#: ../../source/how_to/inspect_lmps.rst:81
+msgid ""
+"For the underlying constraint (``power_balance_cons`` in "
+"``prepshot/_model/demand.py``), see :doc:`../Mathematical_notations`."
+msgstr ""
+

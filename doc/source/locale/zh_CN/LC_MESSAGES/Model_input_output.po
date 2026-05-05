@@ -1,0 +1,1085 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023-2025, Zhanwei Liu and Xiaogang He (GPL-3.0)
+# This file is distributed under the same license as the PREP-SHOT package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PREP-SHOT latest\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-05 13:00+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh_CN\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/Model_input_output.rst:4
+msgid "Model Inputs/Outputs"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:6
+msgid ""
+"PREP-SHOT loads its inputs from a folder of CSV files and writes its "
+"results to a NetCDF file. ``params.json`` (in the repo root) maps each "
+"model parameter to its CSV file name, declares whether the file is "
+"required, and supplies a default value when an optional file is absent."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:12
+msgid "Input file format"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:14
+msgid ""
+"Since v1.5.0, all inputs are **long-format (\"tidy\") CSV** -- one "
+"dimension column per index plus a single ``value`` column at the end. "
+"Annotation columns named ``unit``, ``name``, ``commodity``, ``comment``, "
+"``note``, ``label``, or any column ending in ``_name`` are treated as "
+"documentation and ignored by the loader. A typical 2-dim file looks "
+"like::"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:26
+msgid ""
+"Four \"Group 3\" lookups (carbon emission limits, expansion candidates, "
+"piecewise reservoir functions, water delay matrix, technology registry) "
+"remain wide tables loaded as DataFrames -- they have multiple value "
+"columns and the model code slices them by name."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:31
+msgid ""
+"The current input-file schema version is stamped at the top of "
+"``params.json`` as ``\"_schema_version\": 2``. See ``Stability.rst`` and "
+"``Changelog.rst`` for migration notes from older releases."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:35
+msgid "File-name prefixes group inputs by domain:"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:37
+msgid "``demand`` -- electricity demand"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:38
+msgid "``economic_`` -- discount factors"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:39
+msgid "``finance_`` -- (optional) WACC and public-debt accounting"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:40
+msgid "``policy_`` -- carbon limits, taxes, offsets"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:41
+msgid "``reservoir_`` -- per-station reservoir parameters"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:42
+msgid "``storage_`` -- storage-tech parameters"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:43
+msgid "``tech_`` -- technology registry, costs, capacity, profiles"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:44
+msgid "``transmission_`` -- transmission-line parameters"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:47
+msgid "Inputs"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:50
+msgid "Required inputs"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:56
+#: ../../source/Model_input_output.rst:166
+#: ../../source/Model_input_output.rst:218
+msgid "Parameter [Unit]"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:57
+#: ../../source/Model_input_output.rst:167
+#: ../../source/Model_input_output.rst:295
+#: ../../source/Model_input_output.rst:384
+msgid "Description"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:58
+#: ../../source/Model_input_output.rst:168
+#: ../../source/Model_input_output.rst:220
+msgid "Input file"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:60
+msgid "demand [MW]"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:61
+msgid ""
+"Hourly electricity demand by zone, year, and month-hour. PREP-SHOT "
+"multiplies by ``dt`` internally to convert MW to MWh per timestep, "
+"matching ``gen`` and ``charge``."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:64
+msgid "demand"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:65
+msgid "economic discount factor [fraction]"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:66
+msgid ""
+"Discount rate per zone and year. Used to discount fixed, variable, and "
+"(when finance is OFF) investment cash flows."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:68
+msgid "economic_discount_factor"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:70
+msgid "tech registry [N/A]"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:71
+msgid ""
+"Per-technology metadata: ``tech``, ``name``, ``carrier`` (free-form "
+"string -- ``hydro`` is special-cased), ``is_storage`` (boolean flag). "
+"Drives the model's hydro / storage / dispatchable partitioning."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:75
+msgid "tech_registry"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:76
+msgid "tech existing fleet [MW]"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:77
+msgid ""
+"One row per existing-capacity block: ``(tech, zone, commission_year, "
+"capacity)``. Sparse -- only non-zero entries listed. Replaced "
+"``historical_capacity`` in v1.7.0."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:80
+msgid "tech_existing"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:81
+msgid "tech candidates [MW]"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:82
+msgid ""
+"Buildable expansion options per ``(zone, tech, year)`` with "
+"``capacity_min`` / ``capacity_max`` columns. Absence of an entry means "
+"\"this combination cannot be expanded\"."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:85
+msgid "tech_candidates"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:86
+msgid "tech capacity max [MW]"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:87
+msgid ""
+"Upper bound on total installed capacity per ``(zone, tech, year)``. "
+"``inf`` disables the cap."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:89
+msgid "tech_capacity_max"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:90
+msgid "tech lifetime [yr]"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:91
+msgid ""
+"Per-tech, per-vintage lifetime. Looked up at the commissioning year, so a"
+" unit built in ``cy`` retires at ``cy + lifetime[te, cy]``. (Bug fixed in"
+" v1.8.1.)"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:94
+msgid "tech_lifetime"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:96
+msgid "tech investment cost [dollar/MW]"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:97
+msgid "Overnight investment cost per tech and year."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:98
+msgid "tech_investment_cost"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:99
+msgid "tech fixed OM cost [dollar/MW/yr]"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:100
+msgid "Fixed O&M cost per tech and year."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:101
+msgid "tech_fixed_OM_cost"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:102
+msgid "tech variable OM cost [dollar/MWh]"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:103
+msgid "Variable O&M cost per tech and year."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:104
+msgid "tech_variable_OM_cost"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:105
+msgid "tech fuel price [dollar/MWh]"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:106
+msgid "Fuel price per tech and year."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:107
+msgid "tech_fuel_price"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:108
+msgid "tech emission factor [tCO2/MWh]"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:109
+msgid "Emission factor per tech, year, and zone."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:110
+msgid "tech_emission_factor"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:111
+msgid "tech ramp up / ramp down [1/MW]"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:112
+msgid "Hourly ramp limits per tech and year."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:113
+msgid "tech_ramp_up, tech_ramp_down"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:116
+msgid "storage charge / discharge efficiency [fraction]"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:117
+msgid "Round-trip efficiency of storage technologies."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:118
+msgid "storage_charge_efficiency, storage_discharge_efficiency"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:120
+msgid "storage energy-to-power ratio [MWh/MW]"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:121
+msgid "Energy capacity per unit of power capacity for storage technologies."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:123
+msgid "storage_energy_to_power_ratio"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:124
+msgid "storage initial level [fraction]"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:125
+msgid ""
+"Initial state of charge of storage technologies (fraction of energy "
+"capacity)."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:127
+msgid "storage_initial_level"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:129
+msgid "transmission existing [MW]"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:130
+msgid ""
+"Existing transmission-line capacity per ``(zone1, zone2, "
+"commission_year)``. Lifetime-driven retirements via "
+"``transmission_lifetime``. Symmetric to ``tech_existing``."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:133
+msgid "transmission_existing"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:134
+msgid "transmission candidates [MW]"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:135
+msgid ""
+"Buildable transmission options per ``(zone1, zone2, year)`` with "
+"``capacity_min`` / ``capacity_max`` columns."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:137
+msgid "transmission_candidates"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:138
+msgid "transmission distance [km]"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:139
+msgid "Inter-zone distance (drives investment cost)."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:140
+msgid "transmission_distance"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:141
+msgid "transmission efficiency [fraction]"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:142
+msgid "Per-line transmission efficiency."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:143
+msgid "transmission_efficiency"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:144
+msgid "transmission investment cost [dollar/MW/km]"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:145
+msgid "Per-line investment cost (multiplied by distance)."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:146
+msgid "transmission_investment_cost"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:147
+msgid "transmission fixed / variable OM cost"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:148
+msgid "Per-line fixed and variable O&M costs."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:149
+msgid "transmission_fixed_OM_cost, transmission_variable_OM_cost"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:151
+msgid "transmission lifetime [yr]"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:152
+msgid "Per-line lifetime; controls retirements of the existing fleet."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:153
+msgid "transmission_lifetime"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:156
+msgid "Hydropower inputs (active when ``isinflow=true`` in ``config.json``)"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:158
+msgid ""
+"Hydro plants are first-class technologies (``carrier='hydro'`` in "
+"``tech_registry``); these per-station reservoir parameters tie them to "
+"the rest of the model."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:170
+msgid "reservoir zone"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:171
+msgid "Maps each hydro station to its home zone."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:172
+msgid "reservoir_zone"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:173
+msgid "reservoir inflow [m**3/s]"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:174
+msgid "Hourly inflow per station."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:175
+msgid "reservoir_inflow"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:176
+msgid "reservoir water delay time [N/A]"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:177
+msgid "Travel time matrix between connected reservoirs (table format)."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:178
+msgid "reservoir_water_delay_time"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:179
+msgid "reservoir coefficient"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:180
+msgid "Power-generation coefficient per station."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:181
+msgid "reservoir_coefficient"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:182
+msgid "reservoir head [m]"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:183
+msgid "Designed water head per station."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:184
+msgid "reservoir_head"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:185
+msgid "reservoir capacity max / min [MW]"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:186
+msgid "Installed-capacity bounds per station."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:187
+msgid "reservoir_capacity_max, reservoir_capacity_min"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:189
+msgid "reservoir outflow max / min, generation flow max [m**3/s]"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:190
+msgid "Outflow and generation-flow constraints per station, hour, month."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:191
+msgid ""
+"reservoir_outflow_max, reservoir_outflow_min, "
+"reservoir_generation_flow_max"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:194
+msgid "reservoir storage max / min [m**3]"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:195
+msgid "Volume bounds per station, month, hour."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:196
+msgid "reservoir_storage_max, reservoir_storage_min"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:198
+msgid "reservoir initial / final storage level [m**3]"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:199
+msgid "Volume of each station at the start / end of each year."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:200
+msgid "reservoir_initial_storage_level, reservoir_final_storage_level"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:202
+msgid "reservoir tailrace level-discharge function [m and m**3/s]"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:203
+msgid ""
+"Piecewise lookup of tailrace level as a function of total discharge "
+"(table format)."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:205
+msgid "reservoir_tailrace_level_discharge_function"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:206
+msgid "reservoir forebay level-volume function [m and m**3]"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:207
+msgid "Piecewise lookup of forebay level as a function of volume (table format)."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:209
+msgid "reservoir_forebay_level_volume_function"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:212
+msgid "Optional inputs (skipped when absent)"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:219
+msgid "Description (default when absent)"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:222
+msgid "tech max gen profile [fraction]"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:223
+msgid ""
+"Time-varying upper bound on dispatch (PyPSA-style ``p_max_pu``). Default:"
+" ``1`` (no cap below installed capacity). Replaced ``capacity_factor`` in"
+" v1.8.0."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:226
+msgid "tech_max_gen_profile"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:227
+msgid "tech min gen profile [fraction]"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:228
+msgid ""
+"Time-varying lower bound on dispatch (``p_min_pu``). Default: ``0``. "
+"Subsumes the legacy \"must-run\" behavior."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:230
+msgid "tech_min_gen_profile"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:231
+msgid "tech capacity min [MW]"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:232
+msgid ""
+"Floor on total installed capacity per ``(zone, tech, year)``. Default: "
+"``0``."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:234
+msgid "tech_capacity_min"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:236
+msgid "policy carbon emission limit [tCO2]"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:237
+msgid ""
+"Cap on net emissions per limit-region (rows carry a comma-separated "
+"``zones`` field; one row per region per year). Wide-table format."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:239
+msgid "policy_carbon_emission_limit"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:240
+msgid "policy carbon tax [dollar/tCO2]"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:241
+msgid "Per-zone, per-year carbon tax on net emissions. Default: ``0``."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:242
+msgid "policy_carbon_tax"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:243
+msgid "policy carbon offset price [dollar/tCO2]"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:244
+msgid "Per-zone, per-year offset price. Default: ``0``."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:245
+msgid "policy_carbon_offset_price"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:246
+msgid "policy carbon offset limit [tCO2]"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:247
+msgid "Per-zone, per-year limit on offsets that may be purchased. Default: ``0``."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:249
+msgid "policy_carbon_offset_limit"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:251
+msgid "finance public / private debt ratio [fraction]"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:252
+msgid ""
+"Per-tech share of project capital financed by public and private debt. "
+"Equity ratio is the residual ``1 - public - private``. Activates the "
+"v1.9.0 finance module."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:255
+msgid "finance_public_debt_ratio, finance_private_debt_ratio"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:257
+msgid "finance cost of public / private debt, private equity [fraction]"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:258
+msgid ""
+"Per-(tech, zone) cost of each financing tranche. Combined into a project-"
+"level WACC that discounts construction outlays."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:260
+msgid ""
+"finance_cost_of_public_debt, finance_cost_of_private_debt, "
+"finance_cost_of_private_equity"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:263
+msgid "finance public debt max system / zone [dollar]"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:264
+msgid ""
+"System-wide and per-zone caps on public debt taken in each year. ``inf`` "
+"(or a missing entry) disables the cap."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:266
+msgid "finance_public_debt_max_system, finance_public_debt_max_zone"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:271
+msgid ""
+"``inf`` in a value cell means \"no upper bound\" -- the model skips the "
+"corresponding constraint."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:273
+msgid ""
+"Empty cells (NaN) are dropped by the loader for files declared with "
+"``\"drop_na\": true``."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:275
+msgid ""
+"The finance module is OFF unless ``finance_public_debt_ratio.csv`` is "
+"provided. With finance OFF, ``inv_factor`` falls back to the zonal "
+"discount rate -- so a fresh deployment without finance inputs matches the"
+" v1.8.x objective exactly."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:281
+msgid "Outputs"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:283
+msgid ""
+"Results are written to a NetCDF file (``year.nc`` by default; see "
+"``output_filename`` in ``config.json``). Use `xarray "
+"<https://docs.xarray.dev/en/stable/>`_ to read it; this `tutorial "
+"<https://xiaoganghe.github.io/python-climate-visuals/chapters/data-"
+"analytics/xarray-basic.html>`_ is a good entry point."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:289
+msgid "Output Variables"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:293
+msgid "Variable name"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:294
+msgid "Unit"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:297
+msgid "trans_export"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:298
+#: ../../source/Model_input_output.rst:302
+#: ../../source/Model_input_output.rst:309
+msgid "MWh per timestep"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:299
+msgid ""
+"Power dispatched from ``zone1`` toward ``zone2`` in each ``(hour, month, "
+"year)``, before transmission losses."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:301
+msgid "gen"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:303
+msgid "Generation per ``(tech, zone, hour, month, year)``."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:304
+msgid "install"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:305
+msgid "MW"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:306
+msgid ""
+"Total installed capacity per ``(year, zone, tech)`` after additions and "
+"retirements."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:308
+msgid "charge"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:310
+msgid "Storage charging energy per ``(tech, zone, hour, month, year)``."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:311
+msgid "carbon, carbon_breakdown"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:312
+msgid "tCO2"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:313
+msgid "Total emissions per year, and the per-(year, zone, tech) breakdown."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:315
+msgid "cost"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:316
+#: ../../source/Model_input_output.rst:319
+#: ../../source/Model_input_output.rst:322
+#: ../../source/Model_input_output.rst:325
+#: ../../source/Model_input_output.rst:329
+#: ../../source/Model_input_output.rst:342
+#: ../../source/Model_input_output.rst:347
+msgid "dollar"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:317
+msgid "Net present value of total system cost over the planning horizon."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:318
+msgid "cost_var, cost_var_breakdown"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:320
+msgid "Variable O&M + fuel cost (total and per-(year, zone, tech))."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:321
+msgid "cost_fix, cost_fix_breakdown"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:323
+msgid "Fixed O&M cost (total and per-(year, zone, tech))."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:324
+msgid "cost_newtech, cost_newtech_breakdown"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:326
+msgid ""
+"Discounted investment cost of new tech additions (total and per-(year, "
+"zone, tech))."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:328
+msgid "cost_newline, cost_newline_breakdown"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:330
+msgid ""
+"Discounted investment cost of new transmission lines (total and "
+"per-(year, zone1, zone2))."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:332
+msgid "shadow_price_demand"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:333
+msgid "dollar/MWh (NPV)"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:334
+msgid ""
+"Locational marginal price -- the marginal cost of meeting one extra MWh "
+"of demand at each ``(hour, month, year, zone)``. Discounted to NPV; "
+"divide by ``var_factor[year, zone]`` to recover undiscounted real-year "
+"prices. Sign flipped from the raw dual so positive means \"more expensive"
+" to serve more demand\". Skipped (with a warning logged) if the solver "
+"does not return duals (e.g. MIP)."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:341
+msgid "public_debt_newtech [#opt]_"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:343
+msgid ""
+"Discounted public-debt obligation incurred by new-tech investments. "
+"Emitted only when the v1.9.0 finance module is active."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:346
+msgid "income"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:348
+msgid ""
+"Discounted income from water-withdrawal services (only when "
+"``isinflow=true``)."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:350
+msgid "genflow, spillflow"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:351
+msgid "m**3/s"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:352
+msgid ""
+"Per-station hydro generation flow and spill flow (only when "
+"``isinflow=true``)."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:355
+msgid ""
+"Optional output -- present in the NetCDF file only when "
+"``finance_public_debt_ratio.csv`` is provided."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:359
+msgid "Running scenarios"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:361
+msgid ""
+"You can swap any single input file at the command line via "
+"``--<param_key> <suffix>``. PREP-SHOT appends the suffix to the "
+"parameter's ``file_name`` and loads the resulting CSV instead. For "
+"example, to run a \"low demand\" scenario, prepare a ``demand_low.csv`` "
+"file in the input folder and invoke::"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:369
+msgid ""
+"CLI flags are registered by **param key** (the dict key in "
+"``params.json``), not by file name -- the two can diverge after a file "
+"rename."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:374
+msgid "Setting global parameters"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:376
+msgid "``config.json`` (in the repo root) holds the model-wide settings:"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:383
+msgid "Setting"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:386
+msgid "input_folder"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:387
+msgid "Folder containing the input CSVs (relative to the repo root)."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:388
+msgid "output_filename"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:389
+msgid "Name of the NetCDF results file written under ``output/``."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:390
+msgid "hour"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:391
+msgid "Number of representative hours per period."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:392
+msgid "month"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:393
+msgid "Number of representative months per period."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:394
+msgid "dt"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:395
+msgid ""
+"Hours per timestep. ``demand`` is in MW; the balance constraint "
+"multiplies by ``dt`` to convert to MWh per timestep."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:397
+msgid "hours_in_year"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:398
+msgid "Hours-per-year scalar used for cost rollups (typically 8760)."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:399
+msgid "isinflow"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:400
+msgid ""
+"Toggles the hydropower / reservoir constraints. With ``false``, the model"
+" skips all reservoir math."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:402
+msgid "error_threshold"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:403
+msgid "Convergence threshold for the hydropower head-iteration loop."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:404
+msgid "iteration_number"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:405
+msgid "Maximum head-iteration count."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:406
+msgid "solver"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:407
+msgid ""
+"Optimization solver: ``highs``, ``gurobi``, ``copt``, ``mosek``, etc. "
+"(passed through to PyOptInterface)."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:409
+msgid "solver_path"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:410
+msgid ""
+"Path to the solver's dynamic library; only needed when auto- detection "
+"fails. See the `PyOptInterface setup notes "
+"<https://metab0t.github.io/PyOptInterface/getting_started.html#setup-of-"
+"optimizers>`_."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:413
+msgid "solver_parameters"
+msgstr ""
+
+#: ../../source/Model_input_output.rst:414
+msgid ""
+"Solver-specific options for `mosek "
+"<https://docs.mosek.com/latest/capi/parameters.html>`_, `gurobi "
+"<https://www.gurobi.com/documentation/11.0/refman/parameters.html>`_, "
+"`highs <https://ergo-code.github.io/HiGHS/dev/options/definitions/>`_, "
+"and `copt <https://guide.coap.online/copt/en-doc/parameter.html>`_."
+msgstr ""
+
+#: ../../source/Model_input_output.rst:420
+msgid ""
+"After tuning ``config.json``, run the model as described in "
+":ref:`installation`. The shipped ``input/`` folder is a working self-"
+"contained example."
+msgstr ""
+

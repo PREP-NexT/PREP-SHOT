@@ -1,0 +1,340 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023-2025, Zhanwei Liu and Xiaogang He (GPL-3.0)
+# This file is distributed under the same license as the PREP-SHOT package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PREP-SHOT latest\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-05 13:00+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh_CN\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/api/prepshot._model.cost.rst:2
+msgid "cost"
+msgstr ""
+
+#: of prepshot._model.cost:1
+msgid ""
+"This module contains objective functions for the model. The objective "
+"function of the model is to minimize the net present value of the "
+"system's cost. This includes capital cost, fixed O&M cost, variable cost "
+"and fuel cost by cost type, technology cost, transmission line cost by "
+"the source of cost, and operation cost and planning cost by the source of"
+" cost."
+msgstr ""
+
+#: of prepshot._model.cost:7
+msgid "The cost equations are defined as follows:"
+msgstr ""
+
+#: of prepshot._model.cost:-1
+msgid "Calculation of system-wide total cost"
+msgstr ""
+
+#: of prepshot._model.cost:14
+msgid ""
+"\\rm{cost}_{\\rm{tech}}^{\\rm{var}} &= \\frac{\\sum_{h,m,y,z,\\rm{e}}\n"
+"C_{y,z,\\rm{e}}^{\\rm{tech-var}}\\times \\rm{gen}_{h,m,y,z,\\rm{e}}}\n"
+"{\\omega} \\times \\rm{factor}_{y}^{\\rm{var}}\n"
+"\n"
+"\\rm{cost}_{\\rm{line}}^{\\rm{var}} &= \\frac{\\sum_{h,m,y,z_s,z_o}\n"
+"C_{y,z}^{\\rm{line-var}}\\times \\rm{export}_{h,m,y,z_s,z_o}}{\\omega}\n"
+"\\times \\rm{factor}_{y}^{\\rm{var}}\n"
+"\n"
+"\\rm{cost}^{\\rm{fuel}} & = \\frac{\\sum_{h,m,y,z,\\rm{e}}\n"
+"C_{y,z,\\rm{e}}^{\\rm{fuel}}\\times \\rm{gen}_{h,m,y,z,\\rm{e}}}{\\omega}"
+"\n"
+"\\times \\rm{factor}_{y}^{\\rm{var}}\n"
+"\n"
+"\\rm{cost}_{\\rm{tech}}^{\\rm{fix}} &= \\sum_{y,z,\\rm{e}}\n"
+"C_{y,z,\\rm{e}}^{\\rm{tech-fix}}\\times\n"
+"\\rm{cap}_{y,z,\\rm{e}}^{\\rm{existing-tech}}\\times\n"
+"\\rm{factor}_{y}^{\\rm{fix}}\n"
+"\n"
+"\\rm{cost}_{\\rm{line}}^{\\rm{fix}} &= \\sum_{y,z_s,z_o}\n"
+"C_{y,z_s,z_o}^{\\rm{line-fix}}\\times\n"
+"\\rm{cap}_{y,z_s,z_o}^{\\rm{existing-line}}\\times\n"
+"\\rm{factor}_{y}^{\\rm{fix}}\n"
+"\n"
+"\\rm{cost}_{\\rm{tech}}^{\\rm{inv}} &=  \\sum_{y,z,\\rm{e}}\n"
+"C_{y,z,\\rm{e}}^{\\rm{tech-inv}}\\times\n"
+"\\rm{cap}_{y,z,\\rm{e}}^{\\rm{tech-inv}}\\times\n"
+"\\rm{factor}_{y}^{\\rm{inv}}\n"
+"\n"
+"\\rm{cost}_{\\rm{line}}^{\\rm{inv}} &= \\sum_{y,z_s,z_o}\n"
+"C_{y,z_s,z_o}^{\\rm{line-inv}}\\times\n"
+"\\rm{cap}_{y,z_s,z_o}^{\\rm{line-inv}}\\times\n"
+"\\rm{factor}_{y}^{\\rm{inv}} \\times 0.5"
+msgstr ""
+
+#: of prepshot._model.cost.AddCostObjective:1
+msgid "Bases: :py:class:`object`"
+msgstr ""
+
+#: of prepshot._model.cost.AddCostObjective:1
+msgid "Objective function class to determine the total cost of the model."
+msgstr ""
+
+#: of prepshot._model.cost.AddCostObjective
+#: prepshot._model.cost.AddCostObjective.__init__
+#: prepshot._model.cost.AddCostObjective.carbon_cost_breakdown
+#: prepshot._model.cost.AddCostObjective.carbon_offset_cost_breakdown
+#: prepshot._model.cost.AddCostObjective.cost_fix_line_breakdown
+#: prepshot._model.cost.AddCostObjective.cost_fix_tech_breakdown
+#: prepshot._model.cost.AddCostObjective.cost_newline_breakdown
+#: prepshot._model.cost.AddCostObjective.cost_newtech_breakdown
+#: prepshot._model.cost.AddCostObjective.cost_var_line_breakdown
+#: prepshot._model.cost.AddCostObjective.cost_var_tech_breakdown
+#: prepshot._model.cost.AddCostObjective.fuel_cost_breakdown
+msgid "Parameters"
+msgstr ""
+
+#: of prepshot._model.cost.AddCostObjective.__init__:1
+msgid "The constructor for objective functions class."
+msgstr ""
+
+#: of prepshot._model.cost.AddCostObjective.__init__:3
+msgid "Model to be solved."
+msgstr ""
+
+#: of prepshot._model.cost.AddCostObjective.__init__
+#: prepshot._model.cost.AddCostObjective.carbon_cost_breakdown
+#: prepshot._model.cost.AddCostObjective.carbon_cost_rule
+#: prepshot._model.cost.AddCostObjective.carbon_offset_cost_breakdown
+#: prepshot._model.cost.AddCostObjective.carbon_offset_cost_rule
+#: prepshot._model.cost.AddCostObjective.cost_fix_line_breakdown
+#: prepshot._model.cost.AddCostObjective.cost_fix_tech_breakdown
+#: prepshot._model.cost.AddCostObjective.cost_newline_breakdown
+#: prepshot._model.cost.AddCostObjective.cost_newtech_breakdown
+#: prepshot._model.cost.AddCostObjective.cost_var_line_breakdown
+#: prepshot._model.cost.AddCostObjective.cost_var_tech_breakdown
+#: prepshot._model.cost.AddCostObjective.define_objective
+#: prepshot._model.cost.AddCostObjective.fix_cost_rule
+#: prepshot._model.cost.AddCostObjective.fuel_cost_breakdown
+#: prepshot._model.cost.AddCostObjective.income_rule
+#: prepshot._model.cost.AddCostObjective.newline_cost_rule
+#: prepshot._model.cost.AddCostObjective.newtech_cost_rule
+#: prepshot._model.cost.AddCostObjective.var_cost_rule
+msgid "Return type"
+msgstr ""
+
+#: of prepshot._model.cost.AddCostObjective.carbon_cost_breakdown:1
+msgid "Carbon-tax cost breakdown by year and zone."
+msgstr ""
+
+#: of prepshot._model.cost.AddCostObjective.carbon_cost_breakdown:3
+msgid ""
+"Tax is applied to net zonal emissions (raw emissions minus purchased "
+"offsets), in line with the carbon-market accounting convention."
+msgstr ""
+
+#: of prepshot._model.cost.AddCostObjective.carbon_cost_breakdown:6
+#: prepshot._model.cost.AddCostObjective.carbon_offset_cost_breakdown:3
+#: prepshot._model.cost.AddCostObjective.cost_fix_line_breakdown:4
+#: prepshot._model.cost.AddCostObjective.cost_fix_tech_breakdown:3
+#: prepshot._model.cost.AddCostObjective.cost_newline_breakdown:3
+#: prepshot._model.cost.AddCostObjective.cost_newtech_breakdown:3
+#: prepshot._model.cost.AddCostObjective.cost_var_line_breakdown:4
+#: prepshot._model.cost.AddCostObjective.cost_var_tech_breakdown:3
+#: prepshot._model.cost.AddCostObjective.fuel_cost_breakdown:3
+msgid "Year."
+msgstr ""
+
+#: of prepshot._model.cost.AddCostObjective.carbon_cost_breakdown:8
+#: prepshot._model.cost.AddCostObjective.carbon_offset_cost_breakdown:5
+#: prepshot._model.cost.AddCostObjective.cost_fix_line_breakdown:6
+#: prepshot._model.cost.AddCostObjective.cost_fix_line_breakdown:8
+#: prepshot._model.cost.AddCostObjective.cost_fix_tech_breakdown:5
+#: prepshot._model.cost.AddCostObjective.cost_newline_breakdown:5
+#: prepshot._model.cost.AddCostObjective.cost_newline_breakdown:7
+#: prepshot._model.cost.AddCostObjective.cost_newtech_breakdown:5
+#: prepshot._model.cost.AddCostObjective.cost_var_line_breakdown:6
+#: prepshot._model.cost.AddCostObjective.cost_var_line_breakdown:8
+#: prepshot._model.cost.AddCostObjective.cost_var_tech_breakdown:5
+#: prepshot._model.cost.AddCostObjective.fuel_cost_breakdown:5
+msgid "Zone."
+msgstr ""
+
+#: of prepshot._model.cost.AddCostObjective.carbon_cost_breakdown
+#: prepshot._model.cost.AddCostObjective.carbon_cost_rule
+#: prepshot._model.cost.AddCostObjective.carbon_offset_cost_breakdown
+#: prepshot._model.cost.AddCostObjective.carbon_offset_cost_rule
+#: prepshot._model.cost.AddCostObjective.cost_fix_line_breakdown
+#: prepshot._model.cost.AddCostObjective.cost_fix_tech_breakdown
+#: prepshot._model.cost.AddCostObjective.cost_newline_breakdown
+#: prepshot._model.cost.AddCostObjective.cost_newtech_breakdown
+#: prepshot._model.cost.AddCostObjective.cost_var_line_breakdown
+#: prepshot._model.cost.AddCostObjective.cost_var_tech_breakdown
+#: prepshot._model.cost.AddCostObjective.fix_cost_rule
+#: prepshot._model.cost.AddCostObjective.fuel_cost_breakdown
+#: prepshot._model.cost.AddCostObjective.income_rule
+#: prepshot._model.cost.AddCostObjective.newline_cost_rule
+#: prepshot._model.cost.AddCostObjective.newtech_cost_rule
+#: prepshot._model.cost.AddCostObjective.var_cost_rule
+msgid "Returns"
+msgstr ""
+
+#: of prepshot._model.cost.AddCostObjective.carbon_cost_breakdown:11
+msgid "Carbon-tax cost at a given year and zone."
+msgstr ""
+
+#: of prepshot._model.cost.AddCostObjective.carbon_cost_rule:1
+msgid "Total carbon-tax cost over all years and zones."
+msgstr ""
+
+#: of prepshot._model.cost.AddCostObjective.carbon_cost_rule:3
+msgid "Total carbon-tax cost."
+msgstr ""
+
+#: of prepshot._model.cost.AddCostObjective.carbon_offset_cost_breakdown:1
+msgid "Cost of purchased carbon offsets by year and zone."
+msgstr ""
+
+#: of prepshot._model.cost.AddCostObjective.carbon_offset_cost_breakdown:8
+msgid "Carbon-offset cost at a given year and zone."
+msgstr ""
+
+#: of prepshot._model.cost.AddCostObjective.carbon_offset_cost_rule:1
+msgid "Total cost of purchased carbon offsets over all years and zones."
+msgstr ""
+
+#: of prepshot._model.cost.AddCostObjective.carbon_offset_cost_rule:3
+msgid "Total carbon-offset cost."
+msgstr ""
+
+#: of prepshot._model.cost.AddCostObjective.cost_fix_line_breakdown:1
+msgid "Fixed operation and maintenance cost breakdown of transmission lines."
+msgstr ""
+
+#: of prepshot._model.cost.AddCostObjective.cost_fix_line_breakdown:11
+msgid ""
+"Fixed operation and maintenance cost of transmission lines at a given "
+"year, source and destination zone."
+msgstr ""
+
+#: of prepshot._model.cost.AddCostObjective.cost_fix_tech_breakdown:1
+msgid "Fixed operation and maintenance cost breakdown."
+msgstr ""
+
+#: of prepshot._model.cost.AddCostObjective.cost_fix_tech_breakdown:7
+#: prepshot._model.cost.AddCostObjective.cost_newtech_breakdown:7
+#: prepshot._model.cost.AddCostObjective.cost_var_tech_breakdown:7
+#: prepshot._model.cost.AddCostObjective.fuel_cost_breakdown:7
+msgid "Technology."
+msgstr ""
+
+#: of prepshot._model.cost.AddCostObjective.cost_fix_tech_breakdown:10
+msgid ""
+"Fixed operation and maintenance cost of technologies at a given year, "
+"zone and technology."
+msgstr ""
+
+#: of prepshot._model.cost.AddCostObjective.cost_newline_breakdown:1
+msgid "New transmission line investment cost breakdown."
+msgstr ""
+
+#: of prepshot._model.cost.AddCostObjective.cost_newline_breakdown:10
+msgid ""
+"Investment cost of new transmission lines at a given year, source and "
+"destination zone."
+msgstr ""
+
+#: of prepshot._model.cost.AddCostObjective.cost_newtech_breakdown:1
+msgid "New technology investment cost breakdown."
+msgstr ""
+
+#: of prepshot._model.cost.AddCostObjective.cost_newtech_breakdown:10
+msgid "Investment cost of new technologies at a given year, zone and technology."
+msgstr ""
+
+#: of prepshot._model.cost.AddCostObjective.cost_var_line_breakdown:1
+msgid "Variable operation and maintenance cost breakdown of transmission lines."
+msgstr ""
+
+#: of prepshot._model.cost.AddCostObjective.cost_var_line_breakdown:11
+msgid ""
+"Variable operation and maintenance cost of transmission lines at a given "
+"year, source and destination zone."
+msgstr ""
+
+#: of prepshot._model.cost.AddCostObjective.cost_var_tech_breakdown:1
+msgid "Variable operation and maintenance cost breakdown."
+msgstr ""
+
+#: of prepshot._model.cost.AddCostObjective.cost_var_tech_breakdown:10
+msgid ""
+"Variable operation and maintenance cost of technologies at a given year, "
+"zone and technology."
+msgstr ""
+
+#: of prepshot._model.cost.AddCostObjective.define_objective:1
+msgid "Objective function of the model, to minimize total cost."
+msgstr ""
+
+#: of prepshot._model.cost.AddCostObjective.fix_cost_rule:1
+msgid "Fixed O&M cost of technologies and transmission lines."
+msgstr ""
+
+#: of prepshot._model.cost.AddCostObjective.fix_cost_rule:3
+msgid ""
+"Total fixed O&M cost of technologies and transmission lines over all "
+"years, zones and technologies."
+msgstr ""
+
+#: of prepshot._model.cost.AddCostObjective.fuel_cost_breakdown:1
+msgid "Fuel cost breakdown of technologies."
+msgstr ""
+
+#: of prepshot._model.cost.AddCostObjective.fuel_cost_breakdown:10
+msgid "Fuel cost at a given year, zone and technology."
+msgstr ""
+
+#: of prepshot._model.cost.AddCostObjective.income_rule:1
+msgid ""
+"Income from water withdrawal. Reference: "
+"https://www.nature.com/articles/s44221-023-00126-0"
+msgstr ""
+
+#: of prepshot._model.cost.AddCostObjective.income_rule:4
+msgid "Income from water withdrawal."
+msgstr ""
+
+#: of prepshot._model.cost.AddCostObjective.newline_cost_rule:1
+msgid "Total investment cost of new transmission lines."
+msgstr ""
+
+#: of prepshot._model.cost.AddCostObjective.newline_cost_rule:3
+msgid "Total investment cost of new transmission lines over all years, zones."
+msgstr ""
+
+#: of prepshot._model.cost.AddCostObjective.newtech_cost_rule:1
+msgid "Total investment cost of new technologies."
+msgstr ""
+
+#: of prepshot._model.cost.AddCostObjective.newtech_cost_rule:3
+msgid ""
+"Total investment cost of new technologies over all years, zones and "
+"technologies."
+msgstr ""
+
+#: of prepshot._model.cost.AddCostObjective.var_cost_rule:1
+msgid ""
+"Calculate total variable cost, which is sum of the fuel cost of "
+"technologies and variable Operation and maintenance (O&M) cost of "
+"technologies and transmission lines."
+msgstr ""
+
+#: of prepshot._model.cost.AddCostObjective.var_cost_rule:5
+msgid "Total variable cost across all years, zones and technologies."
+msgstr ""
+

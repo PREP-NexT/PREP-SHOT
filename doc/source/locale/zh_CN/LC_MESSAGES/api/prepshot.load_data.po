@@ -1,0 +1,211 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023-2025, Zhanwei Liu and Xiaogang He (GPL-3.0)
+# This file is distributed under the same license as the PREP-SHOT package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PREP-SHOT latest\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-05 13:00+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh_CN\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/api/prepshot.load_data.rst:2
+msgid "load_data"
+msgstr ""
+
+#: of prepshot.load_data:1
+msgid ""
+"This module contains functions for loading and processing data from JSON "
+"and Excel files."
+msgstr ""
+
+#: of prepshot.load_data.check_schema:1
+msgid "Validate that ``params.json`` declares a compatible ``_schema_version``."
+msgstr ""
+
+#: of prepshot.load_data.check_schema:3
+msgid ""
+"Raises a :class:`RuntimeError` with a clear migration hint if the file is"
+" missing the stamp or carries a different version than this release "
+"supports."
+msgstr ""
+
+#: of prepshot.load_data.check_schema prepshot.load_data.compute_cost_factors
+#: prepshot.load_data.extract_config_data prepshot.load_data.extract_sets
+#: prepshot.load_data.load_excel_data prepshot.load_data.load_json
+#: prepshot.load_data.process_data prepshot.load_data.read_long_csv
+msgid "Parameters"
+msgstr ""
+
+#: of prepshot.load_data.check_schema:7
+msgid "Parsed contents of ``params.json``."
+msgstr ""
+
+#: of prepshot.load_data.check_schema prepshot.load_data.compute_cost_factors
+#: prepshot.load_data.extract_config_data prepshot.load_data.extract_sets
+#: prepshot.load_data.load_excel_data prepshot.load_data.load_json
+#: prepshot.load_data.process_data prepshot.load_data.read_long_csv
+msgid "Return type"
+msgstr ""
+
+#: of prepshot.load_data.compute_cost_factors:1
+msgid ""
+"Calculate cost factors for various transmission investment and "
+"operational costs."
+msgstr ""
+
+#: of prepshot.load_data.compute_cost_factors:4
+#: prepshot.load_data.extract_sets:3
+msgid "Dictionary containing loaded parameters."
+msgstr ""
+
+#: of prepshot.load_data.extract_config_data:1
+msgid "Extract necessary data from configuration settings."
+msgstr ""
+
+#: of prepshot.load_data.extract_config_data:3
+msgid "Configuration data for the model."
+msgstr ""
+
+#: of prepshot.load_data.extract_config_data prepshot.load_data.load_json
+#: prepshot.load_data.process_data prepshot.load_data.read_long_csv
+msgid "Returns"
+msgstr ""
+
+#: of prepshot.load_data.extract_config_data:6
+msgid "Dictionary containing necessary configuration data."
+msgstr ""
+
+#: of prepshot.load_data.extract_sets:1
+msgid "Extract simple sets from loaded parameters."
+msgstr ""
+
+#: of prepshot.load_data.load_excel_data:1
+msgid "Load input data based on the provided parameters."
+msgstr ""
+
+#: of prepshot.load_data.load_excel_data:3
+msgid "The function dispatches on ``\"format\"``:"
+msgstr ""
+
+#: of prepshot.load_data.load_excel_data:5
+msgid ""
+"``\"format\": \"long\"`` (default) -- load from a ``.csv`` file in tidy "
+"form (dimension columns first, value column last). See "
+":func:`read_long_csv`."
+msgstr ""
+
+#: of prepshot.load_data.load_excel_data:8
+msgid ""
+"``\"format\": \"table\"`` -- load from a ``.csv`` file with multiple "
+"value columns, returned as a DataFrame so consumers can use ``groupby``, "
+"column-by-name access, etc."
+msgstr ""
+
+#: of prepshot.load_data.load_excel_data:12
+msgid ""
+"Each entry may also declare ``\"required\": false`` and a ``\"default\"``"
+" value. If the file for an optional parameter is missing, the loader "
+"silently substitutes the default (or an empty dict if none is given) and "
+"logs a debug message. Required parameters with missing files still "
+"terminate the process."
+msgstr ""
+
+#: of prepshot.load_data.load_excel_data:18
+msgid ""
+"The legacy function name is kept for backwards-compatible imports; "
+"despite the ``_excel_`` in the name, all on-disk inputs are CSV as of "
+"v1.5.0."
+msgstr ""
+
+#: of prepshot.load_data.load_excel_data:22 prepshot.load_data.process_data:5
+msgid "Path to the input folder."
+msgstr ""
+
+#: of prepshot.load_data.load_excel_data:24
+msgid ""
+"Dictionary containing parameter names and their corresponding file "
+"information."
+msgstr ""
+
+#: of prepshot.load_data.load_excel_data:27
+msgid "Dictionary to store loaded data."
+msgstr ""
+
+#: of prepshot.load_data.load_json:1
+msgid "Load data from a JSON file."
+msgstr ""
+
+#: of prepshot.load_data.load_json:3
+msgid "Path to the JSON file."
+msgstr ""
+
+#: of prepshot.load_data.load_json:6
+msgid "Dictionary containing data from the JSON file."
+msgstr ""
+
+#: of prepshot.load_data.process_data:1
+msgid "Load and process data from input folder based on parameters settings."
+msgstr ""
+
+#: of prepshot.load_data.process_data:3
+msgid "Dictionary containing parameters information."
+msgstr ""
+
+#: of prepshot.load_data.process_data:8
+msgid "Dictionary containing processed parameters."
+msgstr ""
+
+#: of prepshot.load_data.read_long_csv:1
+msgid "Read a long-format (\"tidy\") CSV input file."
+msgstr ""
+
+#: of prepshot.load_data.read_long_csv:3
+msgid ""
+"The convention is: dimension columns first, value column last. For "
+"example a 2-dim input ``carbon_tax`` looks like::"
+msgstr ""
+
+#: of prepshot.load_data.read_long_csv:11
+msgid ""
+"The returned dict matches the shape produced by the wide-format reader "
+"for the same parameter:"
+msgstr ""
+
+#: of prepshot.load_data.read_long_csv:14
+msgid "1 dimension column -> ``{key: value}`` (scalar keys)"
+msgstr ""
+
+#: of prepshot.load_data.read_long_csv:15
+msgid "2+ dimension columns -> ``{(d1, d2, ...): value}`` (tuple keys)"
+msgstr ""
+
+#: of prepshot.load_data.read_long_csv:17
+msgid ""
+"The ORDER of the dimension columns in the CSV determines the order of "
+"elements in the output keys, so model-side lookups work unchanged "
+"regardless of which format the file is in on disk."
+msgstr ""
+
+#: of prepshot.load_data.read_long_csv:21
+msgid "Path to the CSV file."
+msgstr ""
+
+#: of prepshot.load_data.read_long_csv:23
+msgid "If True, rows with any NaN are dropped before keying."
+msgstr ""
+
+#: of prepshot.load_data.read_long_csv:26
+msgid "Mapping from dimension key (or tuple of keys) to the value."
+msgstr ""
+

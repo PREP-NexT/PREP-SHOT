@@ -1,0 +1,1860 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023-2025, Zhanwei Liu and Xiaogang He (GPL-3.0)
+# This file is distributed under the same license as the PREP-SHOT package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PREP-SHOT latest\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-05 13:00+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh_CN\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/Mathematical_notations.rst:2
+msgid "Mathematical Notation"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:4
+msgid ""
+"This page provides a detailed description of the mathematical notations "
+"used for formulating the model's objective function and constraints "
+":cite:p:`liu2023`."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:7
+msgid "Unit List"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:9
+msgid "The description of the units used in this page are as follows:"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:16
+#: ../../source/Mathematical_notations.rst:65
+#: ../../source/Mathematical_notations.rst:125
+#: ../../source/Mathematical_notations.rst:280
+msgid "Unit"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:17
+#: ../../source/Mathematical_notations.rst:64
+#: ../../source/Mathematical_notations.rst:124
+#: ../../source/Mathematical_notations.rst:279
+msgid "Description"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:19
+#: ../../source/Mathematical_notations.rst:73
+#: ../../source/Mathematical_notations.rst:416
+#: ../../source/Mathematical_notations.rst:420
+#: ../../source/Mathematical_notations.rst:436
+msgid "hr"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:20
+#: ../../source/Mathematical_notations.rst:72
+msgid "Hour"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:22
+#: ../../source/Mathematical_notations.rst:77
+#: ../../source/Mathematical_notations.rst:89
+#: ../../source/Mathematical_notations.rst:428
+#: ../../source/Mathematical_notations.rst:432
+msgid "yr"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:23
+#: ../../source/Mathematical_notations.rst:76
+msgid "Year"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:25
+#: ../../source/Mathematical_notations.rst:129
+#: ../../source/Mathematical_notations.rst:133
+#: ../../source/Mathematical_notations.rst:137
+#: ../../source/Mathematical_notations.rst:141
+#: ../../source/Mathematical_notations.rst:145
+#: ../../source/Mathematical_notations.rst:149
+#: ../../source/Mathematical_notations.rst:153
+#: ../../source/Mathematical_notations.rst:157
+#: ../../source/Mathematical_notations.rst:161
+msgid "dollar"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:26
+msgid "US Dollar"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:28
+msgid "kW"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:29
+msgid "Kilowatt"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:31
+#: ../../source/Mathematical_notations.rst:189
+#: ../../source/Mathematical_notations.rst:193
+#: ../../source/Mathematical_notations.rst:197
+#: ../../source/Mathematical_notations.rst:201
+#: ../../source/Mathematical_notations.rst:205
+#: ../../source/Mathematical_notations.rst:209
+#: ../../source/Mathematical_notations.rst:213
+#: ../../source/Mathematical_notations.rst:217
+#: ../../source/Mathematical_notations.rst:220
+#: ../../source/Mathematical_notations.rst:224
+#: ../../source/Mathematical_notations.rst:320
+#: ../../source/Mathematical_notations.rst:328
+#: ../../source/Mathematical_notations.rst:332
+msgid "MW"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:32
+msgid "Megawatt"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:34
+#: ../../source/Mathematical_notations.rst:165
+#: ../../source/Mathematical_notations.rst:169
+#: ../../source/Mathematical_notations.rst:173
+#: ../../source/Mathematical_notations.rst:177
+#: ../../source/Mathematical_notations.rst:181
+msgid "MWh"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:35
+msgid "Megawatt-hour"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:37
+msgid "MWy"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:38
+msgid "Megawatt-year"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:40
+msgid "MW-km"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:41
+msgid "Megawatt-kilometer"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:43
+#: ../../source/Mathematical_notations.rst:228
+#: ../../source/Mathematical_notations.rst:232
+#: ../../source/Mathematical_notations.rst:316
+msgid "tonne"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:44
+msgid "Tonne"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:46
+#: ../../source/Mathematical_notations.rst:256
+#: ../../source/Mathematical_notations.rst:260
+#: ../../source/Mathematical_notations.rst:264
+#: ../../source/Mathematical_notations.rst:268
+msgid "m"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:47
+msgid "Meter"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:49
+msgid "s"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:50
+msgid "Second"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:52
+#: ../../source/Mathematical_notations.rst:69
+#: ../../source/Mathematical_notations.rst:81
+#: ../../source/Mathematical_notations.rst:85
+#: ../../source/Mathematical_notations.rst:93
+#: ../../source/Mathematical_notations.rst:97
+#: ../../source/Mathematical_notations.rst:101
+#: ../../source/Mathematical_notations.rst:105
+#: ../../source/Mathematical_notations.rst:109
+#: ../../source/Mathematical_notations.rst:113
+#: ../../source/Mathematical_notations.rst:324
+#: ../../source/Mathematical_notations.rst:336
+#: ../../source/Mathematical_notations.rst:340
+#: ../../source/Mathematical_notations.rst:344
+#: ../../source/Mathematical_notations.rst:388
+#: ../../source/Mathematical_notations.rst:400
+#: ../../source/Mathematical_notations.rst:404
+#: ../../source/Mathematical_notations.rst:408
+#: ../../source/Mathematical_notations.rst:412
+#: ../../source/Mathematical_notations.rst:424
+msgid "N/A"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:53
+msgid "Not Applicable"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:56
+msgid "Set List"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:63
+msgid "Set"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:67
+msgid ":math:`e \\in \\mathcal{E}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:68
+msgid "Technology"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:71
+msgid ":math:`h, h_{\\rm{start}}, h_{\\rm{end}} \\in \\mathcal{H}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:75
+msgid ""
+":math:`y, y_{\\rm{next}}, y_{\\rm{pre}}, y_{\\rm{start}}, y_{\\rm{end}} "
+"\\in \\rm \\mathcal{Y}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:79
+msgid ":math:`m \\in \\rm \\mathcal{M}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:80
+msgid "Month"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:83
+msgid ":math:`z, z_{\\rm{from}}, z_{\\rm{to}} \\in \\mathcal{Z}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:84
+msgid "Zone"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:87
+msgid ":math:`{\\rm{age}} \\in \\mathcal{AGE}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:88
+msgid "Operation time"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:91
+msgid ":math:`s, {\\rm{su}} \\in \\mathcal{S}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:92
+msgid "Hydropower station"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:95
+msgid ":math:`\\mathcal{IU}_{\\it{s}} \\in \\mathcal{S}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:96
+msgid "Immediate upstream hydropower stations of hydropower station :math:`s`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:99
+msgid ":math:`\\mathcal{SZ}_{\\it{z}} \\in \\mathcal{S}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:100
+msgid "Subset of hydropower stations located in zone :math:`z`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:103
+msgid ":math:`\\mathcal{DISP} \\in \\mathcal{E}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:104
+msgid "Subset of dispatchable technology"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:107
+msgid ":math:`\\mathcal{NDISP} \\in \\mathcal{E}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:108
+msgid "Subset of non-dispatchable technology"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:111
+msgid ":math:`\\mathcal{STOR} \\in \\mathcal{E}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:112
+msgid "Subset of storage technology"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:116
+msgid "Variable List"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:123
+#: ../../source/Mathematical_notations.rst:278
+msgid "Symbol"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:127
+msgid ":math:`\\rm{cost}^{\\rm{total}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:128
+msgid "System-wide total cost."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:131
+msgid ":math:`\\rm{cost}^{\\rm{var}}_{\\rm{tech}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:132
+msgid "System-wide variable Operation and Maintenance (O&M) cost of technologies."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:135
+msgid ":math:`\\rm{cost}^{\\rm{fuel}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:136
+msgid "System-wide fuel cost of technologies."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:139
+msgid ":math:`\\rm{cost}^{\\rm{fix}}_{\\rm{tech}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:140
+msgid "System-wide fixed O&M cost of technologies."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:143
+msgid ":math:`\\rm{cost}^{\\rm{fix}}_{\\rm{line}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:144
+msgid "System-wide fixed O&M cost of transmission lines."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:147
+msgid ":math:`\\rm{cost}^{\\rm{inv}}_{\\rm{tech}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:148
+msgid "System-wide capital cost of technologies."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:151
+msgid ":math:`\\rm{cost}^{\\rm{inv}}_{\\rm{line}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:152
+msgid "System-wide capital cost of transmission lines."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:155
+msgid ":math:`\\rm{cost}^{\\rm{annualfuel}}_{\\it{y}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:156
+msgid ""
+"Fuel cost of technologies in the modelled year:math:`y` (the present "
+"value of modelled year :math:`y`)."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:159
+msgid ":math:`\\rm{cost}^{\\rm{fuel}}_{\\it{y}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:160
+msgid ""
+"Fuel cost of technologies accumulated from modelled year :math:`y` to a "
+"non-modelled year before the immediate next modelled year (the present "
+"value of modelled year :math:`y`)."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:163
+msgid ":math:`\\rm{gen}_{\\it{h,m,y,z,e}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:164
+msgid ""
+"Power generation of technology :math:`e` in zone :math:`z` in hour "
+":math:`h` in month :math:`m` of year :math:`y`."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:167
+msgid ":math:`\\rm{charge}_{\\it{h,m,y,z,e}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:168
+msgid ""
+"Charging electricity of storage technology :math:`e` in zone :math:`z` in"
+" hour :math:`h` in month :math:`m` of year :math:`y`."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:171
+msgid ":math:`\\rm{export}_{{\\it{h,m,y,z}}_{\\rm{from}},{\\it{z}}_{\\rm{to}}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:172
+msgid ""
+"Electric energy exported from zone :math:`z_{\\rm{from}}` to zone "
+":math:`z_{\\rm{to}}` in hour :math:`h` in month :math:`m` of year "
+":math:`y`."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:175
+msgid ":math:`\\rm{import}_{{\\it{h,m,y,z}}_{\\rm{from}},{\\it{z}}_{\\rm{to}}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:176
+msgid ""
+"Electric energy imported from zone :math:`z_{\\rm{from}}` to zone "
+":math:`z_{\\rm{to}}`  in hour :math:`h` in month :math:`m` of year "
+":math:`y`."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:179
+msgid ":math:`\\rm{storage}_{\\it{h,m,y,z,e}}^{\\rm{energy}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:180
+msgid ""
+"Energy storage level of storage technology :math:`e` in hour :math:`h` in"
+" month :math:`m` of year :math:`y` in zone :math:`z`."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:183
+msgid ":math:`\\rm{storage}_{\\it{s,h,m,y}}^{\\rm{reservoir}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:184
+msgid ""
+"Reservoir storage corresponding to hydropower station :math:`s` in hour "
+":math:`h` in month :math:`m` of year :math:`y`."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:185
+msgid ":math:`\\text{m}^\\text{3}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:187
+msgid ":math:`\\rm{power}_{\\it{h,m,y,z,e}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:188
+msgid ""
+"Overall power output of technology :math:`e` in zone :math:`z` in hour "
+":math:`h` in month :math:`m` of year :math:`y`."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:191
+msgid ":math:`\\rm{power}_{\\it{h,m,y,z,e}}^{\\it{c}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:192
+msgid ""
+"Charging power of storage technology :math:`e` in zone :math:`z` in hour "
+":math:`h` in month :math:`m` of year :math:`y`."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:195
+msgid ":math:`\\rm{power}_{\\it{h,m,y,z,e}}^{\\rm{up}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:196
+msgid ""
+"Increment in power output of technology :math:`e` in zone :math:`z` from "
+"hour :math:`h`-1 to hour :math:`h` in month :math:`m` of year :math:`y`."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:199
+msgid ":math:`\\rm{power}_{\\it{h,m,y,z,e}}^{\\rm{down}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:200
+msgid ""
+"Decrement in power output of technology :math:`e` in zone :math:`z` from "
+"hour :math:`h`-1 to hour :math:`h` in month :math:`m` of year :math:`y`."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:203
+msgid ":math:`\\rm{power}_{\\it{s,h,m,y}}^{\\rm{hydro}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:204
+msgid ""
+"Power output of hydropower station :math:`s` in hour :math:`h` in month "
+":math:`m` of year :math:`y`."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:207
+msgid ":math:`\\rm{cap}_{\\it{y,z,e}}^{\\rm{existingtech}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:208
+msgid ""
+"Existing installed capacity of technology :math:`e` in year :math:`y` in "
+"zone :math:`z`."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:211
+msgid ":math:`\\rm{cap}_{{\\it{y,z}}_{\\rm{from}},{\\it{z}}_{\\rm{to}}}^{\\rm{existingline}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:212
+msgid ""
+"Existing transmission capacity in year :math:`y` from zone "
+":math:`z_{\\rm{from}}` to zone :math:`z_{\\rm{to}}`."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:215
+msgid ":math:`\\rm{cap}_{\\it{y,z,e}}^{invtech}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:216
+msgid ""
+"Installed capacity of newly built technology :math:`e` in year :math:`y` "
+"in zone :math:`z`."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:218
+msgid ":math:`\\rm{cap}_{{\\it{y,z}}_{\\rm{from}},{\\it{z}}_{\\rm{to}}}^{\\rm{invline}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:219
+msgid ""
+"Capacity of newly built transmission lines from zone "
+":math:`z_{\\rm{from}}` to zone :math:`z_{\\rm{to}}` in year :math:`y`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:222
+msgid ":math:`\\rm{cap}_{\\it{y,z,e}}^{\\rm{remaining}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:223
+msgid ""
+"Remaining installed capacity of technology :math:`e` in year :math:`y` in"
+" zone :math:`z`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:226
+msgid ":math:`\\rm{carbon}_{\\it{y,e}}^{\\rm{tech}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:227
+msgid ""
+"Carbon dioxide equivalent emissions of technology :math:`e` in year "
+":math:`y`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:230
+msgid ":math:`\\rm{carbon}_{\\it y}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:231
+msgid ""
+"Carbon dioxide equivalent emissions of the entire energy system in year "
+":math:`y`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:234
+msgid ":math:`\\rm{inflow}_{\\it{s,h,m,y}}^{\\rm{total}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:235
+msgid ""
+"Total inflow of reservoir corresponding to hydropower station :math:`s` "
+"in hour :math:`h` in month :math:`m` of year :math:`y`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:236
+#: ../../source/Mathematical_notations.rst:240
+#: ../../source/Mathematical_notations.rst:244
+#: ../../source/Mathematical_notations.rst:248
+#: ../../source/Mathematical_notations.rst:252
+msgid ":math:`\\text{m}^\\text{3}/\\text{s}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:238
+msgid ":math:`\\rm{outflow}_{\\it{s,h,m,y}}^{\\rm{total}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:239
+msgid ""
+"Total outflow of reservoir corresponding to hydropower station :math:`s` "
+"in hour :math:`h` in month :math:`m` of year :math:`y`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:242
+msgid ":math:`\\rm{outflow}_{\\it{s,h,m,y}}^{\\rm{gen}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:243
+msgid ""
+"Generation outflow of reservoir corresponding to hydropower station "
+":math:`s` in hour :math:`h` in month :math:`m` of year :math:`y`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:246
+msgid ":math:`\\rm{outflow}_{\\it{s,h,m,y}}^{\\rm{withdraw}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:247
+msgid ""
+"Water withdrawal of reservoir corresponding to hydropower station "
+":math:`s` in hour :math:`h` in month :math:`m` of year :math:`y`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:250
+msgid ":math:`\\rm{outflow}_{\\it{s,h,m,y}}^{\\rm{spillage}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:251
+msgid ""
+"Spillage outflow of reservoir corresponding to hydropower station "
+":math:`s` in hour :math:`h` in month :math:`m` of year :math:`y`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:254
+msgid ":math:`\\rm{head}_{\\it{s,h,m,y}}^{\\rm{net}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:255
+msgid ""
+"Net water head of hydropower station :math:`s` in hour :math:`h` in month"
+" :math:`m` of year :math:`y`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:258
+msgid ":math:`\\rm{head}_{\\it{s,h,m,y}}^{\\rm{loss}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:259
+msgid ""
+"Water head loss of hydropower station :math:`s` in hour :math:`h` in "
+"month :math:`m` of year :math:`y`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:262
+msgid ":math:`z_{\\it{s,h,m,y}}^{\\rm{forebay}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:263
+msgid ""
+"Forebay water level of reservoir corresponding to hydropower station "
+":math:`s` in hour :math:`h` in month :math:`m` of year :math:`y`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:266
+msgid ":math:`z_{\\it{s,h,m,y}}^{\\rm{tailrace}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:267
+msgid ""
+"Tailrace water level of reservoir corresponding to hydropower station "
+":math:`s` in hour :math:`h` in month :math:`m` of year :math:`y`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:271
+msgid "Parameter List"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:282
+msgid ":math:`{{C}}_{\\it{y,z,e}}^{{\\rm{vartech}}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:283
+msgid ""
+"Variable O&M cost per unit power generation from technology :math:`e` in "
+"year :math:`y` in zone :math:`z`."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:284
+#: ../../source/Mathematical_notations.rst:288
+#: ../../source/Mathematical_notations.rst:300
+msgid "dollar/MWh"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:286
+msgid ":math:`{{C}}_{\\it{y,z,e}}^{\\rm{fuel}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:287
+msgid ""
+"Fuel cost per unit power generation from technology :math:`e` in year "
+":math:`y` in zone :math:`z`."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:290
+msgid ":math:`{{C}}_{\\it{y,z,e}}^{\\rm{fixtech}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:291
+msgid ""
+"Fixed O&M cost per year per unit existing capacity of technology "
+":math:`e` in year :math:`y` in zone :math:`z`."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:292
+#: ../../source/Mathematical_notations.rst:304
+msgid "dollar/MW-yr"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:294
+msgid ":math:`{{C}}_{\\it{y,z,e}}^{\\rm{invtech}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:295
+msgid ""
+"Capital cost per unit installed capacity of technology :math:`e` in year "
+":math:`y` in zone :math:`z`."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:296
+#: ../../source/Mathematical_notations.rst:308
+msgid "dollar/MW"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:298
+msgid ":math:`{{C}}_{y,z_{\\rm{from}},z_{\\rm{to}}}^{\\rm{varline}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:299
+msgid ""
+"Variable O&M cost per unit transmitted electricity from zone "
+":math:`z_{\\rm{from}}` to zone :math:`z_{\\rm{to}}` in year :math:`y`."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:302
+msgid ":math:`{{C}}_{y,z_{\\rm{from}},z_{\\rm{to}}}^{\\rm{fixline}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:303
+msgid ""
+"Fixed O&M cost per year per unit existing capacity of transmission line "
+"from zone :math:`z_{\\rm{from}}` to zone :math:`z_{\\rm{to}}` in year "
+":math:`y`."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:306
+msgid ":math:`{{C}}_{y,z_{\\rm{from}},z_{\\rm{to}}}^{\\rm{invline}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:307
+msgid ""
+"Capital cost per unit expansion of transmission line from zone "
+":math:`z_{\\rm{from}}` to zone :math:`z_{\\rm{to}}` in year :math:`y`."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:310
+msgid ":math:`{\\rm{CARBON}}_{\\it{y,z,e}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:311
+msgid ""
+"Carbon dioxide equivalent emission per unit power generation from "
+"technology :math:`e` in year :math:`y` in zone :math:`z`."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:312
+msgid "tonne/MWh"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:314
+msgid ":math:`\\overline{{\\rm{CARBON}}}_{y}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:315
+msgid ""
+"Upper bound of carbon dioxide equivalent emission summed across all zones"
+" and technologies in year :math:`y`."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:318
+msgid ":math:`{{\\rm{DEMAND}}}_{h,m,y,z}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:319
+msgid ""
+"Average power demand in hour :math:`h` in month :math:`m` of year "
+":math:`y` in zone :math:`z`."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:322
+msgid ":math:`{{\\rm{CAP}}}_{\\rm{age},{\\it{z,e}}}^{{\\rm{inittech}}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:323
+msgid ""
+"Initial installed capacity of technology :math:`e` with the operation "
+"time of :math:`\\rm{age}` years in zone :math:`z`."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:326
+msgid ":math:`{{\\rm{CAP}}}_{\\rm{age},{\\it{z}}_{\\rm{from}},{\\it{z}}_{\\rm{to}}}^{\\rm{initline}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:327
+msgid ""
+"Initial installed capacity of transmission lines with the operation time "
+"of :math:`\\rm{age}` years from zone :math:`z_{\\rm{from}}` to zone "
+":math:`{\\it{z}}_{\\rm{to}}`."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:330
+msgid ":math:`{{\\rm{CAP}}}_s^{\\rm{hydro}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:331
+msgid "Nameplate capacity of hydropower station :math:`s`."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:334
+msgid ":math:`{\\underline{{\\rm{POWER}}}}_s^{\\rm{hydro}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:335
+msgid "Guaranteed minimum power output of hydropower station :math:`s`."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:338
+msgid ":math:`{\\underline{{\\rm{POWER}}}}_{\\it{h,m,y,z,e}}^{\\it{c}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:339
+msgid ""
+"Minimum charge power of storage technology :math:`e` in hour :math:`h` in"
+" month :math:`m` of year :math:`y` in zone :math:`z`, expressed as a "
+"percentage of the existing capacity of storage technology :math:`e`."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:342
+msgid ":math:`{{\\rm{STORAGE}}}_{\\it{m,y,z,e}}^{\\rm{energy}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:343
+msgid ""
+"Energy storage level of technology :math:`e` at the beginning of month "
+":math:`m` of year :math:`y` in zone :math:`z`, expressed as a percentage "
+"of the maximum energy storage capacity of storage technology :math:`e`."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:346
+msgid ":math:`{R}_e^{\\rm{up}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:347
+msgid ""
+"Allowed maximum ramping up capacity of technology :math:`e` in two "
+"successive periods, expressed as a percentage of the existing capacity of"
+" storage technology :math:`e`."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:348
+#: ../../source/Mathematical_notations.rst:352
+msgid "1/hr"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:350
+msgid ":math:`{R}_e^{\\rm{down}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:351
+msgid ""
+"Allowed maximum ramping down capacity of technology :math:`e` in two "
+"successive periods, expressed as a percentage of the existing capacity of"
+" storage technology :math:`e`."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:354
+msgid ":math:`{{\\rm{STORAGE}}}_{s,m,y}^{\\rm{initreservoir}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:355
+msgid ""
+"Initial reservoir storage corresponding to hydropower station :math:`s` "
+"in month :math:`m` of year :math:`y`."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:356
+#: ../../source/Mathematical_notations.rst:360
+#: ../../source/Mathematical_notations.rst:364
+#: ../../source/Mathematical_notations.rst:368
+msgid ":math:`{\\rm m}^{\\rm 3}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:358
+msgid ":math:`{{\\rm{STORAGE}}}_{s,m,y}^{\\rm{endreservoir}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:359
+msgid ""
+"Terminal reservoir storage corresponding to hydropower station :math:`s` "
+"in month :math:`m` of year :math:`y`."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:362
+msgid ":math:`{\\overline{{\\rm{STORAGE}}}}_s^{\\rm{reservoir}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:363
+msgid ""
+"Upper bound of reservoir storage corresponding to hydropower station "
+":math:`s`."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:366
+msgid ":math:`{\\underline{{\\rm{STORAGE}}}}_s^{\\rm{reservoir}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:367
+msgid ""
+"Lower bound of reservoir storage corresponding to hydropower station "
+":math:`s`."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:370
+msgid ":math:`{{\\rm{INFLOW}}}_{\\it{s,h,m,y}}^{\\rm{net}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:371
+msgid ""
+"Net inflow of reservoir corresponding to hydropower station :math:`s` in "
+"hour :math:`h` in month :math:`m` of year :math:`y`."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:372
+#: ../../source/Mathematical_notations.rst:376
+#: ../../source/Mathematical_notations.rst:380
+#: ../../source/Mathematical_notations.rst:384
+msgid ":math:`{\\rm m}^{\\rm 3}/{\\rm s}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:374
+msgid ":math:`{\\rm{OUTFLOW}}_s^{\\rm{gen}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:375
+msgid ""
+"Maximum outflow that can be released through turbines of hydropower "
+"station :math:`s`."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:378
+msgid ":math:`{\\rm{OUTFLOW}}_s^{\\rm{spillage}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:379
+msgid ""
+"Maximum outflow that can be released through spillway of reservoir "
+"corresponding to hydropower station :math:`s`."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:382
+msgid ":math:`{\\rm{OUTFLOW}}_s`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:383
+msgid ""
+"Minimum outflow of reservoir corresponding to hydropower station "
+":math:`s` to meet water supply, environmental flow requirements, flood "
+"management, and others."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:386
+msgid ":math:`\\omega`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:387
+msgid ""
+"Weight factor to extrapolate representative operation day(s) to a full "
+"year (8760 hours)."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:390
+msgid ":math:`\\rho`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:391
+msgid "Density of water."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:392
+msgid ":math:`\\rm{kg}/\\rm{m}^\\text{3}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:394
+msgid ":math:`g`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:395
+msgid "Acceleration of gravity."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:396
+msgid ":math:`\\rm{m}/\\rm{s}^\\text{2}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:398
+msgid ":math:`\\eta_{y,e}^{\\rm{in}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:399
+msgid "Charging efficiency of storage technology :math:`e` in year :math:`y`."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:402
+msgid ":math:`\\eta_{y,e}^{\\rm{out}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:403
+msgid "Generation efficiency of technology :math:`e` in year :math:`y`."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:406
+msgid ":math:`\\eta_s`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:407
+msgid ""
+"Generation efficiency of converting water energy to electric energy in "
+"hydropower station :math:`s`."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:410
+msgid ":math:`\\eta_{z_{\\rm{from}},z_{\\rm{to}}}^{\\rm{trans}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:411
+msgid ""
+"Transmission efficiency of transmission lines from zone "
+":math:`z_{\\rm{from}}` to zone :math:`z_{\\rm{to}}`."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:414
+msgid ":math:`\\tau_{{\\rm{su}},s}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:415
+msgid ""
+"Water travel (or propagation) time from the upstream hydropower station "
+":math:`{\\rm{su}}` to the immediate downstream hydropower station "
+":math:`s`."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:418
+msgid ":math:`\\Delta h`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:419
+msgid "Time step."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:422
+msgid ":math:`r`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:423
+msgid "Discount rate."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:426
+msgid ":math:`{T}_e`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:427
+msgid "Lifetime of technology :math:`e`."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:430
+msgid ":math:`{T}_{\\rm{line}}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:431
+msgid "Lifetime of transmission line."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:434
+msgid ":math:`{\\rm{EP}}_e`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:435
+msgid "Power to energy ratio of storage technology :math:`e`."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:439
+msgid "Objective Functions"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:442
+msgid "Costs"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:444
+msgid ""
+"The objective function of the model is to minimize the net present value "
+"of the system's cost. This includes capital cost, fixed O&M cost, "
+"variable cost and fuel cost by cost type, technology cost, transmission "
+"line cost by the source of cost, and operation cost and planning cost by "
+"the source of cost."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:446
+msgid "The cost equations are defined as follows:"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:-1
+msgid "Calculation of system-wide total cost"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:453
+msgid ""
+"\\rm{cost}_{\\rm{tech}}^{\\rm{var}} &= "
+"\\frac{\\sum_{h,m,y,z,\\rm{e}}C_{y,z,\\rm{e}}^{\\rm{tech-var}}\\times "
+"\\rm{gen}_{h,m,y,z,\\rm{e}}}{\\omega} \\times "
+"\\rm{factor}_{y}^{\\rm{var}}\n"
+"\\\\\n"
+"\\\\\n"
+"\\rm{cost}_{\\rm{line}}^{\\rm{var}} &= "
+"\\frac{\\sum_{h,m,y,z_s,z_o}C_{y,z}^{\\rm{line-var}}\\times "
+"\\rm{export}_{h,m,y,z_s,z_o}}{\\omega} \\times "
+"\\rm{factor}_{y}^{\\rm{var}}\n"
+"\\\\\n"
+"\\\\\n"
+"\\rm{cost}^{\\rm{fuel}} & = "
+"\\frac{\\sum_{h,m,y,z,\\rm{e}}C_{y,z,\\rm{e}}^{\\rm{fuel}}\\times "
+"\\rm{gen}_{h,m,y,z,\\rm{e}}}{\\omega} \\times "
+"\\rm{factor}_{y}^{\\rm{var}}\n"
+"\\\\\n"
+"\\\\\n"
+"\\rm{cost}_{\\rm{tech}}^{\\rm{fix}} &= "
+"\\sum_{y,z,\\rm{e}}C_{y,z,\\rm{e}}^{\\rm{tech-fix}}\\times "
+"\\rm{cap}_{y,z,\\rm{e}}^{\\rm{existing-tech}}\\times "
+"\\rm{factor}_{y}^{\\rm{fix}} \\\\\n"
+"\\\\\n"
+"\\rm{cost}_{\\rm{line}}^{\\rm{fix}} &= "
+"\\sum_{y,z_s,z_o}C_{y,z_s,z_o}^{\\rm{line-fix}}\\times "
+"\\rm{cap}_{y,z_s,z_o}^{\\rm{existing-line}}\\times "
+"\\rm{factor}_{y}^{\\rm{fix}} \\\\\n"
+"\\\\\n"
+"\\rm{cost}_{\\rm{tech}}^{\\rm{inv}} &=  "
+"\\sum_{y,z,\\rm{e}}C_{y,z,\\rm{e}}^{\\rm{tech-inv}}\\times "
+"\\rm{cap}_{y,z,\\rm{e}}^{\\rm{tech-inv}}\\times "
+"\\rm{factor}_{y}^{\\rm{inv}} \\\\\n"
+"\\\\\n"
+"\\\\\n"
+"\\rm{cost}_{\\rm{line}}^{\\rm{inv}} &= "
+"\\sum_{y,z_s,z_o}C_{y,z_s,z_o}^{\\rm{line-inv}}\\times "
+"\\rm{cap}_{y,z_s,z_o}^{\\rm{line-inv}}\\times "
+"\\rm{factor}_{y}^{\\rm{inv}} \\times 0.5"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:474
+msgid "Factors"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:476
+msgid ""
+"To account for the variable factor, fixed factor, and capital factor, we "
+"need to convert all future costs to their net present value. This means "
+"adjusting for the time value of money so that all costs are expressed in "
+"terms of today's dollars."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:478
+msgid ""
+"We also assume that variable cost and fixed cost for non-modelled years "
+"are assumed to be equal to the cost of the last modelled year preceding "
+"them. This allows for consistent comparison across different time periods"
+" and technologies."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:480
+msgid "**Variable Factor**"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:-1
+msgid "Calculation of variable costs"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:487
+#: ../../source/Mathematical_notations.rst:525
+msgid "Given the following:"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:489
+msgid "Variable cost of modeled year: :math:`B`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:490
+#: ../../source/Mathematical_notations.rst:528
+msgid "Discount rate: :math:`r`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:491
+#: ../../source/Mathematical_notations.rst:529
+msgid ":math:`m`-th modeled year: :math:`m = y - y_\\text{min}`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:492
+msgid "Depreciation periods: :math:`n`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:494
+#: ../../source/Mathematical_notations.rst:532
+msgid "The total present value can be calculated as follows:"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:496
+msgid ""
+"\\text{total present value} &= \\frac{B}{(1+r)^m} + "
+"\\frac{B}{(1+r)^{m+1}} + \\cdots + \\frac{B}{(1+r)^{(m+k-1)}} \\\\\n"
+"\\\\\n"
+"&= B(1+r)^{(1-m)}\\frac{1-(1+r)^{-k}}{r}"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:502
+msgid "And we can calculate the variable factor as follows:"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:504
+msgid ""
+"\\text{factor}_{y}^\\text{var} &= (1+r)^{1-m_y}\\frac{1-(1+r)^{-k_y}}{r} "
+"\\\\\n"
+"\\\\\n"
+"m_{y} &= y - y_\\text{min} \\\\\n"
+"\\\\\n"
+"k_{y} &= y_\\text{periods}"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:512
+msgid "**Fixed Factor**"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:514
+msgid "We can equate the fixed factor with the variable factor as follows:"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:516
+msgid ""
+"\\text{factor}_{y}^\\text{fix} = \\text{factor}_{y}^\\text{var}\n"
+"\n"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:518
+msgid "**Investment Factor**"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:-1
+msgid "Calculation of investment costs"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:527
+msgid ""
+"Weighted Average Cost of Capital (WACC, or otherwise known as the "
+"interest rate): :math:`i`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:530
+msgid "Length of :math:`m`-th planning periods: :math:`k`"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:534
+msgid ""
+"\\text{total present value} &= \\frac{P}{(1+r)^m} \\\\\n"
+"\\\\\n"
+"&= \\frac{\\frac{A}{(1+i)} + \\frac{A}{(1+i)^2} + \\cdots + "
+"\\frac{A}{(1+i)^n}}{(1+r)^m} \\\\\n"
+"\\\\\n"
+"&= A\\frac{1-(1+i)^{-n}}{i}\\times\\frac{1}{(1+r)^m}"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:542
+msgid ""
+"From the above, we can solve for the annualized cost of depreciation "
+"periods, :math:`A`, as:"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:544
+msgid "A = P\\frac{i}{1-(1+i)^{-n}}"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:548
+msgid "The capital recovery factor is then calculated as:"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:550
+msgid "\\text{capital recovery factor} = \\frac{i}{1-(1+i)^{-n}}"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:554
+msgid ""
+"Let's focus on the time periods that fall within the modelled time "
+"horizon (indicated in black colour). We can calculate the length of time "
+"periods, :math:`k`, as follows:"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:556
+msgid "k = y_\\text{max} - y"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:560
+msgid "Using :math:`k`, we can calculate the net present value as follows:"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:562
+msgid ""
+"\\text{net present value} = \\frac{\\frac{A}{(1+r)} + \\frac{A}{(1+r)^2} "
+"+ \\cdots + \\frac{A}{(1+r)^{\\text{min}(n, k)}}}{(1+r)^m} = A \\times "
+"\\frac{1-(1+r)^{-\\text{min}(n,k)}}{r(1+r)^m}"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:567
+msgid "And we can calculate the investment factor as follows:"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:569
+msgid ""
+"\\text{factor}_{y}^\\text{inv} = "
+"\\frac{i}{1-(1+i)^{-n}}\\times\\frac{1-(1+r)^{-\\text{min}(n,k)}}{r(1+r)^m}"
+" \\\\\n"
+"\\\\"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:575
+msgid "Constraints"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:578
+msgid "Retirement"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:580
+msgid ""
+"The model computes the retirement of each technology and transmission "
+"line with these considerations:"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:582
+msgid ""
+"The historical capacity of the technology and transmission line is based "
+"on its capacity ratio."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:583
+msgid "Each planning and scheduling period is based on the existing capacity."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:585
+msgid ""
+"The existing capacity for each year, in each zone, for each technology, "
+"is as follows:"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:587
+msgid ""
+"{\\rm{cap}}_{y,z,e}^{\\rm{existingtech}}=\\sum_{{\\rm{age}}=1}^{{{T}}_e-(y-y_{\\rm{start}})}{{\\rm{CAP}}}_{{\\rm{age}},z,e}^{\\rm{inittech}}+\\sum_{y_{\\rm{pre}}={\\max}(y_{\\rm{start}},"
+" "
+"y-{{T}}_e)}^{y}{{\\rm{cap}}_{y_{\\rm{pre}},z,e}^{\\rm{invtech}}}\\quad\\forall"
+" y,z,e \\\\\n"
+"\\\\"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:592
+msgid ""
+"The existing capacity of the transmission lines for each year, from "
+":math:`z_{\\rm{from}}` zone to :math:`z_{\\rm{to}}`-th zone, is as "
+"follows:"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:594
+msgid ""
+"{\\rm{cap}}_{y,z_{\\rm{from}},z_{\\rm{to}}}^{\\rm{existingline}}=\\sum_{{\\rm{age}}=1}^{{T}_{\\rm{line}}-(y-y_{\\rm{start}})}{{\\rm{CAP}}}_{{\\rm{age}},z_{\\rm{from}},z_{\\rm{to}}}^{\\rm{initline}}+\\sum_{y_{\\rm{pre}}={\\max}(y_{\\rm{start}},"
+" "
+"y-{{T}}_{\\rm{line}})}^{y}{{\\rm{cap}}_{y_{\\rm{pre}},z_{\\rm{from}},z_{\\rm{to}}}^{\\rm{invline}}}\\quad\\forall"
+" y,z_{\\rm{from}}\\neq z_{\\rm{to}}\\\\\n"
+"\\\\"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:600
+msgid "Carbon Emission"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:602
+msgid ""
+"The model computes the carbon emissions for each year, based on the sum "
+"of carbon emissions from each zone, and from each technology as follows:"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:604
+msgid ""
+"{\\rm{carbon}}_y=\\sum_{e\\in\\mathcal{E}}\\sum_{z\\in\\mathcal{Z}}\\sum_{m\\in\\mathcal{M}}\\sum_{h\\in\\mathcal{H}}\\left({{\\rm{CARBON}}}_{y,z,e}\\times"
+" {\\rm{gen}}_{h,m,y,z,e}\\right)\\quad\\forall y \\\\\n"
+"\\\\"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:610
+msgid ""
+"The calculated carbon emission for each year lower than its upper bound, "
+"as follows:"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:612
+msgid ""
+"{\\rm{carbon}}_y\\le{\\overline{{\\rm{CARBON}}}}_y\\quad\\forall y \\\\\n"
+"\\\\"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:618
+msgid "Power Balance"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:620
+msgid ""
+"The model computes the power balance for each hour, in each time period, "
+"for each year, and in each zone, as follows:"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:622
+msgid ""
+"{{\\rm{DEMAND}}}_{h,m,y,z}\\times\\Delta h = \\sum_{z_{\\rm{from}}\\in "
+"{\\mathcal{Z}}\\backslash{\\{z\\}}}{{\\rm{import}}_{h,m,y,z_{\\rm{from}},z}}"
+" - \\sum_{z_{\\rm{to}}\\in "
+"{\\mathcal{Z}}\\backslash{\\{z\\}}}{{\\rm{export}}_{h,m,y,z,z_{\\rm{to}}}}\\\\"
+"\n"
+"\\\\\n"
+"+ \\sum_{e\\in {\\mathcal{E}}}{{\\rm{gen}}_{h,m,y,z,e}} - \\sum_{e\\in "
+"{\\mathcal{STOR}}}{{\\rm{charge}}_{h,m,y,z,e}}\\quad\\forall h,m,y,z\n"
+"\\\\"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:630
+msgid "Transmission"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:632
+msgid ""
+"We simplify the transmission of electricity as a transportation model. "
+"The model computes the transmission loss for each hour, in each time "
+"period, for each year, from :math:`z_{\\rm{from}}` zone to "
+":math:`z_{\\rm{to}}` zone, as follows:"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:634
+msgid ""
+"{\\rm{import}}_{h,m,y,z_{\\rm{from}},z_{\\rm{to}}}={\\rm{export}}_{h,m,y,z_{\\rm{from}},z_{\\rm{to}}}\\times\\eta_{z_{\\rm{from}},z_{\\rm{to}}}^{\\rm{trans}}\\quad\\forall"
+" h,m,y,z_{\\rm{from}}\\neq z_{\\rm{to}} \\\\\n"
+"\\\\"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:639
+msgid ""
+"This model assumes that the transmitted power of each transmission line "
+"is only constrained by the transmission capacity between two zones as "
+"follows:"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:641
+msgid ""
+"{\\rm{import}}_{h,m,y,z_{\\rm{from}},z_{\\rm{to}}}&\\le "
+"{\\rm{cap}}_{y,z_{\\rm{from}},z_{\\rm{to}}}^{\\rm{existingline}}\\times\\Delta"
+" h\\quad\\forall h,m,y,z_{\\rm{from}}\\neq z_{\\rm{to}} \\\\\n"
+"\\\\\n"
+"{\\rm{export}}_{h,m,y,z_{\\rm{from}},z_{\\rm{to}}}&\\le "
+"{\\rm{cap}}_{y,z_{\\rm{from}},z_{\\rm{to}}}^{\\rm{existingline}}\\times\\Delta"
+" h\\quad\\forall h,m,y,z_{\\rm{from}}\\neq z_{\\rm{to}} \\\\\n"
+"\\\\"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:649
+msgid "Power Output"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:651
+msgid ""
+"The power output of storage and each dispatchable (exclude hydropower) "
+"technology (:math:`{\\rm{power}}_{h,m,y,z,e}`) is limited by the existing"
+" installed capacity (:math:`{\\rm{cap}}_{y,z,e}^{\\rm{existingtech}}`) "
+"and minimum technical output, as follows:"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:653
+msgid ""
+"{\\underline{{\\rm{POWER}}}}_{h,m,y,z,e}\\times "
+"{\\rm{cap}}_{y,z,e}^{\\rm{existingtech}}\\le{\\rm{power}}_{h,m,y,z,e}\\le"
+" {\\rm{cap}}_{y,z,e}^{\\rm{existingtech}}\\quad\\forall h,m,y,z,e\\in "
+"{\\mathcal{STOR}}\\ \\&\\ {\\mathcal{DISP}} \\\\\n"
+"\\\\"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:658
+msgid ""
+"Since hydropower processes are explicitly modelled at the plant level in "
+"PREP-SHOT, total hydropower output in zone :math:`z` "
+"(:math:`{\\rm{power}}_{h,m,y,z,e={\\rm{hydro}}}`) is the sum of the "
+"plant-level hydropower output "
+"(:math:`{\\rm{power}}_{\\it{s,h,m,y}}^{\\rm{hydro}}`):"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:660
+msgid ""
+"{\\rm{power}}_{h,m,y,z,e={\\rm{hydro}}}=\\sum_{s\\ "
+"\\in{\\mathcal{SZ}}_z}{\\rm{power}}_{s,h,m,y}^{\\rm{hydro}}\\quad\\forall"
+" h,m,y,z \\\\\n"
+"\\\\"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:665
+msgid ""
+"Here, calculation of :math:`{\\rm{power}}^{\\rm{hydro}}_{s,h,m,y}` is "
+"obtained by external net water head simulation procedure. In addition, "
+":math:`{\\rm{power}}^{\\rm{hydro}}_{s,h,m,y}` is bounded between the "
+"guaranteed minimum output "
+"(:math:`{\\underline{{\\rm{POWER}}}}_s^{\\rm{hydro}}`) and the nameplate "
+"capacity (:math:`{{\\rm{CAP}}}_s^{\\rm{hydro}}`), as follows:"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:667
+msgid ""
+"{\\underline{{\\rm{POWER}}}}_s^{\\rm{hydro}}\\le{\\rm{power}}_{s,h,m,y}^{\\rm{hydro}}\\le{{\\rm{CAP}}}_s^{\\rm{hydro}}\\quad\\forall"
+" s,h,m,y \\\\\n"
+"\\\\"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:672
+msgid ""
+"For VRE, their power output is constrained by the capacity factors as "
+"follows:"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:674
+msgid ""
+"{\\rm{power}}_{h,m,y,z,e}\\le{{\\rm{CF}}}_{h,m,y,z,e}\\times{\\rm{cap}}_{y,z,e}^{\\rm{existingtech}}\\quad\\forall"
+" h,m,y,z,e\\in {\\mathcal{NDISP}} \\\\\n"
+"\\\\"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:679
+msgid ""
+"Regardless of the technology type,  actual power generation "
+"(:math:`{\\rm{gen}}_{h,m,y,z,e}`) in a corresponding period "
+":math:`\\Delta h` can be calculated based on the power output "
+"(:math:`{\\rm{power}}_{h,m,y,z,e}`) and the generation efficiency "
+"(:math:`\\eta_{y,e}^{\\rm{out}}`):"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:681
+msgid ""
+"{\\rm{gen}}_{h,m,y,z,e} = {\\rm{power}}_{h,m,y,z,e}\\times\\Delta "
+"h\\times\\eta_{y,e}^{\\rm{out}}\\quad \\forall h,m,y,z,e\\in "
+"{\\mathcal{E}}\n"
+"\\\\"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:686
+msgid ""
+"Note that :math:`\\eta_{y,e}^{\\rm{out}}=1` when :math:`e\\in "
+"{\\mathcal{E}}\\backslash {\\mathcal{STOR}}`."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:689
+msgid "Power output variation"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:691
+msgid ""
+"All technologies apart from non-dispatchable technology are limited by "
+"the so-called ramping capability, meaning that the variation of their "
+"power output in two successive periods is limited.  We introduce two non-"
+"negative auxiliary variables: increment "
+"(:math:`{\\rm{power}}_{h,m,y,z,e}^{\\rm{up}}`) and decrement "
+"(:math:`{\\rm{power}}_{h,m,y,z,e}^{\\rm{down}}`) to describe changes in "
+"power output in two successive periods (from :math:`h`-1 to :math:`h`) as"
+" follows:"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:693
+msgid ""
+"{\\rm{power}}_{h,m,y,z,e}^{\\rm{up}}-{\\rm{power}}_{h,m,y,z,e}^{\\rm{down}}={\\rm{power}}_{h,m,y,z,e}-{\\rm{power}}_{h-1,m,y,z,e}\\quad\\forall"
+" h,m,y,z,e\\ \\in {\\mathcal{E}}\\backslash {\\mathcal{NDISP}} \\\\\n"
+"\\\\"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:698
+msgid ""
+"When the power plant ramps up from :math:`h`-1 to :math:`h`, the minimum "
+"of :math:`{\\rm{power}}_{h,m,y,z,e}^{\\rm{up}}` is obtained when "
+":math:`{\\rm{power}}_{h,m,y,z,e}^{\\rm{down}}` becomes zero. Similarly, "
+"when the power plant ramps down from :math:`h`-1 to :math:`h`, the "
+"minimum of :math:`{\\rm{power}}_{h,m,y,z,e}^{\\rm{down}}` is obtained "
+"when :math:`{\\rm{power}}_{h,m,y,z,e}^{\\rm{up}}` becomes zero. "
+"Therefore, we can constrain the maximum ramping up and down respectively,"
+" as follows:"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:700
+msgid ""
+"{\\rm{power}}_{h,m,y,z,e}^{\\rm{up}}&\\le{{R}}_e^{\\rm{up}}\\times\\Delta"
+" h\\times {\\rm{cap}}_{y,z,e}^{\\rm{existingtech}}\\quad\\forall "
+"h,m,y,z,e\\in {\\mathcal{E}}\\backslash {\\mathcal{NDISP}} \\\\\n"
+"\\\\"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:705
+msgid ""
+"{\\rm{power}}_{h,m,y,z,e}^{\\rm{down}}&\\le{{R}}_e^{\\rm{down}}\\times\\Delta"
+" h\\times {\\rm{cap}}_{y,z,e}^{\\rm{existingtech}}\\quad\\forall "
+"h,m,y,z,e\\in {\\mathcal{E}}\\backslash {\\mathcal{NDISP}} \\\\\n"
+"\\\\"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:710
+msgid ""
+"where :math:`{{R}}_e^{\\rm{up}}$/${{R}}_e^{\\rm{down}}` is the allowed "
+"maximum/minimum ramping up/down capacity of technology :math:`e` in two "
+"successive periods, expressed as a percentage of the existing capacity of"
+" storage technology :math:`e`."
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:713
+msgid "Energy storage"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:715
+msgid ""
+"Similar to the power discharging process, the charging power of storage "
+"technology :math:`e` (:math:`{\\rm{power}}_{h,m,y,z,e}^{{c}}`) is also "
+"limited by the existing installed capacity and technical minimum charging"
+" power (:math:`{\\underline{{\\rm{POWER}}}}_{h,m,y,z,e}^{{c}}`) as "
+"follows:"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:717
+msgid ""
+"{\\underline{{\\rm{POWER}}}}_{h,m,y,z,e}^{{c}}\\times "
+"{\\rm{cap}}_{y,z,e}^{\\rm{existingtech}}\\le{\\rm{power}}_{h,m,y,z,e}^{{c}}\\le"
+" {\\rm{cap}}_{y,z,e}^{\\rm{existingtech}}\\quad\\forall h,m,y,z,e\\in "
+"{\\mathcal{STOR}} \\\\\n"
+"\\\\"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:722
+msgid ""
+"The charging generation (:math:`{\\rm{charge}}_{h,m,y,z,e}`) and "
+":math:`{\\rm{power}}_{h,m,y,z,e}^{c}` need to meet the following formula:"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:724
+msgid ""
+"{\\rm{charge}}_{h,m,y,z,e}={\\rm{power}}_{h,m,y,z,e}^{\\rm{c}}\\times\\Delta"
+" h{\\times\\eta}_{y,e}^{{\\rm{in}}}\\quad\\forall h,m,y,z,e\\in "
+"{\\mathcal{STOR}} \\\\\n"
+"\\\\"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:729
+msgid ""
+"Changes in stored electricity "
+"(:math:`{\\rm{storage}}_{h,m,y,z,e}^{\\rm{energy}}`)\\  in two successive"
+" periods should be balanced by the charging "
+"(:math:`{\\rm{charge}}_{h,m,y,z,e}`) and discharging "
+"(:math:`{\\rm{gen}}_{h,m,y,z,e}`) processes:"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:731
+msgid ""
+"{\\rm{storage}}_{h,m,y,z,e}^{\\rm{energy}}-\\ "
+"{\\rm{storage}}_{h-1,m,y,z,e}^{\\rm{energy}}={\\rm{charge}}_{h,m,y,z,e}-{\\rm{gen}}_{h,m,y,z,e}"
+" \\\\\n"
+"\\\\"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:736
+msgid ""
+"In addition, the initial (when :math:`h=h_{\\rm{start}}`) stored "
+"electricity  "
+"(:math:`{\\rm{storage}}_{h=h_{\\rm{start}},m,y,z,e}^{\\rm{energy}}`) of "
+"storage technology :math:`e` in each month of each year can be calculated"
+" based on the proportion of the maximum storage capacity, as follows:"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:738
+msgid ""
+"{\\rm{storage}}_{h=h_{\\rm{start}},m,y,z,e}^{\\rm{energy}}={{\\rm{STORAGE}}}_{m,y,z,e}^{\\rm{energy}}\\times{{\\rm{EP}}}_e\\times"
+" {\\rm{cap}}_{y,z,e}^{\\rm{existingtech}}\\quad\\forall m,y,z,e\\in "
+"{\\mathcal{STOR}} \\\\\n"
+"\\\\"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:743
+msgid ""
+"The instantaneous storage energy level "
+"(:math:`{\\rm{storage}}_{h,m,y,z,e}^{\\rm{energy}}`) of storage "
+"technology :math:`e` should not exceed the maximum energy storage "
+"capacity, as follows:"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:745
+msgid ""
+"{\\rm{storage}}_{h,m,y,z,e}^{\\rm{energy}}\\le{{\\rm{EP}}}_e\\times "
+"{\\rm{cap}}_{y,z,e}^{\\rm{existingtech}}\\quad\\forall h,m,y,z,e\\in "
+"{\\mathcal{STOR}} \\\\\n"
+"\\\\"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:751
+msgid "Water balance"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:753
+msgid ""
+"Similar to the storage technologies, changes in reservoir storage "
+"(:math:`{\\rm{storage}}_{s,h,m,y}^{\\rm{reservoir}}`) in two successive "
+"periods should be balanced by total inflow "
+"(:math:`{\\rm{inflow}}_{s,h,m,y}^{\\rm{total}}`) and total outflow "
+"(:math:`{\\rm{outflow}}_{s,h,m,y}^{\\rm{total}}`):"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:755
+msgid ""
+"{\\rm{storage}}_{s,h,m,y}^{\\rm{reservoir}}-{\\rm{storage}}_{s,h-1,m,y}^{\\rm{reservoir}}=\\Delta"
+" "
+"h\\times3600\\times\\left({\\rm{inflow}}_{s,h,m,y}^{\\rm{total}}-{\\rm{outflow}}_{s,h,m,y}^{\\rm{total}}\\right)\\quad\\forall"
+" s,h,m,y \\\\\n"
+"\\\\"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:760
+msgid ""
+"Here :math:`{\\rm{inflow}}_{s,h,m,y}^{\\rm{total}}` consists of two "
+"parts: the total outflow received from all immediate upstream reservoirs "
+"(:math:`\\sum_{{\\rm{su}}\\in "
+"{\\mathcal{IU}}_s}{{\\rm{outflow}}_{{\\rm{su}},h-\\tau_{{\\rm{su}},s},m,y}^{\\rm{total}}}`)"
+" and the net inflow (also called incremental inflow) of the drainage area"
+" controlled by this hydropower reservoir "
+"(:math:`{{\\rm{INFLOW}}}_{s,h,m,y}^{\\rm{net}}`), which can be expressed "
+"as follows:"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:762
+msgid ""
+"{\\rm{inflow}}_{s,h,m,y}^{\\rm{total}}={{\\rm{INFLOW}}}_{s,h,m,y}^{\\rm{net}}+\\sum_{{\\rm{su}}\\in"
+" "
+"{\\mathcal{IU}}_s}{{\\rm{outflow}}_{{\\rm{su}},h-\\tau_{{\\rm{su}},s},m,y}^{\\rm{total}}}\\quad\\forall"
+" s,h,m,y \\\\\n"
+"\\\\"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:767
+msgid ""
+"Note that PREP-SHOT assumes a constant water travel (or propagation) time"
+" (:math:`{\\tau}_{{\\rm{su}},s}`). The total outflow of each reservoir "
+"consists of three parts: upstream water withdrawal (i.e., water used for "
+"non-hydro purposes such as agriculture irrigation and urban water supply)"
+" (:math:`{\\rm{outflow}}_{s,h,m,y}^{\\rm{withdraw}}`), generation flow "
+"(i.e., water flow through the turbines of the hydropower plant) "
+"(:math:`{\\rm{outflow}}_{s,h,m,y}^{\\rm{gen}}`) and spillage flow (i.e., "
+"water spilled over the spillways)  "
+"(:math:`{\\rm{outflow}}_{s,h,m,y}^{\\rm{spillage}}`):"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:769
+msgid ""
+"{\\rm{outflow}}_{s,h,m,y}^{\\rm{total}}={\\rm{outflow}}_{s,h,m,y}^{\\rm{withdraw}}+{\\rm{outflow}}_{s,h,m,y}^{\\rm{gen}}+{\\rm{outflow}}_{s,h,m,y}^{\\rm{spillage}}\\quad\\forall"
+" s,h,m,y \\\\\n"
+"\\\\"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:775
+msgid "Reservoir outflow"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:777
+msgid ""
+"The generation flow and spillage flow of the reservoir are limited by the"
+" maximum outflow capacity of turbines "
+"(:math:`{\\rm{OUTFLOW}}_s^{\\rm{gen}}`) and spillway "
+"(:math:`{\\rm{OUTFLOW}}_s^{\\rm{spillage}}`), respectively. The sum of "
+"these two parts also needs to meet the minimum outflow required "
+"(:math:`{{\\rm{OUTFLOW}}}_s`) for other purposes (e.g., ecological flow, "
+"shipping flow). These constraints are summarized as:"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:779
+msgid ""
+"{\\rm{outflow}}_{s,h,m,y}^{\\rm{gen}}&\\le{\\rm{OUTFLOW}}_s^{\\rm{gen}}\\quad\\forall"
+" s,h,m,y\\\\\n"
+"\\\\\n"
+"{\\rm{outflow}}_{s,h,m,y}^{\\rm{spillage}}&\\le{\\rm{OUTFLOW}}_s^{\\rm{spillage}}\\quad\\forall"
+" s,h,m,y\\\\\n"
+"\\\\\n"
+"{{\\rm{OUTFLOW}}}_s & \\le "
+"{\\rm{outflow}}_{s,h,m,y}^{\\rm{gen}}+{\\rm{outflow}}_{s,h,m,y}^{\\rm{spillage}}\\quad\\forall"
+" s,h,m,y \\\\\n"
+"\\\\"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:789
+msgid "Reservoir storage"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:791
+msgid ""
+"The initial (when :math:`h=h_{\\rm{start}}`) and terminal (when "
+":math:`h=h_{\\rm{end}}`) storage "
+"(:math:`{\\rm{storage}}_{s,h=h_{\\rm{start}},m,y}^{\\rm{reservoir}}` and "
+":math:`{\\rm{storage}}_{s,h=h_{\\rm{end}},m,y}^{\\rm{reservoir}}`) of "
+"hydropower reservoir in each month of each year should be assigned as:"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:793
+msgid ""
+"{\\rm{storage}}_{s,h=h_{\\rm{start}},m,y}^{\\rm{reservoir}}={{\\rm{STORAGE}}}_{s,m,y}^{\\rm{initreservoir}}\\quad\\forall"
+" s,m,y \\\\\n"
+"\\\\\n"
+"{\\rm{storage}}_{s,h=h_{\\rm{end}},m,y}^{\\rm{reservoir}}={{\\rm{STORAGE}}}_{s,m,y}^{\\rm{endreservoir}}\\quad\\forall"
+" s,m,y\n"
+"\\\\"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:800
+msgid ""
+"The reservoir storage is bounded between the maximum "
+"(:math:`{\\overline{{\\rm{STORAGE}}}}_s^{\\rm{reservoir}}`) and minimum "
+"storage (:math:`{\\underline{{\\rm{STORAGE}}}}_s^{\\rm{reservoir}}`) "
+"depending on the functions (e.g., flood control, recreation, and water "
+"supply) of the reservoir:"
+msgstr ""
+
+#: ../../source/Mathematical_notations.rst:802
+msgid ""
+"{\\underline{{\\rm{STORAGE}}}}_s^{\\rm{reservoir}}\\le "
+"{\\rm{storage}}_{s,h,m,y}^{\\rm{reservoir}}\\le{\\overline{{\\rm{STORAGE}}}}_s^{\\rm{reservoir}}\\quad\\forall"
+" s,h,m,y\n"
+"\\\\"
+msgstr ""
+

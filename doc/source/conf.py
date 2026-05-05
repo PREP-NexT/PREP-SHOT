@@ -181,9 +181,16 @@ supported_languages = {
     # "pt_BR": "Documentação da PREP-SHOT (%s) em Português Brasileiro",
     # "ru": "Документация PREP-SHOT (%s) на русском языке",
     # "uk": "Документація до PREP-SHOT (%s) українською мовою",
-    # "zh_CN": "PREP-SHOT (%s) 简体中文文档",
+    "zh_CN": "PREP-SHOT (%s) 简体中文文档",
     # "zh_TW": "PREP-SHOT (%s) 正體中文 (中國台灣) 文件",
 }
+
+# Where Sphinx looks for .po translations.
+# Generate the .pot template files with:  sphinx-build -b gettext doc/source doc/build/gettext
+# Initialise / update zh_CN .po files with: sphinx-intl update -p doc/build/gettext -l zh_CN -d doc/source/locale
+# After translating .po files, build with:  sphinx-build -b html -D language=zh_CN doc/source doc/build/html-zh
+locale_dirs = ["locale/"]
+gettext_compact = False  # one .pot per source .rst, easier to navigate
 
 language = os.getenv("READTHEDOCS_LANGUAGE", "en")
 if not language in supported_languages.keys():
@@ -223,10 +230,21 @@ if on_rtd:
 
 # Theme options
 html_theme_options = {
-    # if we have a html_logo below, this shows /only/ the logo with no title text
+    # If we have a html_logo below, this shows /only/ the logo with no title text
     "logo_only": True,
-    # Collapse navigation (False makes it tree-like)
+    # Collapse navigation (False makes it tree-like).
     "collapse_navigation": False,
+    # Hide the version + language picker that the RTD theme injects
+    # beneath the title -- we surface them via the attached flyout
+    # instead (see flyout_display below). Mirrors godotengine/godot-docs.
+    "version_selector": False,
+    "language_selector": False,
+    # Attach the RTD flyout (with version / language / download menus)
+    # inline at the bottom of the sidebar instead of floating it in the
+    # bottom-left of every page. Requires the "Read the Docs Addons"
+    # framework to be enabled for the project on RTD's side
+    # (Project Admin -> Settings -> "Use Read the Docs Addons").
+    "flyout_display": "attached",
 }
 html_favicon = '_static/logo.png'
 
@@ -291,13 +309,11 @@ linkcheck_anchors = False
 linkcheck_timeout = 10
 
 # -- I18n settings --------------------------------------------------------
-
-# Godot localization is handled via https://github.com/prepshotengine/prepshot-docs-l10n
-# where the main docs repo is a submodule. Therefore the translated material is
-# actually in the parent folder of this conf.py, hence the "../".
-
-locale_dirs = ["../sphinx/po/"]
-gettext_compact = False
+#
+# Translations live in-tree at doc/source/locale/<lang>/LC_MESSAGES/*.po
+# (single-source convention). The earlier locale_dirs assignment near
+# the language config is the canonical one; this section retains the
+# image-localization helper but no longer redirects locale_dirs.
 
 # We want to host the localized images in prepshot-docs-l10n, but Sphinx does not provide
 # the necessary feature to do so. `figure_language_filename` has `{root}` and `{path}`,

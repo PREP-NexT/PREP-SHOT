@@ -1,0 +1,133 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023-2025, Zhanwei Liu and Xiaogang He (GPL-3.0)
+# This file is distributed under the same license as the PREP-SHOT package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PREP-SHOT latest\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-05 13:00+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh_CN\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/how_to/add_a_technology.rst:2
+msgid "Add a new technology"
+msgstr ""
+
+#: ../../source/how_to/add_a_technology.rst:4
+msgid ""
+"**Goal.** Introduce a new generation tech (e.g. ``Geothermal``) into an "
+"existing scenario."
+msgstr ""
+
+#: ../../source/how_to/add_a_technology.rst:7
+msgid ""
+"A tech is a row in ``tech_registry.csv`` plus rows in every per-tech "
+"input file. Adding one is mostly mechanical CSV editing; no code changes."
+msgstr ""
+
+#: ../../source/how_to/add_a_technology.rst:12
+msgid "Steps"
+msgstr ""
+
+#: ../../source/how_to/add_a_technology.rst:14
+msgid ""
+"**1. Pick a slug and register the tech.** Open "
+"``examples/<scenario>/input/tech_registry.csv`` and add a row:"
+msgstr ""
+
+#: ../../source/how_to/add_a_technology.rst:22
+msgid ""
+"The ``tech`` column is the slug used everywhere else (no spaces, no "
+"dots). The ``carrier`` is a free-form string; pick something meaningful "
+"(``geothermal``, ``nuclear``, ``hydrogen``)."
+msgstr ""
+
+#: ../../source/how_to/add_a_technology.rst:26
+msgid ""
+"**2. Add rows to every per-tech input file.** The model loads the "
+"following per-tech files; each needs a row for the new tech:"
+msgstr ""
+
+#: ../../source/how_to/add_a_technology.rst:37
+msgid "For example in ``tech_lifetime.csv``:"
+msgstr ""
+
+#: ../../source/how_to/add_a_technology.rst:44
+msgid ""
+"If the new tech has time-varying availability (like solar / wind), add it"
+" to ``tech_max_gen_profile.csv`` as well."
+msgstr ""
+
+#: ../../source/how_to/add_a_technology.rst:47
+msgid ""
+"**3. Optionally: existing capacity.** If some Geothermal is already built"
+" before the planning horizon starts, add it to ``tech_existing.csv``:"
+msgstr ""
+
+#: ../../source/how_to/add_a_technology.rst:56
+msgid ""
+"**4. Optionally: expansion candidates.** To allow the optimizer to build "
+"new Geothermal, add rows to ``tech_candidates.csv`` with non-zero "
+"``capacity_max``:"
+msgstr ""
+
+#: ../../source/how_to/add_a_technology.rst:66
+msgid ""
+"A missing entry means \"this combination cannot be expanded\"; "
+"``capacity_max=0`` has the same effect."
+msgstr ""
+
+#: ../../source/how_to/add_a_technology.rst:69
+msgid "**5. Re-run.**"
+msgstr ""
+
+#: ../../source/how_to/add_a_technology.rst:77
+msgid "Verify"
+msgstr ""
+
+#: ../../source/how_to/add_a_technology.rst:79
+msgid "Open the output NetCDF and confirm the new tech appears:"
+msgstr ""
+
+#: ../../source/how_to/add_a_technology.rst:89
+msgid "Common pitfalls"
+msgstr ""
+
+#: ../../source/how_to/add_a_technology.rst:91
+msgid ""
+"**Typo in the slug.** Slugs must match exactly across all CSV files and "
+"``tech_registry.csv``. The loader raises a ``KeyError`` mid- build if any"
+" per-tech file is missing the new slug."
+msgstr ""
+
+#: ../../source/how_to/add_a_technology.rst:94
+msgid ""
+"**Forgetting ``tech_capacity_max``.** Missing rows result in a "
+"``KeyError``. Use ``inf`` for unbounded."
+msgstr ""
+
+#: ../../source/how_to/add_a_technology.rst:96
+msgid ""
+"**Storage techs need extra files.** If ``is_storage=True`` in the "
+"registry, also populate ``storage_charge_efficiency.csv``, "
+"``storage_discharge_efficiency.csv``, "
+"``storage_energy_to_power_ratio.csv``, and ``storage_initial_level.csv``."
+msgstr ""
+
+#: ../../source/how_to/add_a_technology.rst:102
+msgid ""
+"For hydropower (``carrier='hydro'``), see "
+":doc:`add_a_cascading_hydropower_system` -- the reservoir physics adds "
+"another ~10 files per tech."
+msgstr ""
+

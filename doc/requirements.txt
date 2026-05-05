@@ -11,6 +11,7 @@ sphinxcontrib-video==0.4.1
 sphinxcontrib-mermaid>=0.9
 nbsphinx>=0.8,<0.9
 ipykernel>=6.0
+sphinx-intl>=2.1
 scipy
 numpy
 matplotlib

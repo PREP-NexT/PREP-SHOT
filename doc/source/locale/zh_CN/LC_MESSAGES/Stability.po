@@ -1,0 +1,82 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023-2025, Zhanwei Liu and Xiaogang He (GPL-3.0)
+# This file is distributed under the same license as the PREP-SHOT package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PREP-SHOT latest\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-05 13:00+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh_CN\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/Stability.rst:2
+msgid "Stability policy"
+msgstr ""
+
+#: ../../source/Stability.rst:4
+msgid ""
+"PREP-SHOT's stability surface evolves across major versions. Each major "
+"version makes a different promise about what is allowed to break."
+msgstr ""
+
+#: ../../source/Stability.rst:8
+msgid "v1.x -- research / evolving (current)"
+msgstr ""
+
+#: ../../source/Stability.rst:10
+msgid ""
+"Use v1.x for active research; pin to a specific tag (e.g. ``v1.1.0``) for"
+" any reproducible study."
+msgstr ""
+
+#: ../../source/Stability.rst:13
+msgid ""
+"The Python entry point ``prepshot.create_model(params)`` is **stable**; "
+"arguments and return type will not change in v1.x."
+msgstr ""
+
+#: ../../source/Stability.rst:15
+msgid ""
+"The ``params.json`` input schema is **evolving** and tracked by "
+"``_schema_version`` (currently ``1``). Breaking changes can land on minor"
+" version bumps within v1.x. See the Changelog page for each bump."
+msgstr ""
+
+#: ../../source/Stability.rst:18
+msgid ""
+"The ``prepshot/_model/`` sub-package internals (constraint classes, rule "
+"methods) are **internal**; they may change without notice."
+msgstr ""
+
+#: ../../source/Stability.rst:22
+msgid "v2.0 -- stable (planned)"
+msgstr ""
+
+#: ../../source/Stability.rst:24
+msgid "When the input schema and Python API both feel right:"
+msgstr ""
+
+#: ../../source/Stability.rst:26
+msgid "Both surfaces will be promised stable."
+msgstr ""
+
+#: ../../source/Stability.rst:27
+msgid "Breaking changes will require a major version bump."
+msgstr ""
+
+#: ../../source/Stability.rst:28
+msgid ""
+"A migration registry (``prepshot/migrations/``) will be in place so that "
+"future schema bumps come with automated migrations."
+msgstr ""
+

@@ -1,0 +1,412 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023-2025, Zhanwei Liu and Xiaogang He (GPL-3.0)
+# This file is distributed under the same license as the PREP-SHOT package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PREP-SHOT latest\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-05 13:00+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh_CN\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/api/prepshot.utils.rst:2
+msgid "utils"
+msgstr ""
+
+#: of prepshot.utils:1
+msgid "This module contains utility functions for the model."
+msgstr ""
+
+#: of prepshot.utils:3
+msgid ""
+"Here, we determine factors to covert future value to present value for "
+"costs and benefits. To account for the variable factor, fixed factor, and"
+" capital factor, we need to convert all future costs to their net present"
+" value. This means adjusting for the time value of money so that all "
+"costs are expressed in terms of today's dollars."
+msgstr ""
+
+#: of prepshot.utils:9
+msgid ""
+"We also assume that variable cost and fixed cost for non-modelled years "
+"are assumed to be equal to the cost of the last modelled year preceding "
+"them. This allows for consistent comparison across different time periods"
+" and technologies."
+msgstr ""
+
+#: of prepshot.utils:14
+msgid "**Variable Factor**"
+msgstr ""
+
+#: of prepshot.utils:-1
+msgid "Calculation of variable costs"
+msgstr ""
+
+#: of prepshot.utils:21 prepshot.utils:63
+msgid "Given the following:"
+msgstr ""
+
+#: of prepshot.utils:23
+msgid "Variable cost of modeled year: :math:`B`"
+msgstr ""
+
+#: of prepshot.utils:24 prepshot.utils:67
+msgid "Discount rate: :math:`r`"
+msgstr ""
+
+#: of prepshot.utils:25 prepshot.utils:68
+msgid ":math:`m`-th modeled year: :math:`m = y - y_\\text{min}`"
+msgstr ""
+
+#: of prepshot.utils:26
+msgid "Depreciation periods: :math:`n`"
+msgstr ""
+
+#: of prepshot.utils:28 prepshot.utils:71
+msgid "The total present value can be calculated as follows:"
+msgstr ""
+
+#: of prepshot.utils:30
+msgid ""
+"\\begin{align}\n"
+"\\text{total present value} &= \\frac{B}{(1+r)^m} + "
+"\\frac{B}{(1+r)^{m+1}}\n"
+"+ \\cdots + \\frac{B}{(1+r)^{(m+k-1)}} \\\\\n"
+"&= B(1+r)^{(1-m)}\\frac{1-(1+r)^k}{r}\n"
+"\\end{align}"
+msgstr ""
+
+#: of prepshot.utils:39
+msgid "And we can calculate the variable factor as follows:"
+msgstr ""
+
+#: of prepshot.utils:41
+msgid ""
+"\\begin{align}\n"
+"\\text{factor}_{y}^{var} &= (1+r)^{1-m_y}\\frac{1-(1+r)^{k_y}}{r} \\\\\n"
+"m_{y} &= y - y_\\text{min} \\\\\n"
+"k_{y} &= y_\\text{periods}\n"
+"\\end{align}"
+msgstr ""
+
+#: of prepshot.utils:50
+msgid "**Fixed Factor**"
+msgstr ""
+
+#: of prepshot.utils:52
+msgid "We can equate the fixed factor with the variable factor as follows:"
+msgstr ""
+
+#: of prepshot.utils:54
+msgid ""
+"\\text{factor}_{y}^\\text{fix} = factor_{y}^\\text{var}\n"
+"\n"
+msgstr ""
+
+#: of prepshot.utils:56
+msgid "**Investment Factor**"
+msgstr ""
+
+#: of prepshot.utils:-1
+msgid "Calculation of investment costs"
+msgstr ""
+
+#: of prepshot.utils:65
+msgid ""
+"Weighted Average Cost of Capital (WACC, or otherwise known as the "
+"interest rate): :math:`i`"
+msgstr ""
+
+#: of prepshot.utils:69
+msgid "Length of :math:`m`-th planning periods: :math:`k`"
+msgstr ""
+
+#: of prepshot.utils:73
+msgid ""
+"\\begin{align}\n"
+"\\text{total present value} &= \\frac{P}{(1+r)^m} \\\\\n"
+"&= \\frac{\\frac{A}{(1+i)} + \\frac{A}{(1+i)^2} + \\cdots\n"
+"+ \\frac{A}{(1+i)^n}}{(1+r)^m} \\\\\n"
+"&= A\\frac{1-(1+i)^{-n}}{i}\\times\\frac{1}{(1+r)^m}\n"
+"\\end{align}"
+msgstr ""
+
+#: of prepshot.utils:83
+msgid ""
+"From the above, we can solve for the annualized cost of depreciation "
+"periods, :math:`A`, as:"
+msgstr ""
+
+#: of prepshot.utils:86
+msgid "A = P\\frac{i}{1-(1+i)^{-n}}"
+msgstr ""
+
+#: of prepshot.utils:90
+msgid "The capital recovery factor is then calculated as:"
+msgstr ""
+
+#: of prepshot.utils:92
+msgid "\\text{capital recovery factor} = \\frac{i}{1-(1+i)^{-n}}"
+msgstr ""
+
+#: of prepshot.utils:96
+msgid ""
+"Let's focus on the time periods that fall within the modelled time "
+"horizon (indicated in black colour). We can calculate the length of time "
+"periods, :math:`k`, as follows:"
+msgstr ""
+
+#: of prepshot.utils:100
+msgid "k = y_{max} - y"
+msgstr ""
+
+#: of prepshot.utils:104
+msgid "Using :math:`k`, we can calculate the net present value as follows:"
+msgstr ""
+
+#: of prepshot.utils:106
+msgid ""
+"\\text{net present value} =\n"
+"\\begin{cases}\n"
+"\\frac{\\frac{A}{(1+r)} + \\frac{A}{(1+r)^2} + \\cdots\n"
+"+ \\frac{A}{(1+r)^{min(n, k)}}}{(1+r)^m} \\text{if} \\quad n \\le k \\\\\n"
+"\\text{total present value}\\quad \\text{if }n > k \\\\\n"
+"\\frac{A\\frac{1-(1+r)^{-k}}{r}}{(1+r)^m} = "
+"P\\frac{i}{1-(1+i)^{-n}}\\times\n"
+"\\frac{1-(1+r)^{-k}}{r(1+r)^m} & \\text{otherwise}\n"
+"\\end{cases}"
+msgstr ""
+
+#: of prepshot.utils:117
+msgid "And we can calculate the investment factor as follows:"
+msgstr ""
+
+#: of prepshot.utils:119
+msgid ""
+"factor_{y}^{inv} = \\frac{i}{1-(1+i)^{-n}}\\times\n"
+"\\frac{1-(1+r)^{-min(n,k)}}{r(1+r)^m}"
+msgstr ""
+
+#: of prepshot.utils.calc_cost_factor:1
+msgid ""
+"Compute the variable and fixed cost factor while considering the multi-"
+"stage planning horizon."
+msgstr ""
+
+#: of prepshot.utils.calc_cost_factor prepshot.utils.calc_interest_rate
+#: prepshot.utils.calc_inv_cost_factor prepshot.utils.cartesian_product
+#: prepshot.utils.check_positive prepshot.utils.interpolate_z_by_q_or_s
+msgid "Parameters"
+msgstr ""
+
+#: of prepshot.utils.calc_cost_factor:4
+msgid "The discount rate to apply."
+msgstr ""
+
+#: of prepshot.utils.calc_cost_factor:6
+msgid "The year in which the cost occurs."
+msgstr ""
+
+#: of prepshot.utils.calc_cost_factor:8
+msgid ""
+"The first year of the planning horizon. All costs are discounted to this "
+"year."
+msgstr ""
+
+#: of prepshot.utils.calc_cost_factor:11
+msgid ""
+"The subsequent modeled year. The cost incurred bewteen modeled_year and "
+"modeled_year and next_modeled_year is calculated."
+msgstr ""
+
+#: of prepshot.utils.calc_cost_factor prepshot.utils.calc_interest_rate
+#: prepshot.utils.calc_inv_cost_factor prepshot.utils.cartesian_product
+#: prepshot.utils.interpolate_z_by_q_or_s
+msgid "Returns"
+msgstr ""
+
+#: of prepshot.utils.calc_cost_factor:15
+msgid "The computed cost factor."
+msgstr ""
+
+#: of prepshot.utils.calc_cost_factor prepshot.utils.calc_interest_rate
+#: prepshot.utils.calc_inv_cost_factor prepshot.utils.cartesian_product
+#: prepshot.utils.check_positive prepshot.utils.interpolate_z_by_q_or_s
+msgid "Return type"
+msgstr ""
+
+#: of prepshot.utils.calc_cost_factor prepshot.utils.calc_interest_rate
+#: prepshot.utils.calc_inv_cost_factor prepshot.utils.check_positive
+msgid "Raises"
+msgstr ""
+
+#: of prepshot.utils.calc_cost_factor:18
+msgid "if next_modeled_year < modeled_year."
+msgstr ""
+
+#: of prepshot.utils.calc_cost_factor:21 prepshot.utils.calc_inv_cost_factor:24
+#: prepshot.utils.cartesian_product:10
+msgid "Examples"
+msgstr ""
+
+#: of prepshot.utils.calc_cost_factor:22
+msgid ""
+"Given annual cost incurred in 2025, next_modeled_year = 2030, and "
+"starting year = 2020, compute present value in 2020 of the cost incurred "
+"in 2025-2029:"
+msgstr ""
+
+#: of prepshot.utils.calc_interest_rate:1
+msgid "Weighted-average cost of capital for a single project."
+msgstr ""
+
+#: of prepshot.utils.calc_interest_rate:3
+msgid ""
+"Combines public-debt, private-debt and equity tranches into a single "
+"project-level interest rate that the investment cost factor uses to "
+"discount construction outlays. Equity ratio is the residual ``1 - "
+"public_debt_ratio - private_debt_ratio``."
+msgstr ""
+
+#: of prepshot.utils.calc_interest_rate:8
+msgid "Share of project capital financed by public debt, in [0, 1]."
+msgstr ""
+
+#: of prepshot.utils.calc_interest_rate:10
+msgid "Share financed by private debt, in [0, 1]."
+msgstr ""
+
+#: of prepshot.utils.calc_interest_rate:12
+msgid "Annual interest rate on the public-debt tranche."
+msgstr ""
+
+#: of prepshot.utils.calc_interest_rate:14
+msgid "Required annual return on the equity tranche."
+msgstr ""
+
+#: of prepshot.utils.calc_interest_rate:16
+msgid "Annual interest rate on the private-debt tranche."
+msgstr ""
+
+#: of prepshot.utils.calc_interest_rate:19
+msgid "Weighted-average interest rate for the project."
+msgstr ""
+
+#: of prepshot.utils.calc_interest_rate:22
+msgid "If any of the three ratios is negative or their sum exceeds 1."
+msgstr ""
+
+#: of prepshot.utils.calc_inv_cost_factor:1
+msgid ""
+"Compute the investment cost factor. When the depreciation period is "
+"greater than the planning horizon, the investment cost factor is "
+"calculated by only considering the period within the planning horizon."
+msgstr ""
+
+#: of prepshot.utils.calc_inv_cost_factor:5
+msgid "Depreciation period, in years, i.e., lifetime of the infrastructure."
+msgstr ""
+
+#: of prepshot.utils.calc_inv_cost_factor:7
+msgid "Interest rate."
+msgstr ""
+
+#: of prepshot.utils.calc_inv_cost_factor:9
+msgid "Year of investment."
+msgstr ""
+
+#: of prepshot.utils.calc_inv_cost_factor:11
+msgid "Discount rate."
+msgstr ""
+
+#: of prepshot.utils.calc_inv_cost_factor:13
+msgid "Minimum year, i.e., the first year of the planning horizon."
+msgstr ""
+
+#: of prepshot.utils.calc_inv_cost_factor:15
+msgid "Maximum year, i.e., the last year of the planning horizon."
+msgstr ""
+
+#: of prepshot.utils.calc_inv_cost_factor:18
+msgid "Investment cost factor."
+msgstr ""
+
+#: of prepshot.utils.calc_inv_cost_factor:21
+msgid ""
+"If year_max <= year_min, year_max < year_built, or     year_built < "
+"year_min."
+msgstr ""
+
+#: of prepshot.utils.calc_inv_cost_factor:25
+msgid ""
+"Given a depreciation period of 20 years, interest rate of 0.05, year of "
+"investment in 2025, discount rate of 0.05, planning horizon from 2020 to "
+"2050, compute the investment cost factor:"
+msgstr ""
+
+#: of prepshot.utils.calc_inv_cost_factor:32
+msgid ""
+"If the depreciation perios is 100 years, compute the investment cost "
+"factor for the same scenario:"
+msgstr ""
+
+#: of prepshot.utils.cartesian_product:1
+msgid "Generate cartesian product of input iterables."
+msgstr ""
+
+#: of prepshot.utils.cartesian_product:3
+msgid "Iterables to be combined."
+msgstr ""
+
+#: of prepshot.utils.cartesian_product:6
+msgid "List of tuples representing the Cartesian product."
+msgstr ""
+
+#: of prepshot.utils.cartesian_product:11
+msgid "Combine two lists [1, 2] and [7, 8]:"
+msgstr ""
+
+#: of prepshot.utils.check_positive:1
+msgid "Ensure all values are greater than 0."
+msgstr ""
+
+#: of prepshot.utils.check_positive:3
+msgid "Values to be checked."
+msgstr ""
+
+#: of prepshot.utils.check_positive:6
+msgid "If any value is less than or equal to 0."
+msgstr ""
+
+#: of prepshot.utils.interpolate_z_by_q_or_s:1
+msgid ""
+"Interpolate forebay water level (Z) by reservoir storage (S) or tailrace "
+"water level (Z) by the reservoir outflow (Q)."
+msgstr ""
+
+#: of prepshot.utils.interpolate_z_by_q_or_s:4
+msgid "Code of the hydropower station."
+msgstr ""
+
+#: of prepshot.utils.interpolate_z_by_q_or_s:6
+msgid "Reservoir storage or outflow values."
+msgstr ""
+
+#: of prepshot.utils.interpolate_z_by_q_or_s:8
+msgid "DataFrame of ZQ or ZV values."
+msgstr ""
+
+#: of prepshot.utils.interpolate_z_by_q_or_s:11
+msgid "Interpolated values."
+msgstr ""
+

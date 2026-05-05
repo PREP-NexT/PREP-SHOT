@@ -1,0 +1,173 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023-2025, Zhanwei Liu and Xiaogang He (GPL-3.0)
+# This file is distributed under the same license as the PREP-SHOT package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PREP-SHOT latest\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-05 13:00+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh_CN\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/Installation.rst:4
+msgid "Installation"
+msgstr ""
+
+#: ../../source/Installation.rst:6
+msgid ""
+"This page covers PREP-SHOT setup and library use. For a hands-on first "
+"solve, see :doc:`Quickstart`."
+msgstr ""
+
+#: ../../source/Installation.rst:11
+msgid "Step 1: Download"
+msgstr ""
+
+#: ../../source/Installation.rst:13
+msgid "Clone the repository:"
+msgstr ""
+
+#: ../../source/Installation.rst:19
+msgid ""
+"Or download a `zip archive <https://github.com/PREP-NexT/PREP-"
+"SHOT/archive/refs/heads/main.zip>`__."
+msgstr ""
+
+#: ../../source/Installation.rst:23
+msgid "Step 2: Install"
+msgstr ""
+
+#: ../../source/Installation.rst:25
+msgid ""
+"A dedicated `conda environment <https://conda.io/projects/conda/en/latest"
+"/user-guide/tasks/manage-environments.html>`_ is recommended so the "
+"optimization-solver dependencies stay isolated:"
+msgstr ""
+
+#: ../../source/Installation.rst:36
+msgid ""
+"``pip install -e .`` installs PREP-SHOT itself in editable mode AND pulls"
+" in every runtime dependency declared in ``pyproject.toml``. The default "
+"solver `HiGHS <https://highs.dev/>`_ is installed automatically as a "
+"wheel; commercial solvers need a separate install and a ``solver`` change"
+" in the scenario's ``config.json``."
+msgstr ""
+
+#: ../../source/Installation.rst:44
+msgid "HiGHS (default)"
+msgstr ""
+
+#: ../../source/Installation.rst:46
+msgid ""
+"No extra install needed -- ``pip install -e .`` already pulled in "
+"``highsbox``, which ships HiGHS as a wheel. Confirm with:"
+msgstr ""
+
+#: ../../source/Installation.rst:53 ../../source/Installation.rst:69
+#: ../../source/Installation.rst:84 ../../source/Installation.rst:99
+msgid "In ``config.json``:"
+msgstr ""
+
+#: ../../source/Installation.rst:59
+msgid "Gurobi"
+msgstr ""
+
+#: ../../source/Installation.rst:61
+msgid ""
+"Install Gurobi from `gurobi.com <https://www.gurobi.com/features"
+"/academic-named-user-license/>`_ and obtain an academic license. Then:"
+msgstr ""
+
+#: ../../source/Installation.rst:75
+msgid "COPT"
+msgstr ""
+
+#: ../../source/Installation.rst:77
+msgid ""
+"Install COPT from `copt.de <https://www.copt.de/>`_; academic licenses "
+"are free. Then:"
+msgstr ""
+
+#: ../../source/Installation.rst:90
+msgid "MOSEK"
+msgstr ""
+
+#: ../../source/Installation.rst:92
+msgid ""
+"Install MOSEK from `mosek.com <https://www.mosek.com/>`_; an academic "
+"license is free. Then:"
+msgstr ""
+
+#: ../../source/Installation.rst:105
+msgid "Optional dependency groups:"
+msgstr ""
+
+#: ../../source/Installation.rst:112
+msgid ""
+"A PyPI release (``pip install prepshot``) is planned alongside the v2.0 "
+"stability promise. To pin a specific version meanwhile, install directly "
+"from GitHub:"
+msgstr ""
+
+#: ../../source/Installation.rst:122
+msgid "Step 3: Run a scenario"
+msgstr ""
+
+#: ../../source/Installation.rst:124
+msgid ""
+"Each subdirectory of ``examples/`` is a self-contained scenario. Pick one"
+" and run from inside it; see :doc:`Quickstart` for a hands-on walkthrough"
+" on the ``three_zone`` dataset."
+msgstr ""
+
+#: ../../source/Installation.rst:133
+msgid ""
+"Three scenarios ship with the repo: ``three_zone`` (synthetic 3-zone, "
+"used by :doc:`Quickstart`), ``southeast_asia`` (Lower Mekong, 5 "
+"countries, 57 reservoirs), and ``thailand`` (single-zone with 13 Mekong-"
+"basin reservoirs)."
+msgstr ""
+
+#: ../../source/Installation.rst:138
+msgid ""
+"To run your own scenario, copy ``examples/three_zone/`` as a starting "
+"template and edit ``input/*.csv`` + ``config.json``."
+msgstr ""
+
+#: ../../source/Installation.rst:143
+msgid "Step 4: Use PREP-SHOT as a Python library"
+msgstr ""
+
+#: ../../source/Installation.rst:145
+msgid ""
+"After ``pip install -e .``, PREP-SHOT can be imported and driven directly"
+" from your own Python code. The simplest entry point is "
+"``prepshot.cli.main``, which mirrors the ``prepshot`` console script and "
+"runs a full build-solve-save cycle on a directory containing "
+"``config.json`` and ``params.json``:"
+msgstr ""
+
+#: ../../source/Installation.rst:159
+msgid ""
+"For finer-grained control -- multiple scenarios in the same Python "
+"process, inspecting the model after solving, skipping the default Excel "
+"output -- use the lower-level functions:"
+msgstr ""
+
+#: ../../source/Installation.rst:179
+msgid ""
+"The Python API is stable across the v1.x series; it is the recommended "
+"surface for downstream code that depends on PREP-SHOT. See "
+":doc:`Stability` for the full stability policy."
+msgstr ""
+

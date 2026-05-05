@@ -14,6 +14,9 @@ __pycache__/
 # Sphinx documentation builds
 /doc/build/
 
+# Compiled gettext message catalogs (regenerated from .po on each build).
+*.mo
+
 # Common development files
 *.log
 *.swp

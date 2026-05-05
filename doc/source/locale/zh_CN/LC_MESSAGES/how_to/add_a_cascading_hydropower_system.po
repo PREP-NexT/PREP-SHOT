@@ -1,0 +1,175 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023-2025, Zhanwei Liu and Xiaogang He (GPL-3.0)
+# This file is distributed under the same license as the PREP-SHOT package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PREP-SHOT latest\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-05 13:00+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh_CN\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/how_to/add_a_cascading_hydropower_system.rst:2
+msgid "Add a cascading hydropower system"
+msgstr ""
+
+#: ../../source/how_to/add_a_cascading_hydropower_system.rst:4
+msgid ""
+"**Goal.** Introduce a multi-station hydropower cascade (e.g. a new river "
+"basin) into a scenario, with per-station reservoir physics and inter-"
+"station water-delay routing."
+msgstr ""
+
+#: ../../source/how_to/add_a_cascading_hydropower_system.rst:8
+msgid ""
+"This is the heaviest \"add a tech\" recipe because hydropower stations "
+"are first-class techs in PREP-SHOT (not aggregated). Each station is its "
+"own row in ``tech_registry.csv`` AND has its own reservoir- parameter "
+"rows across ~10 reservoir-specific files. See the shipped Lower Mekong "
+"scenario (``examples/southeast_asia``, 57 stations) and the Thailand "
+"scenario (``examples/thailand``, 13 stations) for fully-worked examples."
+msgstr ""
+
+#: ../../source/how_to/add_a_cascading_hydropower_system.rst:17
+msgid "Steps"
+msgstr ""
+
+#: ../../source/how_to/add_a_cascading_hydropower_system.rst:19
+msgid ""
+"**1. Pick station slugs.** No spaces; dots stripped. Example for a "
+"3-station cascade:"
+msgstr ""
+
+#: ../../source/how_to/add_a_cascading_hydropower_system.rst:26
+msgid "**2. Register each as a hydro tech.** In ``tech_registry.csv``:"
+msgstr ""
+
+#: ../../source/how_to/add_a_cascading_hydropower_system.rst:35
+msgid ""
+"The ``carrier='hydro'`` is special-cased; the model loads the reservoir-"
+"physics constraint stack for these techs."
+msgstr ""
+
+#: ../../source/how_to/add_a_cascading_hydropower_system.rst:38
+msgid "**3. Map each station to a zone.** In ``reservoir_zone.csv``:"
+msgstr ""
+
+#: ../../source/how_to/add_a_cascading_hydropower_system.rst:47
+msgid ""
+"**4. Populate per-station reservoir parameters.** Each of these files "
+"needs one row per station:"
+msgstr ""
+
+#: ../../source/how_to/add_a_cascading_hydropower_system.rst:60
+msgid ""
+"**5. Time-varying inputs.** ``reservoir_inflow.csv`` needs an entry per "
+"``(station, year, month, hour)``; same for ``reservoir_storage_max.csv`` "
+"and ``reservoir_storage_min.csv`` (though these are usually constant "
+"within a month). Endpoint volumes go in "
+"``reservoir_initial_storage_level.csv`` and "
+"``reservoir_final_storage_level.csv``."
+msgstr ""
+
+#: ../../source/how_to/add_a_cascading_hydropower_system.rst:67
+msgid ""
+"**6. Cascade routing.** Define water travel time between connected "
+"stations in ``reservoir_water_delay_time.csv``:"
+msgstr ""
+
+#: ../../source/how_to/add_a_cascading_hydropower_system.rst:76
+msgid ""
+"Delay is in hours. Stations with no downstream entry are terminal (water "
+"leaves the modeled system)."
+msgstr ""
+
+#: ../../source/how_to/add_a_cascading_hydropower_system.rst:79
+msgid ""
+"**7. Piecewise functions.** Two more files describe the non-linear "
+"hydropower physics, both in long-format with per-station rows:"
+msgstr ""
+
+#: ../../source/how_to/add_a_cascading_hydropower_system.rst:82
+msgid ""
+"``reservoir_forebay_level_volume_function.csv`` -- forebay elevation as a"
+" function of reservoir volume."
+msgstr ""
+
+#: ../../source/how_to/add_a_cascading_hydropower_system.rst:84
+msgid ""
+"``reservoir_tailrace_level_discharge_function.csv`` -- tailrace elevation"
+" as a function of total discharge."
+msgstr ""
+
+#: ../../source/how_to/add_a_cascading_hydropower_system.rst:87
+msgid "PREP-SHOT linearizes these inside the head-iteration loop."
+msgstr ""
+
+#: ../../source/how_to/add_a_cascading_hydropower_system.rst:89
+msgid ""
+"**8. Existing capacity (optional).** If the cascade is partly already "
+"built:"
+msgstr ""
+
+#: ../../source/how_to/add_a_cascading_hydropower_system.rst:98
+msgid ""
+"**9. Per-tech files.** Don't forget the eight non-reservoir per-tech "
+"files (lifetime, fuel_price, emission_factor, fixed_OM_cost, "
+"variable_OM_cost, investment_cost, ramp_up, ramp_down) -- each station "
+"needs a row, even if mostly zeros (no fuel, no emissions)."
+msgstr ""
+
+#: ../../source/how_to/add_a_cascading_hydropower_system.rst:104
+msgid "Verify"
+msgstr ""
+
+#: ../../source/how_to/add_a_cascading_hydropower_system.rst:123
+msgid "Common pitfalls"
+msgstr ""
+
+#: ../../source/how_to/add_a_cascading_hydropower_system.rst:125
+msgid ""
+"**Slug consistency.** The same station name must appear in every CSV that"
+" mentions it: ``tech_registry``, ``reservoir_zone``, all the "
+"``reservoir_*`` files, and the per-tech files. Mistyping one breaks the "
+"load."
+msgstr ""
+
+#: ../../source/how_to/add_a_cascading_hydropower_system.rst:129
+msgid ""
+"**Cascade direction.** ``upstream_tech`` is always the station the water "
+"leaves; ``downstream_tech`` is the next station downstream. Reversing "
+"them silently produces nonsense."
+msgstr ""
+
+#: ../../source/how_to/add_a_cascading_hydropower_system.rst:132
+msgid ""
+"**Inflow data shape.** ``reservoir_inflow.csv`` is per-(station, year, "
+"month, hour). With config ``hour=8760, month=1``, that's 8760 rows per "
+"station -- big but unavoidable. Reduce hour count during development."
+msgstr ""
+
+#: ../../source/how_to/add_a_cascading_hydropower_system.rst:136
+msgid ""
+"**Constraints can make the model infeasible.** If "
+"``reservoir_outflow_min`` exceeds ``reservoir_outflow_max`` at any "
+"station, or if the demanded generation exceeds ``capacity_max`` for too "
+"many hours, the LP will be reported infeasible by HiGHS with no slack "
+"indication. Check your bounds."
+msgstr ""
+
+#: ../../source/how_to/add_a_cascading_hydropower_system.rst:142
+msgid ""
+"Looking at ``examples/southeast_asia/input/`` is the fastest way to see "
+"what a complete 57-station cascade dataset looks like."
+msgstr ""
+

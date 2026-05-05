@@ -1,0 +1,222 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023-2025, Zhanwei Liu and Xiaogang He (GPL-3.0)
+# This file is distributed under the same license as the PREP-SHOT package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PREP-SHOT latest\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-05 13:00+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh_CN\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/api/prepshot._model.investment.rst:2
+msgid "investment"
+msgstr ""
+
+#: of prepshot._model.investment:1
+msgid ""
+"This module is used to determine investment-related constraints. The "
+"model computes the retirement of each technology and transmission line "
+"with these considerations:"
+msgstr ""
+
+#: of prepshot._model.investment:5
+msgid ""
+"The historical capacity of the technology and transmission line is based "
+"on its capacity ratio."
+msgstr ""
+
+#: of prepshot._model.investment:7
+msgid "Each planning and scheduling period is based on the existing capacity."
+msgstr ""
+
+#: of prepshot._model.investment:9
+msgid ""
+"The existing capacity for each year, in each zone, for each technology, "
+"is as follows:"
+msgstr ""
+
+#: of prepshot._model.investment:12
+msgid ""
+"{\\rm{cap}}_{y,z,e}^{\\rm{existingtech}}=\n"
+"\\sum_{{\\rm{age}}=1}^{{{T}}_e\n"
+"-(y-y_{\\rm{start}})}{{\\rm{CAP}}}_{{\\rm{age}},z,e}^{\\rm{inittech}}\n"
+"+\\sum_{y_{\\rm{pre}}={\\max}(y_{\\rm{start}}, y-{{T}}_e)}^{y}\n"
+"{{\\rm{cap}}_{y_{\\rm{pre}},z,e}^{\\rm{invtech}}}\\quad\\forall y,z,e"
+msgstr ""
+
+#: of prepshot._model.investment:20
+msgid ""
+"The existing capacity of the transmission lines for each year, from "
+":math:`z_{\\rm{from}}` zone to :math:`z_{\\rm{to}}`-th zone, is as "
+"follows:"
+msgstr ""
+
+#: of prepshot._model.investment:24
+msgid ""
+"{\\rm{cap}}_{y,z_{\\rm{from}},z_{\\rm{to}}}^{\\rm{existingline}}=\n"
+"\\sum_{{\\rm{age}}=1}^{{T}_{\\rm{line}}\n"
+"-(y-y_{\\rm{start}})}{{\\rm{CAP}}}_{{\\rm{age}},z_{\\rm{from}},\n"
+"z_{\\rm{to}}}^{\\rm{initline}}\n"
+"+\\sum_{y_{\\rm{pre}}={\\max}(y_{\\rm{start}}, y-{{T}}_{\\rm{line}})}^{y}"
+"\n"
+"{{\\rm{cap}}_{y_{\\rm{pre}},\n"
+"z_{\\rm{from}},z_{\\rm{to}}}^{\\rm{invline}}}\\quad\\forall\n"
+"y,z_{\\rm{from}}\\neq z_{\\rm{to}}"
+msgstr ""
+
+#: of prepshot._model.investment.AddInvestmentConstraints:1
+msgid "Bases: :py:class:`object`"
+msgstr ""
+
+#: of prepshot._model.investment.AddInvestmentConstraints:1
+msgid "Add constraints for investment in the model."
+msgstr ""
+
+#: of prepshot._model.investment.AddInvestmentConstraints
+#: prepshot._model.investment.AddInvestmentConstraints.__init__
+#: prepshot._model.investment.AddInvestmentConstraints.new_tech_low_bound_rule
+#: prepshot._model.investment.AddInvestmentConstraints.new_tech_up_bound_rule
+#: prepshot._model.investment.AddInvestmentConstraints.remaining_capacity_rule
+#: prepshot._model.investment.AddInvestmentConstraints.tech_lifetime_rule
+#: prepshot._model.investment.AddInvestmentConstraints.tech_low_bound_rule
+#: prepshot._model.investment.AddInvestmentConstraints.tech_up_bound_rule
+msgid "Parameters"
+msgstr ""
+
+#: of prepshot._model.investment.AddInvestmentConstraints.__init__:1
+msgid "Initialize the class and add constraints."
+msgstr ""
+
+#: of prepshot._model.investment.AddInvestmentConstraints.__init__:3
+msgid "Model object depending on the solver."
+msgstr ""
+
+#: of prepshot._model.investment.AddInvestmentConstraints.__init__
+#: prepshot._model.investment.AddInvestmentConstraints.new_tech_low_bound_rule
+#: prepshot._model.investment.AddInvestmentConstraints.new_tech_up_bound_rule
+#: prepshot._model.investment.AddInvestmentConstraints.remaining_capacity_rule
+#: prepshot._model.investment.AddInvestmentConstraints.tech_lifetime_rule
+#: prepshot._model.investment.AddInvestmentConstraints.tech_low_bound_rule
+#: prepshot._model.investment.AddInvestmentConstraints.tech_up_bound_rule
+msgid "Return type"
+msgstr ""
+
+#: of
+#: prepshot._model.investment.AddInvestmentConstraints.new_tech_low_bound_rule:1
+msgid "New investment technology lower bound."
+msgstr ""
+
+#: of
+#: prepshot._model.investment.AddInvestmentConstraints.new_tech_low_bound_rule:3
+#: prepshot._model.investment.AddInvestmentConstraints.new_tech_up_bound_rule:3
+#: prepshot._model.investment.AddInvestmentConstraints.tech_lifetime_rule:4
+#: prepshot._model.investment.AddInvestmentConstraints.tech_low_bound_rule:4
+#: prepshot._model.investment.AddInvestmentConstraints.tech_up_bound_rule:4
+msgid "Year."
+msgstr ""
+
+#: of
+#: prepshot._model.investment.AddInvestmentConstraints.new_tech_low_bound_rule:5
+#: prepshot._model.investment.AddInvestmentConstraints.new_tech_up_bound_rule:5
+#: prepshot._model.investment.AddInvestmentConstraints.remaining_capacity_rule:12
+#: prepshot._model.investment.AddInvestmentConstraints.tech_lifetime_rule:6
+#: prepshot._model.investment.AddInvestmentConstraints.tech_low_bound_rule:6
+#: prepshot._model.investment.AddInvestmentConstraints.tech_up_bound_rule:6
+msgid "Zone."
+msgstr ""
+
+#: of
+#: prepshot._model.investment.AddInvestmentConstraints.new_tech_low_bound_rule:7
+#: prepshot._model.investment.AddInvestmentConstraints.new_tech_up_bound_rule:7
+#: prepshot._model.investment.AddInvestmentConstraints.tech_lifetime_rule:8
+#: prepshot._model.investment.AddInvestmentConstraints.tech_low_bound_rule:8
+#: prepshot._model.investment.AddInvestmentConstraints.tech_up_bound_rule:8
+msgid "Technology."
+msgstr ""
+
+#: of
+#: prepshot._model.investment.AddInvestmentConstraints.new_tech_low_bound_rule
+#: prepshot._model.investment.AddInvestmentConstraints.new_tech_up_bound_rule
+#: prepshot._model.investment.AddInvestmentConstraints.remaining_capacity_rule
+#: prepshot._model.investment.AddInvestmentConstraints.tech_lifetime_rule
+#: prepshot._model.investment.AddInvestmentConstraints.tech_low_bound_rule
+#: prepshot._model.investment.AddInvestmentConstraints.tech_up_bound_rule
+msgid "Returns"
+msgstr ""
+
+#: of
+#: prepshot._model.investment.AddInvestmentConstraints.new_tech_low_bound_rule:10
+#: prepshot._model.investment.AddInvestmentConstraints.new_tech_up_bound_rule:10
+#: prepshot._model.investment.AddInvestmentConstraints.tech_low_bound_rule:11
+#: prepshot._model.investment.AddInvestmentConstraints.tech_up_bound_rule:11
+msgid "The constraint of the model."
+msgstr ""
+
+#: of
+#: prepshot._model.investment.AddInvestmentConstraints.new_tech_up_bound_rule:1
+msgid "New investment technology upper bound in specific year and zone."
+msgstr ""
+
+#: of
+#: prepshot._model.investment.AddInvestmentConstraints.remaining_capacity_rule:1
+msgid ""
+"Remaining capacity of initial technology due to lifetime restrictions. "
+"Where in modeled year y, the available technology consists of the "
+"following."
+msgstr ""
+
+#: of
+#: prepshot._model.investment.AddInvestmentConstraints.remaining_capacity_rule:5
+msgid "The remaining in-service installed capacity from the initial technology."
+msgstr ""
+
+#: of
+#: prepshot._model.investment.AddInvestmentConstraints.remaining_capacity_rule:7
+msgid ""
+"The remaining in-service installed capacity from newly built technology "
+"in the previous modelled years."
+msgstr ""
+
+#: of
+#: prepshot._model.investment.AddInvestmentConstraints.remaining_capacity_rule:10
+msgid "Planned year."
+msgstr ""
+
+#: of
+#: prepshot._model.investment.AddInvestmentConstraints.remaining_capacity_rule:14
+msgid "technology."
+msgstr ""
+
+#: of
+#: prepshot._model.investment.AddInvestmentConstraints.remaining_capacity_rule:17
+#: prepshot._model.investment.AddInvestmentConstraints.tech_lifetime_rule:11
+msgid "The expression of the model."
+msgstr ""
+
+#: of prepshot._model.investment.AddInvestmentConstraints.tech_lifetime_rule:1
+msgid "Caculation of remaining technology capacity based on lifetime constraints."
+msgstr ""
+
+#: of prepshot._model.investment.AddInvestmentConstraints.tech_low_bound_rule:1
+msgid ""
+"Allowed capacity of commercial operation technology is greater than or "
+"equal to the predefined lower bound."
+msgstr ""
+
+#: of prepshot._model.investment.AddInvestmentConstraints.tech_up_bound_rule:1
+msgid ""
+"Allowed capacity of commercial operation technology is less than or equal"
+" to the predefined upper bound."
+msgstr ""
+
