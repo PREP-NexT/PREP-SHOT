@@ -10,16 +10,6 @@ Welcome to the PREP-SHOT Documentation
 :Date: |today|
 :Copyright:  The model code is licensed under the `GNU General Public License 3.0 <https://github.com/PREP-NexT/PREP-SHOT/blob/main/LICENSE>`_. This documentation is licensed under a `Creative Commons Attribution 4.0 International <http://creativecommons.org/licenses/by/4.0/>`_ license.
 
-.. raw:: html
-
-   <p>
-   <a href="Quickstart.html"><strong>Get started in 30 minutes</strong></a> &middot;
-   <a href="Installation.html">Install</a> &middot;
-   <a href="how_to/index.html">How-to recipes</a> &middot;
-   <a href="Model_input_output.html">Inputs / outputs reference</a> &middot;
-   <a href="https://github.com/PREP-NexT/PREP-SHOT">GitHub</a>
-   </p>
-
 Overview
 --------
 **PREP-SHOT** (**P**\ athways for **R**\ enewable **E**\ nergy **P**\ lanning coupling **S**\ hort-term **H**\ ydropower **O**\ pera\ **T**\ ion) is a transparent, modular, and open-source energy expansion model, offering advanced solutions for multi-scale, intertemporal, and cost-effective expansion of energy systems and transmission lines.
