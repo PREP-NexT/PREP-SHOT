@@ -148,7 +148,10 @@ def define_variables(model : object) -> None:
     )
 
     if model.params.get('is_reserve', False):
-        model.reserve = model.add_variables(
+        model.reserve_up = model.add_variables(
+            model.hour, model.month, model.year, model.zone, model.tech, lb=0
+        )
+        model.reserve_down = model.add_variables(
             model.hour, model.month, model.year, model.zone, model.tech, lb=0
         )
 

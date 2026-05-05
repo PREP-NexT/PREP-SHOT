@@ -44,8 +44,10 @@ class TestRegressionDefaultInput(unittest.TestCase):
     # Re-baselined at v1.12.0 with config.json defaults (hour=48,
     # month=1, isinflow=True, iteration_number=3, is_reserve=True).
     # Was 1.8793771299e11 at v1.1.1; the operating-reserve module
-    # raised it ~0.1 % by forcing dispatched headroom on eligible techs.
-    EXPECTED_OBJECTIVE = 1.8812919540e11
+    # (both up and down directions) raised it ~0.4 % by forcing
+    # dispatched headroom above and below the operating point on
+    # eligible techs.
+    EXPECTED_OBJECTIVE = 1.8878269786e11
     # 1 % tolerance — head iteration is non-trivial; this absorbs minor
     # numerical differences across HiGHS minor versions and platforms
     # without being so loose it stops catching real regressions.

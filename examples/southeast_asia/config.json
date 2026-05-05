@@ -18,6 +18,6 @@
         "solver": "highs"
     },
     "reserve_parameters": {
-        "is_reserve": true
+        "is_reserve": false
     }
 }

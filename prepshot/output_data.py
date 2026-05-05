@@ -115,6 +115,18 @@ def extract_results_non_hydro(model : object) -> xr.Dataset:
     )
     data_vars['carbon_breakdown'] = create_data_array(
         model.carbon_breakdown, ['year', 'zone', 'tech'], 'Ton', model)
+    # Operating-reserve allocations (only when the reserve module ran).
+    # Same shape as `gen`; eligible techs may carry positive headroom
+    # above (`reserve_up`) and below (`reserve_down`) their dispatch.
+    if hasattr(model, 'reserve_up'):
+        data_vars['reserve_up'] = create_data_array(
+            model.reserve_up,
+            ['hour', 'month', 'year', 'zone', 'tech'], 'MWh', model,
+        )
+        data_vars['reserve_down'] = create_data_array(
+            model.reserve_down,
+            ['hour', 'month', 'year', 'zone', 'tech'], 'MWh', model,
+        )
     # Shadow price (dual) of the nodal power-balance constraint --
     # the locational marginal price of one extra MWh of demand at
     # each (hour, month, year, zone). The constraint is posed as
