@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>prepshot.load_data &mdash; PREP-SHOT (latest) 简体中文文档</title>
+
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/tabs.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/algolia.css" type="text/css" />
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/custom.css?6" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/dev.css" type="text/css" />
+    <link rel="shortcut icon" href="../../_static/logo.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+        <script src="../../_static/tabs.js"></script>
+        <script src="../../_static/translations.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="../../_static/js/custom.js?3"></script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+        <script defer="defer" src="../../_static/js/algolia.js"></script>
+    <script src="../../_static/js/theme.js"></script><meta name="theme-color" content="#3d8fcc">
+  
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+<meta name="doc_version" content="latest">
+<meta name="doc_is_latest" content="">
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html">
+            <img src="../../_static/SVG-03.svg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                latest
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">快速入门</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">概述</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Installation.html">安装</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Installation.html#step-1-download">第 1 步:下载</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Installation.html#step-2-install">第 2 步:安装</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Installation.html#step-3-run-a-scenario">第 3 步:运行算例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Installation.html#step-4-use-prep-shot-as-a-python-library">第 4 步:作为 Python 库使用 PREP-SHOT</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Quickstart.html">Quickstart (30 minutes)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Scenario-background">Scenario background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Step-1-–-Install-(5-minutes)">Step 1 – Install (5 minutes)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Step-2-–-Solve-the-shipped-example-(5-minutes)">Step 2 – Solve the shipped example (5 minutes)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Step-3-–-Open-the-results-(10-minutes)">Step 3 – Open the results (10 minutes)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Step-4-–-Change-one-input-and-re-solve-(5-minutes)">Step 4 – Change one input and re-solve (5 minutes)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Step-5-–-Where-to-next">Step 5 – Where to next</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">用户指南</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Model_input_output.html">模型输入与输出</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Model_input_output.html#input-file-format">输入文件格式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Model_input_output.html#inputs">输入</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Model_input_output.html#required-inputs">必备输入</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Model_input_output.html#hydropower-inputs-active-when-isinflow-true-in-config-json">水电输入 (在 <code class="docutils literal notranslate"><span class="pre">config.json</span></code> 中 <code class="docutils literal notranslate"><span class="pre">isinflow=true</span></code> 时启用)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Model_input_output.html#optional-inputs-skipped-when-absent">可选输入 (缺失时跳过)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../Model_input_output.html#outputs">输出</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Model_input_output.html#running-scenarios">运行情景</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Model_input_output.html#setting-global-parameters">设置全局参数</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Mathematical_notations.html">Mathematical Notation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Mathematical_notations.html#unit-list">Unit List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Mathematical_notations.html#set-list">Set List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Mathematical_notations.html#variable-list">Variable List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Mathematical_notations.html#parameter-list">Parameter List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Mathematical_notations.html#objective-functions">Objective Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Mathematical_notations.html#costs">Costs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Mathematical_notations.html#factors">Factors</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../Mathematical_notations.html#constraints">Constraints</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Mathematical_notations.html#retirement">Retirement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Mathematical_notations.html#carbon-emission">Carbon Emission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Mathematical_notations.html#power-balance">Power Balance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Mathematical_notations.html#transmission">Transmission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Mathematical_notations.html#power-output">Power Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Mathematical_notations.html#power-output-variation">Power output variation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Mathematical_notations.html#energy-storage">Energy storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Mathematical_notations.html#water-balance">Water balance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Mathematical_notations.html#reservoir-outflow">Reservoir outflow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Mathematical_notations.html#reservoir-storage">Reservoir storage</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Glossary.html">术语表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../how_to/index.html">如何做(How-To)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../how_to/add_a_technology.html">新增一个技术</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../how_to/add_a_technology.html#steps">步骤</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../how_to/add_a_technology.html#verify">验证</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../how_to/add_a_technology.html#common-pitfalls">常见陷阱</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../how_to/tighten_a_carbon_cap.html">收紧碳排放上限</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../how_to/tighten_a_carbon_cap.html#steps">步骤</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../how_to/tighten_a_carbon_cap.html#verify">验证</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../how_to/tighten_a_carbon_cap.html#custom-cap-regions">自定义上限区域</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../how_to/tighten_a_carbon_cap.html#common-pitfalls">常见陷阱</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../how_to/compare_two_scenarios.html">对比两个情景</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../how_to/compare_two_scenarios.html#setup">准备</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../how_to/compare_two_scenarios.html#recipe">做法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../how_to/compare_two_scenarios.html#plot-the-capacity-reshuffle">绘制装机重组</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../how_to/compare_two_scenarios.html#common-pitfalls">常见陷阱</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../how_to/inspect_lmps.html">查看节点边际电价 (LMP)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../how_to/inspect_lmps.html#recipe">做法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../how_to/inspect_lmps.html#sign-convention">符号约定</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../how_to/inspect_lmps.html#npv-vs-real-year-prices">净现值 vs 实际年度价格</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../how_to/inspect_lmps.html#common-pitfalls">常见陷阱</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../how_to/add_a_cascading_hydropower_system.html">新增梯级水电系统</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../how_to/add_a_cascading_hydropower_system.html#steps">步骤</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../how_to/add_a_cascading_hydropower_system.html#verify">验证</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../how_to/add_a_cascading_hydropower_system.html#common-pitfalls">常见陷阱</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">参考</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/prepshot.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api/prepshot.set_up.html">set_up</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.set_up.html#prepshot.set_up.initialize_environment"><code class="docutils literal notranslate"><span class="pre">initialize_environment()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.set_up.html#prepshot.set_up.parse_cli_arguments"><code class="docutils literal notranslate"><span class="pre">parse_cli_arguments()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/prepshot.logs.html">logs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.logs.html#prepshot.logs.log_parameter_info"><code class="docutils literal notranslate"><span class="pre">log_parameter_info()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.logs.html#prepshot.logs.setup_logging"><code class="docutils literal notranslate"><span class="pre">setup_logging()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.logs.html#prepshot.logs.timer"><code class="docutils literal notranslate"><span class="pre">timer()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/prepshot.load_data.html">load_data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.load_data.html#prepshot.load_data.check_schema"><code class="docutils literal notranslate"><span class="pre">check_schema()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.load_data.html#prepshot.load_data.compute_cost_factors"><code class="docutils literal notranslate"><span class="pre">compute_cost_factors()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.load_data.html#prepshot.load_data.extract_config_data"><code class="docutils literal notranslate"><span class="pre">extract_config_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.load_data.html#prepshot.load_data.extract_sets"><code class="docutils literal notranslate"><span class="pre">extract_sets()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.load_data.html#prepshot.load_data.load_excel_data"><code class="docutils literal notranslate"><span class="pre">load_excel_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.load_data.html#prepshot.load_data.load_json"><code class="docutils literal notranslate"><span class="pre">load_json()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.load_data.html#prepshot.load_data.process_data"><code class="docutils literal notranslate"><span class="pre">process_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.load_data.html#prepshot.load_data.read_long_csv"><code class="docutils literal notranslate"><span class="pre">read_long_csv()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/prepshot.solver.html">solver</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.solver.html#prepshot.solver.get_solver"><code class="docutils literal notranslate"><span class="pre">get_solver()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.solver.html#prepshot.solver.set_solver_parameters"><code class="docutils literal notranslate"><span class="pre">set_solver_parameters()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.solver.html#prepshot.solver.solve_model"><code class="docutils literal notranslate"><span class="pre">solve_model()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/prepshot.model.html">model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.model.html#prepshot.model.create_model"><code class="docutils literal notranslate"><span class="pre">create_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.model.html#prepshot.model.define_basic_sets"><code class="docutils literal notranslate"><span class="pre">define_basic_sets()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.model.html#prepshot.model.define_complex_sets"><code class="docutils literal notranslate"><span class="pre">define_complex_sets()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.model.html#prepshot.model.define_constraints"><code class="docutils literal notranslate"><span class="pre">define_constraints()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.model.html#prepshot.model.define_model"><code class="docutils literal notranslate"><span class="pre">define_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.model.html#prepshot.model.define_variables"><code class="docutils literal notranslate"><span class="pre">define_variables()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/prepshot._model.html">constraints</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot._model.co2.html">co2</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/prepshot._model.co2.html#prepshot._model.co2.AddCo2EmissionConstraints"><code class="docutils literal notranslate"><span class="pre">AddCo2EmissionConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot._model.cost.html">cost</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/prepshot._model.cost.html#prepshot._model.cost.AddCostObjective"><code class="docutils literal notranslate"><span class="pre">AddCostObjective</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot._model.demand.html">demand</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/prepshot._model.demand.html#prepshot._model.demand.AddDemandConstraints"><code class="docutils literal notranslate"><span class="pre">AddDemandConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot._model.generation.html">generation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/prepshot._model.generation.html#prepshot._model.generation.AddGenerationConstraints"><code class="docutils literal notranslate"><span class="pre">AddGenerationConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot._model.head_iteration.html">head_iteration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/prepshot._model.head_iteration.html#prepshot._model.head_iteration.compute_error"><code class="docutils literal notranslate"><span class="pre">compute_error()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/prepshot._model.head_iteration.html#prepshot._model.head_iteration.initialize_waterhead"><code class="docutils literal notranslate"><span class="pre">initialize_waterhead()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/prepshot._model.head_iteration.html#prepshot._model.head_iteration.process_model_solution"><code class="docutils literal notranslate"><span class="pre">process_model_solution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/prepshot._model.head_iteration.html#prepshot._model.head_iteration.run_model_iteration"><code class="docutils literal notranslate"><span class="pre">run_model_iteration()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot._model.hydro.html">hydro</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/prepshot._model.hydro.html#prepshot._model.hydro.AddHydropowerConstraints"><code class="docutils literal notranslate"><span class="pre">AddHydropowerConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot._model.investment.html">investment</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/prepshot._model.investment.html#prepshot._model.investment.AddInvestmentConstraints"><code class="docutils literal notranslate"><span class="pre">AddInvestmentConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot._model.nondispatchable.html">nondispatchable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot._model.storage.html">storage</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/prepshot._model.storage.html#prepshot._model.storage.AddStorageConstraints"><code class="docutils literal notranslate"><span class="pre">AddStorageConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot._model.transmission.html">transmission</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/prepshot._model.transmission.html#prepshot._model.transmission.AddTransmissionConstraints"><code class="docutils literal notranslate"><span class="pre">AddTransmissionConstraints</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/prepshot.utils.html">utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.utils.html#prepshot.utils.calc_cost_factor"><code class="docutils literal notranslate"><span class="pre">calc_cost_factor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.utils.html#prepshot.utils.calc_interest_rate"><code class="docutils literal notranslate"><span class="pre">calc_interest_rate()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.utils.html#prepshot.utils.calc_inv_cost_factor"><code class="docutils literal notranslate"><span class="pre">calc_inv_cost_factor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.utils.html#prepshot.utils.cartesian_product"><code class="docutils literal notranslate"><span class="pre">cartesian_product()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.utils.html#prepshot.utils.check_positive"><code class="docutils literal notranslate"><span class="pre">check_positive()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.utils.html#prepshot.utils.interpolate_z_by_q_or_s"><code class="docutils literal notranslate"><span class="pre">interpolate_z_by_q_or_s()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/prepshot.output_data.html">output_data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.output_data.html#prepshot.output_data.create_data_array"><code class="docutils literal notranslate"><span class="pre">create_data_array()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.output_data.html#prepshot.output_data.extract_results_hydro"><code class="docutils literal notranslate"><span class="pre">extract_results_hydro()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.output_data.html#prepshot.output_data.extract_results_non_hydro"><code class="docutils literal notranslate"><span class="pre">extract_results_non_hydro()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.output_data.html#prepshot.output_data.save_result"><code class="docutils literal notranslate"><span class="pre">save_result()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.output_data.html#prepshot.output_data.save_to_excel"><code class="docutils literal notranslate"><span class="pre">save_to_excel()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.output_data.html#prepshot.output_data.update_output_filename"><code class="docutils literal notranslate"><span class="pre">update_output_filename()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Stability.html">Stability policy</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Stability.html#v1-x-research-evolving-current">v1.x -- research / evolving (current)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Stability.html#v2-0-stable-planned">v2.0 -- stable (planned)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-0-1-0-jun-24-2024">Version 0.1.0 - Jun 24, 2024</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-0-1-1-jul-11-2024">Version 0.1.1 - Jul 11, 2024</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#added">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#fixed">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#changed">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#deprecated">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-0-1-2-jul-22-2024">Version 0.1.2 - Jul 22, 2024</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id2">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id3">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id4">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-0-jul-21-2025">Version 1.0 - Jul 21, 2025</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-1-0-may-2-2026">Version 1.1.0 - May 2, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id5">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#changed-breaking">Changed (Breaking)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-1-1-may-2-2026">Version 1.1.1 - May 2, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id6">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id7">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id8">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-1-2-may-2-2026">Version 1.1.2 - May 2, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id9">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id10">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-2-0-may-2-2026">Version 1.2.0 - May 2, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id11">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id12">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#migration-notes">Migration notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-3-0-may-2-2026">Version 1.3.0 - May 2, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id13">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id14">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#removed">Removed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-3-1-may-2-2026">Version 1.3.1 - May 2, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id15">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#tested-with">Tested with</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id16">Migration notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-3-2-may-2-2026">Version 1.3.2 - May 2, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id17">Added</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-4-0-may-2-2026">Version 1.4.0 - May 2, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#why-long-format">Why long-format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id18">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id19">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id20">Migration notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-5-0-may-2-2026">Version 1.5.0 - May 2, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id21">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id22">Changed (Breaking)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#annotation-columns">Annotation columns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#column-renames-for-clarity">Column renames for clarity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#group-3-migration">Group 3 migration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id23">Migration notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-6-0-may-3-2026">Version 1.6.0 - May 3, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id24">Removed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id25">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id26">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-7-0-may-3-2026">Version 1.7.0 - May 3, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id27">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id28">Removed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id29">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-8-0-may-3-2026">Version 1.8.0 - May 3, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id30">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id31">Removed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id32">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-8-1-may-3-2026">Version 1.8.1 - May 3, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id33">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-9-0-may-3-2026">Version 1.9.0 - May 3, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id34">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id35">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#notes">Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-9-1-may-3-2026">Version 1.9.1 - May 3, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id36">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id37">Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-10-0-may-5-2026">Version 1.10.0 - May 5, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id38">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id39">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id40">Removed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-11-0-may-5-2026">Version 1.11.0 - May 5, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id41">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id42">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id43">Removed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-11-1-may-5-2026">Version 1.11.1 - May 5, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id44">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id45">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id46">Removed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id47">Notes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">社区</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Forum.html">Discussion</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Forum.html#github-discussions">GitHub Discussions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Forum.html#private-queries">Private Queries</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Contribution.html">贡献指南</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Contribution.html#development-process">开发流程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Contribution.html#building-documentation">构建文档</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Contribution.html#contributing-guidelines">贡献规范</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Contribution.html#translating-the-documentation">Translating the Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Citations.html">Citation Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Citations.html#publications-by-topic">Publications by Topic</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../References.html">References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">PREP-SHOT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+<li>
+	<div style="font-size: 105%;font-weight: 600;">
+		
+	</div>
+	<ul class="wy-breadcrumbs">
+		
+      <li><a href="../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">模块代码</a></li>
+      <li class="breadcrumb-item active">prepshot.load_data</li>
+	</ul>
+</li>
+
+
+<li style="float: right; text-align: right;">
+	<ul>
+		
+      <li class="wy-breadcrumbs-aside">
+      </li>
+	</ul>
+
+	<style>
+		.godot-edit-guidelines {
+			font-size: 14px;
+			float: right;
+			clear: both;
+			padding-top: 4px;
+		}
+
+		@media screen and (max-width: 480px) {
+			.godot-edit-guidelines {
+				display: none;
+			}
+		}
+	</style>
+	<a class="godot-edit-guidelines" href="https://prep-next.github.io/PREP-SHOT/Changelog.html#contributing-to-prep-shot">
+		Learn how to contribute!
+	</a>
+</li>
+
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+<div itemprop="articleBody">
+  
+
+  
+  <h1>prepshot.load_data 源代码</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="sd">&quot;&quot;&quot;This module contains functions for loading and processing data from JSON</span>
+<span class="sd">and Excel files.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="kn">from</span> <span class="nn">prepshot.utils</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">calc_inv_cost_factor</span><span class="p">,</span> <span class="n">calc_cost_factor</span><span class="p">,</span> <span class="n">calc_interest_rate</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+<span class="c1"># The input-file schema version this PREP-SHOT release expects. Bumped</span>
+<span class="c1"># whenever a breaking change to the params.json / input/ shape lands. See</span>
+<span class="c1"># doc/source/Stability.rst and doc/source/Changelog.rst for the migration</span>
+<span class="c1"># story across versions.</span>
+<span class="c1">#</span>
+<span class="c1"># Schema 1 (v1.1.0): wide-format xlsx with hierarchical headers.</span>
+<span class="c1"># Schema 2 (v1.5.0): long-format CSV (tidy) is the default; only the</span>
+<span class="c1">#     four &quot;Group 3&quot; table-shaped lookups remain wide.</span>
+<span class="n">CURRENT_SCHEMA</span> <span class="o">=</span> <span class="mi">2</span>
+
+
+<span class="c1"># Column names treated as annotations / metadata in long-format CSVs.</span>
+<span class="c1"># The loader filters them out before keying so they never appear in the</span>
+<span class="c1"># dim tuples. Any column whose name (case-insensitive) is in this set,</span>
+<span class="c1"># or that ends in &quot;_name&quot; (e.g. zone_name, tech_name, station_name),</span>
+<span class="c1"># is treated as a comment column rather than a dimension.</span>
+<span class="n">_LONG_CSV_META_COLS</span> <span class="o">=</span> <span class="nb">frozenset</span><span class="p">({</span>
+    <span class="s2">&quot;unit&quot;</span><span class="p">,</span> <span class="s2">&quot;units&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;commodity&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;comment&quot;</span><span class="p">,</span> <span class="s2">&quot;comments&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;description&quot;</span><span class="p">,</span> <span class="s2">&quot;desc&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;note&quot;</span><span class="p">,</span> <span class="s2">&quot;notes&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;label&quot;</span><span class="p">,</span>
+<span class="p">})</span>
+
+
+<div class="viewcode-block" id="check_schema"><a class="viewcode-back" href="../../api/prepshot.load_data.html#prepshot.load_data.check_schema">[文档]</a><span class="k">def</span> <span class="nf">check_schema</span><span class="p">(</span><span class="n">params_info</span> <span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Validate that ``params.json`` declares a compatible ``_schema_version``.</span>
+
+<span class="sd">    Raises a :class:`RuntimeError` with a clear migration hint if the file</span>
+<span class="sd">    is missing the stamp or carries a different version than this release</span>
+<span class="sd">    supports.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    params_info : dict</span>
+<span class="sd">        Parsed contents of ``params.json``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">stamped</span> <span class="o">=</span> <span class="n">params_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;_schema_version&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">stamped</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+            <span class="s2">&quot;params.json is missing &#39;_schema_version&#39;. This file was likely &quot;</span>
+            <span class="s2">&quot;written for an older PREP-SHOT release (pre-v1.1.0). Add &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="se">\&quot;</span><span class="s2">_schema_version</span><span class="se">\&quot;</span><span class="s2">: </span><span class="si">{</span><span class="n">CURRENT_SCHEMA</span><span class="si">}</span><span class="s2">&#39; as the first key in &quot;</span>
+            <span class="s2">&quot;params.json, and make sure your input directory matches the &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;v</span><span class="si">{</span><span class="n">CURRENT_SCHEMA</span><span class="si">}</span><span class="s2"> schema. See doc/source/Changelog.rst and &quot;</span>
+            <span class="s2">&quot;doc/source/Stability.rst.&quot;</span>
+        <span class="p">)</span>
+    <span class="k">if</span> <span class="n">stamped</span> <span class="o">!=</span> <span class="n">CURRENT_SCHEMA</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">stamped</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">CURRENT_SCHEMA</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                <span class="s2">&quot;params.json declares _schema_version=1, which used wide &quot;</span>
+                <span class="s2">&quot;Excel inputs. Schema 2 (v1.5.0+) uses long-format CSV. &quot;</span>
+                <span class="s2">&quot;Run &#39;python tools/migrate_to_long.py &lt;input_dir&gt;&#39; to &quot;</span>
+                <span class="s2">&quot;convert your input files, then bump _schema_version to &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">CURRENT_SCHEMA</span><span class="si">}</span><span class="s2"> in params.json. See &quot;</span>
+                <span class="s2">&quot;doc/source/Changelog.rst for full migration notes.&quot;</span>
+            <span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;params.json declares _schema_version=</span><span class="si">{</span><span class="n">stamped</span><span class="si">}</span><span class="s2">, but this &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;PREP-SHOT release requires _schema_version=</span><span class="si">{</span><span class="n">CURRENT_SCHEMA</span><span class="si">}</span><span class="s2">. &quot;</span>
+            <span class="s2">&quot;Migrate your input directory and update the stamp; see &quot;</span>
+            <span class="s2">&quot;doc/source/Changelog.rst for the migration story.&quot;</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="load_json"><a class="viewcode-back" href="../../api/prepshot.load_data.html#prepshot.load_data.load_json">[文档]</a><span class="k">def</span> <span class="nf">load_json</span><span class="p">(</span><span class="n">file_path</span> <span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Load data from a JSON file.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    file_path : str</span>
+<span class="sd">        Path to the JSON file.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict</span>
+<span class="sd">        Dictionary containing data from the JSON file.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="extract_config_data"><a class="viewcode-back" href="../../api/prepshot.load_data.html#prepshot.load_data.extract_config_data">[文档]</a><span class="k">def</span> <span class="nf">extract_config_data</span><span class="p">(</span><span class="n">config_data</span> <span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Extract necessary data from configuration settings.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    config_data : dict</span>
+<span class="sd">        Configuration data for the model.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict</span>
+<span class="sd">        Dictionary containing necessary configuration data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Extract parameters from configuration data.</span>
+    <span class="n">hour</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">config_data</span><span class="p">[</span><span class="s1">&#39;general_parameters&#39;</span><span class="p">][</span><span class="s1">&#39;hour&#39;</span><span class="p">])</span>
+    <span class="n">month</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">config_data</span><span class="p">[</span><span class="s1">&#39;general_parameters&#39;</span><span class="p">][</span><span class="s1">&#39;month&#39;</span><span class="p">])</span>
+    <span class="n">dt</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">config_data</span><span class="p">[</span><span class="s1">&#39;general_parameters&#39;</span><span class="p">][</span><span class="s1">&#39;dt&#39;</span><span class="p">])</span>
+    <span class="n">hours_in_year</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">config_data</span><span class="p">[</span><span class="s1">&#39;general_parameters&#39;</span><span class="p">][</span><span class="s1">&#39;hours_in_year&#39;</span><span class="p">])</span>
+    <span class="n">price</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">config_data</span><span class="p">[</span><span class="s1">&#39;general_parameters&#39;</span><span class="p">][</span><span class="s1">&#39;price&#39;</span><span class="p">])</span>
+    <span class="n">includes_hydrological_constraints</span> <span class="o">=</span>                                       \
+        <span class="n">config_data</span><span class="p">[</span><span class="s1">&#39;hydro_parameters&#39;</span><span class="p">][</span><span class="s1">&#39;isinflow&#39;</span><span class="p">]</span>
+    <span class="n">error_threshold</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span>
+        <span class="n">config_data</span><span class="p">[</span><span class="s1">&#39;hydro_parameters&#39;</span><span class="p">][</span><span class="s1">&#39;error_threshold&#39;</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">iteration_number</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span>
+        <span class="n">config_data</span><span class="p">[</span><span class="s1">&#39;hydro_parameters&#39;</span><span class="p">][</span><span class="s1">&#39;iteration_number&#39;</span><span class="p">]</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Create dictionary with necessary configuration data.</span>
+    <span class="n">required_config_data</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;dt&#39;</span><span class="p">:</span> <span class="n">dt</span><span class="p">,</span>
+        <span class="s1">&#39;price&#39;</span><span class="p">:</span> <span class="n">price</span><span class="p">,</span>
+        <span class="s1">&#39;weight&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">month</span> <span class="o">*</span> <span class="n">hour</span> <span class="o">*</span> <span class="n">dt</span><span class="p">)</span> <span class="o">/</span> <span class="n">hours_in_year</span><span class="p">,</span>
+        <span class="s1">&#39;solver&#39;</span><span class="p">:</span> <span class="n">config_data</span><span class="p">[</span><span class="s1">&#39;solver_parameters&#39;</span><span class="p">],</span>
+        <span class="s1">&#39;isinflow&#39;</span><span class="p">:</span> <span class="n">includes_hydrological_constraints</span><span class="p">,</span>
+        <span class="s1">&#39;error_threshold&#39;</span><span class="p">:</span> <span class="n">error_threshold</span><span class="p">,</span>
+        <span class="s1">&#39;iteration_number&#39;</span><span class="p">:</span> <span class="n">iteration_number</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">required_config_data</span></div>
+
+
+<div class="viewcode-block" id="load_excel_data"><a class="viewcode-back" href="../../api/prepshot.load_data.html#prepshot.load_data.load_excel_data">[文档]</a><span class="k">def</span> <span class="nf">load_excel_data</span><span class="p">(</span>
+    <span class="n">input_folder</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">params_info</span> <span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">data_store</span> <span class="p">:</span> <span class="nb">dict</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Load input data based on the provided parameters.</span>
+
+<span class="sd">    The function dispatches on ``&quot;format&quot;``:</span>
+
+<span class="sd">    * ``&quot;format&quot;: &quot;long&quot;`` (default) -- load from a ``.csv`` file in tidy</span>
+<span class="sd">      form (dimension columns first, value column last). See</span>
+<span class="sd">      :func:`read_long_csv`.</span>
+<span class="sd">    * ``&quot;format&quot;: &quot;table&quot;`` -- load from a ``.csv`` file with multiple</span>
+<span class="sd">      value columns, returned as a DataFrame so consumers can use</span>
+<span class="sd">      ``groupby``, column-by-name access, etc.</span>
+
+<span class="sd">    Each entry may also declare ``&quot;required&quot;: false`` and a ``&quot;default&quot;``</span>
+<span class="sd">    value. If the file for an optional parameter is missing, the loader</span>
+<span class="sd">    silently substitutes the default (or an empty dict if none is given)</span>
+<span class="sd">    and logs a debug message. Required parameters with missing files</span>
+<span class="sd">    still terminate the process.</span>
+
+<span class="sd">    The legacy function name is kept for backwards-compatible imports;</span>
+<span class="sd">    despite the ``_excel_`` in the name, all on-disk inputs are CSV as</span>
+<span class="sd">    of v1.5.0.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    input_folder : str</span>
+<span class="sd">        Path to the input folder.</span>
+<span class="sd">    params_info : dict</span>
+<span class="sd">        Dictionary containing parameter names and their corresponding file</span>
+<span class="sd">        information.</span>
+<span class="sd">    data_store : dict</span>
+<span class="sd">        Dictionary to store loaded data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">params_info</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">fmt</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;format&quot;</span><span class="p">,</span> <span class="s2">&quot;long&quot;</span><span class="p">)</span>
+        <span class="n">ext</span> <span class="o">=</span> <span class="s2">&quot;csv&quot;</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">input_folder</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">value</span><span class="p">[</span><span class="s1">&#39;file_name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">ext</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">required</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;required&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">fmt</span> <span class="o">==</span> <span class="s2">&quot;long&quot;</span><span class="p">:</span>
+                <span class="n">data_store</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">read_long_csv</span><span class="p">(</span>
+                    <span class="n">filename</span><span class="p">,</span>
+                    <span class="n">dropna</span><span class="o">=</span><span class="n">value</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;drop_na&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span>
+                <span class="p">)</span>
+            <span class="k">elif</span> <span class="n">fmt</span> <span class="o">==</span> <span class="s2">&quot;table&quot;</span><span class="p">:</span>
+                <span class="c1"># Inherently table-shaped data (e.g. piecewise-function</span>
+                <span class="c1"># lookups, delay matrices). Loaded as a DataFrame so the</span>
+                <span class="c1"># consumer can slice by columns / groupby.</span>
+                <span class="n">data_store</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Unknown format </span><span class="si">{</span><span class="n">fmt</span><span class="si">!r}</span><span class="s2"> for parameter </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">; expected &quot;</span>
+                    <span class="s2">&quot;&#39;long&#39; or &#39;table&#39;.&quot;</span>
+                <span class="p">)</span>
+        <span class="k">except</span> <span class="ne">FileNotFoundError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">required</span><span class="p">:</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Error loading </span><span class="si">%s</span><span class="s2"> data: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">[</span><span class="s2">&quot;file_name&quot;</span><span class="p">],</span> <span class="n">e</span><span class="p">)</span>
+                <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">default</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;default&quot;</span><span class="p">,</span> <span class="p">{})</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">default</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="c1"># Scalar default: wrap in a defaultdict so any tuple-key</span>
+                <span class="c1"># lookup (e.g. params[&#39;carbon_tax&#39;][z, y]) returns the</span>
+                <span class="c1"># scalar without the model code needing to know whether</span>
+                <span class="c1"># the file was loaded or not.</span>
+                <span class="n">scalar</span> <span class="o">=</span> <span class="n">default</span>
+                <span class="n">default</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">scalar</span><span class="p">)</span>
+            <span class="n">data_store</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">default</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                <span class="s2">&quot;Optional input &#39;</span><span class="si">%s</span><span class="s2">&#39; not found at </span><span class="si">%s</span><span class="s2">; using default.&quot;</span><span class="p">,</span>
+                <span class="n">key</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span>
+            <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="read_long_csv"><a class="viewcode-back" href="../../api/prepshot.load_data.html#prepshot.load_data.read_long_csv">[文档]</a><span class="k">def</span> <span class="nf">read_long_csv</span><span class="p">(</span><span class="n">filename</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">dropna</span> <span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Read a long-format (&quot;tidy&quot;) CSV input file.</span>
+
+<span class="sd">    The convention is: dimension columns first, value column last. For</span>
+<span class="sd">    example a 2-dim input ``carbon_tax`` looks like::</span>
+
+<span class="sd">        zone,year,value</span>
+<span class="sd">        BA1,2020,0</span>
+<span class="sd">        BA1,2025,5</span>
+<span class="sd">        BA2,2020,0</span>
+
+<span class="sd">    The returned dict matches the shape produced by the wide-format</span>
+<span class="sd">    reader for the same parameter:</span>
+
+<span class="sd">    * 1 dimension column -&gt; ``{key: value}`` (scalar keys)</span>
+<span class="sd">    * 2+ dimension columns -&gt; ``{(d1, d2, ...): value}`` (tuple keys)</span>
+
+<span class="sd">    The ORDER of the dimension columns in the CSV determines the order</span>
+<span class="sd">    of elements in the output keys, so model-side lookups work</span>
+<span class="sd">    unchanged regardless of which format the file is in on disk.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    filename : str</span>
+<span class="sd">        Path to the CSV file.</span>
+<span class="sd">    dropna : bool</span>
+<span class="sd">        If True, rows with any NaN are dropped before keying.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict</span>
+<span class="sd">        Mapping from dimension key (or tuple of keys) to the value.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="c1"># Drop documentation-only annotation columns. These are</span>
+    <span class="c1"># human-readable annotations stored alongside the data (the</span>
+    <span class="c1"># TransitionZero pattern: an ID column paired with a friendly name</span>
+    <span class="c1"># column, plus per-row unit/commodity tags). The loader treats them</span>
+    <span class="c1"># as informational so they never appear in the dim-key tuples.</span>
+    <span class="n">meta_cols</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span>
+        <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">_LONG_CSV_META_COLS</span>
+        <span class="ow">or</span> <span class="n">c</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;_name&quot;</span><span class="p">)</span>
+    <span class="p">]</span>
+    <span class="k">if</span> <span class="n">meta_cols</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">meta_cols</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">dropna</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+    <span class="n">cols</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">cols</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Long-format CSV </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2"> needs at least one dimension column &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;plus a value column; got columns </span><span class="si">{</span><span class="n">cols</span><span class="si">}</span><span class="s2">.&quot;</span>
+        <span class="p">)</span>
+    <span class="n">dim_cols</span> <span class="o">=</span> <span class="n">cols</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">value_col</span> <span class="o">=</span> <span class="n">cols</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="c1"># Cell-level type coercion. When a CSV value column mixes numeric and</span>
+    <span class="c1"># string entries (e.g. reservoir_characteristics has both &quot;Grand</span>
+    <span class="c1"># Coulee&quot; and 6765 in its value column), pandas reads the whole</span>
+    <span class="c1"># column as strings. Try float per cell so numeric values come back</span>
+    <span class="c1"># as numbers; non-numeric strings are passed through unchanged.</span>
+    <span class="k">def</span> <span class="nf">_coerce</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">v</span>
+        <span class="k">return</span> <span class="n">v</span>
+
+    <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">_coerce</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">df</span><span class="p">[</span><span class="n">value_col</span><span class="p">]]</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">dim_cols</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">dim_cols</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">values</span><span class="p">))</span>
+    <span class="n">keys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">dim_cols</span><span class="p">)))</span>
+    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="n">values</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="extract_sets"><a class="viewcode-back" href="../../api/prepshot.load_data.html#prepshot.load_data.extract_sets">[文档]</a><span class="k">def</span> <span class="nf">extract_sets</span><span class="p">(</span><span class="n">data_store</span> <span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Extract simple sets from loaded parameters.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data_store : dict</span>
+<span class="sd">        Dictionary containing loaded parameters.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># discount_factor is now keyed by (zone, year) -- extract the year</span>
+    <span class="c1"># set from the second element of each tuple key.</span>
+    <span class="n">data_store</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">({</span><span class="n">y</span> <span class="k">for</span> <span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="ow">in</span> <span class="n">data_store</span><span class="p">[</span><span class="s2">&quot;discount_factor&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()})</span>
+    <span class="k">if</span> <span class="s2">&quot;reservoir_zone&quot;</span> <span class="ow">in</span> <span class="n">data_store</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="c1"># reservoir_zone is keyed by hydro plant tech name (single-dim</span>
+        <span class="c1"># long format). station_id is kept as an alias for back-compat</span>
+        <span class="c1"># with code that referred to the old separate-station concept.</span>
+        <span class="n">data_store</span><span class="p">[</span><span class="s2">&quot;station_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">data_store</span><span class="p">[</span><span class="s2">&quot;reservoir_zone&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+    <span class="n">data_store</span><span class="p">[</span><span class="s2">&quot;hour&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">({</span>
+        <span class="n">i</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">data_store</span><span class="p">[</span><span class="s2">&quot;demand&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="nb">int</span><span class="p">)</span>
+    <span class="p">})</span>
+    <span class="n">data_store</span><span class="p">[</span><span class="s2">&quot;month&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">({</span>
+        <span class="n">i</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">data_store</span><span class="p">[</span><span class="s2">&quot;demand&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="nb">int</span><span class="p">)</span>
+    <span class="p">})</span>
+    <span class="n">data_store</span><span class="p">[</span><span class="s2">&quot;zone&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">({</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">data_store</span><span class="p">[</span><span class="s2">&quot;demand&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()})</span>
+    <span class="n">data_store</span><span class="p">[</span><span class="s2">&quot;tech&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_store</span><span class="p">[</span><span class="s2">&quot;technologies&quot;</span><span class="p">][</span><span class="s2">&quot;tech&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="compute_cost_factors"><a class="viewcode-back" href="../../api/prepshot.load_data.html#prepshot.load_data.compute_cost_factors">[文档]</a><span class="k">def</span> <span class="nf">compute_cost_factors</span><span class="p">(</span><span class="n">data_store</span> <span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate cost factors for various transmission investment and </span>
+<span class="sd">    operational costs.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data_store : dict</span>
+<span class="sd">        Dictionary containing loaded parameters.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Cost factors are computed per-zone because the discount rate can</span>
+    <span class="c1"># differ by region (different cost of capital). Indices:</span>
+    <span class="c1">#   trans_inv_factor[year, zone]</span>
+    <span class="c1">#   inv_factor[tech, year, zone]</span>
+    <span class="c1">#   fix_factor[year, zone]</span>
+    <span class="c1">#   var_factor[year, zone]</span>
+    <span class="n">data_store</span><span class="p">[</span><span class="s2">&quot;trans_inv_factor&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">data_store</span><span class="p">[</span><span class="s2">&quot;inv_factor&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">data_store</span><span class="p">[</span><span class="s2">&quot;fix_factor&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">data_store</span><span class="p">[</span><span class="s2">&quot;var_factor&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="n">trans_line_lifetime</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">data_store</span><span class="p">[</span><span class="s2">&quot;transmission_line_lifetime&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+    <span class="n">lifetime</span> <span class="o">=</span> <span class="n">data_store</span><span class="p">[</span><span class="s2">&quot;lifetime&quot;</span><span class="p">]</span>
+    <span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">data_store</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">]),</span> <span class="nb">max</span><span class="p">(</span><span class="n">data_store</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">])</span>
+
+    <span class="c1"># Optional WACC: when the user supplies a finance model</span>
+    <span class="c1"># (public_debt_ratio + cost-of-capital tables), inv_factor</span>
+    <span class="c1"># discounts the construction outlay at a project-level WACC; fixed</span>
+    <span class="c1"># / variable / transmission factors keep using the zonal discount</span>
+    <span class="c1"># rate. With finance disabled, WACC == discount_rate, preserving</span>
+    <span class="c1"># the v1.8.x objective.</span>
+    <span class="n">have_finance</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">data_store</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;public_debt_ratio&quot;</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">zone</span> <span class="ow">in</span> <span class="n">data_store</span><span class="p">[</span><span class="s2">&quot;zone&quot;</span><span class="p">]:</span>
+        <span class="k">for</span> <span class="n">tech</span> <span class="ow">in</span> <span class="n">data_store</span><span class="p">[</span><span class="s2">&quot;tech&quot;</span><span class="p">]:</span>
+            <span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="n">data_store</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">]:</span>
+                <span class="n">discount_rate</span> <span class="o">=</span> <span class="n">data_store</span><span class="p">[</span><span class="s2">&quot;discount_factor&quot;</span><span class="p">][</span><span class="n">zone</span><span class="p">,</span> <span class="n">year</span><span class="p">]</span>
+                <span class="n">next_year</span> <span class="o">=</span> <span class="n">year</span> <span class="o">+</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">year</span> <span class="o">==</span> <span class="n">y_max</span>                          \
+                    <span class="k">else</span> <span class="n">data_store</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">][</span><span class="n">data_store</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">year</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">have_finance</span><span class="p">:</span>
+                    <span class="n">interest_rate</span> <span class="o">=</span> <span class="n">calc_interest_rate</span><span class="p">(</span>
+                        <span class="n">data_store</span><span class="p">[</span><span class="s2">&quot;public_debt_ratio&quot;</span><span class="p">][</span><span class="n">tech</span><span class="p">],</span>
+                        <span class="n">data_store</span><span class="p">[</span><span class="s2">&quot;private_debt_ratio&quot;</span><span class="p">][</span><span class="n">tech</span><span class="p">],</span>
+                        <span class="n">data_store</span><span class="p">[</span><span class="s2">&quot;cost_of_public_debt&quot;</span><span class="p">][</span><span class="n">tech</span><span class="p">,</span> <span class="n">zone</span><span class="p">],</span>
+                        <span class="n">data_store</span><span class="p">[</span><span class="s2">&quot;cost_of_private_equity&quot;</span><span class="p">][</span><span class="n">tech</span><span class="p">,</span> <span class="n">zone</span><span class="p">],</span>
+                        <span class="n">data_store</span><span class="p">[</span><span class="s2">&quot;cost_of_private_debt&quot;</span><span class="p">][</span><span class="n">tech</span><span class="p">,</span> <span class="n">zone</span><span class="p">],</span>
+                    <span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">interest_rate</span> <span class="o">=</span> <span class="n">discount_rate</span>
+                <span class="n">data_store</span><span class="p">[</span><span class="s2">&quot;trans_inv_factor&quot;</span><span class="p">][</span><span class="n">year</span><span class="p">,</span> <span class="n">zone</span><span class="p">]</span> <span class="o">=</span> <span class="n">calc_inv_cost_factor</span><span class="p">(</span>
+                    <span class="n">trans_line_lifetime</span><span class="p">,</span> <span class="n">discount_rate</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">discount_rate</span><span class="p">,</span>
+                    <span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span>
+                <span class="p">)</span>
+                <span class="n">data_store</span><span class="p">[</span><span class="s2">&quot;inv_factor&quot;</span><span class="p">][</span><span class="n">tech</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">zone</span><span class="p">]</span> <span class="o">=</span> <span class="n">calc_inv_cost_factor</span><span class="p">(</span>
+                    <span class="n">lifetime</span><span class="p">[</span><span class="n">tech</span><span class="p">,</span> <span class="n">year</span><span class="p">],</span> <span class="n">interest_rate</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">discount_rate</span><span class="p">,</span>
+                    <span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span>
+                <span class="p">)</span>
+                <span class="n">data_store</span><span class="p">[</span><span class="s2">&quot;fix_factor&quot;</span><span class="p">][</span><span class="n">year</span><span class="p">,</span> <span class="n">zone</span><span class="p">]</span> <span class="o">=</span> <span class="n">calc_cost_factor</span><span class="p">(</span>
+                    <span class="n">discount_rate</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">y_min</span><span class="p">,</span> <span class="n">next_year</span>
+                <span class="p">)</span>
+                <span class="n">data_store</span><span class="p">[</span><span class="s2">&quot;var_factor&quot;</span><span class="p">][</span><span class="n">year</span><span class="p">,</span> <span class="n">zone</span><span class="p">]</span> <span class="o">=</span> <span class="n">calc_cost_factor</span><span class="p">(</span>
+                    <span class="n">discount_rate</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">y_min</span><span class="p">,</span> <span class="n">next_year</span>
+                <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="process_data"><a class="viewcode-back" href="../../api/prepshot.load_data.html#prepshot.load_data.process_data">[文档]</a><span class="k">def</span> <span class="nf">process_data</span><span class="p">(</span>
+    <span class="n">params_info</span> <span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">input_folder</span> <span class="p">:</span> <span class="nb">str</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Load and process data from input folder based on parameters settings.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    params_info : dict</span>
+<span class="sd">        Dictionary containing parameters information.</span>
+<span class="sd">    input_folder : str</span>
+<span class="sd">        Path to the input folder.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict</span>
+<span class="sd">        Dictionary containing processed parameters.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">check_schema</span><span class="p">(</span><span class="n">params_info</span><span class="p">)</span>
+    <span class="n">file_params</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">params_info</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="n">data_store</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">load_excel_data</span><span class="p">(</span><span class="n">input_folder</span><span class="p">,</span> <span class="n">file_params</span><span class="p">,</span> <span class="n">data_store</span><span class="p">)</span>
+    <span class="n">extract_sets</span><span class="p">(</span><span class="n">data_store</span><span class="p">)</span>
+    <span class="n">compute_cost_factors</span><span class="p">(</span><span class="n">data_store</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">data_store</span></div>
+</pre></div>
+
+</div>
+</div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2023-2025, Zhanwei Liu and Xiaogang He (GPL-3.0).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> v: latest (zh-CN)</span>
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dt>Versions</dt>
+      
+        <dd class="rtd-current-item">
+          <a href="/PREP-SHOT/zh-CN/latest/">latest</a>
+        </dd>
+      
+        <dd>
+          <a href="/PREP-SHOT/en/v1.0/">v1.0</a>
+        </dd>
+      
+    </dl>
+    <dl>
+      <dt>Languages</dt>
+      
+        <dd>
+          <a href="/PREP-SHOT/en/latest/">English</a>
+        </dd>
+      
+        <dd>
+          <a href="/PREP-SHOT/zh_CN/latest/">简体中文</a>
+        </dd>
+      
+    </dl>
+    <dl>
+      <dt>On GitHub</dt>
+      <dd><a href="https://github.com/PREP-NexT/PREP-SHOT">Project home</a></dd>
+      <dd><a href="https://github.com/PREP-NexT/PREP-SHOT/issues">Issues</a></dd>
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

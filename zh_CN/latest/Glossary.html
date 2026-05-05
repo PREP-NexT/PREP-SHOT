@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+<meta property="og:title" content="术语表" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="Glossary.html" />
+<meta property="og:site_name" content="PREP-SHOT documentation" />
+<meta property="og:description" content="PREP-SHOT 中使用的能源建模、水电运行与优化相关术语的参考。 gen, 模型的主要决策变量:按技术、区域、小时、月份、年份的发电量 (单位为每时段 MWh)。在结果 NetCDF 中通过 ds.gen 输出。,, HiGHS, 一款开源线性规划求解器。PREP-SHOT 的默认求解器;由 highsbox 包以 wheel 形式提供,无需单独安装。,, isinflow, confi..." />
+<meta name="description" content="PREP-SHOT 中使用的能源建模、水电运行与优化相关术语的参考。 gen, 模型的主要决策变量:按技术、区域、小时、月份、年份的发电量 (单位为每时段 MWh)。在结果 NetCDF 中通过 ds.gen 输出。,, HiGHS, 一款开源线性规划求解器。PREP-SHOT 的默认求解器;由 highsbox 包以 wheel 形式提供,无需单独安装。,, isinflow, confi..." />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>术语表 &mdash; PREP-SHOT (latest) 简体中文文档</title>
+
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="_static/tabs.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/algolia.css" type="text/css" />
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/custom.css?6" type="text/css" />
+      <link rel="stylesheet" href="_static/css/dev.css" type="text/css" />
+    <link rel="shortcut icon" href="_static/logo.png"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+        <script src="_static/translations.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="_static/js/custom.js?3"></script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+        <script defer="defer" src="_static/js/algolia.js"></script>
+    <script src="_static/js/theme.js"></script><meta name="theme-color" content="#3d8fcc">
+  
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="如何做(How-To)" href="how_to/index.html" />
+    <link rel="prev" title="Mathematical Notation" href="Mathematical_notations.html" />
+<meta name="doc_version" content="latest">
+<meta name="doc_is_latest" content="">
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html">
+            <img src="_static/SVG-03.svg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                latest
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">快速入门</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">概述</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html">安装</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Installation.html#step-1-download">第 1 步:下载</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Installation.html#step-2-install">第 2 步:安装</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Installation.html#step-3-run-a-scenario">第 3 步:运行算例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Installation.html#step-4-use-prep-shot-as-a-python-library">第 4 步:作为 Python 库使用 PREP-SHOT</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Quickstart.html">Quickstart (30 minutes)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Quickstart.html#Scenario-background">Scenario background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Quickstart.html#Step-1-–-Install-(5-minutes)">Step 1 – Install (5 minutes)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Quickstart.html#Step-2-–-Solve-the-shipped-example-(5-minutes)">Step 2 – Solve the shipped example (5 minutes)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Quickstart.html#Step-3-–-Open-the-results-(10-minutes)">Step 3 – Open the results (10 minutes)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Quickstart.html#Step-4-–-Change-one-input-and-re-solve-(5-minutes)">Step 4 – Change one input and re-solve (5 minutes)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Quickstart.html#Step-5-–-Where-to-next">Step 5 – Where to next</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">用户指南</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Model_input_output.html">模型输入与输出</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Model_input_output.html#input-file-format">输入文件格式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Model_input_output.html#inputs">输入</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Model_input_output.html#required-inputs">必备输入</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Model_input_output.html#hydropower-inputs-active-when-isinflow-true-in-config-json">水电输入 (在 <code class="docutils literal notranslate"><span class="pre">config.json</span></code> 中 <code class="docutils literal notranslate"><span class="pre">isinflow=true</span></code> 时启用)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Model_input_output.html#optional-inputs-skipped-when-absent">可选输入 (缺失时跳过)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Model_input_output.html#outputs">输出</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Model_input_output.html#running-scenarios">运行情景</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Model_input_output.html#setting-global-parameters">设置全局参数</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Mathematical_notations.html">Mathematical Notation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Mathematical_notations.html#unit-list">Unit List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Mathematical_notations.html#set-list">Set List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Mathematical_notations.html#variable-list">Variable List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Mathematical_notations.html#parameter-list">Parameter List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Mathematical_notations.html#objective-functions">Objective Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#costs">Costs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#factors">Factors</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Mathematical_notations.html#constraints">Constraints</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#retirement">Retirement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#carbon-emission">Carbon Emission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#power-balance">Power Balance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#transmission">Transmission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#power-output">Power Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#power-output-variation">Power output variation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#energy-storage">Energy storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#water-balance">Water balance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#reservoir-outflow">Reservoir outflow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mathematical_notations.html#reservoir-storage">Reservoir storage</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">术语表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="how_to/index.html">如何做(How-To)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="how_to/add_a_technology.html">新增一个技术</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="how_to/add_a_technology.html#steps">步骤</a></li>
+<li class="toctree-l3"><a class="reference internal" href="how_to/add_a_technology.html#verify">验证</a></li>
+<li class="toctree-l3"><a class="reference internal" href="how_to/add_a_technology.html#common-pitfalls">常见陷阱</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="how_to/tighten_a_carbon_cap.html">收紧碳排放上限</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="how_to/tighten_a_carbon_cap.html#steps">步骤</a></li>
+<li class="toctree-l3"><a class="reference internal" href="how_to/tighten_a_carbon_cap.html#verify">验证</a></li>
+<li class="toctree-l3"><a class="reference internal" href="how_to/tighten_a_carbon_cap.html#custom-cap-regions">自定义上限区域</a></li>
+<li class="toctree-l3"><a class="reference internal" href="how_to/tighten_a_carbon_cap.html#common-pitfalls">常见陷阱</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="how_to/compare_two_scenarios.html">对比两个情景</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="how_to/compare_two_scenarios.html#setup">准备</a></li>
+<li class="toctree-l3"><a class="reference internal" href="how_to/compare_two_scenarios.html#recipe">做法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="how_to/compare_two_scenarios.html#plot-the-capacity-reshuffle">绘制装机重组</a></li>
+<li class="toctree-l3"><a class="reference internal" href="how_to/compare_two_scenarios.html#common-pitfalls">常见陷阱</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="how_to/inspect_lmps.html">查看节点边际电价 (LMP)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="how_to/inspect_lmps.html#recipe">做法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="how_to/inspect_lmps.html#sign-convention">符号约定</a></li>
+<li class="toctree-l3"><a class="reference internal" href="how_to/inspect_lmps.html#npv-vs-real-year-prices">净现值 vs 实际年度价格</a></li>
+<li class="toctree-l3"><a class="reference internal" href="how_to/inspect_lmps.html#common-pitfalls">常见陷阱</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="how_to/add_a_cascading_hydropower_system.html">新增梯级水电系统</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="how_to/add_a_cascading_hydropower_system.html#steps">步骤</a></li>
+<li class="toctree-l3"><a class="reference internal" href="how_to/add_a_cascading_hydropower_system.html#verify">验证</a></li>
+<li class="toctree-l3"><a class="reference internal" href="how_to/add_a_cascading_hydropower_system.html#common-pitfalls">常见陷阱</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">参考</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/prepshot.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/prepshot.set_up.html">set_up</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.set_up.html#prepshot.set_up.initialize_environment"><code class="docutils literal notranslate"><span class="pre">initialize_environment()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.set_up.html#prepshot.set_up.parse_cli_arguments"><code class="docutils literal notranslate"><span class="pre">parse_cli_arguments()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/prepshot.logs.html">logs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.logs.html#prepshot.logs.log_parameter_info"><code class="docutils literal notranslate"><span class="pre">log_parameter_info()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.logs.html#prepshot.logs.setup_logging"><code class="docutils literal notranslate"><span class="pre">setup_logging()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.logs.html#prepshot.logs.timer"><code class="docutils literal notranslate"><span class="pre">timer()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/prepshot.load_data.html">load_data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.load_data.html#prepshot.load_data.check_schema"><code class="docutils literal notranslate"><span class="pre">check_schema()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.load_data.html#prepshot.load_data.compute_cost_factors"><code class="docutils literal notranslate"><span class="pre">compute_cost_factors()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.load_data.html#prepshot.load_data.extract_config_data"><code class="docutils literal notranslate"><span class="pre">extract_config_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.load_data.html#prepshot.load_data.extract_sets"><code class="docutils literal notranslate"><span class="pre">extract_sets()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.load_data.html#prepshot.load_data.load_excel_data"><code class="docutils literal notranslate"><span class="pre">load_excel_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.load_data.html#prepshot.load_data.load_json"><code class="docutils literal notranslate"><span class="pre">load_json()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.load_data.html#prepshot.load_data.process_data"><code class="docutils literal notranslate"><span class="pre">process_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.load_data.html#prepshot.load_data.read_long_csv"><code class="docutils literal notranslate"><span class="pre">read_long_csv()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/prepshot.solver.html">solver</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.solver.html#prepshot.solver.get_solver"><code class="docutils literal notranslate"><span class="pre">get_solver()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.solver.html#prepshot.solver.set_solver_parameters"><code class="docutils literal notranslate"><span class="pre">set_solver_parameters()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.solver.html#prepshot.solver.solve_model"><code class="docutils literal notranslate"><span class="pre">solve_model()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/prepshot.model.html">model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.model.html#prepshot.model.create_model"><code class="docutils literal notranslate"><span class="pre">create_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.model.html#prepshot.model.define_basic_sets"><code class="docutils literal notranslate"><span class="pre">define_basic_sets()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.model.html#prepshot.model.define_complex_sets"><code class="docutils literal notranslate"><span class="pre">define_complex_sets()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.model.html#prepshot.model.define_constraints"><code class="docutils literal notranslate"><span class="pre">define_constraints()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.model.html#prepshot.model.define_model"><code class="docutils literal notranslate"><span class="pre">define_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.model.html#prepshot.model.define_variables"><code class="docutils literal notranslate"><span class="pre">define_variables()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/prepshot._model.html">constraints</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot._model.co2.html">co2</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.co2.html#prepshot._model.co2.AddCo2EmissionConstraints"><code class="docutils literal notranslate"><span class="pre">AddCo2EmissionConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot._model.cost.html">cost</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.cost.html#prepshot._model.cost.AddCostObjective"><code class="docutils literal notranslate"><span class="pre">AddCostObjective</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot._model.demand.html">demand</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.demand.html#prepshot._model.demand.AddDemandConstraints"><code class="docutils literal notranslate"><span class="pre">AddDemandConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot._model.generation.html">generation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.generation.html#prepshot._model.generation.AddGenerationConstraints"><code class="docutils literal notranslate"><span class="pre">AddGenerationConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot._model.head_iteration.html">head_iteration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.head_iteration.html#prepshot._model.head_iteration.compute_error"><code class="docutils literal notranslate"><span class="pre">compute_error()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.head_iteration.html#prepshot._model.head_iteration.initialize_waterhead"><code class="docutils literal notranslate"><span class="pre">initialize_waterhead()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.head_iteration.html#prepshot._model.head_iteration.process_model_solution"><code class="docutils literal notranslate"><span class="pre">process_model_solution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.head_iteration.html#prepshot._model.head_iteration.run_model_iteration"><code class="docutils literal notranslate"><span class="pre">run_model_iteration()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot._model.hydro.html">hydro</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.hydro.html#prepshot._model.hydro.AddHydropowerConstraints"><code class="docutils literal notranslate"><span class="pre">AddHydropowerConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot._model.investment.html">investment</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.investment.html#prepshot._model.investment.AddInvestmentConstraints"><code class="docutils literal notranslate"><span class="pre">AddInvestmentConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot._model.nondispatchable.html">nondispatchable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot._model.storage.html">storage</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.storage.html#prepshot._model.storage.AddStorageConstraints"><code class="docutils literal notranslate"><span class="pre">AddStorageConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot._model.transmission.html">transmission</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.transmission.html#prepshot._model.transmission.AddTransmissionConstraints"><code class="docutils literal notranslate"><span class="pre">AddTransmissionConstraints</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/prepshot.utils.html">utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.utils.html#prepshot.utils.calc_cost_factor"><code class="docutils literal notranslate"><span class="pre">calc_cost_factor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.utils.html#prepshot.utils.calc_interest_rate"><code class="docutils literal notranslate"><span class="pre">calc_interest_rate()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.utils.html#prepshot.utils.calc_inv_cost_factor"><code class="docutils literal notranslate"><span class="pre">calc_inv_cost_factor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.utils.html#prepshot.utils.cartesian_product"><code class="docutils literal notranslate"><span class="pre">cartesian_product()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.utils.html#prepshot.utils.check_positive"><code class="docutils literal notranslate"><span class="pre">check_positive()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.utils.html#prepshot.utils.interpolate_z_by_q_or_s"><code class="docutils literal notranslate"><span class="pre">interpolate_z_by_q_or_s()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/prepshot.output_data.html">output_data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.output_data.html#prepshot.output_data.create_data_array"><code class="docutils literal notranslate"><span class="pre">create_data_array()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.output_data.html#prepshot.output_data.extract_results_hydro"><code class="docutils literal notranslate"><span class="pre">extract_results_hydro()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.output_data.html#prepshot.output_data.extract_results_non_hydro"><code class="docutils literal notranslate"><span class="pre">extract_results_non_hydro()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.output_data.html#prepshot.output_data.save_result"><code class="docutils literal notranslate"><span class="pre">save_result()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.output_data.html#prepshot.output_data.save_to_excel"><code class="docutils literal notranslate"><span class="pre">save_to_excel()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.output_data.html#prepshot.output_data.update_output_filename"><code class="docutils literal notranslate"><span class="pre">update_output_filename()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Stability.html">Stability policy</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Stability.html#v1-x-research-evolving-current">v1.x -- research / evolving (current)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Stability.html#v2-0-stable-planned">v2.0 -- stable (planned)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-0-1-0-jun-24-2024">Version 0.1.0 - Jun 24, 2024</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-0-1-1-jul-11-2024">Version 0.1.1 - Jul 11, 2024</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#added">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#fixed">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#changed">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#deprecated">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-0-1-2-jul-22-2024">Version 0.1.2 - Jul 22, 2024</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id2">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id3">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id4">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-0-jul-21-2025">Version 1.0 - Jul 21, 2025</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-1-0-may-2-2026">Version 1.1.0 - May 2, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id5">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#changed-breaking">Changed (Breaking)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-1-1-may-2-2026">Version 1.1.1 - May 2, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id6">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id7">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id8">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-1-2-may-2-2026">Version 1.1.2 - May 2, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id9">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id10">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-2-0-may-2-2026">Version 1.2.0 - May 2, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id11">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id12">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#migration-notes">Migration notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-3-0-may-2-2026">Version 1.3.0 - May 2, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id13">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id14">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#removed">Removed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-3-1-may-2-2026">Version 1.3.1 - May 2, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id15">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#tested-with">Tested with</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id16">Migration notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-3-2-may-2-2026">Version 1.3.2 - May 2, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id17">Added</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-4-0-may-2-2026">Version 1.4.0 - May 2, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#why-long-format">Why long-format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id18">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id19">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id20">Migration notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-5-0-may-2-2026">Version 1.5.0 - May 2, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id21">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id22">Changed (Breaking)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#annotation-columns">Annotation columns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#column-renames-for-clarity">Column renames for clarity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#group-3-migration">Group 3 migration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id23">Migration notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-6-0-may-3-2026">Version 1.6.0 - May 3, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id24">Removed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id25">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id26">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-7-0-may-3-2026">Version 1.7.0 - May 3, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id27">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id28">Removed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id29">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-8-0-may-3-2026">Version 1.8.0 - May 3, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id30">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id31">Removed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id32">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-8-1-may-3-2026">Version 1.8.1 - May 3, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id33">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-9-0-may-3-2026">Version 1.9.0 - May 3, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id34">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id35">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#notes">Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-9-1-may-3-2026">Version 1.9.1 - May 3, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id36">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id37">Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-10-0-may-5-2026">Version 1.10.0 - May 5, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id38">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id39">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id40">Removed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-11-0-may-5-2026">Version 1.11.0 - May 5, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id41">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id42">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id43">Removed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-11-1-may-5-2026">Version 1.11.1 - May 5, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id44">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id45">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id46">Removed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id47">Notes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">社区</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Forum.html">Discussion</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Forum.html#github-discussions">GitHub Discussions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Forum.html#private-queries">Private Queries</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Contribution.html">贡献指南</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Contribution.html#development-process">开发流程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Contribution.html#building-documentation">构建文档</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Contribution.html#contributing-guidelines">贡献规范</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Contribution.html#translating-the-documentation">Translating the Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Citations.html">Citation Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Citations.html#publications-by-topic">Publications by Topic</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="References.html">References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PREP-SHOT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+<li>
+	<div style="font-size: 105%;font-weight: 600;">
+		
+	</div>
+	<ul class="wy-breadcrumbs">
+		
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">术语表</li>
+	</ul>
+</li>
+
+
+<li style="float: right; text-align: right;">
+	<ul>
+		
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/PREP-NexT/PREP-SHOT/blob/main/doc/source/Glossary.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+	</ul>
+
+	<style>
+		.godot-edit-guidelines {
+			font-size: 14px;
+			float: right;
+			clear: both;
+			padding-top: 4px;
+		}
+
+		@media screen and (max-width: 480px) {
+			.godot-edit-guidelines {
+				display: none;
+			}
+		}
+	</style>
+	<a class="godot-edit-guidelines" href="https://prep-next.github.io/PREP-SHOT/Changelog.html#contributing-to-prep-shot">
+		Learn how to contribute!
+	</a>
+</li>
+
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+<div itemprop="articleBody">
+  
+
+  
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<section id="glossary">
+<span id="id1"></span><h1>术语表<a class="headerlink" href="#glossary" title="此标题的永久链接">¶</a></h1>
+<p>PREP-SHOT 中使用的能源建模、水电运行与优化相关术语的参考。</p>
+<dl class="glossary simple">
+<dt id="term-gen">gen<a class="headerlink" href="#term-gen" title="此术语词汇的永久链接">¶</a></dt><dd><p>模型的主要决策变量:按技术、区域、小时、月份、年份的发电量 (单位为每时段 MWh)。在结果 NetCDF 中通过 <code class="docutils literal notranslate"><span class="pre">ds.gen</span></code> 输出。</p>
+</dd>
+<dt id="term-HiGHS">HiGHS<a class="headerlink" href="#term-HiGHS" title="此术语词汇的永久链接">¶</a></dt><dd><p>一款开源线性规划求解器。PREP-SHOT 的默认求解器;由 <code class="docutils literal notranslate"><span class="pre">highsbox</span></code> 包以 wheel 形式提供,无需单独安装。</p>
+</dd>
+<dt id="term-isinflow">isinflow<a class="headerlink" href="#term-isinflow" title="此术语词汇的永久链接">¶</a></dt><dd><p><code class="docutils literal notranslate"><span class="pre">config.json</span></code> 中用以开关按站建立的水电/水库约束的开关。设为 <code class="docutils literal notranslate"><span class="pre">false</span></code> 时把水电按一个汇总的可调度技术建模,无水库物理过程;设为 <code class="docutils literal notranslate"><span class="pre">true</span></code> 时启用水头迭代循环。</p>
+</dd>
+<dt id="term-NPV">NPV<a class="headerlink" href="#term-NPV" title="此术语词汇的永久链接">¶</a></dt><dd><p>参见 <a class="reference internal" href="#term-net-present-value"><span class="xref std std-term">net present value</span></a>。</p>
+</dd>
+<dt id="term-p_max_pu">p_max_pu<a class="headerlink" href="#term-p_max_pu" title="此术语词汇的永久链接">¶</a></dt><dd><p>发电机调度的标幺值上限 (PyPSA 约定)。对于光伏,即每小时的容量系数曲线;对于火电,通常为 1。PREP-SHOT 从 <code class="docutils literal notranslate"><span class="pre">tech_max_gen_profile.csv</span></code> 读取。</p>
+</dd>
+<dt id="term-p_min_pu">p_min_pu<a class="headerlink" href="#term-p_min_pu" title="此术语词汇的永久链接">¶</a></dt><dd><p>发电机调度的标幺值下限 (PyPSA 约定)。用于建模必发出力约束。PREP-SHOT 从 <code class="docutils literal notranslate"><span class="pre">tech_min_gen_profile.csv</span></code> 读取;默认值为 0。</p>
+</dd>
+<dt id="term-PyOptInterface">PyOptInterface<a class="headerlink" href="#term-PyOptInterface" title="此术语词汇的永久链接">¶</a></dt><dd><p>PREP-SHOT 用作建模层的 Python 求解器封装,支持 HiGHS / Gurobi / COPT / MOSEK。在同类问题上比 Pyomo 更快且占用内存更少。</p>
+</dd>
+<dt id="term-tech_registry">tech_registry<a class="headerlink" href="#term-tech_registry" title="此术语词汇的永久链接">¶</a></dt><dd><p>列出每种被建模技术的 CSV 文件,字段包含 <code class="docutils literal notranslate"><span class="pre">carrier</span></code>、<code class="docutils literal notranslate"><span class="pre">is_storage</span></code> 标志位、以及供人阅读的 <code class="docutils literal notranslate"><span class="pre">name</span></code>。是某算例中技术存在性的唯一权威。</p>
+</dd>
+<dt id="term-VRE">VRE<a class="headerlink" href="#term-VRE" title="此术语词汇的永久链接">¶</a></dt><dd><p>参见 <a class="reference internal" href="#term-variable-renewable-energy"><span class="xref std std-term">variable renewable energy</span></a>。</p>
+</dd>
+<dt id="term-WACC">WACC<a class="headerlink" href="#term-WACC" title="此术语词汇的永久链接">¶</a></dt><dd><p>加权平均资本成本 (Weighted-Average Cost of Capital)。一个项目的债务与股权份额的混合折现率。在启用 v1.9 金融模块时 (即存在 <code class="docutils literal notranslate"><span class="pre">finance_*.csv</span></code> 文件) 生效;在投资成本折现时替代区域 <a class="reference internal" href="#term-discount-factor"><span class="xref std std-term">discount factor</span></a>。</p>
+</dd>
+<dt id="term-storage">储能 (storage)<a class="headerlink" href="#term-storage" title="此术语词汇的永久链接">¶</a></dt><dd><p>在某些时段吸收能量、在另一些时段释放能量的技术 (电池、抽水蓄能)。PREP-SHOT 在 <code class="docutils literal notranslate"><span class="pre">tech_registry.csv</span></code> 中以 <code class="docutils literal notranslate"><span class="pre">is_storage=True</span></code> 标识;模型按小时跟踪荷电状态并考虑充放电效率。</p>
+</dd>
+<dt id="term-representative-period">典型时段 (representative period)<a class="headerlink" href="#term-representative-period" title="此术语词汇的永久链接">¶</a></dt><dd><p>为在保持模型可解的前提下近似全年运行,所选取的若干小时 / 月份。PREP-SHOT 通过 <code class="docutils literal notranslate"><span class="pre">config.json</span></code> 中的 <code class="docutils literal notranslate"><span class="pre">hour</span></code> 和 <code class="docutils literal notranslate"><span class="pre">month</span></code> 配置。随仓库提供的三区域算例使用 48 个典型小时 x 1 个典型月;Lower Mekong 算例使用 288 x 1。</p>
+</dd>
+<dt id="term-net-present-value">净现值 (net present value)<a class="headerlink" href="#term-net-present-value" title="此术语词汇的永久链接">¶</a></dt><dd><p>按现值表达的未来现金流贴现总和。PREP-SHOT 的目标是最小化整个规划期内系统总成本的净现值。常缩写为 <a class="reference internal" href="#term-NPV"><span class="xref std std-term">NPV</span></a>。</p>
+</dd>
+<dt id="term-forebay-level">前池水位 (forebay level)<a class="headerlink" href="#term-forebay-level" title="此术语词汇的永久链接">¶</a></dt><dd><p>水坝后侧 (发电机上游) 的水面高程。决定总水头从而决定发电效率。PREP-SHOT 通过 <code class="docutils literal notranslate"><span class="pre">reservoir_forebay_level_volume_function.csv</span></code> 把它建模为水库蓄水量的分段线性函数。</p>
+</dd>
+<dt id="term-zone">区域 (zone)<a class="headerlink" href="#term-zone" title="此术语词汇的永久链接">¶</a></dt><dd><p>被建模为单一母线的区域——在区域内供需瞬时平衡;在区域之间,电力通过具有容量和效率约束的跨区输电线路流动。<code class="docutils literal notranslate"><span class="pre">zone</span></code> 集合由 <code class="docutils literal notranslate"><span class="pre">demand.csv</span></code> 的键导出。</p>
+</dd>
+<dt id="term-generation-flow">发电流量 (generation flow)<a class="headerlink" href="#term-generation-flow" title="此术语词汇的永久链接">¶</a></dt><dd><p>经水电站水轮机的水流量 (m^3/s),相对于绕过水轮机的弃水或蓄存。上限由 <code class="docutils literal notranslate"><span class="pre">reservoir_generation_flow_max.csv</span></code> 约束。</p>
+</dd>
+<dt id="term-variable-renewable-energy">可变可再生能源 (variable renewable energy)<a class="headerlink" href="#term-variable-renewable-energy" title="此术语词汇的永久链接">¶</a></dt><dd><p>出力由不可控资源决定的发电机——典型为风能与太阳能。PREP-SHOT 通过 <code class="docutils literal notranslate"><span class="pre">tech_max_gen_profile.csv</span></code> (按小时的容量系数) 机制建模 VRE。常缩写为 <a class="reference internal" href="#term-VRE"><span class="xref std std-term">VRE</span></a>。</p>
+</dd>
+<dt id="term-dispatchable-technology">可调度技术 (dispatchable technology)<a class="headerlink" href="#term-dispatchable-technology" title="此术语词汇的永久链接">¶</a></dt><dd><p>在爬坡约束范围内可按需控制出力的发电机——煤电、燃气、燃油、生物质、带水库的水电等。与 <a class="reference internal" href="#term-variable-renewable-energy"><span class="xref std std-term">variable renewable energy</span></a> (VRE) 相对。</p>
+</dd>
+<dt id="term-reserve-margin">备用容量 (reserve margin)<a class="headerlink" href="#term-reserve-margin" title="此术语词汇的永久链接">¶</a></dt><dd><p>装机容量需超过峰值需求以吸收预测误差和非计划停运的占比。<em>PREP-SHOT 当前不建模该项;</em> v1.4 遗留数据中存在 <code class="docutils literal notranslate"><span class="pre">reserve_margin</span></code> 文件,但已不再读取。</p>
+</dd>
+<dt id="term-capacity-expansion">容量扩展规划 (capacity expansion)<a class="headerlink" href="#term-capacity-expansion" title="此术语词汇的永久链接">¶</a></dt><dd><p>在多年规划期内决定新建多少发电、储能和输电容量的优化问题,受需求、燃料、排放与预算约束。PREP-SHOT 求解的是多区域、多年的线性容量扩展问题。</p>
+</dd>
+<dt id="term-capacity-factor">容量系数 (capacity factor)<a class="headerlink" href="#term-capacity-factor" title="此术语词汇的永久链接">¶</a></dt><dd><p>发电机在某段时间内实际出力与按额定容量满发出力的比值。光伏的容量系数通常为 15-25%,联合循环燃机为 40-60%,核电高于 90%。在 PREP-SHOT 中,随时间变化的容量系数曲线通过 <code class="docutils literal notranslate"><span class="pre">tech_max_gen_profile.csv</span></code> 提供 (沿用 PyPSA 的 <code class="docutils literal notranslate"><span class="pre">p_max_pu</span></code> 约定)。</p>
+</dd>
+<dt id="term-tailrace-level">尾水位 (tailrace level)<a class="headerlink" href="#term-tailrace-level" title="此术语词汇的永久链接">¶</a></dt><dd><p>水坝下游的水面高程。与前池水位共同影响水头。在 <code class="docutils literal notranslate"><span class="pre">reservoir_tailrace_level_discharge_function.csv</span></code> 中建模为总下泄量的分段线性函数。</p>
+</dd>
+<dt id="term-shadow-price">影子价格 (shadow price)<a class="headerlink" href="#term-shadow-price" title="此术语词汇的永久链接">¶</a></dt><dd><p>约束的对偶变量,等于最优目标值对该约束右端项的变化率。对于需求平衡约束而言,影子价格就是 <a class="reference internal" href="#term-LMP"><span class="xref std std-term">LMP</span></a>。在结果中以 <code class="docutils literal notranslate"><span class="pre">shadow_price_demand</span></code> 输出。</p>
+</dd>
+<dt id="term-gross-head">总水头 (gross head)<a class="headerlink" href="#term-gross-head" title="此术语词汇的永久链接">¶</a></dt><dd><p>前池水位与尾水位之间的垂直高差。与发电流量共同决定水电出力效率:<code class="docutils literal notranslate"><span class="pre">功率</span> <span class="pre">=</span> <span class="pre">系数</span> <span class="pre">*</span> <span class="pre">水头</span> <span class="pre">*</span> <span class="pre">流量</span></code>。</p>
+</dd>
+<dt id="term-investment-cost">投资成本 (investment cost)<a class="headerlink" href="#term-investment-cost" title="此术语词汇的永久链接">¶</a></dt><dd><p>新建一个单位容量的资本成本 (USD/MW)。PREP-SHOT 使用相应的折现因子 (若启用了可选的金融模块,则使用项目级 WACC) 把成本折算到净现值。输入文件:<code class="docutils literal notranslate"><span class="pre">tech_investment_cost.csv</span></code>。</p>
+</dd>
+<dt id="term-commission-year">投运年份 (commission year)<a class="headerlink" href="#term-commission-year" title="此术语词汇的永久链接">¶</a></dt><dd><p>电源 (电厂或输电线路) 首次投入运营的日历年份。PREP-SHOT 用它计算现有容量何时退役 (在 <code class="docutils literal notranslate"><span class="pre">commission_year</span> <span class="pre">+</span> <span class="pre">lifetime</span></code> 之后退出运行)。记录在 <code class="docutils literal notranslate"><span class="pre">tech_existing.csv</span></code> 和 <code class="docutils literal notranslate"><span class="pre">transmission_existing.csv</span></code> 中。</p>
+</dd>
+<dt id="term-discount-factor">折现因子 (discount factor)<a class="headerlink" href="#term-discount-factor" title="此术语词汇的永久链接">¶</a></dt><dd><p>用于计算未来现金流现值的因子。PREP-SHOT 通过 <code class="docutils literal notranslate"><span class="pre">economic_discount_factor.csv</span></code> 支持按区域、按年度的折现因子,允许在同一模型中使用不同区域的资金成本假设。</p>
+</dd>
+<dt id="term-cascading-hydropower">梯级水电 (cascading hydropower)<a class="headerlink" href="#term-cascading-hydropower" title="此术语词汇的永久链接">¶</a></dt><dd><p>同一河流上的一系列水电站,上游电站的下泄流量即为下游电站的入流。PREP-SHOT 通过 <code class="docutils literal notranslate"><span class="pre">reservoir_water_delay_time.csv</span></code> 中按站建立的水量平衡约束显式建模梯级关系;上游运行的变化会自动传递到下游。</p>
+</dd>
+<dt id="term-head-iteration">水头迭代 (head iteration)<a class="headerlink" href="#term-head-iteration" title="此术语词汇的永久链接">¶</a></dt><dd><p>一种外层迭代方案,逐次修正假设的水头直到自洽。PREP-SHOT 在给定水头下求解 LP,从所得水库轨迹重新计算水头,然后重新求解,直到水头误差收敛 (或达到 <code class="docutils literal notranslate"><span class="pre">iteration_number</span></code>)。<code class="docutils literal notranslate"><span class="pre">error_threshold</span></code> 设置控制收敛容差。</p>
+</dd>
+<dt id="term-reservoir">水库 (reservoir)<a class="headerlink" href="#term-reservoir" title="此术语词汇的永久链接">¶</a></dt><dd><p>水坝后蓄存的水体,为水电站提供运行灵活性。PREP-SHOT 按水库逐一建模水量平衡、水头变化与库容约束。</p>
+</dd>
+<dt id="term-water-delay-time">水流延迟时间 (water delay time)<a class="headerlink" href="#term-water-delay-time" title="此术语词汇的永久链接">¶</a></dt><dd><p>水流从一个水库的下泄口流至梯级中下一个水库入流口所需的时间。存于 <code class="docutils literal notranslate"><span class="pre">reservoir_water_delay_time.csv</span></code>;使模型能反映上游下泄需若干小时才到达下游电站这一事实。</p>
+</dd>
+<dt id="term-ramp-rate">爬坡率 (ramp rate)<a class="headerlink" href="#term-ramp-rate" title="此术语词汇的永久链接">¶</a></dt><dd><p>火电机组每小时可改变出力的额定容量比例。用于建模大型煤电 / 燃气机组的运行刚性。输入文件:<code class="docutils literal notranslate"><span class="pre">tech_ramp_up.csv</span></code>、<code class="docutils literal notranslate"><span class="pre">tech_ramp_down.csv</span></code>。</p>
+</dd>
+<dt id="term-transmission-existing">现有输电容量 (transmission existing)<a class="headerlink" href="#term-transmission-existing" title="此术语词汇的永久链接">¶</a></dt><dd><p>规划期初已建成的区域间输电容量。以 <code class="docutils literal notranslate"><span class="pre">(zone1,</span> <span class="pre">zone2,</span> <span class="pre">commission_year)</span></code> 索引,使按使用年限的退役机制与电厂保持一致。</p>
+</dd>
+<dt id="term-demand">电力需求 (demand)<a class="headerlink" href="#term-demand" title="此术语词汇的永久链接">¶</a></dt><dd><p>每个区域必须满足的小时级电力负荷。输入文件 <code class="docutils literal notranslate"><span class="pre">demand.csv</span></code> 单位为 MW (瞬时功率);PREP-SHOT 内部乘以时间步长 <code class="docutils literal notranslate"><span class="pre">dt</span></code> 转换为每时段 MWh,与输出中的 <code class="docutils literal notranslate"><span class="pre">gen</span></code> 和 <code class="docutils literal notranslate"><span class="pre">charge</span></code> 单位一致。</p>
+</dd>
+<dt id="term-carbon-offset">碳抵消 (carbon offset)<a class="headerlink" href="#term-carbon-offset" title="此术语词汇的永久链接">¶</a></dt><dd><p>通过购买信用额度来抵消排放,使发电方可以付费超越显式的排放上限。PREP-SHOT 同时建模抵消价格 (每吨) 和年度采购量上限 (按区域、按年度)。</p>
+</dd>
+<dt id="term-carbon-cap">碳排放上限 (carbon cap)<a class="headerlink" href="#term-carbon-cap" title="此术语词汇的永久链接">¶</a></dt><dd><p>整个系统二氧化碳排放的上限,通常随时间递减。PREP-SHOT 支持在 <code class="docutils literal notranslate"><span class="pre">policy_carbon_emission_limit.csv</span></code> 中按区域设定上限:每行的 <code class="docutils literal notranslate"><span class="pre">zones</span></code> 字段以逗号分隔,定义该上限覆盖的地理范围。</p>
+</dd>
+<dt id="term-linear-programming">线性规划 (linear programming)<a class="headerlink" href="#term-linear-programming" title="此术语词汇的永久链接">¶</a></dt><dd><p>目标函数和约束均为线性的优化问题。PREP-SHOT 的容量扩展问题是 LP (没有整数或二次项),这使多年、多区域模型的求解时间可控。LP 相对于 MIP 的代价是没有机组组合 / 启停成本的细节。</p>
+</dd>
+<dt id="term-carrier">能源载体 (carrier)<a class="headerlink" href="#term-carrier" title="此术语词汇的永久链接">¶</a></dt><dd><p>标识技术能源载体 (燃料类型) 的自由格式字符串。PREP-SHOT 沿用 PyPSA 的约定;示例包括 <code class="docutils literal notranslate"><span class="pre">coal</span></code>, <code class="docutils literal notranslate"><span class="pre">gas</span></code>, <code class="docutils literal notranslate"><span class="pre">hydro</span></code>, <code class="docutils literal notranslate"><span class="pre">solar</span></code>, <code class="docutils literal notranslate"><span class="pre">wind</span></code>, <code class="docutils literal notranslate"><span class="pre">biomass</span></code>。<code class="docutils literal notranslate"><span class="pre">hydro</span></code> 载体是特殊处理的,模型会自动施加水库约束。在 <code class="docutils literal notranslate"><span class="pre">tech_registry.csv</span></code> 中定义。</p>
+</dd>
+<dt id="term-LMP">节点边际电价 (LMP)<a class="headerlink" href="#term-LMP" title="此术语词汇的永久链接">¶</a></dt><dd><p>节点边际电价 (Locational Marginal Price)。在特定母线 / 区域多供一兆瓦时需求的成本,由需求平衡约束的对偶变量得出。在结果 NetCDF 中以 <code class="docutils literal notranslate"><span class="pre">shadow_price_demand</span></code> 输出;符号已翻转,正值意味着 &quot;更多的需求会更贵&quot;。</p>
+</dd>
+<dt id="term-dispatch">调度 (dispatch)<a class="headerlink" href="#term-dispatch" title="此术语词汇的永久链接">¶</a></dt><dd><p>在装机容量给定的前提下,以最小成本满足电力需求的小时级发电机与储能运行决策。PREP-SHOT 联合优化投资 (容量扩展) 与调度。</p>
+</dd>
+<dt id="term-transmission-expansion">输电扩展 (transmission expansion)<a class="headerlink" href="#term-transmission-expansion" title="此术语词汇的永久链接">¶</a></dt><dd><p>在区域之间新建输电容量,其上下界由 <code class="docutils literal notranslate"><span class="pre">transmission_candidates.csv</span></code> 控制。PREP-SHOT 在线路级建模区域间输送 (不含直流潮流 / 阻抗约束)。</p>
+</dd>
+<dt id="term-long-format-CSV">长格式 CSV (long-format CSV)<a class="headerlink" href="#term-long-format-CSV" title="此术语词汇的永久链接">¶</a></dt><dd><p>自 v1.5 起 PREP-SHOT 输入采用的 &quot;整洁数据&quot; CSV 约定:一行一个观测,维度列在前、值列在后。替代了 v1.4 时代的宽格式 Excel 布局。</p>
+</dd>
+<dt id="term-nominal-capacity">额定容量 (nominal capacity)<a class="headerlink" href="#term-nominal-capacity" title="此术语词汇的永久链接">¶</a></dt><dd><p>发电机的额定最大出力 (MW),相对于调度过程中的实际出力。在 <code class="docutils literal notranslate"><span class="pre">tech_existing.csv</span></code> 中存储现役容量,在 <code class="docutils literal notranslate"><span class="pre">tech_capacity_max.csv</span></code> 中给出上限。</p>
+</dd>
+</dl>
+</section>
+
+
+</div>
+</div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Mathematical_notations.html" class="btn btn-neutral float-left" title="Mathematical Notation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="how_to/index.html" class="btn btn-neutral float-right" title="如何做(How-To)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2023-2025, Zhanwei Liu and Xiaogang He (GPL-3.0).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> v: latest (zh-CN)</span>
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dt>Versions</dt>
+      
+        <dd class="rtd-current-item">
+          <a href="/PREP-SHOT/zh-CN/latest/">latest</a>
+        </dd>
+      
+        <dd>
+          <a href="/PREP-SHOT/en/v1.0/">v1.0</a>
+        </dd>
+      
+    </dl>
+    <dl>
+      <dt>Languages</dt>
+      
+        <dd>
+          <a href="/PREP-SHOT/en/latest/">English</a>
+        </dd>
+      
+        <dd>
+          <a href="/PREP-SHOT/zh_CN/latest/">简体中文</a>
+        </dd>
+      
+    </dl>
+    <dl>
+      <dt>On GitHub</dt>
+      <dd><a href="https://github.com/PREP-NexT/PREP-SHOT">Project home</a></dd>
+      <dd><a href="https://github.com/PREP-NexT/PREP-SHOT/issues">Issues</a></dd>
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
