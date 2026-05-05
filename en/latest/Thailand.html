@@ -2,14 +2,14 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<meta property="og:title" content="Quickstart (30 minutes)" />
+<meta property="og:title" content="Single-zone Thailand example" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="Quickstart.html" />
+<meta property="og:url" content="Thailand.html" />
 <meta property="og:site_name" content="PREP-SHOT documentation" />
-<meta property="og:description" content="Run online (zero install): Open in Colab – click and run; needs a Google account. Run locally: clone the repo and install with the notebook extra: Goal: take a fresh checkout of PREP-SHOT, solve th..." />
-<meta name="description" content="Run online (zero install): Open in Colab – click and run; needs a Google account. Run locally: clone the repo and install with the notebook extra: Goal: take a fresh checkout of PREP-SHOT, solve th..." />
+<meta property="og:description" content="A single-zone (Thailand) capacity-expansion run with 13 cascading Mekong-basin reservoirs – Bhumibol, Sirikit, Srinagarind, Vajiralongkorn, Rajjaprabha, etc. Migrated from the v1.4-era xlsx dataset..." />
+<meta name="description" content="A single-zone (Thailand) capacity-expansion run with 13 cascading Mekong-basin reservoirs – Bhumibol, Sirikit, Srinagarind, Vajiralongkorn, Rajjaprabha, etc. Migrated from the v1.4-era xlsx dataset..." />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Quickstart (30 minutes) &mdash; PREP-SHOT (latest) documentation in English</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Single-zone Thailand example &mdash; PREP-SHOT (latest) documentation in English</title>
 
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
@@ -42,8 +42,8 @@
   
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Single-zone Thailand example" href="Thailand.html" />
-    <link rel="prev" title="Installation" href="Installation.html" />
+    <link rel="next" title="Tutorial: Lower Mekong Basin (Southeast Asia)" href="SoutheastAsia.html" />
+    <link rel="prev" title="Quickstart (30 minutes)" href="Quickstart.html" />
 <meta name="doc_version" content="latest">
 <meta name="doc_is_latest" content="">
 
@@ -78,27 +78,27 @@
 <li class="toctree-l2"><a class="reference internal" href="Installation.html#step-4-use-prep-shot-as-a-python-library">Step 4: Use PREP-SHOT as a Python library</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Quickstart (30 minutes)</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#Scenario-background">Scenario background</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#Step-1-–-Install-(5-minutes)">Step 1 – Install (5 minutes)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#Step-2-–-Solve-the-shipped-example-(5-minutes)">Step 2 – Solve the shipped example (5 minutes)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#Step-3-–-Open-the-results-(10-minutes)">Step 3 – Open the results (10 minutes)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#Step-4-–-Change-one-input-and-re-solve-(5-minutes)">Step 4 – Change one input and re-solve (5 minutes)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#Step-5-–-Where-to-next">Step 5 – Where to next</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Quickstart.html">Quickstart (30 minutes)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Quickstart.html#Scenario-background">Scenario background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Quickstart.html#Step-1-–-Install-(5-minutes)">Step 1 – Install (5 minutes)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Quickstart.html#Step-2-–-Solve-the-shipped-example-(5-minutes)">Step 2 – Solve the shipped example (5 minutes)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Quickstart.html#Step-3-–-Open-the-results-(10-minutes)">Step 3 – Open the results (10 minutes)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Quickstart.html#Step-4-–-Change-one-input-and-re-solve-(5-minutes)">Step 4 – Change one input and re-solve (5 minutes)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Quickstart.html#Step-5-–-Where-to-next">Step 5 – Where to next</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="Thailand.html">Single-zone Thailand example</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="Thailand.html#Existing-fleet-(2023)">Existing fleet (2023)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Thailand.html#Per-station-hydropower-characteristics">Per-station hydropower characteristics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Thailand.html#Inspect-a-solve-(after-running-python-run.py)">Inspect a solve (after running <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">run.py</span></code>)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Thailand.html#Common-plots-from-a-solved-baseline">Common plots from a solved baseline</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="Thailand.html#Installed-capacity">Installed capacity</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Thailand.html#Annual-generation-mix">Annual generation mix</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Thailand.html#Daily-dispatch-profile">Daily dispatch profile</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Thailand.html#Cost-breakdown">Cost breakdown</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Single-zone Thailand example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Existing-fleet-(2023)">Existing fleet (2023)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Per-station-hydropower-characteristics">Per-station hydropower characteristics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Inspect-a-solve-(after-running-python-run.py)">Inspect a solve (after running <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">run.py</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Common-plots-from-a-solved-baseline">Common plots from a solved baseline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Installed-capacity">Installed capacity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Annual-generation-mix">Annual generation mix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Daily-dispatch-profile">Daily dispatch profile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Cost-breakdown">Cost breakdown</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="Thailand.html#Where-to-next">Where to next</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Where-to-next">Where to next</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="SoutheastAsia.html">Tutorial: Lower Mekong Basin (Southeast Asia)</a><ul>
@@ -472,7 +472,7 @@
 	<ul class="wy-breadcrumbs">
 		
       <li><a href="index.html" class="icon icon-home"></a></li>
-      <li class="breadcrumb-item active">Quickstart (30 minutes)</li>
+      <li class="breadcrumb-item active">Single-zone Thailand example</li>
 	</ul>
 </li>
 
@@ -481,7 +481,7 @@
 	<ul>
 		
       <li class="wy-breadcrumbs-aside">
-              <a href="https://github.com/PREP-NexT/PREP-SHOT/blob/main/doc/source/Quickstart.ipynb" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/PREP-NexT/PREP-SHOT/blob/main/doc/source/Thailand.ipynb" class="fa fa-github"> Edit on GitHub</a>
       </li>
 	</ul>
 
@@ -792,88 +792,33 @@ div.rendered_html tbody tr:hover {
     text-align: unset;
 }
 </style>
-<p><strong>Run online (zero install):</strong> <a class="reference external" href="https://colab.research.google.com/github/PREP-NexT/PREP-SHOT/blob/main/doc/source/Quickstart.ipynb">Open in Colab</a> – click and run; needs a Google account.</p>
-<p><strong>Run locally:</strong> clone the repo and install with the <code class="docutils literal notranslate"><span class="pre">notebook</span></code> extra:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/PREP-NexT/PREP-SHOT.git
-<span class="nb">cd</span><span class="w"> </span>PREP-SHOT
-pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.<span class="o">[</span>notebook<span class="o">]</span>
-jupyter<span class="w"> </span>lab<span class="w"> </span>doc/source/Quickstart.ipynb
+<section id="Single-zone-Thailand-example">
+<h1>Single-zone Thailand example<a class="headerlink" href="#Single-zone-Thailand-example" title="Permalink to this heading">¶</a></h1>
+<p>A single-zone (Thailand) capacity-expansion run with <strong>13 cascading Mekong-basin reservoirs</strong> – Bhumibol, Sirikit, Srinagarind, Vajiralongkorn, Rajjaprabha, etc. Migrated from the v1.4-era xlsx dataset to the v1.9 long-format CSV schema; all per-station reservoir physics (head, tailrace-discharge curves, forebay-volume curves) preserved.</p>
+<p><strong>Run the solve from the command line</strong> (the dataset is large – 1M+ variables – so a full solve takes ~30 min):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>examples/thailand
+python<span class="w"> </span>run.py
 </pre></div>
 </div>
-<div class="nbinput nblast docutils container">
+<p>The cells below explore the dataset shape and read the result NetCDF. They run fast (no solve).</p>
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># On Google Colab, install PREP-SHOT and clone the repo so the</span>
-<span class="c1"># path-walk below can locate run.py / config.json. No-op on</span>
-<span class="c1"># Local installs already have prepshot importable.</span>
-<span class="k">try</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">google.colab</span>  <span class="c1"># type: ignore  # noqa: F401</span>
-    <span class="n">IS_COLAB</span> <span class="o">=</span> <span class="kc">True</span>
-<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-    <span class="n">IS_COLAB</span> <span class="o">=</span> <span class="kc">False</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pathlib</span>
 
-<span class="k">if</span> <span class="n">IS_COLAB</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">os</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="s1">&#39;/content/PREP-SHOT&#39;</span><span class="p">):</span>
-        <span class="o">!</span>git<span class="w"> </span>clone<span class="w"> </span>--depth<span class="o">=</span><span class="m">1</span><span class="w"> </span>https://github.com/PREP-NexT/PREP-SHOT.git<span class="w"> </span>/content/PREP-SHOT
-    <span class="o">%</span><span class="k">cd</span> /content/PREP-SHOT
-    <span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>--quiet<span class="w"> </span>-e<span class="w"> </span>.
-    <span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>--quiet<span class="w"> </span>matplotlib<span class="w"> </span>h5netcdf
-<br/></pre></div>
-</div>
-</div>
-<section id="Quickstart-(30-minutes)">
-<h1>Quickstart (30 minutes)<a class="headerlink" href="#Quickstart-(30-minutes)" title="Permalink to this heading">¶</a></h1>
-<p>Goal: take a fresh checkout of PREP-SHOT, solve the shipped example, read the results, change one input, and re-solve – all in about half an hour. No prior knowledge of capacity-expansion modeling is assumed; everything happens against the <code class="docutils literal notranslate"><span class="pre">examples/three_zone/</span></code> dataset that ships with the repo.</p>
-<p>If anything in this page does not work for you, please open a <a class="reference external" href="https://github.com/PREP-NexT/PREP-SHOT/issues">GitHub issue</a> – we read every report and a broken Quickstart is the bug we most want to know about.</p>
-<section id="Scenario-background">
-<h2>Scenario background<a class="headerlink" href="#Scenario-background" title="Permalink to this heading">¶</a></h2>
-<p>The shipped <code class="docutils literal notranslate"><span class="pre">examples/three_zone/</span></code> dataset is inspired by real-world data, drawing primarily from the U.S. Energy Information Administration (<a class="reference external" href="https://www.eia.gov/electricity/gridmonitor/dashboard/electric_overview/regional/REG-NW">EIA</a>), the U.S. Army Corps of Engineers (<a class="reference external" href="https://www.nwd-wc.usace.army.mil/dd/common/dataquery/www/">USACE</a>), and the U.S. National Renewable Energy Laboratory (<a class="reference external" href="https://atb.nrel.gov/electricity/2022/data">NREL</a>).</p>
-<p>It models a cascading hydropower system of <strong>15 interconnected stations</strong> across <strong>three balancing authorities</strong> – BA1, BA2, and BA3 – each with distinct jurisdictional connections to their local reservoirs. Aside from hydropower, no other existing generation or transmission is in place; the model decides what to build from four candidate technologies (coal, wind, solar, energy storage) along an electric-mix pathway from 2020 to 2030 toward zero-carbon emissions. We use a 48-hour representative
-period for the analysis.</p>
-</section>
-<section id="Step-1-–-Install-(5-minutes)">
-<h2>Step 1 – Install (5 minutes)<a class="headerlink" href="#Step-1-–-Install-(5-minutes)" title="Permalink to this heading">¶</a></h2>
-<p>PREP-SHOT requires Python 3.9 or newer. Conda is recommended so the optimization-solver dependencies stay isolated:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>prep-shot<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.11<span class="w"> </span>-y
-conda<span class="w"> </span>activate<span class="w"> </span>prep-shot
-
-git<span class="w"> </span>clone<span class="w"> </span>https://github.com/PREP-NexT/PREP-SHOT.git
-<span class="nb">cd</span><span class="w"> </span>PREP-SHOT
-pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
-</pre></div>
-</div>
-<p>The default solver is the open-source <a class="reference external" href="https://highs.dev/">HiGHS</a>, installed automatically as a wheel. To use a commercial solver (Gurobi, COPT, MOSEK) instead, set <code class="docutils literal notranslate"><span class="pre">solver</span></code> in the scenario’s <code class="docutils literal notranslate"><span class="pre">config.json</span></code> – see the <a class="reference internal" href="Model_input_output.html"><span class="doc">Model Inputs/Outputs page</span></a>.</p>
-</section>
-<section id="Step-2-–-Solve-the-shipped-example-(5-minutes)">
-<h2>Step 2 – Solve the shipped example (5 minutes)<a class="headerlink" href="#Step-2-–-Solve-the-shipped-example-(5-minutes)" title="Permalink to this heading">¶</a></h2>
-<p>The repo ships a self-contained 3-zone, 11-year example in <code class="docutils literal notranslate"><span class="pre">examples/three_zone/</span></code>. We solve it programmatically so this notebook works regardless of the working directory.</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">io</span>
-<span class="kn">import</span> <span class="nn">tempfile</span>
-<span class="kn">import</span> <span class="nn">pathlib</span>
-
-<span class="c1"># Notebooks inherit the kernel launcher&#39;s argv; clear it so</span>
-<span class="c1"># prepshot.set_up.parse_cli_arguments() sees no scenario flags.</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">argv</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;notebook&#39;</span><span class="p">]</span>
-
-<span class="c1"># Locate the repo root (the dir containing run.py).</span>
-<span class="n">repo_root</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span>
-<span class="k">while</span> <span class="ow">not</span> <span class="p">(</span><span class="n">repo_root</span> <span class="o">/</span> <span class="s1">&#39;run.py&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
-    <span class="k">if</span> <span class="n">repo_root</span> <span class="o">==</span> <span class="n">repo_root</span><span class="o">.</span><span class="n">parent</span><span class="p">:</span>
+<span class="c1"># Walk up to find the example dir (containing config.json + input/).</span>
+<span class="n">this_dir</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span>
+<span class="k">while</span> <span class="ow">not</span> <span class="p">(</span><span class="n">this_dir</span> <span class="o">/</span> <span class="s1">&#39;config.json&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span> <span class="ow">or</span> <span class="ow">not</span> <span class="p">(</span><span class="n">this_dir</span> <span class="o">/</span> <span class="s1">&#39;input&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">is_dir</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">this_dir</span> <span class="o">==</span> <span class="n">this_dir</span><span class="o">.</span><span class="n">parent</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-            <span class="s1">&#39;Could not find PREP-SHOT repo root; run this notebook &#39;</span>
-            <span class="s1">&#39;from a checkout of PREP-NexT/PREP-SHOT.&#39;</span>
+            <span class="s1">&#39;Could not locate the example dir; run from inside &#39;</span>
+            <span class="s1">&#39;examples/thailand/.&#39;</span>
         <span class="p">)</span>
-    <span class="n">repo_root</span> <span class="o">=</span> <span class="n">repo_root</span><span class="o">.</span><span class="n">parent</span>
-<span class="n">scenario</span> <span class="o">=</span> <span class="n">repo_root</span> <span class="o">/</span> <span class="s1">&#39;examples&#39;</span> <span class="o">/</span> <span class="s1">&#39;three_zone&#39;</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Scenario: </span><span class="si">{</span><span class="n">scenario</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">this_dir</span> <span class="o">=</span> <span class="n">this_dir</span><span class="o">.</span><span class="n">parent</span>
+<span class="n">INPUT</span> <span class="o">=</span> <span class="n">this_dir</span> <span class="o">/</span> <span class="s1">&#39;input&#39;</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Example dir: </span><span class="si">{</span><span class="n">this_dir</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Input:       </span><span class="si">{</span><span class="n">INPUT</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -882,167 +827,81 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Scenario: /Users/energy/01-doing/PREP-SHOT-tutorial/PREP-SHOT/examples/three_zone
+Example dir: /Users/energy/01-doing/PREP-SHOT-tutorial/PREP-SHOT/examples/thailand
+Input:       /Users/energy/01-doing/PREP-SHOT-tutorial/PREP-SHOT/examples/thailand/input
 </pre></div></div>
 </div>
+<section id="Existing-fleet-(2023)">
+<h2>Existing fleet (2023)<a class="headerlink" href="#Existing-fleet-(2023)" title="Permalink to this heading">¶</a></h2>
+<p>Thailand’s installed capacity in the start year, with <code class="docutils literal notranslate"><span class="pre">Large</span> <span class="pre">Hydropower</span></code> allocated across the 13 reservoir techs by their rated capacity.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">prepshot.cli</span> <span class="kn">import</span> <span class="n">main</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
 
-<span class="c1"># HiGHS writes its progress log via C-level stdout (file</span>
-<span class="c1"># descriptor 1), which bypasses Python&#39;s sys.stdout. Redirect</span>
-<span class="c1"># the file descriptor to a tempfile during the solve so the</span>
-<span class="c1"># notebook output stays readable.</span>
-<span class="n">log</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="s1">&#39;w+&#39;</span><span class="p">,</span> <span class="n">delete</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;prepshot_solve_&#39;</span><span class="p">)</span>
-<span class="n">log_path</span> <span class="o">=</span> <span class="n">log</span><span class="o">.</span><span class="n">name</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
-<span class="n">saved</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">dup</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">os</span><span class="o">.</span><span class="n">dup2</span><span class="p">(</span><span class="n">log</span><span class="o">.</span><span class="n">fileno</span><span class="p">(),</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">cwd_before</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
-<span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">scenario</span><span class="p">)</span>  <span class="c1"># solve_model writes output/ relative to cwd</span>
-<span class="k">try</span><span class="p">:</span>
-    <span class="n">solved</span> <span class="o">=</span> <span class="n">main</span><span class="p">(</span><span class="n">root_dir</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">scenario</span><span class="p">))</span>
-<span class="k">finally</span><span class="p">:</span>
-    <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
-    <span class="n">os</span><span class="o">.</span><span class="n">dup2</span><span class="p">(</span><span class="n">saved</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="n">os</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">saved</span><span class="p">)</span>
-    <span class="n">log</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-    <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">cwd_before</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;log: </span><span class="si">{</span><span class="n">log_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">fleet</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">INPUT</span> <span class="o">/</span> <span class="s1">&#39;tech_existing.csv&#39;</span><span class="p">)</span>
+<span class="n">registry</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">INPUT</span> <span class="o">/</span> <span class="s1">&#39;tech_registry.csv&#39;</span><span class="p">)</span>
+<span class="n">merged</span> <span class="o">=</span> <span class="n">fleet</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">registry</span><span class="p">[[</span><span class="s1">&#39;tech&#39;</span><span class="p">,</span> <span class="s1">&#39;carrier&#39;</span><span class="p">]],</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;tech&#39;</span><span class="p">)</span>
+<span class="n">by_carrier</span> <span class="o">=</span> <span class="n">merged</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;carrier&#39;</span><span class="p">)[</span><span class="s1">&#39;capacity&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">by_carrier</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;steelblue&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Capacity (MW)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Existing capacity by carrier (Thailand, 2023)&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">by_carrier</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-2026-05-05 10:08:15 INFO: Set parameter solver to value highs
-2026-05-05 10:08:15 INFO: Set parameter input folder to value input
-2026-05-05 10:08:15 INFO: Set parameter output_filename to value year.nc
-2026-05-05 10:08:15 INFO: Set parameter time_length to value 48
-2026-05-05 10:08:15 INFO: Start running &#39;create_model&#39;
-2026-05-05 10:08:15 INFO: Loaded HiGHS library: /Users/energy/miniconda3/envs/prep-shot/lib/python3.9/site-packages/highsbox/highs_dist/lib/libhighs.dylib
-2026-05-05 10:08:15 INFO: Loaded highs library automatically.
-2026-05-05 10:08:16 INFO: Finished &#39;create_model&#39; in 1.33 seds
-2026-05-05 10:08:16 INFO: Start running &#39;solve_model&#39;
-2026-05-05 10:08:16 INFO: Starting iteration recorded at 2026-05-05 10:08:16.
-2026-05-05 10:08:31 INFO: Water head error: 371.93%
-2026-05-05 10:11:14 INFO: Water head error: 23.38%
-2026-05-05 10:12:11 INFO: Water head error: 19.46%
-2026-05-05 10:12:11 WARNING: Ending iteration recorded at 2026-05-05 10:12:11.Failed to converge. Maximum iteration exceeded.
-2026-05-05 10:12:11 INFO: Finished &#39;solve_model&#39; in 234.56 seds
-2026-05-05 10:12:11 INFO: Start running &#39;extract_results_hydro&#39;
-2026-05-05 10:12:11 INFO: Start running &#39;extract_results_non_hydro&#39;
-2026-05-05 10:12:11 INFO: Finished &#39;extract_results_non_hydro&#39; in 0.03 seds
-2026-05-05 10:12:11 INFO: Finished &#39;extract_results_hydro&#39; in 0.04 seds
-2026-05-05 10:12:11 INFO: Results are written to ./output/year.nc
-2026-05-05 10:12:11 INFO: Start running &#39;save_to_excel&#39;
-2026-05-05 10:12:16 INFO: Finished &#39;save_to_excel&#39; in 5.41 seds
-2026-05-05 10:12:16 INFO: Results are written to separate excel files
-</pre></div></div>
+<div class="output_area docutils container">
+<img alt="_images/Thailand_3_0.png" src="_images/Thailand_3_0.png" />
+</div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-log: /var/folders/y_/ypyrt83d1hl9fhjtt_ftpwg00000gn/T/prepshot_solve_nd6kj4sl
-</pre></div></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Pick out the final objective value from the captured log.</span>
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">log_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-    <span class="n">log</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-<span class="n">objective_lines</span> <span class="o">=</span> <span class="p">[</span><span class="n">l</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">log</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span> <span class="k">if</span> <span class="s1">&#39;Objective value&#39;</span> <span class="ow">in</span> <span class="n">l</span><span class="p">]</span>
-<span class="k">if</span> <span class="n">objective_lines</span><span class="p">:</span>
-    <span class="c1"># The solve runs `iteration_number` head iterations; each</span>
-    <span class="c1"># prints an objective. The last one is what matters.</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">objective_lines</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Solved: </span><span class="si">{</span><span class="n">solved</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<br/></pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Objective value     :  1.8804965672e+11
-Solved: True
+carrier
+gas             36993.0
+coal             6138.0
+biomass          4705.0
+solar            3186.0
+hydro            2925.0
+wind             2092.0
+pumped_hydro     1000.0
+Name: capacity, dtype: float64
 </pre></div></div>
 </div>
-<p>On commodity hardware the default settings (48 hours, 1 representative month, 3 head iterations) finish in around 2 minutes. The solver log will report <code class="docutils literal notranslate"><span class="pre">Objective</span> <span class="pre">value</span> <span class="pre">:</span> <span class="pre">1.8809...e+11</span></code>, and a NetCDF file appears under <code class="docutils literal notranslate"><span class="pre">output/</span></code>. Everything in the rest of this notebook reads from that file.</p>
-<p>The log lines <code class="docutils literal notranslate"><span class="pre">Water</span> <span class="pre">head</span> <span class="pre">error:</span> <span class="pre">...</span></code> and the warning <code class="docutils literal notranslate"><span class="pre">Failed</span> <span class="pre">to</span> <span class="pre">converge.</span> <span class="pre">Maximum</span> <span class="pre">iteration</span> <span class="pre">exceeded.</span></code> are normal for the default settings: PREP-SHOT runs three head-iteration rounds and reports the final residual. Bump <code class="docutils literal notranslate"><span class="pre">iteration_number</span></code> in the scenario’s <code class="docutils literal notranslate"><span class="pre">config.json</span></code> if you want a tighter (slower) converged solve.</p>
 </section>
-<section id="Step-3-–-Open-the-results-(10-minutes)">
-<h2>Step 3 – Open the results (10 minutes)<a class="headerlink" href="#Step-3-–-Open-the-results-(10-minutes)" title="Permalink to this heading">¶</a></h2>
-<p>PREP-SHOT writes results in <a class="reference external" href="https://docs.xarray.dev">xarray</a>’s NetCDF format, so any tool that reads NetCDF can consume them.</p>
+<section id="Per-station-hydropower-characteristics">
+<h2>Per-station hydropower characteristics<a class="headerlink" href="#Per-station-hydropower-characteristics" title="Permalink to this heading">¶</a></h2>
+<p>Each reservoir is modeled with its own head, capacity, and operational bounds – the feature that distinguishes PREP-SHOT from PyPSA / GenX.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
-<span class="kn">import</span> <span class="nn">json</span>
-
-<span class="n">config</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">((</span><span class="n">scenario</span> <span class="o">/</span> <span class="s1">&#39;config.json&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">())</span>
-<span class="c1"># config stores the filename WITHOUT extension; the model writes</span>
-<span class="c1"># both .nc (xarray) and .xlsx alongside each other.</span>
-<span class="n">output_path</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="n">scenario</span> <span class="o">/</span> <span class="s1">&#39;output&#39;</span>
-    <span class="o">/</span> <span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;general_parameters&#39;</span><span class="p">][</span><span class="s1">&#39;output_filename&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;.nc&#39;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">head</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">INPUT</span> <span class="o">/</span> <span class="s1">&#39;reservoir_head.csv&#39;</span><span class="p">)</span>
+<span class="n">cap</span>  <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">INPUT</span> <span class="o">/</span> <span class="s1">&#39;reservoir_capacity_max.csv&#39;</span><span class="p">)</span>
+<span class="n">merged</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">head</span><span class="p">[[</span><span class="s1">&#39;tech&#39;</span><span class="p">,</span> <span class="s1">&#39;head&#39;</span><span class="p">]]</span>
+    <span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">cap</span><span class="p">[[</span><span class="s1">&#39;tech&#39;</span><span class="p">,</span> <span class="s1">&#39;capacity_max&#39;</span><span class="p">]],</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;tech&#39;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;capacity_max&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Reading results from: </span><span class="si">{</span><span class="n">output_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-
-<span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="n">output_path</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">data_vars</span><span class="p">))</span>
-<br/></pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-Reading results from: /Users/energy/01-doing/PREP-SHOT-tutorial/PREP-SHOT/examples/three_zone/output/year.nc
-[&#39;carbon&#39;, &#39;carbon_breakdown&#39;, &#39;charge&#39;, &#39;cost&#39;, &#39;cost_fix&#39;, &#39;cost_fix_breakdown&#39;, &#39;cost_newline&#39;, &#39;cost_newline_breakdown&#39;, &#39;cost_newtech&#39;, &#39;cost_newtech_breakdown&#39;, &#39;cost_var&#39;, &#39;cost_var_breakdown&#39;, &#39;gen&#39;, &#39;genflow&#39;, &#39;income&#39;, &#39;install&#39;, &#39;public_debt_newtech&#39;, &#39;shadow_price_demand&#39;, &#39;spillflow&#39;, &#39;trans_export&#39;]
-</pre></div></div>
-</div>
-<p>Three things worth a first look:</p>
-<p><strong>1. Total cost.</strong> A single number, the NPV of system cost over the planning horizon.</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total cost: $</span><span class="si">{</span><span class="nb">float</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">cost</span><span class="p">)</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">merged</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-Total cost: $188,049,656,721
-</pre></div></div>
-</div>
-<p><strong>2. Installed capacity over time.</strong> Which technologies expanded, in which zones, and when.</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">install_by_year</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="s2">&quot;install&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="s2">&quot;zone&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">()</span>
-<span class="n">install_by_year</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -1063,305 +922,158 @@ Total cost: $188,049,656,721
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
+      <th></th>
       <th>tech</th>
-      <th>Coal</th>
-      <th>Solar</th>
-      <th>Wind</th>
-      <th>Storage</th>
-      <th>Grand_Coulee</th>
-      <th>Chief_Joseph</th>
-      <th>Wells</th>
-      <th>Rocky_Reach</th>
-      <th>Rock_Island</th>
-      <th>Wanapum</th>
-      <th>Priest_Rapids</th>
-      <th>Lower_Granite</th>
-      <th>Little_Goose</th>
-      <th>Lower_Monumental</th>
-      <th>Ice_Harbor</th>
-      <th>McNary</th>
-      <th>John_Day</th>
-      <th>The_Dalles</th>
-      <th>Bonneville</th>
-    </tr>
-    <tr>
-      <th>year</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
+      <th>head</th>
+      <th>capacity_max</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>2020</th>
-      <td>34.526238</td>
-      <td>0.000000</td>
-      <td>28044.058684</td>
-      <td>1.109202e-13</td>
-      <td>5054.0</td>
-      <td>2234.0</td>
-      <td>741.0</td>
-      <td>1126.0</td>
-      <td>482.0</td>
-      <td>890.0</td>
-      <td>828.0</td>
-      <td>747.0</td>
-      <td>748.0</td>
-      <td>784.0</td>
-      <td>525.0</td>
-      <td>1022.0</td>
-      <td>1943.0</td>
-      <td>1414.0</td>
-      <td>921.0</td>
+      <th>0</th>
+      <td>Bhumibol</td>
+      <td>154.0</td>
+      <td>779.2</td>
     </tr>
     <tr>
-      <th>2021</th>
-      <td>34.526238</td>
-      <td>0.000000</td>
-      <td>28044.058684</td>
-      <td>1.109202e-13</td>
-      <td>5054.0</td>
-      <td>2234.0</td>
-      <td>741.0</td>
-      <td>1126.0</td>
-      <td>482.0</td>
-      <td>890.0</td>
-      <td>828.0</td>
-      <td>747.0</td>
-      <td>748.0</td>
-      <td>784.0</td>
-      <td>525.0</td>
-      <td>1022.0</td>
-      <td>1943.0</td>
-      <td>1414.0</td>
-      <td>921.0</td>
+      <th>10</th>
+      <td>Srinagarind</td>
+      <td>140.0</td>
+      <td>720.0</td>
     </tr>
     <tr>
-      <th>2022</th>
-      <td>34.526238</td>
-      <td>0.000000</td>
-      <td>28044.058684</td>
-      <td>1.109202e-13</td>
-      <td>5054.0</td>
-      <td>2234.0</td>
-      <td>741.0</td>
-      <td>1126.0</td>
-      <td>482.0</td>
-      <td>890.0</td>
-      <td>828.0</td>
-      <td>747.0</td>
-      <td>748.0</td>
-      <td>784.0</td>
-      <td>525.0</td>
-      <td>1022.0</td>
-      <td>1943.0</td>
-      <td>1414.0</td>
-      <td>921.0</td>
+      <th>1</th>
+      <td>Sirikit</td>
+      <td>113.6</td>
+      <td>500.0</td>
     </tr>
     <tr>
-      <th>2023</th>
-      <td>34.526238</td>
-      <td>0.000000</td>
-      <td>28044.058684</td>
-      <td>1.109202e-13</td>
-      <td>5054.0</td>
-      <td>2234.0</td>
-      <td>741.0</td>
-      <td>1126.0</td>
-      <td>482.0</td>
-      <td>890.0</td>
-      <td>828.0</td>
-      <td>747.0</td>
-      <td>748.0</td>
-      <td>784.0</td>
-      <td>525.0</td>
-      <td>1022.0</td>
-      <td>1943.0</td>
-      <td>1414.0</td>
-      <td>921.0</td>
+      <th>12</th>
+      <td>Vajiralongkorn</td>
+      <td>92.0</td>
+      <td>300.0</td>
     </tr>
     <tr>
-      <th>2024</th>
-      <td>34.526238</td>
-      <td>19256.365123</td>
-      <td>28044.058684</td>
-      <td>1.109202e-13</td>
-      <td>5054.0</td>
-      <td>2234.0</td>
-      <td>741.0</td>
-      <td>1126.0</td>
-      <td>482.0</td>
-      <td>890.0</td>
-      <td>828.0</td>
-      <td>747.0</td>
-      <td>748.0</td>
-      <td>784.0</td>
-      <td>525.0</td>
-      <td>1022.0</td>
-      <td>1943.0</td>
-      <td>1414.0</td>
-      <td>921.0</td>
+      <th>9</th>
+      <td>Rajjaprabha</td>
+      <td>94.0</td>
+      <td>240.0</td>
     </tr>
     <tr>
-      <th>2025</th>
-      <td>34.526238</td>
-      <td>19256.365123</td>
-      <td>28044.058684</td>
-      <td>1.109202e-13</td>
-      <td>5054.0</td>
-      <td>2234.0</td>
-      <td>741.0</td>
-      <td>1126.0</td>
-      <td>482.0</td>
-      <td>890.0</td>
-      <td>828.0</td>
-      <td>747.0</td>
-      <td>748.0</td>
-      <td>784.0</td>
-      <td>525.0</td>
-      <td>1022.0</td>
-      <td>1943.0</td>
-      <td>1414.0</td>
-      <td>921.0</td>
+      <th>4</th>
+      <td>Pak_Mun</td>
+      <td>17.0</td>
+      <td>136.0</td>
     </tr>
     <tr>
-      <th>2026</th>
-      <td>34.526238</td>
-      <td>26561.715951</td>
-      <td>29957.801139</td>
-      <td>6.589525e-14</td>
-      <td>5054.0</td>
-      <td>2234.0</td>
-      <td>741.0</td>
-      <td>1126.0</td>
-      <td>482.0</td>
-      <td>890.0</td>
-      <td>828.0</td>
-      <td>747.0</td>
-      <td>748.0</td>
-      <td>784.0</td>
-      <td>525.0</td>
-      <td>1022.0</td>
-      <td>1943.0</td>
-      <td>1414.0</td>
-      <td>921.0</td>
+      <th>7</th>
+      <td>Bang_Lang</td>
+      <td>85.0</td>
+      <td>84.0</td>
     </tr>
     <tr>
-      <th>2027</th>
-      <td>34.526238</td>
-      <td>26561.715951</td>
-      <td>29957.801139</td>
-      <td>6.589525e-14</td>
-      <td>5054.0</td>
-      <td>2234.0</td>
-      <td>741.0</td>
-      <td>1126.0</td>
-      <td>482.0</td>
-      <td>890.0</td>
-      <td>828.0</td>
-      <td>747.0</td>
-      <td>748.0</td>
-      <td>784.0</td>
-      <td>525.0</td>
-      <td>1022.0</td>
-      <td>1943.0</td>
-      <td>1414.0</td>
-      <td>921.0</td>
+      <th>2</th>
+      <td>Chulabhorn</td>
+      <td>70.0</td>
+      <td>40.0</td>
     </tr>
     <tr>
-      <th>2028</th>
-      <td>34.526238</td>
-      <td>26561.715951</td>
-      <td>29957.801139</td>
-      <td>6.589525e-14</td>
-      <td>5054.0</td>
-      <td>2234.0</td>
-      <td>741.0</td>
-      <td>1126.0</td>
-      <td>482.0</td>
-      <td>890.0</td>
-      <td>828.0</td>
-      <td>747.0</td>
-      <td>748.0</td>
-      <td>784.0</td>
-      <td>525.0</td>
-      <td>1022.0</td>
-      <td>1943.0</td>
-      <td>1414.0</td>
-      <td>921.0</td>
+      <th>11</th>
+      <td>Tha_Thung_Na</td>
+      <td>30.0</td>
+      <td>39.0</td>
     </tr>
     <tr>
-      <th>2029</th>
-      <td>34.526238</td>
-      <td>39334.186600</td>
-      <td>29957.801139</td>
-      <td>6.589525e-14</td>
-      <td>5054.0</td>
-      <td>2234.0</td>
-      <td>741.0</td>
-      <td>1126.0</td>
-      <td>482.0</td>
-      <td>890.0</td>
-      <td>828.0</td>
-      <td>747.0</td>
-      <td>748.0</td>
-      <td>784.0</td>
-      <td>525.0</td>
-      <td>1022.0</td>
-      <td>1943.0</td>
-      <td>1414.0</td>
-      <td>921.0</td>
+      <th>5</th>
+      <td>Siridhorn</td>
+      <td>42.0</td>
+      <td>36.0</td>
     </tr>
     <tr>
-      <th>2030</th>
-      <td>34.526238</td>
-      <td>39334.186600</td>
-      <td>29957.801139</td>
-      <td>6.589525e-14</td>
-      <td>5054.0</td>
-      <td>2234.0</td>
-      <td>741.0</td>
-      <td>1126.0</td>
-      <td>482.0</td>
-      <td>890.0</td>
-      <td>828.0</td>
-      <td>747.0</td>
-      <td>748.0</td>
-      <td>784.0</td>
-      <td>525.0</td>
-      <td>1022.0</td>
-      <td>1943.0</td>
-      <td>1414.0</td>
-      <td>921.0</td>
+      <th>6</th>
+      <td>Ubol_Ratana</td>
+      <td>32.0</td>
+      <td>25.2</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Kaeng_Krachan</td>
+      <td>58.0</td>
+      <td>19.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Nam_Pung</td>
+      <td>41.0</td>
+      <td>6.3</td>
     </tr>
   </tbody>
 </table>
 </div></div>
 </div>
-<p><strong>3. Locational marginal prices (shadow prices on demand).</strong> This is the dual of the power-balance constraint – the marginal cost of one extra MWh of demand at each <code class="docutils literal notranslate"><span class="pre">(hour,</span> <span class="pre">month,</span> <span class="pre">year,</span> <span class="pre">zone)</span></code>. Useful for diagnosing where the system is most stressed.</p>
+</section>
+<section id="Inspect-a-solve-(after-running-python-run.py)">
+<h2>Inspect a solve (after running <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">run.py</span></code>)<a class="headerlink" href="#Inspect-a-solve-(after-running-python-run.py)" title="Permalink to this heading">¶</a></h2>
+<p>Once you’ve run the CLI command above and it has written <code class="docutils literal notranslate"><span class="pre">output/baseline.nc</span></code>, the cell below opens it. Skip if you haven’t run the solve yet.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># LMP at zone BA1 in 2025, averaged over the modeled month:</span>
-<span class="n">lmp</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="s2">&quot;shadow_price_demand&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">zone</span><span class="o">=</span><span class="s2">&quot;BA1&quot;</span><span class="p">,</span> <span class="n">year</span><span class="o">=</span><span class="mi">2025</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="s2">&quot;month&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">lmp</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+
+<span class="n">nc_path</span> <span class="o">=</span> <span class="n">this_dir</span> <span class="o">/</span> <span class="s1">&#39;output&#39;</span> <span class="o">/</span> <span class="s1">&#39;baseline.nc&#39;</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">nc_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;No NetCDF at </span><span class="si">{</span><span class="n">nc_path</span><span class="si">}</span><span class="s1">. Run `python run.py` from </span><span class="si">{</span><span class="n">this_dir</span><span class="si">}</span><span class="s1"> first.&#39;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1"># Try netCDF4 then h5netcdf -- the .nc file is netCDF4-classic and</span>
+    <span class="c1"># may not be readable by every backend on every platform.</span>
+    <span class="n">ds</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">for</span> <span class="n">engine</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;netcdf4&#39;</span><span class="p">,</span> <span class="s1">&#39;h5netcdf&#39;</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="n">nc_path</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="n">engine</span><span class="p">)</span>
+            <span class="k">break</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+            <span class="n">last_err</span> <span class="o">=</span> <span class="n">exc</span>
+    <span class="k">if</span> <span class="n">ds</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Could not open </span><span class="si">{</span><span class="n">nc_path</span><span class="si">}</span><span class="s1"> (last error: </span><span class="si">{</span><span class="n">last_err</span><span class="si">}</span><span class="s1">). &#39;</span>
+              <span class="sa">f</span><span class="s1">&#39;Falling back to baseline.xlsx in the cells below.&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Total cost (NPV): $</span><span class="si">{</span><span class="nb">float</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">cost</span><span class="p">)</span><span class="si">:</span><span class="s1">,.0f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Variables: </span><span class="si">{</span><span class="nb">sorted</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">data_vars</span><span class="p">)[:</span><span class="mi">6</span><span class="p">]</span><span class="si">}</span><span class="s1"> ...&#39;</span><span class="p">)</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Total cost (NPV): $7,317,497,191
+Variables: [&#39;carbon&#39;, &#39;carbon_breakdown&#39;, &#39;charge&#39;, &#39;cost&#39;, &#39;cost_fix&#39;, &#39;cost_fix_breakdown&#39;] ...
+</pre></div></div>
+</div>
+</section>
+<section id="Common-plots-from-a-solved-baseline">
+<h2>Common plots from a solved baseline<a class="headerlink" href="#Common-plots-from-a-solved-baseline" title="Permalink to this heading">¶</a></h2>
+<p>Once <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">run.py</span></code> writes <code class="docutils literal notranslate"><span class="pre">output/baseline.nc</span></code> (and <code class="docutils literal notranslate"><span class="pre">baseline.xlsx</span></code>), the cells below produce four standard diagnostics:</p>
+<ol class="arabic simple">
+<li><p><strong>Installed capacity</strong> by technology</p></li>
+<li><p><strong>Annual generation mix</strong> by technology</p></li>
+<li><p><strong>Daily dispatch profile</strong> (stacked area over the year)</p></li>
+<li><p><strong>Cost breakdown</strong> (NPV decomposition)</p></li>
+</ol>
+<p>The cells read from the <code class="docutils literal notranslate"><span class="pre">.xlsx</span></code> mirror so you don’t need a working <code class="docutils literal notranslate"><span class="pre">netCDF4</span></code> build to view results.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">OUT</span> <span class="o">=</span> <span class="n">this_dir</span> <span class="o">/</span> <span class="s1">&#39;output&#39;</span> <span class="o">/</span> <span class="s1">&#39;baseline.xlsx&#39;</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">OUT</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+    <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s1">&#39;No solved baseline at </span><span class="si">{</span><span class="n">OUT</span><span class="si">}</span><span class="s1">. Run `python run.py` from </span><span class="si">{</span><span class="n">this_dir</span><span class="si">}</span><span class="s1"> first.&#39;</span>
+    <span class="p">)</span>
+<span class="n">xl</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">ExcelFile</span><span class="p">(</span><span class="n">OUT</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Sheets:&#39;</span><span class="p">,</span> <span class="n">xl</span><span class="o">.</span><span class="n">sheet_names</span><span class="p">[:</span><span class="mi">8</span><span class="p">],</span> <span class="s1">&#39;...&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1370,78 +1082,153 @@ Total cost: $188,049,656,721
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;xarray.DataArray &#39;shadow_price_demand&#39; (hour: 48)&gt; Size: 384B
-array([ 0.00000000e+00,  2.33266957e-13,  2.39959157e-13,  0.00000000e+00,
-        0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
-        0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
-        0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
-       -9.41463675e-14,  0.00000000e+00,  0.00000000e+00,  1.93438793e-02,
-        0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
-        0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
-        0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
-        0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
-        0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
-        0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
-        0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00])
-Coordinates:
-  * hour     (hour) int64 384B 1 2 3 4 5 6 7 8 9 ... 40 41 42 43 44 45 46 47 48
-    year     int64 8B 2025
-    zone     &lt;U3 12B &#39;BA1&#39;
+Sheets: [&#39;trans_export&#39;, &#39;gen&#39;, &#39;install&#39;, &#39;carbon&#39;, &#39;charge&#39;, &#39;cost_var_breakdown&#39;, &#39;cost_fix_breakdown&#39;, &#39;cost_newtech_breakdown&#39;] ...
 </pre></div></div>
 </div>
-<p>Values in <code class="docutils literal notranslate"><span class="pre">shadow_price_demand</span></code> are <strong>NPV-discounted</strong> dollars per MWh. To recover undiscounted real-year prices, divide by the year’s variable-cost factor (computed in <code class="docutils literal notranslate"><span class="pre">prepshot.load_data.compute_cost_factors</span></code>).</p>
-<p>A minimal generation-mix chart:</p>
+<section id="Installed-capacity">
+<h3>Installed capacity<a class="headerlink" href="#Installed-capacity" title="Permalink to this heading">¶</a></h3>
+<p>Single-year, single-zone, so capacity reduces to one horizontal bar per technology.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">inst</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">xl</span><span class="p">,</span> <span class="s1">&#39;install&#39;</span><span class="p">)</span>
+<span class="n">by_tech</span> <span class="o">=</span> <span class="p">(</span><span class="n">inst</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;tech&#39;</span><span class="p">)[</span><span class="s1">&#39;install&#39;</span><span class="p">]</span>
+           <span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
 
-<span class="n">gen_by_tech</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="n">ds</span><span class="p">[</span><span class="s2">&quot;gen&quot;</span><span class="p">]</span>
-    <span class="o">.</span><span class="n">sum</span><span class="p">([</span><span class="s2">&quot;hour&quot;</span><span class="p">,</span> <span class="s2">&quot;month&quot;</span><span class="p">,</span> <span class="s2">&quot;zone&quot;</span><span class="p">])</span>  <span class="c1"># sum over time and space</span>
-    <span class="o">.</span><span class="n">to_pandas</span><span class="p">()</span>                     <span class="c1"># rows=year, cols=tech</span>
-    <span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">lower</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>                   <span class="c1"># storage net-discharge can be ~0; clamp</span>
-<span class="p">)</span>
-<span class="c1"># Drop techs that never generate (e.g. storage round-trips to ~0):</span>
-<span class="n">gen_by_tech</span> <span class="o">=</span> <span class="n">gen_by_tech</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">gen_by_tech</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>
-
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-<span class="n">gen_by_tech</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">area</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Generation (MWh)&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Generation mix over the planning horizon&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;center left&quot;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">by_tech</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;steelblue&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Capacity (MW)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Installed capacity in 2023, by tech&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">by_tech</span><span class="o">.</span><span class="n">values</span><span class="p">):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">v</span> <span class="o">+</span> <span class="mi">100</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">v</span><span class="si">:</span><span class="s1">,.0f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-<br/></pre></div>
+</pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/Quickstart_19_0.png" src="_images/Quickstart_19_0.png" />
+<img alt="_images/Thailand_11_0.png" src="_images/Thailand_11_0.png" />
 </div>
 </div>
 </section>
-<section id="Step-4-–-Change-one-input-and-re-solve-(5-minutes)">
-<h2>Step 4 – Change one input and re-solve (5 minutes)<a class="headerlink" href="#Step-4-–-Change-one-input-and-re-solve-(5-minutes)" title="Permalink to this heading">¶</a></h2>
-<p>Every input is a CSV under <code class="docutils literal notranslate"><span class="pre">examples/three_zone/</span></code>. To see how the model responds to a change, try one of these single-file edits.</p>
-<p><strong>Option A – bump demand 20% in one zone.</strong> Open <code class="docutils literal notranslate"><span class="pre">examples/three_zone/demand.csv</span></code> (long format: <code class="docutils literal notranslate"><span class="pre">zone,</span> <span class="pre">year,</span> <span class="pre">month,</span> <span class="pre">hour,</span> <span class="pre">unit,</span> <span class="pre">value</span></code>) and multiply the BA1 column by 1.2 in your editor of choice. Then re-run from <code class="docutils literal notranslate"><span class="pre">examples/three_zone/</span></code> (<code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">examples/three_zone</span> <span class="pre">&amp;&amp;</span> <span class="pre">python</span> <span class="pre">-m</span> <span class="pre">prepshot</span></code>). The objective will rise – the model has to build more capacity or import more from neighboring zones to serve the extra load. <code class="docutils literal notranslate"><span class="pre">shadow_price_demand</span></code> at BA1 should also increase in the most constrained
-hours.</p>
-<p><strong>Option B – introduce a carbon tax.</strong> Open <code class="docutils literal notranslate"><span class="pre">examples/three_zone/policy_carbon_tax.csv</span></code> and replace the <code class="docutils literal notranslate"><span class="pre">value</span></code> column with a non-zero number (e.g. <code class="docutils literal notranslate"><span class="pre">50</span></code> USD/tonneCO2). Re-run from the scenario directory; the generation mix should shift away from coal and gas toward zero-carbon technologies, raising <code class="docutils literal notranslate"><span class="pre">cost_carbon</span></code> in the breakdown.</p>
-<p><strong>Tip – run scenarios without overwriting your baseline.</strong> Save your modified file as <code class="docutils literal notranslate"><span class="pre">examples/three_zone/demand_high.csv</span></code> and run <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">prepshot</span> <span class="pre">--demand=high</span></code> from inside <code class="docutils literal notranslate"><span class="pre">examples/three_zone/</span></code>. PREP-SHOT appends the suffix to the file name, so the baseline <code class="docutils literal notranslate"><span class="pre">demand.csv</span></code> is left untouched. Output goes to <code class="docutils literal notranslate"><span class="pre">examples/three_zone/output/year_high.nc</span></code>.</p>
+<section id="Annual-generation-mix">
+<h3>Annual generation mix<a class="headerlink" href="#Annual-generation-mix" title="Permalink to this heading">¶</a></h3>
+<p>Annual TWh per technology. Note how much of the load is met by gas and coal — the dataset has no carbon cap, so the dispatch is driven purely by variable cost.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gen</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">xl</span><span class="p">,</span> <span class="s1">&#39;gen&#39;</span><span class="p">)</span>
+<span class="n">by_tech_twh</span> <span class="o">=</span> <span class="p">(</span><span class="n">gen</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;tech&#39;</span><span class="p">)[</span><span class="s1">&#39;gen&#39;</span><span class="p">]</span>
+               <span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">div</span><span class="p">(</span><span class="mf">1e6</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">by_tech_twh</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;teal&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Generation (TWh / year)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Annual generation by tech&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">by_tech_twh</span><span class="o">.</span><span class="n">values</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">v</span> <span class="o">&gt;</span> <span class="mf">0.01</span><span class="p">:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">v</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">v</span><span class="si">:</span><span class="s1">,.1f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/Thailand_13_0.png" src="_images/Thailand_13_0.png" />
+</div>
+</div>
 </section>
-<section id="Step-5-–-Where-to-next">
-<h2>Step 5 – Where to next<a class="headerlink" href="#Step-5-–-Where-to-next" title="Permalink to this heading">¶</a></h2>
+<section id="Daily-dispatch-profile">
+<h3>Daily dispatch profile<a class="headerlink" href="#Daily-dispatch-profile" title="Permalink to this heading">¶</a></h3>
+<p>Aggregate hourly generation into daily means and stack by technology to see seasonal dynamics. Hydro output rises with the monsoon; gas plays the swing role; renewables are roughly flat.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># gen[hour=1..8760, tech] -&gt; reshape to (day, tech) and stack.</span>
+<span class="n">gen_pivot</span> <span class="o">=</span> <span class="n">gen</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;tech&#39;</span><span class="p">,</span>
+                            <span class="n">values</span><span class="o">=</span><span class="s1">&#39;gen&#39;</span><span class="p">,</span> <span class="n">aggfunc</span><span class="o">=</span><span class="s1">&#39;sum&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">gen_pivot</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="s1">&#39;2022-12-31&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span><span class="n">gen_pivot</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;h&#39;</span><span class="p">)</span>
+<span class="n">daily</span> <span class="o">=</span> <span class="n">gen_pivot</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;D&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>  <span class="c1"># MW (daily-mean output)</span>
+
+<span class="n">tech_order</span> <span class="o">=</span> <span class="p">(</span><span class="n">gen_pivot</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+<span class="n">daily</span> <span class="o">=</span> <span class="n">daily</span><span class="p">[</span><span class="n">tech_order</span><span class="p">]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">stackplot</span><span class="p">(</span><span class="n">daily</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">daily</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">tech_order</span><span class="p">,</span>
+             <span class="n">colors</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">tab20</span><span class="o">.</span><span class="n">colors</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Daily-mean output (MW)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Daily dispatch profile, 2023&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">margins</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/Thailand_15_0.png" src="_images/Thailand_15_0.png" />
+</div>
+</div>
+</section>
+<section id="Cost-breakdown">
+<h3>Cost breakdown<a class="headerlink" href="#Cost-breakdown" title="Permalink to this heading">¶</a></h3>
+<p>All costs are NPV-discounted to the start year. With no expansion (carbon cap is <code class="docutils literal notranslate"><span class="pre">inf</span></code> in this scenario), <code class="docutils literal notranslate"><span class="pre">cost_newtech</span></code> and <code class="docutils literal notranslate"><span class="pre">cost_newline</span></code> are 0 — the model only pays operating costs on the existing fleet.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">components</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;cost_var&#39;</span><span class="p">,</span> <span class="s1">&#39;cost_fix&#39;</span><span class="p">,</span> <span class="s1">&#39;cost_newtech&#39;</span><span class="p">,</span> <span class="s1">&#39;cost_newline&#39;</span><span class="p">]</span>
+<span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">xl</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="mf">1e9</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">components</span><span class="p">]</span>
+<span class="n">income</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">xl</span><span class="p">,</span> <span class="s1">&#39;income&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="mf">1e9</span>
+<span class="n">total</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">xl</span><span class="p">,</span> <span class="s1">&#39;cost&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="mf">1e9</span>
+
+<span class="n">labels</span> <span class="o">=</span> <span class="n">components</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;income (-)&#39;</span><span class="p">,</span> <span class="s1">&#39;total&#39;</span><span class="p">]</span>
+<span class="n">vals</span> <span class="o">=</span> <span class="n">values</span> <span class="o">+</span> <span class="p">[</span><span class="o">-</span><span class="n">income</span><span class="p">,</span> <span class="n">total</span><span class="p">]</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;#4477aa&#39;</span><span class="p">,</span> <span class="s1">&#39;#66ccee&#39;</span><span class="p">,</span> <span class="s1">&#39;#228833&#39;</span><span class="p">,</span> <span class="s1">&#39;#ccbb44&#39;</span><span class="p">,</span>
+          <span class="s1">&#39;#ee6677&#39;</span><span class="p">,</span> <span class="s1">&#39;#aa3377&#39;</span><span class="p">]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">vals</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">vals</span><span class="p">):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="o">+</span> <span class="mf">0.05</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">v</span><span class="si">:</span><span class="s1">,.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;NPV cost (B USD)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Cost decomposition&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/Thailand_17_0.png" src="_images/Thailand_17_0.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="Where-to-next">
+<h2>Where to next<a class="headerlink" href="#Where-to-next" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="Model_input_output.html"><span class="doc">Model Inputs/Outputs</span></a> – full input / output reference, including optional carbon-market and finance modules.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">`examples/southeast_asia/SoutheastAsia.ipynb</span></code> &lt;../../examples/southeast_asia/SoutheastAsia.ipynb&gt;`__ – a realistic case study (Lower Mekong basin, 5 countries, 57 cascading reservoirs).</p></li>
-<li><p><a class="reference internal" href="Mathematical_notations.html"><span class="doc">Mathematical Notation</span></a> – the underlying linear program.</p></li>
-<li><p><a class="reference internal" href="Changelog.html"><span class="doc">Changelog</span></a> – what’s new in each release.</p></li>
+<li><p><a class="reference external" href="../../doc/source/Quickstart.ipynb">Quickstart notebook</a> – the canonical 5-minute walkthrough on a smaller 3-zone synthetic dataset.</p></li>
+<li><p><a class="reference external" href="../southeast_asia/SoutheastAsia.ipynb">Southeast Asia notebook</a> – a 5-country regional case with 57 reservoirs.</p></li>
+<li><p><a class="reference external" href="../../doc/source/Model_input_output.rst">Model Inputs/Outputs</a> – every file in <code class="docutils literal notranslate"><span class="pre">input/</span></code> documented.</p></li>
 </ul>
-<p>If you used PREP-SHOT in published work, please cite it – see the <a class="reference internal" href="Citations.html"><span class="doc">Citation Guide</span></a>. And if you ran into something rough, the fastest fix is to file an issue on <a class="reference external" href="https://github.com/PREP-NexT/PREP-SHOT/issues">GitHub</a>.</p>
 </section>
 </section>
 
@@ -1449,8 +1236,8 @@ hours.</p>
 </div>
 </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="Installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="Thailand.html" class="btn btn-neutral float-right" title="Single-zone Thailand example" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="Quickstart.html" class="btn btn-neutral float-left" title="Quickstart (30 minutes)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="SoutheastAsia.html" class="btn btn-neutral float-right" title="Tutorial: Lower Mekong Basin (Southeast Asia)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
