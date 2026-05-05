@@ -6,8 +6,8 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="Changelog.html" />
 <meta property="og:site_name" content="PREP-SHOT documentation" />
-<meta property="og:description" content="Here, you'll find notable changes for each version of PREP-SHOT. Version 1.15.0 - May 6, 2026: New feature: optional unit commitment (UC) overlay using a clustered MILP formulation. Closes the LP-v..." />
-<meta name="description" content="Here, you'll find notable changes for each version of PREP-SHOT. Version 1.15.0 - May 6, 2026: New feature: optional unit commitment (UC) overlay using a clustered MILP formulation. Closes the LP-v..." />
+<meta property="og:description" content="Here, you'll find notable changes for each version of PREP-SHOT. Version 1.16.0 - May 6, 2026: Generalises the reserve module from a single up/down pair to named reserve products, matching the stru..." />
+<meta name="description" content="Here, you'll find notable changes for each version of PREP-SHOT. Version 1.16.0 - May 6, 2026: Generalises the reserve module from a single up/down pair to named reserve products, matching the stru..." />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Changelog &mdash; PREP-SHOT (latest) 简体中文文档</title>
 
@@ -308,6 +308,16 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#version-1-16-0-may-6-2026">Version 1.16.0 - May 6, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#default-product-set">Default product set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#schema-change-breaking">Schema change (BREAKING)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#constraints">Constraints</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#output">Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#eligibility-defaults-shipped">Eligibility defaults shipped</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#default-requirement-values">Default requirement values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#regression">Regression</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#version-1-15-0-may-6-2026">Version 1.15.0 - May 6, 2026</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#added">Added</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#changed">Changed</a></li>
@@ -569,6 +579,104 @@
 <section id="changelog">
 <h1>Changelog<a class="headerlink" href="#changelog" title="此标题的永久链接">¶</a></h1>
 <p>Here, you'll find notable changes for each version of PREP-SHOT.</p>
+<section id="version-1-16-0-may-6-2026">
+<h2>Version 1.16.0 - May 6, 2026<a class="headerlink" href="#version-1-16-0-may-6-2026" title="此标题的永久链接">¶</a></h2>
+<p>Generalises the reserve module from a single up/down pair to <strong>named
+reserve products</strong>, matching the structure of real ancillary-services
+markets and the way GenX, ReEDS, and PowNet model reserves. Closes
+<strong>Phase D</strong> of the PCM-fidelity roadmap (Phase A = PCM mode in v1.14;
+Phase B = UC overlay in v1.15; Phase C = DC flow in v1.13).</p>
+<section id="default-product-set">
+<h3>Default product set<a class="headerlink" href="#default-product-set" title="此标题的永久链接">¶</a></h3>
+<p>Four products ship by default. The direction (up vs down) is encoded
+in the product <em>name</em> (suffix <code class="docutils literal notranslate"><span class="pre">_down</span></code> -&gt; down direction):</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">regulation_up</span></code> / <code class="docutils literal notranslate"><span class="pre">regulation_down</span></code> -- frequency regulation,
+fast governor response.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">spinning</span></code> -- contingency reserve, online + ready, up-only.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">non_spinning</span></code> -- contingency reserve, may be offline (in a real
+UC; in our LP relaxation it's just a slower-response reserve),
+up-only.</p></li>
+</ul>
+<p>Adding a new product (e.g. <code class="docutils literal notranslate"><span class="pre">flex_ramp_up</span></code>, <code class="docutils literal notranslate"><span class="pre">flex_ramp_down</span></code>)
+requires no code change -- just rows in the eligibility CSV.</p>
+</section>
+<section id="schema-change-breaking">
+<h3>Schema change (BREAKING)<a class="headerlink" href="#schema-change-breaking" title="此标题的永久链接">¶</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">tech_reserve_eligible.csv</span></code>: cols <code class="docutils literal notranslate"><span class="pre">(tech,</span> <span class="pre">eligible)</span></code> -&gt;
+<code class="docutils literal notranslate"><span class="pre">(tech,</span> <span class="pre">product,</span> <span class="pre">eligible)</span></code>. v1.12-v1.15 files need migration: each
+old row becomes one row per product the tech is eligible for.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">reserve_requirement_up.csv</span></code> + <code class="docutils literal notranslate"><span class="pre">reserve_requirement_down.csv</span></code>
+consolidated into <code class="docutils literal notranslate"><span class="pre">reserve_requirement.csv</span></code> with cols
+<code class="docutils literal notranslate"><span class="pre">(zone,</span> <span class="pre">year,</span> <span class="pre">product,</span> <span class="pre">unit,</span> <span class="pre">value)</span></code>. Direction inferred from
+product name.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">params.json</span></code> schema entries <code class="docutils literal notranslate"><span class="pre">reserve_requirement_up</span></code> /
+<code class="docutils literal notranslate"><span class="pre">reserve_requirement_down</span></code> replaced by a single
+<code class="docutils literal notranslate"><span class="pre">reserve_requirement</span></code> entry.</p></li>
+</ul>
+<p>Migration ships in-place: the three example datasets all have new
+CSVs in v1.16. v1.16 will not read v1.12-v1.15 reserve files.</p>
+</section>
+<section id="constraints">
+<h3>Constraints<a class="headerlink" href="#constraints" title="此标题的永久链接">¶</a></h3>
+<p>The headroom is now <strong>shared across products in the same direction</strong>
+(otherwise a unit's spare megawatts would be double-counted across
+regulation + spinning):</p>
+<blockquote>
+<div><dl class="simple">
+<dt>for each (h, m, y, z, te) and direction d in {up, down}:</dt><dd><dl class="simple">
+<dt>sum_{p in products_d} reserve[h,m,y,z,t,p] + (gen if d=up else</dt><dd><p>-gen + cap*p_min*dt) &lt;= cap * p_max * dt</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</div></blockquote>
+<p>Per-product zonal requirement:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>for each (h, m, y, z, p):</dt><dd><p>sum_t reserve[h,m,y,z,t,p] &gt;= REQ[z,y,p] * dt</p>
+</dd>
+</dl>
+</div></blockquote>
+</section>
+<section id="output">
+<h3>Output<a class="headerlink" href="#output" title="此标题的永久链接">¶</a></h3>
+<p>The two <code class="docutils literal notranslate"><span class="pre">reserve_up</span></code> / <code class="docutils literal notranslate"><span class="pre">reserve_down</span></code> xarray DataArrays are
+replaced by a single <code class="docutils literal notranslate"><span class="pre">reserve</span></code> array dimensioned
+<code class="docutils literal notranslate"><span class="pre">(hour,</span> <span class="pre">month,</span> <span class="pre">year,</span> <span class="pre">zone,</span> <span class="pre">tech,</span> <span class="pre">product)</span></code>. Slice on <code class="docutils literal notranslate"><span class="pre">product</span></code>
+to recover the v1.12-style per-direction view.</p>
+</section>
+<section id="eligibility-defaults-shipped">
+<h3>Eligibility defaults shipped<a class="headerlink" href="#eligibility-defaults-shipped" title="此标题的永久链接">¶</a></h3>
+<p>By carrier (in <code class="docutils literal notranslate"><span class="pre">tech_registry.csv</span></code>):</p>
+<ul class="simple">
+<li><p>coal / oil / gas / bioenergy / biomass: all 4 products.</p></li>
+<li><p>nuclear: spinning + non_spinning only (slow ramp).</p></li>
+<li><p>geothermal: regulation_up + spinning + non_spinning.</p></li>
+<li><p>hydro (including cascading per-station): regulation_up,
+regulation_down, spinning. Excludes non_spinning (hydro can't
+black-start as quickly as a peaker).</p></li>
+<li><p>solar / wind / storage discharge: not eligible (storage will get
+proper regulation eligibility in v1.17 once the UC overlay
+understands charging-mode reserve).</p></li>
+</ul>
+</section>
+<section id="default-requirement-values">
+<h3>Default requirement values<a class="headerlink" href="#default-requirement-values" title="此标题的永久链接">¶</a></h3>
+<p>The single <code class="docutils literal notranslate"><span class="pre">value</span></code> from <code class="docutils literal notranslate"><span class="pre">reserve_requirement_up.csv</span></code> (v1.15) is
+split across products as: regulation_up 10 %, regulation_down 10 %,
+spinning 30 %, non_spinning 50 %. So the total reserve commitment
+stays the same as v1.15 -- this commit is a generalisation of
+structure, not a tightening of policy.</p>
+</section>
+<section id="regression">
+<h3>Regression<a class="headerlink" href="#regression" title="此标题的永久链接">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">three_zone</span></code> <code class="docutils literal notranslate"><span class="pre">EXPECTED_OBJECTIVE</span></code> 1.9070270274e11 -&gt;
+1.9070043702e11 (~0.001 % drift -- numerically identical at this
+tolerance, since total reserve is unchanged).</p>
+</section>
+</section>
 <section id="version-1-15-0-may-6-2026">
 <h2>Version 1.15.0 - May 6, 2026<a class="headerlink" href="#version-1-15-0-may-6-2026" title="此标题的永久链接">¶</a></h2>
 <p>New feature: optional <strong>unit commitment (UC)</strong> overlay using a

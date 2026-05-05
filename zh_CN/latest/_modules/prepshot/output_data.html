@@ -298,6 +298,16 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../Changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-16-0-may-6-2026">Version 1.16.0 - May 6, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#default-product-set">Default product set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#schema-change-breaking">Schema change (BREAKING)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#constraints">Constraints</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#output">Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#eligibility-defaults-shipped">Eligibility defaults shipped</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#default-requirement-values">Default requirement values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#regression">Regression</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-15-0-may-6-2026">Version 1.15.0 - May 6, 2026</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#added">Added</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#changed">Changed</a></li>
@@ -650,17 +660,19 @@
     <span class="p">)</span>
     <span class="n">data_vars</span><span class="p">[</span><span class="s1">&#39;carbon_breakdown&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">create_data_array</span><span class="p">(</span>
         <span class="n">model</span><span class="o">.</span><span class="n">carbon_breakdown</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;zone&#39;</span><span class="p">,</span> <span class="s1">&#39;tech&#39;</span><span class="p">],</span> <span class="s1">&#39;Ton&#39;</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
-    <span class="c1"># Operating-reserve allocations (only when the reserve module ran).</span>
-    <span class="c1"># Same shape as `gen`; eligible techs may carry positive headroom</span>
-    <span class="c1"># above (`reserve_up`) and below (`reserve_down`) their dispatch.</span>
-    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s1">&#39;reserve_up&#39;</span><span class="p">):</span>
-        <span class="n">data_vars</span><span class="p">[</span><span class="s1">&#39;reserve_up&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">create_data_array</span><span class="p">(</span>
-            <span class="n">model</span><span class="o">.</span><span class="n">reserve_up</span><span class="p">,</span>
-            <span class="p">[</span><span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;zone&#39;</span><span class="p">,</span> <span class="s1">&#39;tech&#39;</span><span class="p">],</span> <span class="s1">&#39;MWh&#39;</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span>
-        <span class="p">)</span>
-        <span class="n">data_vars</span><span class="p">[</span><span class="s1">&#39;reserve_down&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">create_data_array</span><span class="p">(</span>
-            <span class="n">model</span><span class="o">.</span><span class="n">reserve_down</span><span class="p">,</span>
-            <span class="p">[</span><span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;zone&#39;</span><span class="p">,</span> <span class="s1">&#39;tech&#39;</span><span class="p">],</span> <span class="s1">&#39;MWh&#39;</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span>
+    <span class="c1"># Operating-reserve allocations (multi-product, v1.16).</span>
+    <span class="c1"># `reserve` is dimensioned (hour, month, year, zone, tech, product),</span>
+    <span class="c1"># where the product axis comes from the eligibility CSV (typically</span>
+    <span class="c1"># regulation_up / regulation_down / spinning / non_spinning).</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s1">&#39;reserve&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s1">&#39;reserve_products&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="c1"># Borrow the per-product axis the reserve module stashes on</span>
+        <span class="c1"># the model. create_data_array&#39;s dim list must match the</span>
+        <span class="c1"># variable&#39;s index order.</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">product</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">reserve_products</span><span class="p">)</span>  <span class="c1"># for create_data_array</span>
+        <span class="n">data_vars</span><span class="p">[</span><span class="s1">&#39;reserve&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">create_data_array</span><span class="p">(</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">reserve</span><span class="p">,</span>
+            <span class="p">[</span><span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;zone&#39;</span><span class="p">,</span> <span class="s1">&#39;tech&#39;</span><span class="p">,</span> <span class="s1">&#39;product&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;MWh&#39;</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span>
         <span class="p">)</span>
     <span class="c1"># Shadow price (dual) of the nodal power-balance constraint --</span>
     <span class="c1"># the locational marginal price of one extra MWh of demand at</span>
