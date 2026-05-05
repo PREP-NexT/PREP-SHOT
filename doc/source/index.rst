@@ -59,6 +59,7 @@ To browse the documentation offline, download a `zipped HTML copy <https://prep-
    Overview <self>
    Installation
    Quickstart
+   Thailand
    SoutheastAsia
 
 .. toctree::
