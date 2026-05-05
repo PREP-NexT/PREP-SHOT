@@ -6,8 +6,8 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="Glossary.html" />
 <meta property="og:site_name" content="PREP-SHOT documentation" />
-<meta property="og:description" content="PREP-SHOT 中使用的能源建模、水电运行与优化相关术语的参考。 gen, 模型的主要决策变量:按技术、区域、小时、月份、年份的发电量 (单位为每时段 MWh)。在结果 NetCDF 中通过 ds.gen 输出。,, HiGHS, 一款开源线性规划求解器。PREP-SHOT 的默认求解器;由 highsbox 包以 wheel 形式提供,无需单独安装。,, isinflow, confi..." />
-<meta name="description" content="PREP-SHOT 中使用的能源建模、水电运行与优化相关术语的参考。 gen, 模型的主要决策变量:按技术、区域、小时、月份、年份的发电量 (单位为每时段 MWh)。在结果 NetCDF 中通过 ds.gen 输出。,, HiGHS, 一款开源线性规划求解器。PREP-SHOT 的默认求解器;由 highsbox 包以 wheel 形式提供,无需单独安装。,, isinflow, confi..." />
+<meta property="og:description" content="PREP-SHOT 中使用的能源建模、水电运行与优化相关术语的参考。 Further reading: Excellent free primers from NREL and DOE, useful as orientation if the terminology below is new: Electric Grid and Markets 101(NREL, 2024) -- how..." />
+<meta name="description" content="PREP-SHOT 中使用的能源建模、水电运行与优化相关术语的参考。 Further reading: Excellent free primers from NREL and DOE, useful as orientation if the terminology below is new: Electric Grid and Markets 101(NREL, 2024) -- how..." />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>术语表 &mdash; PREP-SHOT (latest) 简体中文文档</title>
 
@@ -159,7 +159,11 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">术语表</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">术语表</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#further-reading">Further reading</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#terminology">Terminology</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="how_to/index.html">如何做(How-To)</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="how_to/add_a_technology.html">新增一个技术</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="how_to/add_a_technology.html#steps">步骤</a></li>
@@ -584,6 +588,35 @@
 <section id="glossary">
 <span id="id1"></span><h1>术语表<a class="headerlink" href="#glossary" title="此标题的永久链接">¶</a></h1>
 <p>PREP-SHOT 中使用的能源建模、水电运行与优化相关术语的参考。</p>
+<section id="further-reading">
+<h2>Further reading<a class="headerlink" href="#further-reading" title="此标题的永久链接">¶</a></h2>
+<p>Excellent free primers from NREL and DOE, useful as orientation if
+the terminology below is new:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.nrel.gov/docs/fy25osti/91864.pdf">Electric Grid and Markets 101</a>
+(NREL, 2024) -- how the bulk power system actually works:
+generation, transmission, ISOs/RTOs, day-ahead vs real-time
+markets, ancillary services. Start here if you're new to power
+systems.</p></li>
+<li><p><a class="reference external" href="https://www.energy.gov/sites/prod/files/2016/02/f30/EPSA_Power_Sector_Modeling_FINAL_021816_0.pdf">Power Sector Modeling 101</a>
+(US DOE EPSA, 2016) -- conceptual tour of the model families
+PREP-SHOT belongs to: capacity expansion vs production cost vs
+unit commitment, what each is for, where their assumptions break.</p></li>
+<li><p><a class="reference external" href="https://docs.nrel.gov/docs/fy24osti/87105.pdf">Beginner's Guide to Understanding Power System Model Results for
+Long-Term Resource Plans</a>
+(NREL, 2023) -- companion to PREP-SHOT's output: how to read a
+capacity-expansion result, what the buildouts and dispatch curves
+mean, common pitfalls when interpreting them.</p></li>
+<li><p><a class="reference external" href="https://docs.nrel.gov/docs/fy24osti/88337.pdf">Advanced Guide to Understanding Power System Model Results for
+Long-Term Resource Plans</a>
+(NREL, 2024) -- deeper sequel: reliability metrics, reserve
+margin reasoning, transmission congestion interpretation, and
+what differing capacity-expansion studies typically disagree
+about.</p></li>
+</ul>
+</section>
+<section id="terminology">
+<h2>Terminology<a class="headerlink" href="#terminology" title="此标题的永久链接">¶</a></h2>
 <dl class="glossary simple">
 <dt id="term-gen">gen<a class="headerlink" href="#term-gen" title="此术语词汇的永久链接">¶</a></dt><dd><p>模型的主要决策变量:按技术、区域、小时、月份、年份的发电量 (单位为每时段 MWh)。在结果 NetCDF 中通过 <code class="docutils literal notranslate"><span class="pre">ds.gen</span></code> 输出。</p>
 </dd>
@@ -672,6 +705,7 @@
 <dt id="term-nominal-capacity">额定容量 (nominal capacity)<a class="headerlink" href="#term-nominal-capacity" title="此术语词汇的永久链接">¶</a></dt><dd><p>发电机的额定最大出力 (MW),相对于调度过程中的实际出力。在 <code class="docutils literal notranslate"><span class="pre">tech_existing.csv</span></code> 中存储现役容量,在 <code class="docutils literal notranslate"><span class="pre">tech_capacity_max.csv</span></code> 中给出上限。</p>
 </dd>
 </dl>
+</section>
 </section>
 
 
