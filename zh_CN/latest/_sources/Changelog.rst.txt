@@ -3,6 +3,111 @@ Changelog
 
 Here, you'll find notable changes for each version of PREP-SHOT.
 
+Version 1.15.0 - May 6, 2026
+-------------------------------
+
+New feature: optional **unit commitment (UC)** overlay using a
+clustered MILP formulation. Closes the LP-vs-PCM fidelity gap on the
+thermal-fleet side: when enabled, each UC-eligible tech (typically
+coal, gas, oil, biomass) is treated as a cluster of identical units
+of size ``tech_unit_size[te]``. The model now decides not just how
+much to dispatch but how many units to start, run, and shut down
+each hour, with realistic minimum up/down times and startup costs.
+
+This is the **Phase B** milestone of the PCM-fidelity roadmap (after
+v1.13 DC flow and v1.14 PCM mode). With UC enabled, PREP-SHOT
+becomes a **MILP** (HiGHS handles it; runtime grows several-fold).
+
+Added
++++++
+
+* ``prepshot/_model/unit_commitment.py`` -- ``AddUnitCommitment
+  Constraints`` class with three new decision variables per
+  ``(h, m, y, z, te)``:
+
+  - ``online[h]`` -- number of units in the cluster online (integer
+    in ``[0, N_units]`` where ``N_units = cap_existing / unit_size``).
+  - ``startup[h]`` -- units started this hour.
+  - ``shutdown[h]`` -- units shut down this hour.
+
+  And six new constraint types:
+
+  - **N-units bound**: ``online[h] <= N_units``
+  - **State evolution**: ``online[h] - online[h-1] = startup[h] -
+    shutdown[h]`` (skipped at ``h == hour[0]``; first-hour state
+    free)
+  - **Dispatch upper / lower bound on online units**:
+    ``gen[h] <=/>= online[h] * unit_size * p_max_pu (or p_min_pu) * dt``
+  - **Min up time**: ``online[h] >= sum_{i=0..MinUp-1} startup[h-i]``
+  - **Min down time**: ``(N_units - online[h]) >=
+    sum_{i=0..MinDown-1} shutdown[h-i]``
+
+* New cost terms wired into ``cost.py`` via ``add_uc_cost_terms``:
+  startup cost (``$/MW`` per startup) and no-load cost (``$/MW-h``
+  while online), both NPV-discounted via ``var_factor[y, z]`` and
+  divided by ``weight``.
+
+* Six new optional inputs in every shipped example, all keyed
+  by tech (file -> column):
+
+  - ``tech_uc_eligible.csv``     -> ``eligible`` (boolean)
+  - ``tech_unit_size.csv``       -> ``value`` (MW)
+  - ``tech_min_up_time.csv``     -> ``value`` (hours)
+  - ``tech_min_down_time.csv``   -> ``value`` (hours)
+  - ``tech_startup_cost.csv``    -> ``value`` ($/MW)
+  - ``tech_no_load_cost.csv``    -> ``value`` ($/MW-h)
+
+  Defaults are ballpark NREL ATB / PowNet values: Coal 250 MW units,
+  8h up, 8h down, $150/MW startup, $3/MW-h no-load; Gas 150 MW
+  units, 2h/1h, $100/MW, $5/MW-h; Oil 50 MW, 2h/2h, $80/MW, $8/MW-h;
+  Bioenergy/Biomass 30 MW, 4h/4h, $70/MW, $4/MW-h; Nuclear 1000 MW,
+  24h/48h, $500/MW, $2/MW-h. Edit the CSVs to fine-tune per
+  scenario.
+
+* New ``uc_parameters`` block in each example's ``config.json``:
+
+  - ``three_zone``: ``is_uc=true``, ``uc_relaxation="continuous"``.
+    The full integer MILP on three_zone with the default 3-pass
+    head iteration takes 15-30 minutes -- too slow for the
+    regression test, so the example ships with the LP relaxation
+    (online / startup / shutdown become continuous in their natural
+    ranges). Flip ``uc_relaxation`` to ``"integer"`` for genuine
+    MILP runs.
+  - ``thailand``: ``is_uc=false``. Single-zone full-year LP is
+    already heavy.
+  - ``southeast_asia``: ``is_uc=false``. Multi-zone, multi-station
+    hydro -- MILP would push runtime past acceptable smoke-test
+    bounds.
+
+  Set ``uc_relaxation="continuous"`` to fall back to the LP
+  relaxation (binaries become continuous in their natural ranges) --
+  useful for warm-starts and scaling tests.
+
+* ``prepshot.load_data.extract_config_data`` now returns ``is_uc``
+  and ``uc_relaxation`` so downstream modules can branch on them.
+  Missing block -> defaults off, pre-1.15 ``config.json`` files are
+  byte-compatible.
+
+Changed
++++++++
+
+* ``tests/test_regression.py`` ``EXPECTED_OBJECTIVE`` re-baselined
+  for ``three_zone`` with UC enabled. UC adds startup + no-load
+  costs and may shift dispatch to avoid frequent cycling, raising
+  total NPV cost. Inline drift history extends to v1.15.0.
+
+Performance notes
++++++++++++++++++
+
+* MILP solve on ``three_zone`` (48 hours, 3 zones, 4 thermal techs):
+  a few seconds.
+* Full-year (8760 hour) MILP at scenario sizes like ``thailand``:
+  not tractable directly -- pair with PCM rolling-horizon mode
+  (``prepshot.pcm``) which solves UC on overlapping windows.
+* Set ``uc_relaxation="continuous"`` to keep the model LP for quick
+  experimentation; the integer constraint drops, but the constraint
+  topology and cost terms stay in place.
+
 Version 1.14.1 - May 5, 2026
 -------------------------------
 
