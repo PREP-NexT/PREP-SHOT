@@ -253,17 +253,27 @@ class AddHydropowerConstraints:
         # Assume the delay time is a constant by default. Other routing methods
         # can be implemented here such as Muskingum method, piecewise linear
         # routing method, etc.
-        # When the delayed hour falls before the modelled period, wrap
-        # cyclically into [hour[0], hour[-1]]. The modular form below
-        # works for any window starting at hour[0] >= 1 (CEM uses
-        # hour=[1..N] so it lands at N; PCM rolling windows wrap into
-        # the same window -- approximate, but the alternative is a
-        # cross-window state variable which Phase A doesn't model).
+        # When the delayed hour falls before the modelled period:
+        # * CEM (params['cyclic_hydro']=True default): treat the period
+        #   as cyclic and wrap modularly into [hour[0], hour[-1]] --
+        #   matches the original "hour=[1..N]" convention.
+        # * PCM rolling (cyclic_hydro=False): the upstream's
+        #   pre-window outflow lives in the prior window we already
+        #   committed; drop the term here (treat upstream contribution
+        #   as 0 for the boundary hours). Approximate but stable; the
+        #   energy is small relative to the natural inflow and only
+        #   affects the first ``max_delay`` hours of each window.
+        cyclic = model.params.get('cyclic_hydro', True)
         period_len = hour[-1] - hour[0] + 1
         for ups, delay in up_streams:
-            delay = int(int(delay) / dt)
-            offset = (h - delay - hour[0]) % period_len
-            t = hour[0] + offset
+            delay_steps = int(int(delay) / dt)
+            t = h - delay_steps
+            if t < hour[0]:
+                if cyclic:
+                    offset = (h - delay_steps - hour[0]) % period_len
+                    t = hour[0] + offset
+                else:
+                    continue  # drop upstream term for this h
             up_stream_outflow += model.outflow[ups, t, m, y]
         return up_stream_outflow + model.params['inflow'][s, y, m, h]
 

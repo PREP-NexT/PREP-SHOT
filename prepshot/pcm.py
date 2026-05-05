@@ -11,18 +11,31 @@ PowNet and PyPSA's ``optimize_with_rolling_horizon`` use.
 
 .. note::
 
-   **v1.14.0 status (alpha).** The rolling driver is wired end-to-end
-   and the per-window LP solves cleanly for a *single* window covering
-   the full representative period (e.g. ``--horizon 48 --step 48`` on
-   the 48-hour ``three_zone`` dataset). Multi-window rolling triggers a
-   subtle interaction with the existing hydro module's cyclic-wrap
-   convention (``inflow_rule`` assumes the upstream's outflow at
-   ``t = h - delay`` wraps cyclically inside the same window) -- when
-   storage is carried across windows from a prior solve, the implicit
-   "end of window feeds beginning of window" coupling can become
-   infeasible. v1.14.1 will switch hydro to a non-cyclic rolling
-   formulation; for now, run with ``horizon == step == period_length``
-   and treat PCM as a fixed-capacity dispatch validator.
+   **v1.14.1 status (alpha).** The rolling driver is wired end-to-end
+   with single-window solves working cleanly. Multi-window rolling
+   has TWO known limitations:
+
+   1. **Cascading hydro cross-window state**: at the start of any
+      non-first window, downstream stations see only their natural
+      (incremental) inflow because the upstream's outflow during the
+      lookback period (``hour[0] - delay .. hour[0]``) is in the
+      previous window's solve and is not yet carried forward. When
+      the downstream's ``min_outflow`` exceeds its natural inflow,
+      water balance can drain storage below ``storage_min`` -> the
+      sub-problem is infeasible. v1.15+ will add cross-window cascade
+      state (carry the upstream's last ``max_delay`` outflow values
+      into the next window's ``inflow_rule`` lookup).
+   2. **Carbon cap rescaling**: the cap from ``policy_carbon_emission_
+      limit.csv`` is annual (full-year tonneCO2) but each window
+      only covers a fraction of the year. The naive filter applies
+      the full annual cap to a 48-hour window -- not binding for our
+      small examples but wrong on principle. Will rescale by
+      ``window_hours / hours_in_year`` in v1.15.
+
+   For now, recommend ``--horizon == --step == period_length``
+   (single-window PCM = fixed-capacity dispatch validation).
+   Multi-window rolling works on scenarios *without* binding
+   min-outflow constraints on cascaded hydro.
 
 Why rolling horizon?
 ====================
@@ -226,6 +239,12 @@ def _build_window_params(
     p['hour'] = list(window_hours)
     p['year'] = [int(year)]
     p['skip_end_storage'] = True  # interior windows: terminal SOC is free
+    # Switch hydro from cyclic-wrap to non-cyclic-rolling. With cyclic
+    # off, the cascade upstream's outflow at hours before the window
+    # start is dropped from the downstream's inflow expression -- the
+    # approximation that lets each window stand alone, instead of
+    # implicitly looping its end back into its beginning.
+    p['cyclic_hydro'] = False
     # Recompute weight for the smaller window so cost / income terms
     # scale correctly (weight is in the income denominator).
     if 'hours_in_year' in p:
@@ -242,12 +261,12 @@ def _build_window_params(
     # set per-station initial storage from carried-over state
     if state.get('hydro_storage'):
         p['initial_reservoir_storage_level'] = dict(state['hydro_storage'])
-    # Battery SOC carryover deferred to v1.14.1: the storage module
-    # uses a per-unit-of-cap convention (initial_energy_storage_level
-    # is a fraction multiplied by cap_existing * epr * dt to recover
-    # MWh), incompatible with the absolute-MWh state we extract from
-    # a solved window. Each PCM window currently re-initialises
-    # batteries to the dataset's default SOC.
+    if state.get('battery_storage'):
+        # Merge: keep the dataset's default SOC for any (te, z) that
+        # the previous window didn't write (e.g. zero-capacity slots).
+        merged = dict(p.get('initial_energy_storage_level') or {})
+        merged.update(state['battery_storage'])
+        p['initial_energy_storage_level'] = merged
     # Force the head-iteration off in PCM windows -- per-window head
     # iteration would multiply the solve count by 3x with no extra
     # accuracy on a single window.
@@ -262,9 +281,13 @@ def _extract_window_state(
 
     Hydro storage is clamped a small fraction inside ``[storage_min,
     storage_max]`` so floating-point boundary values from the LP
-    optimum don't accidentally violate the next window's bounds. The
-    next window's water balance starts from this clamped value, with
-    swing room in both directions.
+    optimum don't accidentally violate the next window's bounds.
+
+    Battery SOC is converted from absolute MWh (the form held by
+    ``model.storage``) to the per-unit-of-capacity fraction that
+    ``params['initial_energy_storage_level']`` expects, using the
+    same ``esl * cap * epr * dt`` relation as the
+    ``init_energy_storage_rule``.
     """
     state = {'hydro_storage': {}, 'battery_storage': {}}
     if full_params.get('isinflow') and hasattr(model, 'storage_reservoir'):
@@ -285,9 +308,35 @@ def _extract_window_state(
                     ))
                     val = min(max(val, lo + margin), hi - margin)
                     state['hydro_storage'][s] = val
-    # battery storage carryover deferred to v1.14.1 (unit mismatch
-    # between absolute MWh extracted here and the per-unit-of-cap
-    # input convention; see _build_window_params for the rationale).
+
+    if hasattr(model, 'storage') and getattr(model, 'storage_tech', None):
+        epr_lookup = full_params.get('energy_to_power_ratio') or {}
+        dt = full_params['dt']
+        for z in model.zone:
+            for te in model.storage_tech:
+                # Compose cap_existing for this (year, zone, tech). Use
+                # the FIRST year in the window (PCM only models one).
+                year = model.year[0]
+                cap_mw = float(model.get_value(
+                    model.cap_existing[year, z, te]
+                )) if hasattr(model.cap_existing, '__getitem__') else 0.0
+                epr = float(epr_lookup.get(te, 0.0))
+                denom = cap_mw * epr * dt
+                if denom <= 0:
+                    # No installed storage in this (z, te) slot --
+                    # skip; the next window's init lookup defaults to 0.
+                    continue
+                for m in model.month:
+                    val_mwh = float(model.get_value(
+                        model.storage[terminal_hour, m, year, z, te]
+                    ))
+                    esl = val_mwh / denom
+                    # Clamp into [0, 1] -- LP feasibility guarantees
+                    # storage stays in [0, cap*epr*dt], but
+                    # floating-point noise can push the ratio just
+                    # outside.
+                    esl = min(max(esl, 0.0), 1.0)
+                    state['battery_storage'][te, z] = esl
     return state
 
 
