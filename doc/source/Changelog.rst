@@ -957,3 +957,63 @@ Removed
 * "Input formats" and "Migrating an existing input directory"
   sections from ``Installation.rst`` -- redundant with
   ``Model_input_output.rst``.
+
+
+Version 1.11.1 - May 5, 2026
+-------------------------------
+
+Documentation infrastructure: docs are now hosted on Read the Docs
+at https://prep-shot.readthedocs.io/, with a Chinese (``zh_CN``)
+translation in flight. Also drops the offline-PDF build (the
+canonical docs are HTML only).
+
+Added
++++++
+
+* ``.readthedocs.yaml`` -- the build config RTD requires. ubuntu-22.04
+  + python 3.11, pandoc apt package (for nbsphinx), and
+  ``pip install -e .`` so autodoc can import ``prepshot``.
+* ``html_theme_options`` ported from ``godotengine/godot-docs``:
+  ``flyout_display: "attached"`` puts the version + language picker
+  inline at the bottom of the sidebar (Godot's UX) once the RTD
+  Addons framework is enabled for the project.
+* ``sphinxcontrib-mermaid`` extension + an architecture diagram on
+  the landing page.
+* In-tree Chinese (``zh_CN``) translation scaffolding under
+  ``doc/source/locale/zh_CN/LC_MESSAGES/`` -- 11 pages translated:
+  index, Installation, Glossary, Model_input_output, Contribution,
+  and the six how-to recipes (~447 strings total).
+* "Translating the Documentation" section in ``Contribution.rst``
+  with the extract / update / translate / build workflow.
+
+Changed
++++++++
+
+* All "Official Documentation" / "Tutorial Page" links in the README,
+  ``index.rst``, and ``Installation.rst`` repointed from the
+  GitHub-Pages URL to ``https://prep-shot.readthedocs.io/``.
+* The mermaid architecture diagram on the landing page rewritten
+  to use Mermaid's quoted-label ``\\n`` syntax instead of HTML
+  ``<br/>``, sidestepping a Sphinx HTML-escape bug that double-
+  escaped the directive contents.
+
+Removed
++++++++
+
+* The ``Generate offline PDF`` step from ``.github/workflows/static.yml``
+  and the ``texlive-latex-recommended`` / ``texlive-xetex`` /
+  ``latexmk`` / ``xindy`` apt installs that fed it. ``latex_engine``
+  and ``latex_documents`` likewise dropped from ``conf.py``. Offline
+  reading is now via the htmlzip download from RTD.
+* Empty ``.gitattributes`` and the easter-egg ``downwasher`` glossary
+  entry.
+
+Notes
++++++
+
+This is the **first release with ``.readthedocs.yaml`` shipped**.
+Earlier tags (``v1.11.0`` and below) cannot build on RTD because
+RTD now requires the YAML at the project root. Activate ``latest``
++ ``v1.11.1`` (and future tags) in RTD admin's Versions tab; leave
+older tags inactive. They remain accessible as GitHub release
+tarballs.
