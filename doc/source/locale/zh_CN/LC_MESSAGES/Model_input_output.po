@@ -3,7 +3,6 @@
 # This file is distributed under the same license as the PREP-SHOT package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PREP-SHOT latest\n"
@@ -21,7 +20,7 @@ msgstr ""
 
 #: ../../source/Model_input_output.rst:4
 msgid "Model Inputs/Outputs"
-msgstr ""
+msgstr "模型输入与输出"
 
 #: ../../source/Model_input_output.rst:6
 msgid ""
@@ -30,10 +29,12 @@ msgid ""
 "model parameter to its CSV file name, declares whether the file is "
 "required, and supplies a default value when an optional file is absent."
 msgstr ""
+"PREP-SHOT 从一个 CSV 文件夹读取输入,并将求解结果写入 NetCDF 文件。``params.json`` (位于仓库根目录) "
+"把每个模型参数映射到对应的 CSV 文件名、声明文件是否必须、并在可选文件缺失时给出默认值。"
 
 #: ../../source/Model_input_output.rst:12
 msgid "Input file format"
-msgstr ""
+msgstr "输入文件格式"
 
 #: ../../source/Model_input_output.rst:14
 msgid ""
@@ -44,6 +45,9 @@ msgid ""
 "documentation and ignored by the loader. A typical 2-dim file looks "
 "like::"
 msgstr ""
+"自 v1.5.0 起,所有输入采用 **长格式 (\"整洁\") CSV**——每个索引一列维度,加上末尾的单列 ``value``。名为 "
+"``unit``、``name``、``commodity``、``comment``、``note``、``label`` 或以 "
+"``_name`` 结尾的列被视为文档注释,加载器会忽略它们。典型的二维文件形如::"
 
 #: ../../source/Model_input_output.rst:26
 msgid ""
@@ -52,6 +56,8 @@ msgid ""
 "remain wide tables loaded as DataFrames -- they have multiple value "
 "columns and the model code slices them by name."
 msgstr ""
+"其中有四类 \"Group 3\" 查找表 (碳排放上限、扩展候选、分段水库函数、水流延迟矩阵、技术注册表) 仍为加载为 DataFrame "
+"的宽表——它们具有多个值列,模型代码按列名切片读取。"
 
 #: ../../source/Model_input_output.rst:31
 msgid ""
@@ -59,73 +65,75 @@ msgid ""
 "``params.json`` as ``\"_schema_version\": 2``. See ``Stability.rst`` and "
 "``Changelog.rst`` for migration notes from older releases."
 msgstr ""
+"当前输入文件的 schema 版本号写在 ``params.json`` 顶部,值为 ``\"_schema_version\": "
+"2``。从更早版本迁移的说明参见 ``Stability.rst`` 与 ``Changelog.rst``。"
 
 #: ../../source/Model_input_output.rst:35
 msgid "File-name prefixes group inputs by domain:"
-msgstr ""
+msgstr "文件名前缀按领域对输入分组:"
 
 #: ../../source/Model_input_output.rst:37
 msgid "``demand`` -- electricity demand"
-msgstr ""
+msgstr "``demand`` —— 电力需求"
 
 #: ../../source/Model_input_output.rst:38
 msgid "``economic_`` -- discount factors"
-msgstr ""
+msgstr "``economic_`` —— 折现因子"
 
 #: ../../source/Model_input_output.rst:39
 msgid "``finance_`` -- (optional) WACC and public-debt accounting"
-msgstr ""
+msgstr "``finance_`` —— (可选) WACC 与公共债务核算"
 
 #: ../../source/Model_input_output.rst:40
 msgid "``policy_`` -- carbon limits, taxes, offsets"
-msgstr ""
+msgstr "``policy_`` —— 碳排放上限、碳税、碳抵消"
 
 #: ../../source/Model_input_output.rst:41
 msgid "``reservoir_`` -- per-station reservoir parameters"
-msgstr ""
+msgstr "``reservoir_`` —— 按站点的水库参数"
 
 #: ../../source/Model_input_output.rst:42
 msgid "``storage_`` -- storage-tech parameters"
-msgstr ""
+msgstr "``storage_`` —— 储能技术参数"
 
 #: ../../source/Model_input_output.rst:43
 msgid "``tech_`` -- technology registry, costs, capacity, profiles"
-msgstr ""
+msgstr "``tech_`` —— 技术注册表、成本、容量、运行曲线"
 
 #: ../../source/Model_input_output.rst:44
 msgid "``transmission_`` -- transmission-line parameters"
-msgstr ""
+msgstr "``transmission_`` —— 输电线路参数"
 
 #: ../../source/Model_input_output.rst:47
 msgid "Inputs"
-msgstr ""
+msgstr "输入"
 
 #: ../../source/Model_input_output.rst:50
 msgid "Required inputs"
-msgstr ""
+msgstr "必备输入"
 
 #: ../../source/Model_input_output.rst:56
 #: ../../source/Model_input_output.rst:166
 #: ../../source/Model_input_output.rst:218
 msgid "Parameter [Unit]"
-msgstr ""
+msgstr "参数 [单位]"
 
 #: ../../source/Model_input_output.rst:57
 #: ../../source/Model_input_output.rst:167
 #: ../../source/Model_input_output.rst:295
 #: ../../source/Model_input_output.rst:384
 msgid "Description"
-msgstr ""
+msgstr "说明"
 
 #: ../../source/Model_input_output.rst:58
 #: ../../source/Model_input_output.rst:168
 #: ../../source/Model_input_output.rst:220
 msgid "Input file"
-msgstr ""
+msgstr "输入文件"
 
 #: ../../source/Model_input_output.rst:60
 msgid "demand [MW]"
-msgstr ""
+msgstr "demand [MW]"
 
 #: ../../source/Model_input_output.rst:61
 msgid ""
@@ -133,6 +141,8 @@ msgid ""
 "multiplies by ``dt`` internally to convert MW to MWh per timestep, "
 "matching ``gen`` and ``charge``."
 msgstr ""
+"按区域、年份、月-小时给出的逐小时电力需求。PREP-SHOT 内部乘以 ``dt`` 将 MW 转换为每时段 MWh,与 ``gen`` 和 "
+"``charge`` 单位一致。"
 
 #: ../../source/Model_input_output.rst:64
 msgid "demand"
@@ -140,13 +150,13 @@ msgstr ""
 
 #: ../../source/Model_input_output.rst:65
 msgid "economic discount factor [fraction]"
-msgstr ""
+msgstr "经济折现因子 [比例]"
 
 #: ../../source/Model_input_output.rst:66
 msgid ""
 "Discount rate per zone and year. Used to discount fixed, variable, and "
 "(when finance is OFF) investment cash flows."
-msgstr ""
+msgstr "按区域和年份给出的折现率。用于折现固定、可变,以及在金融模块未启用时折现投资现金流。"
 
 #: ../../source/Model_input_output.rst:68
 msgid "economic_discount_factor"
@@ -154,7 +164,7 @@ msgstr ""
 
 #: ../../source/Model_input_output.rst:70
 msgid "tech registry [N/A]"
-msgstr ""
+msgstr "技术注册表 [N/A]"
 
 #: ../../source/Model_input_output.rst:71
 msgid ""
@@ -162,6 +172,8 @@ msgid ""
 "string -- ``hydro`` is special-cased), ``is_storage`` (boolean flag). "
 "Drives the model's hydro / storage / dispatchable partitioning."
 msgstr ""
+"按技术的元数据:``tech``、``name``、``carrier`` (自由格式字符串—— ``hydro`` "
+"被特殊处理)、``is_storage`` (布尔标志)。决定模型对水电 / 储能 / 可调度技术的分类。"
 
 #: ../../source/Model_input_output.rst:75
 msgid "tech_registry"
@@ -169,7 +181,7 @@ msgstr ""
 
 #: ../../source/Model_input_output.rst:76
 msgid "tech existing fleet [MW]"
-msgstr ""
+msgstr "现有装机 [MW]"
 
 #: ../../source/Model_input_output.rst:77
 msgid ""
@@ -177,6 +189,8 @@ msgid ""
 "capacity)``. Sparse -- only non-zero entries listed. Replaced "
 "``historical_capacity`` in v1.7.0."
 msgstr ""
+"每个已建容量块占一行:``(tech, zone, commission_year, capacity)``。稀疏存储——仅列出非零条目。在 "
+"v1.7.0 中替代 ``historical_capacity``。"
 
 #: ../../source/Model_input_output.rst:80
 msgid "tech_existing"
@@ -184,7 +198,7 @@ msgstr ""
 
 #: ../../source/Model_input_output.rst:81
 msgid "tech candidates [MW]"
-msgstr ""
+msgstr "技术候选 [MW]"
 
 #: ../../source/Model_input_output.rst:82
 msgid ""
@@ -192,6 +206,8 @@ msgid ""
 "``capacity_min`` / ``capacity_max`` columns. Absence of an entry means "
 "\"this combination cannot be expanded\"."
 msgstr ""
+"按 ``(zone, tech, year)`` 给出的可建设扩展选项,包含 ``capacity_min`` / "
+"``capacity_max`` 列。条目缺失意味着 \"该组合不可扩展\"。"
 
 #: ../../source/Model_input_output.rst:85
 msgid "tech_candidates"
@@ -199,13 +215,13 @@ msgstr ""
 
 #: ../../source/Model_input_output.rst:86
 msgid "tech capacity max [MW]"
-msgstr ""
+msgstr "技术容量上限 [MW]"
 
 #: ../../source/Model_input_output.rst:87
 msgid ""
 "Upper bound on total installed capacity per ``(zone, tech, year)``. "
 "``inf`` disables the cap."
-msgstr ""
+msgstr "每个 ``(zone, tech, year)`` 的总装机容量上限。设为 ``inf`` 时不施加约束。"
 
 #: ../../source/Model_input_output.rst:89
 msgid "tech_capacity_max"
@@ -213,7 +229,7 @@ msgstr ""
 
 #: ../../source/Model_input_output.rst:90
 msgid "tech lifetime [yr]"
-msgstr ""
+msgstr "技术寿命 [年]"
 
 #: ../../source/Model_input_output.rst:91
 msgid ""
@@ -221,6 +237,8 @@ msgid ""
 " unit built in ``cy`` retires at ``cy + lifetime[te, cy]``. (Bug fixed in"
 " v1.8.1.)"
 msgstr ""
+"按技术、按投运年份的寿命。在投运年份处查表,所以一台在 ``cy`` 投运的机组将在 ``cy + lifetime[te, cy]`` 退役。 "
+"(已在 v1.8.1 中修复相关 bug。)"
 
 #: ../../source/Model_input_output.rst:94
 msgid "tech_lifetime"
@@ -228,11 +246,11 @@ msgstr ""
 
 #: ../../source/Model_input_output.rst:96
 msgid "tech investment cost [dollar/MW]"
-msgstr ""
+msgstr "技术投资成本 [美元/MW]"
 
 #: ../../source/Model_input_output.rst:97
 msgid "Overnight investment cost per tech and year."
-msgstr ""
+msgstr "按技术和年份的隔夜投资成本。"
 
 #: ../../source/Model_input_output.rst:98
 msgid "tech_investment_cost"
@@ -240,11 +258,11 @@ msgstr ""
 
 #: ../../source/Model_input_output.rst:99
 msgid "tech fixed OM cost [dollar/MW/yr]"
-msgstr ""
+msgstr "技术固定 O&M 成本 [美元/MW/年]"
 
 #: ../../source/Model_input_output.rst:100
 msgid "Fixed O&M cost per tech and year."
-msgstr ""
+msgstr "按技术和年份的固定 O&M 成本。"
 
 #: ../../source/Model_input_output.rst:101
 msgid "tech_fixed_OM_cost"
@@ -252,11 +270,11 @@ msgstr ""
 
 #: ../../source/Model_input_output.rst:102
 msgid "tech variable OM cost [dollar/MWh]"
-msgstr ""
+msgstr "技术可变 O&M 成本 [美元/MWh]"
 
 #: ../../source/Model_input_output.rst:103
 msgid "Variable O&M cost per tech and year."
-msgstr ""
+msgstr "按技术和年份的可变 O&M 成本。"
 
 #: ../../source/Model_input_output.rst:104
 msgid "tech_variable_OM_cost"
@@ -264,11 +282,11 @@ msgstr ""
 
 #: ../../source/Model_input_output.rst:105
 msgid "tech fuel price [dollar/MWh]"
-msgstr ""
+msgstr "技术燃料价格 [美元/MWh]"
 
 #: ../../source/Model_input_output.rst:106
 msgid "Fuel price per tech and year."
-msgstr ""
+msgstr "按技术和年份的燃料价格。"
 
 #: ../../source/Model_input_output.rst:107
 msgid "tech_fuel_price"
@@ -276,11 +294,11 @@ msgstr ""
 
 #: ../../source/Model_input_output.rst:108
 msgid "tech emission factor [tCO2/MWh]"
-msgstr ""
+msgstr "技术排放系数 [tCO2/MWh]"
 
 #: ../../source/Model_input_output.rst:109
 msgid "Emission factor per tech, year, and zone."
-msgstr ""
+msgstr "按技术、年份和区域的排放系数。"
 
 #: ../../source/Model_input_output.rst:110
 msgid "tech_emission_factor"
@@ -288,11 +306,11 @@ msgstr ""
 
 #: ../../source/Model_input_output.rst:111
 msgid "tech ramp up / ramp down [1/MW]"
-msgstr ""
+msgstr "技术爬坡 / 减荷 [1/MW]"
 
 #: ../../source/Model_input_output.rst:112
 msgid "Hourly ramp limits per tech and year."
-msgstr ""
+msgstr "按技术和年份的小时爬坡限制。"
 
 #: ../../source/Model_input_output.rst:113
 msgid "tech_ramp_up, tech_ramp_down"
@@ -300,11 +318,11 @@ msgstr ""
 
 #: ../../source/Model_input_output.rst:116
 msgid "storage charge / discharge efficiency [fraction]"
-msgstr ""
+msgstr "储能充电 / 放电效率 [比例]"
 
 #: ../../source/Model_input_output.rst:117
 msgid "Round-trip efficiency of storage technologies."
-msgstr ""
+msgstr "储能技术的循环效率。"
 
 #: ../../source/Model_input_output.rst:118
 msgid "storage_charge_efficiency, storage_discharge_efficiency"
@@ -312,11 +330,11 @@ msgstr ""
 
 #: ../../source/Model_input_output.rst:120
 msgid "storage energy-to-power ratio [MWh/MW]"
-msgstr ""
+msgstr "储能能量-功率比 [MWh/MW]"
 
 #: ../../source/Model_input_output.rst:121
 msgid "Energy capacity per unit of power capacity for storage technologies."
-msgstr ""
+msgstr "每单位功率容量对应的能量容量 (储能技术)。"
 
 #: ../../source/Model_input_output.rst:123
 msgid "storage_energy_to_power_ratio"
@@ -324,13 +342,13 @@ msgstr ""
 
 #: ../../source/Model_input_output.rst:124
 msgid "storage initial level [fraction]"
-msgstr ""
+msgstr "储能初始电量 [比例]"
 
 #: ../../source/Model_input_output.rst:125
 msgid ""
 "Initial state of charge of storage technologies (fraction of energy "
 "capacity)."
-msgstr ""
+msgstr "储能技术的初始荷电状态 (能量容量的占比)。"
 
 #: ../../source/Model_input_output.rst:127
 msgid "storage_initial_level"
@@ -338,7 +356,7 @@ msgstr ""
 
 #: ../../source/Model_input_output.rst:129
 msgid "transmission existing [MW]"
-msgstr ""
+msgstr "已有输电 [MW]"
 
 #: ../../source/Model_input_output.rst:130
 msgid ""
@@ -346,6 +364,8 @@ msgid ""
 "commission_year)``. Lifetime-driven retirements via "
 "``transmission_lifetime``. Symmetric to ``tech_existing``."
 msgstr ""
+"按 ``(zone1, zone2, commission_year)`` 给出的现有输电线路容量。退役由 "
+"``transmission_lifetime`` 控制。与 ``tech_existing`` 对称。"
 
 #: ../../source/Model_input_output.rst:133
 msgid "transmission_existing"
@@ -353,13 +373,15 @@ msgstr ""
 
 #: ../../source/Model_input_output.rst:134
 msgid "transmission candidates [MW]"
-msgstr ""
+msgstr "输电候选 [MW]"
 
 #: ../../source/Model_input_output.rst:135
 msgid ""
 "Buildable transmission options per ``(zone1, zone2, year)`` with "
 "``capacity_min`` / ``capacity_max`` columns."
 msgstr ""
+"按 ``(zone1, zone2, year)`` 给出的可建设输电选项,包含 ``capacity_min`` / "
+"``capacity_max`` 列。"
 
 #: ../../source/Model_input_output.rst:137
 msgid "transmission_candidates"
@@ -367,11 +389,11 @@ msgstr ""
 
 #: ../../source/Model_input_output.rst:138
 msgid "transmission distance [km]"
-msgstr ""
+msgstr "输电距离 [km]"
 
 #: ../../source/Model_input_output.rst:139
 msgid "Inter-zone distance (drives investment cost)."
-msgstr ""
+msgstr "区域间距离 (决定投资成本)。"
 
 #: ../../source/Model_input_output.rst:140
 msgid "transmission_distance"
@@ -379,11 +401,11 @@ msgstr ""
 
 #: ../../source/Model_input_output.rst:141
 msgid "transmission efficiency [fraction]"
-msgstr ""
+msgstr "输电效率 [比例]"
 
 #: ../../source/Model_input_output.rst:142
 msgid "Per-line transmission efficiency."
-msgstr ""
+msgstr "按线路的输电效率。"
 
 #: ../../source/Model_input_output.rst:143
 msgid "transmission_efficiency"
@@ -391,11 +413,11 @@ msgstr ""
 
 #: ../../source/Model_input_output.rst:144
 msgid "transmission investment cost [dollar/MW/km]"
-msgstr ""
+msgstr "输电投资成本 [美元/MW/km]"
 
 #: ../../source/Model_input_output.rst:145
 msgid "Per-line investment cost (multiplied by distance)."
-msgstr ""
+msgstr "按线路的投资成本 (再乘以距离)。"
 
 #: ../../source/Model_input_output.rst:146
 msgid "transmission_investment_cost"
@@ -403,11 +425,11 @@ msgstr ""
 
 #: ../../source/Model_input_output.rst:147
 msgid "transmission fixed / variable OM cost"
-msgstr ""
+msgstr "输电固定 / 可变 O&M 成本"
 
 #: ../../source/Model_input_output.rst:148
 msgid "Per-line fixed and variable O&M costs."
-msgstr ""
+msgstr "按线路的固定与可变 O&M 成本。"
 
 #: ../../source/Model_input_output.rst:149
 msgid "transmission_fixed_OM_cost, transmission_variable_OM_cost"
@@ -415,11 +437,11 @@ msgstr ""
 
 #: ../../source/Model_input_output.rst:151
 msgid "transmission lifetime [yr]"
-msgstr ""
+msgstr "输电寿命 [年]"
 
 #: ../../source/Model_input_output.rst:152
 msgid "Per-line lifetime; controls retirements of the existing fleet."
-msgstr ""
+msgstr "按线路的寿命;控制现有线路的退役。"
 
 #: ../../source/Model_input_output.rst:153
 msgid "transmission_lifetime"
@@ -427,7 +449,7 @@ msgstr ""
 
 #: ../../source/Model_input_output.rst:156
 msgid "Hydropower inputs (active when ``isinflow=true`` in ``config.json``)"
-msgstr ""
+msgstr "水电输入 (在 ``config.json`` 中 ``isinflow=true`` 时启用)"
 
 #: ../../source/Model_input_output.rst:158
 msgid ""
@@ -435,14 +457,16 @@ msgid ""
 "``tech_registry``); these per-station reservoir parameters tie them to "
 "the rest of the model."
 msgstr ""
+"水电站是一等技术 (在 ``tech_registry`` 中 "
+"``carrier='hydro'``);这些按站点的水库参数把它们与模型的其余部分关联起来。"
 
 #: ../../source/Model_input_output.rst:170
 msgid "reservoir zone"
-msgstr ""
+msgstr "水库所属区域"
 
 #: ../../source/Model_input_output.rst:171
 msgid "Maps each hydro station to its home zone."
-msgstr ""
+msgstr "把每个水电站映射到其所在区域。"
 
 #: ../../source/Model_input_output.rst:172
 msgid "reservoir_zone"
@@ -450,11 +474,11 @@ msgstr ""
 
 #: ../../source/Model_input_output.rst:173
 msgid "reservoir inflow [m**3/s]"
-msgstr ""
+msgstr "水库入流 [m**3/s]"
 
 #: ../../source/Model_input_output.rst:174
 msgid "Hourly inflow per station."
-msgstr ""
+msgstr "按站点的小时入流。"
 
 #: ../../source/Model_input_output.rst:175
 msgid "reservoir_inflow"
@@ -462,11 +486,11 @@ msgstr ""
 
 #: ../../source/Model_input_output.rst:176
 msgid "reservoir water delay time [N/A]"
-msgstr ""
+msgstr "水库水流延迟时间 [N/A]"
 
 #: ../../source/Model_input_output.rst:177
 msgid "Travel time matrix between connected reservoirs (table format)."
-msgstr ""
+msgstr "相连水库之间的水流时间矩阵 (宽表格式)。"
 
 #: ../../source/Model_input_output.rst:178
 msgid "reservoir_water_delay_time"
@@ -474,11 +498,11 @@ msgstr ""
 
 #: ../../source/Model_input_output.rst:179
 msgid "reservoir coefficient"
-msgstr ""
+msgstr "水库系数"
 
 #: ../../source/Model_input_output.rst:180
 msgid "Power-generation coefficient per station."
-msgstr ""
+msgstr "按站点的发电系数。"
 
 #: ../../source/Model_input_output.rst:181
 msgid "reservoir_coefficient"
@@ -486,11 +510,11 @@ msgstr ""
 
 #: ../../source/Model_input_output.rst:182
 msgid "reservoir head [m]"
-msgstr ""
+msgstr "水库水头 [m]"
 
 #: ../../source/Model_input_output.rst:183
 msgid "Designed water head per station."
-msgstr ""
+msgstr "按站点的设计水头。"
 
 #: ../../source/Model_input_output.rst:184
 msgid "reservoir_head"
@@ -498,11 +522,11 @@ msgstr ""
 
 #: ../../source/Model_input_output.rst:185
 msgid "reservoir capacity max / min [MW]"
-msgstr ""
+msgstr "水库容量 上限 / 下限 [MW]"
 
 #: ../../source/Model_input_output.rst:186
 msgid "Installed-capacity bounds per station."
-msgstr ""
+msgstr "按站点的装机容量上下界。"
 
 #: ../../source/Model_input_output.rst:187
 msgid "reservoir_capacity_max, reservoir_capacity_min"
@@ -510,11 +534,11 @@ msgstr ""
 
 #: ../../source/Model_input_output.rst:189
 msgid "reservoir outflow max / min, generation flow max [m**3/s]"
-msgstr ""
+msgstr "水库下泄量 上限 / 下限、发电流量上限 [m**3/s]"
 
 #: ../../source/Model_input_output.rst:190
 msgid "Outflow and generation-flow constraints per station, hour, month."
-msgstr ""
+msgstr "按站点、小时、月份给出的下泄量与发电流量约束。"
 
 #: ../../source/Model_input_output.rst:191
 msgid ""
@@ -524,11 +548,11 @@ msgstr ""
 
 #: ../../source/Model_input_output.rst:194
 msgid "reservoir storage max / min [m**3]"
-msgstr ""
+msgstr "水库蓄水量 上限 / 下限 [m**3]"
 
 #: ../../source/Model_input_output.rst:195
 msgid "Volume bounds per station, month, hour."
-msgstr ""
+msgstr "按站点、月份、小时的库容上下界。"
 
 #: ../../source/Model_input_output.rst:196
 msgid "reservoir_storage_max, reservoir_storage_min"
@@ -536,11 +560,11 @@ msgstr ""
 
 #: ../../source/Model_input_output.rst:198
 msgid "reservoir initial / final storage level [m**3]"
-msgstr ""
+msgstr "水库期初 / 期末库容 [m**3]"
 
 #: ../../source/Model_input_output.rst:199
 msgid "Volume of each station at the start / end of each year."
-msgstr ""
+msgstr "每年开始 / 结束时每个站点的库容。"
 
 #: ../../source/Model_input_output.rst:200
 msgid "reservoir_initial_storage_level, reservoir_final_storage_level"
@@ -548,13 +572,13 @@ msgstr ""
 
 #: ../../source/Model_input_output.rst:202
 msgid "reservoir tailrace level-discharge function [m and m**3/s]"
-msgstr ""
+msgstr "水库尾水位—下泄量曲线 [m 与 m**3/s]"
 
 #: ../../source/Model_input_output.rst:203
 msgid ""
 "Piecewise lookup of tailrace level as a function of total discharge "
 "(table format)."
-msgstr ""
+msgstr "尾水位作为总下泄量函数的分段查找表 (宽表格式)。"
 
 #: ../../source/Model_input_output.rst:205
 msgid "reservoir_tailrace_level_discharge_function"
@@ -562,11 +586,11 @@ msgstr ""
 
 #: ../../source/Model_input_output.rst:206
 msgid "reservoir forebay level-volume function [m and m**3]"
-msgstr ""
+msgstr "水库前池水位—库容曲线 [m 与 m**3]"
 
 #: ../../source/Model_input_output.rst:207
 msgid "Piecewise lookup of forebay level as a function of volume (table format)."
-msgstr ""
+msgstr "前池水位作为库容函数的分段查找表 (宽表格式)。"
 
 #: ../../source/Model_input_output.rst:209
 msgid "reservoir_forebay_level_volume_function"
@@ -574,15 +598,15 @@ msgstr ""
 
 #: ../../source/Model_input_output.rst:212
 msgid "Optional inputs (skipped when absent)"
-msgstr ""
+msgstr "可选输入 (缺失时跳过)"
 
 #: ../../source/Model_input_output.rst:219
 msgid "Description (default when absent)"
-msgstr ""
+msgstr "说明 (缺失时的默认值)"
 
 #: ../../source/Model_input_output.rst:222
 msgid "tech max gen profile [fraction]"
-msgstr ""
+msgstr "技术最大出力曲线 [比例]"
 
 #: ../../source/Model_input_output.rst:223
 msgid ""
@@ -590,6 +614,8 @@ msgid ""
 " ``1`` (no cap below installed capacity). Replaced ``capacity_factor`` in"
 " v1.8.0."
 msgstr ""
+"随时间变化的调度上限 (PyPSA 风格的 ``p_max_pu``)。默认值:``1`` (不在装机以下设上限)。在 v1.8.0 中替代 "
+"``capacity_factor``。"
 
 #: ../../source/Model_input_output.rst:226
 msgid "tech_max_gen_profile"
@@ -597,13 +623,13 @@ msgstr ""
 
 #: ../../source/Model_input_output.rst:227
 msgid "tech min gen profile [fraction]"
-msgstr ""
+msgstr "技术最小出力曲线 [比例]"
 
 #: ../../source/Model_input_output.rst:228
 msgid ""
 "Time-varying lower bound on dispatch (``p_min_pu``). Default: ``0``. "
 "Subsumes the legacy \"must-run\" behavior."
-msgstr ""
+msgstr "随时间变化的调度下限 (``p_min_pu``)。默认值:``0``。涵盖了旧版的 \"必发\" 行为。"
 
 #: ../../source/Model_input_output.rst:230
 msgid "tech_min_gen_profile"
@@ -611,13 +637,13 @@ msgstr ""
 
 #: ../../source/Model_input_output.rst:231
 msgid "tech capacity min [MW]"
-msgstr ""
+msgstr "技术容量下限 [MW]"
 
 #: ../../source/Model_input_output.rst:232
 msgid ""
 "Floor on total installed capacity per ``(zone, tech, year)``. Default: "
 "``0``."
-msgstr ""
+msgstr "每个 ``(zone, tech, year)`` 的总装机容量下限。默认值:``0``。"
 
 #: ../../source/Model_input_output.rst:234
 msgid "tech_capacity_min"
@@ -625,13 +651,13 @@ msgstr ""
 
 #: ../../source/Model_input_output.rst:236
 msgid "policy carbon emission limit [tCO2]"
-msgstr ""
+msgstr "碳排放上限 [tCO2]"
 
 #: ../../source/Model_input_output.rst:237
 msgid ""
 "Cap on net emissions per limit-region (rows carry a comma-separated "
 "``zones`` field; one row per region per year). Wide-table format."
-msgstr ""
+msgstr "每个限制区域的净排放上限 (各行的 ``zones`` 字段以逗号分隔;每个区域、每个年份一行)。宽表格式。"
 
 #: ../../source/Model_input_output.rst:239
 msgid "policy_carbon_emission_limit"
@@ -639,11 +665,11 @@ msgstr ""
 
 #: ../../source/Model_input_output.rst:240
 msgid "policy carbon tax [dollar/tCO2]"
-msgstr ""
+msgstr "碳税 [美元/tCO2]"
 
 #: ../../source/Model_input_output.rst:241
 msgid "Per-zone, per-year carbon tax on net emissions. Default: ``0``."
-msgstr ""
+msgstr "按区域、按年份对净排放征收的碳税。默认值:``0``。"
 
 #: ../../source/Model_input_output.rst:242
 msgid "policy_carbon_tax"
@@ -651,11 +677,11 @@ msgstr ""
 
 #: ../../source/Model_input_output.rst:243
 msgid "policy carbon offset price [dollar/tCO2]"
-msgstr ""
+msgstr "碳抵消价格 [美元/tCO2]"
 
 #: ../../source/Model_input_output.rst:244
 msgid "Per-zone, per-year offset price. Default: ``0``."
-msgstr ""
+msgstr "按区域、按年份的抵消价格。默认值:``0``。"
 
 #: ../../source/Model_input_output.rst:245
 msgid "policy_carbon_offset_price"
@@ -663,11 +689,11 @@ msgstr ""
 
 #: ../../source/Model_input_output.rst:246
 msgid "policy carbon offset limit [tCO2]"
-msgstr ""
+msgstr "碳抵消上限 [tCO2]"
 
 #: ../../source/Model_input_output.rst:247
 msgid "Per-zone, per-year limit on offsets that may be purchased. Default: ``0``."
-msgstr ""
+msgstr "按区域、按年份可购买抵消的上限。默认值:``0``。"
 
 #: ../../source/Model_input_output.rst:249
 msgid "policy_carbon_offset_limit"
@@ -675,14 +701,14 @@ msgstr ""
 
 #: ../../source/Model_input_output.rst:251
 msgid "finance public / private debt ratio [fraction]"
-msgstr ""
+msgstr "公共 / 私人债务占比 [比例]"
 
 #: ../../source/Model_input_output.rst:252
 msgid ""
 "Per-tech share of project capital financed by public and private debt. "
 "Equity ratio is the residual ``1 - public - private``. Activates the "
 "v1.9.0 finance module."
-msgstr ""
+msgstr "按技术给出的项目资本中公共债务与私人债务所占比例。股权比例为残值 ``1 - public - private``。启用 v1.9.0 金融模块。"
 
 #: ../../source/Model_input_output.rst:255
 msgid "finance_public_debt_ratio, finance_private_debt_ratio"
@@ -690,13 +716,13 @@ msgstr ""
 
 #: ../../source/Model_input_output.rst:257
 msgid "finance cost of public / private debt, private equity [fraction]"
-msgstr ""
+msgstr "公共 / 私人债务、股权融资成本 [比例]"
 
 #: ../../source/Model_input_output.rst:258
 msgid ""
 "Per-(tech, zone) cost of each financing tranche. Combined into a project-"
 "level WACC that discounts construction outlays."
-msgstr ""
+msgstr "每个 (tech, zone) 各融资份额的成本。综合得到项目级 WACC,用于折现建设支出。"
 
 #: ../../source/Model_input_output.rst:260
 msgid ""
@@ -706,13 +732,13 @@ msgstr ""
 
 #: ../../source/Model_input_output.rst:263
 msgid "finance public debt max system / zone [dollar]"
-msgstr ""
+msgstr "公共债务系统 / 区域上限 [美元]"
 
 #: ../../source/Model_input_output.rst:264
 msgid ""
 "System-wide and per-zone caps on public debt taken in each year. ``inf`` "
 "(or a missing entry) disables the cap."
-msgstr ""
+msgstr "对每年举借的公共债务在系统级和区域级的上限。设为 ``inf`` (或条目缺失) 时不施加约束。"
 
 #: ../../source/Model_input_output.rst:266
 msgid "finance_public_debt_max_system, finance_public_debt_max_zone"
@@ -722,13 +748,13 @@ msgstr ""
 msgid ""
 "``inf`` in a value cell means \"no upper bound\" -- the model skips the "
 "corresponding constraint."
-msgstr ""
+msgstr "值单元格中的 ``inf`` 意味着 \"无上界\"——模型会跳过对应约束。"
 
 #: ../../source/Model_input_output.rst:273
 msgid ""
 "Empty cells (NaN) are dropped by the loader for files declared with "
 "``\"drop_na\": true``."
-msgstr ""
+msgstr "对声明为 ``\"drop_na\": true`` 的文件,空单元格 (NaN) 会被加载器丢弃。"
 
 #: ../../source/Model_input_output.rst:275
 msgid ""
@@ -737,10 +763,12 @@ msgid ""
 "discount rate -- so a fresh deployment without finance inputs matches the"
 " v1.8.x objective exactly."
 msgstr ""
+"金融模块仅在提供 ``finance_public_debt_ratio.csv`` 时启用。未启用时,``inv_factor`` "
+"退回为区域折现率——所以未提供金融输入的全新部署的目标值与 v1.8.x 完全一致。"
 
 #: ../../source/Model_input_output.rst:281
 msgid "Outputs"
-msgstr ""
+msgstr "输出"
 
 #: ../../source/Model_input_output.rst:283
 msgid ""
@@ -750,80 +778,84 @@ msgid ""
 "<https://xiaoganghe.github.io/python-climate-visuals/chapters/data-"
 "analytics/xarray-basic.html>`_ is a good entry point."
 msgstr ""
+"结果写入 NetCDF 文件 (默认为 ``year.nc``;详见 ``config.json`` 的 "
+"``output_filename``)。可使用 `xarray <https://docs.xarray.dev/en/stable/>`_ "
+"读取;此 `教程 <https://xiaoganghe.github.io/python-climate-visuals/chapters"
+"/data-analytics/xarray-basic.html>`_ 是不错的入门资料。"
 
 #: ../../source/Model_input_output.rst:289
 msgid "Output Variables"
-msgstr ""
+msgstr "输出变量"
 
 #: ../../source/Model_input_output.rst:293
 msgid "Variable name"
-msgstr ""
+msgstr "变量名"
 
 #: ../../source/Model_input_output.rst:294
 msgid "Unit"
-msgstr ""
+msgstr "单位"
 
 #: ../../source/Model_input_output.rst:297
 msgid "trans_export"
-msgstr ""
+msgstr "trans_export"
 
 #: ../../source/Model_input_output.rst:298
 #: ../../source/Model_input_output.rst:302
 #: ../../source/Model_input_output.rst:309
 msgid "MWh per timestep"
-msgstr ""
+msgstr "每时段 MWh"
 
 #: ../../source/Model_input_output.rst:299
 msgid ""
 "Power dispatched from ``zone1`` toward ``zone2`` in each ``(hour, month, "
 "year)``, before transmission losses."
-msgstr ""
+msgstr "在每个 ``(hour, month, year)`` 中从 ``zone1`` 向 ``zone2`` 送出的电力,扣除输电损耗之前。"
 
 #: ../../source/Model_input_output.rst:301
 msgid "gen"
-msgstr ""
+msgstr "gen"
 
 #: ../../source/Model_input_output.rst:303
 msgid "Generation per ``(tech, zone, hour, month, year)``."
-msgstr ""
+msgstr "按 ``(tech, zone, hour, month, year)`` 的发电量。"
 
 #: ../../source/Model_input_output.rst:304
 msgid "install"
-msgstr ""
+msgstr "install"
 
 #: ../../source/Model_input_output.rst:305
 msgid "MW"
-msgstr ""
+msgstr "MW"
 
 #: ../../source/Model_input_output.rst:306
 msgid ""
 "Total installed capacity per ``(year, zone, tech)`` after additions and "
 "retirements."
-msgstr ""
+msgstr "在新增与退役之后,按 ``(year, zone, tech)`` 的总装机容量。"
 
 #: ../../source/Model_input_output.rst:308
 msgid "charge"
-msgstr ""
+msgstr "charge"
 
 #: ../../source/Model_input_output.rst:310
 msgid "Storage charging energy per ``(tech, zone, hour, month, year)``."
-msgstr ""
+msgstr "按 ``(tech, zone, hour, month, year)`` 的储能充电量。"
 
 #: ../../source/Model_input_output.rst:311
 msgid "carbon, carbon_breakdown"
-msgstr ""
+msgstr "carbon, carbon_breakdown"
 
 #: ../../source/Model_input_output.rst:312
 msgid "tCO2"
-msgstr ""
+msgstr "tCO2"
 
 #: ../../source/Model_input_output.rst:313
 msgid "Total emissions per year, and the per-(year, zone, tech) breakdown."
-msgstr ""
+msgstr "每年的总排放,以及按 ``(year, zone, tech)`` 的明细。"
 
 #: ../../source/Model_input_output.rst:315
 msgid "cost"
-msgstr ""
+msgstr "cost"
 
 #: ../../source/Model_input_output.rst:316
 #: ../../source/Model_input_output.rst:319
@@ -833,55 +865,55 @@ msgstr ""
 #: ../../source/Model_input_output.rst:342
 #: ../../source/Model_input_output.rst:347
 msgid "dollar"
-msgstr ""
+msgstr "美元"
 
 #: ../../source/Model_input_output.rst:317
 msgid "Net present value of total system cost over the planning horizon."
-msgstr ""
+msgstr "整个规划期内系统总成本的净现值。"
 
 #: ../../source/Model_input_output.rst:318
 msgid "cost_var, cost_var_breakdown"
-msgstr ""
+msgstr "cost_var, cost_var_breakdown"
 
 #: ../../source/Model_input_output.rst:320
 msgid "Variable O&M + fuel cost (total and per-(year, zone, tech))."
-msgstr ""
+msgstr "可变 O&M + 燃料成本 (总值与按 ``(year, zone, tech)`` 的明细)。"
 
 #: ../../source/Model_input_output.rst:321
 msgid "cost_fix, cost_fix_breakdown"
-msgstr ""
+msgstr "cost_fix, cost_fix_breakdown"
 
 #: ../../source/Model_input_output.rst:323
 msgid "Fixed O&M cost (total and per-(year, zone, tech))."
-msgstr ""
+msgstr "固定 O&M 成本 (总值与按 ``(year, zone, tech)`` 的明细)。"
 
 #: ../../source/Model_input_output.rst:324
 msgid "cost_newtech, cost_newtech_breakdown"
-msgstr ""
+msgstr "cost_newtech, cost_newtech_breakdown"
 
 #: ../../source/Model_input_output.rst:326
 msgid ""
 "Discounted investment cost of new tech additions (total and per-(year, "
 "zone, tech))."
-msgstr ""
+msgstr "新增技术投资的折现成本 (总值与按 ``(year, zone, tech)`` 的明细)。"
 
 #: ../../source/Model_input_output.rst:328
 msgid "cost_newline, cost_newline_breakdown"
-msgstr ""
+msgstr "cost_newline, cost_newline_breakdown"
 
 #: ../../source/Model_input_output.rst:330
 msgid ""
 "Discounted investment cost of new transmission lines (total and "
 "per-(year, zone1, zone2))."
-msgstr ""
+msgstr "新增输电线路的折现投资成本 (总值与按 ``(year, zone1, zone2)`` 的明细)。"
 
 #: ../../source/Model_input_output.rst:332
 msgid "shadow_price_demand"
-msgstr ""
+msgstr "shadow_price_demand"
 
 #: ../../source/Model_input_output.rst:333
 msgid "dollar/MWh (NPV)"
-msgstr ""
+msgstr "美元/MWh (NPV)"
 
 #: ../../source/Model_input_output.rst:334
 msgid ""
@@ -892,50 +924,53 @@ msgid ""
 " to serve more demand\". Skipped (with a warning logged) if the solver "
 "does not return duals (e.g. MIP)."
 msgstr ""
+"节点边际电价——在每个 ``(hour, month, year, zone)`` 多供一兆瓦时需求的边际成本。已折现为 NPV;除以 "
+"``var_factor[year, zone]`` 可恢复未折现的实际年度价格。符号已相对原始对偶值翻转,正值意味着 "
+"\"满足更多需求更昂贵\"。若求解器未返回对偶值 (如 MIP),会在记录警告后跳过该项。"
 
 #: ../../source/Model_input_output.rst:341
 msgid "public_debt_newtech [#opt]_"
-msgstr ""
+msgstr "public_debt_newtech [#opt]_"
 
 #: ../../source/Model_input_output.rst:343
 msgid ""
 "Discounted public-debt obligation incurred by new-tech investments. "
 "Emitted only when the v1.9.0 finance module is active."
-msgstr ""
+msgstr "新增技术投资引发的折现公共债务义务。仅在 v1.9.0 金融模块启用时输出。"
 
 #: ../../source/Model_input_output.rst:346
 msgid "income"
-msgstr ""
+msgstr "income"
 
 #: ../../source/Model_input_output.rst:348
 msgid ""
 "Discounted income from water-withdrawal services (only when "
 "``isinflow=true``)."
-msgstr ""
+msgstr "来自取水服务的折现收益 (仅当 ``isinflow=true`` 时)。"
 
 #: ../../source/Model_input_output.rst:350
 msgid "genflow, spillflow"
-msgstr ""
+msgstr "genflow, spillflow"
 
 #: ../../source/Model_input_output.rst:351
 msgid "m**3/s"
-msgstr ""
+msgstr "m**3/s"
 
 #: ../../source/Model_input_output.rst:352
 msgid ""
 "Per-station hydro generation flow and spill flow (only when "
 "``isinflow=true``)."
-msgstr ""
+msgstr "按站点的水电发电流量与弃水流量 (仅当 ``isinflow=true`` 时)。"
 
 #: ../../source/Model_input_output.rst:355
 msgid ""
 "Optional output -- present in the NetCDF file only when "
 "``finance_public_debt_ratio.csv`` is provided."
-msgstr ""
+msgstr "可选输出—— 仅在提供 ``finance_public_debt_ratio.csv`` 时才存在于 NetCDF 文件中。"
 
 #: ../../source/Model_input_output.rst:359
 msgid "Running scenarios"
-msgstr ""
+msgstr "运行情景"
 
 #: ../../source/Model_input_output.rst:361
 msgid ""
@@ -945,115 +980,118 @@ msgid ""
 "example, to run a \"low demand\" scenario, prepare a ``demand_low.csv`` "
 "file in the input folder and invoke::"
 msgstr ""
+"可以通过 ``--<param_key> <suffix>`` 在命令行替换任意单个输入文件。PREP-SHOT 会把后缀追加到该参数的 "
+"``file_name`` 后,加载得到的 CSV 而非原始文件。例如,要运行 \"低需求\" 情景,在输入目录中准备好 "
+"``demand_low.csv`` 文件,然后执行::"
 
 #: ../../source/Model_input_output.rst:369
 msgid ""
 "CLI flags are registered by **param key** (the dict key in "
 "``params.json``), not by file name -- the two can diverge after a file "
 "rename."
-msgstr ""
+msgstr "CLI 参数按 **参数键名** (``params.json`` 中字典的键) 注册,而非文件名——文件重命名后两者可能不同。"
 
 #: ../../source/Model_input_output.rst:374
 msgid "Setting global parameters"
-msgstr ""
+msgstr "设置全局参数"
 
 #: ../../source/Model_input_output.rst:376
 msgid "``config.json`` (in the repo root) holds the model-wide settings:"
-msgstr ""
+msgstr "仓库根目录中的 ``config.json`` 包含全模型范围的设置:"
 
 #: ../../source/Model_input_output.rst:383
 msgid "Setting"
-msgstr ""
+msgstr "设置"
 
 #: ../../source/Model_input_output.rst:386
 msgid "input_folder"
-msgstr ""
+msgstr "input_folder"
 
 #: ../../source/Model_input_output.rst:387
 msgid "Folder containing the input CSVs (relative to the repo root)."
-msgstr ""
+msgstr "存放输入 CSV 的文件夹 (相对于仓库根目录)。"
 
 #: ../../source/Model_input_output.rst:388
 msgid "output_filename"
-msgstr ""
+msgstr "output_filename"
 
 #: ../../source/Model_input_output.rst:389
 msgid "Name of the NetCDF results file written under ``output/``."
-msgstr ""
+msgstr "写入 ``output/`` 的 NetCDF 结果文件名。"
 
 #: ../../source/Model_input_output.rst:390
 msgid "hour"
-msgstr ""
+msgstr "hour"
 
 #: ../../source/Model_input_output.rst:391
 msgid "Number of representative hours per period."
-msgstr ""
+msgstr "每个时段的典型小时数。"
 
 #: ../../source/Model_input_output.rst:392
 msgid "month"
-msgstr ""
+msgstr "month"
 
 #: ../../source/Model_input_output.rst:393
 msgid "Number of representative months per period."
-msgstr ""
+msgstr "每个时段的典型月份数。"
 
 #: ../../source/Model_input_output.rst:394
 msgid "dt"
-msgstr ""
+msgstr "dt"
 
 #: ../../source/Model_input_output.rst:395
 msgid ""
 "Hours per timestep. ``demand`` is in MW; the balance constraint "
 "multiplies by ``dt`` to convert to MWh per timestep."
-msgstr ""
+msgstr "每个时段对应的小时数。``demand`` 单位为 MW;平衡约束会乘以 ``dt`` 转换为每时段 MWh。"
 
 #: ../../source/Model_input_output.rst:397
 msgid "hours_in_year"
-msgstr ""
+msgstr "hours_in_year"
 
 #: ../../source/Model_input_output.rst:398
 msgid "Hours-per-year scalar used for cost rollups (typically 8760)."
-msgstr ""
+msgstr "用于成本汇总的全年小时数 (通常为 8760)。"
 
 #: ../../source/Model_input_output.rst:399
 msgid "isinflow"
-msgstr ""
+msgstr "isinflow"
 
 #: ../../source/Model_input_output.rst:400
 msgid ""
 "Toggles the hydropower / reservoir constraints. With ``false``, the model"
 " skips all reservoir math."
-msgstr ""
+msgstr "切换水电 / 水库约束。设为 ``false`` 时模型会跳过所有水库相关计算。"
 
 #: ../../source/Model_input_output.rst:402
 msgid "error_threshold"
-msgstr ""
+msgstr "error_threshold"
 
 #: ../../source/Model_input_output.rst:403
 msgid "Convergence threshold for the hydropower head-iteration loop."
-msgstr ""
+msgstr "水电水头迭代循环的收敛阈值。"
 
 #: ../../source/Model_input_output.rst:404
 msgid "iteration_number"
-msgstr ""
+msgstr "iteration_number"
 
 #: ../../source/Model_input_output.rst:405
 msgid "Maximum head-iteration count."
-msgstr ""
+msgstr "水头迭代的最大次数。"
 
 #: ../../source/Model_input_output.rst:406
 msgid "solver"
-msgstr ""
+msgstr "solver"
 
 #: ../../source/Model_input_output.rst:407
 msgid ""
 "Optimization solver: ``highs``, ``gurobi``, ``copt``, ``mosek``, etc. "
 "(passed through to PyOptInterface)."
-msgstr ""
+msgstr "求解器: ``highs``、``gurobi``、``copt``、``mosek`` 等 (透传给 PyOptInterface)。"
 
 #: ../../source/Model_input_output.rst:409
 msgid "solver_path"
-msgstr ""
+msgstr "solver_path"
 
 #: ../../source/Model_input_output.rst:410
 msgid ""
@@ -1062,10 +1100,13 @@ msgid ""
 "<https://metab0t.github.io/PyOptInterface/getting_started.html#setup-of-"
 "optimizers>`_."
 msgstr ""
+"求解器动态库的路径;仅在自动检测失败时需要。参见 `PyOptInterface 设置说明 "
+"<https://metab0t.github.io/PyOptInterface/getting_started.html#setup-of-"
+"optimizers>`_。"
 
 #: ../../source/Model_input_output.rst:413
 msgid "solver_parameters"
-msgstr ""
+msgstr "solver_parameters"
 
 #: ../../source/Model_input_output.rst:414
 msgid ""
@@ -1075,6 +1116,11 @@ msgid ""
 "`highs <https://ergo-code.github.io/HiGHS/dev/options/definitions/>`_, "
 "and `copt <https://guide.coap.online/copt/en-doc/parameter.html>`_."
 msgstr ""
+"针对各求解器的具体选项: `mosek "
+"<https://docs.mosek.com/latest/capi/parameters.html>`_、`gurobi "
+"<https://www.gurobi.com/documentation/11.0/refman/parameters.html>`_、`highs"
+" <https://ergo-code.github.io/HiGHS/dev/options/definitions/>`_、`copt "
+"<https://guide.coap.online/copt/en-doc/parameter.html>`_。"
 
 #: ../../source/Model_input_output.rst:420
 msgid ""
@@ -1082,4 +1128,6 @@ msgid ""
 ":ref:`installation`. The shipped ``input/`` folder is a working self-"
 "contained example."
 msgstr ""
+"调整 ``config.json`` 之后,按 :ref:`installation` 中描述的方式运行模型。随仓库提供的 ``input/`` "
+"文件夹是一个开箱即用的自包含算例。"
 
