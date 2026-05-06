@@ -51,10 +51,10 @@ New to power-system modeling?
 -----------------------------
 Four free primers we recommend reading alongside PREP-SHOT:
 
-* `Electric Grid and Markets 101 <https://docs.nrel.gov/docs/fy25osti/91864.pdf>`_ (NREL, 2024) -- how the bulk power system actually works.
 * `Power Sector Modeling 101 <https://www.energy.gov/sites/prod/files/2016/02/f30/EPSA_Power_Sector_Modeling_FINAL_021816_0.pdf>`_ (US DOE EPSA, 2016) -- the model families PREP-SHOT belongs to and where their assumptions break.
 * `Beginner's Guide to Understanding Power System Model Results for Long-Term Resource Plans <https://docs.nrel.gov/docs/fy24osti/87105.pdf>`_ (NREL, 2023) -- how to read a capacity-expansion result.
 * `Advanced Guide to Understanding Power System Model Results for Long-Term Resource Plans <https://docs.nrel.gov/docs/fy24osti/88337.pdf>`_ (NREL, 2024) -- deeper sequel: reliability metrics, reserve margin, transmission congestion.
+* `Electric Grid and Markets 101 <https://docs.nrel.gov/docs/fy25osti/91864.pdf>`_ (NREL, 2024) -- how the bulk power system actually works: generation, transmission, ISOs/RTOs, day-ahead vs real-time markets, ancillary services. Real-world grounding for the modeled abstractions.
 
 Offline documentation
 ----------------------
