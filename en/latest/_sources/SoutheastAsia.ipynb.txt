@@ -5,7 +5,7 @@
    "id": "ca8f5a60",
    "metadata": {},
    "source": [
-    "# Southeast Asia (Lower Mekong, 5 zones)\n",
+    "# Southeast Asia (Lower Mekong, 5 zones, CEM)\n",
     "\n",
     "A walkthrough of the **Southeast Asia case study** that ships with PREP-SHOT: capacity expansion across **5 countries** (Cambodia, Laos, Myanmar, Thailand, Vietnam) from 2020 to 2030, with **57 cascading hydropower stations** in the Mekong basin and a **system-wide carbon cap** of 146 MtCO2 in 2030.\n",
     "\n",
@@ -817,8 +817,8 @@
     "below load that file and produce the four plots that answer the most\n",
     "common questions about an expansion-planning result:\n",
     "\n",
-    "1. **Capacity buildout by zone × tech × year**: how the fleet evolves\n",
-    "2. **Generation mix by zone × tech**: what's actually serving demand\n",
+    "1. **Capacity buildout by zone \u00d7 tech \u00d7 year**: how the fleet evolves\n",
+    "2. **Generation mix by zone \u00d7 tech**: what's actually serving demand\n",
     "3. **Emissions vs the cap**: whether the carbon constraint is binding\n",
     "4. **Cost breakdown**: where the NPV dollars go"
    ]
@@ -870,7 +870,7 @@
     "\n",
     "Per-zone stacked bars by technology, comparing 2020 (existing) to\n",
     "2030 (after expansion). Cambodia's 2030 column is the most striking\n",
-    "— it grows from ~2 GW to ~140 GW because the model uses Cambodia\n",
+    "\u2014 it grows from ~2 GW to ~140 GW because the model uses Cambodia\n",
     "as a renewable-rich exporter to Vietnam and Thailand once the\n",
     "carbon cap binds."
    ]
@@ -1016,7 +1016,7 @@
     "\n",
     "The system-wide carbon cap is `inf` in 2020 (unconstrained) and\n",
     "146 MtCO2 in 2030. Emissions in 2030 should sit exactly on the cap\n",
-    "if it's binding — that's how you can tell the constraint is doing\n",
+    "if it's binding \u2014 that's how you can tell the constraint is doing\n",
     "work."
    ]
   },
@@ -1092,7 +1092,7 @@
     "- `cost_fix`: fixed O&M on existing + new fleet\n",
     "- `cost_newtech`: capex annuity for new generation\n",
     "- `cost_newline`: capex annuity for new transmission\n",
-    "- `−income`: water-withdrawal revenue (subtracted from cost)\n",
+    "- `\u2212income`: water-withdrawal revenue (subtracted from cost)\n",
     "\n",
     "All values are NPV-discounted to year_min (2020)."
    ]

@@ -2,14 +2,14 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<meta property="og:title" content="Thailand PCM (full-nodal)" />
+<meta property="og:title" content="Thailand (full-nodal, PCM)" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="ThailandPCM.html" />
 <meta property="og:site_name" content="PREP-SHOT documentation" />
 <meta property="og:description" content="PREP-SHOT in production-cost-model (PCM) mode on the full Thai grid: every one of the 472 buses stays a separate PREP-SHOT zone, every thermal unit is its own tech, the 615 transmission lines carry..." />
 <meta name="description" content="PREP-SHOT in production-cost-model (PCM) mode on the full Thai grid: every one of the 472 buses stays a separate PREP-SHOT zone, every thermal unit is its own tech, the 615 transmission lines carry..." />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Thailand PCM (full-nodal) &mdash; PREP-SHOT (latest) documentation in English</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Thailand (full-nodal, PCM) &mdash; PREP-SHOT (latest) documentation in English</title>
 
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
@@ -43,7 +43,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Model Inputs/Outputs" href="Model_input_output.html" />
-    <link rel="prev" title="Southeast Asia (Lower Mekong, 5 zones)" href="SoutheastAsia.html" />
+    <link rel="prev" title="Southeast Asia (Lower Mekong, 5 zones, CEM)" href="SoutheastAsia.html" />
 <meta name="doc_version" content="latest">
 <meta name="doc_is_latest" content="">
 
@@ -87,7 +87,7 @@
 <li class="toctree-l2"><a class="reference internal" href="Quickstart.html#Step-5-–-Where-to-next">Step 5 – Where to next</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="Thailand.html">Thailand (single-zone)</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="Thailand.html">Thailand (single-zone, CEM)</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="Thailand.html#Existing-fleet-(2023)">Existing fleet (2023)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Thailand.html#Per-station-hydropower-characteristics">Per-station hydropower characteristics</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Thailand.html#Inspect-a-solve-(after-running-python-run.py)">Inspect a solve (after running <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">run.py</span></code>)</a></li>
@@ -101,7 +101,7 @@
 <li class="toctree-l2"><a class="reference internal" href="Thailand.html#Where-to-next">Where to next</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="SoutheastAsia.html">Southeast Asia (Lower Mekong, 5 zones)</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="SoutheastAsia.html">Southeast Asia (Lower Mekong, 5 zones, CEM)</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="SoutheastAsia.html#1.-The-scenario">1. The scenario</a></li>
 <li class="toctree-l2"><a class="reference internal" href="SoutheastAsia.html#2.-Demand-profiles-by-country">2. Demand profiles by country</a></li>
 <li class="toctree-l2"><a class="reference internal" href="SoutheastAsia.html#3.-The-existing-fleet-(2020)">3. The existing fleet (2020)</a></li>
@@ -119,15 +119,23 @@
 <li class="toctree-l2"><a class="reference internal" href="SoutheastAsia.html#Where-to-next">Where to next</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Thailand PCM (full-nodal)</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Thailand (full-nodal, PCM)</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#1.-Source-data">1. Source data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#2.-Conversion:-zones,-techs,-fleet">2. Conversion: zones, techs, fleet</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#3.-Load-+-VRE-capacity-factors-+-hydro-inflow">3. Load + VRE capacity factors + hydro inflow</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#4.-Transmission-topology">4. Transmission topology</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#5.-Per-station-hydropower">5. Per-station hydropower</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#6.-Running-the-PCM-rolling-horizon-driver">6. Running the PCM rolling-horizon driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#7.-Knobs-to-flip-on-for-higher-fidelity">7. Knobs to flip on for higher fidelity</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#8.-Status-and-caveats">8. Status and caveats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#6.-Input-visualisations">6. Input visualisations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#6.1-Bus-locations-and-demand">6.1 Bus locations and demand</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#6.2-Transmission-network">6.2 Transmission network</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#6.3-Fleet-composition-by-carrier">6.3 Fleet composition by carrier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#6.4-Annual-demand-profile">6.4 Annual demand profile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#6.5-Resource-samples:-a-VRE-plant-and-a-hydro-station">6.5 Resource samples: a VRE plant and a hydro station</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#7.-Running-the-PCM-rolling-horizon-driver">7. Running the PCM rolling-horizon driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#8.-Knobs-to-flip-on-for-higher-fidelity">8. Knobs to flip on for higher fidelity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#9.-Status-and-caveats">9. Status and caveats</a></li>
 </ul>
 </li>
 </ul>
@@ -546,7 +554,7 @@
 	<ul class="wy-breadcrumbs">
 		
       <li><a href="index.html" class="icon icon-home"></a></li>
-      <li class="breadcrumb-item active">Thailand PCM (full-nodal)</li>
+      <li class="breadcrumb-item active">Thailand (full-nodal, PCM)</li>
 	</ul>
 </li>
 
@@ -866,8 +874,8 @@ div.rendered_html tbody tr:hover {
     text-align: unset;
 }
 </style>
-<section id="Thailand-PCM-(full-nodal)">
-<h1>Thailand PCM (full-nodal)<a class="headerlink" href="#Thailand-PCM-(full-nodal)" title="Permalink to this heading">¶</a></h1>
+<section id="Thailand-(full-nodal,-PCM)">
+<h1>Thailand (full-nodal, PCM)<a class="headerlink" href="#Thailand-(full-nodal,-PCM)" title="Permalink to this heading">¶</a></h1>
 <p>PREP-SHOT in <strong>production-cost-model (PCM) mode</strong> on the full Thai grid: every one of the 472 buses stays a separate PREP-SHOT zone, every thermal unit is its own tech, the 615 transmission lines carry their full electrical parameters (reactance, susceptance, thermal limit), and the 8760-hour 2023 load profile is dispatched window-by-window via <a class="reference external" href="../../prepshot/pcm.py">prepshot.pcm</a>.</p>
 <p><strong>No spatial aggregation.</strong> Where the <a class="reference internal" href="Thailand.html"><span class="doc">Thailand</span></a> example collapses the country to a single zone, this one keeps every node and every electrical line. It’s the highest-fidelity PREP-SHOT scenario shipped.</p>
 <p><strong>What you’ll do here:</strong></p>
@@ -919,11 +927,11 @@ div.rendered_html tbody tr:hover {
 </tbody>
 </table>
 <p>Hydro inflow only covers 2016–2019; we use <strong>2019</strong> re-stamped onto 2023 hours.</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pathlib</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pathlib</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
 <span class="c1"># Adjust this path to wherever the upstream PCM dataset lives.</span>
@@ -945,15 +953,24 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Source: /Users/energy/01-doing/PREP-SHOT-tutorial/production-cost-model-main/input
+Output: /Users/energy/01-doing/PREP-SHOT-tutorial/PREP-SHOT/examples/thailand_pcm/input
+</pre></div></div>
+</div>
 </section>
 <section id="2.-Conversion:-zones,-techs,-fleet">
 <h2>2. Conversion: zones, techs, fleet<a class="headerlink" href="#2.-Conversion:-zones,-techs,-fleet" title="Permalink to this heading">¶</a></h2>
 <p>Each bus becomes a PREP-SHOT zone. Each plant (thermal unit, VRE plant, hydro station) becomes a separate tech — fleet-level aggregation only happens via the <code class="docutils literal notranslate"><span class="pre">tech_registry.csv</span></code>’s <code class="docutils literal notranslate"><span class="pre">carrier</span></code> column.</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">demand</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">SRC</span> <span class="o">/</span> <span class="s1">&#39;load_demand.csv&#39;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">demand</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">SRC</span> <span class="o">/</span> <span class="s1">&#39;load_demand.csv&#39;</span><span class="p">)</span>
 <span class="n">zones</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">demand</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;bus&#39;</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  zones: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">zones</span><span class="p">)</span><span class="si">}</span><span class="s1"> (e.g., </span><span class="si">{</span><span class="n">zones</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span><span class="si">}</span><span class="s1"> ... </span><span class="si">{</span><span class="n">zones</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:]</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
 
@@ -981,11 +998,23 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+  zones: 472 (e.g., [&#39;bus1&#39;, &#39;bus10&#39;, &#39;bus100&#39;] ... [&#39;bus97&#39;, &#39;bus98&#39;, &#39;bus99&#39;])
+  thermal techs:   168
+  renewable techs: 30
+  hydro techs:     14
+  total tech registry: 212 rows
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">YEAR</span> <span class="o">=</span> <span class="mi">2023</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">YEAR</span> <span class="o">=</span> <span class="mi">2023</span>
 <span class="n">fleet_rows</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">tt</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
     <span class="n">fleet_rows</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;tech&#39;</span><span class="p">:</span> <span class="n">r</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="s1">&#39;zone&#39;</span><span class="p">:</span> <span class="n">r</span><span class="p">[</span><span class="s1">&#39;node&#39;</span><span class="p">],</span> <span class="s1">&#39;commission_year&#39;</span><span class="p">:</span> <span class="n">YEAR</span><span class="p">,</span>
@@ -1007,15 +1036,90 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>tech</th>
+      <th>zone</th>
+      <th>commission_year</th>
+      <th>unit</th>
+      <th>capacity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>BLCP-T</td>
+      <td>bus69</td>
+      <td>2023</td>
+      <td>MW</td>
+      <td>1347.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>BPK-C1</td>
+      <td>bus328</td>
+      <td>2023</td>
+      <td>MW</td>
+      <td>1386.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>BPK-C5</td>
+      <td>bus328</td>
+      <td>2023</td>
+      <td>MW</td>
+      <td>710.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>BPK-T</td>
+      <td>bus328</td>
+      <td>2023</td>
+      <td>MW</td>
+      <td>1152.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>CHN-C1</td>
+      <td>bus40</td>
+      <td>2023</td>
+      <td>MW</td>
+      <td>710.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
 </section>
 <section id="3.-Load-+-VRE-capacity-factors-+-hydro-inflow">
 <h2>3. Load + VRE capacity factors + hydro inflow<a class="headerlink" href="#3.-Load-+-VRE-capacity-factors-+-hydro-inflow" title="Permalink to this heading">¶</a></h2>
 <p>Three time-varying tables. The load alone is <strong>4.1 M rows</strong> in long format (472 buses × 8760 hours).</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ld</span> <span class="o">=</span> <span class="n">demand</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ld</span> <span class="o">=</span> <span class="n">demand</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 <span class="n">ts_col</span> <span class="o">=</span> <span class="n">ld</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">ld</span><span class="p">[</span><span class="s1">&#39;ts&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">ld</span><span class="p">[</span><span class="n">ts_col</span><span class="p">])</span>
 <span class="n">ld</span><span class="p">[</span><span class="s1">&#39;hour&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="n">ld</span><span class="p">[</span><span class="s1">&#39;ts&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">ld</span><span class="p">[</span><span class="s1">&#39;ts&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span> <span class="o">//</span> <span class="mi">3600</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
@@ -1029,11 +1133,19 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+demand.csv: 4,134,720 rows
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
-<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">SRC</span> <span class="o">/</span> <span class="s1">&#39;capacity_factor.csv&#39;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">SRC</span> <span class="o">/</span> <span class="s1">&#39;capacity_factor.csv&#39;</span><span class="p">)</span>
 <span class="n">cf</span><span class="p">[</span><span class="s1">&#39;ts&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">cf</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">])</span>
 <span class="n">cf</span><span class="p">[</span><span class="s1">&#39;hour&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="n">cf</span><span class="p">[</span><span class="s1">&#39;ts&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">cf</span><span class="p">[</span><span class="s1">&#39;ts&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span> <span class="o">//</span> <span class="mi">3600</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
 <span class="n">cf</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="s1">&#39;ts&#39;</span><span class="p">])</span>
@@ -1052,11 +1164,19 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+tech_max_gen_profile.csv: 262,800 rows
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
-<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Inflow proxy: source covers 2016-2019, target year is 2023; use 2019.</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Inflow proxy: source covers 2016-2019, target year is 2023; use 2019.</span>
 <span class="n">inf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">SRC</span> <span class="o">/</span> <span class="s1">&#39;inflow.csv&#39;</span><span class="p">)</span>
 <span class="n">inf</span><span class="p">[</span><span class="s1">&#39;ts&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">inf</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">])</span>
 <span class="n">inf</span> <span class="o">=</span> <span class="n">inf</span><span class="p">[</span><span class="n">inf</span><span class="p">[</span><span class="s1">&#39;ts&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span> <span class="o">==</span> <span class="mi">2019</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -1075,16 +1195,24 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+reservoir_inflow.csv: 122,640 rows
+</pre></div></div>
+</div>
 </section>
 <section id="4.-Transmission-topology">
 <h2>4. Transmission topology<a class="headerlink" href="#4.-Transmission-topology" title="Permalink to this heading">¶</a></h2>
 <p>615 directed lines from <code class="docutils literal notranslate"><span class="pre">grid_topology.csv</span></code> become (zone1, zone2) pairs in <code class="docutils literal notranslate"><span class="pre">transmission_existing.csv</span></code>. Susceptance comes from the <code class="docutils literal notranslate"><span class="pre">user_susceptance</span></code> column when set, else falls back to <code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">×</span> <span class="pre">cap_MW</span> <span class="pre">/</span> <span class="pre">rad</span></code> (the same heuristic the SE Asia example uses).</p>
 <p><strong>Sentinel handling:</strong> the source uses <code class="docutils literal notranslate"><span class="pre">user_line_cap</span> <span class="pre">=</span> <span class="pre">-1</span></code> to mean “use the computed thermal limit”; we treat that explicitly rather than via <code class="docutils literal notranslate"><span class="pre">or</span></code>, which would select <code class="docutils literal notranslate"><span class="pre">-1</span></code> because it’s truthy in Python.</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
-<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">gt</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">SRC</span> <span class="o">/</span> <span class="s1">&#39;grid_topology.csv&#39;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gt</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">SRC</span> <span class="o">/</span> <span class="s1">&#39;grid_topology.csv&#39;</span><span class="p">)</span>
 <span class="n">trans_rows</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">susc_rows</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">seen_pairs</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
@@ -1113,16 +1241,24 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+transmission_existing.csv: 1230 rows, transmission_susceptance.csv: 615 pairs
+</pre></div></div>
+</div>
 </section>
 <section id="5.-Per-station-hydropower">
 <h2>5. Per-station hydropower<a class="headerlink" href="#5.-Per-station-hydropower" title="Permalink to this heading">¶</a></h2>
 <p>PREP-SHOT models hydropower at the plant level with cascade physics (water balance, head iteration, downstream-feeds-upstream water-delay). The Thai dataset has 14 stations with full reservoir parameters: head, coefficient, V_max/min, outflow_max/min, downstream link, delay hours.</p>
 <p>We ship the cascade as <code class="docutils literal notranslate"><span class="pre">reservoir_water_delay_time.csv</span></code>, the static parameters as their own CSVs, and the time-varying storage bounds as <code class="docutils literal notranslate"><span class="pre">reservoir_storage_min.csv</span></code> / <code class="docutils literal notranslate"><span class="pre">reservoir_storage_max.csv</span></code> (constant across hours since the source has no time variation). Initial / final storage levels default to 50 % of <code class="docutils literal notranslate"><span class="pre">V_max</span></code> — the same convention the <a class="reference internal" href="SoutheastAsia.html"><span class="doc">SoutheastAsia</span></a> example settled on for stable rolling-horizon.</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
-<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;tech&#39;</span><span class="p">:</span> <span class="n">hydro_names</span><span class="p">,</span> <span class="s1">&#39;unit&#39;</span><span class="p">:</span> <span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="s1">&#39;head&#39;</span><span class="p">:</span> <span class="n">ht</span><span class="p">[</span><span class="s1">&#39;head&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">})</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;tech&#39;</span><span class="p">:</span> <span class="n">hydro_names</span><span class="p">,</span> <span class="s1">&#39;unit&#39;</span><span class="p">:</span> <span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="s1">&#39;head&#39;</span><span class="p">:</span> <span class="n">ht</span><span class="p">[</span><span class="s1">&#39;head&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">})</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span>
     <span class="n">OUT</span> <span class="o">/</span> <span class="s1">&#39;reservoir_head.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;tech&#39;</span><span class="p">:</span> <span class="n">hydro_names</span><span class="p">,</span> <span class="s1">&#39;unit&#39;</span><span class="p">:</span> <span class="s1">&#39;MW/(m*m3/s)&#39;</span><span class="p">,</span>
               <span class="s1">&#39;coefficient&#39;</span><span class="p">:</span> <span class="n">ht</span><span class="p">[</span><span class="s1">&#39;coeff&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">})</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span>
@@ -1174,9 +1310,234 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+cascade pairs: 0
+</pre></div></div>
+</div>
 </section>
-<section id="6.-Running-the-PCM-rolling-horizon-driver">
-<h2>6. Running the PCM rolling-horizon driver<a class="headerlink" href="#6.-Running-the-PCM-rolling-horizon-driver" title="Permalink to this heading">¶</a></h2>
+<section id="6.-Input-visualisations">
+<h2>6. Input visualisations<a class="headerlink" href="#6.-Input-visualisations" title="Permalink to this heading">¶</a></h2>
+<p>The model is too large for the LP build to complete on the current codebase (see Section 9), so we don’t have a solved baseline to plot from. The input dataset itself, though, has plenty worth inspecting – bus geography, the cascade topology, the fleet-by-carrier mix, and the load shape. These are the same diagnostics you’d reach for before any production run.</p>
+<section id="6.1-Bus-locations-and-demand">
+<h3>6.1 Bus locations and demand<a class="headerlink" href="#6.1-Bus-locations-and-demand" title="Permalink to this heading">¶</a></h3>
+<p>Every PREP-SHOT zone in this scenario is one bus on the Thai grid. We can plot all 472 of them on a map and size each marker by its peak hourly demand.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+
+<span class="c1"># Bus coordinates: take the first occurrence of each bus across the</span>
+<span class="c1"># source/sink columns of grid_topology.csv, since each bus is</span>
+<span class="c1"># referenced many times.</span>
+<span class="n">bus_lonlat</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">gt</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="n">bus_lonlat</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;source&#39;</span><span class="p">]),</span> <span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;source_lon&#39;</span><span class="p">],</span> <span class="n">r</span><span class="p">[</span><span class="s1">&#39;source_lat&#39;</span><span class="p">]))</span>
+    <span class="n">bus_lonlat</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;sink&#39;</span><span class="p">]),</span>   <span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;sink_lon&#39;</span><span class="p">],</span>   <span class="n">r</span><span class="p">[</span><span class="s1">&#39;sink_lat&#39;</span><span class="p">]))</span>
+
+<span class="c1"># Peak demand per bus from the long-format load table built earlier.</span>
+<span class="n">peak</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">long_load</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;zone&#39;</span><span class="p">)[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s1">&#39;peak_mw&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="p">)</span>
+<span class="n">peak</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">peak</span><span class="p">[</span><span class="s1">&#39;zone&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">z</span><span class="p">:</span> <span class="n">bus_lonlat</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">))[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">peak</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">peak</span><span class="p">[</span><span class="s1">&#39;zone&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">z</span><span class="p">:</span> <span class="n">bus_lonlat</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">))[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">peak</span> <span class="o">=</span> <span class="n">peak</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">,</span> <span class="s1">&#39;lat&#39;</span><span class="p">])</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+<span class="n">sc</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+    <span class="n">peak</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">],</span> <span class="n">peak</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">],</span>
+    <span class="n">s</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">peak</span><span class="p">[</span><span class="s1">&#39;peak_mw&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span>
+    <span class="n">c</span><span class="o">=</span><span class="n">peak</span><span class="p">[</span><span class="s1">&#39;peak_mw&#39;</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;magma_r&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Longitude&#39;</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Latitude&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Bus locations sized by peak demand (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">peak</span><span class="p">)</span><span class="si">}</span><span class="s1"> buses)&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Peak hourly load (MW)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/ThailandPCM_16_0.png" src="_images/ThailandPCM_16_0.png" />
+</div>
+</div>
+</section>
+<section id="6.2-Transmission-network">
+<h3>6.2 Transmission network<a class="headerlink" href="#6.2-Transmission-network" title="Permalink to this heading">¶</a></h3>
+<p>615 lines, three voltage classes (115 / 230 / 500 kV). Visualise the skeleton on the same map – line width proportional to thermal capacity.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">peak</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">],</span> <span class="n">peak</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">gt</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="n">s</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;source&#39;</span><span class="p">]),</span> <span class="nb">str</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;sink&#39;</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">s</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">bus_lonlat</span> <span class="ow">or</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">bus_lonlat</span><span class="p">:</span>
+        <span class="k">continue</span>
+    <span class="n">sx</span><span class="p">,</span> <span class="n">sy</span> <span class="o">=</span> <span class="n">bus_lonlat</span><span class="p">[</span><span class="n">s</span><span class="p">]</span>
+    <span class="n">kx</span><span class="p">,</span> <span class="n">ky</span> <span class="o">=</span> <span class="n">bus_lonlat</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+    <span class="n">cap</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;thermal_limit&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">cap</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">continue</span>
+    <span class="n">color</span> <span class="o">=</span> <span class="p">{</span><span class="mi">115</span><span class="p">:</span> <span class="s1">&#39;#888&#39;</span><span class="p">,</span> <span class="mi">230</span><span class="p">:</span> <span class="s1">&#39;#1f77b4&#39;</span><span class="p">,</span> <span class="mi">500</span><span class="p">:</span> <span class="s1">&#39;#d62728&#39;</span><span class="p">}</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;source_kv&#39;</span><span class="p">]),</span> <span class="s1">&#39;#999&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">sx</span><span class="p">,</span> <span class="n">kx</span><span class="p">],</span> <span class="p">[</span><span class="n">sy</span><span class="p">,</span> <span class="n">ky</span><span class="p">],</span>
+        <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span>
+        <span class="n">linewidth</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">cap</span> <span class="o">/</span> <span class="mi">1500</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">),</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+    <span class="p">)</span>
+<span class="kn">import</span> <span class="nn">matplotlib.lines</span> <span class="k">as</span> <span class="nn">mlines</span>
+<span class="n">legend</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">mlines</span><span class="o">.</span><span class="n">Line2D</span><span class="p">([],</span> <span class="p">[],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#888&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;115 kV&#39;</span><span class="p">),</span>
+    <span class="n">mlines</span><span class="o">.</span><span class="n">Line2D</span><span class="p">([],</span> <span class="p">[],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#1f77b4&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;230 kV&#39;</span><span class="p">),</span>
+    <span class="n">mlines</span><span class="o">.</span><span class="n">Line2D</span><span class="p">([],</span> <span class="p">[],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#d62728&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;500 kV&#39;</span><span class="p">),</span>
+<span class="p">]</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="n">legend</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;lower right&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Longitude&#39;</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Latitude&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Transmission network (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">gt</span><span class="p">)</span><span class="si">}</span><span class="s1"> edges, line width ∝ capacity)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/ThailandPCM_18_0.png" src="_images/ThailandPCM_18_0.png" />
+</div>
+</div>
+</section>
+<section id="6.3-Fleet-composition-by-carrier">
+<h3>6.3 Fleet composition by carrier<a class="headerlink" href="#6.3-Fleet-composition-by-carrier" title="Permalink to this heading">¶</a></h3>
+<p>Total installed capacity per carrier across all 472 buses, plus the ten zones with the largest fleet (mostly the load centres near Bangkok and the major industrial provinces).</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Aggregate fleet by carrier.</span>
+<span class="n">fleet_with_carrier</span> <span class="o">=</span> <span class="n">fleet</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
+    <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">tech_registry</span><span class="p">)[[</span><span class="s1">&#39;tech&#39;</span><span class="p">,</span> <span class="s1">&#39;carrier&#39;</span><span class="p">]],</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;tech&#39;</span>
+<span class="p">)</span>
+<span class="n">by_carrier</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">fleet_with_carrier</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;carrier&#39;</span><span class="p">)[</span><span class="s1">&#39;capacity&#39;</span><span class="p">]</span>
+    <span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">))</span>
+
+<span class="c1"># Left: carrier totals (system-wide).</span>
+<span class="n">by_carrier</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;steelblue&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Capacity (MW)&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Total installed capacity by carrier&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">invert_yaxis</span><span class="p">()</span>
+
+<span class="c1"># Right: stacked carrier mix at the top-10 zones by total fleet.</span>
+<span class="n">zone_total</span> <span class="o">=</span> <span class="n">fleet</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;zone&#39;</span><span class="p">)[</span><span class="s1">&#39;capacity&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">top10</span> <span class="o">=</span> <span class="n">zone_total</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="n">mix</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">fleet_with_carrier</span><span class="p">[</span><span class="n">fleet_with_carrier</span><span class="p">[</span><span class="s1">&#39;zone&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">top10</span><span class="p">)]</span>
+    <span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;zone&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;carrier&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;capacity&#39;</span><span class="p">,</span> <span class="n">aggfunc</span><span class="o">=</span><span class="s1">&#39;sum&#39;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">top10</span><span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">mix</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;tab20&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Capacity (MW)&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Top 10 zones by fleet, carrier mix&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">invert_yaxis</span><span class="p">()</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;center left&#39;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/ThailandPCM_20_0.png" src="_images/ThailandPCM_20_0.png" />
+</div>
+</div>
+</section>
+<section id="6.4-Annual-demand-profile">
+<h3>6.4 Annual demand profile<a class="headerlink" href="#6.4-Annual-demand-profile" title="Permalink to this heading">¶</a></h3>
+<p>System-wide hourly load over 2023 (sum across all 472 buses), with the peak day highlighted.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sys_load</span> <span class="o">=</span> <span class="n">long_load</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;hour&#39;</span><span class="p">)[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span>
+<span class="n">peak_h</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">sys_load</span><span class="o">.</span><span class="n">idxmax</span><span class="p">())</span>
+<span class="n">peak_day_start</span> <span class="o">=</span> <span class="p">((</span><span class="n">peak_h</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="mi">24</span><span class="p">)</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="n">peak_day_end</span> <span class="o">=</span> <span class="n">peak_day_start</span> <span class="o">+</span> <span class="mi">23</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sys_load</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">sys_load</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;steelblue&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">peak_day_start</span><span class="p">,</span> <span class="n">peak_day_end</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
+           <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Peak day (h=</span><span class="si">{</span><span class="n">peak_h</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Hour of year&#39;</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;System load (MW)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;System-wide load 2023 -- peak </span><span class="si">{</span><span class="n">sys_load</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s1">,.0f</span><span class="si">}</span><span class="s1"> MW &#39;</span>
+             <span class="sa">f</span><span class="s1">&#39;at hour </span><span class="si">{</span><span class="n">peak_h</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">8760</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/ThailandPCM_22_0.png" src="_images/ThailandPCM_22_0.png" />
+</div>
+</div>
+</section>
+<section id="6.5-Resource-samples:-a-VRE-plant-and-a-hydro-station">
+<h3>6.5 Resource samples: a VRE plant and a hydro station<a class="headerlink" href="#6.5-Resource-samples:-a-VRE-plant-and-a-hydro-station" title="Permalink to this heading">¶</a></h3>
+<p>Two sample-of-one plots: the hourly capacity factor of one wind plant over the year, and the hourly natural inflow of one hydro reservoir.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Pick one wind plant and one hydro station to plot.</span>
+<span class="n">sample_wind</span> <span class="o">=</span> <span class="nb">next</span><span class="p">((</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">cf</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">c</span> <span class="o">!=</span> <span class="s1">&#39;hour&#39;</span> <span class="ow">and</span> <span class="n">rt</span><span class="p">[</span><span class="n">rt</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">c</span><span class="p">][</span><span class="s1">&#39;tech&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;wind&#39;</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span> <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">rt</span><span class="p">[</span><span class="s1">&#39;tech&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;wind&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="n">cf</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">sample_hydro</span> <span class="o">=</span> <span class="n">hydro_names</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># Bhumibol -- big well-known reservoir</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">sample_wind</span> <span class="ow">in</span> <span class="n">cf</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">cf</span><span class="p">[</span><span class="s1">&#39;hour&#39;</span><span class="p">],</span> <span class="n">cf</span><span class="p">[</span><span class="n">sample_wind</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;teal&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Capacity factor&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;VRE sample: </span><span class="si">{</span><span class="n">sample_wind</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.05</span><span class="p">)</span>
+
+<span class="n">inflow_long</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">inflow_rows</span><span class="p">)</span>
+<span class="n">sample_inf</span> <span class="o">=</span> <span class="n">inflow_long</span><span class="p">[</span><span class="n">inflow_long</span><span class="p">[</span><span class="s1">&#39;tech&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">sample_hydro</span><span class="p">]</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sample_inf</span><span class="p">[</span><span class="s1">&#39;hour&#39;</span><span class="p">],</span> <span class="n">sample_inf</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;royalblue&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Hour of year&#39;</span><span class="p">);</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Inflow (m³/s)&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Hydro sample: </span><span class="si">{</span><span class="n">sample_hydro</span><span class="si">}</span><span class="s1"> (inflow proxy = 2019)&#39;</span><span class="p">)</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">8760</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/ThailandPCM_24_0.png" src="_images/ThailandPCM_24_0.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="7.-Running-the-PCM-rolling-horizon-driver">
+<h2>7. Running the PCM rolling-horizon driver<a class="headerlink" href="#7.-Running-the-PCM-rolling-horizon-driver" title="Permalink to this heading">¶</a></h2>
 <p>Once the inputs are in place, the canonical invocation is:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>examples/thailand_pcm
 python<span class="w"> </span>-m<span class="w"> </span>prepshot.pcm<span class="w"> </span>.<span class="w"> </span><span class="se">\</span>
@@ -1193,8 +1554,8 @@ python<span class="w"> </span>-m<span class="w"> </span>prepshot.pcm<span class=
 <li><p><strong>Cross-window cascade outflow</strong>: the upstream’s outflow over the lookback period is stashed as a <code class="docutils literal notranslate"><span class="pre">params['prior_outflow']</span></code> numeric lookup so the next window’s <code class="docutils literal notranslate"><span class="pre">hydro.inflow_rule</span></code> sees the cascade contribution at boundary hours.</p></li>
 </ul>
 </section>
-<section id="7.-Knobs-to-flip-on-for-higher-fidelity">
-<h2>7. Knobs to flip on for higher fidelity<a class="headerlink" href="#7.-Knobs-to-flip-on-for-higher-fidelity" title="Permalink to this heading">¶</a></h2>
+<section id="8.-Knobs-to-flip-on-for-higher-fidelity">
+<h2>8. Knobs to flip on for higher fidelity<a class="headerlink" href="#8.-Knobs-to-flip-on-for-higher-fidelity" title="Permalink to this heading">¶</a></h2>
 <p>All available, all gated by config flags in <a class="reference external" href="config.json">config.json</a>:</p>
 <table class="docutils align-default">
 <colgroup>
@@ -1233,8 +1594,8 @@ python<span class="w"> </span>-m<span class="w"> </span>prepshot.pcm<span class=
 </table>
 <p>Stack them as your scenario requires. The default config ships with <strong>all of them off</strong> so the first build completes quickly; flip each on once you’ve confirmed the basic dispatch works.</p>
 </section>
-<section id="8.-Status-and-caveats">
-<h2>8. Status and caveats<a class="headerlink" href="#8.-Status-and-caveats" title="Permalink to this heading">¶</a></h2>
+<section id="9.-Status-and-caveats">
+<h2>9. Status and caveats<a class="headerlink" href="#9.-Status-and-caveats" title="Permalink to this heading">¶</a></h2>
 <p>The data conversion shown in this notebook produces a <strong>valid</strong> PREP-SHOT scenario — the loader accepts every CSV and <code class="docutils literal notranslate"><span class="pre">initialize_environment</span></code> returns a populated <code class="docutils literal notranslate"><span class="pre">params</span></code> dict.</p>
 <p>On the current PREP-SHOT codebase, the LP build itself stalls in PoI’s <code class="docutils literal notranslate"><span class="pre">make_tupledict</span></code> Python-level iteration when the model is materialised at this scale (472 zones × 212 techs). For a 24-hour window, <code class="docutils literal notranslate"><span class="pre">create_model</span></code> takes 20+ minutes before HiGHS even sees the LP — the bottleneck is constraint construction, not the underlying solver.</p>
 <p>Two paths from here:</p>
@@ -1257,7 +1618,7 @@ python<span class="w"> </span>-m<span class="w"> </span>prepshot.pcm<span class=
 </div>
 </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="SoutheastAsia.html" class="btn btn-neutral float-left" title="Southeast Asia (Lower Mekong, 5 zones)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="SoutheastAsia.html" class="btn btn-neutral float-left" title="Southeast Asia (Lower Mekong, 5 zones, CEM)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="Model_input_output.html" class="btn btn-neutral float-right" title="Model Inputs/Outputs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
