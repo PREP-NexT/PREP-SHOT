@@ -70,6 +70,7 @@ To browse the documentation offline, download a `zipped HTML copy <https://prep-
    Quickstart
    Thailand
    SoutheastAsia
+   ThailandPCM
 
 .. toctree::
    :hidden:
