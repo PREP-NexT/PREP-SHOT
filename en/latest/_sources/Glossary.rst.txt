@@ -10,14 +10,9 @@ Further reading
 ---------------
 
 Excellent free primers from NREL and DOE, useful as orientation if
-the terminology below is new:
+the terminology below is new. Read in order: model families first,
+then how to read model output, then real-grid grounding.
 
-* `Electric Grid and Markets 101
-  <https://docs.nrel.gov/docs/fy25osti/91864.pdf>`_
-  (NREL, 2024) -- how the bulk power system actually works:
-  generation, transmission, ISOs/RTOs, day-ahead vs real-time
-  markets, ancillary services. Start here if you're new to power
-  systems.
 * `Power Sector Modeling 101
   <https://www.energy.gov/sites/prod/files/2016/02/f30/EPSA_Power_Sector_Modeling_FINAL_021816_0.pdf>`_
   (US DOE EPSA, 2016) -- conceptual tour of the model families
@@ -36,6 +31,12 @@ the terminology below is new:
   margin reasoning, transmission congestion interpretation, and
   what differing capacity-expansion studies typically disagree
   about.
+* `Electric Grid and Markets 101
+  <https://docs.nrel.gov/docs/fy25osti/91864.pdf>`_
+  (NREL, 2024) -- how the bulk power system actually works:
+  generation, transmission, ISOs/RTOs, day-ahead vs real-time
+  markets, ancillary services. Real-world grounding for the
+  modeled abstractions.
 
 Terminology
 -----------
