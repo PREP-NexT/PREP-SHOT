@@ -124,6 +124,16 @@ def process_model_solution(
     model.optimize() # add log into log file
     status = model.get_model_attribute(poi.ModelAttribute.TerminationStatus)
     if status != poi.TerminationStatusCode.OPTIMAL:
+        # Log the actual status so CI failures are diagnostic rather
+        # than just "solve_model returned False". HiGHS occasionally
+        # reports near-optimal-but-not-strictly-optimal codes on
+        # numerically conditioned problems; knowing which one tells
+        # us whether to widen the tolerance or fix the formulation.
+        import logging as _lg
+        _lg.warning(
+            "head_iteration: HiGHS termination status %r != OPTIMAL "
+            "-- returning False from process_model_solution.", status
+        )
         return False
     if params['iteration_number'] <= 1:
         # If fixed head is True, do not update water head.

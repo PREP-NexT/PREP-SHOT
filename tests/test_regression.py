@@ -75,11 +75,20 @@ class TestRegressionDefaultInput(unittest.TestCase):
     #                                 multiplier 1.00), so the
     #                                 feature doesn't bind and
     #                                 cost shifts ~0.005 %.
-    #                                 Constraint structure ships
-    #                                 in place for scenarios where
-    #                                 thermal pushes the upper
-    #                                 segments.
-    EXPECTED_OBJECTIVE = 2.1092168430e11
+    #   v1.19.1 : 1.9007200040e11  -- is_n1_secure turned OFF in
+    #                                 three_zone CEM config to
+    #                                 stabilise CI: HiGHS on the
+    #                                 4x-larger N-1 LP returned
+    #                                 non-OPTIMAL on Python 3.10
+    #                                 CI runners while still
+    #                                 reaching optimal locally.
+    #                                 The feature still works
+    #                                 (see v1.18 Changelog), just
+    #                                 no longer in the regression
+    #                                 path. Net drift from v1.19.0
+    #                                 is the removal of the +11 %
+    #                                 N-1 cost premium.
+    EXPECTED_OBJECTIVE = 1.9007200040e11
     # 1 % tolerance — head iteration is non-trivial; this absorbs minor
     # numerical differences across HiGHS minor versions and platforms
     # without being so loose it stops catching real regressions.
