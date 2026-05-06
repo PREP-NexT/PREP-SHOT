@@ -1,0 +1,13 @@
+tech,segment,frac_max,multiplier
+Coal,1,0.5,1.0
+Coal,2,0.8,1.03
+Coal,3,1.0,1.1
+Oil,1,0.5,1.0
+Oil,2,0.8,1.03
+Oil,3,1.0,1.1
+Gas,1,0.5,1.0
+Gas,2,0.8,1.03
+Gas,3,1.0,1.1
+Bioenergy,1,0.5,1.0
+Bioenergy,2,0.8,1.03
+Bioenergy,3,1.0,1.1

@@ -146,6 +146,11 @@ def extract_config_data(config_data : dict) -> dict:
     uc_params_cfg = config_data.get('uc_parameters') or {}
     is_uc = bool(uc_params_cfg.get('is_uc', False))
     uc_relaxation = uc_params_cfg.get('uc_relaxation', 'integer')
+    # Piecewise-linear heat rates (v1.19+). LP-stable, opt-in.
+    cost_params_cfg = config_data.get('cost_parameters') or {}
+    is_piecewise_heat_rate = bool(
+        cost_params_cfg.get('is_piecewise_heat_rate', False)
+    )
 
     # Create dictionary with necessary configuration data.
     required_config_data = {
@@ -163,6 +168,7 @@ def extract_config_data(config_data : dict) -> dict:
         'is_n1_secure': is_n1_secure,
         'is_uc': is_uc,
         'uc_relaxation': uc_relaxation,
+        'is_piecewise_heat_rate': is_piecewise_heat_rate,
     }
 
     return required_config_data

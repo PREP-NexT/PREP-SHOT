@@ -68,7 +68,18 @@ class TestRegressionDefaultInput(unittest.TestCase):
     #                                 feasible -- the constraint
     #                                 is genuinely binding on
     #                                 three_zone's 3-line topology.
-    EXPECTED_OBJECTIVE = 2.1091201892e11
+    #   v1.19.0 : 2.1092168430e11  -- + piecewise-linear heat
+    #                                 rate (3 segments). Coal in
+    #                                 three_zone rarely runs above
+    #                                 50 % of cap (segment 1,
+    #                                 multiplier 1.00), so the
+    #                                 feature doesn't bind and
+    #                                 cost shifts ~0.005 %.
+    #                                 Constraint structure ships
+    #                                 in place for scenarios where
+    #                                 thermal pushes the upper
+    #                                 segments.
+    EXPECTED_OBJECTIVE = 2.1092168430e11
     # 1 % tolerance — head iteration is non-trivial; this absorbs minor
     # numerical differences across HiGHS minor versions and platforms
     # without being so loose it stops catching real regressions.

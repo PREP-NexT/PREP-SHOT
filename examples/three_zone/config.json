@@ -28,5 +28,8 @@
     "uc_parameters": {
         "is_uc": true,
         "uc_relaxation": "continuous"
+    },
+    "cost_parameters": {
+        "is_piecewise_heat_rate": true
     }
 }

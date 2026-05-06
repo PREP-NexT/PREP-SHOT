@@ -371,5 +371,11 @@
         "format": "table",
         "drop_na": true,
         "required": false
+    },
+    "heat_rate": {
+        "file_name": "tech_heat_rate",
+        "format": "table",
+        "drop_na": true,
+        "required": false
     }
 }

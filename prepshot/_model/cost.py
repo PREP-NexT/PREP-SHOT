@@ -110,7 +110,13 @@ class AddCostObjective:
         poi.ExprBuilder
             Fuel cost at a given year, zone and technology.
         """
+        from prepshot._model.heat_rate import techs_with_heat_rate_curve
         model = self.model
+        # Techs with a piecewise-linear heat-rate curve are priced
+        # through `add_heat_rate_fuel_cost` (per-segment) and must
+        # NOT be double-counted here.
+        if te in techs_with_heat_rate_curve(model):
+            return poi.ExprBuilder()
         fp = model.params['fuel_price'][te, y]
         vf = model.params['var_factor'][y, z]
         w = model.params['weight']
@@ -331,9 +337,15 @@ class AddCostObjective:
             model.year, model.zone, model.zone,
             rule=self.cost_var_line_breakdown
         )
+        # Per-segment fuel cost for techs with a piecewise-linear heat
+        # rate curve; zero ExprBuilder when the module is disabled.
+        from prepshot._model.heat_rate import add_heat_rate_fuel_cost
+        model.cost_fuel_segment = add_heat_rate_fuel_cost(model)
+
         cost_var = poi.ExprBuilder()
         cost_var += poi.quicksum(model.cost_var_tech_breakdown)
         cost_var += poi.quicksum(model.cost_fuel_breakdown)
+        cost_var += model.cost_fuel_segment
         cost_var += poi.quicksum(model.cost_var_line_breakdown)
         return cost_var
 
