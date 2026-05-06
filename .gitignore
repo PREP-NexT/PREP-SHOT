@@ -38,3 +38,5 @@ references/
 examples/thailand_pcm/input/
 examples/thailand_pcm/output/
 examples/thailand_pcm/log/
+# Downloaded once by the notebook (johan/world.geo.json), ~5 KB.
+examples/thailand_pcm/thailand_outline.geojson
