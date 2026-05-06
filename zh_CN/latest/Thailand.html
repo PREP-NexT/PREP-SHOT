@@ -2,14 +2,14 @@
 <html class="writer-html5" lang="zh-CN" >
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<meta property="og:title" content="Thailand (single-zone)" />
+<meta property="og:title" content="Thailand (single-zone, CEM)" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="Thailand.html" />
 <meta property="og:site_name" content="PREP-SHOT documentation" />
 <meta property="og:description" content="A single-zone (Thailand) capacity-expansion run with 13 cascading Mekong-basin reservoirs – Bhumibol, Sirikit, Srinagarind, Vajiralongkorn, Rajjaprabha, etc. Migrated from the v1.4-era xlsx dataset..." />
 <meta name="description" content="A single-zone (Thailand) capacity-expansion run with 13 cascading Mekong-basin reservoirs – Bhumibol, Sirikit, Srinagarind, Vajiralongkorn, Rajjaprabha, etc. Migrated from the v1.4-era xlsx dataset..." />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Thailand (single-zone) &mdash; PREP-SHOT (latest) 简体中文文档</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Thailand (single-zone, CEM) &mdash; PREP-SHOT (latest) 简体中文文档</title>
 
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
@@ -43,7 +43,7 @@
   
     <link rel="index" title="索引" href="genindex.html" />
     <link rel="search" title="搜索" href="search.html" />
-    <link rel="next" title="Southeast Asia (Lower Mekong, 5 zones)" href="SoutheastAsia.html" />
+    <link rel="next" title="Southeast Asia (Lower Mekong, 5 zones, CEM)" href="SoutheastAsia.html" />
     <link rel="prev" title="Quickstart (30 minutes)" href="Quickstart.html" />
 <meta name="doc_version" content="latest">
 <meta name="doc_is_latest" content="">
@@ -88,7 +88,7 @@
 <li class="toctree-l2"><a class="reference internal" href="Quickstart.html#Step-5-–-Where-to-next">Step 5 – Where to next</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Thailand (single-zone)</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Thailand (single-zone, CEM)</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#Existing-fleet-(2023)">Existing fleet (2023)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#Per-station-hydropower-characteristics">Per-station hydropower characteristics</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#Inspect-a-solve-(after-running-python-run.py)">Inspect a solve (after running <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">run.py</span></code>)</a></li>
@@ -102,7 +102,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#Where-to-next">Where to next</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="SoutheastAsia.html">Southeast Asia (Lower Mekong, 5 zones)</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="SoutheastAsia.html">Southeast Asia (Lower Mekong, 5 zones, CEM)</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="SoutheastAsia.html#1.-The-scenario">1. The scenario</a></li>
 <li class="toctree-l2"><a class="reference internal" href="SoutheastAsia.html#2.-Demand-profiles-by-country">2. Demand profiles by country</a></li>
 <li class="toctree-l2"><a class="reference internal" href="SoutheastAsia.html#3.-The-existing-fleet-(2020)">3. The existing fleet (2020)</a></li>
@@ -120,15 +120,23 @@
 <li class="toctree-l2"><a class="reference internal" href="SoutheastAsia.html#Where-to-next">Where to next</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="ThailandPCM.html">Thailand PCM (full-nodal)</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="ThailandPCM.html">Thailand (full-nodal, PCM)</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="ThailandPCM.html#1.-Source-data">1. Source data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ThailandPCM.html#2.-Conversion:-zones,-techs,-fleet">2. Conversion: zones, techs, fleet</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ThailandPCM.html#3.-Load-+-VRE-capacity-factors-+-hydro-inflow">3. Load + VRE capacity factors + hydro inflow</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ThailandPCM.html#4.-Transmission-topology">4. Transmission topology</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ThailandPCM.html#5.-Per-station-hydropower">5. Per-station hydropower</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ThailandPCM.html#6.-Running-the-PCM-rolling-horizon-driver">6. Running the PCM rolling-horizon driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ThailandPCM.html#7.-Knobs-to-flip-on-for-higher-fidelity">7. Knobs to flip on for higher fidelity</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ThailandPCM.html#8.-Status-and-caveats">8. Status and caveats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ThailandPCM.html#6.-Input-visualisations">6. Input visualisations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ThailandPCM.html#6.1-Bus-locations-and-demand">6.1 Bus locations and demand</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ThailandPCM.html#6.2-Transmission-network">6.2 Transmission network</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ThailandPCM.html#6.3-Fleet-composition-by-carrier">6.3 Fleet composition by carrier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ThailandPCM.html#6.4-Annual-demand-profile">6.4 Annual demand profile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ThailandPCM.html#6.5-Resource-samples:-a-VRE-plant-and-a-hydro-station">6.5 Resource samples: a VRE plant and a hydro station</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ThailandPCM.html#7.-Running-the-PCM-rolling-horizon-driver">7. Running the PCM rolling-horizon driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ThailandPCM.html#8.-Knobs-to-flip-on-for-higher-fidelity">8. Knobs to flip on for higher fidelity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ThailandPCM.html#9.-Status-and-caveats">9. Status and caveats</a></li>
 </ul>
 </li>
 </ul>
@@ -547,7 +555,7 @@
 	<ul class="wy-breadcrumbs">
 		
       <li><a href="index.html" class="icon icon-home"></a></li>
-      <li class="breadcrumb-item active">Thailand (single-zone)</li>
+      <li class="breadcrumb-item active">Thailand (single-zone, CEM)</li>
 	</ul>
 </li>
 
@@ -867,8 +875,8 @@ div.rendered_html tbody tr:hover {
     text-align: unset;
 }
 </style>
-<section id="Thailand-(single-zone)">
-<h1>Thailand (single-zone)<a class="headerlink" href="#Thailand-(single-zone)" title="此标题的永久链接">¶</a></h1>
+<section id="Thailand-(single-zone,-CEM)">
+<h1>Thailand (single-zone, CEM)<a class="headerlink" href="#Thailand-(single-zone,-CEM)" title="此标题的永久链接">¶</a></h1>
 <p>A single-zone (Thailand) capacity-expansion run with <strong>13 cascading Mekong-basin reservoirs</strong> – Bhumibol, Sirikit, Srinagarind, Vajiralongkorn, Rajjaprabha, etc. Migrated from the v1.4-era xlsx dataset to the v1.9 long-format CSV schema; all per-station reservoir physics (head, tailrace-discharge curves, forebay-volume curves) preserved.</p>
 <p><strong>Run the solve from the command line</strong> (the dataset is large – 1M+ variables – so a full solve takes ~30 min):</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>examples/thailand
@@ -1312,7 +1320,7 @@ Sheets: [&#39;trans_export&#39;, &#39;gen&#39;, &#39;install&#39;, &#39;carbon&#
 </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="Quickstart.html" class="btn btn-neutral float-left" title="Quickstart (30 minutes)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="SoutheastAsia.html" class="btn btn-neutral float-right" title="Southeast Asia (Lower Mekong, 5 zones)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="SoutheastAsia.html" class="btn btn-neutral float-right" title="Southeast Asia (Lower Mekong, 5 zones, CEM)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
