@@ -171,8 +171,8 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="/Glossary.html">术语表</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="/Glossary.html#further-reading">Further reading</a></li>
 <li class="toctree-l2"><a class="reference internal" href="/Glossary.html#terminology">Terminology</a></li>
+<li class="toctree-l2"><a class="reference internal" href="/Glossary.html#further-reading">Further reading</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="/how_to/index.html">如何做(How-To)</a><ul>
@@ -215,6 +215,10 @@
 <p class="caption" role="heading"><span class="caption-text">参考</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="/api/prepshot.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="/api/prepshot.cli.html">cli</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="/api/prepshot.cli.html#prepshot.cli.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="/api/prepshot.set_up.html">set_up</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="/api/prepshot.set_up.html#prepshot.set_up.initialize_environment"><code class="docutils literal notranslate"><span class="pre">initialize_environment()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="/api/prepshot.set_up.html#prepshot.set_up.parse_cli_arguments"><code class="docutils literal notranslate"><span class="pre">parse_cli_arguments()</span></code></a></li>
@@ -261,8 +265,17 @@
 <li class="toctree-l4"><a class="reference internal" href="/api/prepshot._model.cost.html#prepshot._model.cost.AddCostObjective"><code class="docutils literal notranslate"><span class="pre">AddCostObjective</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="/api/prepshot._model.dc_flow.html">dc_flow</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="/api/prepshot._model.dc_flow.html#n-1-security-constrained-mode-v1-18">N-1 security-constrained mode (v1.18+)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="/api/prepshot._model.dc_flow.html#prepshot._model.dc_flow.AddDCFlowConstraints"><code class="docutils literal notranslate"><span class="pre">AddDCFlowConstraints</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="/api/prepshot._model.demand.html">demand</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="/api/prepshot._model.demand.html#prepshot._model.demand.AddDemandConstraints"><code class="docutils literal notranslate"><span class="pre">AddDemandConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="/api/prepshot._model.finance.html">finance</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="/api/prepshot._model.finance.html#prepshot._model.finance.AddFinanceConstraints"><code class="docutils literal notranslate"><span class="pre">AddFinanceConstraints</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="/api/prepshot._model.generation.html">generation</a><ul>
@@ -276,6 +289,15 @@
 <li class="toctree-l4"><a class="reference internal" href="/api/prepshot._model.head_iteration.html#prepshot._model.head_iteration.run_model_iteration"><code class="docutils literal notranslate"><span class="pre">run_model_iteration()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="/api/prepshot._model.heat_rate.html">heat_rate</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="/api/prepshot._model.heat_rate.html#inputs">Inputs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="/api/prepshot._model.heat_rate.html#constraints">Constraints</a></li>
+<li class="toctree-l4"><a class="reference internal" href="/api/prepshot._model.heat_rate.html#config">Config</a></li>
+<li class="toctree-l4"><a class="reference internal" href="/api/prepshot._model.heat_rate.html#prepshot._model.heat_rate.AddHeatRateConstraints"><code class="docutils literal notranslate"><span class="pre">AddHeatRateConstraints</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="/api/prepshot._model.heat_rate.html#prepshot._model.heat_rate.add_heat_rate_fuel_cost"><code class="docutils literal notranslate"><span class="pre">add_heat_rate_fuel_cost()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="/api/prepshot._model.heat_rate.html#prepshot._model.heat_rate.techs_with_heat_rate_curve"><code class="docutils literal notranslate"><span class="pre">techs_with_heat_rate_curve()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="/api/prepshot._model.hydro.html">hydro</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="/api/prepshot._model.hydro.html#prepshot._model.hydro.AddHydropowerConstraints"><code class="docutils literal notranslate"><span class="pre">AddHydropowerConstraints</span></code></a></li>
 </ul>
@@ -284,7 +306,13 @@
 <li class="toctree-l4"><a class="reference internal" href="/api/prepshot._model.investment.html#prepshot._model.investment.AddInvestmentConstraints"><code class="docutils literal notranslate"><span class="pre">AddInvestmentConstraints</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="/api/prepshot._model.nondispatchable.html">nondispatchable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="/api/prepshot._model.reserve.html">reserve</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="/api/prepshot._model.reserve.html#default-product-set">Default product set</a></li>
+<li class="toctree-l4"><a class="reference internal" href="/api/prepshot._model.reserve.html#constraints">Constraints</a></li>
+<li class="toctree-l4"><a class="reference internal" href="/api/prepshot._model.reserve.html#inputs">Inputs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="/api/prepshot._model.reserve.html#prepshot._model.reserve.AddReserveConstraints"><code class="docutils literal notranslate"><span class="pre">AddReserveConstraints</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="/api/prepshot._model.storage.html">storage</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="/api/prepshot._model.storage.html#prepshot._model.storage.AddStorageConstraints"><code class="docutils literal notranslate"><span class="pre">AddStorageConstraints</span></code></a></li>
 </ul>
@@ -293,6 +321,24 @@
 <li class="toctree-l4"><a class="reference internal" href="/api/prepshot._model.transmission.html#prepshot._model.transmission.AddTransmissionConstraints"><code class="docutils literal notranslate"><span class="pre">AddTransmissionConstraints</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="/api/prepshot._model.unit_commitment.html">unit_commitment</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="/api/prepshot._model.unit_commitment.html#configuration">Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="/api/prepshot._model.unit_commitment.html#inputs">Inputs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="/api/prepshot._model.unit_commitment.html#prepshot._model.unit_commitment.AddUnitCommitmentConstraints"><code class="docutils literal notranslate"><span class="pre">AddUnitCommitmentConstraints</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="/api/prepshot._model.unit_commitment.html#prepshot._model.unit_commitment.add_uc_cost_terms"><code class="docutils literal notranslate"><span class="pre">add_uc_cost_terms()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="/api/prepshot.pcm.html">pcm</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="/api/prepshot.pcm.html#why-rolling-horizon">Why rolling horizon?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="/api/prepshot.pcm.html#capacity-source">Capacity source</a></li>
+<li class="toctree-l3"><a class="reference internal" href="/api/prepshot.pcm.html#config">Config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="/api/prepshot.pcm.html#output">Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="/api/prepshot.pcm.html#cli">CLI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="/api/prepshot.pcm.html#prepshot.pcm.load_fixed_capacity"><code class="docutils literal notranslate"><span class="pre">load_fixed_capacity()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="/api/prepshot.pcm.html#prepshot.pcm.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="/api/prepshot.pcm.html#prepshot.pcm.run_pcm"><code class="docutils literal notranslate"><span class="pre">run_pcm()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="/api/prepshot.utils.html">utils</a><ul>
