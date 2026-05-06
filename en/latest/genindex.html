@@ -170,8 +170,8 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Glossary.html">Glossary</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="Glossary.html#further-reading">Further reading</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Glossary.html#terminology">Terminology</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Glossary.html#further-reading">Further reading</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="how_to/index.html">How-To Recipes</a><ul>
@@ -214,6 +214,10 @@
 <p class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api/prepshot.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/prepshot.cli.html">cli</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.cli.html#prepshot.cli.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="api/prepshot.set_up.html">set_up</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="api/prepshot.set_up.html#prepshot.set_up.initialize_environment"><code class="docutils literal notranslate"><span class="pre">initialize_environment()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/prepshot.set_up.html#prepshot.set_up.parse_cli_arguments"><code class="docutils literal notranslate"><span class="pre">parse_cli_arguments()</span></code></a></li>
@@ -260,8 +264,17 @@
 <li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.cost.html#prepshot._model.cost.AddCostObjective"><code class="docutils literal notranslate"><span class="pre">AddCostObjective</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot._model.dc_flow.html">dc_flow</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.dc_flow.html#n-1-security-constrained-mode-v1-18">N-1 security-constrained mode (v1.18+)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.dc_flow.html#prepshot._model.dc_flow.AddDCFlowConstraints"><code class="docutils literal notranslate"><span class="pre">AddDCFlowConstraints</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="api/prepshot._model.demand.html">demand</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.demand.html#prepshot._model.demand.AddDemandConstraints"><code class="docutils literal notranslate"><span class="pre">AddDemandConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot._model.finance.html">finance</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.finance.html#prepshot._model.finance.AddFinanceConstraints"><code class="docutils literal notranslate"><span class="pre">AddFinanceConstraints</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="api/prepshot._model.generation.html">generation</a><ul>
@@ -275,6 +288,15 @@
 <li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.head_iteration.html#prepshot._model.head_iteration.run_model_iteration"><code class="docutils literal notranslate"><span class="pre">run_model_iteration()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot._model.heat_rate.html">heat_rate</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.heat_rate.html#inputs">Inputs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.heat_rate.html#constraints">Constraints</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.heat_rate.html#config">Config</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.heat_rate.html#prepshot._model.heat_rate.AddHeatRateConstraints"><code class="docutils literal notranslate"><span class="pre">AddHeatRateConstraints</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.heat_rate.html#prepshot._model.heat_rate.add_heat_rate_fuel_cost"><code class="docutils literal notranslate"><span class="pre">add_heat_rate_fuel_cost()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.heat_rate.html#prepshot._model.heat_rate.techs_with_heat_rate_curve"><code class="docutils literal notranslate"><span class="pre">techs_with_heat_rate_curve()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="api/prepshot._model.hydro.html">hydro</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.hydro.html#prepshot._model.hydro.AddHydropowerConstraints"><code class="docutils literal notranslate"><span class="pre">AddHydropowerConstraints</span></code></a></li>
 </ul>
@@ -283,7 +305,13 @@
 <li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.investment.html#prepshot._model.investment.AddInvestmentConstraints"><code class="docutils literal notranslate"><span class="pre">AddInvestmentConstraints</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="api/prepshot._model.nondispatchable.html">nondispatchable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot._model.reserve.html">reserve</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.reserve.html#default-product-set">Default product set</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.reserve.html#constraints">Constraints</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.reserve.html#inputs">Inputs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.reserve.html#prepshot._model.reserve.AddReserveConstraints"><code class="docutils literal notranslate"><span class="pre">AddReserveConstraints</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="api/prepshot._model.storage.html">storage</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.storage.html#prepshot._model.storage.AddStorageConstraints"><code class="docutils literal notranslate"><span class="pre">AddStorageConstraints</span></code></a></li>
 </ul>
@@ -292,6 +320,24 @@
 <li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.transmission.html#prepshot._model.transmission.AddTransmissionConstraints"><code class="docutils literal notranslate"><span class="pre">AddTransmissionConstraints</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot._model.unit_commitment.html">unit_commitment</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.unit_commitment.html#configuration">Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.unit_commitment.html#inputs">Inputs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.unit_commitment.html#prepshot._model.unit_commitment.AddUnitCommitmentConstraints"><code class="docutils literal notranslate"><span class="pre">AddUnitCommitmentConstraints</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/prepshot._model.unit_commitment.html#prepshot._model.unit_commitment.add_uc_cost_terms"><code class="docutils literal notranslate"><span class="pre">add_uc_cost_terms()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/prepshot.pcm.html">pcm</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.pcm.html#why-rolling-horizon">Why rolling horizon?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.pcm.html#capacity-source">Capacity source</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.pcm.html#config">Config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.pcm.html#output">Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.pcm.html#cli">CLI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.pcm.html#prepshot.pcm.load_fixed_capacity"><code class="docutils literal notranslate"><span class="pre">load_fixed_capacity()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.pcm.html#prepshot.pcm.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.pcm.html#prepshot.pcm.run_pcm"><code class="docutils literal notranslate"><span class="pre">run_pcm()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="api/prepshot.utils.html">utils</a><ul>
@@ -628,6 +674,8 @@
 </li>
         <li><a href="api/prepshot._model.demand.html#prepshot._model.demand.AddDemandConstraints.__init__">(prepshot._model.demand.AddDemandConstraints method)</a>
 </li>
+        <li><a href="api/prepshot._model.finance.html#prepshot._model.finance.AddFinanceConstraints.__init__">(prepshot._model.finance.AddFinanceConstraints method)</a>
+</li>
         <li><a href="api/prepshot._model.generation.html#prepshot._model.generation.AddGenerationConstraints.__init__">(prepshot._model.generation.AddGenerationConstraints method)</a>
 </li>
         <li><a href="api/prepshot._model.hydro.html#prepshot._model.hydro.AddHydropowerConstraints.__init__">(prepshot._model.hydro.AddHydropowerConstraints method)</a>
@@ -645,23 +693,37 @@
 <h2 id="A">A</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/prepshot._model.heat_rate.html#prepshot._model.heat_rate.add_heat_rate_fuel_cost">add_heat_rate_fuel_cost() (in module prepshot._model.heat_rate)</a>
+</li>
+      <li><a href="api/prepshot._model.unit_commitment.html#prepshot._model.unit_commitment.add_uc_cost_terms">add_uc_cost_terms() (in module prepshot._model.unit_commitment)</a>
+</li>
       <li><a href="api/prepshot._model.co2.html#prepshot._model.co2.AddCo2EmissionConstraints">AddCo2EmissionConstraints (class in prepshot._model.co2)</a>
 </li>
       <li><a href="api/prepshot._model.cost.html#prepshot._model.cost.AddCostObjective">AddCostObjective (class in prepshot._model.cost)</a>
 </li>
+      <li><a href="api/prepshot._model.dc_flow.html#prepshot._model.dc_flow.AddDCFlowConstraints">AddDCFlowConstraints (class in prepshot._model.dc_flow)</a>
+</li>
       <li><a href="api/prepshot._model.demand.html#prepshot._model.demand.AddDemandConstraints">AddDemandConstraints (class in prepshot._model.demand)</a>
 </li>
-      <li><a href="api/prepshot._model.generation.html#prepshot._model.generation.AddGenerationConstraints">AddGenerationConstraints (class in prepshot._model.generation)</a>
+      <li><a href="api/prepshot._model.finance.html#prepshot._model.finance.AddFinanceConstraints">AddFinanceConstraints (class in prepshot._model.finance)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/prepshot._model.generation.html#prepshot._model.generation.AddGenerationConstraints">AddGenerationConstraints (class in prepshot._model.generation)</a>
+</li>
+      <li><a href="api/prepshot._model.heat_rate.html#prepshot._model.heat_rate.AddHeatRateConstraints">AddHeatRateConstraints (class in prepshot._model.heat_rate)</a>
+</li>
       <li><a href="api/prepshot._model.hydro.html#prepshot._model.hydro.AddHydropowerConstraints">AddHydropowerConstraints (class in prepshot._model.hydro)</a>
 </li>
       <li><a href="api/prepshot._model.investment.html#prepshot._model.investment.AddInvestmentConstraints">AddInvestmentConstraints (class in prepshot._model.investment)</a>
 </li>
+      <li><a href="api/prepshot._model.reserve.html#prepshot._model.reserve.AddReserveConstraints">AddReserveConstraints (class in prepshot._model.reserve)</a>
+</li>
       <li><a href="api/prepshot._model.storage.html#prepshot._model.storage.AddStorageConstraints">AddStorageConstraints (class in prepshot._model.storage)</a>
 </li>
       <li><a href="api/prepshot._model.transmission.html#prepshot._model.transmission.AddTransmissionConstraints">AddTransmissionConstraints (class in prepshot._model.transmission)</a>
+</li>
+      <li><a href="api/prepshot._model.unit_commitment.html#prepshot._model.unit_commitment.AddUnitCommitmentConstraints">AddUnitCommitmentConstraints (class in prepshot._model.unit_commitment)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -674,6 +736,8 @@
       <li><a href="api/prepshot.utils.html#prepshot.utils.calc_interest_rate">calc_interest_rate() (in module prepshot.utils)</a>
 </li>
       <li><a href="api/prepshot.utils.html#prepshot.utils.calc_inv_cost_factor">calc_inv_cost_factor() (in module prepshot.utils)</a>
+</li>
+      <li><a href="api/prepshot._model.dc_flow.html#prepshot._model.dc_flow.AddDCFlowConstraints.cap_c_rule">cap_c_rule() (prepshot._model.dc_flow.AddDCFlowConstraints method)</a>
 </li>
       <li><a href="Glossary.html#term-capacity-expansion"><strong>capacity expansion</strong></a>
 </li>
@@ -751,6 +815,8 @@
 </li>
       <li><a href="Glossary.html#term-demand"><strong>demand</strong></a>
 </li>
+      <li><a href="api/prepshot._model.dc_flow.html#prepshot._model.dc_flow.AddDCFlowConstraints.demand_balance_c_rule">demand_balance_c_rule() (prepshot._model.dc_flow.AddDCFlowConstraints method)</a>
+</li>
       <li><a href="Glossary.html#term-discount-factor"><strong>discount factor</strong></a>
 </li>
       <li><a href="Glossary.html#term-dispatch"><strong>dispatch</strong></a>
@@ -795,8 +861,12 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/prepshot._model.cost.html#prepshot._model.cost.AddCostObjective.fix_cost_rule">fix_cost_rule() (prepshot._model.cost.AddCostObjective method)</a>
 </li>
+      <li><a href="api/prepshot._model.dc_flow.html#prepshot._model.dc_flow.AddDCFlowConstraints.flow_c_rule">flow_c_rule() (prepshot._model.dc_flow.AddDCFlowConstraints method)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/prepshot._model.dc_flow.html#prepshot._model.dc_flow.AddDCFlowConstraints.flow_rule">flow_rule() (prepshot._model.dc_flow.AddDCFlowConstraints method)</a>
+</li>
       <li><a href="Glossary.html#term-forebay-level"><strong>forebay level</strong></a>
 </li>
       <li><a href="api/prepshot._model.cost.html#prepshot._model.cost.AddCostObjective.fuel_cost_breakdown">fuel_cost_breakdown() (prepshot._model.cost.AddCostObjective method)</a>
@@ -811,10 +881,14 @@
 </li>
       <li><a href="api/prepshot._model.generation.html#prepshot._model.generation.AddGenerationConstraints.gen_low_bound_rule">gen_low_bound_rule() (prepshot._model.generation.AddGenerationConstraints method)</a>
 </li>
+      <li><a href="api/prepshot._model.unit_commitment.html#prepshot._model.unit_commitment.AddUnitCommitmentConstraints.gen_low_uc_rule">gen_low_uc_rule() (prepshot._model.unit_commitment.AddUnitCommitmentConstraints method)</a>
+</li>
       <li><a href="api/prepshot._model.generation.html#prepshot._model.generation.AddGenerationConstraints.gen_up_bound_rule">gen_up_bound_rule() (prepshot._model.generation.AddGenerationConstraints method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/prepshot._model.unit_commitment.html#prepshot._model.unit_commitment.AddUnitCommitmentConstraints.gen_up_uc_rule">gen_up_uc_rule() (prepshot._model.unit_commitment.AddUnitCommitmentConstraints method)</a>
+</li>
       <li><a href="Glossary.html#term-generation-flow"><strong>generation flow</strong></a>
 </li>
       <li><a href="api/prepshot._model.hydro.html#prepshot._model.hydro.AddHydropowerConstraints.genflow_up_bound_rule">genflow_up_bound_rule() (prepshot._model.hydro.AddHydropowerConstraints method)</a>
@@ -831,8 +905,12 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="Glossary.html#term-head-iteration"><strong>head iteration</strong></a>
 </li>
+      <li><a href="api/prepshot._model.reserve.html#prepshot._model.reserve.AddReserveConstraints.headroom_down_rule">headroom_down_rule() (prepshot._model.reserve.AddReserveConstraints method)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/prepshot._model.reserve.html#prepshot._model.reserve.AddReserveConstraints.headroom_up_rule">headroom_up_rule() (prepshot._model.reserve.AddReserveConstraints method)</a>
+</li>
       <li><a href="Glossary.html#term-HiGHS"><strong>HiGHS</strong></a>
 </li>
       <li><a href="api/prepshot._model.hydro.html#prepshot._model.hydro.AddHydropowerConstraints.hydro_output_rule">hydro_output_rule() (prepshot._model.hydro.AddHydropowerConstraints method)</a>
@@ -877,6 +955,8 @@
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/prepshot.pcm.html#prepshot.pcm.load_fixed_capacity">load_fixed_capacity() (in module prepshot.pcm)</a>
+</li>
       <li><a href="api/prepshot.load_data.html#prepshot.load_data.load_json">load_json() (in module prepshot.load_data)</a>
 </li>
       <li><a href="api/prepshot.logs.html#prepshot.logs.log_parameter_info">log_parameter_info() (in module prepshot.logs)</a>
@@ -889,6 +969,16 @@
 <h2 id="M">M</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/prepshot.cli.html#prepshot.cli.main">main() (in module prepshot.cli)</a>
+
+      <ul>
+        <li><a href="api/prepshot.pcm.html#prepshot.pcm.main">(in module prepshot.pcm)</a>
+</li>
+      </ul></li>
+      <li><a href="api/prepshot._model.unit_commitment.html#prepshot._model.unit_commitment.AddUnitCommitmentConstraints.min_down_rule">min_down_rule() (prepshot._model.unit_commitment.AddUnitCommitmentConstraints method)</a>
+</li>
+      <li><a href="api/prepshot._model.unit_commitment.html#prepshot._model.unit_commitment.AddUnitCommitmentConstraints.min_up_rule">min_up_rule() (prepshot._model.unit_commitment.AddUnitCommitmentConstraints method)</a>
+</li>
       <li>
     module
 
@@ -903,19 +993,31 @@
 </li>
         <li><a href="api/prepshot._model.cost.html#module-prepshot._model.cost">prepshot._model.cost</a>
 </li>
+        <li><a href="api/prepshot._model.dc_flow.html#module-prepshot._model.dc_flow">prepshot._model.dc_flow</a>
+</li>
         <li><a href="api/prepshot._model.demand.html#module-prepshot._model.demand">prepshot._model.demand</a>
+</li>
+        <li><a href="api/prepshot._model.finance.html#module-prepshot._model.finance">prepshot._model.finance</a>
 </li>
         <li><a href="api/prepshot._model.generation.html#module-prepshot._model.generation">prepshot._model.generation</a>
 </li>
         <li><a href="api/prepshot._model.head_iteration.html#module-prepshot._model.head_iteration">prepshot._model.head_iteration</a>
 </li>
+        <li><a href="api/prepshot._model.heat_rate.html#module-prepshot._model.heat_rate">prepshot._model.heat_rate</a>
+</li>
         <li><a href="api/prepshot._model.hydro.html#module-prepshot._model.hydro">prepshot._model.hydro</a>
 </li>
         <li><a href="api/prepshot._model.investment.html#module-prepshot._model.investment">prepshot._model.investment</a>
 </li>
+        <li><a href="api/prepshot._model.reserve.html#module-prepshot._model.reserve">prepshot._model.reserve</a>
+</li>
         <li><a href="api/prepshot._model.storage.html#module-prepshot._model.storage">prepshot._model.storage</a>
 </li>
         <li><a href="api/prepshot._model.transmission.html#module-prepshot._model.transmission">prepshot._model.transmission</a>
+</li>
+        <li><a href="api/prepshot._model.unit_commitment.html#module-prepshot._model.unit_commitment">prepshot._model.unit_commitment</a>
+</li>
+        <li><a href="api/prepshot.cli.html#module-prepshot.cli">prepshot.cli</a>
 </li>
         <li><a href="api/prepshot.load_data.html#module-prepshot.load_data">prepshot.load_data</a>
 </li>
@@ -924,6 +1026,8 @@
         <li><a href="api/prepshot.model.html#module-prepshot.model">prepshot.model</a>
 </li>
         <li><a href="api/prepshot.output_data.html#module-prepshot.output_data">prepshot.output_data</a>
+</li>
+        <li><a href="api/prepshot.pcm.html#module-prepshot.pcm">prepshot.pcm</a>
 </li>
         <li><a href="api/prepshot.set_up.html#module-prepshot.set_up">prepshot.set_up</a>
 </li>
@@ -938,6 +1042,8 @@
 <h2 id="N">N</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/prepshot._model.unit_commitment.html#prepshot._model.unit_commitment.AddUnitCommitmentConstraints.n_unit_bound_rule">n_unit_bound_rule() (prepshot._model.unit_commitment.AddUnitCommitmentConstraints method)</a>
+</li>
       <li><a href="Glossary.html#term-net-present-value"><strong>net present value</strong></a>
 </li>
       <li><a href="api/prepshot._model.transmission.html#prepshot._model.transmission.AddTransmissionConstraints.new_line_low_bound_rule">new_line_low_bound_rule() (prepshot._model.transmission.AddTransmissionConstraints method)</a>
@@ -955,6 +1061,8 @@
       <li><a href="api/prepshot._model.cost.html#prepshot._model.cost.AddCostObjective.newtech_cost_rule">newtech_cost_rule() (prepshot._model.cost.AddCostObjective method)</a>
 </li>
       <li><a href="Glossary.html#term-nominal-capacity"><strong>nominal capacity</strong></a>
+</li>
+      <li><a href="api/prepshot._model.reserve.html#prepshot._model.reserve.AddReserveConstraints.non_eligible_zero_rule">non_eligible_zero_rule() (prepshot._model.reserve.AddReserveConstraints method)</a>
 </li>
       <li><a href="Glossary.html#term-NPV"><strong>NPV</strong></a>
 </li>
@@ -1028,10 +1136,24 @@
 </li>
       </ul></li>
       <li>
+    prepshot._model.dc_flow
+
+      <ul>
+        <li><a href="api/prepshot._model.dc_flow.html#module-prepshot._model.dc_flow">module</a>
+</li>
+      </ul></li>
+      <li>
     prepshot._model.demand
 
       <ul>
         <li><a href="api/prepshot._model.demand.html#module-prepshot._model.demand">module</a>
+</li>
+      </ul></li>
+      <li>
+    prepshot._model.finance
+
+      <ul>
+        <li><a href="api/prepshot._model.finance.html#module-prepshot._model.finance">module</a>
 </li>
       </ul></li>
       <li>
@@ -1049,14 +1171,19 @@
 </li>
       </ul></li>
       <li>
+    prepshot._model.heat_rate
+
+      <ul>
+        <li><a href="api/prepshot._model.heat_rate.html#module-prepshot._model.heat_rate">module</a>
+</li>
+      </ul></li>
+      <li>
     prepshot._model.hydro
 
       <ul>
         <li><a href="api/prepshot._model.hydro.html#module-prepshot._model.hydro">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     prepshot._model.investment
 
@@ -1064,6 +1191,15 @@
         <li><a href="api/prepshot._model.investment.html#module-prepshot._model.investment">module</a>
 </li>
       </ul></li>
+      <li>
+    prepshot._model.reserve
+
+      <ul>
+        <li><a href="api/prepshot._model.reserve.html#module-prepshot._model.reserve">module</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     prepshot._model.storage
 
@@ -1076,6 +1212,20 @@
 
       <ul>
         <li><a href="api/prepshot._model.transmission.html#module-prepshot._model.transmission">module</a>
+</li>
+      </ul></li>
+      <li>
+    prepshot._model.unit_commitment
+
+      <ul>
+        <li><a href="api/prepshot._model.unit_commitment.html#module-prepshot._model.unit_commitment">module</a>
+</li>
+      </ul></li>
+      <li>
+    prepshot.cli
+
+      <ul>
+        <li><a href="api/prepshot.cli.html#module-prepshot.cli">module</a>
 </li>
       </ul></li>
       <li>
@@ -1107,6 +1257,13 @@
 </li>
       </ul></li>
       <li>
+    prepshot.pcm
+
+      <ul>
+        <li><a href="api/prepshot.pcm.html#module-prepshot.pcm">module</a>
+</li>
+      </ul></li>
+      <li>
     prepshot.set_up
 
       <ul>
@@ -1131,6 +1288,12 @@
 </li>
       <li><a href="api/prepshot._model.head_iteration.html#prepshot._model.head_iteration.process_model_solution">process_model_solution() (in module prepshot._model.head_iteration)</a>
 </li>
+      <li><a href="api/prepshot._model.finance.html#prepshot._model.finance.AddFinanceConstraints.public_debt_max_system_rule">public_debt_max_system_rule() (prepshot._model.finance.AddFinanceConstraints method)</a>
+</li>
+      <li><a href="api/prepshot._model.finance.html#prepshot._model.finance.AddFinanceConstraints.public_debt_max_zone_rule">public_debt_max_zone_rule() (prepshot._model.finance.AddFinanceConstraints method)</a>
+</li>
+      <li><a href="api/prepshot._model.finance.html#prepshot._model.finance.AddFinanceConstraints.public_debt_newtech_rule">public_debt_newtech_rule() (prepshot._model.finance.AddFinanceConstraints method)</a>
+</li>
       <li><a href="Glossary.html#term-PyOptInterface"><strong>PyOptInterface</strong></a>
 </li>
   </ul></td>
@@ -1147,17 +1310,21 @@
 </li>
       <li><a href="api/prepshot.load_data.html#prepshot.load_data.read_long_csv">read_long_csv() (in module prepshot.load_data)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/prepshot._model.investment.html#prepshot._model.investment.AddInvestmentConstraints.remaining_capacity_rule">remaining_capacity_rule() (prepshot._model.investment.AddInvestmentConstraints method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="Glossary.html#term-representative-period"><strong>representative period</strong></a>
+</li>
+      <li><a href="api/prepshot._model.reserve.html#prepshot._model.reserve.AddReserveConstraints.requirement_rule">requirement_rule() (prepshot._model.reserve.AddReserveConstraints method)</a>
 </li>
       <li><a href="Glossary.html#term-reserve-margin"><strong>reserve margin</strong></a>
 </li>
       <li><a href="Glossary.html#term-reservoir"><strong>reservoir</strong></a>
 </li>
       <li><a href="api/prepshot._model.head_iteration.html#prepshot._model.head_iteration.run_model_iteration">run_model_iteration() (in module prepshot._model.head_iteration)</a>
+</li>
+      <li><a href="api/prepshot.pcm.html#prepshot.pcm.run_pcm">run_pcm() (in module prepshot.pcm)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -1169,6 +1336,10 @@
 </li>
       <li><a href="api/prepshot.output_data.html#prepshot.output_data.save_to_excel">save_to_excel() (in module prepshot.output_data)</a>
 </li>
+      <li><a href="api/prepshot._model.heat_rate.html#prepshot._model.heat_rate.AddHeatRateConstraints.segment_width_rule">segment_width_rule() (prepshot._model.heat_rate.AddHeatRateConstraints method)</a>
+</li>
+      <li><a href="api/prepshot._model.heat_rate.html#prepshot._model.heat_rate.AddHeatRateConstraints.segment_zero_rule">segment_zero_rule() (prepshot._model.heat_rate.AddHeatRateConstraints method)</a>
+</li>
       <li><a href="api/prepshot.solver.html#prepshot.solver.set_solver_parameters">set_solver_parameters() (in module prepshot.solver)</a>
 </li>
       <li><a href="api/prepshot.logs.html#prepshot.logs.setup_logging">setup_logging() (in module prepshot.logs)</a>
@@ -1179,11 +1350,15 @@
 </li>
       <li><a href="api/prepshot.solver.html#prepshot.solver.solve_model">solve_model() (in module prepshot.solver)</a>
 </li>
+      <li><a href="api/prepshot._model.unit_commitment.html#prepshot._model.unit_commitment.AddUnitCommitmentConstraints.state_evolution_rule">state_evolution_rule() (prepshot._model.unit_commitment.AddUnitCommitmentConstraints method)</a>
+</li>
       <li><a href="Glossary.html#term-storage"><strong>storage</strong></a>
 </li>
       <li><a href="api/prepshot._model.hydro.html#prepshot._model.hydro.AddHydropowerConstraints.storage_low_bound_rule">storage_low_bound_rule() (prepshot._model.hydro.AddHydropowerConstraints method)</a>
 </li>
       <li><a href="api/prepshot._model.hydro.html#prepshot._model.hydro.AddHydropowerConstraints.storage_up_bound_rule">storage_up_bound_rule() (prepshot._model.hydro.AddHydropowerConstraints method)</a>
+</li>
+      <li><a href="api/prepshot._model.heat_rate.html#prepshot._model.heat_rate.AddHeatRateConstraints.sum_to_gen_rule">sum_to_gen_rule() (prepshot._model.heat_rate.AddHeatRateConstraints method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -1201,10 +1376,16 @@
 </li>
       <li><a href="api/prepshot._model.investment.html#prepshot._model.investment.AddInvestmentConstraints.tech_up_bound_rule">tech_up_bound_rule() (prepshot._model.investment.AddInvestmentConstraints method)</a>
 </li>
-      <li><a href="api/prepshot.logs.html#prepshot.logs.timer">timer() (in module prepshot.logs)</a>
+      <li><a href="api/prepshot._model.heat_rate.html#prepshot._model.heat_rate.techs_with_heat_rate_curve">techs_with_heat_rate_curve() (in module prepshot._model.heat_rate)</a>
+</li>
+      <li><a href="api/prepshot._model.dc_flow.html#prepshot._model.dc_flow.AddDCFlowConstraints.theta_ref_c_rule">theta_ref_c_rule() (prepshot._model.dc_flow.AddDCFlowConstraints method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/prepshot._model.dc_flow.html#prepshot._model.dc_flow.AddDCFlowConstraints.theta_ref_rule">theta_ref_rule() (prepshot._model.dc_flow.AddDCFlowConstraints method)</a>
+</li>
+      <li><a href="api/prepshot.logs.html#prepshot.logs.timer">timer() (in module prepshot.logs)</a>
+</li>
       <li><a href="api/prepshot._model.transmission.html#prepshot._model.transmission.AddTransmissionConstraints.trans_balance_rule">trans_balance_rule() (prepshot._model.transmission.AddTransmissionConstraints method)</a>
 </li>
       <li><a href="api/prepshot._model.transmission.html#prepshot._model.transmission.AddTransmissionConstraints.trans_capacity_rule">trans_capacity_rule() (prepshot._model.transmission.AddTransmissionConstraints method)</a>

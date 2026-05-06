@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+<meta property="og:title" content="reserve" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="api/prepshot._model.reserve.html" />
+<meta property="og:site_name" content="PREP-SHOT documentation" />
+<meta property="og:description" content="Granular operating-reserve constraints (multi-product, LP relaxation). Generalises the v1.12 / v1.14 reserve module from &quot;one reserve_up + one reserve_down&quot; to named reserve products, each with its..." />
+<meta name="description" content="Granular operating-reserve constraints (multi-product, LP relaxation). Generalises the v1.12 / v1.14 reserve module from &quot;one reserve_up + one reserve_down&quot; to named reserve products, each with its..." />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>reserve &mdash; PREP-SHOT (latest) documentation in English</title>
+
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/algolia.css" type="text/css" />
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/custom.css?6" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/dev.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/logo.png"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="../_static/es5/tex-chtml.js"></script>
+        <script src="../_static/js/custom.js?3"></script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+        <script defer="defer" src="../_static/js/algolia.js"></script>
+    <script src="../_static/js/theme.js"></script><meta name="theme-color" content="#3d8fcc">
+  
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="storage" href="prepshot._model.storage.html" />
+    <link rel="prev" title="investment" href="prepshot._model.investment.html" />
+<meta name="doc_version" content="latest">
+<meta name="doc_is_latest" content="">
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html">
+            <img src="../_static/SVG-03.svg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                latest
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Installation.html#step-1-download">Step 1: Download</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Installation.html#step-2-install">Step 2: Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Installation.html#step-3-run-a-scenario">Step 3: Run a scenario</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Installation.html#step-4-use-prep-shot-as-a-python-library">Step 4: Use PREP-SHOT as a Python library</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Quickstart.html">Quickstart (30 minutes)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Quickstart.html#Scenario-background">Scenario background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Quickstart.html#Step-1-–-Install-(5-minutes)">Step 1 – Install (5 minutes)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Quickstart.html#Step-2-–-Solve-the-shipped-example-(5-minutes)">Step 2 – Solve the shipped example (5 minutes)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Quickstart.html#Step-3-–-Open-the-results-(10-minutes)">Step 3 – Open the results (10 minutes)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Quickstart.html#Step-4-–-Change-one-input-and-re-solve-(5-minutes)">Step 4 – Change one input and re-solve (5 minutes)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Quickstart.html#Step-5-–-Where-to-next">Step 5 – Where to next</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Thailand.html">Thailand (single-zone, CEM)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Thailand.html#Existing-fleet-(2023)">Existing fleet (2023)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Thailand.html#Per-station-hydropower-characteristics">Per-station hydropower characteristics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Thailand.html#Inspect-a-solve-(after-running-python-run.py)">Inspect a solve (after running <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">run.py</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Thailand.html#Common-plots-from-a-solved-baseline">Common plots from a solved baseline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Thailand.html#Installed-capacity">Installed capacity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Thailand.html#Annual-generation-mix">Annual generation mix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Thailand.html#Daily-dispatch-profile">Daily dispatch profile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Thailand.html#Cost-breakdown">Cost breakdown</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Thailand.html#Where-to-next">Where to next</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../SoutheastAsia.html">Southeast Asia (Lower Mekong, 5 zones, CEM)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../SoutheastAsia.html#1.-The-scenario">1. The scenario</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SoutheastAsia.html#2.-Demand-profiles-by-country">2. Demand profiles by country</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SoutheastAsia.html#3.-The-existing-fleet-(2020)">3. The existing fleet (2020)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SoutheastAsia.html#4.-Per-station-hydropower">4. Per-station hydropower</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SoutheastAsia.html#5.-Inter-country-transmission">5. Inter-country transmission</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SoutheastAsia.html#6.-Running-a-full-capacity-expansion-solve">6. Running a full capacity-expansion solve</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SoutheastAsia.html#7.-Post-solve-diagnostics:-common-plots-from-a-solved-baseline">7. Post-solve diagnostics: common plots from a solved baseline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../SoutheastAsia.html#7.1-Capacity-buildout">7.1 Capacity buildout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../SoutheastAsia.html#7.2-Generation-mix">7.2 Generation mix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../SoutheastAsia.html#7.3-Emissions-vs-the-carbon-cap">7.3 Emissions vs the carbon cap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../SoutheastAsia.html#7.4-Cost-breakdown">7.4 Cost breakdown</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../SoutheastAsia.html#8.-What-this-case-study-shows-that-aggregated-models-miss">8. What this case study shows that aggregated models miss</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SoutheastAsia.html#Where-to-next">Where to next</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../ThailandPCM.html">Thailand (full-nodal, PCM)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../ThailandPCM.html#1.-Source-data">1. Source data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ThailandPCM.html#2.-Conversion:-zones,-techs,-fleet">2. Conversion: zones, techs, fleet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ThailandPCM.html#3.-Load-+-VRE-capacity-factors-+-hydro-inflow">3. Load + VRE capacity factors + hydro inflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ThailandPCM.html#4.-Transmission-topology">4. Transmission topology</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ThailandPCM.html#5.-Per-station-hydropower">5. Per-station hydropower</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ThailandPCM.html#6.-Input-visualisations">6. Input visualisations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ThailandPCM.html#6.1-Bus-locations-and-demand">6.1 Bus locations and demand</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ThailandPCM.html#6.2-Transmission-network">6.2 Transmission network</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ThailandPCM.html#6.3-Fleet-composition-by-carrier">6.3 Fleet composition by carrier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ThailandPCM.html#6.4-Annual-demand-profile">6.4 Annual demand profile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ThailandPCM.html#6.5-Resource-samples:-a-VRE-plant-and-a-hydro-station">6.5 Resource samples: a VRE plant and a hydro station</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ThailandPCM.html#7.-Running-the-PCM-rolling-horizon-driver">7. Running the PCM rolling-horizon driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ThailandPCM.html#8.-Knobs-to-flip-on-for-higher-fidelity">8. Knobs to flip on for higher fidelity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ThailandPCM.html#9.-Status-and-caveats">9. Status and caveats</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Model_input_output.html">Model Inputs/Outputs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Model_input_output.html#input-file-format">Input file format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Model_input_output.html#inputs">Inputs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Model_input_output.html#required-inputs">Required inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Model_input_output.html#hydropower-inputs-active-when-isinflow-true-in-config-json">Hydropower inputs (active when <code class="docutils literal notranslate"><span class="pre">isinflow=true</span></code> in <code class="docutils literal notranslate"><span class="pre">config.json</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Model_input_output.html#optional-inputs-skipped-when-absent">Optional inputs (skipped when absent)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Model_input_output.html#outputs">Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Model_input_output.html#running-scenarios">Running scenarios</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Model_input_output.html#setting-global-parameters">Setting global parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Mathematical_notations.html">Mathematical Notation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Mathematical_notations.html#unit-list">Unit List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Mathematical_notations.html#set-list">Set List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Mathematical_notations.html#variable-list">Variable List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Mathematical_notations.html#parameter-list">Parameter List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Mathematical_notations.html#objective-functions">Objective Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Mathematical_notations.html#costs">Costs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Mathematical_notations.html#factors">Factors</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Mathematical_notations.html#constraints">Constraints</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Mathematical_notations.html#retirement">Retirement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Mathematical_notations.html#carbon-emission">Carbon Emission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Mathematical_notations.html#power-balance">Power Balance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Mathematical_notations.html#transmission">Transmission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Mathematical_notations.html#power-output">Power Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Mathematical_notations.html#power-output-variation">Power output variation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Mathematical_notations.html#energy-storage">Energy storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Mathematical_notations.html#water-balance">Water balance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Mathematical_notations.html#reservoir-outflow">Reservoir outflow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Mathematical_notations.html#reservoir-storage">Reservoir storage</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Glossary.html">Glossary</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Glossary.html#terminology">Terminology</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Glossary.html#further-reading">Further reading</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../how_to/index.html">How-To Recipes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../how_to/add_a_technology.html">Add a new technology</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../how_to/add_a_technology.html#steps">Steps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../how_to/add_a_technology.html#verify">Verify</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../how_to/add_a_technology.html#common-pitfalls">Common pitfalls</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../how_to/tighten_a_carbon_cap.html">Tighten a carbon cap</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../how_to/tighten_a_carbon_cap.html#steps">Steps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../how_to/tighten_a_carbon_cap.html#verify">Verify</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../how_to/tighten_a_carbon_cap.html#custom-cap-regions">Custom cap regions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../how_to/tighten_a_carbon_cap.html#common-pitfalls">Common pitfalls</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../how_to/compare_two_scenarios.html">Compare two scenarios</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../how_to/compare_two_scenarios.html#setup">Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../how_to/compare_two_scenarios.html#recipe">Recipe</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../how_to/compare_two_scenarios.html#plot-the-capacity-reshuffle">Plot the capacity reshuffle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../how_to/compare_two_scenarios.html#common-pitfalls">Common pitfalls</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../how_to/inspect_lmps.html">Inspect locational marginal prices</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../how_to/inspect_lmps.html#recipe">Recipe</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../how_to/inspect_lmps.html#sign-convention">Sign convention</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../how_to/inspect_lmps.html#npv-vs-real-year-prices">NPV vs real-year prices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../how_to/inspect_lmps.html#common-pitfalls">Common pitfalls</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../how_to/add_a_cascading_hydropower_system.html">Add a cascading hydropower system</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../how_to/add_a_cascading_hydropower_system.html#steps">Steps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../how_to/add_a_cascading_hydropower_system.html#verify">Verify</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../how_to/add_a_cascading_hydropower_system.html#common-pitfalls">Common pitfalls</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="prepshot.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="prepshot.cli.html">cli</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.cli.html#prepshot.cli.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="prepshot.set_up.html">set_up</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.set_up.html#prepshot.set_up.initialize_environment"><code class="docutils literal notranslate"><span class="pre">initialize_environment()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.set_up.html#prepshot.set_up.parse_cli_arguments"><code class="docutils literal notranslate"><span class="pre">parse_cli_arguments()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="prepshot.logs.html">logs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.logs.html#prepshot.logs.log_parameter_info"><code class="docutils literal notranslate"><span class="pre">log_parameter_info()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.logs.html#prepshot.logs.setup_logging"><code class="docutils literal notranslate"><span class="pre">setup_logging()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.logs.html#prepshot.logs.timer"><code class="docutils literal notranslate"><span class="pre">timer()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="prepshot.load_data.html">load_data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.load_data.html#prepshot.load_data.check_schema"><code class="docutils literal notranslate"><span class="pre">check_schema()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.load_data.html#prepshot.load_data.compute_cost_factors"><code class="docutils literal notranslate"><span class="pre">compute_cost_factors()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.load_data.html#prepshot.load_data.extract_config_data"><code class="docutils literal notranslate"><span class="pre">extract_config_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.load_data.html#prepshot.load_data.extract_sets"><code class="docutils literal notranslate"><span class="pre">extract_sets()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.load_data.html#prepshot.load_data.load_excel_data"><code class="docutils literal notranslate"><span class="pre">load_excel_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.load_data.html#prepshot.load_data.load_json"><code class="docutils literal notranslate"><span class="pre">load_json()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.load_data.html#prepshot.load_data.process_data"><code class="docutils literal notranslate"><span class="pre">process_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.load_data.html#prepshot.load_data.read_long_csv"><code class="docutils literal notranslate"><span class="pre">read_long_csv()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="prepshot.solver.html">solver</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.solver.html#prepshot.solver.get_solver"><code class="docutils literal notranslate"><span class="pre">get_solver()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.solver.html#prepshot.solver.set_solver_parameters"><code class="docutils literal notranslate"><span class="pre">set_solver_parameters()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.solver.html#prepshot.solver.solve_model"><code class="docutils literal notranslate"><span class="pre">solve_model()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="prepshot.model.html">model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.model.html#prepshot.model.create_model"><code class="docutils literal notranslate"><span class="pre">create_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.model.html#prepshot.model.define_basic_sets"><code class="docutils literal notranslate"><span class="pre">define_basic_sets()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.model.html#prepshot.model.define_complex_sets"><code class="docutils literal notranslate"><span class="pre">define_complex_sets()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.model.html#prepshot.model.define_constraints"><code class="docutils literal notranslate"><span class="pre">define_constraints()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.model.html#prepshot.model.define_model"><code class="docutils literal notranslate"><span class="pre">define_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.model.html#prepshot.model.define_variables"><code class="docutils literal notranslate"><span class="pre">define_variables()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="prepshot._model.html">constraints</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="prepshot._model.co2.html">co2</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="prepshot._model.co2.html#prepshot._model.co2.AddCo2EmissionConstraints"><code class="docutils literal notranslate"><span class="pre">AddCo2EmissionConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot._model.cost.html">cost</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="prepshot._model.cost.html#prepshot._model.cost.AddCostObjective"><code class="docutils literal notranslate"><span class="pre">AddCostObjective</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot._model.dc_flow.html">dc_flow</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="prepshot._model.dc_flow.html#n-1-security-constrained-mode-v1-18">N-1 security-constrained mode (v1.18+)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot._model.dc_flow.html#prepshot._model.dc_flow.AddDCFlowConstraints"><code class="docutils literal notranslate"><span class="pre">AddDCFlowConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot._model.demand.html">demand</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="prepshot._model.demand.html#prepshot._model.demand.AddDemandConstraints"><code class="docutils literal notranslate"><span class="pre">AddDemandConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot._model.finance.html">finance</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="prepshot._model.finance.html#prepshot._model.finance.AddFinanceConstraints"><code class="docutils literal notranslate"><span class="pre">AddFinanceConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot._model.generation.html">generation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="prepshot._model.generation.html#prepshot._model.generation.AddGenerationConstraints"><code class="docutils literal notranslate"><span class="pre">AddGenerationConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot._model.head_iteration.html">head_iteration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="prepshot._model.head_iteration.html#prepshot._model.head_iteration.compute_error"><code class="docutils literal notranslate"><span class="pre">compute_error()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot._model.head_iteration.html#prepshot._model.head_iteration.initialize_waterhead"><code class="docutils literal notranslate"><span class="pre">initialize_waterhead()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot._model.head_iteration.html#prepshot._model.head_iteration.process_model_solution"><code class="docutils literal notranslate"><span class="pre">process_model_solution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot._model.head_iteration.html#prepshot._model.head_iteration.run_model_iteration"><code class="docutils literal notranslate"><span class="pre">run_model_iteration()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot._model.heat_rate.html">heat_rate</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="prepshot._model.heat_rate.html#inputs">Inputs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot._model.heat_rate.html#constraints">Constraints</a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot._model.heat_rate.html#config">Config</a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot._model.heat_rate.html#prepshot._model.heat_rate.AddHeatRateConstraints"><code class="docutils literal notranslate"><span class="pre">AddHeatRateConstraints</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot._model.heat_rate.html#prepshot._model.heat_rate.add_heat_rate_fuel_cost"><code class="docutils literal notranslate"><span class="pre">add_heat_rate_fuel_cost()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot._model.heat_rate.html#prepshot._model.heat_rate.techs_with_heat_rate_curve"><code class="docutils literal notranslate"><span class="pre">techs_with_heat_rate_curve()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot._model.hydro.html">hydro</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="prepshot._model.hydro.html#prepshot._model.hydro.AddHydropowerConstraints"><code class="docutils literal notranslate"><span class="pre">AddHydropowerConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot._model.investment.html">investment</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="prepshot._model.investment.html#prepshot._model.investment.AddInvestmentConstraints"><code class="docutils literal notranslate"><span class="pre">AddInvestmentConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">reserve</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#default-product-set">Default product set</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#constraints">Constraints</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#inputs">Inputs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#prepshot._model.reserve.AddReserveConstraints"><code class="docutils literal notranslate"><span class="pre">AddReserveConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot._model.storage.html">storage</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="prepshot._model.storage.html#prepshot._model.storage.AddStorageConstraints"><code class="docutils literal notranslate"><span class="pre">AddStorageConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot._model.transmission.html">transmission</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="prepshot._model.transmission.html#prepshot._model.transmission.AddTransmissionConstraints"><code class="docutils literal notranslate"><span class="pre">AddTransmissionConstraints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot._model.unit_commitment.html">unit_commitment</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="prepshot._model.unit_commitment.html#configuration">Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot._model.unit_commitment.html#inputs">Inputs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot._model.unit_commitment.html#prepshot._model.unit_commitment.AddUnitCommitmentConstraints"><code class="docutils literal notranslate"><span class="pre">AddUnitCommitmentConstraints</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prepshot._model.unit_commitment.html#prepshot._model.unit_commitment.add_uc_cost_terms"><code class="docutils literal notranslate"><span class="pre">add_uc_cost_terms()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="prepshot.pcm.html">pcm</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.pcm.html#why-rolling-horizon">Why rolling horizon?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.pcm.html#capacity-source">Capacity source</a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.pcm.html#config">Config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.pcm.html#output">Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.pcm.html#cli">CLI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.pcm.html#prepshot.pcm.load_fixed_capacity"><code class="docutils literal notranslate"><span class="pre">load_fixed_capacity()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.pcm.html#prepshot.pcm.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.pcm.html#prepshot.pcm.run_pcm"><code class="docutils literal notranslate"><span class="pre">run_pcm()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="prepshot.utils.html">utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.utils.html#prepshot.utils.calc_cost_factor"><code class="docutils literal notranslate"><span class="pre">calc_cost_factor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.utils.html#prepshot.utils.calc_interest_rate"><code class="docutils literal notranslate"><span class="pre">calc_interest_rate()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.utils.html#prepshot.utils.calc_inv_cost_factor"><code class="docutils literal notranslate"><span class="pre">calc_inv_cost_factor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.utils.html#prepshot.utils.cartesian_product"><code class="docutils literal notranslate"><span class="pre">cartesian_product()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.utils.html#prepshot.utils.check_positive"><code class="docutils literal notranslate"><span class="pre">check_positive()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.utils.html#prepshot.utils.interpolate_z_by_q_or_s"><code class="docutils literal notranslate"><span class="pre">interpolate_z_by_q_or_s()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="prepshot.output_data.html">output_data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.output_data.html#prepshot.output_data.create_data_array"><code class="docutils literal notranslate"><span class="pre">create_data_array()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.output_data.html#prepshot.output_data.extract_results_hydro"><code class="docutils literal notranslate"><span class="pre">extract_results_hydro()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.output_data.html#prepshot.output_data.extract_results_non_hydro"><code class="docutils literal notranslate"><span class="pre">extract_results_non_hydro()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.output_data.html#prepshot.output_data.save_result"><code class="docutils literal notranslate"><span class="pre">save_result()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.output_data.html#prepshot.output_data.save_to_excel"><code class="docutils literal notranslate"><span class="pre">save_to_excel()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.output_data.html#prepshot.output_data.update_output_filename"><code class="docutils literal notranslate"><span class="pre">update_output_filename()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Stability.html">Stability policy</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Stability.html#v1-x-research-evolving-current">v1.x -- research / evolving (current)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Stability.html#v2-0-stable-planned">v2.0 -- stable (planned)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Changelog.html#version-1-19-1-may-6-2026">Version 1.19.1 - May 6, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#why">Why</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#changed">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#notes">Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Changelog.html#version-1-19-0-may-6-2026">Version 1.19.0 - May 6, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#added">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#default-heat-rate-curves-shipped">Default heat-rate curves shipped</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#per-example-wiring">Per-example wiring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#regression">Regression</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Changelog.html#version-1-18-0-may-6-2026">Version 1.18.0 - May 6, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id1">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#implementation-notes">Implementation notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id2">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#verified">Verified</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Changelog.html#version-1-17-0-may-6-2026">Version 1.17.0 - May 6, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id3">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id4">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id5">Verified</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#known-limitations">Known limitations</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Changelog.html#version-1-16-0-may-6-2026">Version 1.16.0 - May 6, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#default-product-set">Default product set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#schema-change-breaking">Schema change (BREAKING)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#constraints">Constraints</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#output">Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#eligibility-defaults-shipped">Eligibility defaults shipped</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#default-requirement-values">Default requirement values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id6">Regression</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Changelog.html#version-1-15-0-may-6-2026">Version 1.15.0 - May 6, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id7">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id8">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#performance-notes">Performance notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Changelog.html#version-1-14-1-may-5-2026">Version 1.14.1 - May 5, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id9">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id10">Known limitations</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Changelog.html#version-1-14-0-may-5-2026">Version 1.14.0 - May 5, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id11">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id12">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#known-limitations-v1-14-0-alpha">Known limitations (v1.14.0 alpha)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Changelog.html#version-1-13-0-may-5-2026">Version 1.13.0 - May 5, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id13">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id14">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Changelog.html#version-1-12-0-may-5-2026">Version 1.12.0 - May 5, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id15">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id16">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#fixed">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Changelog.html#version-1-11-1-may-5-2026">Version 1.11.1 - May 5, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id17">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id18">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#removed">Removed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id19">Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Changelog.html#version-1-11-0-may-5-2026">Version 1.11.0 - May 5, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id20">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id21">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id22">Removed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Changelog.html#version-1-10-0-may-5-2026">Version 1.10.0 - May 5, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id23">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id24">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id25">Removed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Changelog.html#version-1-9-1-may-3-2026">Version 1.9.1 - May 3, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id26">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id27">Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Changelog.html#version-1-9-0-may-3-2026">Version 1.9.0 - May 3, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id28">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id29">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id30">Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Changelog.html#version-1-8-1-may-3-2026">Version 1.8.1 - May 3, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id31">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Changelog.html#version-1-8-0-may-3-2026">Version 1.8.0 - May 3, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id32">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id33">Removed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id34">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Changelog.html#version-1-7-0-may-3-2026">Version 1.7.0 - May 3, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id35">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id36">Removed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id37">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Changelog.html#version-1-6-0-may-3-2026">Version 1.6.0 - May 3, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id38">Removed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id39">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id40">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Changelog.html#version-1-5-0-may-2-2026">Version 1.5.0 - May 2, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id41">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#changed-breaking">Changed (Breaking)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#annotation-columns">Annotation columns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#column-renames-for-clarity">Column renames for clarity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#group-3-migration">Group 3 migration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#migration-notes">Migration notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Changelog.html#version-1-4-0-may-2-2026">Version 1.4.0 - May 2, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#why-long-format">Why long-format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id42">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id43">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id44">Migration notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Changelog.html#version-1-3-2-may-2-2026">Version 1.3.2 - May 2, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id45">Added</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Changelog.html#version-1-3-1-may-2-2026">Version 1.3.1 - May 2, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id46">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#tested-with">Tested with</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id47">Migration notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Changelog.html#version-1-3-0-may-2-2026">Version 1.3.0 - May 2, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id48">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id49">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id50">Removed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Changelog.html#version-1-2-0-may-2-2026">Version 1.2.0 - May 2, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id51">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id52">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id53">Migration notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Changelog.html#version-1-1-2-may-2-2026">Version 1.1.2 - May 2, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id54">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id55">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Changelog.html#version-1-1-1-may-2-2026">Version 1.1.1 - May 2, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id56">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id57">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id58">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Changelog.html#version-1-1-0-may-2-2026">Version 1.1.0 - May 2, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id59">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id60">Changed (Breaking)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Changelog.html#version-1-0-jul-21-2025">Version 1.0 - Jul 21, 2025</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Changelog.html#version-0-1-2-jul-22-2024">Version 0.1.2 - Jul 22, 2024</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id61">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id62">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id63">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Changelog.html#version-0-1-1-jul-11-2024">Version 0.1.1 - Jul 11, 2024</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id64">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id65">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id66">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#deprecated">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Changelog.html#version-0-1-0-jun-24-2024">Version 0.1.0 - Jun 24, 2024</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Community</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Forum.html">Discussion</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Forum.html#github-discussions">GitHub Discussions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Forum.html#private-queries">Private Queries</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Contribution.html">Contribution</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Contribution.html#development-process">Development Process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Contribution.html#building-documentation">Building Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Contribution.html#contributing-guidelines">Contributing Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Contribution.html#translating-the-documentation">Translating the Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Citations.html">Citation Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Citations.html#publications-by-topic">Publications by Topic</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../References.html">References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PREP-SHOT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+<li>
+	<div style="font-size: 105%;font-weight: 600;">
+		
+	</div>
+	<ul class="wy-breadcrumbs">
+		
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="prepshot.html">API Reference</a></li>
+          <li class="breadcrumb-item"><a href="prepshot._model.html">constraints</a></li>
+      <li class="breadcrumb-item active">reserve</li>
+	</ul>
+</li>
+
+
+<li style="float: right; text-align: right;">
+	<ul>
+		
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/PREP-NexT/PREP-SHOT/blob/main/doc/source/api/prepshot._model.reserve.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+	</ul>
+
+	<style>
+		.godot-edit-guidelines {
+			font-size: 14px;
+			float: right;
+			clear: both;
+			padding-top: 4px;
+		}
+
+		@media screen and (max-width: 480px) {
+			.godot-edit-guidelines {
+				display: none;
+			}
+		}
+	</style>
+	<a class="godot-edit-guidelines" href="https://prep-next.github.io/PREP-SHOT/Changelog.html#contributing-to-prep-shot">
+		Learn how to contribute!
+	</a>
+</li>
+
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+<div itemprop="articleBody">
+  
+
+  
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<section id="module-prepshot._model.reserve">
+<span id="reserve"></span><h1>reserve<a class="headerlink" href="#module-prepshot._model.reserve" title="Permalink to this heading">¶</a></h1>
+<p>Granular operating-reserve constraints (multi-product, LP relaxation).</p>
+<p>Generalises the v1.12 / v1.14 reserve module from &quot;one reserve_up +
+one reserve_down&quot; to <strong>named reserve products</strong>, each with its own
+eligibility and zonal requirement -- matching the structure of real
+ancillary-services markets (CAISO, ERCOT, MISO, etc.) and the way
+GenX, ReEDS, and PowNet model reserves.</p>
+<section id="default-product-set">
+<h2>Default product set<a class="headerlink" href="#default-product-set" title="Permalink to this heading">¶</a></h2>
+<p>Four products ship by default. The direction (up vs down) is encoded
+in the product <em>name</em> and inferred by the suffix:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">regulation_up</span></code> -- frequency regulation, increase output</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">regulation_down</span></code> -- frequency regulation, decrease output</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">spinning</span></code> -- contingency reserve, online + ready, up-only</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">non_spinning</span></code> -- contingency reserve, may be offline, up-only</p></li>
+</ul>
+<p>The full set is read from the <code class="docutils literal notranslate"><span class="pre">reserve_eligible</span></code> CSV (column
+<code class="docutils literal notranslate"><span class="pre">product</span></code>); any product name that ends in <code class="docutils literal notranslate"><span class="pre">_down</span></code> is treated as
+a down-direction product, everything else is up.</p>
+</section>
+<section id="constraints">
+<h2>Constraints<a class="headerlink" href="#constraints" title="Permalink to this heading">¶</a></h2>
+<p>Per <code class="docutils literal notranslate"><span class="pre">(h,</span> <span class="pre">m,</span> <span class="pre">y,</span> <span class="pre">z,</span> <span class="pre">te)</span></code> and per direction <code class="docutils literal notranslate"><span class="pre">d</span></code> -- <em>headroom is
+shared across products in the same direction</em> (otherwise we would
+double-count: a unit's spare megawatts can serve regulation OR
+spinning, not both at the same instant):</p>
+<div class="math notranslate nohighlight">
+\[\sum_{p \in \text{products}_d} \text{reserve}_{h,m,y,z,t,p}
+  + \text{gen}_{h,m,y,z,t}
+\le \text{cap}_{y,z,t} \cdot p^{\max}_{t,z,y,m,h} \cdot \Delta h
+\quad (d = \text{up})\]</div>
+<div class="math notranslate nohighlight">
+\[\sum_{p \in \text{products}_d} \text{reserve}_{h,m,y,z,t,p}
+\le \text{gen}_{h,m,y,z,t}
+  - \text{cap}_{y,z,t} \cdot p^{\min}_{t,z,y,m,h} \cdot \Delta h
+\quad (d = \text{down})\]</div>
+<p>Per <code class="docutils literal notranslate"><span class="pre">(h,</span> <span class="pre">m,</span> <span class="pre">y,</span> <span class="pre">z,</span> <span class="pre">p)</span></code> zonal requirement:</p>
+<div class="math notranslate nohighlight">
+\[\sum_{t} \text{reserve}_{h,m,y,z,t,p}
+\ge \text{REQ}_{z,y,p} \cdot \Delta h\]</div>
+<p>Non-eligible (tech, product) cells are forced to zero. Products with
+no eligible techs in a zone produce a non-binding requirement.</p>
+</section>
+<section id="inputs">
+<h2>Inputs<a class="headerlink" href="#inputs" title="Permalink to this heading">¶</a></h2>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">tech_reserve_eligible.csv</span></code> -- columns <code class="docutils literal notranslate"><span class="pre">tech,</span> <span class="pre">product,</span> <span class="pre">eligible</span></code>.
+Missing rows default to <code class="docutils literal notranslate"><span class="pre">eligible=0</span></code>. v1.12 files (cols <code class="docutils literal notranslate"><span class="pre">tech,</span>
+<span class="pre">eligible</span></code>) are NOT readable by this module; migrate by:</p>
+<blockquote>
+<div><p>old:  Coal,1
+new:  Coal,regulation_up,1</p>
+<blockquote>
+<div><p>Coal,regulation_down,1
+Coal,spinning,1
+Coal,non_spinning,1</p>
+</div></blockquote>
+</div></blockquote>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">reserve_requirement.csv</span></code> -- columns <code class="docutils literal notranslate"><span class="pre">zone,</span> <span class="pre">year,</span> <span class="pre">product,</span> <span class="pre">unit,</span>
+<span class="pre">value</span></code>. Missing rows default to 0 (non-binding).</p></li>
+</ul>
+<p>Module is gated by <code class="docutils literal notranslate"><span class="pre">config.json.reserve_parameters.is_reserve</span></code>;
+when off, no variables / constraints are built.</p>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="prepshot._model.reserve.AddReserveConstraints">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">prepshot._model.reserve.</span></span><span class="sig-name descname"><span class="pre">AddReserveConstraints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/prepshot/_model/reserve.html#AddReserveConstraints"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#prepshot._model.reserve.AddReserveConstraints" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Granular operating-reserve constraints (multi-product).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>model</strong> (<em>object</em>) -- </p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot._model.reserve.AddReserveConstraints.headroom_down_rule">
+<span class="sig-name descname"><span class="pre">headroom_down_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">te</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/prepshot/_model/reserve.html#AddReserveConstraints.headroom_down_rule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#prepshot._model.reserve.AddReserveConstraints.headroom_down_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">sum_{p</span> <span class="pre">in</span> <span class="pre">down}</span> <span class="pre">reserve[...,</span> <span class="pre">p]</span> <span class="pre">&lt;=</span> <span class="pre">gen</span> <span class="pre">-</span> <span class="pre">cap</span> <span class="pre">*</span> <span class="pre">p_min</span> <span class="pre">*</span> <span class="pre">dt</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot._model.reserve.AddReserveConstraints.headroom_up_rule">
+<span class="sig-name descname"><span class="pre">headroom_up_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">te</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/prepshot/_model/reserve.html#AddReserveConstraints.headroom_up_rule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#prepshot._model.reserve.AddReserveConstraints.headroom_up_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">sum_{p</span> <span class="pre">in</span> <span class="pre">up}</span> <span class="pre">reserve[...,</span> <span class="pre">p]</span> <span class="pre">+</span> <span class="pre">gen</span> <span class="pre">&lt;=</span> <span class="pre">cap</span> <span class="pre">*</span> <span class="pre">p_max</span> <span class="pre">*</span> <span class="pre">dt</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot._model.reserve.AddReserveConstraints.non_eligible_zero_rule">
+<span class="sig-name descname"><span class="pre">non_eligible_zero_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">te</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/prepshot/_model/reserve.html#AddReserveConstraints.non_eligible_zero_rule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#prepshot._model.reserve.AddReserveConstraints.non_eligible_zero_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Force <code class="docutils literal notranslate"><span class="pre">reserve[...,</span> <span class="pre">te,</span> <span class="pre">p]</span> <span class="pre">=</span> <span class="pre">0</span></code> when (te, p) isn't eligible.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="prepshot._model.reserve.AddReserveConstraints.requirement_rule">
+<span class="sig-name descname"><span class="pre">requirement_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/prepshot/_model/reserve.html#AddReserveConstraints.requirement_rule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#prepshot._model.reserve.AddReserveConstraints.requirement_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">sum_t</span> <span class="pre">reserve[...,</span> <span class="pre">t,</span> <span class="pre">p]</span> <span class="pre">&gt;=</span> <span class="pre">REQ[z,</span> <span class="pre">y,</span> <span class="pre">p]</span> <span class="pre">*</span> <span class="pre">dt</span></code>.</p>
+<p>Requirement file <code class="docutils literal notranslate"><span class="pre">reserve_requirement.csv</span></code> cols
+<code class="docutils literal notranslate"><span class="pre">zone,</span> <span class="pre">year,</span> <span class="pre">product,</span> <span class="pre">unit,</span> <span class="pre">value</span></code>. Missing rows -&gt; 0 (the
+constraint becomes <code class="docutils literal notranslate"><span class="pre">0</span> <span class="pre">&gt;=</span> <span class="pre">0</span></code> and is skipped here for solver
+cleanliness).</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+</div>
+</div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="prepshot._model.investment.html" class="btn btn-neutral float-left" title="investment" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="prepshot._model.storage.html" class="btn btn-neutral float-right" title="storage" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023-2025, Zhanwei Liu and Xiaogang He (GPL-3.0).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> v: latest (en)</span>
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dt>Versions</dt>
+      
+        <dd class="rtd-current-item">
+          <a href="/PREP-SHOT/en/latest/">latest</a>
+        </dd>
+      
+        <dd>
+          <a href="/PREP-SHOT/en/v1.0/">v1.0</a>
+        </dd>
+      
+    </dl>
+    <dl>
+      <dt>Languages</dt>
+      
+        <dd class="rtd-current-item">
+          <a href="/PREP-SHOT/en/latest/">English</a>
+        </dd>
+      
+        <dd>
+          <a href="/PREP-SHOT/zh_CN/latest/">简体中文</a>
+        </dd>
+      
+    </dl>
+    <dl>
+      <dt>On GitHub</dt>
+      <dd><a href="https://github.com/PREP-NexT/PREP-SHOT">Project home</a></dd>
+      <dd><a href="https://github.com/PREP-NexT/PREP-SHOT/issues">Issues</a></dd>
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
