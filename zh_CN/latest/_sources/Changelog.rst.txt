@@ -3,6 +3,93 @@ Changelog
 
 Here, you'll find notable changes for each version of PREP-SHOT.
 
+Version 1.18.0 - May 6, 2026
+-------------------------------
+
+New feature: optional **N-1 security-constrained DC OPF** at the
+zone level. Layered on top of the v1.13 DC flow module: when
+enabled, the same dispatch must be feasible in the base case AND
+under each line outage listed in
+``transmission_contingencies.csv`` (preventive policy -- ``gen``
+and ``charge`` are shared across base + contingencies, only flows
+redistribute). Closes Tier 1 item 1 (network fidelity) of the
+PCM-gap analysis.
+
+Added
++++++
+
+* ``prepshot/_model/dc_flow.py`` extended with four new rule
+  methods and three new variable sets, all gated by
+  ``dc_parameters.is_n1_secure``:
+
+  - ``model.theta_c[h, m, y, z, c]`` -- phase angle in contingency
+    ``c``.
+  - ``model.trans_export_c[h, m, y, z1, z2, c]`` -- per-direction
+    flow in contingency ``c``.
+  - ``theta_ref_c_rule`` -- pin reference zone's angle to 0 per
+    contingency.
+  - ``flow_c_rule`` -- DC flow eq for every (line, contingency)
+    pair; the outaged line itself is forced to zero in both
+    directions.
+  - ``cap_c_rule`` -- per-direction capacity bound (numerically
+    same as the base case).
+  - ``demand_balance_c_rule`` -- per-(zone, contingency) power
+    balance using contingency-case flows but the SHARED base-case
+    ``gen`` and ``charge``.
+
+* New optional input ``transmission_contingencies.csv`` (cols
+  ``zone1, zone2``) listing the lines to protect against. Empty
+  file or missing -> no contingencies, equivalent to
+  ``is_n1_secure=false``.
+
+* New config flag ``dc_parameters.is_n1_secure`` (default ``false``).
+  Requires ``is_dc_flow=true``; falsey configs preserve byte-for-
+  byte v1.17 behaviour.
+
+* Per-example wiring:
+
+  - ``three_zone``: ``is_n1_secure=true``; all 3 lines protected.
+    Three-fold parallel constraint set on top of the base case.
+  - ``thailand``: ``is_n1_secure=false`` (single zone, no
+    inter-zone lines).
+  - ``southeast_asia``: ``is_n1_secure=false``; CSV ships listing
+    the 7 inter-country lines for opt-in. The 8x problem-size
+    multiplier on a 288-hour x 5-zone scenario isn't currently
+    practical for routine runs.
+
+Implementation notes
+++++++++++++++++++++
+
+* **Preventive** policy chosen over corrective: ``gen`` is one
+  decision feasible everywhere, no post-contingency redispatch.
+  Stays LP, simpler to formulate, and mirrors what most planning
+  studies report. Corrective (with ramp-limited redispatch) is a
+  v1.19+ candidate.
+
+* The contingency-case flows are bounded by the SAME
+  ``cap_lines_existing`` as the base case. A real SCUC would
+  often increase emergency ratings; the current model treats
+  thermal limits as identical, which is conservative.
+
+* No additional cost terms -- the security constraint is purely
+  feasibility-side.
+
+Changed
++++++++
+
+* ``tests/test_regression.py`` baseline re-captured for
+  three_zone with N-1 enabled: ``1.9009490431e11`` ->
+  ``2.1091201892e11`` (~+11 %). The constraint is genuinely
+  binding -- v1.17's optimum leaned on inter-zone transmission
+  more than any single line could survive outaging.
+
+Verified
+++++++++
+
+* three_zone CEM solves with full feature stack (UC continuous +
+  4-product reserves + DC flow + N-1) in roughly the same time as
+  v1.17 (~5-10 min for 3 head iterations).
+
 Version 1.17.0 - May 6, 2026
 -------------------------------
 
