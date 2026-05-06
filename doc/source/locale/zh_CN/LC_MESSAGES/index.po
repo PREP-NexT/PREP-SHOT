@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PREP-SHOT latest\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-05 13:00+0800\n"
+"POT-Creation-Date: 2026-05-06 13:42+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: zh_CN\n"
@@ -18,23 +18,23 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.15.0\n"
 
-#: ../../source/index.rst:24 ../../source/index.rst:91
+#: ../../source/index.rst:14 ../../source/index.rst:63
 msgid "Overview"
 msgstr "概述"
 
-#: ../../source/index.rst:91
+#: ../../source/index.rst:63
 msgid "Getting Started"
 msgstr "快速入门"
 
-#: ../../source/index.rst:100
+#: ../../source/index.rst:75
 msgid "User Guide"
 msgstr "用户指南"
 
-#: ../../source/index.rst:110
+#: ../../source/index.rst:85
 msgid "Reference"
 msgstr "参考"
 
-#: ../../source/index.rst:119
+#: ../../source/index.rst:94
 msgid "Community"
 msgstr "社区"
 
@@ -104,7 +104,7 @@ msgid ""
 "International <http://creativecommons.org/licenses/by/4.0/>`_ license."
 msgstr ""
 
-#: ../../source/index.rst:25
+#: ../../source/index.rst:15
 msgid ""
 "**PREP-SHOT** (**P**\\ athways for **R**\\ enewable **E**\\ nergy **P**\\"
 " lanning coupling **S**\\ hort-term **H**\\ ydropower **O**\\ pera\\ "
@@ -116,7 +116,7 @@ msgstr ""
 " lanning coupling **S**\\ hort-term **H**\\ ydropower **O**\\ pera\\ "
 "**T**\\ ion) 是一个透明、模块化的开源能源扩展模型,为能源系统与输电网络的多尺度、跨时段、低成本扩展规划提供先进解决方案。"
 
-#: ../../source/index.rst:32
+#: ../../source/index.rst:22
 msgid ""
 "The model sets itself apart from existing energy expansion models through"
 " its deeper consideration of hydropower processes. While models such as "
@@ -134,7 +134,7 @@ msgstr ""
 "<https://www.energyexemplar.com/plexos>`_ "
 "等模型可能无法充分体现水头的动态特性、或者将多座水电站合并为一个机组。PREP-SHOT 专为弥补这些不足而设计。"
 
-#: ../../source/index.rst:34
+#: ../../source/index.rst:24
 msgid ""
 "Our model explicitly considers the plant-level water head dynamics (i.e.,"
 " time-varying water head and storage) and the system-level network "
@@ -148,25 +148,25 @@ msgstr ""
 "本模型显式考虑电站级的水头动力学 (即随时间变化的水头与库容) "
 "与区域电网中所有水电站的系统级网络拓扑,因此能够更准确地反映水电运行与能源系统扩展之间的多尺度动态反馈。此外,它能够真实模拟水电出力的总量与时空变化,在梯级水电站众多的区域尤为有效。"
 
-#: ../../source/index.rst:36
+#: ../../source/index.rst:26
 msgid ""
 "With PREP-SHOT, we aim to answer key questions related to the future of "
 "energy planning and utilization:"
 msgstr "借助 PREP-SHOT,我们致力于回答未来能源规划与利用方面的关键问题:"
 
-#: ../../source/index.rst:38
+#: ../../source/index.rst:28
 msgid ""
 "How can we effectively plan an energy portfolio and new transmission "
 "capacity under deep uncertainty?"
 msgstr "如何在深度不确定性下有效规划能源组合与新增输电容量?"
 
-#: ../../source/index.rst:39
+#: ../../source/index.rst:29
 msgid ""
 "How can we quantify the impacts of variable hydropower on the generation "
 "and capacity of future energy portfolios?"
 msgstr "如何量化水电出力波动对未来能源组合中发电量与装机容量的影响?"
 
-#: ../../source/index.rst:42
+#: ../../source/index.rst:32
 msgid "How It Works"
 msgstr "工作原理"
 
@@ -174,59 +174,31 @@ msgstr "工作原理"
 msgid "overview of PREP-SHOT"
 msgstr "PREP-SHOT 概览"
 
-#: ../../source/index.rst:48
+#: ../../source/index.rst:38
 msgid "Source: :cite:t:`liu2023`."
 msgstr ""
 
-#: ../../source/index.rst:51
-msgid "Architecture"
-msgstr "架构"
-
-#: ../../source/index.rst:53
-msgid ""
-"PREP-SHOT reads CSVs from a scenario directory, builds a linear program "
-"with the ``PyOptInterface`` modeling layer, hands it to the solver, and "
-"writes the solved variables back as a NetCDF file:"
-msgstr ""
-"PREP-SHOT 从算例目录读取 CSV,使用 ``PyOptInterface`` 建模层构建线性规划,交由求解器求解,再将求解结果写回 "
-"NetCDF 文件:"
-
-#: ../../source/index.rst:69
-msgid ""
-"Each scenario directory under ``examples/`` is self-contained "
-"(``config.json`` + ``params.json`` + ``input/``); the package discovers "
-"everything from there. The dashed arrow is the head- iteration loop: "
-"PREP-SHOT solves at fixed water heads, recomputes heads from the "
-"resulting reservoir trajectory, and re-solves until convergence "
-"(controlled by ``iteration_number`` and ``error_threshold`` in "
-"``config.json``)."
-msgstr ""
-"``examples/`` 下的每个算例目录都是自包含的 (``config.json`` + ``params.json`` + "
-"``input/``);程序从该目录发现所需的全部资源。虚线箭头表示水头迭代循环:PREP-SHOT "
-"在固定水头下求解,然后从新得到的水库轨迹重新计算水头并再次求解,直到收敛 (由 ``config.json`` 中的 "
-"``iteration_number`` 与 ``error_threshold`` 控制)。"
-
-#: ../../source/index.rst:78
+#: ../../source/index.rst:41
 msgid "Key Features"
 msgstr "核心特性"
 
-#: ../../source/index.rst:79
+#: ../../source/index.rst:42
 msgid ""
 "PREP-SHOT is an optimization model based on linear programming for energy"
 " systems with multiple zones."
 msgstr "PREP-SHOT 是一个基于线性规划的多区域能源系统优化模型。"
 
-#: ../../source/index.rst:80
+#: ../../source/index.rst:43
 msgid "It aims to minimize costs while meeting the given demand time series."
 msgstr "在满足给定需求时序的前提下,最小化总成本。"
 
-#: ../../source/index.rst:81
+#: ../../source/index.rst:44
 msgid ""
 "By default, it operates on hourly-spaced time steps, but this can be "
 "adjusted."
 msgstr "默认按小时步长运行,可根据需要调整。"
 
-#: ../../source/index.rst:82
+#: ../../source/index.rst:45
 msgid ""
 "The input data is in long-format (\"tidy\") CSV, while output data is "
 "generated in a NetCDF format using `Xarray "
@@ -235,7 +207,7 @@ msgstr ""
 "输入数据采用长格式 (\"整洁\") CSV;输出数据通过 `Xarray "
 "<https://docs.xarray.dev/en/stable/>`_ 写入 NetCDF 格式。"
 
-#: ../../source/index.rst:83
+#: ../../source/index.rst:46
 msgid ""
 "It supports multiple types of solvers such as `HiGHS <https://github.com"
 "/jump-dev/HiGHS.jl>`_ , `GUROBI <https://www.gurobi.com/>`_, `COPT "
@@ -247,11 +219,11 @@ msgstr ""
 "<https://www.gurobi.com/>`_、`COPT <https://www.copt.de/>`_、`MOSEK "
 "<https://www.mosek.com/>`_。"
 
-#: ../../source/index.rst:84
+#: ../../source/index.rst:47
 msgid "It allows the input of multiple scenarios for specific parameters."
 msgstr "支持对特定参数输入多套情景。"
 
-#: ../../source/index.rst:85
+#: ../../source/index.rst:48
 msgid ""
 "As a pure Python program, it benefits from the use of `pandas "
 "<https://pandas.pydata.org/>`_ and `Xarray "
@@ -261,11 +233,51 @@ msgstr ""
 "作为纯 Python 程序,可借助 `pandas <https://pandas.pydata.org/>`_ 与 `Xarray "
 "<https://docs.xarray.dev/en/stable/>`_ 简化复杂的数据分析,提升可扩展性。"
 
-#: ../../source/index.rst:88
+#: ../../source/index.rst:51
+msgid "New to power-system modeling?"
+msgstr ""
+
+#: ../../source/index.rst:52
+msgid "Four free primers we recommend reading alongside PREP-SHOT:"
+msgstr ""
+
+#: ../../source/index.rst:54
+msgid ""
+"`Power Sector Modeling 101 "
+"<https://www.energy.gov/sites/prod/files/2016/02/f30/EPSA_Power_Sector_Modeling_FINAL_021816_0.pdf>`_"
+" (US DOE EPSA, 2016) -- the model families PREP-SHOT belongs to and where"
+" their assumptions break."
+msgstr ""
+
+#: ../../source/index.rst:55
+msgid ""
+"`Beginner's Guide to Understanding Power System Model Results for Long-"
+"Term Resource Plans <https://docs.nrel.gov/docs/fy24osti/87105.pdf>`_ "
+"(NREL, 2023) -- how to read a capacity-expansion result."
+msgstr ""
+
+#: ../../source/index.rst:56
+msgid ""
+"`Advanced Guide to Understanding Power System Model Results for Long-Term"
+" Resource Plans <https://docs.nrel.gov/docs/fy24osti/88337.pdf>`_ (NREL, "
+"2024) -- deeper sequel: reliability metrics, reserve margin, transmission"
+" congestion."
+msgstr ""
+
+#: ../../source/index.rst:57
+msgid ""
+"`Electric Grid and Markets 101 "
+"<https://docs.nrel.gov/docs/fy25osti/91864.pdf>`_ (NREL, 2024) -- how the"
+" bulk power system actually works: generation, transmission, ISOs/RTOs, "
+"day-ahead vs real-time markets, ancillary services. Real-world grounding "
+"for the modeled abstractions."
+msgstr ""
+
+#: ../../source/index.rst:60
 msgid "Offline documentation"
 msgstr "离线文档"
 
-#: ../../source/index.rst:89
+#: ../../source/index.rst:61
 msgid ""
 "To browse the documentation offline, download a `zipped HTML copy <https"
 "://prep-shot.readthedocs.io/_/downloads/en/stable/htmlzip/>`_ from Read "
@@ -276,19 +288,52 @@ msgstr ""
 "shot.readthedocs.io/_/downloads/en/stable/htmlzip/>`_ "
 "(也可通过每页左下角的版本切换器访问)。"
 
-#: ../../source/index.rst:130
+#: ../../source/index.rst:105
 msgid "Indices and tables"
 msgstr "索引与表"
 
-#: ../../source/index.rst:131
+#: ../../source/index.rst:106
 msgid ":ref:`genindex`"
 msgstr ""
 
-#: ../../source/index.rst:132
+#: ../../source/index.rst:107
 msgid ":ref:`modindex`"
 msgstr ""
 
-#: ../../source/index.rst:133
+#: ../../source/index.rst:108
 msgid ":ref:`search`"
 msgstr ""
+
+#~ msgid "Architecture"
+#~ msgstr "架构"
+
+#~ msgid ""
+#~ "PREP-SHOT reads CSVs from a "
+#~ "scenario directory, builds a linear "
+#~ "program with the ``PyOptInterface`` modeling"
+#~ " layer, hands it to the solver, "
+#~ "and writes the solved variables back "
+#~ "as a NetCDF file:"
+#~ msgstr ""
+#~ "PREP-SHOT 从算例目录读取 CSV,使用 ``PyOptInterface``"
+#~ " 建模层构建线性规划,交由求解器求解,再将求解结果写回 NetCDF 文件:"
+
+#~ msgid ""
+#~ "Each scenario directory under ``examples/``"
+#~ " is self-contained (``config.json`` + "
+#~ "``params.json`` + ``input/``); the package "
+#~ "discovers everything from there. The "
+#~ "dashed arrow is the head- iteration "
+#~ "loop: PREP-SHOT solves at fixed "
+#~ "water heads, recomputes heads from the"
+#~ " resulting reservoir trajectory, and re-"
+#~ "solves until convergence (controlled by "
+#~ "``iteration_number`` and ``error_threshold`` in "
+#~ "``config.json``)."
+#~ msgstr ""
+#~ "``examples/`` 下的每个算例目录都是自包含的 (``config.json`` + "
+#~ "``params.json`` + ``input/``);程序从该目录发现所需的全部资源。虚线箭头表示水头迭代循环"
+#~ ":PREP-SHOT 在固定水头下求解,然后从新得到的水库轨迹重新计算水头并再次求解,直到收敛 (由 "
+#~ "``config.json`` 中的 ``iteration_number`` 与 "
+#~ "``error_threshold`` 控制)。"
 

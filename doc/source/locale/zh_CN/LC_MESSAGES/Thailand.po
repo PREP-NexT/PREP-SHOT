@@ -1,0 +1,175 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023-2025, Zhanwei Liu and Xiaogang He (GPL-3.0)
+# This file is distributed under the same license as the PREP-SHOT package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PREP-SHOT latest\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-06 13:42+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh_CN\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/Thailand.ipynb:9
+msgid "Thailand (single-zone, CEM)"
+msgstr ""
+
+#: ../../source/Thailand.ipynb:11
+msgid ""
+"A single-zone (Thailand) capacity-expansion run with **13 cascading "
+"Mekong-basin reservoirs** – Bhumibol, Sirikit, Srinagarind, "
+"Vajiralongkorn, Rajjaprabha, etc. Migrated from the v1.4-era xlsx dataset"
+" to the v1.9 long-format CSV schema; all per-station reservoir physics "
+"(head, tailrace-discharge curves, forebay-volume curves) preserved."
+msgstr ""
+
+#: ../../source/Thailand.ipynb:13
+msgid ""
+"**Run the solve from the command line** (the dataset is large – 1M+ "
+"variables – so a full solve takes ~30 min):"
+msgstr ""
+
+#: ../../source/Thailand.ipynb:20
+msgid ""
+"The cells below explore the dataset shape and read the result NetCDF. "
+"They run fast (no solve)."
+msgstr ""
+
+#: ../../source/Thailand.ipynb:82
+msgid "Existing fleet (2023)"
+msgstr ""
+
+#: ../../source/Thailand.ipynb:84
+msgid ""
+"Thailand’s installed capacity in the start year, with ``Large "
+"Hydropower`` allocated across the 13 reservoir techs by their rated "
+"capacity."
+msgstr ""
+
+#: ../../source/Thailand.ipynb:179
+msgid "Per-station hydropower characteristics"
+msgstr ""
+
+#: ../../source/Thailand.ipynb:181
+msgid ""
+"Each reservoir is modeled with its own head, capacity, and operational "
+"bounds – the feature that distinguishes PREP-SHOT from PyPSA / GenX."
+msgstr ""
+
+#: ../../source/Thailand.ipynb:391
+msgid "Inspect a solve (after running ``python run.py``)"
+msgstr ""
+
+#: ../../source/Thailand.ipynb:393
+msgid ""
+"Once you’ve run the CLI command above and it has written "
+"``output/baseline.nc``, the cell below opens it. Skip if you haven’t run "
+"the solve yet."
+msgstr ""
+
+#: ../../source/Thailand.ipynb:463
+msgid "Common plots from a solved baseline"
+msgstr ""
+
+#: ../../source/Thailand.ipynb:465
+msgid ""
+"Once ``python run.py`` writes ``output/baseline.nc`` (and "
+"``baseline.xlsx``), the cells below produce four standard diagnostics:"
+msgstr ""
+
+#: ../../source/Thailand.ipynb:467
+msgid "**Installed capacity** by technology"
+msgstr ""
+
+#: ../../source/Thailand.ipynb:468
+msgid "**Annual generation mix** by technology"
+msgstr ""
+
+#: ../../source/Thailand.ipynb:469
+msgid "**Daily dispatch profile** (stacked area over the year)"
+msgstr ""
+
+#: ../../source/Thailand.ipynb:470
+msgid "**Cost breakdown** (NPV decomposition)"
+msgstr ""
+
+#: ../../source/Thailand.ipynb:472
+msgid ""
+"The cells read from the ``.xlsx`` mirror so you don’t need a working "
+"``netCDF4`` build to view results."
+msgstr ""
+
+#: ../../source/Thailand.ipynb:524
+msgid "Installed capacity"
+msgstr ""
+
+#: ../../source/Thailand.ipynb:526
+msgid ""
+"Single-year, single-zone, so capacity reduces to one horizontal bar per "
+"technology."
+msgstr ""
+
+#: ../../source/Thailand.ipynb:568
+msgid "Annual generation mix"
+msgstr ""
+
+#: ../../source/Thailand.ipynb:570
+msgid ""
+"Annual TWh per technology. Note how much of the load is met by gas and "
+"coal — the dataset has no carbon cap, so the dispatch is driven purely by"
+" variable cost."
+msgstr ""
+
+#: ../../source/Thailand.ipynb:613
+msgid "Daily dispatch profile"
+msgstr ""
+
+#: ../../source/Thailand.ipynb:615
+msgid ""
+"Aggregate hourly generation into daily means and stack by technology to "
+"see seasonal dynamics. Hydro output rises with the monsoon; gas plays the"
+" swing role; renewables are roughly flat."
+msgstr ""
+
+#: ../../source/Thailand.ipynb:662
+msgid "Cost breakdown"
+msgstr ""
+
+#: ../../source/Thailand.ipynb:664
+msgid ""
+"All costs are NPV-discounted to the start year. With no expansion (carbon"
+" cap is ``inf`` in this scenario), ``cost_newtech`` and ``cost_newline`` "
+"are 0 — the model only pays operating costs on the existing fleet."
+msgstr ""
+
+#: ../../source/Thailand.ipynb:712
+msgid "Where to next"
+msgstr ""
+
+#: ../../source/Thailand.ipynb:714
+msgid ""
+"`Quickstart notebook <../../doc/source/Quickstart.ipynb>`__ – the "
+"canonical 5-minute walkthrough on a smaller 3-zone synthetic dataset."
+msgstr ""
+
+#: ../../source/Thailand.ipynb:715
+msgid ""
+"`Southeast Asia notebook <../southeast_asia/SoutheastAsia.ipynb>`__ – a "
+"5-country regional case with 57 reservoirs."
+msgstr ""
+
+#: ../../source/Thailand.ipynb:716
+msgid ""
+"`Model Inputs/Outputs <../../doc/source/Model_input_output.rst>`__ – "
+"every file in ``input/`` documented."
+msgstr ""
+

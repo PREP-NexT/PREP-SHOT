@@ -1,0 +1,390 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023-2025, Zhanwei Liu and Xiaogang He (GPL-3.0)
+# This file is distributed under the same license as the PREP-SHOT package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PREP-SHOT latest\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-06 13:42+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh_CN\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/SoutheastAsia.ipynb:9
+msgid "Southeast Asia (Lower Mekong, 5 zones, CEM)"
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:11
+msgid ""
+"A walkthrough of the **Southeast Asia case study** that ships with PREP-"
+"SHOT: capacity expansion across **5 countries** (Cambodia, Laos, Myanmar,"
+" Thailand, Vietnam) from 2020 to 2030, with **57 cascading hydropower "
+"stations** in the Mekong basin and a **system-wide carbon cap** of 146 "
+"MtCO2 in 2030."
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:13
+msgid ""
+"This notebook complements the `Quickstart "
+"<../doc/source/Quickstart.ipynb>`__. The Quickstart uses a small "
+"synthetic 3-zone dataset and walks through running a solve in 5 minutes; "
+"this tutorial focuses on a **realistic dataset** – understanding its "
+"structure, exploring the demand and existing fleet, and pointing you at "
+"the commands to run a full multi-zone, multi-year capacity-expansion "
+"solve."
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:15
+msgid ""
+"**Run online:** `Open in Colab <https://colab.research.google.com/github"
+"/PREP-NexT/PREP-"
+"SHOT/blob/main/examples/southeast_asia/SoutheastAsia.ipynb>`__ – click "
+"and run."
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:17
+msgid "**Run locally:**"
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:26
+msgid "**What this tutorial covers:**"
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:28
+msgid "The Lower Mekong scenario in plain English"
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:29
+msgid "Demand profiles by country"
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:30
+msgid "The existing 2020 fleet – conventional, storage, and hydro"
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:31
+msgid ""
+"Per-station hydropower (the feature that distinguishes PREP-SHOT from "
+"PyPSA / GenX)"
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:32
+msgid "Inter-country transmission topology"
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:33
+msgid "How to run a full capacity-expansion solve on this dataset"
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:34
+msgid "What this case study reveals that aggregated models would miss"
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:122
+msgid "1. The scenario"
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:124
+msgid ""
+"The Lower Mekong basin spans five Southeast Asian countries with very "
+"different power systems:"
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:126
+msgid ""
+"**Cambodia, Laos, Myanmar** – small, hydro-dominant, mostly exporters "
+"(especially Laos, the ‘battery of Southeast Asia’)"
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:127
+msgid "**Thailand, Vietnam** – large, fossil-heavy, importers"
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:129
+msgid ""
+"The shared resource is the Mekong river system: 57 cascading hydropower "
+"stations whose operation in one country affects downstream flows in "
+"another. Adding a coal plant in Vietnam, expanding solar in Thailand, or "
+"building a new dam in Laos all interact through the system-wide power "
+"balance, the international transmission grid, and – in 2030 – a system-"
+"wide 146 MtCO2 emission cap."
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:131
+msgid ""
+"PREP-SHOT models this as a single capacity-expansion linear program, "
+"picking the least-cost technology mix in each country for each modeled "
+"year subject to demand, fuel, transmission, reservoir, and carbon "
+"constraints."
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:143
+msgid "2. Demand profiles by country"
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:145
+msgid ""
+"Hourly load shape across the 5 zones. Vietnam and Thailand dominate "
+"consumption; Cambodia, Laos, and Myanmar are an order of magnitude "
+"smaller. The dataset uses 288 representative hours per month across 12 "
+"months, so the chart below shows one representative day’s shape from "
+"January 2030."
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:313
+msgid "3. The existing fleet (2020)"
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:315
+msgid ""
+"What’s already built. Vietnam dominates with **21.6 GW of coal** and "
+"**16.7 GW of solar**; Thailand has **27.9 GW of gas**. The 57 hydropower "
+"stations are split across Laos (41), Vietnam (11), Thailand (4), and "
+"Cambodia (1) – we’ll handle them separately below."
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:520
+msgid "4. Per-station hydropower"
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:522
+msgid ""
+"PREP-SHOT’s distinguishing feature is **per-station** hydropower. Each "
+"row in ``tech_registry.csv`` with ``carrier='hydro'`` is a physical "
+"station with its own reservoir, head-discharge curve, and inflow time "
+"series. The model tracks water mass balance between cascading stations "
+"explicitly. PyPSA, GenX, and similar models aggregate hydropower into a "
+"single per-zone tech, losing the cascade physics."
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:524
+msgid ""
+"Most stations sit on the Lao Mekong tributaries (the Nam-\\* series, plus"
+" the Xe-Kong, Se-San, Sre Pok cascades extending into Vietnam and "
+"Cambodia)."
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:813
+msgid "5. Inter-country transmission"
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:815
+msgid ""
+"Existing inter-country transmission capacity (MW). Most flows today route"
+" through Laos and Thailand. The transmission candidates table allows any "
+"pair to expand."
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:958
+msgid "6. Running a full capacity-expansion solve"
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:960
+msgid ""
+"This dataset is fully self-contained: ``examples/southeast_asia/`` ships "
+"its own ``config.json``, ``params.json``, and ``input/`` – exactly the "
+"same layout as ``examples/three_zone/`` or ``examples/thailand/``. To run"
+" a full solve, treat that directory as the working root:"
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:968
+msgid ""
+"The shipped config uses 288 representative hours x 12 months at 3 head "
+"iterations – the dataset’s native resolution. Expect about 30 minutes on "
+"commodity hardware. Drop ``hour`` to 24 and ``month`` to 1 for a quicker "
+"(less accurate) sanity solve. Results land in "
+"``examples/southeast_asia/output/baseline.nc``."
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:970
+msgid "**Counterfactual scenarios** without overwriting the baseline:"
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:983
+msgid ""
+"PREP-SHOT registers a CLI flag for every ``params.json`` key; the flag "
+"value is appended as a suffix to the input file name and to the output "
+"netCDF. See `Model Inputs/Outputs "
+"<../../doc/source/Model_input_output.rst>`__ for the full list of "
+"overrideable inputs."
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:995
+msgid "7. Post-solve diagnostics: common plots from a solved baseline"
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:997
+msgid ""
+"Once ``python run.py`` finishes, results land in "
+"``examples/southeast_asia/output/baseline.nc`` (and ``.xlsx``). The cells"
+" below load that file and produce the four plots that answer the most "
+"common questions about an expansion-planning result:"
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:999
+msgid "**Capacity buildout by zone × tech × year**: how the fleet evolves"
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:1000
+msgid "**Generation mix by zone × tech**: what’s actually serving demand"
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:1001
+msgid "**Emissions vs the cap**: whether the carbon constraint is binding"
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:1002
+msgid "**Cost breakdown**: where the NPV dollars go"
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:1061
+msgid "7.1 Capacity buildout"
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:1063
+msgid ""
+"Per-zone stacked bars by technology, comparing 2020 (existing) to 2030 "
+"(after expansion). Cambodia’s 2030 column is the most striking — it grows"
+" from ~2 GW to ~140 GW because the model uses Cambodia as a renewable-"
+"rich exporter to Vietnam and Thailand once the carbon cap binds."
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:1145
+msgid "7.2 Generation mix"
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:1147
+msgid ""
+"Same layout, but summing ``gen`` over (hour, month) to get annual TWh. "
+"The point of the chart: which technologies actually run, vs. which are "
+"just installed (peakers may have lots of capacity but very low "
+"utilization)."
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:1230
+msgid "7.3 Emissions vs the carbon cap"
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:1232
+msgid ""
+"The system-wide carbon cap is ``inf`` in 2020 (unconstrained) and 146 "
+"MtCO2 in 2030. Emissions in 2030 should sit exactly on the cap if it’s "
+"binding — that’s how you can tell the constraint is doing work."
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:1315
+msgid "7.4 Cost breakdown"
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:1317
+msgid "Total NPV cost is the sum of:"
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:1319
+msgid "``cost_var``: variable O&M + fuel"
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:1320
+msgid "``cost_fix``: fixed O&M on existing + new fleet"
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:1321
+msgid "``cost_newtech``: capex annuity for new generation"
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:1322
+msgid "``cost_newline``: capex annuity for new transmission"
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:1323
+msgid "``−income``: water-withdrawal revenue (subtracted from cost)"
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:1325
+msgid "All values are NPV-discounted to year_min (2020)."
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:1374
+msgid "8. What this case study shows that aggregated models miss"
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:1376
+msgid ""
+"Three things this dataset reveals that you couldn’t get from PyPSA’s or "
+"GenX’s standard hydro abstractions:"
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:1378
+msgid ""
+"**1. Cascade interactions across borders.** A new dam upstream in Laos "
+"changes downstream flow at every station below it – potentially across "
+"the Cambodia / Vietnam border. The 57-station model captures this; an "
+"aggregated ‘Hydro_Laos’ tech does not."
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:1380
+msgid ""
+"**2. Endogenous water-head dynamics.** Each station’s generation "
+"efficiency depends on its current reservoir level via the tailrace-"
+"discharge and forebay-volume curves. PREP-SHOT’s head-iteration loop "
+"solves the LP, recomputes heads from the operational schedule, and re-"
+"solves until convergence."
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:1382
+msgid ""
+"**3. Where carbon abatement actually lives.** Because the model tracks "
+"each zone’s emissions separately under a system-wide cap, the "
+"optimization shows where the cheapest abatement is across borders – not "
+"just inside each country’s boundary. For the Mekong, the answer is "
+"usually ‘don’t build new Vietnam coal; import Lao hydro instead’ – but "
+"the optimal trade depends on transmission build cost, hydropower "
+"seasonality, and carbon-cap tightness, all of which the model handles "
+"endogenously."
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:1385
+msgid "Where to next"
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:1387
+msgid ""
+"`Quickstart <../../doc/source/Quickstart.ipynb>`__ – the simpler 3-zone "
+"walkthrough with a full executed solve."
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:1388
+msgid ""
+"`Model Inputs/Outputs <../../doc/source/Model_input_output.rst>`__ – "
+"every input and output documented."
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:1389
+msgid ""
+"`Mathematical Notation <../../doc/source/Mathematical_notations.rst>`__ –"
+" the underlying linear program."
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:1390
+msgid ""
+"`Changelog <../../doc/source/Changelog.rst>`__ – v1.7 hydropower first-"
+"class, v1.8 PyPSA-style behavior flags, v1.9 finance module + LMPs."
+msgstr ""
+
+#: ../../source/SoutheastAsia.ipynb:1392
+msgid ""
+"If you used PREP-SHOT in published work, please cite it (see the "
+"`Citation Guide <../../doc/source/Citations.rst>`__). Issues, "
+"discussions, and PRs welcome at `github.com/PREP-NexT/PREP-SHOT "
+"<https://github.com/PREP-NexT/PREP-SHOT>`__."
+msgstr ""
+

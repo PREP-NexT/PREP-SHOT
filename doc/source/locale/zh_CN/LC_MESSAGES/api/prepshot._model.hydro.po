@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PREP-SHOT latest\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-05 13:00+0800\n"
+"POT-Creation-Date: 2026-05-06 13:42+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: zh_CN\n"
@@ -216,6 +216,14 @@ msgid "Determine storage of reservoir in the terminal hour of each month."
 msgstr ""
 
 #: of prepshot._model.hydro.AddHydropowerConstraints.end_storage_rule:3
+msgid ""
+"For PCM rolling-horizon windows, the end of one window flows into the "
+"start of the next, so we skip the terminal-storage equality "
+"(params['skip_end_storage'] = True). The storage upper / lower bounds "
+"still apply, so the trajectory stays within [storage_min, storage_max]."
+msgstr ""
+
+#: of prepshot._model.hydro.AddHydropowerConstraints.end_storage_rule:9
 #: prepshot._model.hydro.AddHydropowerConstraints.genflow_up_bound_rule:3
 #: prepshot._model.hydro.AddHydropowerConstraints.inflow_rule:5
 #: prepshot._model.hydro.AddHydropowerConstraints.init_storage_rule:3
@@ -231,7 +239,7 @@ msgstr ""
 msgid "hydropower plant."
 msgstr ""
 
-#: of prepshot._model.hydro.AddHydropowerConstraints.end_storage_rule:5
+#: of prepshot._model.hydro.AddHydropowerConstraints.end_storage_rule:11
 #: prepshot._model.hydro.AddHydropowerConstraints.genflow_up_bound_rule:7
 #: prepshot._model.hydro.AddHydropowerConstraints.hydro_output_rule:9
 #: prepshot._model.hydro.AddHydropowerConstraints.inflow_rule:9
@@ -248,7 +256,7 @@ msgstr ""
 msgid "Month."
 msgstr ""
 
-#: of prepshot._model.hydro.AddHydropowerConstraints.end_storage_rule:7
+#: of prepshot._model.hydro.AddHydropowerConstraints.end_storage_rule:13
 #: prepshot._model.hydro.AddHydropowerConstraints.genflow_up_bound_rule:9
 #: prepshot._model.hydro.AddHydropowerConstraints.hydro_output_rule:11
 #: prepshot._model.hydro.AddHydropowerConstraints.inflow_rule:11
@@ -282,19 +290,8 @@ msgstr ""
 msgid "Returns"
 msgstr ""
 
-#: of prepshot._model.hydro.AddHydropowerConstraints.end_storage_rule:10
-#: prepshot._model.hydro.AddHydropowerConstraints.genflow_up_bound_rule:12
-#: prepshot._model.hydro.AddHydropowerConstraints.hydro_output_rule:14
-#: prepshot._model.hydro.AddHydropowerConstraints.init_storage_rule:10
-#: prepshot._model.hydro.AddHydropowerConstraints.outflow_low_bound_rule:12
-#: prepshot._model.hydro.AddHydropowerConstraints.outflow_up_bound_rule:12
-#: prepshot._model.hydro.AddHydropowerConstraints.output_calc_rule:13
-#: prepshot._model.hydro.AddHydropowerConstraints.output_low_bound_rule:12
-#: prepshot._model.hydro.AddHydropowerConstraints.output_up_bound_rule:12
-#: prepshot._model.hydro.AddHydropowerConstraints.storage_low_bound_rule:12
-#: prepshot._model.hydro.AddHydropowerConstraints.storage_up_bound_rule:12
-#: prepshot._model.hydro.AddHydropowerConstraints.water_balance_rule:13
-msgid "The constraint of the model."
+#: of prepshot._model.hydro.AddHydropowerConstraints.end_storage_rule:16
+msgid "The constraint of the model, or ``None`` when skipped."
 msgstr ""
 
 #: of prepshot._model.hydro.AddHydropowerConstraints.genflow_up_bound_rule:1
@@ -314,6 +311,20 @@ msgstr ""
 #: prepshot._model.hydro.AddHydropowerConstraints.storage_up_bound_rule:5
 #: prepshot._model.hydro.AddHydropowerConstraints.water_balance_rule:6
 msgid "Hour."
+msgstr ""
+
+#: of prepshot._model.hydro.AddHydropowerConstraints.genflow_up_bound_rule:12
+#: prepshot._model.hydro.AddHydropowerConstraints.hydro_output_rule:14
+#: prepshot._model.hydro.AddHydropowerConstraints.init_storage_rule:10
+#: prepshot._model.hydro.AddHydropowerConstraints.outflow_low_bound_rule:12
+#: prepshot._model.hydro.AddHydropowerConstraints.outflow_up_bound_rule:12
+#: prepshot._model.hydro.AddHydropowerConstraints.output_calc_rule:13
+#: prepshot._model.hydro.AddHydropowerConstraints.output_low_bound_rule:12
+#: prepshot._model.hydro.AddHydropowerConstraints.output_up_bound_rule:12
+#: prepshot._model.hydro.AddHydropowerConstraints.storage_low_bound_rule:12
+#: prepshot._model.hydro.AddHydropowerConstraints.storage_up_bound_rule:12
+#: prepshot._model.hydro.AddHydropowerConstraints.water_balance_rule:13
+msgid "The constraint of the model."
 msgstr ""
 
 #: of prepshot._model.hydro.AddHydropowerConstraints.hydro_output_rule:1

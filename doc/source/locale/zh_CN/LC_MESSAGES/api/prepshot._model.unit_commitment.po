@@ -1,0 +1,238 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023-2025, Zhanwei Liu and Xiaogang He (GPL-3.0)
+# This file is distributed under the same license as the PREP-SHOT package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PREP-SHOT latest\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-06 13:42+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh_CN\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/api/prepshot._model.unit_commitment.rst:2
+msgid "unit_commitment"
+msgstr ""
+
+#: of prepshot._model.unit_commitment:1
+msgid "Unit-commitment (UC) overlay -- clustered MILP formulation."
+msgstr ""
+
+#: of prepshot._model.unit_commitment:3
+msgid ""
+"Standard \"clustered UC\" representation, used by GenX, PowNet, and "
+"similar planning models that need the MILP fidelity without modelling "
+"each plant individually:"
+msgstr ""
+
+#: of prepshot._model.unit_commitment:7
+msgid ""
+"Each UC-eligible tech (typically thermal: coal, gas, oil) is a cluster of"
+" identical units of size ``tech_unit_size[te]`` MW. The total cluster "
+"capacity is ``cap_existing[y, z, te]``, so the *integer* number of units "
+"is ``cap / unit_size``."
+msgstr ""
+
+#: of prepshot._model.unit_commitment:12
+msgid "New decision variables per ``(h, m, y, z, te)``:"
+msgstr ""
+
+#: of prepshot._model.unit_commitment:14
+msgid "``online[h]`` -- number of units online (integer, 0..N_units)."
+msgstr ""
+
+#: of prepshot._model.unit_commitment:15
+msgid "``startup[h]`` -- number of units started this hour (integer >=0)."
+msgstr ""
+
+#: of prepshot._model.unit_commitment:16
+msgid "``shutdown[h]`` -- number of units shut down this hour (integer >=0)."
+msgstr ""
+
+#: of prepshot._model.unit_commitment:19
+msgid "New constraints:"
+msgstr ""
+
+#: of prepshot._model.unit_commitment:21
+msgid ""
+"**State evolution** (h > hour[0]): ``online[h] - online[h-1] = startup[h]"
+" - shutdown[h]``"
+msgstr ""
+
+#: of prepshot._model.unit_commitment:23
+msgid ""
+"**Capacity bound on dispatch**: ``gen[h] <= online[h] * unit_size * "
+"p_max_pu * dt`` ``gen[h] >= online[h] * unit_size * p_min_pu * dt``"
+msgstr ""
+
+#: of prepshot._model.unit_commitment:27
+msgid ""
+"These REPLACE the standard ``gen <= cap_existing * p_max_pu * dt`` bound "
+"for UC-eligible techs (the standard one is now redundant because ``online"
+" <= N_units = cap/unit_size``)."
+msgstr ""
+
+#: of prepshot._model.unit_commitment:30
+msgid ""
+"**Minimum up time** (``online >= sum of recent startups``): ``online[h] "
+">= sum_{i=0..MinUp-1} startup[h-i]``"
+msgstr ""
+
+#: of prepshot._model.unit_commitment:32
+msgid ""
+"**Minimum down time** (``offline >= sum of recent shutdowns``): "
+"``(N_units - online[h]) >= sum_{i=0..MinDown-1} shutdown[h-i]``"
+msgstr ""
+
+#: of prepshot._model.unit_commitment:35
+msgid "New cost terms (added to the objective):"
+msgstr ""
+
+#: of prepshot._model.unit_commitment:37
+msgid "``startup_cost[te] * unit_size[te] * startup[h]`` per hour"
+msgstr ""
+
+#: of prepshot._model.unit_commitment:38
+msgid "``no_load_cost[te] * unit_size[te] * online[h] * dt`` per hour"
+msgstr ""
+
+#: of prepshot._model.unit_commitment:40
+msgid ""
+"Both NPV-discounted via ``var_factor[y, z]`` like the rest of the "
+"variable cost."
+msgstr ""
+
+#: of prepshot._model.unit_commitment:43
+msgid ""
+"This module turns PREP-SHOT into a **MILP** when enabled. HiGHS solves "
+"it; runtime grows several-fold relative to the LP. Recommended only for "
+"small-to-medium scenarios -- ``three_zone`` (48 hours) takes a few "
+"seconds; full-year 8760-hour PCM mode with UC is feasible only in "
+"rolling-horizon windows (see ``prepshot.pcm``)."
+msgstr ""
+
+#: of prepshot._model.unit_commitment:50
+msgid "Configuration"
+msgstr ""
+
+#: of prepshot._model.unit_commitment:52
+msgid "Add to ``config.json``::"
+msgstr ""
+
+#: of prepshot._model.unit_commitment:59
+msgid ""
+"When ``is_uc`` is missing or ``false``, the module is a no-op and PREP-"
+"SHOT stays LP. When ``uc_relaxation`` is ``\"continuous\"``, the binaries"
+" become continuous in their natural ranges -- useful for scaling tests "
+"and for warm-starting an integer solve."
+msgstr ""
+
+#: of prepshot._model.unit_commitment:65
+msgid "Inputs"
+msgstr ""
+
+#: of prepshot._model.unit_commitment:67
+msgid "All optional (rows missing or files missing -> safe defaults):"
+msgstr ""
+
+#: of prepshot._model.unit_commitment:69
+msgid "``tech_uc_eligible.csv`` -- ``tech, eligible``. Default ``0``."
+msgstr ""
+
+#: of prepshot._model.unit_commitment:70
+msgid ""
+"``tech_unit_size.csv`` -- ``tech, value`` (MW). Default ``1`` (one "
+"cluster = one unit at full cap, equivalent to LP behaviour)."
+msgstr ""
+
+#: of prepshot._model.unit_commitment:72
+msgid "``tech_min_up_time.csv`` -- ``tech, value`` (hours). Default ``1``."
+msgstr ""
+
+#: of prepshot._model.unit_commitment:73
+msgid "``tech_min_down_time.csv`` -- ``tech, value`` (hours). Default ``1``."
+msgstr ""
+
+#: of prepshot._model.unit_commitment:74
+msgid "``tech_startup_cost.csv`` -- ``tech, value`` ($/MW). Default ``0``."
+msgstr ""
+
+#: of prepshot._model.unit_commitment:75
+msgid "``tech_no_load_cost.csv`` -- ``tech, value`` ($/MW-h). Default ``0``."
+msgstr ""
+
+#: of prepshot._model.unit_commitment.AddUnitCommitmentConstraints:1
+msgid "Bases: :py:class:`object`"
+msgstr ""
+
+#: of prepshot._model.unit_commitment.AddUnitCommitmentConstraints:1
+msgid "Clustered unit-commitment constraints + cost terms."
+msgstr ""
+
+#: of prepshot._model.unit_commitment.AddUnitCommitmentConstraints
+msgid "Parameters"
+msgstr ""
+
+#: of
+#: prepshot._model.unit_commitment.AddUnitCommitmentConstraints.gen_low_uc_rule:1
+msgid "``gen[h] >= online[h] * unit_size * p_min_pu * dt``."
+msgstr ""
+
+#: of
+#: prepshot._model.unit_commitment.AddUnitCommitmentConstraints.gen_up_uc_rule:1
+msgid "``gen[h] <= online[h] * unit_size * p_max_pu * dt``."
+msgstr ""
+
+#: of
+#: prepshot._model.unit_commitment.AddUnitCommitmentConstraints.min_down_rule:1
+msgid "``(N_units - online[h]) >= sum_{i=0..MinDown-1} shutdown[h-i]``."
+msgstr ""
+
+#: of
+#: prepshot._model.unit_commitment.AddUnitCommitmentConstraints.min_up_rule:1
+msgid ""
+"``online[h] >= sum_{i=0..MinUp-1} startup[h-i]`` -- if a unit started in "
+"any of the last MinUp hours, it must be online now."
+msgstr ""
+
+#: of
+#: prepshot._model.unit_commitment.AddUnitCommitmentConstraints.n_unit_bound_rule:1
+msgid ""
+"``online[h] <= N_units`` and force online=startup=shutdown=0 for non-"
+"eligible (z, te) cells."
+msgstr ""
+
+#: of
+#: prepshot._model.unit_commitment.AddUnitCommitmentConstraints.state_evolution_rule:1
+msgid ""
+"``online[h] - online[h-1] = startup[h] - shutdown[h]`` for every hour "
+"after the first in the modelled set. The first hour's online state is "
+"free (initialised by the LP optimum)."
+msgstr ""
+
+#: of prepshot._model.unit_commitment.add_uc_cost_terms:1
+msgid ""
+"Return the UC cost contribution (startup + no-load) as an ExprBuilder, "
+"NPV-discounted by ``var_factor`` and divided by ``weight`` to align with "
+"the rest of ``cost_var``."
+msgstr ""
+
+#: of prepshot._model.unit_commitment.add_uc_cost_terms:5
+msgid ""
+"Returns a zero ExprBuilder when UC is disabled, so callers can add it "
+"unconditionally."
+msgstr ""
+
+#: of prepshot._model.unit_commitment.add_uc_cost_terms
+msgid "Return type"
+msgstr ""
+

@@ -1,0 +1,181 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023-2025, Zhanwei Liu and Xiaogang He (GPL-3.0)
+# This file is distributed under the same license as the PREP-SHOT package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PREP-SHOT latest\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-06 13:42+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh_CN\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/api/prepshot._model.reserve.rst:2
+msgid "reserve"
+msgstr ""
+
+#: of prepshot._model.reserve:1
+msgid "Granular operating-reserve constraints (multi-product, LP relaxation)."
+msgstr ""
+
+#: of prepshot._model.reserve:3
+msgid ""
+"Generalises the v1.12 / v1.14 reserve module from \"one reserve_up + one "
+"reserve_down\" to **named reserve products**, each with its own "
+"eligibility and zonal requirement -- matching the structure of real "
+"ancillary-services markets (CAISO, ERCOT, MISO, etc.) and the way GenX, "
+"ReEDS, and PowNet model reserves."
+msgstr ""
+
+#: of prepshot._model.reserve:10
+msgid "Default product set"
+msgstr ""
+
+#: of prepshot._model.reserve:12
+msgid ""
+"Four products ship by default. The direction (up vs down) is encoded in "
+"the product *name* and inferred by the suffix:"
+msgstr ""
+
+#: of prepshot._model.reserve:15
+msgid "``regulation_up`` -- frequency regulation, increase output"
+msgstr ""
+
+#: of prepshot._model.reserve:16
+msgid "``regulation_down`` -- frequency regulation, decrease output"
+msgstr ""
+
+#: of prepshot._model.reserve:17
+msgid "``spinning`` -- contingency reserve, online + ready, up-only"
+msgstr ""
+
+#: of prepshot._model.reserve:18
+msgid "``non_spinning`` -- contingency reserve, may be offline, up-only"
+msgstr ""
+
+#: of prepshot._model.reserve:20
+msgid ""
+"The full set is read from the ``reserve_eligible`` CSV (column "
+"``product``); any product name that ends in ``_down`` is treated as a "
+"down-direction product, everything else is up."
+msgstr ""
+
+#: of prepshot._model.reserve:25
+msgid "Constraints"
+msgstr ""
+
+#: of prepshot._model.reserve:27
+msgid ""
+"Per ``(h, m, y, z, te)`` and per direction ``d`` -- *headroom is shared "
+"across products in the same direction* (otherwise we would double-count: "
+"a unit's spare megawatts can serve regulation OR spinning, not both at "
+"the same instant):"
+msgstr ""
+
+#: of prepshot._model.reserve:32
+msgid ""
+"\\sum_{p \\in \\text{products}_d} \\text{reserve}_{h,m,y,z,t,p}\n"
+"  + \\text{gen}_{h,m,y,z,t}\n"
+"\\le \\text{cap}_{y,z,t} \\cdot p^{\\max}_{t,z,y,m,h} \\cdot \\Delta h\n"
+"\\quad (d = \\text{up})"
+msgstr ""
+
+#: of prepshot._model.reserve:39
+msgid ""
+"\\sum_{p \\in \\text{products}_d} \\text{reserve}_{h,m,y,z,t,p}\n"
+"\\le \\text{gen}_{h,m,y,z,t}\n"
+"  - \\text{cap}_{y,z,t} \\cdot p^{\\min}_{t,z,y,m,h} \\cdot \\Delta h\n"
+"\\quad (d = \\text{down})"
+msgstr ""
+
+#: of prepshot._model.reserve:46
+msgid "Per ``(h, m, y, z, p)`` zonal requirement:"
+msgstr ""
+
+#: of prepshot._model.reserve:48
+msgid ""
+"\\sum_{t} \\text{reserve}_{h,m,y,z,t,p}\n"
+"\\ge \\text{REQ}_{z,y,p} \\cdot \\Delta h"
+msgstr ""
+
+#: of prepshot._model.reserve:53
+msgid ""
+"Non-eligible (tech, product) cells are forced to zero. Products with no "
+"eligible techs in a zone produce a non-binding requirement."
+msgstr ""
+
+#: of prepshot._model.reserve:57
+msgid "Inputs"
+msgstr ""
+
+#: of prepshot._model.reserve:59
+msgid ""
+"``tech_reserve_eligible.csv`` -- columns ``tech, product, eligible``. "
+"Missing rows default to ``eligible=0``. v1.12 files (cols ``tech, "
+"eligible``) are NOT readable by this module; migrate by:"
+msgstr ""
+
+#: of prepshot._model.reserve:63
+msgid "old:  Coal,1 new:  Coal,regulation_up,1"
+msgstr ""
+
+#: of prepshot._model.reserve:65
+msgid "Coal,regulation_down,1 Coal,spinning,1 Coal,non_spinning,1"
+msgstr ""
+
+#: of prepshot._model.reserve:69
+msgid ""
+"``reserve_requirement.csv`` -- columns ``zone, year, product, unit, "
+"value``. Missing rows default to 0 (non-binding)."
+msgstr ""
+
+#: of prepshot._model.reserve:72
+msgid ""
+"Module is gated by ``config.json.reserve_parameters.is_reserve``; when "
+"off, no variables / constraints are built."
+msgstr ""
+
+#: of prepshot._model.reserve.AddReserveConstraints:1
+msgid "Bases: :py:class:`object`"
+msgstr ""
+
+#: of prepshot._model.reserve.AddReserveConstraints:1
+msgid "Granular operating-reserve constraints (multi-product)."
+msgstr ""
+
+#: of prepshot._model.reserve.AddReserveConstraints
+msgid "Parameters"
+msgstr ""
+
+#: of prepshot._model.reserve.AddReserveConstraints.headroom_down_rule:1
+msgid "``sum_{p in down} reserve[..., p] <= gen - cap * p_min * dt``."
+msgstr ""
+
+#: of prepshot._model.reserve.AddReserveConstraints.headroom_up_rule:1
+msgid "``sum_{p in up} reserve[..., p] + gen <= cap * p_max * dt``."
+msgstr ""
+
+#: of prepshot._model.reserve.AddReserveConstraints.non_eligible_zero_rule:1
+msgid "Force ``reserve[..., te, p] = 0`` when (te, p) isn't eligible."
+msgstr ""
+
+#: of prepshot._model.reserve.AddReserveConstraints.requirement_rule:1
+msgid "``sum_t reserve[..., t, p] >= REQ[z, y, p] * dt``."
+msgstr ""
+
+#: of prepshot._model.reserve.AddReserveConstraints.requirement_rule:3
+msgid ""
+"Requirement file ``reserve_requirement.csv`` cols ``zone, year, product, "
+"unit, value``. Missing rows -> 0 (the constraint becomes ``0 >= 0`` and "
+"is skipped here for solver cleanliness)."
+msgstr ""
+

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PREP-SHOT latest\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-05 13:00+0800\n"
+"POT-Creation-Date: 2026-05-06 13:42+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: zh_CN\n"
@@ -149,4 +149,39 @@ msgid ""
 msgstr ""
 "PREP-SHOT 采用 Python 编写,遵循 PEP8 编码规范。请确保你的代码符合 PEP8。可使用 `Pylint "
 "<https://pylint.readthedocs.io/en/stable/>`_ 工具检查 PEP8 合规性。"
+
+#: ../../source/Contribution.rst:78
+#, fuzzy
+msgid "Translating the Documentation"
+msgstr "构建文档"
+
+#: ../../source/Contribution.rst:80
+msgid ""
+"Translations live in-tree at "
+"``doc/source/locale/<lang>/LC_MESSAGES/*.po`` (one ``.po`` file per RST "
+"source file). The shipped Chinese (``zh_CN``) translation is incomplete; "
+"only the :ref:`Glossary` is currently translated. Help with the rest is "
+"welcome."
+msgstr ""
+
+#: ../../source/Contribution.rst:85
+msgid "**To translate (or update) a single page:**"
+msgstr ""
+
+#: ../../source/Contribution.rst:105
+msgid ""
+"**Adding a new language.** Pick the locale code (e.g. ``ja``, ``de``, "
+"``es``) and uncomment the entry in ``supported_languages`` in "
+"``doc/source/conf.py``. Then run step 2 above with your locale code "
+"instead of ``zh_CN``. Once at least one page is meaningfully translated, "
+"request that a maintainer create the corresponding \"translation\" "
+"project on Read the Docs so the language switcher picks it up."
+msgstr ""
+
+#: ../../source/Contribution.rst:113
+msgid ""
+"**Reviewing a translation.** Native speakers are very welcome to review "
+"translated ``.po`` files for tone and accuracy. Open a PR with your "
+"suggested changes; tag a maintainer for merging."
+msgstr ""
 

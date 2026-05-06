@@ -1,0 +1,143 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023-2025, Zhanwei Liu and Xiaogang He (GPL-3.0)
+# This file is distributed under the same license as the PREP-SHOT package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PREP-SHOT latest\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-06 13:42+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh_CN\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/api/prepshot._model.finance.rst:2
+msgid "finance"
+msgstr ""
+
+#: of prepshot._model.finance:1
+msgid "Public-debt accounting and caps for new-build investment."
+msgstr ""
+
+#: of prepshot._model.finance:3
+msgid ""
+"Each new-tech investment carries a public-debt obligation equal to "
+"``public_debt_ratio[te]`` times its discounted investment cost. The "
+"module exposes that obligation as an indexed expression "
+"``public_debt_newtech[y, z, te]`` and (optionally) caps the public debt "
+"taken on each year, system-wide and per-zone:"
+msgstr ""
+
+#: of prepshot._model.finance:9
+msgid ""
+"{\\rm{public\\_debt}}_{y,z,te}\n"
+"= {\\rm{cost\\_newtech}}_{y,z,te} \\times r^{\\rm{public}}_{te}\n"
+"\n"
+"\\sum_{z, te} {\\rm{public\\_debt}}_{y,z,te}\n"
+"\\le \\overline{D^{\\rm{sys}}_{y}}\\quad\\forall y\n"
+"\n"
+"\\sum_{te} {\\rm{public\\_debt}}_{y,z,te}\n"
+"\\le \\overline{D^{\\rm{zone}}_{y, z}}\\quad\\forall y, z"
+msgstr ""
+
+#: of prepshot._model.finance:20
+msgid ""
+"This module is OFF unless the user provides ``public_debt_ratio``; the "
+"optional caps default to ``+inf`` (no constraint added)."
+msgstr ""
+
+#: of prepshot._model.finance.AddFinanceConstraints:1
+msgid "Bases: :py:class:`object`"
+msgstr ""
+
+#: of prepshot._model.finance.AddFinanceConstraints:1
+msgid "Public-debt expressions and (optional) cap constraints."
+msgstr ""
+
+#: of prepshot._model.finance.AddFinanceConstraints
+#: prepshot._model.finance.AddFinanceConstraints.__init__
+#: prepshot._model.finance.AddFinanceConstraints.public_debt_max_system_rule
+#: prepshot._model.finance.AddFinanceConstraints.public_debt_max_zone_rule
+#: prepshot._model.finance.AddFinanceConstraints.public_debt_newtech_rule
+msgid "Parameters"
+msgstr ""
+
+#: of prepshot._model.finance.AddFinanceConstraints.__init__:1
+msgid "Initialize the class and add expressions / constraints."
+msgstr ""
+
+#: of prepshot._model.finance.AddFinanceConstraints.__init__:3
+msgid ""
+"Reads ``model.cost_newtech_breakdown`` (built by "
+":class:`AddCostObjective`), so this must run AFTER ``AddCostObjective``."
+msgstr ""
+
+#: of prepshot._model.finance.AddFinanceConstraints.__init__:7
+msgid "Model object depending on the solver."
+msgstr ""
+
+#: of prepshot._model.finance.AddFinanceConstraints.__init__
+#: prepshot._model.finance.AddFinanceConstraints.public_debt_max_system_rule
+#: prepshot._model.finance.AddFinanceConstraints.public_debt_max_zone_rule
+#: prepshot._model.finance.AddFinanceConstraints.public_debt_newtech_rule
+msgid "Return type"
+msgstr ""
+
+#: of
+#: prepshot._model.finance.AddFinanceConstraints.public_debt_max_system_rule:1
+msgid "System-wide upper bound on public debt taken in year ``y``."
+msgstr ""
+
+#: of
+#: prepshot._model.finance.AddFinanceConstraints.public_debt_max_system_rule:3
+msgid "Missing entry or ``+inf`` skips the constraint."
+msgstr ""
+
+#: of
+#: prepshot._model.finance.AddFinanceConstraints.public_debt_max_system_rule:5
+#: prepshot._model.finance.AddFinanceConstraints.public_debt_max_zone_rule:3
+#: prepshot._model.finance.AddFinanceConstraints.public_debt_newtech_rule:3
+msgid "Year."
+msgstr ""
+
+#: of prepshot._model.finance.AddFinanceConstraints.public_debt_max_system_rule
+#: prepshot._model.finance.AddFinanceConstraints.public_debt_max_zone_rule
+#: prepshot._model.finance.AddFinanceConstraints.public_debt_newtech_rule
+msgid "Returns"
+msgstr ""
+
+#: of
+#: prepshot._model.finance.AddFinanceConstraints.public_debt_max_system_rule:8
+#: prepshot._model.finance.AddFinanceConstraints.public_debt_max_zone_rule:8
+msgid "The cap constraint, or ``None`` if uncapped."
+msgstr ""
+
+#: of prepshot._model.finance.AddFinanceConstraints.public_debt_max_zone_rule:1
+msgid "Per-zone upper bound on public debt taken in year ``y``."
+msgstr ""
+
+#: of prepshot._model.finance.AddFinanceConstraints.public_debt_max_zone_rule:5
+#: prepshot._model.finance.AddFinanceConstraints.public_debt_newtech_rule:5
+msgid "Zone."
+msgstr ""
+
+#: of prepshot._model.finance.AddFinanceConstraints.public_debt_newtech_rule:1
+msgid "Public-debt obligation incurred by a new-tech investment."
+msgstr ""
+
+#: of prepshot._model.finance.AddFinanceConstraints.public_debt_newtech_rule:7
+msgid "Technology."
+msgstr ""
+
+#: of prepshot._model.finance.AddFinanceConstraints.public_debt_newtech_rule:10
+msgid "Discounted public-debt obligation for ``(y, z, te)``."
+msgstr ""
+

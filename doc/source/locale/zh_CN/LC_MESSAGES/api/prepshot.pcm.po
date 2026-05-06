@@ -1,0 +1,231 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023-2025, Zhanwei Liu and Xiaogang He (GPL-3.0)
+# This file is distributed under the same license as the PREP-SHOT package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PREP-SHOT latest\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-06 13:42+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh_CN\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/api/prepshot.pcm.rst:2
+msgid "pcm"
+msgstr ""
+
+#: of prepshot.pcm:1
+msgid "Production-cost-model (PCM) mode with rolling horizon."
+msgstr ""
+
+#: of prepshot.pcm:3
+msgid ""
+"Companion mode to the default capacity-expansion (CEM) flow in "
+"``run.py``. PCM takes a fixed fleet (from a prior CEM solve, or a user-"
+"supplied capacity CSV) and solves *only* dispatch over a chosen year, "
+"hour-by-hour, in overlapping windows -- the same machinery that PowNet "
+"and PyPSA's ``optimize_with_rolling_horizon`` use."
+msgstr ""
+
+#: of prepshot.pcm:11
+msgid ""
+"**v1.14.1 status (alpha).** The rolling driver is wired end-to-end with "
+"single-window solves working cleanly. Multi-window rolling has TWO known "
+"limitations:"
+msgstr ""
+
+#: of prepshot.pcm:15
+msgid ""
+"**Cascading hydro cross-window state**: at the start of any non-first "
+"window, downstream stations see only their natural (incremental) inflow "
+"because the upstream's outflow during the lookback period (``hour[0] - "
+"delay .. hour[0]``) is in the previous window's solve and is not yet "
+"carried forward. When the downstream's ``min_outflow`` exceeds its "
+"natural inflow, water balance can drain storage below ``storage_min`` -> "
+"the sub-problem is infeasible. v1.15+ will add cross-window cascade state"
+" (carry the upstream's last ``max_delay`` outflow values into the next "
+"window's ``inflow_rule`` lookup)."
+msgstr ""
+
+#: of prepshot.pcm:25
+msgid ""
+"**Carbon cap rescaling**: the cap from ``policy_carbon_emission_ "
+"limit.csv`` is annual (full-year tonneCO2) but each window only covers a "
+"fraction of the year. The naive filter applies the full annual cap to a "
+"48-hour window -- not binding for our small examples but wrong on "
+"principle. Will rescale by ``window_hours / hours_in_year`` in v1.15."
+msgstr ""
+
+#: of prepshot.pcm:32
+msgid ""
+"For now, recommend ``--horizon == --step == period_length`` (single-"
+"window PCM = fixed-capacity dispatch validation). Multi-window rolling "
+"works on scenarios *without* binding min-outflow constraints on cascaded "
+"hydro."
+msgstr ""
+
+#: of prepshot.pcm:38
+msgid "Why rolling horizon?"
+msgstr ""
+
+#: of prepshot.pcm:40
+msgid ""
+"Solving dispatch on the full 8760-hour annual MILP/LP at once is "
+"intractable for realistic networks. Rolling horizon decomposes the "
+"problem into a sequence of short, overlapping subproblems:"
+msgstr ""
+
+#: of prepshot.pcm:50
+msgid "while t < 8760:"
+msgstr ""
+
+#: of prepshot.pcm:45
+msgid ""
+"build LP for hours [t, t + horizon) pin initial state (storage SOC, hydro"
+" reservoir level) from the"
+msgstr ""
+
+#: of prepshot.pcm:47
+msgid "previous window's terminal solution"
+msgstr ""
+
+#: of prepshot.pcm:48
+msgid "solve persist dispatch decisions for [t, t + step) advance t by step"
+msgstr ""
+
+#: of prepshot.pcm:52
+msgid ""
+"Each window's lookahead (``horizon - step``) absorbs the end-of-window "
+"distortion. PowNet uses ``horizon = 48 h, step = 24 h``; we default to "
+"the same."
+msgstr ""
+
+#: of prepshot.pcm:57
+msgid "Capacity source"
+msgstr ""
+
+#: of prepshot.pcm:59
+msgid "Two formats are accepted via ``--cap-source PATH``:"
+msgstr ""
+
+#: of prepshot.pcm:61
+msgid ""
+"``.nc`` -- a CEM ``baseline.nc`` written by ``run.py``. The ``install`` "
+"data array (dims ``year x zone x tech``) is selected for the chosen year."
+msgstr ""
+
+#: of prepshot.pcm:64
+msgid ""
+"``.csv`` -- a tidy table with columns ``zone, tech, year, capacity`` "
+"(MW). Useful when running PCM standalone, no CEM needed."
+msgstr ""
+
+#: of prepshot.pcm:67
+msgid ""
+"If neither is supplied, the existing fleet from ``tech_existing.csv`` is "
+"used as-is (no expansion). This is the \"validate-the-existing-build\" "
+"mode."
+msgstr ""
+
+#: of prepshot.pcm:72
+msgid "Config"
+msgstr ""
+
+#: of prepshot.pcm:74
+msgid "Add a ``pcm_parameters`` block to ``config.json``::"
+msgstr ""
+
+#: of prepshot.pcm:82
+msgid "Or pass as CLI flags. CLI overrides config."
+msgstr ""
+
+#: of prepshot.pcm:85
+msgid "Output"
+msgstr ""
+
+#: of prepshot.pcm:87
+msgid ""
+"PCM dispatch lands in ``output/baseline_pcm.nc`` (and "
+"``baseline_pcm.xlsx``) with ``hour`` running from 1 to 8760 in the chosen"
+" year. The companion CEM ``baseline.nc`` is left untouched."
+msgstr ""
+
+#: of prepshot.pcm:92
+msgid "CLI"
+msgstr ""
+
+#: of prepshot.pcm:99
+msgid "Or programmatically::"
+msgstr ""
+
+#: of prepshot.pcm.load_fixed_capacity:1
+msgid "Return ``{(zone, tech): capacity_MW}`` for ``target_year``."
+msgstr ""
+
+#: of prepshot.pcm.load_fixed_capacity:3
+msgid "``source`` may be a path to:"
+msgstr ""
+
+#: of prepshot.pcm.load_fixed_capacity:5
+msgid ""
+"a CEM ``baseline.nc`` (xarray dataset with an ``install`` array indexed "
+"by ``year x zone x tech``), or"
+msgstr ""
+
+#: of prepshot.pcm.load_fixed_capacity:7
+msgid "a tidy CSV with columns ``zone, tech, year, capacity``."
+msgstr ""
+
+#: of prepshot.pcm.load_fixed_capacity:9
+msgid "Relative paths are resolved against ``scenario_dir``."
+msgstr ""
+
+#: of prepshot.pcm.load_fixed_capacity prepshot.pcm.run_pcm
+msgid "Parameters"
+msgstr ""
+
+#: of prepshot.pcm.load_fixed_capacity prepshot.pcm.main prepshot.pcm.run_pcm
+msgid "Return type"
+msgstr ""
+
+#: of prepshot.pcm.main:1
+msgid "CLI entry point: ``python -m prepshot.pcm``."
+msgstr ""
+
+#: of prepshot.pcm.run_pcm:1
+msgid "Solve PCM dispatch over one year with rolling horizon."
+msgstr ""
+
+#: of prepshot.pcm.run_pcm:3
+msgid "Directory containing ``config.json``, ``params.json``, ``input/``."
+msgstr ""
+
+#: of prepshot.pcm.run_pcm:5
+msgid ""
+"Which model year to dispatch. Defaults to the first year of the config's "
+"planning horizon."
+msgstr ""
+
+#: of prepshot.pcm.run_pcm:8
+msgid "Window length in hours. Defaults to 48."
+msgstr ""
+
+#: of prepshot.pcm.run_pcm:10
+msgid "Window advance in hours (committed segment). Defaults to 24."
+msgstr ""
+
+#: of prepshot.pcm.run_pcm:12
+msgid ""
+"Path to a CEM ``baseline.nc`` or capacity CSV. If omitted, the CEM-"
+"shipped existing fleet is used unchanged."
+msgstr ""
+

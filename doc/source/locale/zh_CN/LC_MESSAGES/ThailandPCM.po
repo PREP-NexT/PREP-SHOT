@@ -1,0 +1,490 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023-2025, Zhanwei Liu and Xiaogang He (GPL-3.0)
+# This file is distributed under the same license as the PREP-SHOT package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PREP-SHOT latest\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-06 13:42+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh_CN\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/ThailandPCM.ipynb:9
+msgid "Thailand (full-nodal, PCM)"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:11
+msgid ""
+"PREP-SHOT in **production-cost-model (PCM) mode** on the full Thai grid: "
+"every one of the 472 buses stays a separate PREP-SHOT zone, every thermal"
+" unit is its own tech, the 615 transmission lines carry their full "
+"electrical parameters (reactance, susceptance, thermal limit), and the "
+"8760-hour 2023 load profile is dispatched window-by-window via "
+"`prepshot.pcm <../../prepshot/pcm.py>`__."
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:13
+msgid ""
+"**No spatial aggregation.** Where the `Thailand <Thailand.ipynb>`__ "
+"example collapses the country to a single zone, this one keeps every node"
+" and every electrical line. It’s the highest-fidelity PREP-SHOT scenario "
+"shipped."
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:15
+msgid "**What you’ll do here:**"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:17
+msgid ""
+"Convert an upstream nodal PCM dataset to PREP-SHOT’s long-format CSV "
+"schema."
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:18
+msgid "Inspect the converted inputs."
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:19
+msgid "Run the PCM rolling-horizon driver on a 24-hour window."
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:31
+msgid "1. Source data"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:33
+msgid ""
+"We start from the Thai PCM dataset shipped at ``production-cost-model-"
+"main/``. Headline counts:"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:36
+msgid "Item"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:36
+msgid "Count"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:36
+msgid "Source file"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:38
+msgid "Buses (= PREP-SHOT zones)"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:38
+msgid "472"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:38
+msgid "``load_demand.csv`` columns"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:40
+msgid "Transmission lines"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:40
+msgid "615"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:40
+msgid "``grid_topology.csv``"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:42
+msgid "Thermal units"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:42
+msgid "168"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:42
+msgid "``generators.xlsx`` ``Thermal`` sheet"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:44
+msgid "VRE plants (solar + wind)"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:44
+msgid "30"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:44
+msgid "``generators.xlsx`` ``Renewable`` sheet"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:46
+msgid "Hydro stations"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:46
+msgid "14"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:46
+msgid "``hydropower.xlsx`` ``Sheet2``"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:48
+msgid "Hours"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:48
+msgid "8760 (full year 2023)"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:48
+msgid "``load_demand.csv``, ``capacity_factor.csv``"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:51
+msgid ""
+"Hydro inflow only covers 2016–2019; we use **2019** re-stamped onto 2023 "
+"hours."
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:118
+msgid "2. Conversion: zones, techs, fleet"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:120
+msgid ""
+"Each bus becomes a PREP-SHOT zone. Each plant (thermal unit, VRE plant, "
+"hydro station) becomes a separate tech — fleet-level aggregation only "
+"happens via the ``tech_registry.csv``\\ ’s ``carrier`` column."
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:351
+msgid "3. Load + VRE capacity factors + hydro inflow"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:353
+msgid ""
+"Three time-varying tables. The load alone is **4.1 M rows** in long "
+"format (472 buses × 8760 hours)."
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:507
+msgid "4. Transmission topology"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:509
+msgid ""
+"615 directed lines from ``grid_topology.csv`` become (zone1, zone2) pairs"
+" in ``transmission_existing.csv``. Susceptance comes from the "
+"``user_susceptance`` column when set, else falls back to ``2 × cap_MW / "
+"rad`` (the same heuristic the SE Asia example uses)."
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:511
+msgid ""
+"**Sentinel handling:** the source uses ``user_line_cap = -1`` to mean "
+"“use the computed thermal limit”; we treat that explicitly rather than "
+"via ``or``, which would select ``-1`` because it’s truthy in Python."
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:582
+msgid "5. Per-station hydropower"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:584
+msgid ""
+"PREP-SHOT models hydropower at the plant level with cascade physics "
+"(water balance, head iteration, downstream-feeds-upstream water-delay). "
+"The Thai dataset has 14 stations with full reservoir parameters: head, "
+"coefficient, V_max/min, outflow_max/min, downstream link, delay hours."
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:586
+#, python-format
+msgid ""
+"We ship the cascade as ``reservoir_water_delay_time.csv``, the static "
+"parameters as their own CSVs, and the time-varying storage bounds as "
+"``reservoir_storage_min.csv`` / ``reservoir_storage_max.csv`` (constant "
+"across hours since the source has no time variation). Initial / final "
+"storage levels default to 50 % of ``V_max`` — the same convention the "
+"`SoutheastAsia <SoutheastAsia.ipynb>`__ example settled on for stable "
+"rolling-horizon."
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:680
+msgid "6. Input visualisations"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:682
+msgid ""
+"The model is too large for the LP build to complete on the current "
+"codebase (see Section 9), so we don’t have a solved baseline to plot "
+"from. The input dataset itself, though, has plenty worth inspecting – bus"
+" geography, the cascade topology, the fleet-by-carrier mix, and the load "
+"shape. These are the same diagnostics you’d reach for before any "
+"production run."
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:694
+msgid "6.1 Bus locations and demand"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:696
+msgid ""
+"Every PREP-SHOT zone in this scenario is one bus on the Thai grid. We can"
+" plot all 472 of them on a map and size each marker by its peak hourly "
+"demand."
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:797
+msgid "6.2 Transmission network"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:799
+msgid ""
+"615 lines, three voltage classes (115 / 230 / 500 kV). Visualise the "
+"skeleton on the same map – line width proportional to thermal capacity."
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:858
+msgid "6.3 Fleet composition by carrier"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:860
+msgid ""
+"Total installed capacity per carrier across all 472 buses, plus the ten "
+"zones with the largest fleet (mostly the load centres near Bangkok and "
+"the major industrial provinces)."
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:920
+msgid "6.4 Annual demand profile"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:922
+msgid ""
+"System-wide hourly load over 2023 (sum across all 472 buses), with the "
+"peak day highlighted."
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:967
+msgid "6.5 Resource samples: a VRE plant and a hydro station"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:969
+msgid ""
+"Two sample-of-one plots: the hourly capacity factor of one wind plant "
+"over the year, and the hourly natural inflow of one hydro reservoir."
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:1019
+msgid "7. Running the PCM rolling-horizon driver"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:1021
+msgid "Once the inputs are in place, the canonical invocation is:"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:1031
+msgid ""
+"The driver builds a fresh single-day LP for hours 1..24, solves it with "
+"the existing fleet locked from ``capacity_pcm.csv``, persists the "
+"dispatch, advances by 24 h, and repeats — 365 windows for a full year."
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:1033
+msgid "Per-window state that flows forward:"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:1035
+msgid ""
+"**Hydro reservoir storage** at the terminal hour (clamped just inside "
+"``[storage_min, storage_max]`` to absorb solver-noise boundary values)."
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:1036
+msgid ""
+"**Battery SOC**, converted from absolute MWh back to the per-unit-of-cap "
+"fraction ``initial_energy_storage_level`` expects (irrelevant here — no "
+"batteries in this dataset)."
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:1037
+msgid ""
+"**Cross-window cascade outflow**: the upstream’s outflow over the "
+"lookback period is stashed as a ``params['prior_outflow']`` numeric "
+"lookup so the next window’s ``hydro.inflow_rule`` sees the cascade "
+"contribution at boundary hours."
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:1049
+msgid "8. Knobs to flip on for higher fidelity"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:1051
+msgid "All available, all gated by config flags in `config.json <config.json>`__:"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:1054
+msgid "Flag"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:1054
+msgid "Effect"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:1054
+msgid "Cost"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:1056
+msgid "``dc_parameters.is_dc_flow: true``"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:1056
+msgid "Kirchhoff voltage law on the 615-line network"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:1056
+msgid "LP, ~5–10 % build-time bump"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:1058
+msgid "``dc_parameters.is_n1_secure: true``"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:1058
+msgid ""
+"Preventive N-1 SCDC OPF; needs lines listed in "
+"``transmission_contingencies.csv``"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:1058
+msgid "LP, multiplies size by ``1 + N_contingencies``"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:1060
+msgid "``cost_parameters.is_piecewise_heat_rate: true``"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:1060
+msgid "Convex piecewise-linear heat rates"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:1060 ../../source/ThailandPCM.ipynb:1064
+msgid "LP, modest"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:1062
+msgid "``uc_parameters.is_uc: true``"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:1062
+msgid "Clustered unit commitment"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:1062
+msgid "MILP; with 168 thermal units, run rolling-horizon only"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:1064
+msgid "``reserve_parameters.is_reserve: true``"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:1064
+msgid "Multi-product reserves (regulation_up/down, spinning, non_spinning)"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:1067
+msgid ""
+"Stack them as your scenario requires. The default config ships with **all"
+" of them off** so the first build completes quickly; flip each on once "
+"you’ve confirmed the basic dispatch works."
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:1079
+msgid "9. Status and caveats"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:1081
+msgid ""
+"The data conversion shown in this notebook produces a **valid** PREP-SHOT"
+" scenario — the loader accepts every CSV and ``initialize_environment`` "
+"returns a populated ``params`` dict."
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:1083
+msgid ""
+"On the current PREP-SHOT codebase, the LP build itself stalls in PoI’s "
+"``make_tupledict`` Python-level iteration when the model is materialised "
+"at this scale (472 zones × 212 techs). For a 24-hour window, "
+"``create_model`` takes 20+ minutes before HiGHS even sees the LP — the "
+"bottleneck is constraint construction, not the underlying solver."
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:1085
+msgid "Two paths from here:"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:1087
+msgid ""
+"**Aggregate buses** to a smaller zone set before running. Defeats the no-"
+"aggregation point, but makes the model tractable today."
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:1088
+msgid ""
+"**Accelerate constraint construction** in ``model.py`` / ``_model/*.py``:"
+" Cython, Numba, or batched ``add_linear_constraint`` calls. The right "
+"structural fix; would lift PREP-SHOT closer to PowNet / PyPSA scale-"
+"handling."
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:1090
+msgid ""
+"Until either lands, this example is a **data-conversion artefact** — "
+"useful as a recipe for plugging an external nodal PCM dataset into PREP-"
+"SHOT’s input schema."
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:1092
+msgid "**Other caveats:**"
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:1094
+msgid "Inflow data only covers 2016–2019; we re-use 2019 as the proxy for 2023."
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:1095
+msgid ""
+"The 8 import nodes from ``import.csv`` are not modelled. Add them as "
+"fixed-injection rows in ``demand.csv`` (negative load) if you want them "
+"included."
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:1096
+msgid ""
+"Source ``operation_cost`` already bundles fuel + variable O&M. We set "
+"``tech_fuel_price=0`` and put the whole number in "
+"``tech_variable_OM_cost`` to avoid double-counting."
+msgstr ""
+
+#: ../../source/ThailandPCM.ipynb:1098
+msgid ""
+"**Source attribution.** Input data from the Thai PCM repo at "
+"``production-cost-model-main/``. Original developers’ attribution "
+"applies."
+msgstr ""
+

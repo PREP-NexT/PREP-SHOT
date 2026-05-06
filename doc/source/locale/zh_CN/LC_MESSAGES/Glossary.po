@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PREP-SHOT latest\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-05 13:00+0800\n"
+"POT-Creation-Date: 2026-05-06 13:42+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: PREP-NexT i18n contributors <noreply@prep-"
 "next.github.io>\n"
@@ -29,11 +29,15 @@ msgid ""
 "terminology used throughout PREP-SHOT."
 msgstr "PREP-SHOT 中使用的能源建模、水电运行与优化相关术语的参考。"
 
-#: ../../source/Glossary.rst:11
+#: ../../source/Glossary.rst:10
+msgid "Terminology"
+msgstr ""
+
+#: ../../source/Glossary.rst:14
 msgid "capacity expansion"
 msgstr "容量扩展规划 (capacity expansion)"
 
-#: ../../source/Glossary.rst:13
+#: ../../source/Glossary.rst:16
 msgid ""
 "The optimization problem of deciding what new generation, storage, and "
 "transmission to build over a multi-year planning horizon, subject to "
@@ -41,11 +45,11 @@ msgid ""
 "zone, multi-year linear capacity-expansion problem."
 msgstr "在多年规划期内决定新建多少发电、储能和输电容量的优化问题,受需求、燃料、排放与预算约束。PREP-SHOT 求解的是多区域、多年的线性容量扩展问题。"
 
-#: ../../source/Glossary.rst:18
+#: ../../source/Glossary.rst:21
 msgid "capacity factor"
 msgstr "容量系数 (capacity factor)"
 
-#: ../../source/Glossary.rst:20
+#: ../../source/Glossary.rst:23
 #, python-format
 msgid ""
 "The ratio of a generator's actual output over a period to its potential "
@@ -59,11 +63,11 @@ msgstr ""
 "PREP-SHOT 中,随时间变化的容量系数曲线通过 ``tech_max_gen_profile.csv`` 提供 (沿用 PyPSA 的 "
 "``p_max_pu`` 约定)。"
 
-#: ../../source/Glossary.rst:27
+#: ../../source/Glossary.rst:30
 msgid "carbon cap"
 msgstr "碳排放上限 (carbon cap)"
 
-#: ../../source/Glossary.rst:29
+#: ../../source/Glossary.rst:32
 msgid ""
 "An upper bound on system-wide CO2 emissions, typically declining over "
 "time. PREP-SHOT supports per-region caps in "
@@ -73,11 +77,11 @@ msgstr ""
 "整个系统二氧化碳排放的上限,通常随时间递减。PREP-SHOT 支持在 ``policy_carbon_emission_limit.csv`` "
 "中按区域设定上限:每行的 ``zones`` 字段以逗号分隔,定义该上限覆盖的地理范围。"
 
-#: ../../source/Glossary.rst:34
+#: ../../source/Glossary.rst:37
 msgid "carbon offset"
 msgstr "碳抵消 (carbon offset)"
 
-#: ../../source/Glossary.rst:36
+#: ../../source/Glossary.rst:39
 msgid ""
 "A credit purchased to compensate for emissions, allowing generators to "
 "exceed an explicit emission cap by paying for offsets. PREP-SHOT models "
@@ -87,11 +91,11 @@ msgstr ""
 "通过购买信用额度来抵消排放,使发电方可以付费超越显式的排放上限。PREP-SHOT 同时建模抵消价格 (每吨) 和年度采购量上限 "
 "(按区域、按年度)。"
 
-#: ../../source/Glossary.rst:40
+#: ../../source/Glossary.rst:43
 msgid "carrier"
 msgstr "能源载体 (carrier)"
 
-#: ../../source/Glossary.rst:42
+#: ../../source/Glossary.rst:45
 msgid ""
 "A free-form string identifying the energy carrier (fuel type) of a "
 "technology. PREP-SHOT borrows this convention from PyPSA; examples "
@@ -103,11 +107,11 @@ msgstr ""
 "``hydro``, ``solar``, ``wind``, ``biomass``。``hydro`` "
 "载体是特殊处理的,模型会自动施加水库约束。在 ``tech_registry.csv`` 中定义。"
 
-#: ../../source/Glossary.rst:48
+#: ../../source/Glossary.rst:51
 msgid "cascading hydropower"
 msgstr "梯级水电 (cascading hydropower)"
 
-#: ../../source/Glossary.rst:50
+#: ../../source/Glossary.rst:53
 msgid ""
 "A sequence of hydropower stations on the same river where the outflow of "
 "an upstream station is the inflow of a downstream station. PREP-SHOT "
@@ -118,11 +122,11 @@ msgstr ""
 "同一河流上的一系列水电站,上游电站的下泄流量即为下游电站的入流。PREP-SHOT 通过 "
 "``reservoir_water_delay_time.csv`` 中按站建立的水量平衡约束显式建模梯级关系;上游运行的变化会自动传递到下游。"
 
-#: ../../source/Glossary.rst:56
+#: ../../source/Glossary.rst:59
 msgid "commission year"
 msgstr "投运年份 (commission year)"
 
-#: ../../source/Glossary.rst:58
+#: ../../source/Glossary.rst:61
 msgid ""
 "The calendar year a unit of capacity (a power plant or transmission line)"
 " was first put into service. Used by PREP-SHOT to compute when existing "
@@ -134,11 +138,11 @@ msgstr ""
 "lifetime`` 之后退出运行)。记录在 ``tech_existing.csv`` 和 "
 "``transmission_existing.csv`` 中。"
 
-#: ../../source/Glossary.rst:63
+#: ../../source/Glossary.rst:66
 msgid "demand"
 msgstr "电力需求 (demand)"
 
-#: ../../source/Glossary.rst:65
+#: ../../source/Glossary.rst:68
 msgid ""
 "The hourly electric load that must be served at each zone. The input file"
 " ``demand.csv`` is in MW (instantaneous power); PREP-SHOT multiplies by "
@@ -148,11 +152,11 @@ msgstr ""
 "每个区域必须满足的小时级电力负荷。输入文件 ``demand.csv`` 单位为 MW (瞬时功率);PREP-SHOT 内部乘以时间步长 "
 "``dt`` 转换为每时段 MWh,与输出中的 ``gen`` 和 ``charge`` 单位一致。"
 
-#: ../../source/Glossary.rst:70
+#: ../../source/Glossary.rst:73
 msgid "discount factor"
 msgstr "折现因子 (discount factor)"
 
-#: ../../source/Glossary.rst:72
+#: ../../source/Glossary.rst:75
 msgid ""
 "The factor used to compute the present value of a future cash flow. PREP-"
 "SHOT supports per-zone, per-year discount factors via "
@@ -162,22 +166,22 @@ msgstr ""
 "用于计算未来现金流现值的因子。PREP-SHOT 通过 ``economic_discount_factor.csv`` "
 "支持按区域、按年度的折现因子,允许在同一模型中使用不同区域的资金成本假设。"
 
-#: ../../source/Glossary.rst:76
+#: ../../source/Glossary.rst:79
 msgid "dispatch"
 msgstr "调度 (dispatch)"
 
-#: ../../source/Glossary.rst:78
+#: ../../source/Glossary.rst:81
 msgid ""
 "The hourly operation of generators and storage to meet demand at minimum "
 "cost, given the installed capacity. PREP-SHOT jointly optimizes "
 "investment (capacity expansion) and dispatch."
 msgstr "在装机容量给定的前提下,以最小成本满足电力需求的小时级发电机与储能运行决策。PREP-SHOT 联合优化投资 (容量扩展) 与调度。"
 
-#: ../../source/Glossary.rst:81
+#: ../../source/Glossary.rst:84
 msgid "dispatchable technology"
 msgstr "可调度技术 (dispatchable technology)"
 
-#: ../../source/Glossary.rst:83
+#: ../../source/Glossary.rst:86
 msgid ""
 "A generator whose output can be controlled on demand within its ramp "
 "limits -- coal, gas, oil, biomass, hydropower with a reservoir, etc. "
@@ -186,11 +190,11 @@ msgstr ""
 "在爬坡约束范围内可按需控制出力的发电机——煤电、燃气、燃油、生物质、带水库的水电等。与 :term:`variable renewable "
 "energy` (VRE) 相对。"
 
-#: ../../source/Glossary.rst:87
+#: ../../source/Glossary.rst:90
 msgid "forebay level"
 msgstr "前池水位 (forebay level)"
 
-#: ../../source/Glossary.rst:89
+#: ../../source/Glossary.rst:92
 msgid ""
 "The water-surface elevation behind the dam (upstream of the generators). "
 "Determines the gross head and thus the generation efficiency. PREP-SHOT "
@@ -200,22 +204,22 @@ msgstr ""
 "水坝后侧 (发电机上游) 的水面高程。决定总水头从而决定发电效率。PREP-SHOT 通过 "
 "``reservoir_forebay_level_volume_function.csv`` 把它建模为水库蓄水量的分段线性函数。"
 
-#: ../../source/Glossary.rst:94
+#: ../../source/Glossary.rst:97
 msgid "gen"
 msgstr "gen"
 
-#: ../../source/Glossary.rst:96
+#: ../../source/Glossary.rst:99
 msgid ""
 "The model's primary decision variable: generation by each tech, zone, "
 "hour, month, and year (in MWh per timestep). Output via ``ds.gen`` in the"
 " result NetCDF."
 msgstr "模型的主要决策变量:按技术、区域、小时、月份、年份的发电量 (单位为每时段 MWh)。在结果 NetCDF 中通过 ``ds.gen`` 输出。"
 
-#: ../../source/Glossary.rst:99
+#: ../../source/Glossary.rst:102
 msgid "generation flow"
 msgstr "发电流量 (generation flow)"
 
-#: ../../source/Glossary.rst:101
+#: ../../source/Glossary.rst:104
 msgid ""
 "The volume of water (m^3/s) routed through a hydropower station's "
 "turbines, as opposed to spilled around them or stored. Bounded above by "
@@ -224,22 +228,22 @@ msgstr ""
 "经水电站水轮机的水流量 (m^3/s),相对于绕过水轮机的弃水或蓄存。上限由 "
 "``reservoir_generation_flow_max.csv`` 约束。"
 
-#: ../../source/Glossary.rst:104
+#: ../../source/Glossary.rst:107
 msgid "gross head"
 msgstr "总水头 (gross head)"
 
-#: ../../source/Glossary.rst:106
+#: ../../source/Glossary.rst:109
 msgid ""
 "The vertical distance between the forebay level and the tailrace level. "
 "Drives hydropower generation efficiency together with the generation "
 "flow: ``power = coefficient * head * flow``."
 msgstr "前池水位与尾水位之间的垂直高差。与发电流量共同决定水电出力效率:``功率 = 系数 * 水头 * 流量``。"
 
-#: ../../source/Glossary.rst:110
+#: ../../source/Glossary.rst:113
 msgid "head iteration"
 msgstr "水头迭代 (head iteration)"
 
-#: ../../source/Glossary.rst:112
+#: ../../source/Glossary.rst:115
 msgid ""
 "An outer-loop scheme that successively refines the assumed water head "
 "until self-consistency is reached. PREP-SHOT solves the LP at a fixed "
@@ -251,22 +255,22 @@ msgstr ""
 "LP,从所得水库轨迹重新计算水头,然后重新求解,直到水头误差收敛 (或达到 "
 "``iteration_number``)。``error_threshold`` 设置控制收敛容差。"
 
-#: ../../source/Glossary.rst:118
+#: ../../source/Glossary.rst:121
 msgid "HiGHS"
 msgstr "HiGHS"
 
-#: ../../source/Glossary.rst:120
+#: ../../source/Glossary.rst:123
 msgid ""
 "An open-source linear-programming solver. PREP-SHOT's default; supplied "
 "as a wheel by the ``highsbox`` package so no separate install is "
 "required."
 msgstr "一款开源线性规划求解器。PREP-SHOT 的默认求解器;由 ``highsbox`` 包以 wheel 形式提供,无需单独安装。"
 
-#: ../../source/Glossary.rst:123
+#: ../../source/Glossary.rst:126
 msgid "investment cost"
 msgstr "投资成本 (investment cost)"
 
-#: ../../source/Glossary.rst:125
+#: ../../source/Glossary.rst:128
 msgid ""
 "The capital cost (USD per MW) of building a new unit of capacity. PREP-"
 "SHOT discounts these to NPV using the relevant discount factor (or a "
@@ -276,11 +280,11 @@ msgstr ""
 "新建一个单位容量的资本成本 (USD/MW)。PREP-SHOT 使用相应的折现因子 (若启用了可选的金融模块,则使用项目级 WACC) "
 "把成本折算到净现值。输入文件:``tech_investment_cost.csv``。"
 
-#: ../../source/Glossary.rst:130
+#: ../../source/Glossary.rst:133
 msgid "isinflow"
 msgstr "isinflow"
 
-#: ../../source/Glossary.rst:132
+#: ../../source/Glossary.rst:135
 msgid ""
 "The toggle in ``config.json`` that activates the per-station hydropower /"
 " reservoir constraints. Set to ``false`` to model hydro as an aggregate "
@@ -290,11 +294,11 @@ msgstr ""
 "``config.json`` 中用以开关按站建立的水电/水库约束的开关。设为 ``false`` "
 "时把水电按一个汇总的可调度技术建模,无水库物理过程;设为 ``true`` 时启用水头迭代循环。"
 
-#: ../../source/Glossary.rst:136
+#: ../../source/Glossary.rst:139
 msgid "linear programming"
 msgstr "线性规划 (linear programming)"
 
-#: ../../source/Glossary.rst:138
+#: ../../source/Glossary.rst:141
 msgid ""
 "An optimization problem with a linear objective and linear constraints. "
 "PREP-SHOT's capacity-expansion problem is an LP (no integer or quadratic "
@@ -305,11 +309,11 @@ msgstr ""
 "目标函数和约束均为线性的优化问题。PREP-SHOT 的容量扩展问题是 LP (没有整数或二次项),这使多年、多区域模型的求解时间可控。LP "
 "相对于 MIP 的代价是没有机组组合 / 启停成本的细节。"
 
-#: ../../source/Glossary.rst:143
+#: ../../source/Glossary.rst:146
 msgid "LMP"
 msgstr "节点边际电价 (LMP)"
 
-#: ../../source/Glossary.rst:145
+#: ../../source/Glossary.rst:148
 msgid ""
 "Locational marginal price. The cost of supplying one extra MWh of demand "
 "at a specific bus / zone, computed from the dual of the demand-balance "
@@ -320,11 +324,11 @@ msgstr ""
 "区域多供一兆瓦时需求的成本,由需求平衡约束的对偶变量得出。在结果 NetCDF 中以 ``shadow_price_demand`` "
 "输出;符号已翻转,正值意味着 \"更多的需求会更贵\"。"
 
-#: ../../source/Glossary.rst:150
+#: ../../source/Glossary.rst:153
 msgid "long-format CSV"
 msgstr "长格式 CSV (long-format CSV)"
 
-#: ../../source/Glossary.rst:152
+#: ../../source/Glossary.rst:155
 msgid ""
 "The \"tidy data\" CSV convention used by PREP-SHOT inputs (since v1.5): "
 "one row per observation, dimension columns first, value column last. "
@@ -333,22 +337,22 @@ msgstr ""
 "自 v1.5 起 PREP-SHOT 输入采用的 \"整洁数据\" CSV 约定:一行一个观测,维度列在前、值列在后。替代了 v1.4 "
 "时代的宽格式 Excel 布局。"
 
-#: ../../source/Glossary.rst:155
+#: ../../source/Glossary.rst:158
 msgid "net present value"
 msgstr "净现值 (net present value)"
 
-#: ../../source/Glossary.rst:157
+#: ../../source/Glossary.rst:160
 msgid ""
 "The discounted sum of future cash flows expressed in present-day terms. "
 "PREP-SHOT's objective minimizes the NPV of total system cost over the "
 "planning horizon. Often abbreviated :term:`NPV`."
 msgstr "按现值表达的未来现金流贴现总和。PREP-SHOT 的目标是最小化整个规划期内系统总成本的净现值。常缩写为 :term:`NPV`。"
 
-#: ../../source/Glossary.rst:164
+#: ../../source/Glossary.rst:167
 msgid "nominal capacity"
 msgstr "额定容量 (nominal capacity)"
 
-#: ../../source/Glossary.rst:166
+#: ../../source/Glossary.rst:169
 msgid ""
 "The rated maximum power output of a generator (MW), as opposed to its "
 "actual output during dispatch. Stored in ``tech_existing.csv`` for in-"
@@ -357,19 +361,19 @@ msgstr ""
 "发电机的额定最大出力 (MW),相对于调度过程中的实际出力。在 ``tech_existing.csv`` 中存储现役容量,在 "
 "``tech_capacity_max.csv`` 中给出上限。"
 
-#: ../../source/Glossary.rst:161
+#: ../../source/Glossary.rst:164
 msgid "NPV"
 msgstr "NPV"
 
-#: ../../source/Glossary.rst:163
+#: ../../source/Glossary.rst:166
 msgid "See :term:`net present value`."
 msgstr "参见 :term:`net present value`。"
 
-#: ../../source/Glossary.rst:170
+#: ../../source/Glossary.rst:173
 msgid "p_max_pu"
 msgstr "p_max_pu"
 
-#: ../../source/Glossary.rst:172
+#: ../../source/Glossary.rst:175
 msgid ""
 "Per-unit upper bound on a generator's dispatch (PyPSA convention). For "
 "solar, the per-hour capacity-factor profile; for thermal techs, usually "
@@ -378,11 +382,11 @@ msgstr ""
 "发电机调度的标幺值上限 (PyPSA 约定)。对于光伏,即每小时的容量系数曲线;对于火电,通常为 1。PREP-SHOT 从 "
 "``tech_max_gen_profile.csv`` 读取。"
 
-#: ../../source/Glossary.rst:176
+#: ../../source/Glossary.rst:179
 msgid "p_min_pu"
 msgstr "p_min_pu"
 
-#: ../../source/Glossary.rst:178
+#: ../../source/Glossary.rst:181
 msgid ""
 "Per-unit lower bound on a generator's dispatch (PyPSA convention). Used "
 "to model must-run constraints. PREP-SHOT reads this from "
@@ -391,11 +395,11 @@ msgstr ""
 "发电机调度的标幺值下限 (PyPSA 约定)。用于建模必发出力约束。PREP-SHOT 从 "
 "``tech_min_gen_profile.csv`` 读取;默认值为 0。"
 
-#: ../../source/Glossary.rst:181
+#: ../../source/Glossary.rst:184
 msgid "PyOptInterface"
 msgstr "PyOptInterface"
 
-#: ../../source/Glossary.rst:183
+#: ../../source/Glossary.rst:186
 msgid ""
 "The Python wrapper around HiGHS / Gurobi / COPT / MOSEK that PREP-SHOT "
 "uses as its modeling layer. Faster and lower-memory than Pyomo for the "
@@ -404,11 +408,11 @@ msgstr ""
 "PREP-SHOT 用作建模层的 Python 求解器封装,支持 HiGHS / Gurobi / COPT / MOSEK。在同类问题上比 "
 "Pyomo 更快且占用内存更少。"
 
-#: ../../source/Glossary.rst:186
+#: ../../source/Glossary.rst:189
 msgid "ramp rate"
 msgstr "爬坡率 (ramp rate)"
 
-#: ../../source/Glossary.rst:188
+#: ../../source/Glossary.rst:191
 msgid ""
 "The hourly fraction of nominal capacity by which a thermal generator can "
 "change its output. Used to model the operational inflexibility of large "
@@ -417,11 +421,11 @@ msgstr ""
 "火电机组每小时可改变出力的额定容量比例。用于建模大型煤电 / "
 "燃气机组的运行刚性。输入文件:``tech_ramp_up.csv``、``tech_ramp_down.csv``。"
 
-#: ../../source/Glossary.rst:192
+#: ../../source/Glossary.rst:195
 msgid "representative period"
 msgstr "典型时段 (representative period)"
 
-#: ../../source/Glossary.rst:194
+#: ../../source/Glossary.rst:197
 msgid ""
 "A subset of hours / months chosen to approximate annual operation while "
 "keeping the model tractable. PREP-SHOT configures this via ``hour`` and "
@@ -433,11 +437,11 @@ msgstr ""
 " 和 ``month`` 配置。随仓库提供的三区域算例使用 48 个典型小时 x 1 个典型月;Lower Mekong 算例使用 288 x "
 "1。"
 
-#: ../../source/Glossary.rst:204
+#: ../../source/Glossary.rst:207
 msgid "reserve margin"
 msgstr "备用容量 (reserve margin)"
 
-#: ../../source/Glossary.rst:206
+#: ../../source/Glossary.rst:209
 msgid ""
 "The fraction of peak demand by which installed capacity must exceed peak "
 "demand to absorb forecast errors and unplanned outages. *Not currently "
@@ -447,22 +451,22 @@ msgstr ""
 "装机容量需超过峰值需求以吸收预测误差和非计划停运的占比。*PREP-SHOT 当前不建模该项;* v1.4 遗留数据中存在 "
 "``reserve_margin`` 文件,但已不再读取。"
 
-#: ../../source/Glossary.rst:199
+#: ../../source/Glossary.rst:202
 msgid "reservoir"
 msgstr "水库 (reservoir)"
 
-#: ../../source/Glossary.rst:201
+#: ../../source/Glossary.rst:204
 msgid ""
 "A body of water held behind a dam that provides operational flexibility "
 "for a hydropower station. PREP-SHOT models per- reservoir mass balance, "
 "head dynamics, and storage bounds."
 msgstr "水坝后蓄存的水体,为水电站提供运行灵活性。PREP-SHOT 按水库逐一建模水量平衡、水头变化与库容约束。"
 
-#: ../../source/Glossary.rst:210
+#: ../../source/Glossary.rst:213
 msgid "shadow price"
 msgstr "影子价格 (shadow price)"
 
-#: ../../source/Glossary.rst:212
+#: ../../source/Glossary.rst:215
 msgid ""
 "The dual variable on a constraint, equal to the rate of change of the "
 "optimal objective with respect to the constraint's RHS. For the demand-"
@@ -472,11 +476,11 @@ msgstr ""
 "约束的对偶变量,等于最优目标值对该约束右端项的变化率。对于需求平衡约束而言,影子价格就是 :term:`LMP`。在结果中以 "
 "``shadow_price_demand`` 输出。"
 
-#: ../../source/Glossary.rst:216
+#: ../../source/Glossary.rst:219
 msgid "storage"
 msgstr "储能 (storage)"
 
-#: ../../source/Glossary.rst:218
+#: ../../source/Glossary.rst:221
 msgid ""
 "A technology that absorbs energy in some hours and releases it in others "
 "(battery, pumped hydro). PREP-SHOT identifies these with "
@@ -486,11 +490,11 @@ msgstr ""
 "在某些时段吸收能量、在另一些时段释放能量的技术 (电池、抽水蓄能)。PREP-SHOT 在 ``tech_registry.csv`` 中以 "
 "``is_storage=True`` 标识;模型按小时跟踪荷电状态并考虑充放电效率。"
 
-#: ../../source/Glossary.rst:223
+#: ../../source/Glossary.rst:226
 msgid "tailrace level"
 msgstr "尾水位 (tailrace level)"
 
-#: ../../source/Glossary.rst:225
+#: ../../source/Glossary.rst:228
 msgid ""
 "The water-surface elevation downstream of the dam. Affects head together "
 "with the forebay level. Modeled as a piecewise- linear function of total "
@@ -499,11 +503,11 @@ msgstr ""
 "水坝下游的水面高程。与前池水位共同影响水头。在 "
 "``reservoir_tailrace_level_discharge_function.csv`` 中建模为总下泄量的分段线性函数。"
 
-#: ../../source/Glossary.rst:229
+#: ../../source/Glossary.rst:232
 msgid "tech_registry"
 msgstr "tech_registry"
 
-#: ../../source/Glossary.rst:231
+#: ../../source/Glossary.rst:234
 msgid ""
 "The CSV file listing every modeled technology with its ``carrier``, "
 "``is_storage`` flag, and human-readable ``name``. The single source of "
@@ -512,11 +516,11 @@ msgstr ""
 "列出每种被建模技术的 CSV 文件,字段包含 ``carrier``、``is_storage`` 标志位、以及供人阅读的 "
 "``name``。是某算例中技术存在性的唯一权威。"
 
-#: ../../source/Glossary.rst:234
+#: ../../source/Glossary.rst:237
 msgid "transmission existing"
 msgstr "现有输电容量 (transmission existing)"
 
-#: ../../source/Glossary.rst:236
+#: ../../source/Glossary.rst:239
 msgid ""
 "The pre-built transmission capacity between zones at the start of the "
 "planning horizon. Indexed by ``(zone1, zone2, commission_year)`` so age-"
@@ -525,11 +529,11 @@ msgstr ""
 "规划期初已建成的区域间输电容量。以 ``(zone1, zone2, commission_year)`` "
 "索引,使按使用年限的退役机制与电厂保持一致。"
 
-#: ../../source/Glossary.rst:240
+#: ../../source/Glossary.rst:243
 msgid "transmission expansion"
 msgstr "输电扩展 (transmission expansion)"
 
-#: ../../source/Glossary.rst:242
+#: ../../source/Glossary.rst:245
 msgid ""
 "Building new transmission capacity between zones, with bounds controlled "
 "by ``transmission_candidates.csv``. PREP-SHOT models inter-zone transport"
@@ -538,11 +542,11 @@ msgstr ""
 "在区域之间新建输电容量,其上下界由 ``transmission_candidates.csv`` 控制。PREP-SHOT "
 "在线路级建模区域间输送 (不含直流潮流 / 阻抗约束)。"
 
-#: ../../source/Glossary.rst:246
+#: ../../source/Glossary.rst:249
 msgid "variable renewable energy"
 msgstr "可变可再生能源 (variable renewable energy)"
 
-#: ../../source/Glossary.rst:248
+#: ../../source/Glossary.rst:251
 msgid ""
 "Generators with output set by uncontrollable resources -- wind and solar "
 "most prominently. PREP-SHOT models VRE via the "
@@ -552,19 +556,19 @@ msgstr ""
 "出力由不可控资源决定的发电机——典型为风能与太阳能。PREP-SHOT 通过 ``tech_max_gen_profile.csv`` "
 "(按小时的容量系数) 机制建模 VRE。常缩写为 :term:`VRE`。"
 
-#: ../../source/Glossary.rst:252
+#: ../../source/Glossary.rst:255
 msgid "VRE"
 msgstr "VRE"
 
-#: ../../source/Glossary.rst:254
+#: ../../source/Glossary.rst:257
 msgid "See :term:`variable renewable energy`."
 msgstr "参见 :term:`variable renewable energy`。"
 
-#: ../../source/Glossary.rst:255
+#: ../../source/Glossary.rst:258
 msgid "WACC"
 msgstr "WACC"
 
-#: ../../source/Glossary.rst:257
+#: ../../source/Glossary.rst:260
 msgid ""
 "Weighted-average cost of capital. The blended discount rate across a "
 "project's debt and equity tranches. Active when the v1.9 finance module "
@@ -574,11 +578,11 @@ msgstr ""
 "加权平均资本成本 (Weighted-Average Cost of Capital)。一个项目的债务与股权份额的混合折现率。在启用 v1.9 "
 "金融模块时 (即存在 ``finance_*.csv`` 文件) 生效;在投资成本折现时替代区域 :term:`discount factor`。"
 
-#: ../../source/Glossary.rst:262
+#: ../../source/Glossary.rst:265
 msgid "water delay time"
 msgstr "水流延迟时间 (water delay time)"
 
-#: ../../source/Glossary.rst:264
+#: ../../source/Glossary.rst:267
 msgid ""
 "The travel time of water flowing from one reservoir's outlet to the next "
 "reservoir's inlet in a cascade. Stored in "
@@ -588,11 +592,11 @@ msgstr ""
 "水流从一个水库的下泄口流至梯级中下一个水库入流口所需的时间。存于 "
 "``reservoir_water_delay_time.csv``;使模型能反映上游下泄需若干小时才到达下游电站这一事实。"
 
-#: ../../source/Glossary.rst:268
+#: ../../source/Glossary.rst:271
 msgid "zone"
 msgstr "区域 (zone)"
 
-#: ../../source/Glossary.rst:270
+#: ../../source/Glossary.rst:273
 msgid ""
 "A region modeled as a single bus -- within the zone, supply and demand "
 "are balanced instantaneously; between zones, electricity flows through "
@@ -601,4 +605,51 @@ msgid ""
 msgstr ""
 "被建模为单一母线的区域——在区域内供需瞬时平衡;在区域之间,电力通过具有容量和效率约束的跨区输电线路流动。``zone`` 集合由 "
 "``demand.csv`` 的键导出。"
+
+#: ../../source/Glossary.rst:280
+msgid "Further reading"
+msgstr ""
+
+#: ../../source/Glossary.rst:282
+msgid ""
+"Excellent free primers from NREL and DOE, useful as orientation if the "
+"terminology above is new. Read in order: model families first, then how "
+"to read model output, then real-grid grounding."
+msgstr ""
+
+#: ../../source/Glossary.rst:286
+msgid ""
+"`Power Sector Modeling 101 "
+"<https://www.energy.gov/sites/prod/files/2016/02/f30/EPSA_Power_Sector_Modeling_FINAL_021816_0.pdf>`_"
+" (US DOE EPSA, 2016) -- conceptual tour of the model families PREP-SHOT "
+"belongs to: capacity expansion vs production cost vs unit commitment, "
+"what each is for, where their assumptions break."
+msgstr ""
+
+#: ../../source/Glossary.rst:291
+msgid ""
+"`Beginner's Guide to Understanding Power System Model Results for Long-"
+"Term Resource Plans <https://docs.nrel.gov/docs/fy24osti/87105.pdf>`_ "
+"(NREL, 2023) -- companion to PREP-SHOT's output: how to read a capacity-"
+"expansion result, what the buildouts and dispatch curves mean, common "
+"pitfalls when interpreting them."
+msgstr ""
+
+#: ../../source/Glossary.rst:297
+msgid ""
+"`Advanced Guide to Understanding Power System Model Results for Long-Term"
+" Resource Plans <https://docs.nrel.gov/docs/fy24osti/88337.pdf>`_ (NREL, "
+"2024) -- deeper sequel: reliability metrics, reserve margin reasoning, "
+"transmission congestion interpretation, and what differing capacity-"
+"expansion studies typically disagree about."
+msgstr ""
+
+#: ../../source/Glossary.rst:304
+msgid ""
+"`Electric Grid and Markets 101 "
+"<https://docs.nrel.gov/docs/fy25osti/91864.pdf>`_ (NREL, 2024) -- how the"
+" bulk power system actually works: generation, transmission, ISOs/RTOs, "
+"day-ahead vs real-time markets, ancillary services. Real-world grounding "
+"for the modeled abstractions."
+msgstr ""
 

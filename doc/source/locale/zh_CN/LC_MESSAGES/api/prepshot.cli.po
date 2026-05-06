@@ -1,0 +1,72 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023-2025, Zhanwei Liu and Xiaogang He (GPL-3.0)
+# This file is distributed under the same license as the PREP-SHOT package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PREP-SHOT latest\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-06 13:42+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh_CN\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/api/prepshot.cli.rst:2
+msgid "cli"
+msgstr ""
+
+#: of prepshot.cli:1
+msgid "Command-line entry point for PREP-SHOT."
+msgstr ""
+
+#: of prepshot.cli:3
+msgid "Run as a console script after ``pip install``::"
+msgstr ""
+
+#: of prepshot.cli:7
+msgid "Or as a Python module::"
+msgstr ""
+
+#: of prepshot.cli:11
+msgid ""
+"Both forms look for ``config.json`` and ``params.json`` in the current "
+"working directory by default. The legacy entry point (``python run.py``) "
+"remains supported and reads those files relative to ``run.py`` instead."
+msgstr ""
+
+#: of prepshot.cli.main:1
+msgid "Run a full PREP-SHOT solve."
+msgstr ""
+
+#: of prepshot.cli.main
+msgid "Parameters"
+msgstr ""
+
+#: of prepshot.cli.main:3
+msgid ""
+"Directory containing ``config.json`` and ``params.json``. Defaults to the"
+" current working directory."
+msgstr ""
+
+#: of prepshot.cli.main
+msgid "Returns"
+msgstr ""
+
+#: of prepshot.cli.main:7
+msgid ""
+"``True`` if the model solved to optimality and results were saved, "
+"``False`` otherwise."
+msgstr ""
+
+#: of prepshot.cli.main
+msgid "Return type"
+msgstr ""
+

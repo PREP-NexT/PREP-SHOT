@@ -1,0 +1,216 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023-2025, Zhanwei Liu and Xiaogang He (GPL-3.0)
+# This file is distributed under the same license as the PREP-SHOT package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PREP-SHOT latest\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-06 13:42+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh_CN\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/api/prepshot._model.dc_flow.rst:2
+msgid "dc_flow"
+msgstr ""
+
+#: of prepshot._model.dc_flow:1
+msgid "DC linearised power-flow constraints (zonal), with optional N-1."
+msgstr ""
+
+#: of prepshot._model.dc_flow:3
+msgid ""
+"PREP-SHOT's default transmission representation is a \"transport\" or "
+"\"pipe\" model: net flow ``trans_export[z1,z2]`` is bounded by line "
+"capacity, and that's it. There's no Kirchhoff voltage law, no loop flow, "
+"no reactance -- power can flow whichever way the LP optimum prefers. "
+"That's fine for capacity-expansion screening, where the question is "
+"\"where to build\" rather than \"what does the AC network actually do.\""
+msgstr ""
+
+#: of prepshot._model.dc_flow:11
+msgid ""
+"When ``config.json.dc_parameters.is_dc_flow`` is ``true``, this module "
+"adds the standard DC linearisation: for every connected zone pair ``(z1, "
+"z2)`` with a positive susceptance ``b[z1,z2]``, the **net** flow between "
+"the two zones is locked to the phase-angle difference times the "
+"susceptance:"
+msgstr ""
+
+#: of prepshot._model.dc_flow:17
+msgid ""
+"\\text{trans\\_export}_{h,m,y,z_1,z_2}\n"
+"  - \\text{trans\\_export}_{h,m,y,z_2,z_1}\n"
+"= b_{z_1,z_2} \\cdot\n"
+"  (\\theta_{h,m,y,z_1} - \\theta_{h,m,y,z_2}) \\cdot \\Delta h"
+msgstr ""
+
+#: of prepshot._model.dc_flow:24
+msgid ""
+"The capacity bound on each direction (``trans_export <= cap_lines_ "
+"existing``) carries over unchanged, which means the *thermal* limit still"
+" applies but Kirchhoff is now enforced too. Loop flows on a multi-zone "
+"network are no longer free."
+msgstr ""
+
+#: of prepshot._model.dc_flow:30
+msgid "N-1 security-constrained mode (v1.18+)"
+msgstr ""
+
+#: of prepshot._model.dc_flow:32
+msgid ""
+"When ``dc_parameters.is_n1_secure`` is also ``true`` and "
+"``transmission_contingencies.csv`` lists which lines to protect against, "
+"the model is solved under a **preventive** security policy: the same "
+"``gen`` decision must be feasible in the base case AND in every "
+"contingency where one listed line is out of service. For each contingency"
+" ``c``, the module adds a parallel set of state variables (``theta_c``, "
+"``trans_export_c``) and constraints (DC flow with the outaged line forced"
+" to zero, capacity bounds, demand balance with contingency flows). "
+"``gen`` and ``charge`` are NOT duplicated -- preventive policy means the "
+"same dispatch must work everywhere."
+msgstr ""
+
+#: of prepshot._model.dc_flow:43
+msgid "Inputs (all optional):"
+msgstr ""
+
+#: of prepshot._model.dc_flow:45
+msgid ""
+"``transmission_susceptance.csv`` -- columns ``zone1, zone2, value`` (one "
+"row per UNORDERED zone pair; the loader symmetrises to both directions). "
+"Units: MW per radian (so ``b * angle_diff`` is MW). Missing rows -> 0 (no"
+" constraint, equivalent to \"no electrical connection between these "
+"zones\")."
+msgstr ""
+
+#: of prepshot._model.dc_flow:51
+msgid ""
+"``transmission_contingencies.csv`` -- columns ``zone1, zone2``, one line "
+"per contingency case. Each row removes the named line in one parallel "
+"solve. Empty file -> no contingencies, equivalent to "
+"``is_n1_secure=false``."
+msgstr ""
+
+#: of prepshot._model.dc_flow:56
+msgid "Config:"
+msgstr ""
+
+#: of prepshot._model.dc_flow:58
+msgid ""
+"``dc_parameters.is_dc_flow`` (bool, default false) -- enable/disable "
+"base-case DC flow."
+msgstr ""
+
+#: of prepshot._model.dc_flow:60
+msgid ""
+"``dc_parameters.reference_zone`` (str, optional) -- zone whose phase "
+"angle is pinned to 0. Defaults to the first zone in ``model.zone``."
+msgstr ""
+
+#: of prepshot._model.dc_flow:62
+msgid ""
+"``dc_parameters.is_n1_secure`` (bool, default false) -- adds N-1 "
+"contingency constraints. Requires ``is_dc_flow=true``."
+msgstr ""
+
+#: of prepshot._model.dc_flow:65
+msgid ""
+"The phase-angle variable ``model.theta`` is bounded to ``[-pi, pi]`` for "
+"numerical stability; in practice DC OPF angles stay well within ``+/- "
+"pi/2``."
+msgstr ""
+
+#: of prepshot._model.dc_flow:69
+msgid "This module is LP-stable: no binaries, no new non-convexity."
+msgstr ""
+
+#: of prepshot._model.dc_flow.AddDCFlowConstraints:1
+msgid "Bases: :py:class:`object`"
+msgstr ""
+
+#: of prepshot._model.dc_flow.AddDCFlowConstraints:1
+msgid "DC linearised power-flow constraints, opt-in."
+msgstr ""
+
+#: of prepshot._model.dc_flow.AddDCFlowConstraints
+#: prepshot._model.dc_flow.AddDCFlowConstraints.cap_c_rule
+#: prepshot._model.dc_flow.AddDCFlowConstraints.demand_balance_c_rule
+#: prepshot._model.dc_flow.AddDCFlowConstraints.flow_c_rule
+#: prepshot._model.dc_flow.AddDCFlowConstraints.flow_rule
+#: prepshot._model.dc_flow.AddDCFlowConstraints.theta_ref_c_rule
+#: prepshot._model.dc_flow.AddDCFlowConstraints.theta_ref_rule
+msgid "Parameters"
+msgstr ""
+
+#: of prepshot._model.dc_flow.AddDCFlowConstraints.cap_c_rule:1
+msgid "Capacity bound on contingency-case flow."
+msgstr ""
+
+#: of prepshot._model.dc_flow.AddDCFlowConstraints.cap_c_rule:3
+msgid ""
+"``trans_export_c[h, m, y, z1, z2, c] <= cap_lines_existing[y, z1, z2]``. "
+"Same numeric bound as the base case -- ``gen`` is shared between base and"
+" contingency, so capacity stays consistent."
+msgstr ""
+
+#: of prepshot._model.dc_flow.AddDCFlowConstraints.cap_c_rule
+#: prepshot._model.dc_flow.AddDCFlowConstraints.demand_balance_c_rule
+#: prepshot._model.dc_flow.AddDCFlowConstraints.flow_c_rule
+#: prepshot._model.dc_flow.AddDCFlowConstraints.flow_rule
+#: prepshot._model.dc_flow.AddDCFlowConstraints.theta_ref_c_rule
+#: prepshot._model.dc_flow.AddDCFlowConstraints.theta_ref_rule
+msgid "Return type"
+msgstr ""
+
+#: of prepshot._model.dc_flow.AddDCFlowConstraints.demand_balance_c_rule:1
+msgid "Power balance in contingency c."
+msgstr ""
+
+#: of prepshot._model.dc_flow.AddDCFlowConstraints.demand_balance_c_rule:3
+msgid ""
+"Same as the base-case ``power_balance_rule`` in ``demand.py``, but with "
+"contingency-case flows. ``gen`` and ``charge`` are the shared base-case "
+"decisions (preventive policy)."
+msgstr ""
+
+#: of prepshot._model.dc_flow.AddDCFlowConstraints.flow_c_rule:1
+msgid "Per-line DC flow eq in contingency c."
+msgstr ""
+
+#: of prepshot._model.dc_flow.AddDCFlowConstraints.flow_c_rule:3
+msgid ""
+"The outaged line ``self.contingencies[c]`` has its flow forced to zero "
+"(both directions). Every other line follows the same susceptance-times-"
+"angle-difference relation as the base case."
+msgstr ""
+
+#: of prepshot._model.dc_flow.AddDCFlowConstraints.flow_rule:1
+msgid "Net flow = susceptance * angle difference * dt."
+msgstr ""
+
+#: of prepshot._model.dc_flow.AddDCFlowConstraints.flow_rule:3
+msgid ""
+"Only emitted for ordered pairs ``(z1, z2)`` with ``z1 < z2`` and a "
+"positive susceptance, so each electrical line gets one constraint instead"
+" of two redundant ones. The capacity bound on each ``trans_export`` "
+"direction stays in place."
+msgstr ""
+
+#: of prepshot._model.dc_flow.AddDCFlowConstraints.theta_ref_c_rule:1
+msgid "Pin reference zone's phase angle to 0 in contingency c."
+msgstr ""
+
+#: of prepshot._model.dc_flow.AddDCFlowConstraints.theta_ref_rule:1
+msgid "Pin the reference zone's phase angle to 0."
+msgstr ""
+

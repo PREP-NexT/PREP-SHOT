@@ -1,0 +1,204 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023-2025, Zhanwei Liu and Xiaogang He (GPL-3.0)
+# This file is distributed under the same license as the PREP-SHOT package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PREP-SHOT latest\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-06 13:42+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh_CN\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/api/prepshot._model.heat_rate.rst:2
+msgid "heat_rate"
+msgstr ""
+
+#: of prepshot._model.heat_rate:1
+msgid "Piecewise-linear heat rates (convex, no UC required)."
+msgstr ""
+
+#: of prepshot._model.heat_rate:3
+msgid ""
+"Standard CEM/PCM addition for thermal generators: their fuel-burn- per-"
+"MWh isn't constant across the operating range. Above the design point, "
+"marginal heat rate increases (each additional MWh costs more fuel than "
+"the previous one). LP-friendly approximation: split the operating range "
+"into K segments with monotone-non-decreasing multipliers, force the "
+"dispatch to use the cheapest segment first."
+msgstr ""
+
+#: of prepshot._model.heat_rate:10
+msgid ""
+"The convexity matters: with non-decreasing multipliers across ascending "
+"output ranges, the LP optimum naturally fills segments in order (cheapest"
+" first) without any binary ordering constraints. Real heat-rate curves "
+"below the design point (where part-load losses dominate) are concave -- "
+"those can only be modelled with no- load + startup costs in the UC "
+"overlay (v1.15+)."
+msgstr ""
+
+#: of prepshot._model.heat_rate:18
+msgid "Inputs"
+msgstr ""
+
+#: of prepshot._model.heat_rate:20
+msgid ""
+"``tech_heat_rate.csv`` (table format) -- one row per (tech, segment), "
+"with columns:"
+msgstr ""
+
+#: of prepshot._model.heat_rate:23
+msgid "``tech`` -- technology name"
+msgstr ""
+
+#: of prepshot._model.heat_rate:24
+msgid "``segment`` -- integer index (1, 2, 3, ...)"
+msgstr ""
+
+#: of prepshot._model.heat_rate:25
+#, python-format
+msgid ""
+"``frac_max`` -- cumulative cap fraction at the upper edge of this segment"
+" (e.g., 0.5 for segment 1 means \"0-50 % of cap\"). Segments must form a "
+"partition: ``frac_max`` strictly increasing, last value = 1.0."
+msgstr ""
+
+#: of prepshot._model.heat_rate:29
+msgid ""
+"``multiplier`` -- relative heat rate within this segment, 1.0 == baseline"
+" (whatever ``tech_fuel_price`` already implies). The multiplier sequence "
+"MUST be non-decreasing for LP convexity."
+msgstr ""
+
+#: of prepshot._model.heat_rate:33
+msgid ""
+"Techs not listed in the CSV keep the v1.18 single-rate fuel cost "
+"(``fuel_price * gen``). Mixing piecewise and flat-rate techs is fine."
+msgstr ""
+
+#: of prepshot._model.heat_rate:38
+msgid "Constraints"
+msgstr ""
+
+#: of prepshot._model.heat_rate:40
+msgid "Per ``(h, m, y, z, te)`` in the heat-rate set:"
+msgstr ""
+
+#: of prepshot._model.heat_rate:42
+msgid ""
+"sum-to-gen: ``sum_s gen_segment[h, m, y, z, te, s] == gen[h, m, y, z, "
+"te]``"
+msgstr ""
+
+#: of prepshot._model.heat_rate:44
+msgid ""
+"per-segment width: ``gen_segment[..., s] <= width[s] * cap_existing[y, z,"
+" te] * dt``"
+msgstr ""
+
+#: of prepshot._model.heat_rate:47
+msgid "where ``width[s] = frac_max[s] - frac_max[s-1]``."
+msgstr ""
+
+#: of prepshot._model.heat_rate:49
+msgid "Fuel cost replaces the flat ``fuel_price * gen`` with:"
+msgstr ""
+
+#: of prepshot._model.heat_rate:51
+msgid "``fuel_price[te, y] * sum_s multiplier[s] * gen_segment[..., s]``"
+msgstr ""
+
+#: of prepshot._model.heat_rate:53
+msgid ""
+"NPV-discounted via ``var_factor[y, z]`` and divided by ``weight``, "
+"identical to the rest of ``cost_var``."
+msgstr ""
+
+#: of prepshot._model.heat_rate:57
+msgid "Config"
+msgstr ""
+
+#: of prepshot._model.heat_rate:59
+msgid ""
+"``cost_parameters.is_piecewise_heat_rate`` (bool, default False). When "
+"False, the module is a no-op and PREP-SHOT keeps the v1.18 flat-rate "
+"behaviour byte-for-byte."
+msgstr ""
+
+#: of prepshot._model.heat_rate.AddHeatRateConstraints:1
+msgid "Bases: :py:class:`object`"
+msgstr ""
+
+#: of prepshot._model.heat_rate.AddHeatRateConstraints:1
+msgid "Piecewise-linear heat rate, opt-in."
+msgstr ""
+
+#: of prepshot._model.heat_rate.AddHeatRateConstraints
+msgid "Parameters"
+msgstr ""
+
+#: of prepshot._model.heat_rate.AddHeatRateConstraints.segment_width_rule:1
+msgid "``gen_segment[s] <= (width[s] * cap_existing) * dt``."
+msgstr ""
+
+#: of prepshot._model.heat_rate.AddHeatRateConstraints.segment_zero_rule:1
+msgid "Force ``gen_segment[..., s] = 0`` for (te, s) not defined."
+msgstr ""
+
+#: of prepshot._model.heat_rate.AddHeatRateConstraints.sum_to_gen_rule:1
+msgid "``sum_s gen_segment[..., s] == gen[h, m, y, z, te]``."
+msgstr ""
+
+#: of prepshot._model.heat_rate.add_heat_rate_fuel_cost:1
+msgid "Per-segment fuel cost contribution, NPV-discounted."
+msgstr ""
+
+#: of prepshot._model.heat_rate.add_heat_rate_fuel_cost:3
+msgid "For each tech with a heat-rate curve, the fuel cost becomes:"
+msgstr ""
+
+#: of prepshot._model.heat_rate.add_heat_rate_fuel_cost:5
+msgid "fuel_price[te, y] * sum_s multiplier[s] * gen_segment[..., s]"
+msgstr ""
+
+#: of prepshot._model.heat_rate.add_heat_rate_fuel_cost:7
+msgid ""
+"summed over (h, m, y, z), discounted by ``var_factor[y, z]``, and divided"
+" by ``weight``. Returned as an ExprBuilder. Returns a zero ExprBuilder "
+"when the module is disabled or no heat-rate curves are loaded."
+msgstr ""
+
+#: of prepshot._model.heat_rate.add_heat_rate_fuel_cost:12
+msgid ""
+"The CALLER (``cost.var_cost_rule``) must remove the corresponding techs' "
+"contribution from the existing flat-rate ``fuel_cost_breakdown`` to avoid"
+" double-counting -- handled by skipping those techs in the original "
+"``fuel_cost_breakdown`` loop when ``hasattr(model, 'gen_segment')`` and "
+"the tech is in ``segments_by_tech``."
+msgstr ""
+
+#: of prepshot._model.heat_rate.add_heat_rate_fuel_cost
+#: prepshot._model.heat_rate.techs_with_heat_rate_curve
+msgid "Return type"
+msgstr ""
+
+#: of prepshot._model.heat_rate.techs_with_heat_rate_curve:1
+msgid "Return the set of techs that have a heat-rate curve loaded."
+msgstr ""
+
+#: of prepshot._model.heat_rate.techs_with_heat_rate_curve:3
+msgid ""
+"Used by ``cost.fuel_cost_breakdown`` to skip techs that should be priced "
+"through ``add_heat_rate_fuel_cost`` instead of the flat-rate fallback."
+msgstr ""
+
