@@ -1332,22 +1332,23 @@ cascade pairs: 0
 <section id="6.1-Bus-locations-and-demand">
 <h3>6.1 Bus locations and demand<a class="headerlink" href="#6.1-Bus-locations-and-demand" title="此标题的永久链接">¶</a></h3>
 <p>Every PREP-SHOT zone in this scenario is one bus on the Thai grid. We can plot all 472 of them on a map and size each marker by its peak hourly demand.</p>
-<div class="nbinput docutils container">
+<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Thailand country outline. Downloaded once from the public-domain</span>
-<span class="c1"># johan/world.geo.json repo (~5 KB), cached alongside the notebook.</span>
-<span class="c1"># Used as a faint grey background in the bus map and transmission</span>
-<span class="c1"># network plots below.</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Thailand country outline (high-res, ~44 KB GeoJSON committed</span>
+<span class="c1"># alongside the notebook). Pre-extracted from the</span>
+<span class="c1"># `world_administrative_boundaries` shapefile (UN-OCHA / Natural</span>
+<span class="c1"># Earth). If the local file is missing for any reason, fall back to</span>
+<span class="c1"># the small public-domain `johan/world.geo.json` outline.</span>
 <span class="kn">import</span> <span class="nn">json</span> <span class="k">as</span> <span class="nn">_json</span>
 <span class="kn">import</span> <span class="nn">urllib.request</span>
 
-<span class="n">GEO_URL</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/johan/world.geo.json/&#39;</span>
-           <span class="s1">&#39;master/countries/THA.geo.json&#39;</span><span class="p">)</span>
 <span class="n">geo_cache</span> <span class="o">=</span> <span class="n">this_dir</span> <span class="o">/</span> <span class="s1">&#39;thailand_outline.geojson&#39;</span>
 <span class="k">if</span> <span class="ow">not</span> <span class="n">geo_cache</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Downloading Thailand outline -&gt; </span><span class="si">{</span><span class="n">geo_cache</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">GEO_URL</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/johan/world.geo.json/&#39;</span>
+               <span class="s1">&#39;master/countries/THA.geo.json&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Local outline not found; downloading low-res fallback -&gt; </span><span class="si">{</span><span class="n">geo_cache</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
     <span class="k">with</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">GEO_URL</span><span class="p">)</span> <span class="k">as</span> <span class="n">r</span><span class="p">:</span>
         <span class="n">geo_cache</span><span class="o">.</span><span class="n">write_bytes</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
 <span class="n">THA</span> <span class="o">=</span> <span class="n">_json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">geo_cache</span><span class="o">.</span><span class="n">read_text</span><span class="p">())</span>
@@ -1366,14 +1367,6 @@ cascade pairs: 0
         <span class="n">ax</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="o">**</span><span class="n">style</span><span class="p">)</span>
 <br/></pre></div>
 </div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-Downloading Thailand outline -&gt; thailand_outline.geojson
-</pre></div></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
