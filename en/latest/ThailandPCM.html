@@ -1341,6 +1341,7 @@ cascade pairs: 0
 <span class="c1"># Earth). If the local file is missing for any reason, fall back to</span>
 <span class="c1"># the small public-domain `johan/world.geo.json` outline.</span>
 <span class="kn">import</span> <span class="nn">json</span> <span class="k">as</span> <span class="nn">_json</span>
+<span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">import</span> <span class="nn">urllib.request</span>
 
 <span class="n">geo_cache</span> <span class="o">=</span> <span class="n">this_dir</span> <span class="o">/</span> <span class="s1">&#39;thailand_outline.geojson&#39;</span>
@@ -1352,8 +1353,15 @@ cascade pairs: 0
         <span class="n">geo_cache</span><span class="o">.</span><span class="n">write_bytes</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
 <span class="n">THA</span> <span class="o">=</span> <span class="n">_json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">geo_cache</span><span class="o">.</span><span class="n">read_text</span><span class="p">())</span>
 
+<span class="c1"># Cosine-corrected aspect: at ~13.5 deg N (rough centre of Thailand)</span>
+<span class="c1"># one degree of latitude is ~111 km, one degree of longitude is</span>
+<span class="c1"># ~108 km, so we stretch the y-axis by 1/cos(lat) to make the map</span>
+<span class="c1"># look geographically right rather than horizontally squashed.</span>
+<span class="n">THAILAND_CENTRE_LAT</span> <span class="o">=</span> <span class="mf">13.5</span>
+<span class="n">GEO_ASPECT</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">THAILAND_CENTRE_LAT</span><span class="p">))</span>
+
 <span class="k">def</span> <span class="nf">draw_thailand</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot the Thailand country outline on the given matplotlib axes.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot the Thailand country outline + set geo-correct aspect.&quot;&quot;&quot;</span>
     <span class="n">style</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;#f5f5f5&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;#999&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span>
                  <span class="n">zorder</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">style</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
@@ -1364,6 +1372,7 @@ cascade pairs: 0
         <span class="n">xs</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">outer</span><span class="p">]</span>
         <span class="n">ys</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">outer</span><span class="p">]</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="o">**</span><span class="n">style</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="n">GEO_ASPECT</span><span class="p">)</span>
 <br/></pre></div>
 </div>
 </div>
