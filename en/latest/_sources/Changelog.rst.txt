@@ -3,6 +3,98 @@ Changelog
 
 Here, you'll find notable changes for each version of PREP-SHOT.
 
+Version 1.19.0 - May 6, 2026
+-------------------------------
+
+New feature: optional **piecewise-linear heat rates** for thermal
+generators. Replaces the flat ``fuel_price * gen`` fuel-cost model
+with a convex 3-segment (or N-segment) curve where the marginal
+heat rate increases as a unit's output approaches its rated
+capacity. LP-stable because the segments are sized so that
+multipliers are non-decreasing -- the LP optimum naturally fills
+cheaper segments first without binary ordering constraints.
+
+Closes Tier 1 item 4 (generator economics granularity) of the
+PCM-gap analysis. Real heat-rate curves below the design point
+(part-load losses dominate, curve becomes concave) are still
+abstracted into the v1.15 UC overlay's no-load + min-stable-load
+constraints; this commit handles the above-design "increasing
+marginal heat rate" half cleanly.
+
+Added
++++++
+
+* ``prepshot/_model/heat_rate.py`` -- ``AddHeatRateConstraints``
+  class. Per ``(h, m, y, z, te)`` in the heat-rate set, three new
+  constraint families:
+
+  - **sum-to-gen**: ``sum_s gen_segment[..., s] = gen[..., te]``
+  - **per-segment width**: ``gen_segment[..., s] <=
+    (frac_max[s] - frac_max[s-1]) * cap_existing[y,z,te] * dt``
+  - **unused-segment zero**: lock ``gen_segment[..., s] = 0`` for
+    segments not declared for the tech.
+
+  And a new variable ``model.gen_segment`` (lb=0) sized over
+  ``(hour, month, year, zone, tech, segment_idx)``.
+
+* ``add_heat_rate_fuel_cost(model)`` (in the same module) returns
+  the per-segment fuel cost contribution as an ExprBuilder:
+
+      fuel_price[te, y] * sum_s multiplier[s] * gen_segment[..., s]
+
+  NPV-discounted via ``var_factor[y, z]`` and divided by ``weight``
+  -- identical accounting to the rest of ``cost_var``. Wired into
+  ``cost.var_cost_rule``.
+
+* ``cost.fuel_cost_breakdown`` now SKIPS techs that have a
+  heat-rate curve (returns a zero ExprBuilder for them). Those
+  techs are priced through ``add_heat_rate_fuel_cost`` instead.
+  Without the skip, the flat-rate cost would be double-counted.
+
+* New optional input ``tech_heat_rate.csv`` (table format) with
+  columns ``tech, segment, frac_max, multiplier``. One row per
+  (tech, segment); per-tech segments must be sorted by ``frac_max``
+  ascending and have non-decreasing multipliers (the loader
+  validates this and raises ``ValueError`` if violated).
+
+* New ``cost_parameters.is_piecewise_heat_rate`` config flag
+  (default false). When false, the module is a no-op and PREP-SHOT
+  keeps the v1.18 flat-rate behaviour byte-for-byte.
+
+Default heat-rate curves shipped
+++++++++++++++++++++++++++++++++
+
+3-segment convex curve for every thermal tech in every example:
+
+  Segment 1 (0-50 % of cap):   multiplier 1.00 (baseline)
+  Segment 2 (50-80 % of cap):  multiplier 1.03
+  Segment 3 (80-100 % of cap): multiplier 1.10
+
+Eligible carriers: coal, oil, gas, bioenergy, biomass, nuclear,
+geothermal. Solar / wind / hydro / storage are not thermal;
+``tech_heat_rate.csv`` skips them and they keep the flat-rate
+fuel cost (which is 0 for renewables anyway).
+
+Per-example wiring
+++++++++++++++++++
+
+* ``three_zone``: ``is_piecewise_heat_rate=true``. 1 thermal tech
+  (Coal) x 3 segments = 3 rows in tech_heat_rate.csv.
+* ``thailand``: ``is_piecewise_heat_rate=false``. CSV ships
+  (3 thermal techs x 3 segments = 9 rows) for opt-in.
+* ``southeast_asia``: ``is_piecewise_heat_rate=false``. CSV
+  ships (4 thermal techs x 3 segments = 12 rows) for opt-in.
+
+Regression
+++++++++++
+
+three_zone EXPECTED_OBJECTIVE 2.1091201892e11 -> 2.1092168430e11
+(+0.005 %). The drift is tiny because Coal in this scenario rarely
+runs above 50 % of cap (segment 1, multiplier 1.00) -- wind, solar,
+and hydro dominate dispatch. The constraint structure is in place
+for scenarios where thermal pushes the upper segments; in those
+cases the cost shift is meaningful.
+
 Version 1.18.0 - May 6, 2026
 -------------------------------
 
