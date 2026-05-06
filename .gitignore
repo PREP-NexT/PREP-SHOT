@@ -38,5 +38,7 @@ references/
 examples/thailand_pcm/input/
 examples/thailand_pcm/output/
 examples/thailand_pcm/log/
-# Downloaded once by the notebook (johan/world.geo.json), ~5 KB.
-examples/thailand_pcm/thailand_outline.geojson
+# Heavy ESRI shapefile from world_administrative_boundaries (~4 MB).
+# The Thailand polygon is pre-extracted to thailand_outline.geojson
+# (~44 KB) which IS committed.
+examples/thailand_pcm/world_administrative_boundaries/
