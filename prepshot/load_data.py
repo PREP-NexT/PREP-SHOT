@@ -138,6 +138,8 @@ def extract_config_data(config_data : dict) -> dict:
     dc_params = config_data.get('dc_parameters') or {}
     is_dc_flow = bool(dc_params.get('is_dc_flow', False))
     reference_zone = dc_params.get('reference_zone')  # None -> first zone
+    # N-1 security-constrained DC OPF is opt-in on top of DC flow.
+    is_n1_secure = bool(dc_params.get('is_n1_secure', False))
     # Unit commitment is opt-in. When on, the model becomes a MILP --
     # several-fold slower than the underlying LP. Default off so any
     # pre-1.15 config.json stays LP and behaves identically.
@@ -158,6 +160,7 @@ def extract_config_data(config_data : dict) -> dict:
         'is_reserve': is_reserve,
         'is_dc_flow': is_dc_flow,
         'reference_zone': reference_zone,
+        'is_n1_secure': is_n1_secure,
         'is_uc': is_uc,
         'uc_relaxation': uc_relaxation,
     }

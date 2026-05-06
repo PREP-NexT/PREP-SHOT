@@ -22,7 +22,8 @@
     },
     "dc_parameters": {
         "is_dc_flow": false,
-        "reference_zone": "Thailand"
+        "reference_zone": "Thailand",
+        "is_n1_secure": false
     },
     "uc_parameters": {
         "is_uc": false,

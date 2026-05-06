@@ -59,10 +59,16 @@ class TestRegressionDefaultInput(unittest.TestCase):
     #                                 non_spinning (real markets
     #                                 typically allow this since hydro
     #                                 ramps from cold within 10 min).
-    #                                 Slight drop because hydro can
-    #                                 now serve more reserve products
-    #                                 cheaply.
-    EXPECTED_OBJECTIVE = 1.9009490431e11
+    #   v1.18.0 : 2.1091201892e11  -- + N-1 security-constrained
+    #                                 DC OPF (preventive policy).
+    #                                 The +11 % jump is the
+    #                                 cost of dispatching with
+    #                                 enough headroom that any
+    #                                 single line outage stays
+    #                                 feasible -- the constraint
+    #                                 is genuinely binding on
+    #                                 three_zone's 3-line topology.
+    EXPECTED_OBJECTIVE = 2.1091201892e11
     # 1 % tolerance — head iteration is non-trivial; this absorbs minor
     # numerical differences across HiGHS minor versions and platforms
     # without being so loose it stops catching real regressions.

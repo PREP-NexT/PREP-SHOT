@@ -22,7 +22,8 @@
     },
     "dc_parameters": {
         "is_dc_flow": true,
-        "reference_zone": "BA1"
+        "reference_zone": "BA1",
+        "is_n1_secure": true
     },
     "uc_parameters": {
         "is_uc": true,

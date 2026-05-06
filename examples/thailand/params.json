@@ -365,5 +365,11 @@
         "drop_na": true,
         "required": false,
         "default": 0
+    },
+    "contingencies": {
+        "file_name": "transmission_contingencies",
+        "format": "table",
+        "drop_na": true,
+        "required": false
     }
 }
