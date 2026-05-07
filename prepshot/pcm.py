@@ -79,10 +79,16 @@ Add a ``pcm_parameters`` block to ``config.json``::
     "pcm_parameters": {
         "horizon_h": 48,
         "step_h": 24,
-        "year": 2030
+        "year": 2030,
+        "total_h": 168
     }
 
 Or pass as CLI flags. CLI overrides config.
+
+``total_h`` (optional) caps how many hours from ``hour[0]`` are
+simulated -- useful as a smoke test on large nodal models, where a
+single 48 h window can take tens of minutes to build. Omit (or set
+``null``) to run the full year.
 
 Output
 ======
@@ -99,10 +105,14 @@ CLI
     cd examples/three_zone
     python -m prepshot.pcm --year 2025 --horizon 48 --step 24
 
+    # smoke test: only the first 48 h, one window
+    python -m prepshot.pcm --year 2025 --horizon 48 --step 48 --total-h 48
+
 Or programmatically::
 
     from prepshot.pcm import run_pcm
     run_pcm('examples/three_zone', year=2025)
+    run_pcm('examples/three_zone', year=2025, total_h=48)
 """
 import argparse
 import json
@@ -511,6 +521,7 @@ def run_pcm(
     horizon_h: int = 48,
     step_h: int = 24,
     cap_source: Optional[str] = None,
+    total_h: Optional[int] = None,
 ) -> None:
     """Solve PCM dispatch over one year with rolling horizon.
 
@@ -528,6 +539,10 @@ def run_pcm(
     cap_source : str, optional
         Path to a CEM ``baseline.nc`` or capacity CSV. If omitted,
         the CEM-shipped existing fleet is used unchanged.
+    total_h : int, optional
+        Cap on the number of hours simulated from ``hour[0]``. Useful
+        as a smoke test on large nodal models where the full year is
+        intractable. Defaults to ``None`` (run all hours).
     """
     setup_logging()
     scenario_dir = Path(scenario_dir).resolve()
@@ -559,6 +574,8 @@ def run_pcm(
     horizon_h = horizon_h or pcm_block.get('horizon_h', 48)
     step_h = step_h or pcm_block.get('step_h', 24)
     cap_source = cap_source or pcm_block.get('cap_source')
+    if total_h is None:
+        total_h = pcm_block.get('total_h')
 
     if cap_source:
         cap_lookup = load_fixed_capacity(
@@ -584,6 +601,14 @@ def run_pcm(
 
     full_hours = list(full_params['hour'])
     n_hours = len(full_hours)
+    if total_h is not None:
+        n_hours = min(n_hours, int(total_h))
+        logging.info(
+            'PCM: total_h=%d -- simulating only hours [%d..%d] '
+            '(of %d available)',
+            total_h, full_hours[0], full_hours[n_hours - 1],
+            len(full_hours),
+        )
     window_outs = []
     t = 0
     while t < n_hours:
@@ -638,6 +663,9 @@ def main() -> None:
                    help='Window advance in hours.')
     p.add_argument('--cap-source', default=None,
                    help='Path to a CEM baseline.nc or capacity CSV.')
+    p.add_argument('--total-h', type=int, default=None,
+                   help='Cap simulated hours from hour[0]; smoke-test '
+                        'knob for large nodal models.')
     args = p.parse_args()
     run_pcm(
         args.scenario,
@@ -645,6 +673,7 @@ def main() -> None:
         horizon_h=args.horizon,
         step_h=args.step,
         cap_source=args.cap_source,
+        total_h=args.total_h,
     )
 
 
