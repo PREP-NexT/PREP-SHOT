@@ -719,10 +719,16 @@
 <span class="sd">    &quot;pcm_parameters&quot;: {</span>
 <span class="sd">        &quot;horizon_h&quot;: 48,</span>
 <span class="sd">        &quot;step_h&quot;: 24,</span>
-<span class="sd">        &quot;year&quot;: 2030</span>
+<span class="sd">        &quot;year&quot;: 2030,</span>
+<span class="sd">        &quot;total_h&quot;: 168</span>
 <span class="sd">    }</span>
 
 <span class="sd">Or pass as CLI flags. CLI overrides config.</span>
+
+<span class="sd">``total_h`` (optional) caps how many hours from ``hour[0]`` are</span>
+<span class="sd">simulated -- useful as a smoke test on large nodal models, where a</span>
+<span class="sd">single 48 h window can take tens of minutes to build. Omit (or set</span>
+<span class="sd">``null``) to run the full year.</span>
 
 <span class="sd">Output</span>
 <span class="sd">======</span>
@@ -739,10 +745,14 @@
 <span class="sd">    cd examples/three_zone</span>
 <span class="sd">    python -m prepshot.pcm --year 2025 --horizon 48 --step 24</span>
 
+<span class="sd">    # smoke test: only the first 48 h, one window</span>
+<span class="sd">    python -m prepshot.pcm --year 2025 --horizon 48 --step 48 --total-h 48</span>
+
 <span class="sd">Or programmatically::</span>
 
 <span class="sd">    from prepshot.pcm import run_pcm</span>
 <span class="sd">    run_pcm(&#39;examples/three_zone&#39;, year=2025)</span>
+<span class="sd">    run_pcm(&#39;examples/three_zone&#39;, year=2025, total_h=48)</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">argparse</span>
 <span class="kn">import</span> <span class="nn">json</span>
@@ -1151,6 +1161,7 @@
     <span class="n">horizon_h</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">48</span><span class="p">,</span>
     <span class="n">step_h</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">24</span><span class="p">,</span>
     <span class="n">cap_source</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">total_h</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Solve PCM dispatch over one year with rolling horizon.</span>
 
@@ -1168,6 +1179,10 @@
 <span class="sd">    cap_source : str, optional</span>
 <span class="sd">        Path to a CEM ``baseline.nc`` or capacity CSV. If omitted,</span>
 <span class="sd">        the CEM-shipped existing fleet is used unchanged.</span>
+<span class="sd">    total_h : int, optional</span>
+<span class="sd">        Cap on the number of hours simulated from ``hour[0]``. Useful</span>
+<span class="sd">        as a smoke test on large nodal models where the full year is</span>
+<span class="sd">        intractable. Defaults to ``None`` (run all hours).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">setup_logging</span><span class="p">()</span>
     <span class="n">scenario_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">scenario_dir</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
@@ -1199,6 +1214,8 @@
     <span class="n">horizon_h</span> <span class="o">=</span> <span class="n">horizon_h</span> <span class="ow">or</span> <span class="n">pcm_block</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;horizon_h&#39;</span><span class="p">,</span> <span class="mi">48</span><span class="p">)</span>
     <span class="n">step_h</span> <span class="o">=</span> <span class="n">step_h</span> <span class="ow">or</span> <span class="n">pcm_block</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;step_h&#39;</span><span class="p">,</span> <span class="mi">24</span><span class="p">)</span>
     <span class="n">cap_source</span> <span class="o">=</span> <span class="n">cap_source</span> <span class="ow">or</span> <span class="n">pcm_block</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;cap_source&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">total_h</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">total_h</span> <span class="o">=</span> <span class="n">pcm_block</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;total_h&#39;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">cap_source</span><span class="p">:</span>
         <span class="n">cap_lookup</span> <span class="o">=</span> <span class="n">load_fixed_capacity</span><span class="p">(</span>
@@ -1224,6 +1241,14 @@
 
     <span class="n">full_hours</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">full_params</span><span class="p">[</span><span class="s1">&#39;hour&#39;</span><span class="p">])</span>
     <span class="n">n_hours</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">full_hours</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">total_h</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">n_hours</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">n_hours</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">total_h</span><span class="p">))</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="s1">&#39;PCM: total_h=</span><span class="si">%d</span><span class="s1"> -- simulating only hours [</span><span class="si">%d</span><span class="s1">..</span><span class="si">%d</span><span class="s1">] &#39;</span>
+            <span class="s1">&#39;(of </span><span class="si">%d</span><span class="s1"> available)&#39;</span><span class="p">,</span>
+            <span class="n">total_h</span><span class="p">,</span> <span class="n">full_hours</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">full_hours</span><span class="p">[</span><span class="n">n_hours</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span>
+            <span class="nb">len</span><span class="p">(</span><span class="n">full_hours</span><span class="p">),</span>
+        <span class="p">)</span>
     <span class="n">window_outs</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">t</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">while</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="n">n_hours</span><span class="p">:</span>
@@ -1278,6 +1303,9 @@
                    <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Window advance in hours.&#39;</span><span class="p">)</span>
     <span class="n">p</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--cap-source&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                    <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Path to a CEM baseline.nc or capacity CSV.&#39;</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--total-h&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                   <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Cap simulated hours from hour[0]; smoke-test &#39;</span>
+                        <span class="s1">&#39;knob for large nodal models.&#39;</span><span class="p">)</span>
     <span class="n">args</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
     <span class="n">run_pcm</span><span class="p">(</span>
         <span class="n">args</span><span class="o">.</span><span class="n">scenario</span><span class="p">,</span>
@@ -1285,6 +1313,7 @@
         <span class="n">horizon_h</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">horizon</span><span class="p">,</span>
         <span class="n">step_h</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">step</span><span class="p">,</span>
         <span class="n">cap_source</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">cap_source</span><span class="p">,</span>
+        <span class="n">total_h</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">total_h</span><span class="p">,</span>
     <span class="p">)</span></div>
 
 

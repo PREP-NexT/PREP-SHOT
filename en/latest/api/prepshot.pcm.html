@@ -748,11 +748,16 @@ for the chosen year.</p></li>
 <div class="highlight-gdscript notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;pcm_parameters&quot;</span><span class="p">:</span> <span class="p">{</span>
     <span class="s2">&quot;horizon_h&quot;</span><span class="p">:</span> <span class="mi">48</span><span class="p">,</span>
     <span class="s2">&quot;step_h&quot;</span><span class="p">:</span> <span class="mi">24</span><span class="p">,</span>
-    <span class="s2">&quot;year&quot;</span><span class="p">:</span> <span class="mi">2030</span>
+    <span class="s2">&quot;year&quot;</span><span class="p">:</span> <span class="mi">2030</span><span class="p">,</span>
+    <span class="s2">&quot;total_h&quot;</span><span class="p">:</span> <span class="mi">168</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>Or pass as CLI flags. CLI overrides config.</p>
+<p><code class="docutils literal notranslate"><span class="pre">total_h</span></code> (optional) caps how many hours from <code class="docutils literal notranslate"><span class="pre">hour[0]</span></code> are
+simulated -- useful as a smoke test on large nodal models, where a
+single 48 h window can take tens of minutes to build. Omit (or set
+<code class="docutils literal notranslate"><span class="pre">null</span></code>) to run the full year.</p>
 </section>
 <section id="output">
 <h2>Output<a class="headerlink" href="#output" title="Permalink to this heading">¶</a></h2>
@@ -764,11 +769,15 @@ chosen year. The companion CEM <code class="docutils literal notranslate"><span 
 <h2>CLI<a class="headerlink" href="#cli" title="Permalink to this heading">¶</a></h2>
 <div class="highlight-gdscript notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">examples</span><span class="o">/</span><span class="n">three_zone</span>
 <span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">prepshot</span><span class="o">.</span><span class="n">pcm</span> <span class="o">--</span><span class="n">year</span> <span class="mi">2025</span> <span class="o">--</span><span class="n">horizon</span> <span class="mi">48</span> <span class="o">--</span><span class="n">step</span> <span class="mi">24</span>
+
+<span class="c1"># smoke test: only the first 48 h, one window</span>
+<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">prepshot</span><span class="o">.</span><span class="n">pcm</span> <span class="o">--</span><span class="n">year</span> <span class="mi">2025</span> <span class="o">--</span><span class="n">horizon</span> <span class="mi">48</span> <span class="o">--</span><span class="n">step</span> <span class="mi">48</span> <span class="o">--</span><span class="n">total</span><span class="o">-</span><span class="n">h</span> <span class="mi">48</span>
 </pre></div>
 </div>
 <p>Or programmatically:</p>
 <div class="highlight-gdscript notranslate"><div class="highlight"><pre><span></span><span class="n">from</span> <span class="n">prepshot</span><span class="o">.</span><span class="n">pcm</span> <span class="n">import</span> <span class="n">run_pcm</span>
 <span class="n">run_pcm</span><span class="p">(</span><span class="s1">&#39;examples/three_zone&#39;</span><span class="p">,</span> <span class="n">year</span><span class="o">=</span><span class="mi">2025</span><span class="p">)</span>
+<span class="n">run_pcm</span><span class="p">(</span><span class="s1">&#39;examples/three_zone&#39;</span><span class="p">,</span> <span class="n">year</span><span class="o">=</span><span class="mi">2025</span><span class="p">,</span> <span class="n">total_h</span><span class="o">=</span><span class="mi">48</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
@@ -810,7 +819,7 @@ indexed by <code class="docutils literal notranslate"><span class="pre">year</sp
 
 <dl class="py function">
 <dt class="sig sig-object py" id="prepshot.pcm.run_pcm">
-<span class="sig-prename descclassname"><span class="pre">prepshot.pcm.</span></span><span class="sig-name descname"><span class="pre">run_pcm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scenario_dir</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">horizon_h</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">48</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step_h</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cap_source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/prepshot/pcm.html#run_pcm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#prepshot.pcm.run_pcm" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">prepshot.pcm.</span></span><span class="sig-name descname"><span class="pre">run_pcm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scenario_dir</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">horizon_h</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">48</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step_h</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cap_source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_h</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/prepshot/pcm.html#run_pcm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#prepshot.pcm.run_pcm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Solve PCM dispatch over one year with rolling horizon.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -822,6 +831,9 @@ the config's planning horizon.</p></li>
 <li><p><strong>step_h</strong> (<em>int</em>) -- Window advance in hours (committed segment). Defaults to 24.</p></li>
 <li><p><strong>cap_source</strong> (<em>str</em><em>, </em><em>optional</em>) -- Path to a CEM <code class="docutils literal notranslate"><span class="pre">baseline.nc</span></code> or capacity CSV. If omitted,
 the CEM-shipped existing fleet is used unchanged.</p></li>
+<li><p><strong>total_h</strong> (<em>int</em><em>, </em><em>optional</em>) -- Cap on the number of hours simulated from <code class="docutils literal notranslate"><span class="pre">hour[0]</span></code>. Useful
+as a smoke test on large nodal models where the full year is
+intractable. Defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code> (run all hours).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
