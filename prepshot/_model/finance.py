@@ -27,6 +27,8 @@ the optional caps default to ``+inf`` (no constraint added).
 import numpy as np
 import pyoptinterface as poi
 
+from prepshot.utils import sparse_tupledict
+
 
 class AddFinanceConstraints:
     """Public-debt expressions and (optional) cap constraints."""
@@ -44,9 +46,10 @@ class AddFinanceConstraints:
             Model object depending on the solver.
         """
         self.model = model
-        model.public_debt_newtech = poi.make_tupledict(
-            model.year, model.zone, model.tech,
-            rule=self.public_debt_newtech_rule,
+        active_yzt = [(y, z, te) for y in model.year
+                      for (z, te) in model.active_zt]
+        model.public_debt_newtech = sparse_tupledict(
+            active_yzt, self.public_debt_newtech_rule
         )
         model.public_debt_max_system_cons = poi.make_tupledict(
             model.year,

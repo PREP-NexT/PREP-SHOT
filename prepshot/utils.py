@@ -355,6 +355,52 @@ def interpolate_z_by_q_or_s(
     f_zqv = interpolate.interp1d(x, z, fill_value='extrapolate')
     return f_zqv(qs)
 
+def sparse_tupledict(index_iter, rule):
+    """Like ``poi.make_tupledict`` but iterates an explicit list of
+    multi-dim keys instead of a Cartesian product of axes.
+
+    The stock ``poi.make_tupledict(I, J, K, rule=...)`` calls
+    ``rule(*coord)`` over ``len(I)*len(J)*len(K)`` tuples and routes
+    every tuple through ``flatten_tuple`` (one call) plus an
+    ``isinstance`` check (per element). For dense, structurally
+    full grids that's the right thing. For PREP-SHOT's
+    ``(h, m, y, z, te)``-style grids though, the (z, te) sub-axis is
+    overwhelmingly sparse -- a thermal unit lives at exactly one bus,
+    so 99% of the (z, te) pairs are 0-by-construction. Walking those
+    pairs through the rule is wasted work.
+
+    This helper takes a pre-built iterable of keys (each key is the
+    full multi-dim tuple, e.g. ``(h, m, y, z, te)``) and avoids the
+    Cartesian / flatten overhead. It otherwise behaves like
+    ``make_tupledict``: returns a ``poi.tupledict`` (so ``.select()``
+    still works), and skips entries whose rule returns ``None``.
+
+    Parameters
+    ----------
+    index_iter : iterable of tuple
+        Each element is a complete multi-dim key. Single-element keys
+        may be passed as a bare value rather than a 1-tuple.
+    rule : callable
+        Called as ``rule(*key)`` per key.
+
+    Returns
+    -------
+    poi.tupledict
+        Mapping ``key -> rule(*key)`` for keys whose rule returned a
+        non-None value.
+    """
+    from pyoptinterface._src.tupledict import tupledict
+    d = {}
+    for key in index_iter:
+        if isinstance(key, tuple):
+            value = rule(*key)
+        else:
+            value = rule(key)
+        if value is not None:
+            d[key] = value
+    return tupledict(d)
+
+
 def cartesian_product(
     *args : List[Union[int, str]]
 ) -> List[Tuple[Union[int, str]]]:

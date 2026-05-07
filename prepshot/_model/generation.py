@@ -85,6 +85,8 @@ of storage technology :math:`e`.
 """
 import pyoptinterface as poi
 
+from prepshot.utils import sparse_tupledict
+
 class AddGenerationConstraints:
     """Add constraints for generation in the model.
     """
@@ -104,21 +106,22 @@ class AddGenerationConstraints:
         # cap-bounded dispatchable constraint into one rule.
         self._p_max_pu = dict(model.params.get('max_gen_profile') or {})
         self._p_min_pu = dict(model.params.get('min_gen_profile') or {})
-        model.gen_up_bound_cons = poi.make_tupledict(
-            model.hour, model.month, model.year, model.zone, model.tech,
-            rule=self.gen_up_bound_rule
+        # Iterate sparsely over (h, m, y, z, te) where (z, te) is in
+        # ``model.active_zt``. Inactive (z, te) pairs have no
+        # ``model.gen`` variable (sparse creation in model.py), and
+        # the matching constraint would be ``gen <= 0 * dt = 0``
+        # which the absent variable already enforces.
+        model.gen_up_bound_cons = sparse_tupledict(
+            model.active_hmyzte, self.gen_up_bound_rule
         )
-        model.gen_low_bound_cons = poi.make_tupledict(
-            model.hour, model.month, model.year, model.zone, model.tech,
-            rule=self.gen_low_bound_rule
+        model.gen_low_bound_cons = sparse_tupledict(
+            model.active_hmyzte, self.gen_low_bound_rule
         )
-        model.ramping_up_cons = poi.make_tupledict(
-            model.hour, model.month, model.year, model.zone, model.tech,
-            rule=self.ramping_up_rule
+        model.ramping_up_cons = sparse_tupledict(
+            model.active_hmyzte, self.ramping_up_rule
         )
-        model.ramping_down_cons = poi.make_tupledict(
-            model.hour, model.month, model.year, model.zone, model.tech,
-            rule=self.ramping_down_rule
+        model.ramping_down_cons = sparse_tupledict(
+            model.active_hmyzte, self.ramping_down_rule
         )
 
     def gen_up_bound_rule(

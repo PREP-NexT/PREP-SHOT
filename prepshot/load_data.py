@@ -151,6 +151,17 @@ def extract_config_data(config_data : dict) -> dict:
     is_piecewise_heat_rate = bool(
         cost_params_cfg.get('is_piecewise_heat_rate', False)
     )
+    # Load shedding (lost-load slack) -- when on, every nodal
+    # power-balance constraint admits a non-negative ``lns`` slack
+    # priced at ``voll`` ($/MWh) in the objective. Lets PCM windows
+    # complete even when the dispatch can't physically meet demand
+    # (e.g. cascaded-hydro storage exhaustion at a window boundary)
+    # and reveals which (hour, zone) pairs are reliability-binding.
+    rel_params_cfg = config_data.get('reliability_parameters') or {}
+    allow_load_shedding = bool(
+        rel_params_cfg.get('allow_load_shedding', False)
+    )
+    voll = float(rel_params_cfg.get('voll', 10000.0))
 
     # Create dictionary with necessary configuration data.
     required_config_data = {
@@ -169,6 +180,8 @@ def extract_config_data(config_data : dict) -> dict:
         'is_uc': is_uc,
         'uc_relaxation': uc_relaxation,
         'is_piecewise_heat_rate': is_piecewise_heat_rate,
+        'allow_load_shedding': allow_load_shedding,
+        'voll': voll,
     }
 
     return required_config_data
@@ -415,6 +428,124 @@ def compute_cost_factors(data_store : dict) -> None:
                 )
 
 
+def compute_active_zone_tech(data_store : dict) -> None:
+    """Stamp the data store with the sparse ``(zone, tech)`` set
+    derived from the loaded inputs.
+
+    A ``(z, te)`` pair is "active" iff the tech has nonzero capacity
+    at the zone in some commission year (``existing_fleet``) OR can
+    be built there per ``expansion_candidates`` (``capacity_max > 0``).
+    For everything else the model would carry pure-zero variables and
+    constraints with no impact on the LP.
+
+    On the full Thai PCM (472 zones x 212 techs, 100 064 dense pairs)
+    only ~212 pairs are active -- a ~470x reduction. We compute it
+    here at load time so every downstream caller (incl. the per-PCM-
+    window ``create_model``) reuses the same precomputed sparsity
+    instead of re-deriving it from the fleet dict each time.
+
+    Stamps:
+      ``data_store['active_zt']``    -- sorted list of ``(z, te)`` tuples
+      ``data_store['tech_zones']``   -- dict ``te -> [z, ...]``
+      ``data_store['zone_techs']``   -- dict ``z -> [te, ...]``
+      ``data_store['active_zt_storage']`` -- ``active_zt`` filtered to
+        techs in ``tech_registry`` flagged ``is_storage``.
+    """
+    active = set()
+    fleet = data_store.get('existing_fleet') or {}
+    for (te, z, _cy), cap in fleet.items():
+        if cap and cap > 0:
+            active.add((z, te))
+
+    candidates = data_store.get('expansion_candidates')
+    if candidates is not None and hasattr(candidates, 'iterrows'):
+        for _, r in candidates.iterrows():
+            if r.capacity_max > 0:
+                active.add((str(r.zone), str(r.tech)))
+
+    if not active:
+        # Fallback: dense product (toy datasets / pre-existing_fleet
+        # configs). Speedup just doesn't apply.
+        active = {
+            (z, te) for z in data_store.get('zone', [])
+            for te in data_store.get('tech', [])
+        }
+
+    active_zt = sorted(active)
+    tech_zones = defaultdict(list)
+    zone_techs = defaultdict(list)
+    for z, te in active_zt:
+        tech_zones[te].append(z)
+        zone_techs[z].append(te)
+    data_store['active_zt'] = active_zt
+    data_store['tech_zones'] = dict(tech_zones)
+    data_store['zone_techs'] = dict(zone_techs)
+
+    # Storage subset (techs flagged is_storage in tech_registry).
+    techs_df = data_store.get('technologies')
+    storage_set = set()
+    if techs_df is not None and hasattr(techs_df, 'iterrows'):
+        for _, r in techs_df.iterrows():
+            if bool(r['is_storage']):
+                storage_set.add(str(r['tech']))
+    data_store['active_zt_storage'] = [
+        (z, te) for (z, te) in active_zt if te in storage_set
+    ]
+
+
+def compute_active_lines(data_store : dict) -> None:
+    """Stamp the data store with the sparse set of directed
+    transmission lines that actually exist or are buildable.
+
+    A pair ``(z1, z2)`` is in the active set iff it appears in
+    ``transmission_existing`` (with any commission year) OR in
+    ``transmission_candidates`` (with ``capacity_max > 0``). Both
+    directions of every undirected line are kept -- the LP models
+    them as separate flow variables so transmission losses on each
+    direction price independently.
+
+    On the Thai PCM 472-bus topology this is ~615 directed pairs,
+    vs 472**2 = 222 784 dense bus-pair combinations. The 360x
+    reduction propagates into ``trans_export``, ``cap_newline``,
+    ``cap_lines_existing``, and the 5 transmission constraint
+    families.
+    """
+    active = set()
+    existing = data_store.get('transmission_existing') or {}
+    for key in existing:
+        # Existing keys may be 2-tuples ``(z1, z2)`` (legacy) or
+        # 3-tuples ``(z1, z2, commission_year)`` (current).
+        if len(key) == 3:
+            z1, z2, _cy = key
+        else:
+            z1, z2 = key
+        active.add((str(z1), str(z2)))
+
+    cand = data_store.get('transmission_candidates')
+    if cand is not None and hasattr(cand, 'iterrows'):
+        for _, r in cand.iterrows():
+            if r.capacity_max > 0:
+                active.add((str(r.zone1), str(r.zone2)))
+
+    if not active:
+        # Toy / pre-existing-fleet datasets: fall back to dense.
+        active = {
+            (z1, z2) for z1 in data_store.get('zone', [])
+            for z2 in data_store.get('zone', []) if z1 != z2
+        }
+
+    active_lines = sorted(active)
+    # Per-zone neighbour lists for power-balance quicksums.
+    out_neighbours = defaultdict(list)
+    in_neighbours = defaultdict(list)
+    for (z1, z2) in active_lines:
+        out_neighbours[z1].append(z2)
+        in_neighbours[z2].append(z1)
+    data_store['active_lines'] = active_lines
+    data_store['out_neighbours'] = dict(out_neighbours)
+    data_store['in_neighbours'] = dict(in_neighbours)
+
+
 def process_data(
     params_info : dict, input_folder : str
 ) -> dict:
@@ -440,5 +571,7 @@ def process_data(
     load_excel_data(input_folder, file_params, data_store)
     extract_sets(data_store)
     compute_cost_factors(data_store)
+    compute_active_zone_tech(data_store)
+    compute_active_lines(data_store)
 
     return data_store

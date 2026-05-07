@@ -38,8 +38,13 @@ follows:
 
 from typing import Union
 
+from collections import defaultdict
+
 import numpy as np
 import pyoptinterface as poi
+
+from prepshot.utils import sparse_tupledict
+
 
 class AddInvestmentConstraints:
     """Add constraints for investment in the model.
@@ -67,29 +72,43 @@ class AddInvestmentConstraints:
             (r.zone, r.tech, r.year): r.capacity_max
             for _, r in candidates.iterrows()
         }
-        model.remaining_technology = poi.make_tupledict(
-            model.year, model.zone, model.tech,
-            rule=self.tech_lifetime_rule
+        # Pre-index existing fleet by (zone, tech) so the lifetime
+        # rule does an O(1) lookup instead of an O(N) scan over the
+        # whole fleet dict for every (y, z, te). On Thai PCM this is
+        # the single biggest leftover bottleneck (0.6+s of pure
+        # genexpr scanning).
+        fleet_by_zte = defaultdict(list)
+        for (t, z, cy), cap in (
+            model.params.get('existing_fleet') or {}
+        ).items():
+            fleet_by_zte[z, t].append((cy, cap))
+        self._fleet_by_zte = dict(fleet_by_zte)
+
+        # Iterate sparse over (y, z, te) only where (z, te) is in the
+        # active set. On Thai PCM 1*472*212 = 100k -> 1*212 = 212.
+        active_yzt = [
+            (y, z, te)
+            for y in model.year
+            for (z, te) in model.active_zt
+        ]
+        self._active_yzt = active_yzt
+        model.remaining_technology = sparse_tupledict(
+            active_yzt, self.tech_lifetime_rule
         )
-        model.cap_existing = poi.make_tupledict(
-            model.year, model.zone, model.tech,
-            rule=self.remaining_capacity_rule
+        model.cap_existing = sparse_tupledict(
+            active_yzt, self.remaining_capacity_rule
         )
-        model.tech_up_bound_cons = poi.make_tupledict(
-            model.year, model.zone, model.tech,
-            rule=self.tech_up_bound_rule
+        model.tech_up_bound_cons = sparse_tupledict(
+            active_yzt, self.tech_up_bound_rule
         )
-        model.tech_low_bound_cons = poi.make_tupledict(
-            model.year, model.zone, model.tech,
-            rule=self.tech_low_bound_rule
+        model.tech_low_bound_cons = sparse_tupledict(
+            active_yzt, self.tech_low_bound_rule
         )
-        model.new_tech_up_bound_cons = poi.make_tupledict(
-            model.year, model.zone, model.tech,
-            rule=self.new_tech_up_bound_rule
+        model.new_tech_up_bound_cons = sparse_tupledict(
+            active_yzt, self.new_tech_up_bound_rule
         )
-        model.new_tech_low_bound_cons = poi.make_tupledict(
-            model.year, model.zone, model.tech,
-            rule=self.new_tech_low_bound_rule
+        model.new_tech_low_bound_cons = sparse_tupledict(
+            active_yzt, self.new_tech_low_bound_rule
         )
 
     def tech_up_bound_rule(
@@ -219,17 +238,16 @@ class AddInvestmentConstraints:
         poi.ExprBuilder
             The expression of the model.
         """
-        model = self.model
-        lt = model.params['lifetime']
-        fleet = model.params['existing_fleet']
+        lt = self.model.params['lifetime']
         # An existing fleet entry (te, z, commission_year) -> capacity is
         # in service in year y when commission_year <= y < commission_year
         # + lifetime. Lifetime is looked up at the commissioning year
         # cy, not the current year y -- once a unit is built, its
         # lifetime is fixed at construction.
+        # Pre-indexed by (z, te) for O(1) per-rule lookup.
         return poi.quicksum(
-            cap for (t, zz, cy), cap in fleet.items()
-            if t == te and zz == z and cy <= y < cy + lt[te, cy]
+            cap for (cy, cap) in self._fleet_by_zte.get((z, te), [])
+            if cy <= y < cy + lt[te, cy]
         )
 
     def remaining_capacity_rule(

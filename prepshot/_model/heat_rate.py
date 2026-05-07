@@ -65,6 +65,8 @@ Config
 """
 import pyoptinterface as poi
 
+from prepshot.utils import sparse_tupledict
+
 
 class AddHeatRateConstraints:
     """Piecewise-linear heat rate, opt-in."""
@@ -113,32 +115,52 @@ class AddHeatRateConstraints:
         segment_idx = list(range(1, max_segments + 1))
         model.heat_rate_segments = segment_idx
 
-        model.gen_segment = model.add_variables(
-            model.hour, model.month, model.year, model.zone, model.tech,
-            segment_idx, lb=0,
-        )
+        # Sparse indices: only for (z, te) pairs in active_zt where
+        # the tech actually has a heat-rate curve. With 168 thermal
+        # techs each at one bus and 3 segments, this is ~500 (z, te,
+        # s) tuples per timestep, not 472*212*3 = 300k.
+        heat_rate_techs = set(self.segments_by_tech.keys())
+        zt_with_curve = [
+            (z, te) for (z, te) in model.active_zt
+            if te in heat_rate_techs
+        ]
+        # Per-(z, te) the actual segment count varies; build a flat
+        # (h, m, y, z, te, s) list that includes only real segments.
+        active_hmyztes = [
+            (h, m, y, z, te, s)
+            for h in model.hour
+            for m in model.month
+            for y in model.year
+            for (z, te) in zt_with_curve
+            for s in range(1, len(self.segments_by_tech[te]) + 1)
+        ]
+        active_hmyzte = [
+            (h, m, y, z, te)
+            for h in model.hour
+            for m in model.month
+            for y in model.year
+            for (z, te) in zt_with_curve
+        ]
 
-        # Lock unused segments to zero, so the LP can't take advantage
-        # of phantom segment width when (tech, seg) isn't defined.
-        model.gen_segment_zero_cons = poi.make_tupledict(
-            model.hour, model.month, model.year, model.zone, model.tech,
-            segment_idx,
-            rule=self.segment_zero_rule,
-        )
+        _new_var = lambda *_: model.add_variable(lb=0)
+        model.gen_segment = sparse_tupledict(active_hmyztes, _new_var)
+
+        # gen_segment is now only defined where it can be non-zero;
+        # the segment-zero constraint becomes vestigial. Keep an
+        # empty tupledict so other code that touches this attribute
+        # doesn't NoneType-error.
+        model.gen_segment_zero_cons = sparse_tupledict([], lambda *a: None)
 
         # Per-segment width bound:
         #   gen_segment[s] <= (frac_max[s] - frac_max[s-1]) * cap * dt
-        model.gen_segment_width_cons = poi.make_tupledict(
-            model.hour, model.month, model.year, model.zone, model.tech,
-            segment_idx,
-            rule=self.segment_width_rule,
+        model.gen_segment_width_cons = sparse_tupledict(
+            active_hmyztes, self.segment_width_rule
         )
 
         # Sum-to-gen: per (h, m, y, z, te) in the heat-rate set,
         #   sum_s gen_segment[..., s] == gen[h, m, y, z, te].
-        model.gen_sum_to_total_cons = poi.make_tupledict(
-            model.hour, model.month, model.year, model.zone, model.tech,
-            rule=self.sum_to_gen_rule,
+        model.gen_sum_to_total_cons = sparse_tupledict(
+            active_hmyzte, self.sum_to_gen_rule
         )
 
     # ------------------------------------------------------------------
@@ -228,15 +250,22 @@ def add_heat_rate_fuel_cost(model) -> "poi.ExprBuilder":
             ].itertuples(index=False, name=None)
         )
 
+    tech_set = set(model.tech)
     for te, segs in segs_by_tech.items():
-        if te not in set(model.tech):
+        if te not in tech_set:
+            continue
+        # Iterate only the zones where this tech actually exists --
+        # gen_segment[..., te, s] only has variables at those zones
+        # (sparse creation in __init__).
+        zones_for_te = model.tech_zones.get(te, [])
+        if not zones_for_te:
             continue
         for s, (_, mult) in enumerate(segs, start=1):
             for y in model.year:
                 fp = float(fuel_price.get((te, y), 0.0))
                 if fp == 0.0:
                     continue
-                for z in model.zone:
+                for z in zones_for_te:
                     factor = vf[y, z] / w
                     cost += (
                         fp * float(mult) * factor

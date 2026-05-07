@@ -93,9 +93,12 @@ single 48 h window can take tens of minutes to build. Omit (or set
 Output
 ======
 
-PCM dispatch lands in ``output/baseline_pcm.nc`` (and
-``baseline_pcm.xlsx``) with ``hour`` running from 1 to 8760 in the
-chosen year. The companion CEM ``baseline.nc`` is left untouched.
+PCM dispatch lands in ``output/baseline_pcm/`` -- one Parquet
+sidecar per output variable (``gen.parquet``, ``trans_export.parquet``,
+``lns.parquet``, ...), keyed in long format so the file size scales
+with non-zero entries (not the dense (h, m, y, z, ...) product).
+A ``manifest.json`` next to the Parquets records the schema. The
+companion CEM ``baseline.nc`` is left untouched.
 
 CLI
 ===
@@ -117,7 +120,6 @@ Or programmatically::
 import argparse
 import json
 import logging
-from copy import deepcopy
 from pathlib import Path
 from typing import Optional
 
@@ -228,6 +230,9 @@ def _override_existing_fleet(params: dict, cap_lookup: dict) -> None:
     rewriting the dict to a single entry per (zone, tech) commissioned
     at the first model year, we guarantee the chosen year sees exactly
     the user-supplied capacity (and no other).
+
+    Also clears the precomputed ``active_zt`` set so it's recomputed
+    against the overridden fleet on the next ``create_model`` call.
     """
     cy = params['year'][0]  # commission at the first model year so
                             # the lifetime lookup is defined.
@@ -236,6 +241,10 @@ def _override_existing_fleet(params: dict, cap_lookup: dict) -> None:
         if cap_mw > 0:
             new_fleet[(te, z, cy)] = float(cap_mw)
     params['existing_fleet'] = new_fleet
+    # Drop precomputed sparse index so create_model recomputes it
+    # against the overridden fleet.
+    for k in ('active_zt', 'tech_zones', 'zone_techs', 'active_zt_storage'):
+        params.pop(k, None)
 
 
 def _build_window_params(
@@ -244,8 +253,20 @@ def _build_window_params(
     window_hours: list,
     state: dict,
 ) -> dict:
-    """Slice ``full_params`` down to a single year + window of hours."""
-    p = deepcopy(full_params)
+    """Slice ``full_params`` down to a single year + window of hours.
+
+    A SHALLOW copy of ``full_params`` -- the big dicts (demand,
+    max_gen_profile, inflow, ...) are reused by reference because
+    they're never mutated per window. Only the small set of keys we
+    actually overwrite below get fresh values; the dicts we update
+    in place (e.g. ``initial_energy_storage_level``) are explicitly
+    one-level copied so we don't bleed state into ``full_params``.
+
+    Replaces the previous full ``deepcopy(full_params)`` which on
+    Thai PCM (4 M demand entries + 0.3 M VRE-CF entries) cost
+    ~10 s per window -- ~20x more than ``create_model`` itself.
+    """
+    p = dict(full_params)  # shallow copy
     p['hour'] = list(window_hours)
     p['year'] = [int(year)]
     p['skip_end_storage'] = True  # interior windows: terminal SOC is free
@@ -345,7 +366,12 @@ def _extract_window_state(
         # ``outflow[s, h_abs, m, y]``. The next window's
         # ``hydro.inflow_rule`` keys this dict when ``t < hour[0]``.
         wdt_df = full_params.get('water_delay_time')
-        if wdt_df is not None and hasattr(wdt_df, 'iterrows'):
+        if (
+            wdt_df is not None
+            and hasattr(wdt_df, 'iterrows')
+            and not wdt_df.empty
+            and not wdt_df['delay'].isna().all()
+        ):
             upstream_stations = set(wdt_df['upstream_tech'].astype(str))
             max_delay = int(wdt_df['delay'].max())
         else:
@@ -405,16 +431,25 @@ def _extract_window_dispatch(
     """Pull the dispatch decisions for ``commit_hours`` out of a solved
     window model. Returns a dict of arrays keyed like the CEM output."""
     out = {'gen': [], 'charge': [], 'trans_export': [], 'genflow': [],
-           'spillflow': [], 'reserve_up': [], 'reserve_down': []}
+           'spillflow': [], 'reserve_up': [], 'reserve_down': [],
+           'lns': [], 'lmp': []}
     months = list(model.month)
     zones = list(model.zone)
     techs = list(model.tech)
     stations = list(model.station) if hasattr(model, 'station') else []
 
+    storage_set = set(getattr(model, 'storage_tech', []) or [])
+    zone_techs = getattr(model, 'zone_techs', None) or {
+        z: list(techs) for z in zones
+    }
+    out_neighbours = getattr(model, 'out_neighbours', None) or {
+        z: list(zones) for z in zones
+    }
+
     for h in commit_hours:
         for m in months:
             for z in zones:
-                for te in techs:
+                for te in zone_techs.get(z, []):
                     out['gen'].append({
                         'hour': h, 'month': m, 'year': year,
                         'zone': z, 'tech': te,
@@ -422,7 +457,7 @@ def _extract_window_dispatch(
                             model.gen[h, m, year, z, te]
                         )),
                     })
-                    if hasattr(model, 'charge'):
+                    if hasattr(model, 'charge') and te in storage_set:
                         out['charge'].append({
                             'hour': h, 'month': m, 'year': year,
                             'zone': z, 'tech': te,
@@ -445,14 +480,25 @@ def _extract_window_dispatch(
                                 model.reserve_down[h, m, year, z, te]
                             )),
                         })
-            for z2 in zones:
-                out['trans_export'].append({
-                    'hour': h, 'month': m, 'year': year,
-                    'zone1': z, 'zone2': z2,
-                    'value': float(model.get_value(
-                        model.trans_export[h, m, year, z, z2]
-                    )),
-                })
+                # Load-not-served: per-(h, m, y, z), populated only
+                # when allow_load_shedding is on.
+                if hasattr(model, 'lns'):
+                    out['lns'].append({
+                        'hour': h, 'month': m, 'year': year,
+                        'zone': z,
+                        'value': float(model.get_value(
+                            model.lns[h, m, year, z]
+                        )),
+                    })
+            for z in zones:
+                for z2 in out_neighbours.get(z, []):
+                    out['trans_export'].append({
+                        'hour': h, 'month': m, 'year': year,
+                        'zone1': z, 'zone2': z2,
+                        'value': float(model.get_value(
+                            model.trans_export[h, m, year, z, z2]
+                        )),
+                    })
             for s in stations:
                 out['genflow'].append({
                     'hour': h, 'month': m, 'year': year,
@@ -468,6 +514,50 @@ def _extract_window_dispatch(
                         model.spillflow[s, h, m, year]
                     )),
                 })
+
+    # LMP: dual of the nodal power-balance constraint, scaled to
+    # real-year USD/MWh. The constraint is posed as
+    # ``demand - supply == 0`` so the raw dual is the negative of the
+    # marginal cost of one more MWh of demand -- flip the sign to
+    # follow the convention. The objective discounts every cost term
+    # by ``var_factor[y, z] / weight``; multiplying the dual by
+    # ``weight / var_factor`` undoes that and gives a real-year
+    # marginal price. Skipped silently if the solver did not return
+    # duals (e.g. infeasible).
+    # Pick the right per-backend dual-extractor once.  PoI 0.4's
+    # ``get_constraint_attribute(c, ConstraintAttribute.Dual)`` raises
+    # ``AttributeError: Quadratric`` (sic) on linear constraints in
+    # both backends, so we go through the raw native name instead:
+    # Gurobi exposes the shadow price as ``Pi``, HiGHS as ``dual``.
+    def _make_dual_extractor():
+        probe = next(iter(model.power_balance_cons.values()), None)
+        if probe is None:
+            return None
+        for raw_name in ('Pi', 'dual'):
+            try:
+                model.get_constraint_raw_attribute_double(probe, raw_name)
+                return lambda c, n=raw_name: float(
+                    model.get_constraint_raw_attribute_double(c, n)
+                )
+            except Exception:
+                continue
+        return None
+    extract_dual = _make_dual_extractor()
+    if extract_dual is None:
+        logging.warning("could not extract LMP duals: backend exposes no Pi / dual")
+    else:
+        weight = model.params['weight']
+        vf = model.params['var_factor']
+        for h in commit_hours:
+            for m in months:
+                for z in zones:
+                    c = model.power_balance_cons[h, m, year, z]
+                    dual = extract_dual(c)
+                    out['lmp'].append({
+                        'hour': h, 'month': m, 'year': year,
+                        'zone': z,
+                        'value': -dual * weight / float(vf[year, z]),
+                    })
     return out
 
 
@@ -484,30 +574,37 @@ def _aggregate(window_outs: list) -> dict:
 
 
 def _save_pcm_netcdf(merged: dict, out_path: Path) -> None:
-    """Pivot the per-key row lists into xarray DataArrays and save."""
-    data_vars = {}
+    """Save per-variable result tables.
+
+    For sparse-by-construction outputs (``gen`` / ``charge`` /
+    ``trans_export``: only ``active_zt`` or ``active_lines`` cells
+    populated), pivoting to a dense ``(hour, month, year, zone, ...)``
+    xarray creates a NaN-padded array that's orders of magnitude
+    larger than the data. On a full-year Thai PCM run that's
+    8760 x 472 x 472 = 1.95 B cells just for ``trans_export`` (~16
+    GB), which overflows the NetCDF3 32-bit size field.
+
+    Strategy: write each variable as a long-format Parquet sidecar
+    next to ``out_path`` (in ``out_path`` with the ``.nc`` suffix
+    swapped for a directory). Parquet is compressed, columnar, and
+    natively sparse. A small ``manifest.json`` records the schema.
+    """
+    out_dir = out_path.with_suffix('')
+    out_dir.mkdir(parents=True, exist_ok=True)
+    schema = {}
     for key, rows in merged.items():
         if not rows:
             continue
         df = pd.DataFrame(rows)
-        if {'hour', 'month', 'year', 'zone', 'tech'}.issubset(df.columns):
-            arr = df.set_index(
-                ['hour', 'month', 'year', 'zone', 'tech']
-            )['value'].to_xarray()
-        elif {'hour', 'month', 'year', 'zone1', 'zone2'}.issubset(df.columns):
-            arr = df.set_index(
-                ['hour', 'month', 'year', 'zone1', 'zone2']
-            )['value'].to_xarray()
-        elif {'hour', 'month', 'year', 'station'}.issubset(df.columns):
-            arr = df.set_index(
-                ['hour', 'month', 'year', 'station']
-            )['value'].to_xarray()
-        else:
-            continue
-        data_vars[key] = arr
-    out_path.parent.mkdir(parents=True, exist_ok=True)
-    ds = xr.Dataset(data_vars)
-    ds.to_netcdf(out_path)
+        df.to_parquet(out_dir / f'{key}.parquet', compression='zstd')
+        schema[key] = list(df.columns)
+    (out_dir / 'manifest.json').write_text(
+        json.dumps({'variables': schema, 'format': 'parquet'}, indent=2)
+    )
+    logging.info(
+        'PCM dispatch written to %s/ (%d Parquet variables)',
+        out_dir, len(schema),
+    )
 
 
 # ---------- main entry ---------------------------------------------------
@@ -522,6 +619,8 @@ def run_pcm(
     step_h: int = 24,
     cap_source: Optional[str] = None,
     total_h: Optional[int] = None,
+    allow_load_shedding: Optional[bool] = None,
+    voll: Optional[float] = None,
 ) -> None:
     """Solve PCM dispatch over one year with rolling horizon.
 
@@ -543,6 +642,17 @@ def run_pcm(
         Cap on the number of hours simulated from ``hour[0]``. Useful
         as a smoke test on large nodal models where the full year is
         intractable. Defaults to ``None`` (run all hours).
+    allow_load_shedding : bool, optional
+        Allow non-negative slack (``lns``) on every nodal power
+        balance, priced at ``voll`` in the objective. Lets PCM
+        windows complete even when the dispatch can't physically meet
+        demand at some (hour, zone). Overrides
+        ``reliability_parameters.allow_load_shedding`` from
+        ``config.json`` when set.
+    voll : float, optional
+        Value of lost load (USD/MWh) for the load-shedding penalty.
+        Overrides ``reliability_parameters.voll`` from
+        ``config.json`` when set. Defaults to 10000.
     """
     setup_logging()
     scenario_dir = Path(scenario_dir).resolve()
@@ -576,6 +686,19 @@ def run_pcm(
     cap_source = cap_source or pcm_block.get('cap_source')
     if total_h is None:
         total_h = pcm_block.get('total_h')
+
+    # Load-shedding overrides: CLI / kwarg wins over config; config
+    # wins over the default. We stamp the merged value back into
+    # full_params so every per-window deepcopy picks it up.
+    if allow_load_shedding is not None:
+        full_params['allow_load_shedding'] = bool(allow_load_shedding)
+    if voll is not None:
+        full_params['voll'] = float(voll)
+    if full_params.get('allow_load_shedding'):
+        logging.info(
+            'PCM: load shedding enabled (VOLL=%.0f $/MWh)',
+            full_params.get('voll', 10000.0),
+        )
 
     if cap_source:
         cap_lookup = load_fixed_capacity(
@@ -646,7 +769,6 @@ def run_pcm(
     merged = _aggregate(window_outs)
     out_path = scenario_dir / 'output' / 'baseline_pcm.nc'
     _save_pcm_netcdf(merged, out_path)
-    logging.info('PCM dispatch written to %s', out_path)
 
 
 def main() -> None:
@@ -666,6 +788,12 @@ def main() -> None:
     p.add_argument('--total-h', type=int, default=None,
                    help='Cap simulated hours from hour[0]; smoke-test '
                         'knob for large nodal models.')
+    p.add_argument('--allow-load-shedding', action='store_true',
+                   default=None,
+                   help='Allow non-negative load-not-served slack on '
+                        'every (h, m, y, z) priced at VOLL.')
+    p.add_argument('--voll', type=float, default=None,
+                   help='Value of lost load in $/MWh (default 10000).')
     args = p.parse_args()
     run_pcm(
         args.scenario,
@@ -674,6 +802,8 @@ def main() -> None:
         step_h=args.step,
         cap_source=args.cap_source,
         total_h=args.total_h,
+        allow_load_shedding=args.allow_load_shedding,
+        voll=args.voll,
     )
 
 

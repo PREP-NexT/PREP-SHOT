@@ -5,7 +5,6 @@
 the pyoptinterface library.
 """
 
-from prepshot.utils import cartesian_product
 from prepshot._model.demand import AddDemandConstraints
 from prepshot._model.generation import AddGenerationConstraints
 from prepshot._model.cost import AddCostObjective
@@ -103,30 +102,113 @@ def define_basic_sets(model : object) -> None:
         # backwards-compat with the hydro module.
         model.station = model.hydro_tech
 
-def define_complex_sets(model : object) -> None:
-    """Create complex sets based on simple sets and some conditations. The
-    existing capacity between two zones is set to empty (i.e., No value is
-    filled in the Excel cell), which means that these two zones cannot have
-    newly built transmission lines. If you want to enable two zones which do
-    not have any existing transmission lines, to build new transmission lines
-    in the planning horizon, you need to set their capacity as zero explicitly.
+def define_active_zone_tech(model : object) -> None:
+    """Pull the sparse ``(zone, tech)`` set from ``model.params`` (built
+    once at file-read time by ``load_data.compute_active_zone_tech``)
+    and derive the time-indexed key lists used by the constraint
+    builders.
 
-    Parameters
-    ----------
-    model : object
-        Model to be solved.
+    The (zone, tech) set itself is data-property (depends only on
+    ``existing_fleet`` + ``expansion_candidates``), so we compute it
+    in ``load_data`` and reuse it unchanged across every PCM window.
+    The (h, m, y, z, te) lists DO depend on the per-window time
+    index sets, so they're materialised here.
     """
-    # transmission_existing is keyed by (zone1, zone2, commission_year);
-    # auto-pad missing zone pairs (e.g. self-loops) with a sentinel
-    # commission_year=0 entry of value=0. Efficiency padding uses the
-    # 2-tuple key it always had.
-    trans_pairs = {(z1, z2) for (z1, z2, _cy) in
-                   model.params['transmission_existing'].keys()}
-    for z_i, z1_i in cartesian_product(model.zone, model.zone):
-        if (z_i, z1_i) not in trans_pairs:
-            model.params['transmission_existing'][z_i, z1_i, 0] = 0
-            model.params['transmission_line_efficiency'][z_i, z1_i] = 0
-            # TODO: Set the capacity of new transmission lines to 0
+    from prepshot.load_data import compute_active_zone_tech
+    if 'active_zt' not in model.params:
+        # PCM windows go through ``_build_window_params`` which copies
+        # params and possibly overrides ``existing_fleet`` -- recompute
+        # the sparse set on the fly so the override is respected.
+        compute_active_zone_tech(model.params)
+    model.active_zt = model.params['active_zt']
+    model.tech_zones = model.params['tech_zones']
+    model.zone_techs = model.params['zone_techs']
+    model.active_zt_storage = model.params['active_zt_storage']
+    model.active_lines = model.params.get('active_lines') or []
+    model.out_neighbours = model.params.get('out_neighbours') or {}
+    model.in_neighbours = model.params.get('in_neighbours') or {}
+
+    # Time-indexed key lists used by generation.py, heat_rate.py,
+    # unit_commitment.py, demand.py, etc.
+    model.active_hmyzte = [
+        (h, m, y, z, te)
+        for h in model.hour
+        for m in model.month
+        for y in model.year
+        for (z, te) in model.active_zt
+    ]
+    model.active_hmyzte_storage = [
+        (h, m, y, z, te)
+        for h in model.hour
+        for m in model.month
+        for y in model.year
+        for (z, te) in model.active_zt_storage
+    ]
+    # (h, m, y, z1, z2) over real lines only -- used by transmission.py
+    # and demand.py.
+    model.active_hmyz1z2 = [
+        (h, m, y, z1, z2)
+        for h in model.hour
+        for m in model.month
+        for y in model.year
+        for (z1, z2) in model.active_lines
+    ]
+    model.active_yz1z2 = [
+        (y, z1, z2)
+        for y in model.year
+        for (z1, z2) in model.active_lines
+    ]
+
+
+def define_complex_sets(model : object) -> None:
+    """Pad ``transmission_line_efficiency`` for the active line set.
+
+    A few constraint rules read ``efficiency[z1, z2]`` for every line
+    in ``active_lines``; if the input CSV omits a line that DOES
+    appear in ``transmission_existing`` (rare but possible), default
+    its efficiency to 0. We no longer pad the dense ``zone x zone``
+    product -- the active-line set is sparse, so padding only
+    touches the real lines.
+    """
+    # Several line-param dicts only carry the rows explicitly in
+    # their CSV, but the cost / capacity rules read every active line
+    # by index. Pad each with 0 (or +inf for capacity_max-style upper
+    # bounds) on lines missing from the CSV. We pad the *active*
+    # set, not the dense zone**2 product.
+    # Default to 1.0 (lossless) when the CSV omits a line that's in
+    # the active set. The historical 0.0 fallback silently blocks
+    # those lines -- not what you want if the CSV is just incomplete.
+    # Users can still set efficiency=0 explicitly to disable a line.
+    eff = model.params['transmission_line_efficiency']
+    for (z1, z2) in model.active_lines:
+        if (z1, z2) not in eff:
+            eff[z1, z2] = 1.0
+
+    # Padding defaults: 0 for cost/distance/susceptance (no penalty,
+    # no flow contribution from a missing entry), but a large value
+    # for lifetime so the line is "in service" through the whole
+    # planning horizon when the CSV is absent. Padding lifetime to 0
+    # collapses ``cap_lines_existing`` to 0 -- silently blocks every
+    # line whose lifetime row is missing.
+    line_param_zero = (
+        'transmission_line_variable_OM_cost',
+        'transmission_line_fixed_OM_cost',
+        'transmission_line_investment_cost',
+        'distance',
+        'transmission_line_susceptance',
+    )
+    for k in line_param_zero:
+        d = model.params.get(k)
+        if d is None:
+            continue
+        for (z1, z2) in model.active_lines:
+            if (z1, z2) not in d:
+                d[z1, z2] = 0
+    lt = model.params.get('transmission_line_lifetime')
+    if lt is not None:
+        for (z1, z2) in model.active_lines:
+            if (z1, z2) not in lt:
+                lt[z1, z2] = 9999
 
 
 def define_variables(model : object) -> None:
@@ -137,25 +219,42 @@ def define_variables(model : object) -> None:
     model : object
         Model to be solved.
     """
+    from prepshot.utils import sparse_tupledict
 
     model.cap_newtech = model.add_variables(
         model.year, model.zone, model.tech, lb=0
     )
-    model.cap_newline = model.add_variables(
-        model.year, model.zone, model.zone, lb=0
-    )
-    model.gen = model.add_variables(
-        model.hour, model.month, model.year, model.zone, model.tech, lb=0
-    )
-    model.storage = model.add_variables(
-        model.hour_p, model.month, model.year, model.zone, model.tech, lb=0
-    )
-    model.charge = model.add_variables(
-        model.hour, model.month, model.year, model.zone, model.tech, lb=0
-    )
-    model.trans_export = model.add_variables(
-        model.hour, model.month, model.year, model.zone, model.zone, lb=0
-    )
+    # Sparsify cap_newline / trans_export over real (z1, z2) lines
+    # only. Thai PCM goes from 222k dense pairs to ~615 lines; that
+    # propagates into 6 transmission constraint families and the
+    # demand power-balance neighbour quicksums.
+    _new_var = lambda *_: model.add_variable(lb=0)
+    model.cap_newline = sparse_tupledict(model.active_yz1z2, _new_var)
+    # Sparsify gen / charge / storage variable creation: only build
+    # variables for (z, te) pairs that have either existing capacity
+    # at the zone or a candidate row allowing build there. Inactive
+    # pairs would just be lb=ub=0 for every (h, m, y) anyway -- on
+    # full-nodal Thai PCM this drops gen / storage / charge from
+    # ~5M variables each to ~10k each.
+    model.gen = sparse_tupledict(model.active_hmyzte, _new_var)
+    # storage has hour_p anchor (hour - 1) for the cycle close.
+    active_h_p_myzte = [
+        (h, m, y, z, te)
+        for h in model.hour_p
+        for m in model.month
+        for y in model.year
+        for (z, te) in model.active_zt_storage
+    ]
+    model.storage = sparse_tupledict(active_h_p_myzte, _new_var)
+    model.charge = sparse_tupledict(model.active_hmyzte_storage, _new_var)
+    model.trans_export = sparse_tupledict(model.active_hmyz1z2, _new_var)
+    # Load-not-served slack, one per (h, m, y, z). Created only when
+    # the user opts in; demand.power_balance_rule and the cost
+    # objective check ``hasattr(model, 'lns')``.
+    if model.params.get('allow_load_shedding', False):
+        model.lns = model.add_variables(
+            model.hour, model.month, model.year, model.zone, lb=0
+        )
 
     # Reserve variables are created INSIDE AddReserveConstraints (v1.16)
     # because the product set comes from the eligibility CSV at runtime
@@ -214,6 +313,7 @@ def create_model(params : dict) -> object:
     """
     model = define_model(params)
     define_basic_sets(model)
+    define_active_zone_tech(model)
     define_complex_sets(model)
     define_variables(model)
     define_constraints(model)

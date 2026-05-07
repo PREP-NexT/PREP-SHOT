@@ -30,6 +30,8 @@ constrained by the transmission capacity between two zones as follows:
 
 import pyoptinterface as poi
 
+from prepshot.utils import sparse_tupledict
+
 class AddTransmissionConstraints:
     """Add constraints for transmission lines while considering multiple 
     zones. 
@@ -52,29 +54,26 @@ class AddTransmissionConstraints:
         self._cand_max = {
             (r.zone1, r.zone2, r.year): r.capacity_max for _, r in cand.iterrows()
         }
-        model.cap_lines_existing = poi.make_tupledict(
-            model.year, model.zone, model.zone,
-            rule=self.trans_capacity_rule
+        # Iterate only over real lines. On Thai PCM this drops 6
+        # constraint families from O(zone**2) = 222k each to O(lines)
+        # ~ 615 each.
+        model.cap_lines_existing = sparse_tupledict(
+            model.active_yz1z2, self.trans_capacity_rule
         )
-        model.trans_import = poi.make_tupledict(
-            model.hour, model.month, model.year, model.zone, model.zone,
-            rule=self.trans_balance_rule
+        model.trans_import = sparse_tupledict(
+            model.active_hmyz1z2, self.trans_balance_rule
         )
-        model.trans_physical_cons = poi.make_tupledict(
-            model.year, model.zone, model.zone,
-            rule=self.trans_physical_rule
+        model.trans_physical_cons = sparse_tupledict(
+            model.active_yz1z2, self.trans_physical_rule
         )
-        model.new_line_up_bound_cons = poi.make_tupledict(
-            model.year, model.zone, model.zone,
-            rule=self.new_line_up_bound_rule
+        model.new_line_up_bound_cons = sparse_tupledict(
+            model.active_yz1z2, self.new_line_up_bound_rule
         )
-        model.new_line_low_bound_cons = poi.make_tupledict(
-            model.year, model.zone, model.zone,
-            rule=self.new_line_low_bound_rule
+        model.new_line_low_bound_cons = sparse_tupledict(
+            model.active_yz1z2, self.new_line_low_bound_rule
         )
-        model.trans_up_bound_cons = poi.make_tupledict(
-            model.hour, model.month, model.year, model.zone, model.zone,
-            rule=self.trans_up_bound_rule
+        model.trans_up_bound_cons = sparse_tupledict(
+            model.active_hmyz1z2, self.trans_up_bound_rule
         )
 
     def trans_physical_rule(

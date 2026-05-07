@@ -79,6 +79,8 @@ All optional (rows missing or files missing -> safe defaults):
 """
 import pyoptinterface as poi
 
+from prepshot.utils import sparse_tupledict
+
 
 class AddUnitCommitmentConstraints:
     """Clustered unit-commitment constraints + cost terms."""
@@ -138,47 +140,48 @@ class AddUnitCommitmentConstraints:
         self._p_max_pu = dict(model.params.get('max_gen_profile') or {})
         self._p_min_pu = dict(model.params.get('min_gen_profile') or {})
 
-        # Decision variables. Per (h, m, y, z, te) only when eligible
-        # and the cluster has at least one unit; we use make_tupledict
-        # over the full grid and skip cells via a None-returning rule
-        # for the bounds, matching the reserve module pattern.
-        model.online = model.add_variables(
-            model.hour, model.month, model.year, model.zone, model.tech,
-            lb=0, domain=domain,
-        )
-        model.startup = model.add_variables(
-            model.hour, model.month, model.year, model.zone, model.tech,
-            lb=0, domain=domain,
-        )
-        model.shutdown = model.add_variables(
-            model.hour, model.month, model.year, model.zone, model.tech,
-            lb=0, domain=domain,
-        )
+        # Sparse: only (z, te) where the tech is both UC-eligible AND
+        # actually deployed at the zone. Drops ~99% of dense at full-
+        # nodal scale; on three_zone (all techs at all zones) it's
+        # equivalent to the original.
+        active_zt_uc = [
+            (z, te) for (z, te) in model.active_zt
+            if self.is_eligible.get(te, False)
+        ]
+        active_hmyzte_uc = [
+            (h, m, y, z, te)
+            for h in model.hour
+            for m in model.month
+            for y in model.year
+            for (z, te) in active_zt_uc
+        ]
+        self._active_zt_uc = active_zt_uc
+        self._active_hmyzte_uc = active_hmyzte_uc
 
-        # Constraints
-        model.uc_n_unit_bound_cons = poi.make_tupledict(
-            model.hour, model.month, model.year, model.zone, model.tech,
-            rule=self.n_unit_bound_rule,
+        _new_var = lambda *_: model.add_variable(lb=0, domain=domain)
+        model.online = sparse_tupledict(active_hmyzte_uc, _new_var)
+        model.startup = sparse_tupledict(active_hmyzte_uc, _new_var)
+        model.shutdown = sparse_tupledict(active_hmyzte_uc, _new_var)
+
+        # Constraints. Each rule already early-returns for non-eligible
+        # techs; sparsifying just skips the rule call for those cells.
+        model.uc_n_unit_bound_cons = sparse_tupledict(
+            active_hmyzte_uc, self.n_unit_bound_rule
         )
-        model.uc_state_evolution_cons = poi.make_tupledict(
-            model.hour, model.month, model.year, model.zone, model.tech,
-            rule=self.state_evolution_rule,
+        model.uc_state_evolution_cons = sparse_tupledict(
+            active_hmyzte_uc, self.state_evolution_rule
         )
-        model.uc_gen_up_cons = poi.make_tupledict(
-            model.hour, model.month, model.year, model.zone, model.tech,
-            rule=self.gen_up_uc_rule,
+        model.uc_gen_up_cons = sparse_tupledict(
+            active_hmyzte_uc, self.gen_up_uc_rule
         )
-        model.uc_gen_low_cons = poi.make_tupledict(
-            model.hour, model.month, model.year, model.zone, model.tech,
-            rule=self.gen_low_uc_rule,
+        model.uc_gen_low_cons = sparse_tupledict(
+            active_hmyzte_uc, self.gen_low_uc_rule
         )
-        model.uc_min_up_cons = poi.make_tupledict(
-            model.hour, model.month, model.year, model.zone, model.tech,
-            rule=self.min_up_rule,
+        model.uc_min_up_cons = sparse_tupledict(
+            active_hmyzte_uc, self.min_up_rule
         )
-        model.uc_min_down_cons = poi.make_tupledict(
-            model.hour, model.month, model.year, model.zone, model.tech,
-            rule=self.min_down_rule,
+        model.uc_min_down_cons = sparse_tupledict(
+            active_hmyzte_uc, self.min_down_rule
         )
 
     # ------------------------------------------------------------------
@@ -315,29 +318,33 @@ def add_uc_cost_terms(model) -> "poi.ExprBuilder":
     w = model.params['weight']
     dt = model.params['dt']
 
+    # Sparse: walk only (z, te) where the tech is eligible AND
+    # actually deployed at the zone (online/startup variables only
+    # exist there).
+    active_zt_uc = [
+        (z, te) for (z, te) in model.active_zt
+        if is_eligible.get(te, False)
+    ]
     for h in model.hour:
         for m in model.month:
             for y in model.year:
-                for z in model.zone:
-                    for te in model.tech:
-                        if not is_eligible[te]:
-                            continue
-                        u = float(unit_size.get(te, 1.0))
-                        sc = float(startup_cost.get(te, 0.0))
-                        nl = float(no_load_cost.get(te, 0.0))
-                        if sc == 0 and nl == 0:
-                            continue
-                        factor = vf[y, z] / w
-                        if sc != 0:
-                            cost += (
-                                sc * u
-                                * model.startup[h, m, y, z, te]
-                                * factor
-                            )
-                        if nl != 0:
-                            cost += (
-                                nl * u * dt
-                                * model.online[h, m, y, z, te]
-                                * factor
-                            )
+                for (z, te) in active_zt_uc:
+                    u = float(unit_size.get(te, 1.0))
+                    sc = float(startup_cost.get(te, 0.0))
+                    nl = float(no_load_cost.get(te, 0.0))
+                    if sc == 0 and nl == 0:
+                        continue
+                    factor = vf[y, z] / w
+                    if sc != 0:
+                        cost += (
+                            sc * u
+                            * model.startup[h, m, y, z, te]
+                            * factor
+                        )
+                    if nl != 0:
+                        cost += (
+                            nl * u * dt
+                            * model.online[h, m, y, z, te]
+                            * factor
+                        )
     return cost

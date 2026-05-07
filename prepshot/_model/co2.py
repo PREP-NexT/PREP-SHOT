@@ -23,6 +23,9 @@ The calculated carbon emission for each year lower than its upper bound, as foll
 import pyoptinterface as poi
 import numpy as np
 
+from prepshot.utils import sparse_tupledict
+
+
 class AddCo2EmissionConstraints:
     """Class for carbon emission constraints and calculations.
     """
@@ -39,9 +42,11 @@ class AddCo2EmissionConstraints:
         model.carbon_offset = model.add_variables(
             model.year, model.zone, lb=0
         )
-        model.carbon_breakdown = poi.make_tupledict(
-            model.year, model.zone, model.tech,
-            rule=self.carbon_breakdown
+        active_yzt = [
+            (y, z, te) for y in model.year for (z, te) in model.active_zt
+        ]
+        model.carbon_breakdown = sparse_tupledict(
+            active_yzt, self.carbon_breakdown
         )
         model.carbon_capacity = poi.make_tupledict(
             model.year, model.zone,

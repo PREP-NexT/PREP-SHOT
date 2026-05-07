@@ -313,11 +313,19 @@ class AddDCFlowConstraints:
             for z1 in model.zone
         )
         gen_z = poi.quicksum(
-            model.gen[h, m, y, z, te] for te in model.tech
+            model.gen[h, m, y, z, te]
+            for te in model.zone_techs.get(z, [])
         )
+        storage_set = set(model.storage_tech)
         charge_z = poi.quicksum(
-            model.charge[h, m, y, z, te] for te in model.storage_tech
+            model.charge[h, m, y, z, te]
+            for te in model.zone_techs.get(z, [])
+            if te in storage_set
         )
+        # Mirror the base-case load-shedding slack so contingency
+        # power balance can use it too.
         demand_z = load[z, y, m, h] * dt
+        if hasattr(model, 'lns'):
+            demand_z = demand_z - model.lns[h, m, y, z]
         lhs = demand_z - (imp_z - exp_z + gen_z - charge_z)
         return model.add_linear_constraint(lhs, poi.Eq, 0)

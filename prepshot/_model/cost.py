@@ -85,12 +85,40 @@ class AddCostObjective:
         # Returns a zero ExprBuilder when UC is disabled, so adding it
         # unconditionally is safe.
         model.cost_uc = add_uc_cost_terms(model)
+        # Load-shedding penalty: VOLL ($/MWh) times slack volume,
+        # NPV-discounted by var_factor[y, z] and divided by weight to
+        # match the variable-cost convention. Zero when load
+        # shedding is disabled.
+        model.cost_lns = self.lns_cost_rule()
         model.cost = model.cost_var + model.cost_newtech                     \
             + model.cost_fix + model.cost_newline                            \
             + model.cost_carbon + model.cost_carbon_offset                   \
-            + model.cost_uc                                                  \
+            + model.cost_uc + model.cost_lns                                 \
             - model.income
         model.set_objective(model.cost, sense=poi.ObjectiveSense.Minimize)
+
+    def lns_cost_rule(self) -> "poi.ExprBuilder":
+        """VOLL penalty on the load-not-served slack, discounted to NPV.
+
+        Returns a zero ExprBuilder when ``allow_load_shedding`` is
+        false, so callers can add it unconditionally.
+        """
+        model = self.model
+        if not hasattr(model, 'lns'):
+            return poi.ExprBuilder()
+        voll = float(model.params.get('voll', 10000.0))
+        vf = model.params['var_factor']
+        w = model.params['weight']
+        cost = poi.ExprBuilder()
+        for h in model.hour:
+            for m in model.month:
+                for y in model.year:
+                    for z in model.zone:
+                        cost += (
+                            voll / w * vf[y, z]
+                            * model.lns[h, m, y, z]
+                        )
+        return cost
     def fuel_cost_breakdown(
         self, y : int, z : str, te : str
     ) -> poi.ExprBuilder:
@@ -323,19 +351,19 @@ class AddCostObjective:
             Total variable cost across all years, zones and technologies.
         """
         model = self.model
-        model.cost_var_tech_breakdown = poi.make_tupledict(
-            model.year, model.zone, model.tech,
-            rule=self.cost_var_tech_breakdown
+        from prepshot.utils import sparse_tupledict
+        # Iterate sparse: (year, z, te) only over real (z, te) pairs,
+        # (year, z, z1) only over real lines.
+        active_yzt = [(y, z, te) for y in model.year
+                      for (z, te) in model.active_zt]
+        model.cost_var_tech_breakdown = sparse_tupledict(
+            active_yzt, self.cost_var_tech_breakdown
         )
-
-        model.cost_fuel_breakdown = poi.make_tupledict(
-            model.year, model.zone, model.tech,
-            rule=self.fuel_cost_breakdown
+        model.cost_fuel_breakdown = sparse_tupledict(
+            active_yzt, self.fuel_cost_breakdown
         )
-
-        model.cost_var_line_breakdown = poi.make_tupledict(
-            model.year, model.zone, model.zone,
-            rule=self.cost_var_line_breakdown
+        model.cost_var_line_breakdown = sparse_tupledict(
+            model.active_yz1z2, self.cost_var_line_breakdown
         )
         # Per-segment fuel cost for techs with a piecewise-linear heat
         # rate curve; zero ExprBuilder when the module is disabled.
@@ -351,17 +379,19 @@ class AddCostObjective:
 
     def newtech_cost_rule(self) -> poi.ExprBuilder:
         """Total investment cost of new technologies.
-        
+
         Returns
         -------
         poi.ExprBuilder
-            Total investment cost of new technologies over all years, zones and 
+            Total investment cost of new technologies over all years, zones and
             technologies.
         """
+        from prepshot.utils import sparse_tupledict
         model = self.model
-        model.cost_newtech_breakdown = poi.make_tupledict(
-            model.year, model.zone, model.tech,
-            rule=self.cost_newtech_breakdown
+        active_yzt = [(y, z, te) for y in model.year
+                      for (z, te) in model.active_zt]
+        model.cost_newtech_breakdown = sparse_tupledict(
+            active_yzt, self.cost_newtech_breakdown
         )
         return poi.quicksum(model.cost_newtech_breakdown)
 
@@ -371,13 +401,13 @@ class AddCostObjective:
         Returns
         -------
         poi.ExprBuilder
-            Total investment cost of new transmission lines over all years, 
+            Total investment cost of new transmission lines over all years,
             zones.
         """
+        from prepshot.utils import sparse_tupledict
         model = self.model
-        model.cost_newline_breakdown = poi.make_tupledict(
-            model.year, model.zone, model.zone,
-            rule=self.cost_newline_breakdown
+        model.cost_newline_breakdown = sparse_tupledict(
+            model.active_yz1z2, self.cost_newline_breakdown
         )
         return poi.quicksum(model.cost_newline_breakdown)
 
@@ -467,14 +497,15 @@ class AddCostObjective:
             Total fixed O&M cost of technologies and transmission lines over
             all years, zones and technologies.
         """
+        from prepshot.utils import sparse_tupledict
         model = self.model
-        model.cost_fix_tech_breakdown = poi.make_tupledict(
-            model.year, model.zone, model.tech,
-            rule=self.cost_fix_tech_breakdown
+        active_yzt = [(y, z, te) for y in model.year
+                      for (z, te) in model.active_zt]
+        model.cost_fix_tech_breakdown = sparse_tupledict(
+            active_yzt, self.cost_fix_tech_breakdown
         )
-        model.cost_fix_line_breakdown = poi.make_tupledict(
-            model.year, model.zone, model.zone,
-            rule=self.cost_fix_line_breakdown
+        model.cost_fix_line_breakdown = sparse_tupledict(
+            model.active_yz1z2, self.cost_fix_line_breakdown
         )
         return poi.quicksum(model.cost_fix_tech_breakdown) + \
             poi.quicksum(model.cost_fix_line_breakdown)
