@@ -3,6 +3,232 @@ Changelog
 
 Here, you'll find notable changes for each version of PREP-SHOT.
 
+Version 1.21.0 - May 7, 2026
+-------------------------------
+
+PCM additions: load shedding (``reliability_parameters``,
+``--allow-load-shedding`` / ``--voll`` CLI flags), locational
+marginal prices in the rolling-horizon output, and a switch to
+long-format Parquet sidecars instead of dense NetCDF -- the
+previous writer overflowed scipy's NetCDF3 32-bit ``vsize`` on
+full-year Thai PCM (the dense ``trans_export`` array would have
+been ~16 GB).
+
+Why
++++
+
+Three independent needs that landed in the same release window:
+
+1. **Load shedding** -- on big nodal models, single PCM windows
+   are occasionally infeasible due to local water/storage budgets
+   (cascade boundary, low-inflow hour). Without slack, the
+   rolling driver crashes mid-year. With a VOLL-priced ``lns``
+   slack the dispatch always completes and the output reveals
+   exactly which (hour, zone) pairs hit the floor.
+2. **LMP** -- the dual of the nodal power-balance constraint is
+   the bus-level marginal price; it's the standard PCM diagnostic
+   for congestion / fuel-mix transitions / scarcity. CEM mode
+   already ships this; PCM didn't.
+3. **Parquet output** -- pivoting the long-format result rows to
+   dense ``(hour, month, year, zone, ...)`` xarray arrays is
+   wasteful when the data is sparse-by-construction (e.g. only
+   1230 directed lines populated out of 472 x 472 cells). On a
+   full-year run the dense array pads NaN into ~2 B cells and
+   blows up to ~16 GB.
+
+Added
++++++
+
+* ``reliability_parameters`` block in ``config.json``::
+
+      "reliability_parameters": {
+          "allow_load_shedding": false,
+          "voll": 10000
+      }
+
+  When ``allow_load_shedding`` is true, ``model.lns[h, m, y, z]``
+  enters the nodal power-balance constraint as a non-negative
+  slack and the ``cost_lns = voll * sum(lns) * var_factor /
+  weight`` term is added to the objective. The slack defaults to
+  off, so unset / pre-1.21 configs are byte-for-byte unchanged.
+* ``prepshot.pcm`` CLI flags ``--allow-load-shedding`` and
+  ``--voll <USD/MWh>`` override the config block at run time.
+* ``run_pcm(..., allow_load_shedding=True, voll=10000.0)``
+  programmatic kwargs.
+* ``lmp.parquet`` in the PCM output bundle: per-(hour, month,
+  year, zone) shadow price of the demand-balance constraint,
+  scaled to real-year USD/MWh (raw dual times ``weight /
+  var_factor``, sign-flipped). Saturates at ``voll`` for
+  shortage hours.
+* PoI portability shim: PoI 0.4's
+  ``get_constraint_attribute(c, ConstraintAttribute.Dual)``
+  raises ``AttributeError: Quadratric`` (sic) on linear
+  constraints, so we go through the backend-native raw name
+  (``Pi`` for Gurobi, ``dual`` for HiGHS) selected by a probe
+  on the first constraint.
+* ``examples/thailand_pcm/ThailandPCM.ipynb`` Section 10
+  "Result analysis" -- six diagnostic plots (annual generation
+  by carrier, peak-week dispatch, load-shedding hotspots, top
+  transmission corridors, hydro-station discharge profiles, LMP
+  geography + duration curve). The notebook's ``build-hydro``
+  cell now also writes ``reservoir_storage_min.csv`` /
+  ``reservoir_storage_max.csv`` (from V_min / V_max in the
+  source) and clamps initial storage into ``[V_min * 1.01,
+  V_max * 0.99]`` so the LP isn't infeasible at hour 0 when a
+  reservoir's V_min > 0.5 * V_max.
+
+Changed
++++++++
+
+* ``prepshot/pcm.py:_save_pcm_netcdf`` -- writes long-format
+  ``output/baseline_pcm/<var>.parquet`` (zstd-compressed) plus
+  a ``manifest.json`` instead of a single dense NetCDF. Total
+  Thai-PCM full-year output goes from ~16 GB-in-memory (didn't
+  fit) to ~40 MB on disk.
+* ``prepshot/pcm.py:_extract_window_dispatch`` -- iterates
+  ``model.zone_techs[z]`` and ``model.out_neighbours[z]`` so it
+  works against the v1.20 sparse ``model.gen`` /
+  ``model.trans_export``. Previously KeyError'd at the first
+  inactive ``(z, te)``.
+* ``prepshot/pcm.py:_extract_window_state`` -- guards the empty
+  ``reservoir_water_delay_time`` case (``int(NaN)`` raised when
+  the cascade table has no rows).
+
+Caveats
++++++++
+
+PoI HiGHS does not consistently expose constraint duals as a
+typed attribute; the raw ``dual`` lookup is used as a fallback
+and may not work on all HiGHS builds. If the dual extractor
+returns nothing the PCM run logs ``could not extract LMP duals``
+and ``lmp.parquet`` is omitted -- the rest of the output is
+unaffected.
+
+Version 1.20.0 - May 7, 2026
+-------------------------------
+
+Sparsity refactor: every variable and constraint family that was
+indexed over the dense ``zone x tech`` or ``zone x zone`` Cartesian
+now iterates only the structurally meaningful subset (real
+``(zone, tech)`` pairs from ``existing_fleet`` /
+``expansion_candidates``, real lines from ``transmission_existing``
+/ ``transmission_candidates``). On full-nodal Thai PCM (472 buses,
+212 techs, 1230 lines) ``create_model`` drops from **~26 minutes
+per window** to **~0.55 s** -- a ~3000x speedup for the LP-build
+step alone.
+
+Why
++++
+
+Profiling on the Thai PCM (full-nodal, 472 zones, 212 techs,
+615 directed lines) showed three structurally wasteful patterns,
+all in the same shape:
+
+* ``model.add_variables(model.zone, model.tech, ...)`` creates
+  ~5 M ``gen`` variables, ~99 % of which are 0-by-construction
+  because each thermal/VRE plant lives at exactly one bus.
+* ``model.add_variables(model.zone, model.zone, ...)`` creates
+  ~10.7 M ``trans_export`` variables, ~99.5 % of which are
+  unbounded waste because Thailand only has 1230 directed lines.
+* Every ``poi.make_tupledict(model.hour, model.month, model.year,
+  model.zone, model.tech, rule=...)`` runs the rule 4.8 M times
+  per constraint family on Thai-PCM scale, plus ~10 M times for
+  trans-indexed families.
+
+PoI's ``make_tupledict`` walks the dense Cartesian even when the
+rule returns ``None`` (the sparse-storage path saves the result
+but not the rule call), so most of the per-window time was pure
+Python iteration with no LP-side payoff.
+
+Added
++++++
+
+* ``prepshot.utils.sparse_tupledict(index_iter, rule)`` -- like
+  ``poi.make_tupledict`` but iterates an explicit list of keys
+  instead of the dense Cartesian, skipping the per-element
+  ``flatten_tuple`` + ``isinstance`` overhead.
+* ``prepshot.load_data.compute_active_zone_tech(data_store)``
+  populates ``data_store['active_zt']`` /
+  ``['tech_zones']`` / ``['zone_techs']`` /
+  ``['active_zt_storage']`` from ``existing_fleet`` and
+  ``expansion_candidates``. Computed once at load time so every
+  PCM window reuses it.
+* ``prepshot.load_data.compute_active_lines(data_store)``
+  populates ``data_store['active_lines']`` /
+  ``['out_neighbours']`` / ``['in_neighbours']`` from
+  ``transmission_existing`` and ``transmission_candidates``.
+* ``prepshot.model.define_active_zone_tech(model)`` derives the
+  per-window time-indexed key lists ``model.active_hmyzte``,
+  ``model.active_hmyzte_storage``, ``model.active_hmyz1z2``,
+  ``model.active_yz1z2`` from those sets.
+
+Changed
++++++++
+
+* Sparse variable creation in ``define_variables``: ``gen``,
+  ``charge``, ``storage``, ``cap_newline``, ``trans_export`` now
+  use ``sparse_tupledict`` over the active set instead of the
+  dense ``model.add_variables(*sets)``.
+* All constraint rules that were ``poi.make_tupledict(...,
+  model.zone, model.tech, ...)`` switched to ``sparse_tupledict``
+  over ``active_hmyzte`` / ``active_yzt``: 11 files touched
+  (``co2.py``, ``cost.py``, ``dc_flow.py``, ``demand.py``,
+  ``finance.py``, ``generation.py``, ``heat_rate.py``,
+  ``investment.py``, ``transmission.py``, ``unit_commitment.py``,
+  plus the variable-creation in ``model.py``).
+* All ``for te in model.tech`` quicksums in nodal balance rules
+  switched to ``for te in model.zone_techs.get(z, [])``; same
+  for ``for z1 in model.zone`` -> ``for z1 in
+  model.in_neighbours.get(z, [])`` /
+  ``model.out_neighbours.get(z, [])``.
+* ``prepshot._model.investment.AddInvestmentConstraints`` now
+  pre-indexes ``existing_fleet`` by ``(zone, tech)`` once at
+  ``__init__`` time so ``tech_lifetime_rule`` is O(1) per call
+  instead of O(N) where N is the fleet size. On Thai PCM this
+  alone saves ~0.6 s per window (the previous worst genexpr
+  scan).
+* ``prepshot.model.define_complex_sets`` no longer pads the
+  dense ``zone x zone`` Cartesian (was 222 784 dict writes on
+  Thai PCM); only pads on the sparse ``active_lines`` set, with
+  saner defaults (``transmission_line_efficiency`` = 1.0 lossless
+  rather than 0 = blocked, ``transmission_line_lifetime`` = 9999
+  rather than 0 = expired).
+* ``prepshot.pcm._build_window_params`` -- shallow copy
+  (``dict(full_params)``) instead of ``deepcopy``. The big
+  dicts (``demand``, ``max_gen_profile``, ``inflow``) are never
+  mutated per-window, so deep-copying them was pure waste --
+  ~10.9 s per window on Thai PCM, more than 20x the actual
+  ``create_model`` cost.
+
+Performance
++++++++++++
+
+Single-window timings, Thai PCM 472-bus 212-tech 1230-line
+configuration, M1 Max:
+
+================================  ============  ============  =========
+Stage                              v1.19         v1.20         Speedup
+================================  ============  ============  =========
+``_build_window_params``           10.9 s        ~0 s          1000x+
+``create_model`` (LP build)        26+ min       0.55 s        ~3000x
+``solve_model`` (HiGHS / Gurobi)   --            0.20 s        --
+``_extract_window_dispatch``       --            0.02 s        --
+Per-window total                   infeasible    ~0.8 s        --
+Full year (365 windows)            infeasible    ~5-10 min     --
+================================  ============  ============  =========
+
+three_zone full regression-test wall-clock: 145 s -> 117 s.
+Objective drift: < 0.04 % (within the 1e-2 tolerance).
+
+Notes
++++++
+
+The remaining theoretical lever is reusing the model object
+across rolling-horizon windows (``set_normalized_rhs`` /
+``set_normalized_coefficient`` for window-specific values
+instead of rebuilding). Estimated extra savings: ~3 minutes
+on the full year. Not in this release.
+
 Version 1.19.1 - May 6, 2026
 -------------------------------
 
