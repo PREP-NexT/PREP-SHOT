@@ -125,7 +125,16 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../ThailandPCM.html#7.-Running-the-PCM-rolling-horizon-driver">7. Running the PCM rolling-horizon driver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../ThailandPCM.html#8.-Knobs-to-flip-on-for-higher-fidelity">8. Knobs to flip on for higher fidelity</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../ThailandPCM.html#9.-Status-and-caveats">9. Status and caveats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ThailandPCM.html#9.-Status">9. Status</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ThailandPCM.html#10.-Result-analysis">10. Result analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../ThailandPCM.html#10.1-Annual-generation-by-carrier">10.1 Annual generation by carrier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ThailandPCM.html#10.2-Peak-week-hourly-dispatch">10.2 Peak-week hourly dispatch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ThailandPCM.html#10.3-Load-shedding-hotspots">10.3 Load-shedding hotspots</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ThailandPCM.html#10.4-Top-transmission-corridors">10.4 Top transmission corridors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ThailandPCM.html#10.5-Hydro:-per-station-discharge-profiles">10.5 Hydro: per-station discharge profiles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ThailandPCM.html#10.6-Locational-marginal-prices-(LMP)">10.6 Locational marginal prices (LMP)</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -231,6 +240,8 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/prepshot.load_data.html">load_data</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.load_data.html#prepshot.load_data.check_schema"><code class="docutils literal notranslate"><span class="pre">check_schema()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.load_data.html#prepshot.load_data.compute_active_lines"><code class="docutils literal notranslate"><span class="pre">compute_active_lines()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.load_data.html#prepshot.load_data.compute_active_zone_tech"><code class="docutils literal notranslate"><span class="pre">compute_active_zone_tech()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.load_data.html#prepshot.load_data.compute_cost_factors"><code class="docutils literal notranslate"><span class="pre">compute_cost_factors()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.load_data.html#prepshot.load_data.extract_config_data"><code class="docutils literal notranslate"><span class="pre">extract_config_data()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.load_data.html#prepshot.load_data.extract_sets"><code class="docutils literal notranslate"><span class="pre">extract_sets()</span></code></a></li>
@@ -248,6 +259,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/prepshot.model.html">model</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.model.html#prepshot.model.create_model"><code class="docutils literal notranslate"><span class="pre">create_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.model.html#prepshot.model.define_active_zone_tech"><code class="docutils literal notranslate"><span class="pre">define_active_zone_tech()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.model.html#prepshot.model.define_basic_sets"><code class="docutils literal notranslate"><span class="pre">define_basic_sets()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.model.html#prepshot.model.define_complex_sets"><code class="docutils literal notranslate"><span class="pre">define_complex_sets()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.model.html#prepshot.model.define_constraints"><code class="docutils literal notranslate"><span class="pre">define_constraints()</span></code></a></li>
@@ -347,6 +359,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.utils.html#prepshot.utils.cartesian_product"><code class="docutils literal notranslate"><span class="pre">cartesian_product()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.utils.html#prepshot.utils.check_positive"><code class="docutils literal notranslate"><span class="pre">check_positive()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.utils.html#prepshot.utils.interpolate_z_by_q_or_s"><code class="docutils literal notranslate"><span class="pre">interpolate_z_by_q_or_s()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.utils.html#prepshot.utils.sparse_tupledict"><code class="docutils literal notranslate"><span class="pre">sparse_tupledict()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/prepshot.output_data.html">output_data</a><ul>
@@ -366,30 +379,45 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../Changelog.html">Changelog</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-19-1-may-6-2026">Version 1.19.1 - May 6, 2026</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-21-0-may-7-2026">Version 1.21.0 - May 7, 2026</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#why">Why</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#added">Added</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#changed">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#caveats">Caveats</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-20-0-may-7-2026">Version 1.20.0 - May 7, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id1">Why</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id2">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id3">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#performance">Performance</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#notes">Notes</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-19-1-may-6-2026">Version 1.19.1 - May 6, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id4">Why</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id5">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id6">Notes</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-19-0-may-6-2026">Version 1.19.0 - May 6, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#added">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id7">Added</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#default-heat-rate-curves-shipped">Default heat-rate curves shipped</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#per-example-wiring">Per-example wiring</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#regression">Regression</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-18-0-may-6-2026">Version 1.18.0 - May 6, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id1">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id8">Added</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#implementation-notes">Implementation notes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id2">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id9">Changed</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#verified">Verified</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-17-0-may-6-2026">Version 1.17.0 - May 6, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id3">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id4">Changed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id5">Verified</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id10">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id11">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id12">Verified</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#known-limitations">Known limitations</a></li>
 </ul>
 </li>
@@ -400,91 +428,91 @@
 <li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#output">Output</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#eligibility-defaults-shipped">Eligibility defaults shipped</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#default-requirement-values">Default requirement values</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id6">Regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id13">Regression</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-15-0-may-6-2026">Version 1.15.0 - May 6, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id7">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id8">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id14">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id15">Changed</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#performance-notes">Performance notes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-14-1-may-5-2026">Version 1.14.1 - May 5, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id9">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id10">Known limitations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id16">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id17">Known limitations</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-14-0-may-5-2026">Version 1.14.0 - May 5, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id11">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id12">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id18">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id19">Changed</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#known-limitations-v1-14-0-alpha">Known limitations (v1.14.0 alpha)</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-13-0-may-5-2026">Version 1.13.0 - May 5, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id13">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id14">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id20">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id21">Changed</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-12-0-may-5-2026">Version 1.12.0 - May 5, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id15">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id16">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id22">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id23">Changed</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#fixed">Fixed</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-11-1-may-5-2026">Version 1.11.1 - May 5, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id17">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id18">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id24">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id25">Changed</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#removed">Removed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id19">Notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id26">Notes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-11-0-may-5-2026">Version 1.11.0 - May 5, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id20">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id21">Changed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id22">Removed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id27">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id28">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id29">Removed</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-10-0-may-5-2026">Version 1.10.0 - May 5, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id23">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id24">Changed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id25">Removed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id30">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id31">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id32">Removed</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-9-1-may-3-2026">Version 1.9.1 - May 3, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id26">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id27">Notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id33">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id34">Notes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-9-0-may-3-2026">Version 1.9.0 - May 3, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id28">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id29">Changed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id30">Notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id35">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id36">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id37">Notes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-8-1-may-3-2026">Version 1.8.1 - May 3, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id31">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id38">Fixed</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-8-0-may-3-2026">Version 1.8.0 - May 3, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id32">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id33">Removed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id34">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id39">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id40">Removed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id41">Changed</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-7-0-may-3-2026">Version 1.7.0 - May 3, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id35">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id36">Removed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id37">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id42">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id43">Removed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id44">Changed</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-6-0-may-3-2026">Version 1.6.0 - May 3, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id38">Removed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id39">Changed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id40">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id45">Removed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id46">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id47">Fixed</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-5-0-may-2-2026">Version 1.5.0 - May 2, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id41">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id48">Added</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#changed-breaking">Changed (Breaking)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#annotation-columns">Annotation columns</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#column-renames-for-clarity">Column renames for clarity</a></li>
@@ -494,60 +522,60 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-4-0-may-2-2026">Version 1.4.0 - May 2, 2026</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#why-long-format">Why long-format</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id42">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id43">Changed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id44">Migration notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id49">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id50">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id51">Migration notes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-3-2-may-2-2026">Version 1.3.2 - May 2, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id45">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id52">Added</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-3-1-may-2-2026">Version 1.3.1 - May 2, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id46">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id53">Changed</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#tested-with">Tested with</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id47">Migration notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id54">Migration notes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-3-0-may-2-2026">Version 1.3.0 - May 2, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id48">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id49">Changed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id50">Removed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id55">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id56">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id57">Removed</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-2-0-may-2-2026">Version 1.2.0 - May 2, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id51">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id52">Changed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id53">Migration notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id58">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id59">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id60">Migration notes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-1-2-may-2-2026">Version 1.1.2 - May 2, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id54">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id55">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id61">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id62">Fixed</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-1-1-may-2-2026">Version 1.1.1 - May 2, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id56">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id57">Changed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id58">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id63">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id64">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id65">Fixed</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-1-0-may-2-2026">Version 1.1.0 - May 2, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id59">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id60">Changed (Breaking)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id66">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id67">Changed (Breaking)</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-0-jul-21-2025">Version 1.0 - Jul 21, 2025</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-0-1-2-jul-22-2024">Version 0.1.2 - Jul 22, 2024</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id61">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id62">Fixed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id63">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id68">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id69">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id70">Changed</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-0-1-1-jul-11-2024">Version 0.1.1 - Jul 11, 2024</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id64">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id65">Fixed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id66">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id71">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id72">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id73">Changed</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#deprecated">Deprecated</a></li>
 </ul>
 </li>
@@ -645,7 +673,6 @@
 <span class="sd">the pyoptinterface library.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">prepshot.utils</span> <span class="kn">import</span> <span class="n">cartesian_product</span>
 <span class="kn">from</span> <span class="nn">prepshot._model.demand</span> <span class="kn">import</span> <span class="n">AddDemandConstraints</span>
 <span class="kn">from</span> <span class="nn">prepshot._model.generation</span> <span class="kn">import</span> <span class="n">AddGenerationConstraints</span>
 <span class="kn">from</span> <span class="nn">prepshot._model.cost</span> <span class="kn">import</span> <span class="n">AddCostObjective</span>
@@ -743,30 +770,113 @@
         <span class="c1"># backwards-compat with the hydro module.</span>
         <span class="n">model</span><span class="o">.</span><span class="n">station</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">hydro_tech</span></div>
 
-<div class="viewcode-block" id="define_complex_sets"><a class="viewcode-back" href="../../api/prepshot.model.html#prepshot.model.define_complex_sets">[docs]</a><span class="k">def</span> <span class="nf">define_complex_sets</span><span class="p">(</span><span class="n">model</span> <span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create complex sets based on simple sets and some conditations. The</span>
-<span class="sd">    existing capacity between two zones is set to empty (i.e., No value is</span>
-<span class="sd">    filled in the Excel cell), which means that these two zones cannot have</span>
-<span class="sd">    newly built transmission lines. If you want to enable two zones which do</span>
-<span class="sd">    not have any existing transmission lines, to build new transmission lines</span>
-<span class="sd">    in the planning horizon, you need to set their capacity as zero explicitly.</span>
+<div class="viewcode-block" id="define_active_zone_tech"><a class="viewcode-back" href="../../api/prepshot.model.html#prepshot.model.define_active_zone_tech">[docs]</a><span class="k">def</span> <span class="nf">define_active_zone_tech</span><span class="p">(</span><span class="n">model</span> <span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Pull the sparse ``(zone, tech)`` set from ``model.params`` (built</span>
+<span class="sd">    once at file-read time by ``load_data.compute_active_zone_tech``)</span>
+<span class="sd">    and derive the time-indexed key lists used by the constraint</span>
+<span class="sd">    builders.</span>
 
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    model : object</span>
-<span class="sd">        Model to be solved.</span>
+<span class="sd">    The (zone, tech) set itself is data-property (depends only on</span>
+<span class="sd">    ``existing_fleet`` + ``expansion_candidates``), so we compute it</span>
+<span class="sd">    in ``load_data`` and reuse it unchanged across every PCM window.</span>
+<span class="sd">    The (h, m, y, z, te) lists DO depend on the per-window time</span>
+<span class="sd">    index sets, so they&#39;re materialised here.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># transmission_existing is keyed by (zone1, zone2, commission_year);</span>
-    <span class="c1"># auto-pad missing zone pairs (e.g. self-loops) with a sentinel</span>
-    <span class="c1"># commission_year=0 entry of value=0. Efficiency padding uses the</span>
-    <span class="c1"># 2-tuple key it always had.</span>
-    <span class="n">trans_pairs</span> <span class="o">=</span> <span class="p">{(</span><span class="n">z1</span><span class="p">,</span> <span class="n">z2</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">z1</span><span class="p">,</span> <span class="n">z2</span><span class="p">,</span> <span class="n">_cy</span><span class="p">)</span> <span class="ow">in</span>
-                   <span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;transmission_existing&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()}</span>
-    <span class="k">for</span> <span class="n">z_i</span><span class="p">,</span> <span class="n">z1_i</span> <span class="ow">in</span> <span class="n">cartesian_product</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">zone</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">zone</span><span class="p">):</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">z_i</span><span class="p">,</span> <span class="n">z1_i</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">trans_pairs</span><span class="p">:</span>
-            <span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;transmission_existing&#39;</span><span class="p">][</span><span class="n">z_i</span><span class="p">,</span> <span class="n">z1_i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-            <span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;transmission_line_efficiency&#39;</span><span class="p">][</span><span class="n">z_i</span><span class="p">,</span> <span class="n">z1_i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span></div>
-            <span class="c1"># TODO: Set the capacity of new transmission lines to 0</span>
+    <span class="kn">from</span> <span class="nn">prepshot.load_data</span> <span class="kn">import</span> <span class="n">compute_active_zone_tech</span>
+    <span class="k">if</span> <span class="s1">&#39;active_zt&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="p">:</span>
+        <span class="c1"># PCM windows go through ``_build_window_params`` which copies</span>
+        <span class="c1"># params and possibly overrides ``existing_fleet`` -- recompute</span>
+        <span class="c1"># the sparse set on the fly so the override is respected.</span>
+        <span class="n">compute_active_zone_tech</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">active_zt</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;active_zt&#39;</span><span class="p">]</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">tech_zones</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;tech_zones&#39;</span><span class="p">]</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">zone_techs</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;zone_techs&#39;</span><span class="p">]</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">active_zt_storage</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;active_zt_storage&#39;</span><span class="p">]</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">active_lines</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;active_lines&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[]</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">out_neighbours</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;out_neighbours&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{}</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">in_neighbours</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;in_neighbours&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{}</span>
+
+    <span class="c1"># Time-indexed key lists used by generation.py, heat_rate.py,</span>
+    <span class="c1"># unit_commitment.py, demand.py, etc.</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">active_hmyzte</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">te</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">hour</span>
+        <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">month</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">year</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">te</span><span class="p">)</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">active_zt</span>
+    <span class="p">]</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">active_hmyzte_storage</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">te</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">hour</span>
+        <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">month</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">year</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">te</span><span class="p">)</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">active_zt_storage</span>
+    <span class="p">]</span>
+    <span class="c1"># (h, m, y, z1, z2) over real lines only -- used by transmission.py</span>
+    <span class="c1"># and demand.py.</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">active_hmyz1z2</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z1</span><span class="p">,</span> <span class="n">z2</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">hour</span>
+        <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">month</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">year</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">z1</span><span class="p">,</span> <span class="n">z2</span><span class="p">)</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">active_lines</span>
+    <span class="p">]</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">active_yz1z2</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">z1</span><span class="p">,</span> <span class="n">z2</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">year</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">z1</span><span class="p">,</span> <span class="n">z2</span><span class="p">)</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">active_lines</span>
+    <span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="define_complex_sets"><a class="viewcode-back" href="../../api/prepshot.model.html#prepshot.model.define_complex_sets">[docs]</a><span class="k">def</span> <span class="nf">define_complex_sets</span><span class="p">(</span><span class="n">model</span> <span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Pad ``transmission_line_efficiency`` for the active line set.</span>
+
+<span class="sd">    A few constraint rules read ``efficiency[z1, z2]`` for every line</span>
+<span class="sd">    in ``active_lines``; if the input CSV omits a line that DOES</span>
+<span class="sd">    appear in ``transmission_existing`` (rare but possible), default</span>
+<span class="sd">    its efficiency to 0. We no longer pad the dense ``zone x zone``</span>
+<span class="sd">    product -- the active-line set is sparse, so padding only</span>
+<span class="sd">    touches the real lines.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Several line-param dicts only carry the rows explicitly in</span>
+    <span class="c1"># their CSV, but the cost / capacity rules read every active line</span>
+    <span class="c1"># by index. Pad each with 0 (or +inf for capacity_max-style upper</span>
+    <span class="c1"># bounds) on lines missing from the CSV. We pad the *active*</span>
+    <span class="c1"># set, not the dense zone**2 product.</span>
+    <span class="c1"># Default to 1.0 (lossless) when the CSV omits a line that&#39;s in</span>
+    <span class="c1"># the active set. The historical 0.0 fallback silently blocks</span>
+    <span class="c1"># those lines -- not what you want if the CSV is just incomplete.</span>
+    <span class="c1"># Users can still set efficiency=0 explicitly to disable a line.</span>
+    <span class="n">eff</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;transmission_line_efficiency&#39;</span><span class="p">]</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">z1</span><span class="p">,</span> <span class="n">z2</span><span class="p">)</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">active_lines</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">z1</span><span class="p">,</span> <span class="n">z2</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">eff</span><span class="p">:</span>
+            <span class="n">eff</span><span class="p">[</span><span class="n">z1</span><span class="p">,</span> <span class="n">z2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+
+    <span class="c1"># Padding defaults: 0 for cost/distance/susceptance (no penalty,</span>
+    <span class="c1"># no flow contribution from a missing entry), but a large value</span>
+    <span class="c1"># for lifetime so the line is &quot;in service&quot; through the whole</span>
+    <span class="c1"># planning horizon when the CSV is absent. Padding lifetime to 0</span>
+    <span class="c1"># collapses ``cap_lines_existing`` to 0 -- silently blocks every</span>
+    <span class="c1"># line whose lifetime row is missing.</span>
+    <span class="n">line_param_zero</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s1">&#39;transmission_line_variable_OM_cost&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;transmission_line_fixed_OM_cost&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;transmission_line_investment_cost&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;distance&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;transmission_line_susceptance&#39;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">line_param_zero</span><span class="p">:</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">d</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">z1</span><span class="p">,</span> <span class="n">z2</span><span class="p">)</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">active_lines</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">z1</span><span class="p">,</span> <span class="n">z2</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
+                <span class="n">d</span><span class="p">[</span><span class="n">z1</span><span class="p">,</span> <span class="n">z2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">lt</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;transmission_line_lifetime&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">lt</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">z1</span><span class="p">,</span> <span class="n">z2</span><span class="p">)</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">active_lines</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">z1</span><span class="p">,</span> <span class="n">z2</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">lt</span><span class="p">:</span>
+                <span class="n">lt</span><span class="p">[</span><span class="n">z1</span><span class="p">,</span> <span class="n">z2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">9999</span></div>
 
 
 <div class="viewcode-block" id="define_variables"><a class="viewcode-back" href="../../api/prepshot.model.html#prepshot.model.define_variables">[docs]</a><span class="k">def</span> <span class="nf">define_variables</span><span class="p">(</span><span class="n">model</span> <span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -777,25 +887,42 @@
 <span class="sd">    model : object</span>
 <span class="sd">        Model to be solved.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">prepshot.utils</span> <span class="kn">import</span> <span class="n">sparse_tupledict</span>
 
     <span class="n">model</span><span class="o">.</span><span class="n">cap_newtech</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">add_variables</span><span class="p">(</span>
         <span class="n">model</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">zone</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">tech</span><span class="p">,</span> <span class="n">lb</span><span class="o">=</span><span class="mi">0</span>
     <span class="p">)</span>
-    <span class="n">model</span><span class="o">.</span><span class="n">cap_newline</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">add_variables</span><span class="p">(</span>
-        <span class="n">model</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">zone</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">zone</span><span class="p">,</span> <span class="n">lb</span><span class="o">=</span><span class="mi">0</span>
-    <span class="p">)</span>
-    <span class="n">model</span><span class="o">.</span><span class="n">gen</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">add_variables</span><span class="p">(</span>
-        <span class="n">model</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">zone</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">tech</span><span class="p">,</span> <span class="n">lb</span><span class="o">=</span><span class="mi">0</span>
-    <span class="p">)</span>
-    <span class="n">model</span><span class="o">.</span><span class="n">storage</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">add_variables</span><span class="p">(</span>
-        <span class="n">model</span><span class="o">.</span><span class="n">hour_p</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">zone</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">tech</span><span class="p">,</span> <span class="n">lb</span><span class="o">=</span><span class="mi">0</span>
-    <span class="p">)</span>
-    <span class="n">model</span><span class="o">.</span><span class="n">charge</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">add_variables</span><span class="p">(</span>
-        <span class="n">model</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">zone</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">tech</span><span class="p">,</span> <span class="n">lb</span><span class="o">=</span><span class="mi">0</span>
-    <span class="p">)</span>
-    <span class="n">model</span><span class="o">.</span><span class="n">trans_export</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">add_variables</span><span class="p">(</span>
-        <span class="n">model</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">zone</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">zone</span><span class="p">,</span> <span class="n">lb</span><span class="o">=</span><span class="mi">0</span>
-    <span class="p">)</span>
+    <span class="c1"># Sparsify cap_newline / trans_export over real (z1, z2) lines</span>
+    <span class="c1"># only. Thai PCM goes from 222k dense pairs to ~615 lines; that</span>
+    <span class="c1"># propagates into 6 transmission constraint families and the</span>
+    <span class="c1"># demand power-balance neighbour quicksums.</span>
+    <span class="n">_new_var</span> <span class="o">=</span> <span class="k">lambda</span> <span class="o">*</span><span class="n">_</span><span class="p">:</span> <span class="n">model</span><span class="o">.</span><span class="n">add_variable</span><span class="p">(</span><span class="n">lb</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">cap_newline</span> <span class="o">=</span> <span class="n">sparse_tupledict</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">active_yz1z2</span><span class="p">,</span> <span class="n">_new_var</span><span class="p">)</span>
+    <span class="c1"># Sparsify gen / charge / storage variable creation: only build</span>
+    <span class="c1"># variables for (z, te) pairs that have either existing capacity</span>
+    <span class="c1"># at the zone or a candidate row allowing build there. Inactive</span>
+    <span class="c1"># pairs would just be lb=ub=0 for every (h, m, y) anyway -- on</span>
+    <span class="c1"># full-nodal Thai PCM this drops gen / storage / charge from</span>
+    <span class="c1"># ~5M variables each to ~10k each.</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">gen</span> <span class="o">=</span> <span class="n">sparse_tupledict</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">active_hmyzte</span><span class="p">,</span> <span class="n">_new_var</span><span class="p">)</span>
+    <span class="c1"># storage has hour_p anchor (hour - 1) for the cycle close.</span>
+    <span class="n">active_h_p_myzte</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">te</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">hour_p</span>
+        <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">month</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">year</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">te</span><span class="p">)</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">active_zt_storage</span>
+    <span class="p">]</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">storage</span> <span class="o">=</span> <span class="n">sparse_tupledict</span><span class="p">(</span><span class="n">active_h_p_myzte</span><span class="p">,</span> <span class="n">_new_var</span><span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">charge</span> <span class="o">=</span> <span class="n">sparse_tupledict</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">active_hmyzte_storage</span><span class="p">,</span> <span class="n">_new_var</span><span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">trans_export</span> <span class="o">=</span> <span class="n">sparse_tupledict</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">active_hmyz1z2</span><span class="p">,</span> <span class="n">_new_var</span><span class="p">)</span>
+    <span class="c1"># Load-not-served slack, one per (h, m, y, z). Created only when</span>
+    <span class="c1"># the user opts in; demand.power_balance_rule and the cost</span>
+    <span class="c1"># objective check ``hasattr(model, &#39;lns&#39;)``.</span>
+    <span class="k">if</span> <span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;allow_load_shedding&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">lns</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">add_variables</span><span class="p">(</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">zone</span><span class="p">,</span> <span class="n">lb</span><span class="o">=</span><span class="mi">0</span>
+        <span class="p">)</span>
 
     <span class="c1"># Reserve variables are created INSIDE AddReserveConstraints (v1.16)</span>
     <span class="c1"># because the product set comes from the eligibility CSV at runtime</span>
@@ -854,6 +981,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">model</span> <span class="o">=</span> <span class="n">define_model</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
     <span class="n">define_basic_sets</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+    <span class="n">define_active_zone_tech</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
     <span class="n">define_complex_sets</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
     <span class="n">define_variables</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
     <span class="n">define_constraints</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>

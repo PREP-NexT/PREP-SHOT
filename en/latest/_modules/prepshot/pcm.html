@@ -125,7 +125,16 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../ThailandPCM.html#7.-Running-the-PCM-rolling-horizon-driver">7. Running the PCM rolling-horizon driver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../ThailandPCM.html#8.-Knobs-to-flip-on-for-higher-fidelity">8. Knobs to flip on for higher fidelity</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../ThailandPCM.html#9.-Status-and-caveats">9. Status and caveats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ThailandPCM.html#9.-Status">9. Status</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ThailandPCM.html#10.-Result-analysis">10. Result analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../ThailandPCM.html#10.1-Annual-generation-by-carrier">10.1 Annual generation by carrier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ThailandPCM.html#10.2-Peak-week-hourly-dispatch">10.2 Peak-week hourly dispatch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ThailandPCM.html#10.3-Load-shedding-hotspots">10.3 Load-shedding hotspots</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ThailandPCM.html#10.4-Top-transmission-corridors">10.4 Top transmission corridors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ThailandPCM.html#10.5-Hydro:-per-station-discharge-profiles">10.5 Hydro: per-station discharge profiles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ThailandPCM.html#10.6-Locational-marginal-prices-(LMP)">10.6 Locational marginal prices (LMP)</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -231,6 +240,8 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/prepshot.load_data.html">load_data</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.load_data.html#prepshot.load_data.check_schema"><code class="docutils literal notranslate"><span class="pre">check_schema()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.load_data.html#prepshot.load_data.compute_active_lines"><code class="docutils literal notranslate"><span class="pre">compute_active_lines()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.load_data.html#prepshot.load_data.compute_active_zone_tech"><code class="docutils literal notranslate"><span class="pre">compute_active_zone_tech()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.load_data.html#prepshot.load_data.compute_cost_factors"><code class="docutils literal notranslate"><span class="pre">compute_cost_factors()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.load_data.html#prepshot.load_data.extract_config_data"><code class="docutils literal notranslate"><span class="pre">extract_config_data()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.load_data.html#prepshot.load_data.extract_sets"><code class="docutils literal notranslate"><span class="pre">extract_sets()</span></code></a></li>
@@ -248,6 +259,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/prepshot.model.html">model</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.model.html#prepshot.model.create_model"><code class="docutils literal notranslate"><span class="pre">create_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.model.html#prepshot.model.define_active_zone_tech"><code class="docutils literal notranslate"><span class="pre">define_active_zone_tech()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.model.html#prepshot.model.define_basic_sets"><code class="docutils literal notranslate"><span class="pre">define_basic_sets()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.model.html#prepshot.model.define_complex_sets"><code class="docutils literal notranslate"><span class="pre">define_complex_sets()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.model.html#prepshot.model.define_constraints"><code class="docutils literal notranslate"><span class="pre">define_constraints()</span></code></a></li>
@@ -347,6 +359,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.utils.html#prepshot.utils.cartesian_product"><code class="docutils literal notranslate"><span class="pre">cartesian_product()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.utils.html#prepshot.utils.check_positive"><code class="docutils literal notranslate"><span class="pre">check_positive()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.utils.html#prepshot.utils.interpolate_z_by_q_or_s"><code class="docutils literal notranslate"><span class="pre">interpolate_z_by_q_or_s()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.utils.html#prepshot.utils.sparse_tupledict"><code class="docutils literal notranslate"><span class="pre">sparse_tupledict()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/prepshot.output_data.html">output_data</a><ul>
@@ -366,30 +379,45 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../Changelog.html">Changelog</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-19-1-may-6-2026">Version 1.19.1 - May 6, 2026</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-21-0-may-7-2026">Version 1.21.0 - May 7, 2026</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#why">Why</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#added">Added</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#changed">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#caveats">Caveats</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-20-0-may-7-2026">Version 1.20.0 - May 7, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id1">Why</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id2">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id3">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#performance">Performance</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#notes">Notes</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-19-1-may-6-2026">Version 1.19.1 - May 6, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id4">Why</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id5">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id6">Notes</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-19-0-may-6-2026">Version 1.19.0 - May 6, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#added">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id7">Added</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#default-heat-rate-curves-shipped">Default heat-rate curves shipped</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#per-example-wiring">Per-example wiring</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#regression">Regression</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-18-0-may-6-2026">Version 1.18.0 - May 6, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id1">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id8">Added</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#implementation-notes">Implementation notes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id2">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id9">Changed</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#verified">Verified</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-17-0-may-6-2026">Version 1.17.0 - May 6, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id3">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id4">Changed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id5">Verified</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id10">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id11">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id12">Verified</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#known-limitations">Known limitations</a></li>
 </ul>
 </li>
@@ -400,91 +428,91 @@
 <li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#output">Output</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#eligibility-defaults-shipped">Eligibility defaults shipped</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#default-requirement-values">Default requirement values</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id6">Regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id13">Regression</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-15-0-may-6-2026">Version 1.15.0 - May 6, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id7">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id8">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id14">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id15">Changed</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#performance-notes">Performance notes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-14-1-may-5-2026">Version 1.14.1 - May 5, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id9">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id10">Known limitations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id16">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id17">Known limitations</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-14-0-may-5-2026">Version 1.14.0 - May 5, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id11">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id12">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id18">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id19">Changed</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#known-limitations-v1-14-0-alpha">Known limitations (v1.14.0 alpha)</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-13-0-may-5-2026">Version 1.13.0 - May 5, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id13">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id14">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id20">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id21">Changed</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-12-0-may-5-2026">Version 1.12.0 - May 5, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id15">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id16">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id22">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id23">Changed</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#fixed">Fixed</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-11-1-may-5-2026">Version 1.11.1 - May 5, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id17">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id18">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id24">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id25">Changed</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#removed">Removed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id19">Notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id26">Notes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-11-0-may-5-2026">Version 1.11.0 - May 5, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id20">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id21">Changed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id22">Removed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id27">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id28">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id29">Removed</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-10-0-may-5-2026">Version 1.10.0 - May 5, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id23">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id24">Changed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id25">Removed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id30">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id31">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id32">Removed</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-9-1-may-3-2026">Version 1.9.1 - May 3, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id26">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id27">Notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id33">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id34">Notes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-9-0-may-3-2026">Version 1.9.0 - May 3, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id28">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id29">Changed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id30">Notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id35">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id36">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id37">Notes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-8-1-may-3-2026">Version 1.8.1 - May 3, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id31">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id38">Fixed</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-8-0-may-3-2026">Version 1.8.0 - May 3, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id32">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id33">Removed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id34">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id39">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id40">Removed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id41">Changed</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-7-0-may-3-2026">Version 1.7.0 - May 3, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id35">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id36">Removed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id37">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id42">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id43">Removed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id44">Changed</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-6-0-may-3-2026">Version 1.6.0 - May 3, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id38">Removed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id39">Changed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id40">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id45">Removed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id46">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id47">Fixed</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-5-0-may-2-2026">Version 1.5.0 - May 2, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id41">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id48">Added</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#changed-breaking">Changed (Breaking)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#annotation-columns">Annotation columns</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#column-renames-for-clarity">Column renames for clarity</a></li>
@@ -494,60 +522,60 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-4-0-may-2-2026">Version 1.4.0 - May 2, 2026</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#why-long-format">Why long-format</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id42">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id43">Changed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id44">Migration notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id49">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id50">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id51">Migration notes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-3-2-may-2-2026">Version 1.3.2 - May 2, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id45">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id52">Added</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-3-1-may-2-2026">Version 1.3.1 - May 2, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id46">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id53">Changed</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#tested-with">Tested with</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id47">Migration notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id54">Migration notes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-3-0-may-2-2026">Version 1.3.0 - May 2, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id48">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id49">Changed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id50">Removed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id55">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id56">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id57">Removed</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-2-0-may-2-2026">Version 1.2.0 - May 2, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id51">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id52">Changed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id53">Migration notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id58">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id59">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id60">Migration notes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-1-2-may-2-2026">Version 1.1.2 - May 2, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id54">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id55">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id61">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id62">Fixed</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-1-1-may-2-2026">Version 1.1.1 - May 2, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id56">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id57">Changed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id58">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id63">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id64">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id65">Fixed</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-1-0-may-2-2026">Version 1.1.0 - May 2, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id59">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id60">Changed (Breaking)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id66">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id67">Changed (Breaking)</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-1-0-jul-21-2025">Version 1.0 - Jul 21, 2025</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-0-1-2-jul-22-2024">Version 0.1.2 - Jul 22, 2024</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id61">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id62">Fixed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id63">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id68">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id69">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id70">Changed</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../Changelog.html#version-0-1-1-jul-11-2024">Version 0.1.1 - Jul 11, 2024</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id64">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id65">Fixed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id66">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id71">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id72">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#id73">Changed</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../Changelog.html#deprecated">Deprecated</a></li>
 </ul>
 </li>
@@ -733,9 +761,12 @@
 <span class="sd">Output</span>
 <span class="sd">======</span>
 
-<span class="sd">PCM dispatch lands in ``output/baseline_pcm.nc`` (and</span>
-<span class="sd">``baseline_pcm.xlsx``) with ``hour`` running from 1 to 8760 in the</span>
-<span class="sd">chosen year. The companion CEM ``baseline.nc`` is left untouched.</span>
+<span class="sd">PCM dispatch lands in ``output/baseline_pcm/`` -- one Parquet</span>
+<span class="sd">sidecar per output variable (``gen.parquet``, ``trans_export.parquet``,</span>
+<span class="sd">``lns.parquet``, ...), keyed in long format so the file size scales</span>
+<span class="sd">with non-zero entries (not the dense (h, m, y, z, ...) product).</span>
+<span class="sd">A ``manifest.json`` next to the Parquets records the schema. The</span>
+<span class="sd">companion CEM ``baseline.nc`` is left untouched.</span>
 
 <span class="sd">CLI</span>
 <span class="sd">===</span>
@@ -757,7 +788,6 @@
 <span class="kn">import</span> <span class="nn">argparse</span>
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
 
@@ -868,6 +898,9 @@
 <span class="sd">    rewriting the dict to a single entry per (zone, tech) commissioned</span>
 <span class="sd">    at the first model year, we guarantee the chosen year sees exactly</span>
 <span class="sd">    the user-supplied capacity (and no other).</span>
+
+<span class="sd">    Also clears the precomputed ``active_zt`` set so it&#39;s recomputed</span>
+<span class="sd">    against the overridden fleet on the next ``create_model`` call.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">cy</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># commission at the first model year so</span>
                             <span class="c1"># the lifetime lookup is defined.</span>
@@ -876,6 +909,10 @@
         <span class="k">if</span> <span class="n">cap_mw</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">new_fleet</span><span class="p">[(</span><span class="n">te</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">cy</span><span class="p">)]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">cap_mw</span><span class="p">)</span>
     <span class="n">params</span><span class="p">[</span><span class="s1">&#39;existing_fleet&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_fleet</span>
+    <span class="c1"># Drop precomputed sparse index so create_model recomputes it</span>
+    <span class="c1"># against the overridden fleet.</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;active_zt&#39;</span><span class="p">,</span> <span class="s1">&#39;tech_zones&#39;</span><span class="p">,</span> <span class="s1">&#39;zone_techs&#39;</span><span class="p">,</span> <span class="s1">&#39;active_zt_storage&#39;</span><span class="p">):</span>
+        <span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">_build_window_params</span><span class="p">(</span>
@@ -884,8 +921,20 @@
     <span class="n">window_hours</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
     <span class="n">state</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Slice ``full_params`` down to a single year + window of hours.&quot;&quot;&quot;</span>
-    <span class="n">p</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">full_params</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Slice ``full_params`` down to a single year + window of hours.</span>
+
+<span class="sd">    A SHALLOW copy of ``full_params`` -- the big dicts (demand,</span>
+<span class="sd">    max_gen_profile, inflow, ...) are reused by reference because</span>
+<span class="sd">    they&#39;re never mutated per window. Only the small set of keys we</span>
+<span class="sd">    actually overwrite below get fresh values; the dicts we update</span>
+<span class="sd">    in place (e.g. ``initial_energy_storage_level``) are explicitly</span>
+<span class="sd">    one-level copied so we don&#39;t bleed state into ``full_params``.</span>
+
+<span class="sd">    Replaces the previous full ``deepcopy(full_params)`` which on</span>
+<span class="sd">    Thai PCM (4 M demand entries + 0.3 M VRE-CF entries) cost</span>
+<span class="sd">    ~10 s per window -- ~20x more than ``create_model`` itself.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">full_params</span><span class="p">)</span>  <span class="c1"># shallow copy</span>
     <span class="n">p</span><span class="p">[</span><span class="s1">&#39;hour&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">window_hours</span><span class="p">)</span>
     <span class="n">p</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">year</span><span class="p">)]</span>
     <span class="n">p</span><span class="p">[</span><span class="s1">&#39;skip_end_storage&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># interior windows: terminal SOC is free</span>
@@ -985,7 +1034,12 @@
         <span class="c1"># ``outflow[s, h_abs, m, y]``. The next window&#39;s</span>
         <span class="c1"># ``hydro.inflow_rule`` keys this dict when ``t &lt; hour[0]``.</span>
         <span class="n">wdt_df</span> <span class="o">=</span> <span class="n">full_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;water_delay_time&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">wdt_df</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">wdt_df</span><span class="p">,</span> <span class="s1">&#39;iterrows&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="n">wdt_df</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">wdt_df</span><span class="p">,</span> <span class="s1">&#39;iterrows&#39;</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="ow">not</span> <span class="n">wdt_df</span><span class="o">.</span><span class="n">empty</span>
+            <span class="ow">and</span> <span class="ow">not</span> <span class="n">wdt_df</span><span class="p">[</span><span class="s1">&#39;delay&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+        <span class="p">):</span>
             <span class="n">upstream_stations</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">wdt_df</span><span class="p">[</span><span class="s1">&#39;upstream_tech&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">))</span>
             <span class="n">max_delay</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">wdt_df</span><span class="p">[</span><span class="s1">&#39;delay&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
         <span class="k">else</span><span class="p">:</span>
@@ -1045,16 +1099,25 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Pull the dispatch decisions for ``commit_hours`` out of a solved</span>
 <span class="sd">    window model. Returns a dict of arrays keyed like the CEM output.&quot;&quot;&quot;</span>
     <span class="n">out</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;gen&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;charge&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;trans_export&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;genflow&#39;</span><span class="p">:</span> <span class="p">[],</span>
-           <span class="s1">&#39;spillflow&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;reserve_up&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;reserve_down&#39;</span><span class="p">:</span> <span class="p">[]}</span>
+           <span class="s1">&#39;spillflow&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;reserve_up&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;reserve_down&#39;</span><span class="p">:</span> <span class="p">[],</span>
+           <span class="s1">&#39;lns&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;lmp&#39;</span><span class="p">:</span> <span class="p">[]}</span>
     <span class="n">months</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">month</span><span class="p">)</span>
     <span class="n">zones</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">zone</span><span class="p">)</span>
     <span class="n">techs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">tech</span><span class="p">)</span>
     <span class="n">stations</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">station</span><span class="p">)</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s1">&#39;station&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="p">[]</span>
 
+    <span class="n">storage_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s1">&#39;storage_tech&#39;</span><span class="p">,</span> <span class="p">[])</span> <span class="ow">or</span> <span class="p">[])</span>
+    <span class="n">zone_techs</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s1">&#39;zone_techs&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{</span>
+        <span class="n">z</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">techs</span><span class="p">)</span> <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">zones</span>
+    <span class="p">}</span>
+    <span class="n">out_neighbours</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s1">&#39;out_neighbours&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{</span>
+        <span class="n">z</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">zones</span><span class="p">)</span> <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">zones</span>
+    <span class="p">}</span>
+
     <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">commit_hours</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">months</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">zones</span><span class="p">:</span>
-                <span class="k">for</span> <span class="n">te</span> <span class="ow">in</span> <span class="n">techs</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">te</span> <span class="ow">in</span> <span class="n">zone_techs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="p">[]):</span>
                     <span class="n">out</span><span class="p">[</span><span class="s1">&#39;gen&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
                         <span class="s1">&#39;hour&#39;</span><span class="p">:</span> <span class="n">h</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">:</span> <span class="n">m</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">:</span> <span class="n">year</span><span class="p">,</span>
                         <span class="s1">&#39;zone&#39;</span><span class="p">:</span> <span class="n">z</span><span class="p">,</span> <span class="s1">&#39;tech&#39;</span><span class="p">:</span> <span class="n">te</span><span class="p">,</span>
@@ -1062,7 +1125,7 @@
                             <span class="n">model</span><span class="o">.</span><span class="n">gen</span><span class="p">[</span><span class="n">h</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">te</span><span class="p">]</span>
                         <span class="p">)),</span>
                     <span class="p">})</span>
-                    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s1">&#39;charge&#39;</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s1">&#39;charge&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">te</span> <span class="ow">in</span> <span class="n">storage_set</span><span class="p">:</span>
                         <span class="n">out</span><span class="p">[</span><span class="s1">&#39;charge&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
                             <span class="s1">&#39;hour&#39;</span><span class="p">:</span> <span class="n">h</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">:</span> <span class="n">m</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">:</span> <span class="n">year</span><span class="p">,</span>
                             <span class="s1">&#39;zone&#39;</span><span class="p">:</span> <span class="n">z</span><span class="p">,</span> <span class="s1">&#39;tech&#39;</span><span class="p">:</span> <span class="n">te</span><span class="p">,</span>
@@ -1085,14 +1148,25 @@
                                 <span class="n">model</span><span class="o">.</span><span class="n">reserve_down</span><span class="p">[</span><span class="n">h</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">te</span><span class="p">]</span>
                             <span class="p">)),</span>
                         <span class="p">})</span>
-            <span class="k">for</span> <span class="n">z2</span> <span class="ow">in</span> <span class="n">zones</span><span class="p">:</span>
-                <span class="n">out</span><span class="p">[</span><span class="s1">&#39;trans_export&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
-                    <span class="s1">&#39;hour&#39;</span><span class="p">:</span> <span class="n">h</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">:</span> <span class="n">m</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">:</span> <span class="n">year</span><span class="p">,</span>
-                    <span class="s1">&#39;zone1&#39;</span><span class="p">:</span> <span class="n">z</span><span class="p">,</span> <span class="s1">&#39;zone2&#39;</span><span class="p">:</span> <span class="n">z2</span><span class="p">,</span>
-                    <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span>
-                        <span class="n">model</span><span class="o">.</span><span class="n">trans_export</span><span class="p">[</span><span class="n">h</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">z2</span><span class="p">]</span>
-                    <span class="p">)),</span>
-                <span class="p">})</span>
+                <span class="c1"># Load-not-served: per-(h, m, y, z), populated only</span>
+                <span class="c1"># when allow_load_shedding is on.</span>
+                <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s1">&#39;lns&#39;</span><span class="p">):</span>
+                    <span class="n">out</span><span class="p">[</span><span class="s1">&#39;lns&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                        <span class="s1">&#39;hour&#39;</span><span class="p">:</span> <span class="n">h</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">:</span> <span class="n">m</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">:</span> <span class="n">year</span><span class="p">,</span>
+                        <span class="s1">&#39;zone&#39;</span><span class="p">:</span> <span class="n">z</span><span class="p">,</span>
+                        <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span>
+                            <span class="n">model</span><span class="o">.</span><span class="n">lns</span><span class="p">[</span><span class="n">h</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">z</span><span class="p">]</span>
+                        <span class="p">)),</span>
+                    <span class="p">})</span>
+            <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">zones</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">z2</span> <span class="ow">in</span> <span class="n">out_neighbours</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="p">[]):</span>
+                    <span class="n">out</span><span class="p">[</span><span class="s1">&#39;trans_export&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                        <span class="s1">&#39;hour&#39;</span><span class="p">:</span> <span class="n">h</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">:</span> <span class="n">m</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">:</span> <span class="n">year</span><span class="p">,</span>
+                        <span class="s1">&#39;zone1&#39;</span><span class="p">:</span> <span class="n">z</span><span class="p">,</span> <span class="s1">&#39;zone2&#39;</span><span class="p">:</span> <span class="n">z2</span><span class="p">,</span>
+                        <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span>
+                            <span class="n">model</span><span class="o">.</span><span class="n">trans_export</span><span class="p">[</span><span class="n">h</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">z2</span><span class="p">]</span>
+                        <span class="p">)),</span>
+                    <span class="p">})</span>
             <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">stations</span><span class="p">:</span>
                 <span class="n">out</span><span class="p">[</span><span class="s1">&#39;genflow&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
                     <span class="s1">&#39;hour&#39;</span><span class="p">:</span> <span class="n">h</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">:</span> <span class="n">m</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">:</span> <span class="n">year</span><span class="p">,</span>
@@ -1108,6 +1182,50 @@
                         <span class="n">model</span><span class="o">.</span><span class="n">spillflow</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">year</span><span class="p">]</span>
                     <span class="p">)),</span>
                 <span class="p">})</span>
+
+    <span class="c1"># LMP: dual of the nodal power-balance constraint, scaled to</span>
+    <span class="c1"># real-year USD/MWh. The constraint is posed as</span>
+    <span class="c1"># ``demand - supply == 0`` so the raw dual is the negative of the</span>
+    <span class="c1"># marginal cost of one more MWh of demand -- flip the sign to</span>
+    <span class="c1"># follow the convention. The objective discounts every cost term</span>
+    <span class="c1"># by ``var_factor[y, z] / weight``; multiplying the dual by</span>
+    <span class="c1"># ``weight / var_factor`` undoes that and gives a real-year</span>
+    <span class="c1"># marginal price. Skipped silently if the solver did not return</span>
+    <span class="c1"># duals (e.g. infeasible).</span>
+    <span class="c1"># Pick the right per-backend dual-extractor once.  PoI 0.4&#39;s</span>
+    <span class="c1"># ``get_constraint_attribute(c, ConstraintAttribute.Dual)`` raises</span>
+    <span class="c1"># ``AttributeError: Quadratric`` (sic) on linear constraints in</span>
+    <span class="c1"># both backends, so we go through the raw native name instead:</span>
+    <span class="c1"># Gurobi exposes the shadow price as ``Pi``, HiGHS as ``dual``.</span>
+    <span class="k">def</span> <span class="nf">_make_dual_extractor</span><span class="p">():</span>
+        <span class="n">probe</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">power_balance_cons</span><span class="o">.</span><span class="n">values</span><span class="p">()),</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">probe</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">raw_name</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;Pi&#39;</span><span class="p">,</span> <span class="s1">&#39;dual&#39;</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">model</span><span class="o">.</span><span class="n">get_constraint_raw_attribute_double</span><span class="p">(</span><span class="n">probe</span><span class="p">,</span> <span class="n">raw_name</span><span class="p">)</span>
+                <span class="k">return</span> <span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">raw_name</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span>
+                    <span class="n">model</span><span class="o">.</span><span class="n">get_constraint_raw_attribute_double</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+                <span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="k">continue</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="n">extract_dual</span> <span class="o">=</span> <span class="n">_make_dual_extractor</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">extract_dual</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;could not extract LMP duals: backend exposes no Pi / dual&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">weight</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;weight&#39;</span><span class="p">]</span>
+        <span class="n">vf</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;var_factor&#39;</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">commit_hours</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">months</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">zones</span><span class="p">:</span>
+                    <span class="n">c</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">power_balance_cons</span><span class="p">[</span><span class="n">h</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">z</span><span class="p">]</span>
+                    <span class="n">dual</span> <span class="o">=</span> <span class="n">extract_dual</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+                    <span class="n">out</span><span class="p">[</span><span class="s1">&#39;lmp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                        <span class="s1">&#39;hour&#39;</span><span class="p">:</span> <span class="n">h</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">:</span> <span class="n">m</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">:</span> <span class="n">year</span><span class="p">,</span>
+                        <span class="s1">&#39;zone&#39;</span><span class="p">:</span> <span class="n">z</span><span class="p">,</span>
+                        <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="o">-</span><span class="n">dual</span> <span class="o">*</span> <span class="n">weight</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">vf</span><span class="p">[</span><span class="n">year</span><span class="p">,</span> <span class="n">z</span><span class="p">]),</span>
+                    <span class="p">})</span>
     <span class="k">return</span> <span class="n">out</span>
 
 
@@ -1124,30 +1242,37 @@
 
 
 <span class="k">def</span> <span class="nf">_save_pcm_netcdf</span><span class="p">(</span><span class="n">merged</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">out_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Pivot the per-key row lists into xarray DataArrays and save.&quot;&quot;&quot;</span>
-    <span class="n">data_vars</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Save per-variable result tables.</span>
+
+<span class="sd">    For sparse-by-construction outputs (``gen`` / ``charge`` /</span>
+<span class="sd">    ``trans_export``: only ``active_zt`` or ``active_lines`` cells</span>
+<span class="sd">    populated), pivoting to a dense ``(hour, month, year, zone, ...)``</span>
+<span class="sd">    xarray creates a NaN-padded array that&#39;s orders of magnitude</span>
+<span class="sd">    larger than the data. On a full-year Thai PCM run that&#39;s</span>
+<span class="sd">    8760 x 472 x 472 = 1.95 B cells just for ``trans_export`` (~16</span>
+<span class="sd">    GB), which overflows the NetCDF3 32-bit size field.</span>
+
+<span class="sd">    Strategy: write each variable as a long-format Parquet sidecar</span>
+<span class="sd">    next to ``out_path`` (in ``out_path`` with the ``.nc`` suffix</span>
+<span class="sd">    swapped for a directory). Parquet is compressed, columnar, and</span>
+<span class="sd">    natively sparse. A small ``manifest.json`` records the schema.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">out_dir</span> <span class="o">=</span> <span class="n">out_path</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">out_dir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">schema</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">rows</span> <span class="ow">in</span> <span class="n">merged</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">rows</span><span class="p">:</span>
             <span class="k">continue</span>
         <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
-        <span class="k">if</span> <span class="p">{</span><span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;zone&#39;</span><span class="p">,</span> <span class="s1">&#39;tech&#39;</span><span class="p">}</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">):</span>
-            <span class="n">arr</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span>
-                <span class="p">[</span><span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;zone&#39;</span><span class="p">,</span> <span class="s1">&#39;tech&#39;</span><span class="p">]</span>
-            <span class="p">)[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_xarray</span><span class="p">()</span>
-        <span class="k">elif</span> <span class="p">{</span><span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;zone1&#39;</span><span class="p">,</span> <span class="s1">&#39;zone2&#39;</span><span class="p">}</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">):</span>
-            <span class="n">arr</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span>
-                <span class="p">[</span><span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;zone1&#39;</span><span class="p">,</span> <span class="s1">&#39;zone2&#39;</span><span class="p">]</span>
-            <span class="p">)[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_xarray</span><span class="p">()</span>
-        <span class="k">elif</span> <span class="p">{</span><span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;station&#39;</span><span class="p">}</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">):</span>
-            <span class="n">arr</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span>
-                <span class="p">[</span><span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;station&#39;</span><span class="p">]</span>
-            <span class="p">)[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_xarray</span><span class="p">()</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">continue</span>
-        <span class="n">data_vars</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">arr</span>
-    <span class="n">out_path</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="n">data_vars</span><span class="p">)</span>
-    <span class="n">ds</span><span class="o">.</span><span class="n">to_netcdf</span><span class="p">(</span><span class="n">out_path</span><span class="p">)</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">to_parquet</span><span class="p">(</span><span class="n">out_dir</span> <span class="o">/</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1">.parquet&#39;</span><span class="p">,</span> <span class="n">compression</span><span class="o">=</span><span class="s1">&#39;zstd&#39;</span><span class="p">)</span>
+        <span class="n">schema</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+    <span class="p">(</span><span class="n">out_dir</span> <span class="o">/</span> <span class="s1">&#39;manifest.json&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span>
+        <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span><span class="s1">&#39;variables&#39;</span><span class="p">:</span> <span class="n">schema</span><span class="p">,</span> <span class="s1">&#39;format&#39;</span><span class="p">:</span> <span class="s1">&#39;parquet&#39;</span><span class="p">},</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+        <span class="s1">&#39;PCM dispatch written to </span><span class="si">%s</span><span class="s1">/ (</span><span class="si">%d</span><span class="s1"> Parquet variables)&#39;</span><span class="p">,</span>
+        <span class="n">out_dir</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">schema</span><span class="p">),</span>
+    <span class="p">)</span>
 
 
 <span class="c1"># ---------- main entry ---------------------------------------------------</span>
@@ -1162,6 +1287,8 @@
     <span class="n">step_h</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">24</span><span class="p">,</span>
     <span class="n">cap_source</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">total_h</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">allow_load_shedding</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">voll</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Solve PCM dispatch over one year with rolling horizon.</span>
 
@@ -1183,6 +1310,17 @@
 <span class="sd">        Cap on the number of hours simulated from ``hour[0]``. Useful</span>
 <span class="sd">        as a smoke test on large nodal models where the full year is</span>
 <span class="sd">        intractable. Defaults to ``None`` (run all hours).</span>
+<span class="sd">    allow_load_shedding : bool, optional</span>
+<span class="sd">        Allow non-negative slack (``lns``) on every nodal power</span>
+<span class="sd">        balance, priced at ``voll`` in the objective. Lets PCM</span>
+<span class="sd">        windows complete even when the dispatch can&#39;t physically meet</span>
+<span class="sd">        demand at some (hour, zone). Overrides</span>
+<span class="sd">        ``reliability_parameters.allow_load_shedding`` from</span>
+<span class="sd">        ``config.json`` when set.</span>
+<span class="sd">    voll : float, optional</span>
+<span class="sd">        Value of lost load (USD/MWh) for the load-shedding penalty.</span>
+<span class="sd">        Overrides ``reliability_parameters.voll`` from</span>
+<span class="sd">        ``config.json`` when set. Defaults to 10000.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">setup_logging</span><span class="p">()</span>
     <span class="n">scenario_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">scenario_dir</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
@@ -1216,6 +1354,19 @@
     <span class="n">cap_source</span> <span class="o">=</span> <span class="n">cap_source</span> <span class="ow">or</span> <span class="n">pcm_block</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;cap_source&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">total_h</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">total_h</span> <span class="o">=</span> <span class="n">pcm_block</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;total_h&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Load-shedding overrides: CLI / kwarg wins over config; config</span>
+    <span class="c1"># wins over the default. We stamp the merged value back into</span>
+    <span class="c1"># full_params so every per-window deepcopy picks it up.</span>
+    <span class="k">if</span> <span class="n">allow_load_shedding</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">full_params</span><span class="p">[</span><span class="s1">&#39;allow_load_shedding&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">allow_load_shedding</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">voll</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">full_params</span><span class="p">[</span><span class="s1">&#39;voll&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">voll</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">full_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;allow_load_shedding&#39;</span><span class="p">):</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="s1">&#39;PCM: load shedding enabled (VOLL=</span><span class="si">%.0f</span><span class="s1"> $/MWh)&#39;</span><span class="p">,</span>
+            <span class="n">full_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;voll&#39;</span><span class="p">,</span> <span class="mf">10000.0</span><span class="p">),</span>
+        <span class="p">)</span>
 
     <span class="k">if</span> <span class="n">cap_source</span><span class="p">:</span>
         <span class="n">cap_lookup</span> <span class="o">=</span> <span class="n">load_fixed_capacity</span><span class="p">(</span>
@@ -1285,8 +1436,7 @@
 
     <span class="n">merged</span> <span class="o">=</span> <span class="n">_aggregate</span><span class="p">(</span><span class="n">window_outs</span><span class="p">)</span>
     <span class="n">out_path</span> <span class="o">=</span> <span class="n">scenario_dir</span> <span class="o">/</span> <span class="s1">&#39;output&#39;</span> <span class="o">/</span> <span class="s1">&#39;baseline_pcm.nc&#39;</span>
-    <span class="n">_save_pcm_netcdf</span><span class="p">(</span><span class="n">merged</span><span class="p">,</span> <span class="n">out_path</span><span class="p">)</span>
-    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;PCM dispatch written to </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">out_path</span><span class="p">)</span></div>
+    <span class="n">_save_pcm_netcdf</span><span class="p">(</span><span class="n">merged</span><span class="p">,</span> <span class="n">out_path</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="main"><a class="viewcode-back" href="../../api/prepshot.pcm.html#prepshot.pcm.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -1306,6 +1456,12 @@
     <span class="n">p</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--total-h&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                    <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Cap simulated hours from hour[0]; smoke-test &#39;</span>
                         <span class="s1">&#39;knob for large nodal models.&#39;</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--allow-load-shedding&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span>
+                   <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                   <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Allow non-negative load-not-served slack on &#39;</span>
+                        <span class="s1">&#39;every (h, m, y, z) priced at VOLL.&#39;</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--voll&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                   <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Value of lost load in $/MWh (default 10000).&#39;</span><span class="p">)</span>
     <span class="n">args</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
     <span class="n">run_pcm</span><span class="p">(</span>
         <span class="n">args</span><span class="o">.</span><span class="n">scenario</span><span class="p">,</span>
@@ -1314,6 +1470,8 @@
         <span class="n">step_h</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">step</span><span class="p">,</span>
         <span class="n">cap_source</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">cap_source</span><span class="p">,</span>
         <span class="n">total_h</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">total_h</span><span class="p">,</span>
+        <span class="n">allow_load_shedding</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">allow_load_shedding</span><span class="p">,</span>
+        <span class="n">voll</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">voll</span><span class="p">,</span>
     <span class="p">)</span></div>
 
 
