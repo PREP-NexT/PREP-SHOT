@@ -1019,8 +1019,8 @@ Output: /Users/energy/01-doing/PREP-SHOT-tutorial/PREP-SHOT/examples/thailand_pc
 <section id="2.-Conversion:-zones,-techs,-fleet">
 <h2>2. Conversion: zones, techs, fleet<a class="headerlink" href="#2.-Conversion:-zones,-techs,-fleet" title="此标题的永久链接">¶</a></h2>
 <p>Each bus becomes a PREP-SHOT zone. Each plant (thermal unit, VRE plant, hydro station) becomes a separate tech — fleet-level aggregation only happens via the <code class="docutils literal notranslate"><span class="pre">tech_registry.csv</span></code>’s <code class="docutils literal notranslate"><span class="pre">carrier</span></code> column.</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">demand</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">SRC</span> <span class="o">/</span> <span class="s1">&#39;load_demand.csv&#39;</span><span class="p">)</span>
@@ -1032,7 +1032,12 @@ Output: /Users/energy/01-doing/PREP-SHOT-tutorial/PREP-SHOT/examples/thailand_pc
 <span class="n">ht</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">SRC</span> <span class="o">/</span> <span class="s1">&#39;hydropower.xlsx&#39;</span><span class="p">,</span> <span class="s1">&#39;Sheet2&#39;</span><span class="p">)</span>
 <span class="n">thermal_names</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">tt</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">))</span>
 <span class="n">renew_names</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">rt</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">))</span>
-<span class="n">hydro_names</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">ht</span><span class="p">[</span><span class="s1">&#39;short_name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">ht</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">))</span>
+<span class="c1"># Prefix every hydro tech ID with &#39;h&#39; so it&#39;s unambiguously a string.</span>
+<span class="c1"># The upstream short_name is an integer (1..17); without this, pandas</span>
+<span class="c1"># reads it as int from numeric-only CSVs (reservoir_zone, etc.) but as</span>
+<span class="c1"># str from the mixed tech_registry, and the cross-table dict lookup</span>
+<span class="c1"># in hydro.py KeyErrors at runtime.</span>
+<span class="n">hydro_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;h&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">ht</span><span class="p">[</span><span class="s1">&#39;short_name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">ht</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)]</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  thermal techs:   </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">thermal_names</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  renewable techs: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">renew_names</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  hydro techs:     </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">hydro_names</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -1050,18 +1055,6 @@ Output: /Users/energy/01-doing/PREP-SHOT-tutorial/PREP-SHOT/examples/thailand_pc
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  total tech registry: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">tech_registry</span><span class="p">)</span><span class="si">}</span><span class="s1"> rows&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-  zones: 472 (e.g., [&#39;bus1&#39;, &#39;bus10&#39;, &#39;bus100&#39;] ... [&#39;bus97&#39;, &#39;bus98&#39;, &#39;bus99&#39;])
-  thermal techs:   168
-  renewable techs: 30
-  hydro techs:     14
-  total tech registry: 212 rows
-</pre></div></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
@@ -1307,8 +1300,8 @@ transmission_existing.csv: 1230 rows, transmission_susceptance.csv: 615 pairs
 <h2>5. Per-station hydropower<a class="headerlink" href="#5.-Per-station-hydropower" title="此标题的永久链接">¶</a></h2>
 <p>PREP-SHOT models hydropower at the plant level with cascade physics (water balance, head iteration, downstream-feeds-upstream water-delay). The Thai dataset has 14 stations with full reservoir parameters: head, coefficient, V_max/min, outflow_max/min, downstream link, delay hours.</p>
 <p>We ship the cascade as <code class="docutils literal notranslate"><span class="pre">reservoir_water_delay_time.csv</span></code>, the static parameters as their own CSVs, and the time-varying storage bounds as <code class="docutils literal notranslate"><span class="pre">reservoir_storage_min.csv</span></code> / <code class="docutils literal notranslate"><span class="pre">reservoir_storage_max.csv</span></code> (constant across hours since the source has no time variation). Initial / final storage levels default to 50 % of <code class="docutils literal notranslate"><span class="pre">V_max</span></code> — the same convention the <a class="reference internal" href="SoutheastAsia.html"><span class="doc">SoutheastAsia</span></a> example settled on for stable rolling-horizon.</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;tech&#39;</span><span class="p">:</span> <span class="n">hydro_names</span><span class="p">,</span> <span class="s1">&#39;unit&#39;</span><span class="p">:</span> <span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="s1">&#39;head&#39;</span><span class="p">:</span> <span class="n">ht</span><span class="p">[</span><span class="s1">&#39;head&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">})</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span>
@@ -1341,7 +1334,9 @@ transmission_existing.csv: 1230 rows, transmission_susceptance.csv: 615 pairs
               <span class="s1">&#39;zone&#39;</span><span class="p">:</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">z</span><span class="p">)</span> <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">ht</span><span class="p">[</span><span class="s1">&#39;node_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">]})</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span>
     <span class="n">OUT</span> <span class="o">/</span> <span class="s1">&#39;reservoir_zone.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
-<span class="c1"># Cascade topology (downstream + delay).</span>
+<span class="c1"># Cascade topology (downstream + delay).  Resolve the downstream stcd</span>
+<span class="c1"># back to its positional row in `ht` so we pick up the same h-prefixed</span>
+<span class="c1"># tech id we generated above (see hydro_names above for why).</span>
 <span class="n">wdt_rows</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">ds</span><span class="p">,</span> <span class="n">dly</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">hydro_names</span><span class="p">,</span> <span class="n">ht</span><span class="p">[</span><span class="s1">&#39;downstream&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
                       <span class="n">ht</span><span class="p">[</span><span class="s1">&#39;delay_hours&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">):</span>
@@ -1351,10 +1346,10 @@ transmission_existing.csv: 1230 rows, transmission_susceptance.csv: 615 pairs
         <span class="n">ds_int</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">ds</span><span class="p">))</span>
     <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
         <span class="k">continue</span>
-    <span class="n">match</span> <span class="o">=</span> <span class="n">ht</span><span class="p">[</span><span class="n">ht</span><span class="p">[</span><span class="s1">&#39;stcd&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span> <span class="o">==</span> <span class="n">ds_int</span><span class="p">]</span>
-    <span class="k">if</span> <span class="n">match</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+    <span class="n">pos</span> <span class="o">=</span> <span class="n">ht</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">ht</span><span class="p">[</span><span class="s1">&#39;stcd&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span> <span class="o">==</span> <span class="n">ds_int</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">continue</span>
-    <span class="n">downstream_name</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">match</span><span class="p">[</span><span class="s1">&#39;short_name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">or</span> <span class="n">match</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">downstream_name</span> <span class="o">=</span> <span class="n">hydro_names</span><span class="p">[</span><span class="n">ht</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span>
     <span class="n">wdt_rows</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;upstream_tech&#39;</span><span class="p">:</span> <span class="n">n</span><span class="p">,</span> <span class="s1">&#39;downstream_tech&#39;</span><span class="p">:</span> <span class="n">downstream_name</span><span class="p">,</span>
                      <span class="s1">&#39;delay&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">dly</span><span class="p">))})</span>
 <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">wdt_rows</span> <span class="ow">or</span> <span class="p">[],</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;upstream_tech&#39;</span><span class="p">,</span><span class="s1">&#39;downstream_tech&#39;</span><span class="p">,</span><span class="s1">&#39;delay&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span>
@@ -1362,14 +1357,6 @@ transmission_existing.csv: 1230 rows, transmission_susceptance.csv: 615 pairs
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;cascade pairs: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">wdt_rows</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-cascade pairs: 0
-</pre></div></div>
 </div>
 </section>
 <section id="6.-Input-visualisations">
