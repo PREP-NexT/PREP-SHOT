@@ -3,6 +3,35 @@ Changelog
 
 Here, you'll find notable changes for each version of PREP-SHOT.
 
+Version 1.25.0 - May 8, 2026
+-------------------------------
+
+Documentation: the three external-benchmark notebooks (PJM 5-bus,
+RTS-79, RTS-96) are now first-class doc pages.  They live under a
+new "Validation Benchmarks" caption in the index toctree, and the
+landing page has a section explaining what each one validates and
+the published reference numbers.
+
+Added
++++++
+
+* New ``Validation Benchmarks`` toctree caption in
+  ``doc/source/index.rst`` linking the three notebooks in
+  increasing complexity (PJM 5-bus -> RTS-79 -> RTS-96).
+* Landing-page section "Validation benchmarks" with a one-line
+  summary of each benchmark and its reference number.
+* Symlinks ``doc/source/{PJM5,RTS79,RTS96}.ipynb`` ->
+  ``examples/{pjm5,rts79,rts96}/...``, matching the existing
+  pattern for ``Thailand``, ``SoutheastAsia``, ``ThailandPCM``.
+
+Notes
++++++
+
+The notebooks were committed in v1.22.0 / v1.23.0 / v1.24.0 with
+the matching ``examples/`` data and pytest regressions.  This
+release just plumbs them into the Sphinx build so they show up
+in the rendered docs.
+
 Version 1.24.0 - May 8, 2026
 -------------------------------
 

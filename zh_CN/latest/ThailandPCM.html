@@ -43,7 +43,7 @@
   
     <link rel="index" title="索引" href="genindex.html" />
     <link rel="search" title="搜索" href="search.html" />
-    <link rel="next" title="模型输入与输出" href="Model_input_output.html" />
+    <link rel="next" title="PJM 5-bus benchmark" href="PJM5.html" />
     <link rel="prev" title="Southeast Asia (Lower Mekong, 5 zones, CEM)" href="SoutheastAsia.html" />
 <meta name="doc_version" content="latest">
 <meta name="doc_is_latest" content="">
@@ -146,6 +146,37 @@
 <li class="toctree-l3"><a class="reference internal" href="#10.6-Locational-marginal-prices-(LMP)">10.6 Locational marginal prices (LMP)</a></li>
 </ul>
 </li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Validation Benchmarks</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="PJM5.html">PJM 5-bus benchmark</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PJM5.html#1.-Data-source-and-references">1. Data source and references</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PJM5.html#2.-Topology-and-merit-order">2. Topology and merit order</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PJM5.html#3.-Run-PCM">3. Run PCM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PJM5.html#4.-Validation">4. Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PJM5.html#5.-Notes">5. Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PJM5.html#See-also">See also</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="RTS79.html">IEEE RTS-79 benchmark (24-bus, full-year)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="RTS79.html#1.-Data-sources-and-references">1. Data sources and references</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RTS79.html#2.-Topology-and-merit-order">2. Topology and merit order</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RTS79.html#3.-Annual-load-profile">3. Annual load profile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RTS79.html#4.-Run-full-year-PCM">4. Run full-year PCM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RTS79.html#5.-Validation">5. Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RTS79.html#6.-Notes">6. Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RTS79.html#See-also">See also</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="RTS96.html">IEEE RTS-96 benchmark (3-area, 73-bus, full-year)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="RTS96.html#1.-Data-sources-and-references">1. Data sources and references</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RTS96.html#2.-Topology-and-inventory">2. Topology and inventory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RTS96.html#3.-Run-full-year-PCM-(3-areas)">3. Run full-year PCM (3 areas)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RTS96.html#4.-Validation:-dispatch-is-exactly-3-x-RTS-79">4. Validation: dispatch is exactly 3 x RTS-79</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RTS96.html#5.-Notes">5. Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RTS96.html#See-also">See also</a></li>
 </ul>
 </li>
 </ul>
@@ -390,64 +421,69 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Changelog.html">Changelog</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-24-0-may-8-2026">Version 1.24.0 - May 8, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#why">Why</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-25-0-may-8-2026">Version 1.25.0 - May 8, 2026</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="Changelog.html#added">Added</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Changelog.html#notes">Notes</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-24-0-may-8-2026">Version 1.24.0 - May 8, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#why">Why</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id1">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id2">Notes</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-23-0-may-8-2026">Version 1.23.0 - May 8, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id1">Why</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id2">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id3">Notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id3">Why</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id4">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id5">Notes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-22-0-may-8-2026">Version 1.22.0 - May 8, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id4">Why</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id5">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id6">Why</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id7">Added</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Changelog.html#changed">Changed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id6">Notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id8">Notes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-21-0-may-7-2026">Version 1.21.0 - May 7, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id7">Why</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id8">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id9">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id9">Why</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id10">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id11">Changed</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Changelog.html#caveats">Caveats</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-20-0-may-7-2026">Version 1.20.0 - May 7, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id10">Why</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id11">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id12">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id12">Why</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id13">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id14">Changed</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Changelog.html#performance">Performance</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id13">Notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id15">Notes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-19-1-may-6-2026">Version 1.19.1 - May 6, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id14">Why</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id15">Changed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id16">Notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id16">Why</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id17">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id18">Notes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-19-0-may-6-2026">Version 1.19.0 - May 6, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id17">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id19">Added</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Changelog.html#default-heat-rate-curves-shipped">Default heat-rate curves shipped</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Changelog.html#per-example-wiring">Per-example wiring</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Changelog.html#regression">Regression</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-18-0-may-6-2026">Version 1.18.0 - May 6, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id18">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id20">Added</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Changelog.html#implementation-notes">Implementation notes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id19">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id21">Changed</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Changelog.html#verified">Verified</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-17-0-may-6-2026">Version 1.17.0 - May 6, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id20">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id21">Changed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id22">Verified</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id22">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id23">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id24">Verified</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Changelog.html#known-limitations">Known limitations</a></li>
 </ul>
 </li>
@@ -458,91 +494,91 @@
 <li class="toctree-l3"><a class="reference internal" href="Changelog.html#output">Output</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Changelog.html#eligibility-defaults-shipped">Eligibility defaults shipped</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Changelog.html#default-requirement-values">Default requirement values</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id23">Regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id25">Regression</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-15-0-may-6-2026">Version 1.15.0 - May 6, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id24">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id25">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id26">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id27">Changed</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Changelog.html#performance-notes">Performance notes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-14-1-may-5-2026">Version 1.14.1 - May 5, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id26">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id27">Known limitations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id28">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id29">Known limitations</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-14-0-may-5-2026">Version 1.14.0 - May 5, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id28">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id29">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id30">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id31">Changed</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Changelog.html#known-limitations-v1-14-0-alpha">Known limitations (v1.14.0 alpha)</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-13-0-may-5-2026">Version 1.13.0 - May 5, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id30">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id31">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id32">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id33">Changed</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-12-0-may-5-2026">Version 1.12.0 - May 5, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id32">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id33">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id34">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id35">Changed</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Changelog.html#fixed">Fixed</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-11-1-may-5-2026">Version 1.11.1 - May 5, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id34">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id35">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id36">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id37">Changed</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Changelog.html#removed">Removed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id36">Notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id38">Notes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-11-0-may-5-2026">Version 1.11.0 - May 5, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id37">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id38">Changed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id39">Removed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id39">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id40">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id41">Removed</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-10-0-may-5-2026">Version 1.10.0 - May 5, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id40">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id41">Changed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id42">Removed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id42">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id43">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id44">Removed</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-9-1-may-3-2026">Version 1.9.1 - May 3, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id43">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id44">Notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id45">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id46">Notes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-9-0-may-3-2026">Version 1.9.0 - May 3, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id45">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id46">Changed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id47">Notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id47">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id48">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id49">Notes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-8-1-may-3-2026">Version 1.8.1 - May 3, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id48">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id50">Fixed</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-8-0-may-3-2026">Version 1.8.0 - May 3, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id49">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id50">Removed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id51">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id51">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id52">Removed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id53">Changed</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-7-0-may-3-2026">Version 1.7.0 - May 3, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id52">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id53">Removed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id54">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id54">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id55">Removed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id56">Changed</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-6-0-may-3-2026">Version 1.6.0 - May 3, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id55">Removed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id56">Changed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id57">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id57">Removed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id58">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id59">Fixed</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-5-0-may-2-2026">Version 1.5.0 - May 2, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id58">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id60">Added</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Changelog.html#changed-breaking">Changed (Breaking)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Changelog.html#annotation-columns">Annotation columns</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Changelog.html#column-renames-for-clarity">Column renames for clarity</a></li>
@@ -552,60 +588,60 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-4-0-may-2-2026">Version 1.4.0 - May 2, 2026</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="Changelog.html#why-long-format">Why long-format</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id59">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id60">Changed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id61">Migration notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id61">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id62">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id63">Migration notes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-3-2-may-2-2026">Version 1.3.2 - May 2, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id62">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id64">Added</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-3-1-may-2-2026">Version 1.3.1 - May 2, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id63">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id65">Changed</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Changelog.html#tested-with">Tested with</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id64">Migration notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id66">Migration notes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-3-0-may-2-2026">Version 1.3.0 - May 2, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id65">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id66">Changed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id67">Removed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id67">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id68">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id69">Removed</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-2-0-may-2-2026">Version 1.2.0 - May 2, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id68">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id69">Changed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id70">Migration notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id70">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id71">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id72">Migration notes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-1-2-may-2-2026">Version 1.1.2 - May 2, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id71">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id72">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id73">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id74">Fixed</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-1-1-may-2-2026">Version 1.1.1 - May 2, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id73">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id74">Changed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id75">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id75">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id76">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id77">Fixed</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-1-0-may-2-2026">Version 1.1.0 - May 2, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id76">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id77">Changed (Breaking)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id78">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id79">Changed (Breaking)</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-1-0-jul-21-2025">Version 1.0 - Jul 21, 2025</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-0-1-2-jul-22-2024">Version 0.1.2 - Jul 22, 2024</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id78">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id79">Fixed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id80">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id80">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id81">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id82">Changed</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="Changelog.html#version-0-1-1-jul-11-2024">Version 0.1.1 - Jul 11, 2024</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id81">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id82">Fixed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id83">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id83">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id84">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Changelog.html#id85">Changed</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Changelog.html#deprecated">Deprecated</a></li>
 </ul>
 </li>
@@ -2160,7 +2196,7 @@ h4     1.119077e+06
 </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="SoutheastAsia.html" class="btn btn-neutral float-left" title="Southeast Asia (Lower Mekong, 5 zones, CEM)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="Model_input_output.html" class="btn btn-neutral float-right" title="模型输入与输出" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="PJM5.html" class="btn btn-neutral float-right" title="PJM 5-bus benchmark" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
