@@ -56,6 +56,26 @@ Four free primers we recommend reading alongside PREP-SHOT:
 * `Advanced Guide to Understanding Power System Model Results for Long-Term Resource Plans <https://docs.nrel.gov/docs/fy24osti/88337.pdf>`_ (NREL, 2024) -- deeper sequel: reliability metrics, reserve margin, transmission congestion.
 * `Electric Grid and Markets 101 <https://docs.nrel.gov/docs/fy25osti/91864.pdf>`_ (NREL, 2024) -- how the bulk power system actually works: generation, transmission, ISOs/RTOs, day-ahead vs real-time markets, ancillary services. Real-world grounding for the modeled abstractions.
 
+Validation benchmarks
+---------------------
+PREP-SHOT ships three independent benchmarks that compare the
+model's output against externally-published reference numbers.
+Each benchmark stands alone, with its own input data, notebook
+walking through the validation, and pytest regression:
+
+* `PJM 5-bus <PJM5.html>`_ -- Hogan / MATPOWER ``case5``: 5
+  buses, 5 generators, single-hour DC OPF.  PREP-SHOT reproduces
+  MATPOWER's ``runopf`` total cost (``$17,479.89``) to the dollar
+  and the dispatch to 0.01 MW.
+* `IEEE RTS-79 <RTS79.html>`_ -- 24 buses, 32 generators, full
+  hourly load profile (8 736 hours).  Annual energy by carrier
+  matches the merit-order benchmark; peak-hour dispatch matches
+  the textbook pattern (hydro 300, nuclear 800, coal 1 274,
+  oil 476 MW).
+* `IEEE RTS-96 <RTS96.html>`_ -- 3-area extension of RTS-79
+  (73 buses, 96 gens, 5 inter-area ties).  Validates the multi-
+  area DC OPF: each area's dispatch is exactly 3 x RTS-79.
+
 Offline documentation
 ----------------------
 To browse the documentation offline, download a `zipped HTML copy <https://prep-shot.readthedocs.io/_/downloads/en/stable/htmlzip/>`_ from Read the Docs (also accessible via the version-switcher at the bottom-left of every page).
@@ -71,6 +91,15 @@ To browse the documentation offline, download a `zipped HTML copy <https://prep-
    Thailand
    SoutheastAsia
    ThailandPCM
+
+.. toctree::
+   :hidden:
+   :caption: Validation Benchmarks
+   :maxdepth: 2
+
+   PJM5
+   RTS79
+   RTS96
 
 .. toctree::
    :hidden:
