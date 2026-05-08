@@ -3,6 +3,209 @@ Changelog
 
 Here, you'll find notable changes for each version of PREP-SHOT.
 
+Version 1.24.0 - May 8, 2026
+-------------------------------
+
+Third external benchmark: IEEE RTS-96 (3-area, 73-bus extension
+of RTS-79).  Full-year PCM solves cleanly with each area's
+dispatch matching RTS-79 to the MW -- the canonical "no
+inter-area binding" pass/fail check on a multi-area network.
+
+Why
++++
+
+RTS-79 (v1.23.0) validates single-area DC OPF + nodal LP
+correctness.  RTS-96 adds the multi-area dimension: 3 RTS-79
+copies connected by 5 inter-area tie lines from Table V of the
+1999 paper.  Because each area is independently self-sufficient
+at peak (3 405 MW Pmax vs 2 850 MW peak load), no tie should
+bind, and the system dispatch is exactly 3 x RTS-79.  Any
+deviation = the LP isn't treating the multi-area topology
+correctly.
+
+Added
++++++
+
+* ``examples/rts96/`` -- 73 buses (areas 1xx / 2xx / 3xx,
+  with bus 325 as area-3's tie-only node), 96 generators,
+  107 unique intra-area lines (after folding parallels) plus
+  5 inter-area ties (107-203, 113-215, 123-217, 223-318,
+  325-121).  Full IEEE RTS-79 hourly load profile applied to
+  every area.  Annual peak = 8 550 MW (= 3 x 2 850 MW).
+  Runs via::
+
+      cd examples/rts96
+      python -m prepshot.pcm . --year 2020 --horizon 24 --step 24
+
+  Full-year wall time: ~100 s.
+
+* ``tests/test_rts96_benchmark.py`` -- four full-year
+  assertions (gated by ``PREPSHOT_SKIP_SLOW``):
+
+  - **Annual energy balance** -- gen == demand
+    (45 891 GWh, no shed).
+  - **Per-carrier annual energy = 3 x RTS-79** within +/- 30
+    GWh: nuclear 20 937, coal 16 882, hydro 7 862, oil 210.
+  - **CFs match RTS-79 envelope** -- nuclear / hydro > 99 %,
+    coal in [40 %, 65 %], oil < 5 %.
+  - **Peak-hour dispatch is 3 x RTS-79** within 1 MW per
+    carrier -- hydro 900, nuclear 2 400, coal 3 822, oil
+    1 428 MW.
+
+Notes
++++++
+
+The 5 inter-area ties stay unbound through the full year
+because each area can serve its own peak from its own gen.
+Validation still confirms the multi-area LP is wired
+correctly: change any area's data and the result diverges
+from 3 x RTS-79.
+
+Test runs in ~97 s and is included in the standard suite
+under the ``PREPSHOT_SKIP_SLOW`` gate (now 34 tests; fast
+suite 25 with 9 skipped under ``PREPSHOT_SKIP_SLOW=1``).
+
+Version 1.23.0 - May 8, 2026
+-------------------------------
+
+Second external benchmark: IEEE RTS-79 (24-bus reliability test
+system), full-year PCM.  At peak the dispatch matches the
+unconstrained merit-order benchmark to within 1 MW per carrier;
+across the year nuclear and hydro run at ~100 % CF, coal cycles
+near 51 % CF, and oil peakers idle below 1 % CF -- the textbook
+thermal-dominated dispatch pattern.
+
+Why
++++
+
+PJM 5-bus (v1.22.0) is the smallest possible LMP / DC-OPF check.
+RTS-79 is one tier up: 24 buses, 32 generators across nine plant
+types (oil, coal, nuclear, hydro), 38 transmission branches,
+and a documented hourly load profile spanning the full year.
+The merit-order dispatch is unique enough that the per-carrier
+energy can be computed by hand and the total cost at peak load
+matches a closed-form reference -- no MATLAB / MATPOWER
+required to produce the "ground truth".
+
+Added
++++++
+
+* ``examples/rts79/`` -- full-year PCM scenario matching
+  MATPOWER ``case24_ieee_rts``.  Bus loads, generator capacities,
+  and ``c1`` linear cost coefficients all from the IEEE 1979
+  paper / Georgia Tech PSCAL data.  Total system Pmax = 3 405
+  MW; annual peak = 2 850 MW (week 51, hour 8442).  Runs via::
+
+      cd examples/rts79
+      python -m prepshot.pcm . --year 2020 --horizon 24 --step 24
+
+  ``input/demand.csv`` ships the full IEEE RTS-79 hourly load
+  profile (8 736 hours = 52 weeks x 7 days x 24 hours), built
+  from Tables 1-3 of the 1979 paper:
+
+  * Table 1: weekly peak as % of annual peak (52 values).
+  * Table 2: daily peak as % of weekly peak (Mon-Sun).
+  * Table 3: hourly peak as % of daily peak, by season
+    (winter / summer / spring-fall) and weekday vs weekend.
+
+* ``tests/test_rts79_benchmark.py`` -- four assertions on the
+  full-year solve (~22 s on commodity hardware, gated by
+  ``PREPSHOT_SKIP_SLOW``):
+
+  - **Annual energy balance**: dispatched gen == demand
+    (15 297 GWh, no shedding).
+  - **Annual energy by carrier**: nuclear ~6 979 GWh,
+    coal ~5 627, hydro ~2 621, oil ~70 GWh.
+  - **Capacity factors**: nuclear & hydro > 99 %, coal in
+    [40 %, 65 %], oil < 5 %.
+  - **Peak-hour dispatch** (hour 8 442, 2 850 MW load):
+    hydro 300, nuclear 800, coal 1 274, oil 476 MW -- matches
+    merit-order to 1 MW.
+
+Notes
++++++
+
+The MATPOWER cost data is quadratic (``cost = c2 P^2 + c1 P +
+c0``); we take ``c1`` as the per-MWh dispatch cost and drop the
+quadratic / no-load terms (PREP-SHOT's ``cost_var`` is linear).
+The merit-order benchmark uses the same simplification, so the
+two should agree exactly at peak.  Differences elsewhere come
+from LP degeneracy when both a transmission line and a gen's
+upper bound bind together (e.g. line 7-8 outbound from bus 7's
+surplus U100 generation).
+
+The U50 hydro plants are modelled as fixed-cost dispatchable
+techs (``carrier='hydro'`` but no reservoir / inflow physics).
+A future revision could attach the IEEE RTS-79 weekly hydro
+energy budgets to drive a real reservoir representation.
+
+Version 1.22.0 - May 8, 2026
+-------------------------------
+
+First externally-anchored validation benchmark: the Hogan / PJM
+5-bus system (MATPOWER ``case5``). PREP-SHOT now reproduces
+MATPOWER's ``runopf`` total cost to the dollar (``$17,479.89/h``)
+and per-tech dispatch to under 0.5 MW on a single-hour DC OPF.
+
+Why
++++
+
+The other shipped examples (``three_zone``, ``southeast_asia``,
+``thailand_pcm``) all validate against PREP-SHOT's own past
+results -- useful as regression catches but they don't anchor
+the model against a published external reference. The PJM
+5-bus is the textbook DC-OPF / LMP example (Hogan 2002; Stoft;
+PJM training material; reproduced verbatim as MATPOWER's
+``case5``), with widely-cited reference dispatch and total cost.
+
+Added
++++++
+
+* ``examples/pjm5/`` -- single-hour, single-year scenario
+  matching MATPOWER ``case5``: 5 buses, 5 generators (Alta,
+  ParkCity, Solitude, Sundance, Brighton), 6 lines (line 4-5
+  rated 240 MW becomes the binding congestion). 51 input CSVs
+  in PREP-SHOT's long-format schema; runs via ``python -m
+  prepshot.pcm . --year 2020 --horizon 1 --step 1 --total-h 1``.
+* ``tests/test_pjm5_benchmark.py`` -- four assertions against
+  MATPOWER's published values:
+
+  - total cost == ``$17,479.89`` +/- $1
+  - per-tech dispatch within 0.5 MW (Alta 40, ParkCity 170,
+    Solitude 323.49, Sundance 0, Brighton 466.51)
+  - LMP at bus 3 == $30 / MWh (Solitude marginal)
+  - LMP at bus 5 == $10 / MWh (Brighton marginal)
+  - LMPs at every bus inside the merit-order envelope $10..$50
+
+  The bus-1 / bus-2 / bus-4 LMPs ($16.98, $26.38, $39.94 with
+  PREP-SHOT) differ by a few $/MWh from MATPOWER's published
+  values ($14.27, $15.08, $35.91) because they depend on
+  shift-factor weighting that varies with the DC-OPF formulation
+  (reference-bus choice, susceptance normalization).  Both
+  formulations agree on the binding constraint (line 4-5) and
+  the marginal-plant LMPs.
+
+Changed
++++++++
+
+* ``prepshot/pcm.py:_extract_window_dispatch`` LMP extractor:
+  prefer the typed ``ConstraintAttribute.Dual`` API (which
+  works on PoI 0.4's HiGHS backend) and fall back to raw
+  attribute names (``Pi`` for Gurobi, ``dual`` for HiGHS) only
+  when the typed API raises. The previous code skipped the typed
+  API entirely because Gurobi raises ``AttributeError:
+  Quadratric`` on linear constraints, but HiGHS handles it
+  correctly.
+
+Notes
++++++
+
+The PJM 5-bus is small enough to run in 0.07 s end-to-end and
+its test class is included in ``tests/`` -- it runs as part of
+the standard suite. Future external benchmarks (Garver 6-bus
+for transmission expansion, IEEE RTS-79 for full-year PCM /
+UC) can follow the same pattern.
+
 Version 1.21.0 - May 7, 2026
 -------------------------------
 
