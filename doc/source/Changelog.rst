@@ -3,6 +3,80 @@ Changelog
 
 Here, you'll find notable changes for each version of PREP-SHOT.
 
+Version 1.23.0 - May 8, 2026
+-------------------------------
+
+Second external benchmark: IEEE RTS-79 (24-bus reliability test
+system), full-year PCM.  At peak the dispatch matches the
+unconstrained merit-order benchmark to within 1 MW per carrier;
+across the year nuclear and hydro run at ~100 % CF, coal cycles
+near 51 % CF, and oil peakers idle below 1 % CF -- the textbook
+thermal-dominated dispatch pattern.
+
+Why
++++
+
+PJM 5-bus (v1.22.0) is the smallest possible LMP / DC-OPF check.
+RTS-79 is one tier up: 24 buses, 32 generators across nine plant
+types (oil, coal, nuclear, hydro), 38 transmission branches,
+and a documented hourly load profile spanning the full year.
+The merit-order dispatch is unique enough that the per-carrier
+energy can be computed by hand and the total cost at peak load
+matches a closed-form reference -- no MATLAB / MATPOWER
+required to produce the "ground truth".
+
+Added
++++++
+
+* ``examples/rts79/`` -- full-year PCM scenario matching
+  MATPOWER ``case24_ieee_rts``.  Bus loads, generator capacities,
+  and ``c1`` linear cost coefficients all from the IEEE 1979
+  paper / Georgia Tech PSCAL data.  Total system Pmax = 3 405
+  MW; annual peak = 2 850 MW (week 51, hour 8442).  Runs via::
+
+      cd examples/rts79
+      python -m prepshot.pcm . --year 2020 --horizon 24 --step 24
+
+  ``input/demand.csv`` ships the full IEEE RTS-79 hourly load
+  profile (8 736 hours = 52 weeks x 7 days x 24 hours), built
+  from Tables 1-3 of the 1979 paper:
+
+  * Table 1: weekly peak as % of annual peak (52 values).
+  * Table 2: daily peak as % of weekly peak (Mon-Sun).
+  * Table 3: hourly peak as % of daily peak, by season
+    (winter / summer / spring-fall) and weekday vs weekend.
+
+* ``tests/test_rts79_benchmark.py`` -- four assertions on the
+  full-year solve (~22 s on commodity hardware, gated by
+  ``PREPSHOT_SKIP_SLOW``):
+
+  - **Annual energy balance**: dispatched gen == demand
+    (15 297 GWh, no shedding).
+  - **Annual energy by carrier**: nuclear ~6 979 GWh,
+    coal ~5 627, hydro ~2 621, oil ~70 GWh.
+  - **Capacity factors**: nuclear & hydro > 99 %, coal in
+    [40 %, 65 %], oil < 5 %.
+  - **Peak-hour dispatch** (hour 8 442, 2 850 MW load):
+    hydro 300, nuclear 800, coal 1 274, oil 476 MW -- matches
+    merit-order to 1 MW.
+
+Notes
++++++
+
+The MATPOWER cost data is quadratic (``cost = c2 P^2 + c1 P +
+c0``); we take ``c1`` as the per-MWh dispatch cost and drop the
+quadratic / no-load terms (PREP-SHOT's ``cost_var`` is linear).
+The merit-order benchmark uses the same simplification, so the
+two should agree exactly at peak.  Differences elsewhere come
+from LP degeneracy when both a transmission line and a gen's
+upper bound bind together (e.g. line 7-8 outbound from bus 7's
+surplus U100 generation).
+
+The U50 hydro plants are modelled as fixed-cost dispatchable
+techs (``carrier='hydro'`` but no reservoir / inflow physics).
+A future revision could attach the IEEE RTS-79 weekly hydro
+energy budgets to drive a real reservoir representation.
+
 Version 1.22.0 - May 8, 2026
 -------------------------------
 

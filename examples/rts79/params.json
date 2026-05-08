@@ -1,0 +1,393 @@
+{
+    "_schema_version": 2,
+    "existing_fleet": {
+        "file_name": "tech_existing",
+        "format": "long",
+        "drop_na": true
+    },
+    "max_gen_profile": {
+        "file_name": "tech_max_gen_profile",
+        "format": "long",
+        "drop_na": true,
+        "default": 1
+    },
+    "min_gen_profile": {
+        "file_name": "tech_min_gen_profile",
+        "format": "long",
+        "drop_na": true,
+        "required": false,
+        "default": 0
+    },
+    "carbon_emission_limit": {
+        "file_name": "policy_carbon_emission_limit",
+        "format": "table",
+        "drop_na": false
+    },
+    "emission_factor": {
+        "file_name": "tech_emission_factor",
+        "format": "long",
+        "drop_na": true
+    },
+    "water_delay_time": {
+        "file_name": "reservoir_water_delay_time",
+        "format": "table",
+        "drop_na": false
+    },
+    "demand": {
+        "file_name": "demand",
+        "format": "long",
+        "drop_na": true
+    },
+    "discount_factor": {
+        "file_name": "economic_discount_factor",
+        "format": "long",
+        "drop_na": true
+    },
+    "distance": {
+        "file_name": "transmission_distance",
+        "format": "long",
+        "drop_na": true
+    },
+    "discharge_efficiency": {
+        "file_name": "storage_discharge_efficiency",
+        "format": "long",
+        "drop_na": true,
+        "required": false,
+        "default": 0
+    },
+    "charge_efficiency": {
+        "file_name": "storage_charge_efficiency",
+        "format": "long",
+        "drop_na": true,
+        "required": false,
+        "default": 0
+    },
+    "energy_to_power_ratio": {
+        "file_name": "storage_energy_to_power_ratio",
+        "format": "long",
+        "drop_na": true,
+        "required": false,
+        "default": 0
+    },
+    "fuel_price": {
+        "file_name": "tech_fuel_price",
+        "format": "long",
+        "drop_na": true
+    },
+    "inflow": {
+        "file_name": "reservoir_inflow",
+        "format": "long",
+        "drop_na": true
+    },
+    "initial_energy_storage_level": {
+        "file_name": "storage_initial_level",
+        "format": "long",
+        "drop_na": true,
+        "required": false,
+        "default": 0
+    },
+    "lifetime": {
+        "file_name": "tech_lifetime",
+        "format": "long",
+        "drop_na": true
+    },
+    "expansion_candidates": {
+        "file_name": "tech_candidates",
+        "format": "table",
+        "drop_na": false,
+        "required": false,
+        "default": 0
+    },
+    "ramp_down": {
+        "file_name": "tech_ramp_down",
+        "format": "long",
+        "drop_na": true
+    },
+    "ramp_up": {
+        "file_name": "tech_ramp_up",
+        "format": "long",
+        "drop_na": true
+    },
+    "reservoir_zone": {
+        "file_name": "reservoir_zone",
+        "format": "long",
+        "drop_na": true
+    },
+    "reservoir_coefficient": {
+        "file_name": "reservoir_coefficient",
+        "format": "long",
+        "drop_na": true
+    },
+    "reservoir_outflow_min": {
+        "file_name": "reservoir_outflow_min",
+        "format": "long",
+        "drop_na": true
+    },
+    "reservoir_outflow_max": {
+        "file_name": "reservoir_outflow_max",
+        "format": "long",
+        "drop_na": true
+    },
+    "reservoir_generation_flow_max": {
+        "file_name": "reservoir_generation_flow_max",
+        "format": "long",
+        "drop_na": true
+    },
+    "reservoir_capacity_min": {
+        "file_name": "reservoir_capacity_min",
+        "format": "long",
+        "drop_na": true
+    },
+    "reservoir_capacity_max": {
+        "file_name": "reservoir_capacity_max",
+        "format": "long",
+        "drop_na": true
+    },
+    "reservoir_head": {
+        "file_name": "reservoir_head",
+        "format": "long",
+        "drop_na": true
+    },
+    "reservoir_storage_max": {
+        "file_name": "reservoir_storage_max",
+        "format": "long",
+        "drop_na": true
+    },
+    "reservoir_storage_min": {
+        "file_name": "reservoir_storage_min",
+        "format": "long",
+        "drop_na": true
+    },
+    "final_reservoir_storage_level": {
+        "file_name": "reservoir_final_storage_level",
+        "format": "long",
+        "drop_na": true
+    },
+    "initial_reservoir_storage_level": {
+        "file_name": "reservoir_initial_storage_level",
+        "format": "long",
+        "drop_na": true
+    },
+    "technology_fixed_OM_cost": {
+        "file_name": "tech_fixed_OM_cost",
+        "format": "long",
+        "drop_na": true
+    },
+    "technology_investment_cost": {
+        "file_name": "tech_investment_cost",
+        "format": "long",
+        "drop_na": true
+    },
+    "technology_capacity_max": {
+        "file_name": "tech_capacity_max",
+        "format": "long",
+        "drop_na": true
+    },
+    "technology_capacity_min": {
+        "file_name": "tech_capacity_min",
+        "format": "long",
+        "drop_na": true,
+        "default": 0
+    },
+    "carbon_tax": {
+        "file_name": "policy_carbon_tax",
+        "format": "long",
+        "drop_na": true,
+        "default": 0
+    },
+    "carbon_offset_price": {
+        "file_name": "policy_carbon_offset_price",
+        "format": "long",
+        "drop_na": true,
+        "default": 0
+    },
+    "carbon_offset_limit": {
+        "file_name": "policy_carbon_offset_limit",
+        "format": "long",
+        "drop_na": true,
+        "default": 0
+    },
+    "technology_variable_OM_cost": {
+        "file_name": "tech_variable_OM_cost",
+        "format": "long",
+        "drop_na": true
+    },
+    "transmission_existing": {
+        "file_name": "transmission_existing",
+        "format": "long",
+        "drop_na": true
+    },
+    "transmission_candidates": {
+        "file_name": "transmission_candidates",
+        "format": "table",
+        "drop_na": false
+    },
+    "transmission_line_efficiency": {
+        "file_name": "transmission_efficiency",
+        "format": "long",
+        "drop_na": true,
+        "required": false,
+        "default": 0
+    },
+    "transmission_line_investment_cost": {
+        "file_name": "transmission_investment_cost",
+        "format": "long",
+        "drop_na": true
+    },
+    "transmission_line_fixed_OM_cost": {
+        "file_name": "transmission_fixed_OM_cost",
+        "format": "long",
+        "drop_na": true
+    },
+    "transmission_line_variable_OM_cost": {
+        "file_name": "transmission_variable_OM_cost",
+        "format": "long",
+        "drop_na": true
+    },
+    "transmission_line_lifetime": {
+        "file_name": "transmission_lifetime",
+        "format": "long",
+        "drop_na": true
+    },
+    "technologies": {
+        "file_name": "tech_registry",
+        "format": "table",
+        "drop_na": false
+    },
+    "reservoir_tailrace_level_discharge_function": {
+        "file_name": "reservoir_tailrace_level_discharge_function",
+        "format": "table",
+        "drop_na": false
+    },
+    "reservoir_forebay_level_volume_function": {
+        "file_name": "reservoir_forebay_level_volume_function",
+        "format": "table",
+        "drop_na": false
+    },
+    "public_debt_ratio": {
+        "file_name": "finance_public_debt_ratio",
+        "format": "long",
+        "drop_na": true,
+        "required": false,
+        "default": 0
+    },
+    "private_debt_ratio": {
+        "file_name": "finance_private_debt_ratio",
+        "format": "long",
+        "drop_na": true,
+        "required": false,
+        "default": 0
+    },
+    "cost_of_public_debt": {
+        "file_name": "finance_cost_of_public_debt",
+        "format": "long",
+        "drop_na": true,
+        "required": false,
+        "default": 0
+    },
+    "cost_of_private_debt": {
+        "file_name": "finance_cost_of_private_debt",
+        "format": "long",
+        "drop_na": true,
+        "required": false,
+        "default": 0
+    },
+    "cost_of_private_equity": {
+        "file_name": "finance_cost_of_private_equity",
+        "format": "long",
+        "drop_na": true,
+        "required": false,
+        "default": 0
+    },
+    "public_debt_max_system": {
+        "file_name": "finance_public_debt_max_system",
+        "format": "long",
+        "drop_na": true,
+        "required": false,
+        "default": 0
+    },
+    "public_debt_max_zone": {
+        "file_name": "finance_public_debt_max_zone",
+        "format": "long",
+        "drop_na": true,
+        "required": false,
+        "default": 0
+    },
+    "reserve_eligible": {
+        "file_name": "tech_reserve_eligible",
+        "format": "long",
+        "drop_na": true,
+        "required": false,
+        "default": 0
+    },
+    "reserve_requirement": {
+        "file_name": "reserve_requirement",
+        "format": "long",
+        "drop_na": true,
+        "required": false,
+        "default": 0
+    },
+    "transmission_susceptance": {
+        "file_name": "transmission_susceptance",
+        "format": "long",
+        "drop_na": true,
+        "required": false,
+        "default": 0
+    },
+    "uc_eligible": {
+        "file_name": "tech_uc_eligible",
+        "format": "long",
+        "drop_na": true,
+        "required": false,
+        "default": 0
+    },
+    "uc_unit_size": {
+        "file_name": "tech_unit_size",
+        "format": "long",
+        "drop_na": true,
+        "required": false,
+        "default": 1
+    },
+    "uc_min_up_time": {
+        "file_name": "tech_min_up_time",
+        "format": "long",
+        "drop_na": true,
+        "required": false,
+        "default": 1
+    },
+    "uc_min_down_time": {
+        "file_name": "tech_min_down_time",
+        "format": "long",
+        "drop_na": true,
+        "required": false,
+        "default": 1
+    },
+    "uc_startup_cost": {
+        "file_name": "tech_startup_cost",
+        "format": "long",
+        "drop_na": true,
+        "required": false,
+        "default": 0
+    },
+    "uc_no_load_cost": {
+        "file_name": "tech_no_load_cost",
+        "format": "long",
+        "drop_na": true,
+        "required": false,
+        "default": 0
+    },
+    "contingencies": {
+        "file_name": "transmission_contingencies",
+        "format": "table",
+        "drop_na": true,
+        "required": false,
+        "default": 0
+    },
+    "heat_rate": {
+        "file_name": "tech_heat_rate",
+        "format": "table",
+        "drop_na": true,
+        "required": false,
+        "default": 0
+    }
+}
