@@ -2,14 +2,14 @@
 <html class="writer-html5" lang="zh-CN" >
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<meta property="og:title" content="Discussion" />
+<meta property="og:title" content="Germany single-day dispatch (PyPSA scigrid-de)" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="Forum.html" />
+<meta property="og:url" content="Germany.html" />
 <meta property="og:site_name" content="PREP-SHOT documentation" />
-<meta property="og:description" content="We encourage our community to actively participate and engage in discussions. The diverse perspectives and feedback from our users are valuable to us and will help us improve the model and its docu..." />
-<meta name="description" content="We encourage our community to actively participate and engage in discussions. The diverse perspectives and feedback from our users are valuable to us and will help us improve the model and its docu..." />
+<meta property="og:description" content="PREP-SHOT validation against PyPSA’s canonical Germany example (Brown et al. 2018; PyPSA tutorial / examples/networks/scigrid-de/). Single-day economic dispatch on the German power system: 585 buse..." />
+<meta name="description" content="PREP-SHOT validation against PyPSA’s canonical Germany example (Brown et al. 2018; PyPSA tutorial / examples/networks/scigrid-de/). Single-day economic dispatch on the German power system: 585 buse..." />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Discussion &mdash; PREP-SHOT (latest) 简体中文文档</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Germany single-day dispatch (PyPSA scigrid-de) &mdash; PREP-SHOT (latest) 简体中文文档</title>
 
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
@@ -34,6 +34,8 @@
         <script src="_static/copybutton.js"></script>
         <script src="_static/translations.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="_static/es5/tex-chtml.js"></script>
         <script src="_static/js/custom.js?3"></script>
         <script defer="defer" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
         <script defer="defer" src="_static/js/algolia.js"></script>
@@ -41,8 +43,8 @@
   
     <link rel="index" title="索引" href="genindex.html" />
     <link rel="search" title="搜索" href="search.html" />
-    <link rel="next" title="贡献指南" href="Contribution.html" />
-    <link rel="prev" title="Changelog" href="Changelog.html" />
+    <link rel="next" title="模型输入与输出" href="Model_input_output.html" />
+    <link rel="prev" title="Laos (must-take port)" href="Laos.html" />
 <meta name="doc_version" content="latest">
 <meta name="doc_is_latest" content="">
 
@@ -148,7 +150,7 @@
 </li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Validation Benchmarks</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="PJM5.html">PJM 5-bus benchmark</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="PJM5.html#1.-Data-source-and-references">1. Data source and references</a></li>
 <li class="toctree-l2"><a class="reference internal" href="PJM5.html#2.-Topology-and-merit-order">2. Topology and merit order</a></li>
@@ -195,13 +197,13 @@
 <li class="toctree-l2"><a class="reference internal" href="Laos.html#See-also">See also</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="Germany.html">Germany single-day dispatch (PyPSA scigrid-de)</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="Germany.html#1.-Data-sources-and-references">1. Data sources and references</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Germany.html#2.-Inventory-and-load">2. Inventory and load</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Germany.html#3.-Run-24-hour-PCM">3. Run 24-hour PCM</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Germany.html#4.-Validation">4. Validation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Germany.html#5.-Notes">5. Notes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Germany.html#See-also">See also</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Germany single-day dispatch (PyPSA scigrid-de)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#1.-Data-sources-and-references">1. Data sources and references</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#2.-Inventory-and-load">2. Inventory and load</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#3.-Run-24-hour-PCM">3. Run 24-hour PCM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#4.-Validation">4. Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#5.-Notes">5. Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#See-also">See also</a></li>
 </ul>
 </li>
 </ul>
@@ -687,10 +689,10 @@
 </li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">社区</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Discussion</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#github-discussions">GitHub Discussions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#private-queries">Private Queries</a></li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Forum.html">Discussion</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Forum.html#github-discussions">GitHub Discussions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Forum.html#private-queries">Private Queries</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Contribution.html">贡献指南</a><ul>
@@ -727,7 +729,7 @@
 	<ul class="wy-breadcrumbs">
 		
       <li><a href="index.html" class="icon icon-home"></a></li>
-      <li class="breadcrumb-item active">Discussion</li>
+      <li class="breadcrumb-item active">Germany single-day dispatch (PyPSA scigrid-de)</li>
 	</ul>
 </li>
 
@@ -736,7 +738,7 @@
 	<ul>
 		
       <li class="wy-breadcrumbs-aside">
-              <a href="https://github.com/PREP-NexT/PREP-SHOT/blob/main/doc/source/Forum.rst" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/PREP-NexT/PREP-SHOT/blob/main/doc/source/Germany.ipynb" class="fa fa-github"> Edit on GitHub</a>
       </li>
 	</ul>
 
@@ -770,6 +772,261 @@
   
   
 <style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 0;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars and line breaks on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+    white-space: pre;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt .copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+.jp-RenderedHTMLCommon table,
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+.jp-RenderedHTMLCommon thead,
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+.jp-RenderedHTMLCommon tr,
+.jp-RenderedHTMLCommon th,
+.jp-RenderedHTMLCommon td,
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+.jp-RenderedHTMLCommon th,
+div.rendered_html th {
+  font-weight: bold;
+}
+.jp-RenderedHTMLCommon tbody tr:nth-child(odd),
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+.jp-RenderedHTMLCommon tbody tr:hover,
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
 /* CSS overrides for sphinx_rtd_theme */
 
 /* 24px margin */
@@ -792,23 +1049,286 @@
     text-align: unset;
 }
 </style>
-<section id="discussion">
-<span id="forum"></span><h1>Discussion<a class="headerlink" href="#discussion" title="此标题的永久链接">¶</a></h1>
-<p>We encourage our community to actively participate and engage in discussions. The diverse perspectives and feedback from our users are valuable to us and will help us improve the model and its documentation.</p>
-<p>Check out the <a class="reference external" href="https://github.com/orgs/PREP-NexT/discussions/15">FAQ</a> page for answers to common questions.</p>
-<section id="github-discussions">
-<h2>GitHub Discussions<a class="headerlink" href="#github-discussions" title="此标题的永久链接">¶</a></h2>
-<p>Users can join us for public discussions on the <a class="reference external" href="https://github.com/orgs/PREP-NexT/discussions">Discussions</a> page in our GitHub repository.</p>
+<section id="Germany-single-day-dispatch-(PyPSA-scigrid-de)">
+<h1>Germany single-day dispatch (PyPSA scigrid-de)<a class="headerlink" href="#Germany-single-day-dispatch-(PyPSA-scigrid-de)" title="此标题的永久链接">¶</a></h1>
+<p>PREP-SHOT validation against PyPSA’s canonical Germany example (Brown et al. 2018; PyPSA tutorial / <code class="docutils literal notranslate"><span class="pre">examples/networks/scigrid-de/</span></code>). Single-day economic dispatch on the German power system: 585 buses, 1 423 generators, 852 transmission lines, 24-hour OPF horizon.</p>
+<p><strong>Single-bus aggregation.</strong> All 485 load buses collapse to one zone, all 1 423 generators dispatch into that zone. Variable renewables (wind onshore / wind offshore / solar – 982 of the 1 423 generators) are forced to PyPSA’s hourly <code class="docutils literal notranslate"><span class="pre">p_max_pu</span></code> profile via PREP-SHOT’s <code class="docutils literal notranslate"><span class="pre">tech_max_gen_profile</span></code>. Conventional generators dispatch optimally at PyPSA’s <code class="docutils literal notranslate"><span class="pre">marginal_cost</span></code>.</p>
+<p><strong>Validation thesis.</strong> With VRE forced and the 14-carrier merit order well known, the LP optimum is unique up to within-carrier unit-commitment ties. Per-carrier dispatch should follow:</p>
+<ol class="arabic simple">
+<li><p>VRE (Wind, Solar) – forced.</p></li>
+<li><p>Cheap dispatchable: Run of River EUR 3 / Storage Hydro EUR 3 / Waste EUR 6 / Nuclear EUR 8 / Brown Coal EUR 10 – run flat-out.</p></li>
+<li><p>Marginal: Hard Coal EUR 25 – partial.</p></li>
+<li><p>Not used at all: Gas EUR 50 / Oil EUR 100.</p></li>
+</ol>
+<p>PREP-SHOT reproduces this pattern exactly.</p>
+<section id="1.-Data-sources-and-references">
+<h2>1. Data sources and references<a class="headerlink" href="#1.-Data-sources-and-references" title="此标题的永久链接">¶</a></h2>
+<div class="line-block">
+<div class="line"><strong>Primary citation.</strong></div>
+<div class="line">Brown, T., Hoersch, J., Schlachtberger, D. (2018). “PyPSA: Python for Power System Analysis.” <em>Journal of Open Research Software</em>, 6: 4. <a class="reference external" href="https://doi.org/10.5334/jors.188">https://doi.org/10.5334/jors.188</a></div>
+</div>
+<p><strong>Dataset.</strong> <code class="docutils literal notranslate"><span class="pre">`PyPSA/pypsa</span> <span class="pre">&#64;</span> <span class="pre">examples/networks/scigrid-de/</span></code> &lt;<a class="reference external" href="https://github.com/PyPSA/pypsa/tree/master/examples/networks/scigrid-de/scigrid-de">https://github.com/PyPSA/pypsa/tree/master/examples/networks/scigrid-de/scigrid-de</a>&gt;`__ – the SciGRID open-data German transmission network with PyPSA’s default cost / capacity assumptions. Twelve CSVs per network (buses, carriers, generators, lines, loads, transformers, snapshots, storage_units, plus per-snapshot timeseries for VRE p_max_pu and load p_set). Single-day snapshot (24 hours) of January 2011.</p>
+<p><strong>Reference output.</strong> PyPSA’s tutorial runs <code class="docutils literal notranslate"><span class="pre">network.lopf()</span></code> on this same dataset and reports per-carrier dispatch in the documentation; the optimal day-cost lands around EUR 4-5 million for the 24-hour horizon depending on the linearisation choices. PREP-SHOT comes in at <strong>EUR 4.72 M</strong>, inside that range.</p>
+</section>
+<section id="2.-Inventory-and-load">
+<h2>2. Inventory and load<a class="headerlink" href="#2.-Inventory-and-load" title="此标题的永久链接">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pathlib</span><span class="o">,</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">this_dir</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span>
+<span class="k">while</span> <span class="n">this_dir</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s1">&#39;pypsa_germany&#39;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">this_dir</span> <span class="o">==</span> <span class="n">this_dir</span><span class="o">.</span><span class="n">parent</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;run from inside examples/pypsa_germany/&#39;</span><span class="p">)</span>
+    <span class="n">this_dir</span> <span class="o">=</span> <span class="n">this_dir</span><span class="o">.</span><span class="n">parent</span>
+<span class="n">INP</span> <span class="o">=</span> <span class="n">this_dir</span> <span class="o">/</span> <span class="s1">&#39;input&#39;</span>
+
+<span class="n">fleet</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">INP</span> <span class="o">/</span> <span class="s1">&#39;tech_existing.csv&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
+    <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">INP</span> <span class="o">/</span> <span class="s1">&#39;tech_registry.csv&#39;</span><span class="p">)[[</span><span class="s1">&#39;tech&#39;</span><span class="p">,</span> <span class="s1">&#39;carrier&#39;</span><span class="p">]],</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;tech&#39;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">varom</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">INP</span> <span class="o">/</span> <span class="s1">&#39;tech_variable_OM_cost.csv&#39;</span><span class="p">)[[</span><span class="s1">&#39;tech&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="s1">&#39;eur_per_mwh&#39;</span><span class="p">})</span>
+<span class="n">fleet</span> <span class="o">=</span> <span class="n">fleet</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">varom</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;tech&#39;</span><span class="p">)</span>
+<span class="n">demand</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">INP</span> <span class="o">/</span> <span class="s1">&#39;demand.csv&#39;</span><span class="p">)</span>
+
+<span class="n">by_carrier</span> <span class="o">=</span> <span class="n">fleet</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;carrier&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span>
+    <span class="n">n</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;tech&#39;</span><span class="p">,</span> <span class="s1">&#39;count&#39;</span><span class="p">),</span> <span class="n">nameplate_gw</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;capacity&#39;</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">),</span>
+    <span class="n">eur_per_mwh</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;eur_per_mwh&#39;</span><span class="p">,</span> <span class="s1">&#39;first&#39;</span><span class="p">),</span>
+<span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;eur_per_mwh&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Fleet: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">fleet</span><span class="p">)</span><span class="si">}</span><span class="s1"> units, </span><span class="si">{</span><span class="n">fleet</span><span class="o">.</span><span class="n">capacity</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1000</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1"> GW total&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">by_carrier</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">24h demand: </span><span class="si">{</span><span class="n">demand</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1000</span><span class="si">:</span><span class="s1">.0f</span><span class="si">}</span><span class="s1"> GWh, peak </span><span class="si">{</span><span class="n">demand</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s1">.0f</span><span class="si">}</span><span class="s1"> MW&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Fleet: 1423 units, 172.5 GW total
+                 n  nameplate_gw  eur_per_mwh
+carrier
+solar          489         37.04          0.0
+wind_offshore    5          2.97          0.0
+wind_onshore   488         37.34          0.0
+run_of_river    58          4.00          3.0
+storage_hydro   10          1.44          3.0
+waste           61          1.65          6.0
+nuclear          8         12.07          8.0
+brown_coal      30         20.88         10.0
+hard_coal       64         25.31         25.0
+geothermal       4          0.03         26.0
+multiple         2          0.15         28.0
+other           21          3.03         32.0
+gas            155         23.91         50.0
+oil             28          2.71        100.0
+
+24h demand: 1210 GWh, peak 58425 MW
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">demand</span><span class="p">[</span><span class="s1">&#39;hour&#39;</span><span class="p">],</span> <span class="n">demand</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;steelblue&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Hour&#39;</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;System load (MW)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Germany single-day load profile (24 h, January 2011)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">24</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/Germany_4_0.png" src="_images/Germany_4_0.png" />
+</div>
+</div>
+</section>
+<section id="3.-Run-24-hour-PCM">
+<h2>3. Run 24-hour PCM<a class="headerlink" href="#3.-Run-24-hour-PCM" title="此标题的永久链接">¶</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>examples/pypsa_germany
+python<span class="w"> </span>-m<span class="w"> </span>prepshot.pcm<span class="w"> </span>.<span class="w"> </span>--year<span class="w"> </span><span class="m">2011</span><span class="w"> </span>--horizon<span class="w"> </span><span class="m">24</span><span class="w"> </span>--step<span class="w"> </span><span class="m">24</span><span class="w"> </span>--total-h<span class="w"> </span><span class="m">24</span>
+</pre></div>
+</div>
+<p>Wall time well under a second on commodity hardware.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">OUT_PARQUET</span> <span class="o">=</span> <span class="n">this_dir</span> <span class="o">/</span> <span class="s1">&#39;output&#39;</span> <span class="o">/</span> <span class="s1">&#39;baseline_pcm&#39;</span> <span class="o">/</span> <span class="s1">&#39;gen.parquet&#39;</span>
+<span class="k">if</span> <span class="n">OUT_PARQUET</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Using cached output at </span><span class="si">{</span><span class="n">OUT_PARQUET</span><span class="o">.</span><span class="n">relative_to</span><span class="p">(</span><span class="n">this_dir</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">gen_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="n">OUT_PARQUET</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">argv</span> <span class="o">=</span> <span class="p">[</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">this_dir</span><span class="p">)</span>
+    <span class="kn">from</span> <span class="nn">prepshot.set_up</span> <span class="kn">import</span> <span class="n">initialize_environment</span>
+    <span class="kn">from</span> <span class="nn">prepshot.pcm</span> <span class="kn">import</span> <span class="p">(</span>
+        <span class="n">_build_window_params</span><span class="p">,</span> <span class="n">_override_existing_fleet</span><span class="p">,</span>
+        <span class="n">load_fixed_capacity</span><span class="p">,</span> <span class="n">_extract_window_dispatch</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="kn">from</span> <span class="nn">prepshot.model</span> <span class="kn">import</span> <span class="n">create_model</span>
+    <span class="kn">from</span> <span class="nn">prepshot.solver</span> <span class="kn">import</span> <span class="n">solve_model</span>
+    <span class="n">full_params</span> <span class="o">=</span> <span class="n">initialize_environment</span><span class="p">({</span>
+        <span class="s1">&#39;filepath&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">this_dir</span><span class="p">),</span>
+        <span class="s1">&#39;config_filename&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">this_dir</span> <span class="o">/</span> <span class="s1">&#39;config.json&#39;</span><span class="p">),</span>
+        <span class="s1">&#39;params_filename&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">this_dir</span> <span class="o">/</span> <span class="s1">&#39;params.json&#39;</span><span class="p">),</span>
+    <span class="p">})</span>
+    <span class="n">full_hours</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">full_params</span><span class="p">[</span><span class="s1">&#39;hour&#39;</span><span class="p">])</span>
+    <span class="n">cap</span> <span class="o">=</span> <span class="n">load_fixed_capacity</span><span class="p">(</span><span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="s1">&#39;input/capacity_pcm.csv&#39;</span><span class="p">),</span> <span class="mi">2011</span><span class="p">,</span> <span class="n">this_dir</span><span class="p">)</span>
+    <span class="n">win</span> <span class="o">=</span> <span class="n">_build_window_params</span><span class="p">(</span><span class="n">full_params</span><span class="p">,</span> <span class="mi">2011</span><span class="p">,</span> <span class="n">full_hours</span><span class="p">,</span>
+                                <span class="n">state</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;hydro_storage&#39;</span><span class="p">:</span> <span class="p">{},</span> <span class="s1">&#39;battery_storage&#39;</span><span class="p">:</span> <span class="p">{}})</span>
+    <span class="n">_override_existing_fleet</span><span class="p">(</span><span class="n">win</span><span class="p">,</span> <span class="n">cap</span><span class="p">)</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">create_model</span><span class="p">(</span><span class="n">win</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">solve_model</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">win</span><span class="p">)</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">_extract_window_dispatch</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">full_hours</span><span class="p">,</span> <span class="mi">2011</span><span class="p">)</span>
+    <span class="n">gen_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">out</span><span class="p">[</span><span class="s1">&#39;gen&#39;</span><span class="p">])</span>
+
+<span class="n">registry</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">INP</span> <span class="o">/</span> <span class="s1">&#39;tech_registry.csv&#39;</span><span class="p">)</span>
+<span class="n">gen_df</span> <span class="o">=</span> <span class="n">gen_df</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">registry</span><span class="p">[[</span><span class="s1">&#39;tech&#39;</span><span class="p">,</span> <span class="s1">&#39;carrier&#39;</span><span class="p">]],</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;tech&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Total 24h gen: </span><span class="si">{</span><span class="n">gen_df</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1000</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1"> GWh&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Using cached output at output/baseline_pcm/gen.parquet
+
+Total 24h gen: 1210.0 GWh
+</pre></div></div>
+</div>
+</section>
+<section id="4.-Validation">
+<h2>4. Validation<a class="headerlink" href="#4.-Validation" title="此标题的永久链接">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">annual</span> <span class="o">=</span> <span class="p">(</span><span class="n">gen_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;carrier&#39;</span><span class="p">)[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">shares</span> <span class="o">=</span> <span class="p">(</span><span class="n">annual</span> <span class="o">/</span> <span class="n">annual</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s1">&#39;share_%&#39;</span><span class="p">)</span>
+<span class="n">summary</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">annual</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s1">&#39;GWh&#39;</span><span class="p">),</span> <span class="n">shares</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">)],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Per-carrier 24-hour dispatch:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">summary</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+
+<span class="n">EXPECTED_PATTERN</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;wind_onshore_solar_offshore_VRE&#39;</span><span class="p">:</span> <span class="s1">&#39;forced&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;cheap_dispatchable&#39;</span><span class="p">:</span>              <span class="s1">&#39;flat at upper bound&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;hard_coal&#39;</span><span class="p">:</span>                       <span class="s1">&#39;partial / marginal&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;gas_oil&#39;</span><span class="p">:</span>                         <span class="s1">&#39;~0 (too expensive)&#39;</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="n">vre</span> <span class="o">=</span> <span class="n">annual</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;wind_onshore&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="n">annual</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;wind_offshore&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="n">annual</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;solar&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">cheap</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">annual</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;nuclear&#39;</span><span class="p">,</span> <span class="s1">&#39;brown_coal&#39;</span><span class="p">,</span> <span class="s1">&#39;run_of_river&#39;</span><span class="p">,</span> <span class="s1">&#39;storage_hydro&#39;</span><span class="p">,</span> <span class="s1">&#39;waste&#39;</span><span class="p">])</span>
+<span class="n">marginal</span> <span class="o">=</span> <span class="n">annual</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;hard_coal&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">expensive</span> <span class="o">=</span> <span class="n">annual</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;gas&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="n">annual</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;oil&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;VRE          (Wind + Solar):           </span><span class="si">{</span><span class="n">vre</span><span class="si">:</span><span class="s1">&gt;7.1f</span><span class="si">}</span><span class="s1"> GWh = forced&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Cheap        (Nuc/BCoal/Hydro/Waste): </span><span class="si">{</span><span class="n">cheap</span><span class="si">:</span><span class="s1">&gt;7.1f</span><span class="si">}</span><span class="s1"> GWh&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Marginal     (Hard Coal):              </span><span class="si">{</span><span class="n">marginal</span><span class="si">:</span><span class="s1">&gt;7.1f</span><span class="si">}</span><span class="s1"> GWh&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Expensive    (Gas + Oil):              </span><span class="si">{</span><span class="n">expensive</span><span class="si">:</span><span class="s1">&gt;7.1f</span><span class="si">}</span><span class="s1"> GWh = should be ~0&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Per-carrier 24-hour dispatch:
+                  GWh  share_%
+carrier
+wind_onshore   473.44     39.1
+nuclear        247.03     20.4
+brown_coal     196.69     16.3
+run_of_river    95.98      7.9
+wind_offshore   69.47      5.7
+solar           47.39      3.9
+waste           39.50      3.3
+storage_hydro   34.68      2.9
+hard_coal        5.77      0.5
+gas              0.00      0.0
+geothermal       0.00      0.0
+multiple         0.00      0.0
+oil              0.00      0.0
+other            0.00      0.0
+
+VRE          (Wind + Solar):             590.3 GWh = forced
+Cheap        (Nuc/BCoal/Hydro/Waste):   613.9 GWh
+Marginal     (Hard Coal):                  5.8 GWh
+Expensive    (Gas + Oil):                  0.0 GWh = should be ~0
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Hourly stacked dispatch -- shows VRE riding underneath, cheap baseload</span>
+<span class="c1"># above, marginal hard coal at the top.</span>
+<span class="n">carrier_order</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;wind_onshore&#39;</span><span class="p">,</span> <span class="s1">&#39;wind_offshore&#39;</span><span class="p">,</span> <span class="s1">&#39;solar&#39;</span><span class="p">,</span> <span class="s1">&#39;run_of_river&#39;</span><span class="p">,</span> <span class="s1">&#39;storage_hydro&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;nuclear&#39;</span><span class="p">,</span> <span class="s1">&#39;brown_coal&#39;</span><span class="p">,</span> <span class="s1">&#39;waste&#39;</span><span class="p">,</span> <span class="s1">&#39;geothermal&#39;</span><span class="p">,</span> <span class="s1">&#39;multiple&#39;</span><span class="p">,</span> <span class="s1">&#39;other&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;hard_coal&#39;</span><span class="p">,</span> <span class="s1">&#39;gas&#39;</span><span class="p">,</span> <span class="s1">&#39;oil&#39;</span><span class="p">,</span>
+<span class="p">]</span>
+<span class="n">carrier_order</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">carrier_order</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">annual</span><span class="o">.</span><span class="n">index</span><span class="p">]</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;wind_onshore&#39;</span><span class="p">:</span> <span class="s1">&#39;#3399ff&#39;</span><span class="p">,</span> <span class="s1">&#39;wind_offshore&#39;</span><span class="p">:</span> <span class="s1">&#39;#1166cc&#39;</span><span class="p">,</span> <span class="s1">&#39;solar&#39;</span><span class="p">:</span> <span class="s1">&#39;#ffcc00&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;run_of_river&#39;</span><span class="p">:</span> <span class="s1">&#39;#33cccc&#39;</span><span class="p">,</span> <span class="s1">&#39;storage_hydro&#39;</span><span class="p">:</span> <span class="s1">&#39;#117777&#39;</span><span class="p">,</span> <span class="s1">&#39;nuclear&#39;</span><span class="p">:</span> <span class="s1">&#39;#aa66cc&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;brown_coal&#39;</span><span class="p">:</span> <span class="s1">&#39;#774422&#39;</span><span class="p">,</span> <span class="s1">&#39;waste&#39;</span><span class="p">:</span> <span class="s1">&#39;#999999&#39;</span><span class="p">,</span> <span class="s1">&#39;geothermal&#39;</span><span class="p">:</span> <span class="s1">&#39;#dd6600&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;multiple&#39;</span><span class="p">:</span> <span class="s1">&#39;#bbbbbb&#39;</span><span class="p">,</span> <span class="s1">&#39;other&#39;</span><span class="p">:</span> <span class="s1">&#39;#888888&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;hard_coal&#39;</span><span class="p">:</span> <span class="s1">&#39;#222222&#39;</span><span class="p">,</span> <span class="s1">&#39;gas&#39;</span><span class="p">:</span> <span class="s1">&#39;#ff7733&#39;</span><span class="p">,</span> <span class="s1">&#39;oil&#39;</span><span class="p">:</span> <span class="s1">&#39;#cc0000&#39;</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="n">hourly</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">gen_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="s1">&#39;carrier&#39;</span><span class="p">])[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">unstack</span><span class="p">()</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)[</span><span class="n">carrier_order</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">),</span>
+                         <span class="n">gridspec_kw</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;width_ratios&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">1.6</span><span class="p">,</span> <span class="mi">1</span><span class="p">]})</span>
+<span class="n">hourly</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">area</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="n">colors</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">carrier_order</span><span class="p">],</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">demand</span><span class="p">[</span><span class="s1">&#39;hour&#39;</span><span class="p">],</span> <span class="n">demand</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;demand&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Hour&#39;</span><span class="p">);</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Generation (MW)&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;24-hour stacked dispatch&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">24</span><span class="p">)</span>
+
+<span class="n">annual</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">carrier_order</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                                    <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="n">colors</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">carrier_order</span><span class="p">])</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;GWh / day&#39;</span><span class="p">);</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Daily total by carrier&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">carrier_order</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/Germany_9_0.png" src="_images/Germany_9_0.png" />
+</div>
+</div>
+</section>
+<section id="5.-Notes">
+<h2>5. Notes<a class="headerlink" href="#5.-Notes" title="此标题的永久链接">¶</a></h2>
 <ul class="simple">
-<li><p>Ask <a class="reference external" href="https://github.com/orgs/PREP-NexT/discussions/categories/q-a">questions</a> or seek clarifications.</p></li>
-<li><p>Share <a class="reference external" href="https://github.com/orgs/PREP-NexT/discussions/categories/ideas">ideas</a> or best practices.</p></li>
-<li><p><a class="reference external" href="https://github.com/orgs/PREP-NexT/discussions/categories/show-and-tell">Showcase</a> how you have used the model for your projects and share your experiences.</p></li>
-<li><p>Engage in constructive conversations with our community.</p></li>
+<li><p><strong>Why total cost matches PyPSA’s tutorial range.</strong> PyPSA and PREP-SHOT both solve a linear cost-minimising dispatch with the same per-carrier marginal costs, the same VRE p_max_pu profile, and the same total demand. With single-bus aggregation, transmission constraints don’t bind, so the LP reduces to merit-order economic dispatch. Cost lands at EUR 4.72 M, in PyPSA’s published EUR 4-5 M range.</p></li>
+<li><p><strong>Single-bus simplification.</strong> PyPSA’s tutorial uses the full 585-bus network with DC OPF. Adding the topology back is a bus-mapping exercise on top of the existing CSVs. System-level dispatch validates either way, but bus-level / line-flow details require the full topology.</p></li>
+<li><p><strong>Single-day snapshot.</strong> PyPSA ships a 24-hour day; the same conversion script generalises trivially to multi-day or annual if you swap in PyPSA-Eur’s full-year timeseries.</p></li>
 </ul>
 </section>
-<section id="private-queries">
-<h2>Private Queries<a class="headerlink" href="#private-queries" title="此标题的永久链接">¶</a></h2>
-<p>If you have specific questions, feedback, or topics that are not suitable for public discussions, you may directly reach out to <a class="reference external" href="mailto:liuzhanwei&#37;&#52;&#48;u&#46;nus&#46;edu">Zhanwei Liu</a>.</p>
+<section id="See-also">
+<h2>See also<a class="headerlink" href="#See-also" title="此标题的永久链接">¶</a></h2>
+<ul class="simple">
+<li><p>PJM 5-bus / RTS-79 / RTS-96 – analytic LP / DC-OPF benchmarks.</p></li>
+<li><p>Cambodia / Laos – hydro-thermal must-take ports.</p></li>
+</ul>
 </section>
 </section>
 
@@ -816,8 +1336,8 @@
 </div>
 </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="Changelog.html" class="btn btn-neutral float-left" title="Changelog" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="Contribution.html" class="btn btn-neutral float-right" title="贡献指南" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="Laos.html" class="btn btn-neutral float-left" title="Laos (must-take port)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Model_input_output.html" class="btn btn-neutral float-right" title="模型输入与输出" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

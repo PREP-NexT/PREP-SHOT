@@ -3,6 +3,53 @@ Changelog
 
 Here, you'll find notable changes for each version of PREP-SHOT.
 
+Version 1.27.0 - May 8, 2026
+-------------------------------
+
+Sixth external benchmark: PyPSA's German single-day OPF
+(Brown et al. 2018, JORS).  PREP-SHOT lands on EUR 4.72 M for
+the 24-hour dispatch on the SciGRID network, inside PyPSA's
+published EUR 4-5 M range.
+
+Why
++++
+
+Cambodia + Laos validate against an external Pyomo solver
+(PowNet); PJM 5-bus / RTS-79 / RTS-96 validate against analytic
+merit-order benchmarks.  PyPSA's Germany is a third flavour:
+real-world VRE-heavy data (1 423 generators including 982 wind
++ solar units) with capacity-factor profiles, validated against
+PyPSA's own published ``network.lopf()`` reference.
+
+Added
++++++
+
+* ``examples/pypsa_germany/`` -- single-bus aggregation of
+  PyPSA's `scigrid-de <https://github.com/PyPSA/pypsa/tree/master/examples/networks/scigrid-de>`_
+  example: 24-hour OPF, 1 423 generators across 14 carriers
+  (Wind Onshore / Solar / Wind Offshore / Hard Coal / Brown
+  Coal / Gas / Nuclear / Run of River / Storage Hydro / Waste /
+  Geothermal / Multiple / Other / Oil).  VRE forced via
+  ``tech_max_gen_profile`` to PyPSA's hourly ``p_max_pu``;
+  conventional dispatches at PyPSA's ``marginal_cost``.  Total
+  Pmax = 172.5 GW; 24-hour energy = 1 210 GWh; peak load 58.4 GW.
+* ``examples/pypsa_germany/Germany.ipynb`` -- notebook with the
+  citation, data conversion, run, and validation cells (per-
+  carrier dispatch matches the textbook merit order: VRE
+  forced + cheap-thermal flat-out + Hard Coal marginal + Gas /
+  Oil ~ 0).
+* ``doc/source/Germany.ipynb`` -- symlink into the existing
+  "Validation Benchmarks" toctree.
+
+Notes
++++++
+
+Same caveats as the other ports: single-bus aggregation drops
+PyPSA's 585-bus DC OPF + line-flow detail, and we don't model
+the 38 pumped-storage units explicitly (collapsed to single
+techs without round-trip efficiency physics).  These are
+follow-ups; system-level economics validate either way.
+
 Version 1.26.0 - May 8, 2026
 -------------------------------
 

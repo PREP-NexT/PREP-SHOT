@@ -6,8 +6,8 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="Changelog.html" />
 <meta property="og:site_name" content="PREP-SHOT documentation" />
-<meta property="og:description" content="Here, you'll find notable changes for each version of PREP-SHOT. Version 1.26.0 - May 8, 2026: Two new validation benchmarks: PowNet Cambodia and Laos (Chowdhury et al. 2020), as must-take ports. P..." />
-<meta name="description" content="Here, you'll find notable changes for each version of PREP-SHOT. Version 1.26.0 - May 8, 2026: Two new validation benchmarks: PowNet Cambodia and Laos (Chowdhury et al. 2020), as must-take ports. P..." />
+<meta property="og:description" content="Here, you'll find notable changes for each version of PREP-SHOT. Version 1.27.0 - May 8, 2026: Sixth external benchmark: PyPSA's German single-day OPF (Brown et al. 2018, JORS). PREP-SHOT lands on ..." />
+<meta name="description" content="Here, you'll find notable changes for each version of PREP-SHOT. Version 1.27.0 - May 8, 2026: Sixth external benchmark: PyPSA's German single-day OPF (Brown et al. 2018, JORS). PREP-SHOT lands on ..." />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Changelog &mdash; PREP-SHOT (latest) 简体中文文档</title>
 
@@ -195,6 +195,15 @@
 <li class="toctree-l2"><a class="reference internal" href="Laos.html#4.-Validation">4. Validation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Laos.html#5.-Notes">5. Notes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Laos.html#See-also">See also</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Germany.html">Germany single-day dispatch (PyPSA scigrid-de)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Germany.html#1.-Data-sources-and-references">1. Data sources and references</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Germany.html#2.-Inventory-and-load">2. Inventory and load</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Germany.html#3.-Run-24-hour-PCM">3. Run 24-hour PCM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Germany.html#4.-Validation">4. Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Germany.html#5.-Notes">5. Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Germany.html#See-also">See also</a></li>
 </ul>
 </li>
 </ul>
@@ -439,75 +448,81 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changelog</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#version-1-26-0-may-8-2026">Version 1.26.0 - May 8, 2026</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#version-1-27-0-may-8-2026">Version 1.27.0 - May 8, 2026</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#why">Why</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#added">Added</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#notes">Notes</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#version-1-25-0-may-8-2026">Version 1.25.0 - May 8, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id1">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id2">Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#version-1-26-0-may-8-2026">Version 1.26.0 - May 8, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Why</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">Notes</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#version-1-24-0-may-8-2026">Version 1.24.0 - May 8, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id3">Why</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#version-1-25-0-may-8-2026">Version 1.25.0 - May 8, 2026</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id4">Added</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id5">Notes</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#version-1-23-0-may-8-2026">Version 1.23.0 - May 8, 2026</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#version-1-24-0-may-8-2026">Version 1.24.0 - May 8, 2026</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id6">Why</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id7">Added</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id8">Notes</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#version-1-22-0-may-8-2026">Version 1.22.0 - May 8, 2026</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#version-1-23-0-may-8-2026">Version 1.23.0 - May 8, 2026</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id9">Why</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id10">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#changed">Changed</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id11">Notes</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#version-1-21-0-may-7-2026">Version 1.21.0 - May 7, 2026</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#version-1-22-0-may-8-2026">Version 1.22.0 - May 8, 2026</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id12">Why</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id13">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id14">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#changed">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id14">Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#version-1-21-0-may-7-2026">Version 1.21.0 - May 7, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id15">Why</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id16">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id17">Changed</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#caveats">Caveats</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#version-1-20-0-may-7-2026">Version 1.20.0 - May 7, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id15">Why</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id16">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id17">Changed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#performance">Performance</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id18">Notes</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#version-1-19-1-may-6-2026">Version 1.19.1 - May 6, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id19">Why</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id18">Why</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id19">Added</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id20">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#performance">Performance</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id21">Notes</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#version-1-19-1-may-6-2026">Version 1.19.1 - May 6, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id22">Why</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id23">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id24">Notes</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#version-1-19-0-may-6-2026">Version 1.19.0 - May 6, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id22">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id25">Added</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#default-heat-rate-curves-shipped">Default heat-rate curves shipped</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#per-example-wiring">Per-example wiring</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#regression">Regression</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#version-1-18-0-may-6-2026">Version 1.18.0 - May 6, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id23">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id26">Added</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#implementation-notes">Implementation notes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id24">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id27">Changed</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#verified">Verified</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#version-1-17-0-may-6-2026">Version 1.17.0 - May 6, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id25">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id26">Changed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id27">Verified</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id28">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id29">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id30">Verified</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#known-limitations">Known limitations</a></li>
 </ul>
 </li>
@@ -518,91 +533,91 @@
 <li class="toctree-l3"><a class="reference internal" href="#output">Output</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#eligibility-defaults-shipped">Eligibility defaults shipped</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#default-requirement-values">Default requirement values</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id28">Regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id31">Regression</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#version-1-15-0-may-6-2026">Version 1.15.0 - May 6, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id29">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id30">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id32">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id33">Changed</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#performance-notes">Performance notes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#version-1-14-1-may-5-2026">Version 1.14.1 - May 5, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id31">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id32">Known limitations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id34">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id35">Known limitations</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#version-1-14-0-may-5-2026">Version 1.14.0 - May 5, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id33">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id34">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id36">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id37">Changed</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#known-limitations-v1-14-0-alpha">Known limitations (v1.14.0 alpha)</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#version-1-13-0-may-5-2026">Version 1.13.0 - May 5, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id35">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id36">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id38">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id39">Changed</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#version-1-12-0-may-5-2026">Version 1.12.0 - May 5, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id37">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id38">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id40">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id41">Changed</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#fixed">Fixed</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#version-1-11-1-may-5-2026">Version 1.11.1 - May 5, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id39">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id40">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id42">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id43">Changed</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#removed">Removed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id41">Notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id44">Notes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#version-1-11-0-may-5-2026">Version 1.11.0 - May 5, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id42">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id43">Changed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id44">Removed</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#version-1-10-0-may-5-2026">Version 1.10.0 - May 5, 2026</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id45">Added</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id46">Changed</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id47">Removed</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#version-1-9-1-may-3-2026">Version 1.9.1 - May 3, 2026</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#version-1-10-0-may-5-2026">Version 1.10.0 - May 5, 2026</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id48">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id49">Notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id49">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id50">Removed</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#version-1-9-0-may-3-2026">Version 1.9.0 - May 3, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id50">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id51">Changed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#version-1-9-1-may-3-2026">Version 1.9.1 - May 3, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id51">Added</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id52">Notes</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#version-1-9-0-may-3-2026">Version 1.9.0 - May 3, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id53">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id54">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id55">Notes</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#version-1-8-1-may-3-2026">Version 1.8.1 - May 3, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id53">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id56">Fixed</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#version-1-8-0-may-3-2026">Version 1.8.0 - May 3, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id54">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id55">Removed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id56">Changed</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#version-1-7-0-may-3-2026">Version 1.7.0 - May 3, 2026</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id57">Added</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id58">Removed</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id59">Changed</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#version-1-7-0-may-3-2026">Version 1.7.0 - May 3, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id60">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id61">Removed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id62">Changed</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#version-1-6-0-may-3-2026">Version 1.6.0 - May 3, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id60">Removed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id61">Changed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id62">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id63">Removed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id64">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id65">Fixed</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#version-1-5-0-may-2-2026">Version 1.5.0 - May 2, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id63">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id66">Added</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#changed-breaking">Changed (Breaking)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#annotation-columns">Annotation columns</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#column-renames-for-clarity">Column renames for clarity</a></li>
@@ -612,60 +627,60 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#version-1-4-0-may-2-2026">Version 1.4.0 - May 2, 2026</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#why-long-format">Why long-format</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id64">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id65">Changed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id66">Migration notes</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#version-1-3-2-may-2-2026">Version 1.3.2 - May 2, 2026</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id67">Added</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#version-1-3-1-may-2-2026">Version 1.3.1 - May 2, 2026</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id68">Changed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#tested-with">Tested with</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id69">Migration notes</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#version-1-3-0-may-2-2026">Version 1.3.0 - May 2, 2026</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#version-1-3-2-may-2-2026">Version 1.3.2 - May 2, 2026</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id70">Added</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#version-1-3-1-may-2-2026">Version 1.3.1 - May 2, 2026</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id71">Changed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id72">Removed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tested-with">Tested with</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id72">Migration notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#version-1-3-0-may-2-2026">Version 1.3.0 - May 2, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id73">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id74">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id75">Removed</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#version-1-2-0-may-2-2026">Version 1.2.0 - May 2, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id73">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id74">Changed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id75">Migration notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id76">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id77">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id78">Migration notes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#version-1-1-2-may-2-2026">Version 1.1.2 - May 2, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id76">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id77">Fixed</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#version-1-1-1-may-2-2026">Version 1.1.1 - May 2, 2026</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id78">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id79">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id79">Added</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id80">Fixed</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#version-1-1-0-may-2-2026">Version 1.1.0 - May 2, 2026</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#version-1-1-1-may-2-2026">Version 1.1.1 - May 2, 2026</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id81">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id82">Changed (Breaking)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id82">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id83">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#version-1-1-0-may-2-2026">Version 1.1.0 - May 2, 2026</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id84">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id85">Changed (Breaking)</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#version-1-0-jul-21-2025">Version 1.0 - Jul 21, 2025</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#version-0-1-2-jul-22-2024">Version 0.1.2 - Jul 22, 2024</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id83">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id84">Fixed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id85">Changed</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#version-0-1-1-jul-11-2024">Version 0.1.1 - Jul 11, 2024</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id86">Added</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id87">Fixed</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id88">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#version-0-1-1-jul-11-2024">Version 0.1.1 - Jul 11, 2024</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id89">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id90">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id91">Changed</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#deprecated">Deprecated</a></li>
 </ul>
 </li>
@@ -782,6 +797,51 @@
 <section id="changelog">
 <h1>Changelog<a class="headerlink" href="#changelog" title="此标题的永久链接">¶</a></h1>
 <p>Here, you'll find notable changes for each version of PREP-SHOT.</p>
+<section id="version-1-27-0-may-8-2026">
+<h2>Version 1.27.0 - May 8, 2026<a class="headerlink" href="#version-1-27-0-may-8-2026" title="此标题的永久链接">¶</a></h2>
+<p>Sixth external benchmark: PyPSA's German single-day OPF
+(Brown et al. 2018, JORS).  PREP-SHOT lands on EUR 4.72 M for
+the 24-hour dispatch on the SciGRID network, inside PyPSA's
+published EUR 4-5 M range.</p>
+<section id="why">
+<h3>Why<a class="headerlink" href="#why" title="此标题的永久链接">¶</a></h3>
+<p>Cambodia + Laos validate against an external Pyomo solver
+(PowNet); PJM 5-bus / RTS-79 / RTS-96 validate against analytic
+merit-order benchmarks.  PyPSA's Germany is a third flavour:
+real-world VRE-heavy data (1 423 generators including 982 wind
++ solar units) with capacity-factor profiles, validated against
+PyPSA's own published <code class="docutils literal notranslate"><span class="pre">network.lopf()</span></code> reference.</p>
+</section>
+<section id="added">
+<h3>Added<a class="headerlink" href="#added" title="此标题的永久链接">¶</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">examples/pypsa_germany/</span></code> -- single-bus aggregation of
+PyPSA's <a class="reference external" href="https://github.com/PyPSA/pypsa/tree/master/examples/networks/scigrid-de">scigrid-de</a>
+example: 24-hour OPF, 1 423 generators across 14 carriers
+(Wind Onshore / Solar / Wind Offshore / Hard Coal / Brown
+Coal / Gas / Nuclear / Run of River / Storage Hydro / Waste /
+Geothermal / Multiple / Other / Oil).  VRE forced via
+<code class="docutils literal notranslate"><span class="pre">tech_max_gen_profile</span></code> to PyPSA's hourly <code class="docutils literal notranslate"><span class="pre">p_max_pu</span></code>;
+conventional dispatches at PyPSA's <code class="docutils literal notranslate"><span class="pre">marginal_cost</span></code>.  Total
+Pmax = 172.5 GW; 24-hour energy = 1 210 GWh; peak load 58.4 GW.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">examples/pypsa_germany/Germany.ipynb</span></code> -- notebook with the
+citation, data conversion, run, and validation cells (per-
+carrier dispatch matches the textbook merit order: VRE
+forced + cheap-thermal flat-out + Hard Coal marginal + Gas /
+Oil ~ 0).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">doc/source/Germany.ipynb</span></code> -- symlink into the existing
+&quot;Validation Benchmarks&quot; toctree.</p></li>
+</ul>
+</section>
+<section id="notes">
+<h3>Notes<a class="headerlink" href="#notes" title="此标题的永久链接">¶</a></h3>
+<p>Same caveats as the other ports: single-bus aggregation drops
+PyPSA's 585-bus DC OPF + line-flow detail, and we don't model
+the 38 pumped-storage units explicitly (collapsed to single
+techs without round-trip efficiency physics).  These are
+follow-ups; system-level economics validate either way.</p>
+</section>
+</section>
 <section id="version-1-26-0-may-8-2026">
 <h2>Version 1.26.0 - May 8, 2026<a class="headerlink" href="#version-1-26-0-may-8-2026" title="此标题的永久链接">¶</a></h2>
 <p>Two new validation benchmarks: PowNet Cambodia and Laos
@@ -789,8 +849,8 @@
 reproduces the published Cambodia thermal+import dispatch within
 0.3 %; Laos passes the structural envelope of a hydro-export
 system (hydro &gt; 75 % of annual energy).</p>
-<section id="why">
-<h3>Why<a class="headerlink" href="#why" title="此标题的永久链接">¶</a></h3>
+<section id="id1">
+<h3>Why<a class="headerlink" href="#id1" title="此标题的永久链接">¶</a></h3>
 <p>PJM 5-bus / RTS-79 / RTS-96 are textbook DC-OPF benchmarks with
 analytic reference numbers.  The PowNet cases are real-world
 hydro-thermal systems with an external solver (Pyomo + Gurobi/
@@ -799,8 +859,8 @@ HiGHS) producing the reference -- a different validation flavour.</p>
 hydro-export-dominated.  The two together cover the spectrum of
 ASEAN power-system shapes.</p>
 </section>
-<section id="added">
-<h3>Added<a class="headerlink" href="#added" title="此标题的永久链接">¶</a></h3>
+<section id="id2">
+<h3>Added<a class="headerlink" href="#id2" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">examples/cambodia/</span></code> -- single-bus aggregation of
 PowNet's Cambodia 2016 dataset (18 thermals + 6 hydros + 3
@@ -829,8 +889,8 @@ profiles to the MWh.</p></li>
 </li>
 </ul>
 </section>
-<section id="notes">
-<h3>Notes<a class="headerlink" href="#notes" title="此标题的永久链接">¶</a></h3>
+<section id="id3">
+<h3>Notes<a class="headerlink" href="#id3" title="此标题的永久链接">¶</a></h3>
 <p><strong>Single-bus aggregation.</strong> All demand buses in each country
 collapse onto one zone; bus-level dispatch and DC-OPF detail are
 dropped.  System-level economics (per-carrier annual energy,
@@ -856,8 +916,8 @@ RTS-79, RTS-96) are now first-class doc pages.  They live under a
 new &quot;Validation Benchmarks&quot; caption in the index toctree, and the
 landing page has a section explaining what each one validates and
 the published reference numbers.</p>
-<section id="id1">
-<h3>Added<a class="headerlink" href="#id1" title="此标题的永久链接">¶</a></h3>
+<section id="id4">
+<h3>Added<a class="headerlink" href="#id4" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p>New <code class="docutils literal notranslate"><span class="pre">Validation</span> <span class="pre">Benchmarks</span></code> toctree caption in
 <code class="docutils literal notranslate"><span class="pre">doc/source/index.rst</span></code> linking the three notebooks in
@@ -869,8 +929,8 @@ summary of each benchmark and its reference number.</p></li>
 pattern for <code class="docutils literal notranslate"><span class="pre">Thailand</span></code>, <code class="docutils literal notranslate"><span class="pre">SoutheastAsia</span></code>, <code class="docutils literal notranslate"><span class="pre">ThailandPCM</span></code>.</p></li>
 </ul>
 </section>
-<section id="id2">
-<h3>Notes<a class="headerlink" href="#id2" title="此标题的永久链接">¶</a></h3>
+<section id="id5">
+<h3>Notes<a class="headerlink" href="#id5" title="此标题的永久链接">¶</a></h3>
 <p>The notebooks were committed in v1.22.0 / v1.23.0 / v1.24.0 with
 the matching <code class="docutils literal notranslate"><span class="pre">examples/</span></code> data and pytest regressions.  This
 release just plumbs them into the Sphinx build so they show up
@@ -883,8 +943,8 @@ in the rendered docs.</p>
 of RTS-79).  Full-year PCM solves cleanly with each area's
 dispatch matching RTS-79 to the MW -- the canonical &quot;no
 inter-area binding&quot; pass/fail check on a multi-area network.</p>
-<section id="id3">
-<h3>Why<a class="headerlink" href="#id3" title="此标题的永久链接">¶</a></h3>
+<section id="id6">
+<h3>Why<a class="headerlink" href="#id6" title="此标题的永久链接">¶</a></h3>
 <p>RTS-79 (v1.23.0) validates single-area DC OPF + nodal LP
 correctness.  RTS-96 adds the multi-area dimension: 3 RTS-79
 copies connected by 5 inter-area tie lines from Table V of the
@@ -894,8 +954,8 @@ bind, and the system dispatch is exactly 3 x RTS-79.  Any
 deviation = the LP isn't treating the multi-area topology
 correctly.</p>
 </section>
-<section id="id4">
-<h3>Added<a class="headerlink" href="#id4" title="此标题的永久链接">¶</a></h3>
+<section id="id7">
+<h3>Added<a class="headerlink" href="#id7" title="此标题的永久链接">¶</a></h3>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">examples/rts96/</span></code> -- 73 buses (areas 1xx / 2xx / 3xx,
 with bus 325 as area-3's tie-only node), 96 generators,
@@ -926,8 +986,8 @@ carrier -- hydro 900, nuclear 2 400, coal 3 822, oil
 </li>
 </ul>
 </section>
-<section id="id5">
-<h3>Notes<a class="headerlink" href="#id5" title="此标题的永久链接">¶</a></h3>
+<section id="id8">
+<h3>Notes<a class="headerlink" href="#id8" title="此标题的永久链接">¶</a></h3>
 <p>The 5 inter-area ties stay unbound through the full year
 because each area can serve its own peak from its own gen.
 Validation still confirms the multi-area LP is wired
@@ -946,8 +1006,8 @@ unconstrained merit-order benchmark to within 1 MW per carrier;
 across the year nuclear and hydro run at ~100 % CF, coal cycles
 near 51 % CF, and oil peakers idle below 1 % CF -- the textbook
 thermal-dominated dispatch pattern.</p>
-<section id="id6">
-<h3>Why<a class="headerlink" href="#id6" title="此标题的永久链接">¶</a></h3>
+<section id="id9">
+<h3>Why<a class="headerlink" href="#id9" title="此标题的永久链接">¶</a></h3>
 <p>PJM 5-bus (v1.22.0) is the smallest possible LMP / DC-OPF check.
 RTS-79 is one tier up: 24 buses, 32 generators across nine plant
 types (oil, coal, nuclear, hydro), 38 transmission branches,
@@ -957,8 +1017,8 @@ energy can be computed by hand and the total cost at peak load
 matches a closed-form reference -- no MATLAB / MATPOWER
 required to produce the &quot;ground truth&quot;.</p>
 </section>
-<section id="id7">
-<h3>Added<a class="headerlink" href="#id7" title="此标题的永久链接">¶</a></h3>
+<section id="id10">
+<h3>Added<a class="headerlink" href="#id10" title="此标题的永久链接">¶</a></h3>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">examples/rts79/</span></code> -- full-year PCM scenario matching
 MATPOWER <code class="docutils literal notranslate"><span class="pre">case24_ieee_rts</span></code>.  Bus loads, generator capacities,
@@ -996,8 +1056,8 @@ merit-order to 1 MW.</p></li>
 </li>
 </ul>
 </section>
-<section id="id8">
-<h3>Notes<a class="headerlink" href="#id8" title="此标题的永久链接">¶</a></h3>
+<section id="id11">
+<h3>Notes<a class="headerlink" href="#id11" title="此标题的永久链接">¶</a></h3>
 <p>The MATPOWER cost data is quadratic (<code class="docutils literal notranslate"><span class="pre">cost</span> <span class="pre">=</span> <span class="pre">c2</span> <span class="pre">P^2</span> <span class="pre">+</span> <span class="pre">c1</span> <span class="pre">P</span> <span class="pre">+</span>
 <span class="pre">c0</span></code>); we take <code class="docutils literal notranslate"><span class="pre">c1</span></code> as the per-MWh dispatch cost and drop the
 quadratic / no-load terms (PREP-SHOT's <code class="docutils literal notranslate"><span class="pre">cost_var</span></code> is linear).
@@ -1018,8 +1078,8 @@ energy budgets to drive a real reservoir representation.</p>
 5-bus system (MATPOWER <code class="docutils literal notranslate"><span class="pre">case5</span></code>). PREP-SHOT now reproduces
 MATPOWER's <code class="docutils literal notranslate"><span class="pre">runopf</span></code> total cost to the dollar (<code class="docutils literal notranslate"><span class="pre">$17,479.89/h</span></code>)
 and per-tech dispatch to under 0.5 MW on a single-hour DC OPF.</p>
-<section id="id9">
-<h3>Why<a class="headerlink" href="#id9" title="此标题的永久链接">¶</a></h3>
+<section id="id12">
+<h3>Why<a class="headerlink" href="#id12" title="此标题的永久链接">¶</a></h3>
 <p>The other shipped examples (<code class="docutils literal notranslate"><span class="pre">three_zone</span></code>, <code class="docutils literal notranslate"><span class="pre">southeast_asia</span></code>,
 <code class="docutils literal notranslate"><span class="pre">thailand_pcm</span></code>) all validate against PREP-SHOT's own past
 results -- useful as regression catches but they don't anchor
@@ -1028,8 +1088,8 @@ the model against a published external reference. The PJM
 PJM training material; reproduced verbatim as MATPOWER's
 <code class="docutils literal notranslate"><span class="pre">case5</span></code>), with widely-cited reference dispatch and total cost.</p>
 </section>
-<section id="id10">
-<h3>Added<a class="headerlink" href="#id10" title="此标题的永久链接">¶</a></h3>
+<section id="id13">
+<h3>Added<a class="headerlink" href="#id13" title="此标题的永久链接">¶</a></h3>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">examples/pjm5/</span></code> -- single-hour, single-year scenario
 matching MATPOWER <code class="docutils literal notranslate"><span class="pre">case5</span></code>: 5 buses, 5 generators (Alta,
@@ -1070,8 +1130,8 @@ API entirely because Gurobi raises <code class="docutils literal notranslate"><s
 correctly.</p></li>
 </ul>
 </section>
-<section id="id11">
-<h3>Notes<a class="headerlink" href="#id11" title="此标题的永久链接">¶</a></h3>
+<section id="id14">
+<h3>Notes<a class="headerlink" href="#id14" title="此标题的永久链接">¶</a></h3>
 <p>The PJM 5-bus is small enough to run in 0.07 s end-to-end and
 its test class is included in <code class="docutils literal notranslate"><span class="pre">tests/</span></code> -- it runs as part of
 the standard suite. Future external benchmarks (Garver 6-bus
@@ -1088,8 +1148,8 @@ long-format Parquet sidecars instead of dense NetCDF -- the
 previous writer overflowed scipy's NetCDF3 32-bit <code class="docutils literal notranslate"><span class="pre">vsize</span></code> on
 full-year Thai PCM (the dense <code class="docutils literal notranslate"><span class="pre">trans_export</span></code> array would have
 been ~16 GB).</p>
-<section id="id12">
-<h3>Why<a class="headerlink" href="#id12" title="此标题的永久链接">¶</a></h3>
+<section id="id15">
+<h3>Why<a class="headerlink" href="#id15" title="此标题的永久链接">¶</a></h3>
 <p>Three independent needs that landed in the same release window:</p>
 <ol class="arabic simple">
 <li><p><strong>Load shedding</strong> -- on big nodal models, single PCM windows
@@ -1110,8 +1170,8 @@ full-year run the dense array pads NaN into ~2 B cells and
 blows up to ~16 GB.</p></li>
 </ol>
 </section>
-<section id="id13">
-<h3>Added<a class="headerlink" href="#id13" title="此标题的永久链接">¶</a></h3>
+<section id="id16">
+<h3>Added<a class="headerlink" href="#id16" title="此标题的永久链接">¶</a></h3>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">reliability_parameters</span></code> block in <code class="docutils literal notranslate"><span class="pre">config.json</span></code>:</p>
 <div class="highlight-gdscript notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;reliability_parameters&quot;</span><span class="p">:</span> <span class="p">{</span>
@@ -1153,8 +1213,8 @@ source) and clamps initial storage into <code class="docutils literal notranslat
 reservoir's V_min &gt; 0.5 * V_max.</p></li>
 </ul>
 </section>
-<section id="id14">
-<h3>Changed<a class="headerlink" href="#id14" title="此标题的永久链接">¶</a></h3>
+<section id="id17">
+<h3>Changed<a class="headerlink" href="#id17" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">prepshot/pcm.py:_save_pcm_netcdf</span></code> -- writes long-format
 <code class="docutils literal notranslate"><span class="pre">output/baseline_pcm/&lt;var&gt;.parquet</span></code> (zstd-compressed) plus
@@ -1192,8 +1252,8 @@ now iterates only the structurally meaningful subset (real
 212 techs, 1230 lines) <code class="docutils literal notranslate"><span class="pre">create_model</span></code> drops from <strong>~26 minutes
 per window</strong> to <strong>~0.55 s</strong> -- a ~3000x speedup for the LP-build
 step alone.</p>
-<section id="id15">
-<h3>Why<a class="headerlink" href="#id15" title="此标题的永久链接">¶</a></h3>
+<section id="id18">
+<h3>Why<a class="headerlink" href="#id18" title="此标题的永久链接">¶</a></h3>
 <p>Profiling on the Thai PCM (full-nodal, 472 zones, 212 techs,
 615 directed lines) showed three structurally wasteful patterns,
 all in the same shape:</p>
@@ -1214,8 +1274,8 @@ rule returns <code class="docutils literal notranslate"><span class="pre">None</
 but not the rule call), so most of the per-window time was pure
 Python iteration with no LP-side payoff.</p>
 </section>
-<section id="id16">
-<h3>Added<a class="headerlink" href="#id16" title="此标题的永久链接">¶</a></h3>
+<section id="id19">
+<h3>Added<a class="headerlink" href="#id19" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">prepshot.utils.sparse_tupledict(index_iter,</span> <span class="pre">rule)</span></code> -- like
 <code class="docutils literal notranslate"><span class="pre">poi.make_tupledict</span></code> but iterates an explicit list of keys
@@ -1237,8 +1297,8 @@ per-window time-indexed key lists <code class="docutils literal notranslate"><sp
 <code class="docutils literal notranslate"><span class="pre">model.active_yz1z2</span></code> from those sets.</p></li>
 </ul>
 </section>
-<section id="id17">
-<h3>Changed<a class="headerlink" href="#id17" title="此标题的永久链接">¶</a></h3>
+<section id="id20">
+<h3>Changed<a class="headerlink" href="#id20" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p>Sparse variable creation in <code class="docutils literal notranslate"><span class="pre">define_variables</span></code>: <code class="docutils literal notranslate"><span class="pre">gen</span></code>,
 <code class="docutils literal notranslate"><span class="pre">charge</span></code>, <code class="docutils literal notranslate"><span class="pre">storage</span></code>, <code class="docutils literal notranslate"><span class="pre">cap_newline</span></code>, <code class="docutils literal notranslate"><span class="pre">trans_export</span></code> now
@@ -1330,8 +1390,8 @@ configuration, M1 Max:</p>
 <p>three_zone full regression-test wall-clock: 145 s -&gt; 117 s.
 Objective drift: &lt; 0.04 % (within the 1e-2 tolerance).</p>
 </section>
-<section id="id18">
-<h3>Notes<a class="headerlink" href="#id18" title="此标题的永久链接">¶</a></h3>
+<section id="id21">
+<h3>Notes<a class="headerlink" href="#id21" title="此标题的永久链接">¶</a></h3>
 <p>The remaining theoretical lever is reusing the model object
 across rolling-horizon windows (<code class="docutils literal notranslate"><span class="pre">set_normalized_rhs</span></code> /
 <code class="docutils literal notranslate"><span class="pre">set_normalized_coefficient</span></code> for window-specific values
@@ -1345,8 +1405,8 @@ on the full year. Not in this release.</p>
 regression test passes reliably across Python 3.9 / 3.10 / 3.11 on
 GitHub Actions. The N-1 SCDC OPF feature itself is unchanged --
 just no longer enabled in the regression-test scenario.</p>
-<section id="id19">
-<h3>Why<a class="headerlink" href="#id19" title="此标题的永久链接">¶</a></h3>
+<section id="id22">
+<h3>Why<a class="headerlink" href="#id22" title="此标题的永久链接">¶</a></h3>
 <p>CI runner on Python 3.10 reported <code class="docutils literal notranslate"><span class="pre">solve_model</span> <span class="pre">returned</span> <span class="pre">False</span></code>
 after a 409-second solve. The 4 x larger N-1 LP plus continuous-UC
 + piecewise-heat-rate stack pushed HiGHS into a non-OPTIMAL
@@ -1355,8 +1415,8 @@ that wasn't reproducible on the local conda environment. Killing
 N-1 in the regression scenario shrinks the LP back to the v1.17
 size and HiGHS solves cleanly.</p>
 </section>
-<section id="id20">
-<h3>Changed<a class="headerlink" href="#id20" title="此标题的永久链接">¶</a></h3>
+<section id="id23">
+<h3>Changed<a class="headerlink" href="#id23" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">examples/three_zone/config.json</span></code>: <code class="docutils literal notranslate"><span class="pre">dc_parameters.is_n1_secure</span>
 <span class="pre">:</span> <span class="pre">true</span> <span class="pre">-&gt;</span> <span class="pre">false</span></code>.</p></li>
@@ -1370,8 +1430,8 @@ to <code class="docutils literal notranslate"><span class="pre">1.9007200040e11<
 +11 % N-1 premium that was in the v1.18/v1.19 baselines).</p></li>
 </ul>
 </section>
-<section id="id21">
-<h3>Notes<a class="headerlink" href="#id21" title="此标题的永久链接">¶</a></h3>
+<section id="id24">
+<h3>Notes<a class="headerlink" href="#id24" title="此标题的永久链接">¶</a></h3>
 <p>The N-1 feature still ships and still works -- enable it per
 scenario by flipping <code class="docutils literal notranslate"><span class="pre">is_n1_secure:</span> <span class="pre">true</span></code> in that scenario's
 <code class="docutils literal notranslate"><span class="pre">config.json</span></code>. <code class="docutils literal notranslate"><span class="pre">examples/southeast_asia</span></code> and
@@ -1394,8 +1454,8 @@ PCM-gap analysis. Real heat-rate curves below the design point
 abstracted into the v1.15 UC overlay's no-load + min-stable-load
 constraints; this commit handles the above-design &quot;increasing
 marginal heat rate&quot; half cleanly.</p>
-<section id="id22">
-<h3>Added<a class="headerlink" href="#id22" title="此标题的永久链接">¶</a></h3>
+<section id="id25">
+<h3>Added<a class="headerlink" href="#id25" title="此标题的永久链接">¶</a></h3>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">prepshot/_model/heat_rate.py</span></code> -- <code class="docutils literal notranslate"><span class="pre">AddHeatRateConstraints</span></code>
 class. Per <code class="docutils literal notranslate"><span class="pre">(h,</span> <span class="pre">m,</span> <span class="pre">y,</span> <span class="pre">z,</span> <span class="pre">te)</span></code> in the heat-rate set, three new
@@ -1477,8 +1537,8 @@ under each line outage listed in
 and <code class="docutils literal notranslate"><span class="pre">charge</span></code> are shared across base + contingencies, only flows
 redistribute). Closes Tier 1 item 1 (network fidelity) of the
 PCM-gap analysis.</p>
-<section id="id23">
-<h3>Added<a class="headerlink" href="#id23" title="此标题的永久链接">¶</a></h3>
+<section id="id26">
+<h3>Added<a class="headerlink" href="#id26" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">prepshot/_model/dc_flow.py</span></code> extended with four new rule
 methods and three new variable sets, all gated by
@@ -1537,8 +1597,8 @@ thermal limits as identical, which is conservative.</p></li>
 feasibility-side.</p></li>
 </ul>
 </section>
-<section id="id24">
-<h3>Changed<a class="headerlink" href="#id24" title="此标题的永久链接">¶</a></h3>
+<section id="id27">
+<h3>Changed<a class="headerlink" href="#id27" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">tests/test_regression.py</span></code> baseline re-captured for
 three_zone with N-1 enabled: <code class="docutils literal notranslate"><span class="pre">1.9009490431e11</span></code> -&gt;
@@ -1566,8 +1626,8 @@ the next window's hydro inflow expression, instead of dropping the
 term at boundaries (which made downstream stations infeasible
 whenever their <code class="docutils literal notranslate"><span class="pre">min_outflow</span></code> exceeded their incremental natural
 inflow).</p>
-<section id="id25">
-<h3>Added<a class="headerlink" href="#id25" title="此标题的永久链接">¶</a></h3>
+<section id="id28">
+<h3>Added<a class="headerlink" href="#id28" title="此标题的永久链接">¶</a></h3>
 <ul>
 <li><p>New <code class="docutils literal notranslate"><span class="pre">params['prior_outflow']</span></code> lookup, dict-keyed by <code class="docutils literal notranslate"><span class="pre">(station,</span>
 <span class="pre">hour,</span> <span class="pre">month,</span> <span class="pre">year)</span> <span class="pre">-&gt;</span> <span class="pre">m**3/s</span></code>. Populated by
@@ -1590,8 +1650,8 @@ the v1.14.1 fallback, accurate only for the very first window.</p></li>
 </li>
 </ul>
 </section>
-<section id="id26">
-<h3>Changed<a class="headerlink" href="#id26" title="此标题的永久链接">¶</a></h3>
+<section id="id29">
+<h3>Changed<a class="headerlink" href="#id29" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p>Default reserve eligibility for <strong>hydro</strong> carriers: now eligible
 for <code class="docutils literal notranslate"><span class="pre">non_spinning</span></code> (in addition to the existing
@@ -1606,8 +1666,8 @@ presolve infeasibility under PCM mode.</p></li>
 non_spinning eligibility tweak. Drift is sub-percent.</p></li>
 </ul>
 </section>
-<section id="id27">
-<h3>Verified<a class="headerlink" href="#id27" title="此标题的永久链接">¶</a></h3>
+<section id="id30">
+<h3>Verified<a class="headerlink" href="#id30" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p>PCM single-window with full feature stack (UC continuous-relax +
 4-product reserves + DC flow + per-station hydro):
@@ -1724,8 +1784,8 @@ spinning 30 %, non_spinning 50 %. So the total reserve commitment
 stays the same as v1.15 -- this commit is a generalisation of
 structure, not a tightening of policy.</p>
 </section>
-<section id="id28">
-<h3>Regression<a class="headerlink" href="#id28" title="此标题的永久链接">¶</a></h3>
+<section id="id31">
+<h3>Regression<a class="headerlink" href="#id31" title="此标题的永久链接">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">three_zone</span></code> <code class="docutils literal notranslate"><span class="pre">EXPECTED_OBJECTIVE</span></code> 1.9070270274e11 -&gt;
 1.9070043702e11 (~0.001 % drift -- numerically identical at this
 tolerance, since total reserve is unchanged).</p>
@@ -1743,8 +1803,8 @@ each hour, with realistic minimum up/down times and startup costs.</p>
 <p>This is the <strong>Phase B</strong> milestone of the PCM-fidelity roadmap (after
 v1.13 DC flow and v1.14 PCM mode). With UC enabled, PREP-SHOT
 becomes a <strong>MILP</strong> (HiGHS handles it; runtime grows several-fold).</p>
-<section id="id29">
-<h3>Added<a class="headerlink" href="#id29" title="此标题的永久链接">¶</a></h3>
+<section id="id32">
+<h3>Added<a class="headerlink" href="#id32" title="此标题的永久链接">¶</a></h3>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">prepshot/_model/unit_commitment.py</span></code> -- <code class="docutils literal notranslate"><span class="pre">AddUnitCommitment</span>
 <span class="pre">Constraints</span></code> class with three new decision variables per
@@ -1814,8 +1874,8 @@ Missing block -&gt; defaults off, pre-1.15 <code class="docutils literal notrans
 byte-compatible.</p></li>
 </ul>
 </section>
-<section id="id30">
-<h3>Changed<a class="headerlink" href="#id30" title="此标题的永久链接">¶</a></h3>
+<section id="id33">
+<h3>Changed<a class="headerlink" href="#id33" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">tests/test_regression.py</span></code> <code class="docutils literal notranslate"><span class="pre">EXPECTED_OBJECTIVE</span></code> re-baselined
 for <code class="docutils literal notranslate"><span class="pre">three_zone</span></code> with UC enabled. UC adds startup + no-load
@@ -1844,8 +1904,8 @@ non-cyclic hydro mode and battery SOC carryover. Multi-window
 rolling now solves on scenarios without binding min-outflow on
 cascaded hydro -- the cross-window cascade-state issue moves to
 v1.15+.</p>
-<section id="id31">
-<h3>Added<a class="headerlink" href="#id31" title="此标题的永久链接">¶</a></h3>
+<section id="id34">
+<h3>Added<a class="headerlink" href="#id34" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p>New <code class="docutils literal notranslate"><span class="pre">cyclic_hydro</span></code> param flag (default <code class="docutils literal notranslate"><span class="pre">True</span></code> for CEM
 compatibility). When <code class="docutils literal notranslate"><span class="pre">False</span></code> (set automatically by
@@ -1863,8 +1923,8 @@ pass into the next window's params. Storage techs with zero
 capacity are skipped (the next window's lookup defaults to 0).</p></li>
 </ul>
 </section>
-<section id="id32">
-<h3>Known limitations<a class="headerlink" href="#id32" title="此标题的永久链接">¶</a></h3>
+<section id="id35">
+<h3>Known limitations<a class="headerlink" href="#id35" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p><strong>Cascading hydro across windows</strong>: at window boundaries,
 downstream stations see only their natural (incremental) inflow
@@ -1894,8 +1954,8 @@ B = unit commitment overlay, Phase C = DC flow which already landed
 in v1.13). It's shipped as <strong>alpha</strong> -- single-window mode works
 end-to-end; multi-window rolling has a known cyclic-wrap interaction
 documented in the module docstring and tracked for v1.14.1.</p>
-<section id="id33">
-<h3>Added<a class="headerlink" href="#id33" title="此标题的永久链接">¶</a></h3>
+<section id="id36">
+<h3>Added<a class="headerlink" href="#id36" title="此标题的永久链接">¶</a></h3>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">prepshot/pcm.py</span></code> -- new module + CLI entry point:</p>
 <div class="highlight-gdscript notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">prepshot</span><span class="o">.</span><span class="n">pcm</span> <span class="o">&lt;</span><span class="n">scenario_dir</span><span class="o">&gt;</span> <span class="o">--</span><span class="n">year</span> <span class="mi">2025</span> \
@@ -1916,8 +1976,8 @@ equality is dropped so PCM windows can have free terminal SOC
 <code class="docutils literal notranslate"><span class="pre">weight</span></code> for shorter time slices.</p></li>
 </ul>
 </section>
-<section id="id34">
-<h3>Changed<a class="headerlink" href="#id34" title="此标题的永久链接">¶</a></h3>
+<section id="id37">
+<h3>Changed<a class="headerlink" href="#id37" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">model.hour_p</span></code> now derives from <code class="docutils literal notranslate"><span class="pre">hour[0]</span></code> (<code class="docutils literal notranslate"><span class="pre">[hour[0]</span> <span class="pre">-</span> <span class="pre">1]</span> <span class="pre">+</span>
 <span class="pre">hour</span></code>) instead of being hardcoded to <code class="docutils literal notranslate"><span class="pre">[0]</span> <span class="pre">+</span> <span class="pre">hour</span></code>. CEM behaviour
@@ -1961,8 +2021,8 @@ transmission. Layered on top of the existing transport-model
 <code class="docutils literal notranslate"><span class="pre">trans_export</span></code> variables -- the LP capacity bound stays in place;
 DC flow adds Kirchhoff's voltage law via phase-angle differences.
 First step toward production-cost-model fidelity.</p>
-<section id="id35">
-<h3>Added<a class="headerlink" href="#id35" title="此标题的永久链接">¶</a></h3>
+<section id="id38">
+<h3>Added<a class="headerlink" href="#id38" title="此标题的永久链接">¶</a></h3>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">prepshot/_model/dc_flow.py</span></code> -- <code class="docutils literal notranslate"><span class="pre">AddDCFlowConstraints</span></code> class.</p>
 <ul>
@@ -2008,8 +2068,8 @@ constrain).</p></li>
 <code class="docutils literal notranslate"><span class="pre">config.json</span></code> files are byte-compatible).</p></li>
 </ul>
 </section>
-<section id="id36">
-<h3>Changed<a class="headerlink" href="#id36" title="此标题的永久链接">¶</a></h3>
+<section id="id39">
+<h3>Changed<a class="headerlink" href="#id39" title="此标题的永久链接">¶</a></h3>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">tests/test_regression.py</span></code>: <code class="docutils literal notranslate"><span class="pre">EXPECTED_OBJECTIVE</span></code> for the
 <code class="docutils literal notranslate"><span class="pre">three_zone</span></code> regression bumped to <code class="docutils literal notranslate"><span class="pre">1.8967979487e11</span></code>. Drift
@@ -2038,8 +2098,8 @@ non-eligible techs (typically solar / wind / storage discharge) are
 forced to zero in both directions. The relaxation matches GenX's
 &quot;no-UC&quot; mode and is acceptable for capacity-expansion planning, not
 for sub-hourly dispatch studies.</p>
-<section id="id37">
-<h3>Added<a class="headerlink" href="#id37" title="此标题的永久链接">¶</a></h3>
+<section id="id40">
+<h3>Added<a class="headerlink" href="#id40" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">prepshot/_model/reserve.py</span></code> -- new constraint class
 <code class="docutils literal notranslate"><span class="pre">AddReserveConstraints</span></code> with four rules per timestep:</p>
@@ -2084,8 +2144,8 @@ minutes -- too slow for an example dataset. The CSVs are still
 shipped so flipping the flag works out of the box.</p></li>
 </ul>
 </section>
-<section id="id38">
-<h3>Changed<a class="headerlink" href="#id38" title="此标题的永久链接">¶</a></h3>
+<section id="id41">
+<h3>Changed<a class="headerlink" href="#id41" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">tests/test_regression.py</span></code>: <code class="docutils literal notranslate"><span class="pre">EXPECTED_OBJECTIVE</span></code> for the
 <code class="docutils literal notranslate"><span class="pre">three_zone</span></code> regression bumped from <code class="docutils literal notranslate"><span class="pre">1.8793771299e11</span></code> (v1.1.1
@@ -2117,8 +2177,8 @@ operating point for these reservoirs.</p></li>
 at <a class="reference external" href="https://prep-shot.readthedocs.io/">https://prep-shot.readthedocs.io/</a>, with a Chinese (<code class="docutils literal notranslate"><span class="pre">zh_CN</span></code>)
 translation in flight. Also drops the offline-PDF build (the
 canonical docs are HTML only).</p>
-<section id="id39">
-<h3>Added<a class="headerlink" href="#id39" title="此标题的永久链接">¶</a></h3>
+<section id="id42">
+<h3>Added<a class="headerlink" href="#id42" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">.readthedocs.yaml</span></code> -- the build config RTD requires. ubuntu-22.04
 + python 3.11, pandoc apt package (for nbsphinx), and
@@ -2137,8 +2197,8 @@ and the six how-to recipes (~447 strings total).</p></li>
 with the extract / update / translate / build workflow.</p></li>
 </ul>
 </section>
-<section id="id40">
-<h3>Changed<a class="headerlink" href="#id40" title="此标题的永久链接">¶</a></h3>
+<section id="id43">
+<h3>Changed<a class="headerlink" href="#id43" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p>All &quot;Official Documentation&quot; / &quot;Tutorial Page&quot; links in the README,
 <code class="docutils literal notranslate"><span class="pre">index.rst</span></code>, and <code class="docutils literal notranslate"><span class="pre">Installation.rst</span></code> repointed from the
@@ -2161,8 +2221,8 @@ reading is now via the htmlzip download from RTD.</p></li>
 entry.</p></li>
 </ul>
 </section>
-<section id="id41">
-<h3>Notes<a class="headerlink" href="#id41" title="此标题的永久链接">¶</a></h3>
+<section id="id44">
+<h3>Notes<a class="headerlink" href="#id44" title="此标题的永久链接">¶</a></h3>
 <p>This is the <strong>first release with ``.readthedocs.yaml`` shipped</strong>.
 Earlier tags (<code class="docutils literal notranslate"><span class="pre">v1.11.0</span></code> and below) cannot build on RTD because
 RTD now requires the YAML at the project root. Activate <code class="docutils literal notranslate"><span class="pre">latest</span></code>
@@ -2175,8 +2235,8 @@ tarballs.</p>
 <h2>Version 1.11.0 - May 5, 2026<a class="headerlink" href="#version-1-11-0-may-5-2026" title="此标题的永久链接">¶</a></h2>
 <p>Documentation polish: better navigation, more reference content, no
 new features.</p>
-<section id="id42">
-<h3>Added<a class="headerlink" href="#id42" title="此标题的永久链接">¶</a></h3>
+<section id="id45">
+<h3>Added<a class="headerlink" href="#id45" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">doc/source/Glossary.rst</span></code> -- a reference for the energy-modeling,
 hydropower, and optimization terminology used throughout the docs
@@ -2211,8 +2271,8 @@ extension.</p></li>
 (Get started / Install / How-to / Inputs / GitHub).</p></li>
 </ul>
 </section>
-<section id="id43">
-<h3>Changed<a class="headerlink" href="#id43" title="此标题的永久链接">¶</a></h3>
+<section id="id46">
+<h3>Changed<a class="headerlink" href="#id46" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p>The sidebar is now grouped into four sections via separate
 <code class="docutils literal notranslate"><span class="pre">toctree</span></code> directives: <strong>Getting Started</strong> (Installation,
@@ -2225,8 +2285,8 @@ References). Replaces the previous flat 10-page list.</p></li>
 previously a separate Tutorial page.</p></li>
 </ul>
 </section>
-<section id="id44">
-<h3>Removed<a class="headerlink" href="#id44" title="此标题的永久链接">¶</a></h3>
+<section id="id47">
+<h3>Removed<a class="headerlink" href="#id47" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">doc/source/Tutorial.rst</span></code> -- a 47-line page that only contained
 scenario context and a redirect to Quickstart. Its content moved
@@ -2245,8 +2305,8 @@ sections from <code class="docutils literal notranslate"><span class="pre">Insta
 under <code class="docutils literal notranslate"><span class="pre">examples/</span></code> with its own <code class="docutils literal notranslate"><span class="pre">config.json</span></code> + <code class="docutils literal notranslate"><span class="pre">params.json</span></code> +
 <code class="docutils literal notranslate"><span class="pre">input/</span></code>. There is no longer a &quot;default&quot; scenario at the repo
 root -- users explicitly pick one with <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">examples/&lt;scenario&gt;</span></code>.</p>
-<section id="id45">
-<h3>Added<a class="headerlink" href="#id45" title="此标题的永久链接">¶</a></h3>
+<section id="id48">
+<h3>Added<a class="headerlink" href="#id48" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">examples/thailand/</span></code> -- the legacy <code class="docutils literal notranslate"><span class="pre">single_node_with_hydro/</span></code>
 dataset migrated from v1.4 wide-format Excel to the v1.9 long-CSV
@@ -2262,8 +2322,8 @@ the regression test) now self-contained.</p></li>
 self-contained, with its own dataset directory.</p></li>
 </ul>
 </section>
-<section id="id46">
-<h3>Changed<a class="headerlink" href="#id46" title="此标题的永久链接">¶</a></h3>
+<section id="id49">
+<h3>Changed<a class="headerlink" href="#id49" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">run.py</span></code> now takes an optional positional scenario-directory
 argument (defaults to <code class="docutils literal notranslate"><span class="pre">cwd</span></code>). Without args, expects to be run
@@ -2277,8 +2337,8 @@ on first run rather than tracked in git.</p></li>
 (consistent geography-based naming with <code class="docutils literal notranslate"><span class="pre">southeast_asia/</span></code>).</p></li>
 </ul>
 </section>
-<section id="id47">
-<h3>Removed<a class="headerlink" href="#id47" title="此标题的永久链接">¶</a></h3>
+<section id="id50">
+<h3>Removed<a class="headerlink" href="#id50" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p>Repo-root <code class="docutils literal notranslate"><span class="pre">config.json</span></code> and <code class="docutils literal notranslate"><span class="pre">params.json</span></code> (no default scenario).</p></li>
 <li><p>Repo-root <code class="docutils literal notranslate"><span class="pre">log/</span></code> and <code class="docutils literal notranslate"><span class="pre">output/</span></code> directories (now ignored as
@@ -2293,8 +2353,8 @@ one-off scripts).</p></li>
 </section>
 <section id="version-1-9-1-may-3-2026">
 <h2>Version 1.9.1 - May 3, 2026<a class="headerlink" href="#version-1-9-1-may-3-2026" title="此标题的永久链接">¶</a></h2>
-<section id="id48">
-<h3>Added<a class="headerlink" href="#id48" title="此标题的永久链接">¶</a></h3>
+<section id="id51">
+<h3>Added<a class="headerlink" href="#id51" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p>New output variable <code class="docutils literal notranslate"><span class="pre">shadow_price_demand</span></code> -- the dual of the
 nodal power-balance constraint, exposing the locational marginal
@@ -2310,8 +2370,8 @@ values (<code class="docutils literal notranslate"><span class="pre">model.get_v
 (<code class="docutils literal notranslate"><span class="pre">model.get_constraint_dual</span></code>) out of a tupledict.</p></li>
 </ul>
 </section>
-<section id="id49">
-<h3>Notes<a class="headerlink" href="#id49" title="此标题的永久链接">¶</a></h3>
+<section id="id52">
+<h3>Notes<a class="headerlink" href="#id52" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p>The shadow-price extraction is wrapped in a try/except: if the
 solver does not return duals (e.g. for a MIP solve, or after an
@@ -2329,8 +2389,8 @@ module&quot;) and adapted to the v1.8.x long-format / per-zone /
 <code class="docutils literal notranslate"><span class="pre">max</span></code>-naming conventions. The feature is OFF by default; the
 regression objective is unchanged at <code class="docutils literal notranslate"><span class="pre">1.880e+11</span></code> for the canonical
 <code class="docutils literal notranslate"><span class="pre">input/</span></code> dataset.</p>
-<section id="id50">
-<h3>Added<a class="headerlink" href="#id50" title="此标题的永久链接">¶</a></h3>
+<section id="id53">
+<h3>Added<a class="headerlink" href="#id53" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">prepshot/_model/finance.py</span></code> with <code class="docutils literal notranslate"><span class="pre">AddFinanceConstraints</span></code>:</p>
 <ul>
@@ -2356,8 +2416,8 @@ of capital from public-debt / private-debt / equity tranches.</p></li>
 <code class="docutils literal notranslate"><span class="pre">finance_public_debt_max_zone.csv</span></code> (per-zone, per-year).</p></li>
 </ul>
 </section>
-<section id="id51">
-<h3>Changed<a class="headerlink" href="#id51" title="此标题的永久链接">¶</a></h3>
+<section id="id54">
+<h3>Changed<a class="headerlink" href="#id54" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">prepshot/load_data.py::compute_cost_factors</span></code> -- when finance
 inputs are present, <code class="docutils literal notranslate"><span class="pre">inv_factor[tech,</span> <span class="pre">year,</span> <span class="pre">zone]</span></code> discounts
@@ -2373,8 +2433,8 @@ variables, constraints, or output variables.</p></li>
 <code class="docutils literal notranslate"><span class="pre">public_debt_newtech</span></code> only when finance is enabled.</p></li>
 </ul>
 </section>
-<section id="id52">
-<h3>Notes<a class="headerlink" href="#id52" title="此标题的永久链接">¶</a></h3>
+<section id="id55">
+<h3>Notes<a class="headerlink" href="#id55" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p>The dev-branch commit used wide-Excel inputs and <code class="docutils literal notranslate"><span class="pre">np.Inf</span></code>;
 this backport uses long-format CSV, <code class="docutils literal notranslate"><span class="pre">np.inf</span></code>, and the
@@ -2389,8 +2449,8 @@ conventions elsewhere in the model.</p></li>
 </section>
 <section id="version-1-8-1-may-3-2026">
 <h2>Version 1.8.1 - May 3, 2026<a class="headerlink" href="#version-1-8-1-may-3-2026" title="此标题的永久链接">¶</a></h2>
-<section id="id53">
-<h3>Fixed<a class="headerlink" href="#id53" title="此标题的永久链接">¶</a></h3>
+<section id="id56">
+<h3>Fixed<a class="headerlink" href="#id56" title="此标题的永久链接">¶</a></h3>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">prepshot/_model/investment.py</span></code>: retirement check now looks up
 <code class="docutils literal notranslate"><span class="pre">lifetime</span></code> at the commissioning year, not the current modeled
@@ -2427,8 +2487,8 @@ both plants and transmission lines.</p>
 <p>The regression test confirms the model objective is unchanged at
 <code class="docutils literal notranslate"><span class="pre">1.880e+11</span></code> for the canonical <code class="docutils literal notranslate"><span class="pre">input/</span></code> dataset across all
 intermediate refactors.</p>
-<section id="id54">
-<h3>Added<a class="headerlink" href="#id54" title="此标题的永久链接">¶</a></h3>
+<section id="id57">
+<h3>Added<a class="headerlink" href="#id57" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">input/tech_registry.csv</span></code> (was <code class="docutils literal notranslate"><span class="pre">technologies.csv</span></code>) -- per-tech
 registry with columns <code class="docutils literal notranslate"><span class="pre">tech</span></code>, <code class="docutils literal notranslate"><span class="pre">name</span></code>, <code class="docutils literal notranslate"><span class="pre">carrier</span></code>, <code class="docutils literal notranslate"><span class="pre">is_storage</span></code>.
@@ -2451,8 +2511,8 @@ comma-separated <code class="docutils literal notranslate"><span class="pre">zon
 caps without per-zone duplication.</p></li>
 </ul>
 </section>
-<section id="id55">
-<h3>Removed<a class="headerlink" href="#id55" title="此标题的永久链接">¶</a></h3>
+<section id="id58">
+<h3>Removed<a class="headerlink" href="#id58" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">prepshot/_model/nondispatchable.py</span></code> -- subsumed by the unified
 <code class="docutils literal notranslate"><span class="pre">gen_up_bound_rule</span></code> / <code class="docutils literal notranslate"><span class="pre">gen_low_bound_rule</span></code> in
@@ -2462,8 +2522,8 @@ caps without per-zone duplication.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">capacity_factor.csv</span></code> -- replaced by <code class="docutils literal notranslate"><span class="pre">tech_max_gen_profile.csv</span></code>.</p></li>
 </ul>
 </section>
-<section id="id56">
-<h3>Changed<a class="headerlink" href="#id56" title="此标题的永久链接">¶</a></h3>
+<section id="id59">
+<h3>Changed<a class="headerlink" href="#id59" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p><strong>Naming sweep:</strong> all <code class="docutils literal notranslate"><span class="pre">upper_bound</span></code> / <code class="docutils literal notranslate"><span class="pre">lower_bound</span></code> files,
 param keys, and DataFrame columns renamed to <code class="docutils literal notranslate"><span class="pre">max</span></code> / <code class="docutils literal notranslate"><span class="pre">min</span></code>:</p>
@@ -2509,8 +2569,8 @@ existing-fleet representation is reshaped from an awkward
 <code class="docutils literal notranslate"><span class="pre">(tech,</span> <span class="pre">zone,</span> <span class="pre">commission_year)</span></code> &quot;existing fleet&quot; table, and the
 single-purpose <code class="docutils literal notranslate"><span class="pre">technology_type</span></code> file is renamed to <code class="docutils literal notranslate"><span class="pre">technologies</span></code>
 so it can grow into a per-tech registry.</p>
-<section id="id57">
-<h3>Added<a class="headerlink" href="#id57" title="此标题的永久链接">¶</a></h3>
+<section id="id60">
+<h3>Added<a class="headerlink" href="#id60" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">input/existing_fleet.csv</span></code> and <code class="docutils literal notranslate"><span class="pre">southeast_asia/existing_fleet.csv</span></code>
 -- one row per existing-capacity block (tech, zone, commission year,
@@ -2521,8 +2581,8 @@ registry (e.g. <code class="docutils literal notranslate"><span class="pre">desc
 alongside the v1.8.0 API work.</p></li>
 </ul>
 </section>
-<section id="id58">
-<h3>Removed<a class="headerlink" href="#id58" title="此标题的永久链接">¶</a></h3>
+<section id="id61">
+<h3>Removed<a class="headerlink" href="#id61" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">historical_capacity.csv</span></code> -- replaced by <code class="docutils literal notranslate"><span class="pre">existing_fleet.csv</span></code>.
 The <code class="docutils literal notranslate"><span class="pre">age</span></code> dimension is gone; capacity blocks now record an
@@ -2535,8 +2595,8 @@ shipped data). Dead code; deleted.</p></li>
 Added).</p></li>
 </ul>
 </section>
-<section id="id59">
-<h3>Changed<a class="headerlink" href="#id59" title="此标题的永久链接">¶</a></h3>
+<section id="id62">
+<h3>Changed<a class="headerlink" href="#id62" title="此标题的永久链接">¶</a></h3>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">prepshot/_model/investment.py::tech_lifetime_rule</span></code> rewritten:</p>
 <ul class="simple">
@@ -2564,16 +2624,16 @@ from <code class="docutils literal notranslate"><span class="pre">technologies</
 <p>Cleanup release. The wide-Excel reading machinery is removed, the
 migration tool is rewritten to work under pandas &gt;= 2.0, and the
 <code class="docutils literal notranslate"><span class="pre">pandas&lt;2.0</span></code> / <code class="docutils literal notranslate"><span class="pre">numpy&lt;2.0</span></code> caps from v1.3.1 are lifted.</p>
-<section id="id60">
-<h3>Removed<a class="headerlink" href="#id60" title="此标题的永久链接">¶</a></h3>
+<section id="id63">
+<h3>Removed<a class="headerlink" href="#id63" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">prepshot.load_data.read_excel</span></code> -- deleted. Nothing in the runtime
 path used it after v1.5.0; the migration tool now has its own
 <code class="docutils literal notranslate"><span class="pre">pd.read_excel</span></code> call.</p></li>
 </ul>
 </section>
-<section id="id61">
-<h3>Changed<a class="headerlink" href="#id61" title="此标题的永久链接">¶</a></h3>
+<section id="id64">
+<h3>Changed<a class="headerlink" href="#id64" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">tools/migrate_to_long.py</span></code> rewritten to be self-contained:</p>
 <ul>
@@ -2601,8 +2661,8 @@ test suite passes (22 tests, end-to-end regression objective
 unchanged at 1.879e+11).</p></li>
 </ul>
 </section>
-<section id="id62">
-<h3>Fixed<a class="headerlink" href="#id62" title="此标题的永久链接">¶</a></h3>
+<section id="id65">
+<h3>Fixed<a class="headerlink" href="#id65" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">np.Inf</span></code> references in <code class="docutils literal notranslate"><span class="pre">prepshot/_model/investment.py</span></code> and
 <code class="docutils literal notranslate"><span class="pre">prepshot/_model/co2.py</span></code> replaced with <code class="docutils literal notranslate"><span class="pre">np.inf</span></code> (<code class="docutils literal notranslate"><span class="pre">np.Inf</span></code>
@@ -2626,8 +2686,8 @@ v1.4.x -&gt; v1.5.0 migration tool is on the v1.6.0 roadmap).</p>
 <code class="docutils literal notranslate"><span class="pre">read_excel</span></code> (used by the migration tool) calls <code class="docutils literal notranslate"><span class="pre">unstack</span></code>. Once the
 migration tool no longer needs <code class="docutils literal notranslate"><span class="pre">read_excel</span></code> (v1.6.0), the cap will
 be lifted.</p>
-<section id="id63">
-<h3>Added<a class="headerlink" href="#id63" title="此标题的永久链接">¶</a></h3>
+<section id="id66">
+<h3>Added<a class="headerlink" href="#id66" title="此标题的永久链接">¶</a></h3>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">tools/migrate_to_long.py</span></code> -- runnable migration script that
 converts a directory of wide-format Excel inputs to long-format CSVs
@@ -2785,8 +2845,8 @@ which historically required migrating every existing input directory.</p>
 Switch, and PyPSA -- researchers familiar with those tools will find
 the convention intuitive.</p>
 </section>
-<section id="id64">
-<h3>Added<a class="headerlink" href="#id64" title="此标题的永久链接">¶</a></h3>
+<section id="id67">
+<h3>Added<a class="headerlink" href="#id67" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">prepshot/load_data.py::read_long_csv</span></code> -- new reader for tidy CSVs.
 Convention: dimension columns first, value column last. Output dict
@@ -2803,8 +2863,8 @@ and 3-dim CSV reading; NaN-row dropping; format dispatch in
 <code class="docutils literal notranslate"><span class="pre">load_excel_data</span></code>; and the optional-input fallback for long-format.</p></li>
 </ul>
 </section>
-<section id="id65">
-<h3>Changed<a class="headerlink" href="#id65" title="此标题的永久链接">¶</a></h3>
+<section id="id68">
+<h3>Changed<a class="headerlink" href="#id68" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">carbon_tax</span></code> migrated from wide-Excel to long-CSV as the working
 demonstration of the new format. <code class="docutils literal notranslate"><span class="pre">input/carbon_tax.csv</span></code> and
@@ -2813,8 +2873,8 @@ demonstration of the new format. <code class="docutils literal notranslate"><spa
 -- the regression test passes unchanged at <code class="docutils literal notranslate"><span class="pre">1.879e+11</span></code> objective.</p></li>
 </ul>
 </section>
-<section id="id66">
-<h3>Migration notes<a class="headerlink" href="#id66" title="此标题的永久链接">¶</a></h3>
+<section id="id69">
+<h3>Migration notes<a class="headerlink" href="#id69" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p>No action needed for existing input directories that are not based
 on the canonical <code class="docutils literal notranslate"><span class="pre">input/</span></code> -- their wide-format files keep working.</p></li>
@@ -2830,8 +2890,8 @@ long-format.</p></li>
 <h2>Version 1.3.2 - May 2, 2026<a class="headerlink" href="#version-1-3-2-may-2-2026" title="此标题的永久链接">¶</a></h2>
 <p>Continuous-integration release. The full unit-test suite now runs
 automatically on every push and pull request via GitHub Actions.</p>
-<section id="id67">
-<h3>Added<a class="headerlink" href="#id67" title="此标题的永久链接">¶</a></h3>
+<section id="id70">
+<h3>Added<a class="headerlink" href="#id70" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">.github/workflows/test.yml</span></code>: matrix-tests on Python 3.9 / 3.10 /
 3.11. Runs the fast unit tests (schema, optional inputs, utils) on
@@ -2848,8 +2908,8 @@ model's optimal objective on the canonical <code class="docutils literal notrans
 <p>Security / dependency hygiene release. Bumps declared dependency floors
 to clear known CVEs in the previously pinned old releases (the
 v0.1.x-era pins were 2-4 years old).</p>
-<section id="id68">
-<h3>Changed<a class="headerlink" href="#id68" title="此标题的永久链接">¶</a></h3>
+<section id="id71">
+<h3>Changed<a class="headerlink" href="#id71" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> and <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> floors raised to:</p>
 <ul>
@@ -2876,8 +2936,8 @@ openpyxl 3.1.5, xlsxwriter 3.2.9, pyoptinterface 0.2.5,
 highsbox 1.7.0. Full test suite (13 tests) passes.</p></li>
 </ul>
 </section>
-<section id="id69">
-<h3>Migration notes<a class="headerlink" href="#id69" title="此标题的永久链接">¶</a></h3>
+<section id="id72">
+<h3>Migration notes<a class="headerlink" href="#id72" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p>Existing environments should run <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-U</span> <span class="pre">-r</span> <span class="pre">requirements.txt</span></code>
 (or <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.</span></code> if you use the editable install) to pick up
@@ -2891,8 +2951,8 @@ the bumped dependency versions.</p></li>
 <code class="docutils literal notranslate"><span class="pre">&quot;required&quot;:</span> <span class="pre">false</span></code> in <code class="docutils literal notranslate"><span class="pre">params.json</span></code> no longer force every existing
 input directory to provide a matching Excel file -- a sensible default
 is used when the file is absent.</p>
-<section id="id70">
-<h3>Added<a class="headerlink" href="#id70" title="此标题的永久链接">¶</a></h3>
+<section id="id73">
+<h3>Added<a class="headerlink" href="#id73" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">params.json</span></code> entries support two new keys:</p>
 <ul>
@@ -2909,8 +2969,8 @@ optional-missing-uses-scalar-default, and optional-missing-no-default
 (empty dict).</p></li>
 </ul>
 </section>
-<section id="id71">
-<h3>Changed<a class="headerlink" href="#id71" title="此标题的永久链接">¶</a></h3>
+<section id="id74">
+<h3>Changed<a class="headerlink" href="#id74" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p>The four carbon-market / technology_lower_bound entries in
 <code class="docutils literal notranslate"><span class="pre">params.json</span></code> are now marked <code class="docutils literal notranslate"><span class="pre">&quot;required&quot;:</span> <span class="pre">false,</span> <span class="pre">&quot;default&quot;:</span> <span class="pre">0</span></code>,
@@ -2927,8 +2987,8 @@ Python library&quot; section that shows both the high-level
 for downstream code that imports PREP-SHOT programmatically.</p></li>
 </ul>
 </section>
-<section id="id72">
-<h3>Removed<a class="headerlink" href="#id72" title="此标题的永久链接">¶</a></h3>
+<section id="id75">
+<h3>Removed<a class="headerlink" href="#id75" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">tests/test_prepshot.py</span></code> -- removed. It exercised the legacy
 <code class="docutils literal notranslate"><span class="pre">load_data</span></code>, <code class="docutils literal notranslate"><span class="pre">read_four_dims</span></code>, <code class="docutils literal notranslate"><span class="pre">read_three_dims</span></code> etc. APIs
@@ -2940,8 +3000,8 @@ The test file had been a silent import error since then.</p></li>
 <section id="version-1-2-0-may-2-2026">
 <h2>Version 1.2.0 - May 2, 2026<a class="headerlink" href="#version-1-2-0-may-2-2026" title="此标题的永久链接">¶</a></h2>
 <p>PREP-SHOT is now installable as a Python package.</p>
-<section id="id73">
-<h3>Added<a class="headerlink" href="#id73" title="此标题的永久链接">¶</a></h3>
+<section id="id76">
+<h3>Added<a class="headerlink" href="#id76" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> at the repo root, declaring <code class="docutils literal notranslate"><span class="pre">prepshot</span></code> as an
 installable package with pinned-but-flexible dependency floors. Allows
@@ -2954,8 +3014,8 @@ once published to PyPI.</p></li>
 <code class="docutils literal notranslate"><span class="pre">[project.scripts]</span></code>).</p></li>
 </ul>
 </section>
-<section id="id74">
-<h3>Changed<a class="headerlink" href="#id74" title="此标题的永久链接">¶</a></h3>
+<section id="id77">
+<h3>Changed<a class="headerlink" href="#id77" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">run.py</span></code> is now a thin backward-compatible shim that delegates to
 <code class="docutils literal notranslate"><span class="pre">prepshot.cli.main</span></code>. It preserves the legacy file-relative path
@@ -2963,8 +3023,8 @@ behavior (<code class="docutils literal notranslate"><span class="pre">config.js
 existing <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">run.py</span></code> workflows continue to work unchanged.</p></li>
 </ul>
 </section>
-<section id="id75">
-<h3>Migration notes<a class="headerlink" href="#id75" title="此标题的永久链接">¶</a></h3>
+<section id="id78">
+<h3>Migration notes<a class="headerlink" href="#id78" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p>New: <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.</span></code> from the repo root, then run <code class="docutils literal notranslate"><span class="pre">prepshot</span></code>
 (or <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">prepshot</span></code>) from any directory containing
@@ -2975,8 +3035,8 @@ existing <code class="docutils literal notranslate"><span class="pre">python</sp
 </section>
 <section id="version-1-1-2-may-2-2026">
 <h2>Version 1.1.2 - May 2, 2026<a class="headerlink" href="#version-1-1-2-may-2-2026" title="此标题的永久链接">¶</a></h2>
-<section id="id76">
-<h3>Added<a class="headerlink" href="#id76" title="此标题的永久链接">¶</a></h3>
+<section id="id79">
+<h3>Added<a class="headerlink" href="#id79" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">tests/test_regression.py</span></code>: end-to-end regression test that runs the
 full <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">run.py</span></code> flow on the canonical <code class="docutils literal notranslate"><span class="pre">input/</span></code> dataset and
@@ -2984,8 +3044,8 @@ locks in the final-iteration objective (<code class="docutils literal notranslat
 1 % tolerance. Set <code class="docutils literal notranslate"><span class="pre">PREPSHOT_SKIP_SLOW=1</span></code> to skip it (about 150 s).</p></li>
 </ul>
 </section>
-<section id="id77">
-<h3>Fixed<a class="headerlink" href="#id77" title="此标题的永久链接">¶</a></h3>
+<section id="id80">
+<h3>Fixed<a class="headerlink" href="#id80" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">prepshot/set_up.py</span></code> now skips underscore-prefixed metadata keys
 (e.g. <code class="docutils literal notranslate"><span class="pre">_schema_version</span></code>) when iterating <code class="docutils literal notranslate"><span class="pre">params.json</span></code> to build the
@@ -2998,8 +3058,8 @@ breaking <code class="docutils literal notranslate"><span class="pre">python</sp
 </section>
 <section id="version-1-1-1-may-2-2026">
 <h2>Version 1.1.1 - May 2, 2026<a class="headerlink" href="#version-1-1-1-may-2-2026" title="此标题的永久链接">¶</a></h2>
-<section id="id78">
-<h3>Added<a class="headerlink" href="#id78" title="此标题的永久链接">¶</a></h3>
+<section id="id81">
+<h3>Added<a class="headerlink" href="#id81" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">prepshot.load_data.CURRENT_SCHEMA</span></code> constant and a <code class="docutils literal notranslate"><span class="pre">check_schema()</span></code>
 guard that validates <code class="docutils literal notranslate"><span class="pre">params.json</span></code> carries a compatible
@@ -3008,16 +3068,16 @@ guard that validates <code class="docutils literal notranslate"><span class="pre
 rejection of missing, older, and newer schema stamps.</p></li>
 </ul>
 </section>
-<section id="id79">
-<h3>Changed<a class="headerlink" href="#id79" title="此标题的永久链接">¶</a></h3>
+<section id="id82">
+<h3>Changed<a class="headerlink" href="#id82" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">process_data</span></code> now filters out keys beginning with <code class="docutils literal notranslate"><span class="pre">_</span></code> (such as
 <code class="docutils literal notranslate"><span class="pre">_schema_version</span></code>) before iterating the parameter list, so metadata
 stamps cannot accidentally be treated as input files.</p></li>
 </ul>
 </section>
-<section id="id80">
-<h3>Fixed<a class="headerlink" href="#id80" title="此标题的永久链接">¶</a></h3>
+<section id="id83">
+<h3>Fixed<a class="headerlink" href="#id83" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p>Legacy <code class="docutils literal notranslate"><span class="pre">params.json</span></code> files (pre-v1.1.0, no <code class="docutils literal notranslate"><span class="pre">_schema_version</span></code> stamp)
 now produce a clear migration hint instead of a downstream
@@ -3033,8 +3093,8 @@ now produce a clear migration hint instead of a downstream
 occur on minor version bumps. API and input-schema stability will be
 promised with v2.0.0. See the Stability page.</p>
 </div>
-<section id="id81">
-<h3>Added<a class="headerlink" href="#id81" title="此标题的永久链接">¶</a></h3>
+<section id="id84">
+<h3>Added<a class="headerlink" href="#id84" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p>Time-varying capacity bounds: <code class="docutils literal notranslate"><span class="pre">technology_upper_bound</span></code>,
 <code class="docutils literal notranslate"><span class="pre">technology_lower_bound</span></code>, <code class="docutils literal notranslate"><span class="pre">new_technology_upper_bound</span></code>, and
@@ -3054,8 +3114,8 @@ promised with v2.0.0. See the Stability page.</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">params.json</span></code> now stamps <code class="docutils literal notranslate"><span class="pre">_schema_version:</span> <span class="pre">1</span></code>.</p></li>
 </ul>
 </section>
-<section id="id82">
-<h3>Changed (Breaking)<a class="headerlink" href="#id82" title="此标题的永久链接">¶</a></h3>
+<section id="id85">
+<h3>Changed (Breaking)<a class="headerlink" href="#id85" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p>Bound input files reshaped from <code class="docutils literal notranslate"><span class="pre">(tech,</span> <span class="pre">zone)</span></code> to <code class="docutils literal notranslate"><span class="pre">(zone,</span> <span class="pre">tech,</span> <span class="pre">year)</span></code>.</p></li>
 <li><p>Four new required input files: <code class="docutils literal notranslate"><span class="pre">technology_lower_bound</span></code>,
@@ -3079,15 +3139,15 @@ the GitHub release notes for the full list. Notable highlights:</p>
 </section>
 <section id="version-0-1-2-jul-22-2024">
 <h2>Version 0.1.2 - Jul 22, 2024<a class="headerlink" href="#version-0-1-2-jul-22-2024" title="此标题的永久链接">¶</a></h2>
-<section id="id83">
-<h3>Added<a class="headerlink" href="#id83" title="此标题的永久链接">¶</a></h3>
+<section id="id86">
+<h3>Added<a class="headerlink" href="#id86" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p>Added mathematical notations to the constraint module.</p></li>
 <li><p>Added a test script for <cite>prepshot.utils</cite>.</p></li>
 </ul>
 </section>
-<section id="id84">
-<h3>Fixed<a class="headerlink" href="#id84" title="此标题的永久链接">¶</a></h3>
+<section id="id87">
+<h3>Fixed<a class="headerlink" href="#id87" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p>Fixed the format of the API reference.</p></li>
 <li><p>Fix code blocks of documentation.</p></li>
@@ -3096,8 +3156,8 @@ the GitHub release notes for the full list. Notable highlights:</p>
 <li><p>Added <cite>pyoptinterface._src.core_ext</cite> to Pylint's extension package allow list to resolve cpp-extension-no-member warning.</p></li>
 </ul>
 </section>
-<section id="id85">
-<h3>Changed<a class="headerlink" href="#id85" title="此标题的永久链接">¶</a></h3>
+<section id="id88">
+<h3>Changed<a class="headerlink" href="#id88" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p>Updated <cite>model.py</cite> to keep necessary decision variables and use expressions for intermediate variables instead of direct determination.</p></li>
 <li><p>Refactored <cite>extract_results_non_hydro</cite> in <cite>output_data.py</cite> to extract common features for different variables, simplifying the code.</p></li>
@@ -3108,19 +3168,19 @@ the GitHub release notes for the full list. Notable highlights:</p>
 </section>
 <section id="version-0-1-1-jul-11-2024">
 <h2>Version 0.1.1 - Jul 11, 2024<a class="headerlink" href="#version-0-1-1-jul-11-2024" title="此标题的永久链接">¶</a></h2>
-<section id="id86">
-<h3>Added<a class="headerlink" href="#id86" title="此标题的永久链接">¶</a></h3>
+<section id="id89">
+<h3>Added<a class="headerlink" href="#id89" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p>Add an example, expansion of Southeast Asia Mainland power system considering hydropower of Lower Mekong River.</p></li>
 <li><p>Update the documentation with a docstring for each function and class.</p></li>
 <li><p>Add the <a class="reference external" href="https://semver.org">Semantic Versioning Specification</a>.</p></li>
 </ul>
 </section>
-<section id="id87">
-<h3>Fixed<a class="headerlink" href="#id87" title="此标题的永久链接">¶</a></h3>
+<section id="id90">
+<h3>Fixed<a class="headerlink" href="#id90" title="此标题的永久链接">¶</a></h3>
 </section>
-<section id="id88">
-<h3>Changed<a class="headerlink" href="#id88" title="此标题的永久链接">¶</a></h3>
+<section id="id91">
+<h3>Changed<a class="headerlink" href="#id91" title="此标题的永久链接">¶</a></h3>
 <ul class="simple">
 <li><p>Support for solvers such as GUROBI (Commercial), COPT (Commercial), MOSEK (Commercial), and HiGHS (Open source) via <a class="reference external" href="https://github.com/metab0t/PyOptInterface">PyOptInterface</a>.</p></li>
 <li><p>Change default solver to HiGHS.</p></li>
