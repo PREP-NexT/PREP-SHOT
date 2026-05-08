@@ -3,6 +3,68 @@ Changelog
 
 Here, you'll find notable changes for each version of PREP-SHOT.
 
+Version 1.24.0 - May 8, 2026
+-------------------------------
+
+Third external benchmark: IEEE RTS-96 (3-area, 73-bus extension
+of RTS-79).  Full-year PCM solves cleanly with each area's
+dispatch matching RTS-79 to the MW -- the canonical "no
+inter-area binding" pass/fail check on a multi-area network.
+
+Why
++++
+
+RTS-79 (v1.23.0) validates single-area DC OPF + nodal LP
+correctness.  RTS-96 adds the multi-area dimension: 3 RTS-79
+copies connected by 5 inter-area tie lines from Table V of the
+1999 paper.  Because each area is independently self-sufficient
+at peak (3 405 MW Pmax vs 2 850 MW peak load), no tie should
+bind, and the system dispatch is exactly 3 x RTS-79.  Any
+deviation = the LP isn't treating the multi-area topology
+correctly.
+
+Added
++++++
+
+* ``examples/rts96/`` -- 73 buses (areas 1xx / 2xx / 3xx,
+  with bus 325 as area-3's tie-only node), 96 generators,
+  107 unique intra-area lines (after folding parallels) plus
+  5 inter-area ties (107-203, 113-215, 123-217, 223-318,
+  325-121).  Full IEEE RTS-79 hourly load profile applied to
+  every area.  Annual peak = 8 550 MW (= 3 x 2 850 MW).
+  Runs via::
+
+      cd examples/rts96
+      python -m prepshot.pcm . --year 2020 --horizon 24 --step 24
+
+  Full-year wall time: ~100 s.
+
+* ``tests/test_rts96_benchmark.py`` -- four full-year
+  assertions (gated by ``PREPSHOT_SKIP_SLOW``):
+
+  - **Annual energy balance** -- gen == demand
+    (45 891 GWh, no shed).
+  - **Per-carrier annual energy = 3 x RTS-79** within +/- 30
+    GWh: nuclear 20 937, coal 16 882, hydro 7 862, oil 210.
+  - **CFs match RTS-79 envelope** -- nuclear / hydro > 99 %,
+    coal in [40 %, 65 %], oil < 5 %.
+  - **Peak-hour dispatch is 3 x RTS-79** within 1 MW per
+    carrier -- hydro 900, nuclear 2 400, coal 3 822, oil
+    1 428 MW.
+
+Notes
++++++
+
+The 5 inter-area ties stay unbound through the full year
+because each area can serve its own peak from its own gen.
+Validation still confirms the multi-area LP is wired
+correctly: change any area's data and the result diverges
+from 3 x RTS-79.
+
+Test runs in ~97 s and is included in the standard suite
+under the ``PREPSHOT_SKIP_SLOW`` gate (now 34 tests; fast
+suite 25 with 9 skipped under ``PREPSHOT_SKIP_SLOW=1``).
+
 Version 1.23.0 - May 8, 2026
 -------------------------------
 
