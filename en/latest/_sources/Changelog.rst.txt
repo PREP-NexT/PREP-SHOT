@@ -3,6 +3,76 @@ Changelog
 
 Here, you'll find notable changes for each version of PREP-SHOT.
 
+Version 1.26.0 - May 8, 2026
+-------------------------------
+
+Two new validation benchmarks: PowNet Cambodia and Laos
+(Chowdhury et al. 2020), as must-take ports.  PREP-SHOT
+reproduces the published Cambodia thermal+import dispatch within
+0.3 %; Laos passes the structural envelope of a hydro-export
+system (hydro > 75 % of annual energy).
+
+Why
++++
+
+PJM 5-bus / RTS-79 / RTS-96 are textbook DC-OPF benchmarks with
+analytic reference numbers.  The PowNet cases are real-world
+hydro-thermal systems with an external solver (Pyomo + Gurobi/
+HiGHS) producing the reference -- a different validation flavour.
+
+Cambodia is thermal-dominated with a small hydro base; Laos is
+hydro-export-dominated.  The two together cover the spectrum of
+ASEAN power-system shapes.
+
+Added
++++++
+
+* ``examples/cambodia/`` -- single-bus aggregation of
+  PowNet's Cambodia 2016 dataset (18 thermals + 6 hydros + 3
+  imports, 8 760 hours).  Hydro and import dispatch are forced
+  via ``tech_max_gen_profile = tech_min_gen_profile`` to match
+  PowNet's must-take semantics.  Source:
+  https://github.com/kamal0013/PowNet/tree/v2.1/model_library/cambodia
+* ``examples/laos/`` -- same structure for Laos 2016
+  (5 thermals + 30 hydros + 4 imports).  Source:
+  https://github.com/kamal0013/PowNet/tree/v2.1/model_library/laos
+* ``examples/{cambodia,laos}/{PowNetCambodia,
+  PowNetLaos}.ipynb`` -- tutorial notebooks with background,
+  data-source citations, validation cells, and weekly stacked
+  dispatch plots.
+* ``tests/test_pownet_benchmark.py`` -- 5 assertions
+  (gated by ``PREPSHOT_SKIP_SLOW``):
+
+  - Cambodia thermal+import = 3.90 TWh +/- 0.1 (matches
+    PowNet's ``out_camb_R1_2016_mwh.csv``).
+  - Cambodia hydro + import dispatch match the must-take input
+    profiles to the MWh.
+  - Laos hydro share > 75 % of annual energy.
+  - Laos thermal share (coal + biomass) < 10 %.
+  - Laos total annual gen ~ 30 TWh (matches augmented demand).
+
+Notes
++++++
+
+**Single-bus aggregation.** All demand buses in each country
+collapse onto one zone; bus-level dispatch and DC-OPF detail are
+dropped.  System-level economics (per-carrier annual energy,
+total cost) match PowNet.  Adding back the 16-bus Cambodia /
+69-bus Laos topology requires a plant-bus mapping that PowNet's
+public data doesn't ship explicitly.
+
+**Augmented demand.** ~3 290 hours in Cambodia (and ~5 850 hours
+in Laos) have must-take supply > original demand, totalling 0.49
+TWh (Cambodia) / 5.54 TWh (Laos) of implied exports.  Those are
+added to ``demand.csv`` so the LP's nodal-balance equality stays
+feasible -- equivalent to modelling cross-border exports as
+internal demand absorption.
+
+**Variable cost simplification.** PowNet's ``fuel_price.csv`` has
+hourly resolution; PREP-SHOT's ``cost_var`` is per (tech, year).
+We use the per-tech median annual fuel price.  This drops < 1 %
+of the cost detail.
+
 Version 1.25.0 - May 8, 2026
 -------------------------------
 

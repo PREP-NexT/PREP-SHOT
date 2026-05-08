@@ -75,6 +75,13 @@ walking through the validation, and pytest regression:
 * `IEEE RTS-96 <RTS96.html>`_ -- 3-area extension of RTS-79
   (73 buses, 96 gens, 5 inter-area ties).  Validates the multi-
   area DC OPF: each area's dispatch is exactly 3 x RTS-79.
+* `Cambodia <Cambodia.html>`_ -- must-take port of the Cambodia
+  case from PowNet (Chowdhury et al. 2020): 18 thermals + 6
+  hydros + 3 imports, 8 760 hours.  PREP-SHOT thermal+import
+  total matches PowNet's published 3.90 TWh within 0.3 %.
+* `Laos <Laos.html>`_ -- companion hydro-export case (5
+  thermals + 30 hydros + 4 imports).  Validates the structural
+  pattern of a hydro-dominated system (hydro share ~80 %).
 
 Offline documentation
 ----------------------
@@ -100,6 +107,8 @@ To browse the documentation offline, download a `zipped HTML copy <https://prep-
    PJM5
    RTS79
    RTS96
+   Cambodia
+   Laos
 
 .. toctree::
    :hidden:
