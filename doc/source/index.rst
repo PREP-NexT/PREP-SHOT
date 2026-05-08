@@ -82,6 +82,11 @@ walking through the validation, and pytest regression:
 * `Laos <Laos.html>`_ -- companion hydro-export case (5
   thermals + 30 hydros + 4 imports).  Validates the structural
   pattern of a hydro-dominated system (hydro share ~80 %).
+* `Germany <Germany.html>`_ -- PyPSA's single-day Germany
+  example (Brown et al. 2018; SciGRID open-data network with
+  1 423 generators across 585 buses).  PREP-SHOT lands on EUR
+  4.72 M for the 24-hour cost-minimising dispatch, inside
+  PyPSA's published EUR 4-5 M range.
 
 Offline documentation
 ----------------------
@@ -109,6 +114,7 @@ To browse the documentation offline, download a `zipped HTML copy <https://prep-
    RTS96
    Cambodia
    Laos
+   Germany
 
 .. toctree::
    :hidden:

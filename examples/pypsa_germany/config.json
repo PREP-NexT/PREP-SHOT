@@ -1,0 +1,45 @@
+{
+    "general_parameters": {
+        "input_folder": "input",
+        "output_folder": "output",
+        "output_filename": "baseline",
+        "hour": 24,
+        "month": 1,
+        "dt": 1,
+        "hours_in_year": 24,
+        "price": 0.0
+    },
+    "hydro_parameters": {
+        "isinflow": false,
+        "error_threshold": 0.001,
+        "iteration_number": 1
+    },
+    "solver_parameters": {
+        "solver": "highs"
+    },
+    "reserve_parameters": {
+        "is_reserve": false
+    },
+    "dc_parameters": {
+        "is_dc_flow": false,
+        "reference_zone": "system",
+        "is_n1_secure": false
+    },
+    "uc_parameters": {
+        "is_uc": false,
+        "uc_relaxation": "continuous"
+    },
+    "cost_parameters": {
+        "is_piecewise_heat_rate": false
+    },
+    "pcm_parameters": {
+        "horizon_h": 24,
+        "step_h": 24,
+        "year": 2011,
+        "cap_source": "input/capacity_pcm.csv"
+    },
+    "reliability_parameters": {
+        "allow_load_shedding": true,
+        "voll": 1000.0
+    }
+}
