@@ -1,0 +1,13 @@
+zone1,zone2,unit,value
+bus1,bus2,fraction,1.0
+bus2,bus1,fraction,1.0
+bus1,bus4,fraction,1.0
+bus4,bus1,fraction,1.0
+bus1,bus5,fraction,1.0
+bus5,bus1,fraction,1.0
+bus2,bus3,fraction,1.0
+bus3,bus2,fraction,1.0
+bus3,bus4,fraction,1.0
+bus4,bus3,fraction,1.0
+bus4,bus5,fraction,1.0
+bus5,bus4,fraction,1.0

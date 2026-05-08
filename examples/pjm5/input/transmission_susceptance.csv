@@ -1,0 +1,7 @@
+zone1,zone2,unit,value
+bus1,bus2,MW/rad,3558.7188612099644
+bus1,bus4,MW/rad,3289.4736842105262
+bus1,bus5,MW/rad,15625.0
+bus2,bus3,MW/rad,9259.25925925926
+bus3,bus4,MW/rad,3367.0033670033667
+bus4,bus5,MW/rad,3367.0033670033667

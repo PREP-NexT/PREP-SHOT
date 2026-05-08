@@ -524,15 +524,23 @@ def _extract_window_dispatch(
     # ``weight / var_factor`` undoes that and gives a real-year
     # marginal price. Skipped silently if the solver did not return
     # duals (e.g. infeasible).
-    # Pick the right per-backend dual-extractor once.  PoI 0.4's
-    # ``get_constraint_attribute(c, ConstraintAttribute.Dual)`` raises
-    # ``AttributeError: Quadratric`` (sic) on linear constraints in
-    # both backends, so we go through the raw native name instead:
-    # Gurobi exposes the shadow price as ``Pi``, HiGHS as ``dual``.
+    # Pick the right per-backend dual-extractor once.  HiGHS exposes
+    # the dual through the typed ``ConstraintAttribute.Dual`` API, but
+    # PoI 0.4's Gurobi backend raises ``AttributeError: Quadratric``
+    # (sic) on the same call for linear constraints, so we have to
+    # also keep a raw-name fallback (``Pi`` for Gurobi).
     def _make_dual_extractor():
+        import pyoptinterface as poi
         probe = next(iter(model.power_balance_cons.values()), None)
         if probe is None:
             return None
+        try:
+            model.get_constraint_attribute(probe, poi.ConstraintAttribute.Dual)
+            return lambda c: float(
+                model.get_constraint_attribute(c, poi.ConstraintAttribute.Dual)
+            )
+        except Exception:
+            pass
         for raw_name in ('Pi', 'dual'):
             try:
                 model.get_constraint_raw_attribute_double(probe, raw_name)

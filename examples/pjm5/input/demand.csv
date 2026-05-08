@@ -1,0 +1,6 @@
+zone,year,month,hour,unit,value
+bus1,2020,1,1,MW,0.0
+bus2,2020,1,1,MW,300.0
+bus3,2020,1,1,MW,300.0
+bus4,2020,1,1,MW,400.0
+bus5,2020,1,1,MW,0.0
