@@ -32,10 +32,9 @@ __pycache__/
 # repo to avoid bloating clones.
 references/
 
-# Thailand PCM example: large generated CSVs (regenerate via
-# examples/thailand_pcm/build_inputs.py from the upstream
-# production-cost-model-main dataset, which is not vendored here).
-examples/thailand_pcm/input/
+# Thailand PCM example: keep runtime artefacts out of git but commit
+# input/ — the three multi-MB CSVs (demand.csv, tech_max_gen_profile.csv,
+# reservoir_inflow.csv) ride on Git LFS; see .gitattributes.
 examples/thailand_pcm/output/
 examples/thailand_pcm/log/
 # Heavy ESRI shapefile from world_administrative_boundaries (~4 MB).
