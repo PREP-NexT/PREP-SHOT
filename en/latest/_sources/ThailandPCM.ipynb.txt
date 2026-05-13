@@ -36,7 +36,7 @@
     "| Hydro stations | 14 | `hydropower.xlsx` `Sheet2` |\n",
     "| Hours | 8760 (full year 2023) | `load_demand.csv`, `capacity_factor.csv` |\n",
     "\n",
-    "Hydro inflow only covers 2016–2019; we use **2019** re-stamped onto 2023 hours."
+    "Hydro inflow only covers 2016\u20132019; we use **2019** re-stamped onto 2023 hours."
    ]
   },
   {
@@ -90,7 +90,7 @@
    "source": [
     "## 2. Conversion: zones, techs, fleet\n",
     "\n",
-    "Each bus becomes a PREP-SHOT zone. Each plant (thermal unit, VRE plant, hydro station) becomes a separate tech — fleet-level aggregation only happens via the `tech_registry.csv`'s `carrier` column."
+    "Each bus becomes a PREP-SHOT zone. Each plant (thermal unit, VRE plant, hydro station) becomes a separate tech \u2014 fleet-level aggregation only happens via the `tech_registry.csv`'s `carrier` column."
    ]
   },
   {
@@ -286,7 +286,7 @@
    "source": [
     "## 3. Load + VRE capacity factors + hydro inflow\n",
     "\n",
-    "Three time-varying tables. The load alone is **4.1 M rows** in long format (472 buses × 8760 hours)."
+    "Three time-varying tables. The load alone is **4.1 M rows** in long format (472 buses \u00d7 8760 hours)."
    ]
   },
   {
@@ -411,7 +411,7 @@
    "source": [
     "## 4. Transmission topology\n",
     "\n",
-    "615 directed lines from `grid_topology.csv` become (zone1, zone2) pairs in `transmission_existing.csv`. Susceptance comes from the `user_susceptance` column when set, else falls back to `2 × cap_MW / rad` (the same heuristic the SE Asia example uses).\n",
+    "615 directed lines from `grid_topology.csv` become (zone1, zone2) pairs in `transmission_existing.csv`. Susceptance comes from the `user_susceptance` column when set, else falls back to `2 \u00d7 cap_MW / rad` (the same heuristic the SE Asia example uses).\n",
     "\n",
     "**Sentinel handling:** the source uses `user_line_cap = -1` to mean \"use the computed thermal limit\"; we treat that explicitly rather than via `or`, which would select `-1` because it's truthy in Python."
    ]
@@ -475,7 +475,7 @@
     "\n",
     "PREP-SHOT models hydropower at the plant level with cascade physics (water balance, head iteration, downstream-feeds-upstream water-delay). The Thai dataset has 14 stations with full reservoir parameters: head, coefficient, V_max/min, outflow_max/min, downstream link, delay hours.\n",
     "\n",
-    "We ship the cascade as `reservoir_water_delay_time.csv`, the static parameters as their own CSVs, and the time-varying storage bounds as `reservoir_storage_min.csv` / `reservoir_storage_max.csv` (constant across hours since the source has no time variation). Initial / final storage levels default to 50 % of `V_max` — the same convention the [SoutheastAsia](SoutheastAsia.ipynb) example settled on for stable rolling-horizon."
+    "We ship the cascade as `reservoir_water_delay_time.csv`, the static parameters as their own CSVs, and the time-varying storage bounds as `reservoir_storage_min.csv` / `reservoir_storage_max.csv` (constant across hours since the source has no time variation). Initial / final storage levels default to 50 % of `V_max` \u2014 the same convention the [SoutheastAsia](SoutheastAsia.ipynb) example settled on for stable rolling-horizon."
    ]
   },
   {
@@ -524,14 +524,14 @@
     "    OUT / 'reservoir_outflow_min.csv', index=False)\n",
     "\n",
     "# Per-station storage bounds.  PREP-SHOT expects these in long\n",
-    "# format keyed by (tech, year, month) -- broadcast V_min/V_max\n",
-    "# across both since the source has no temporal variation.\n",
+    "# format keyed by (tech, year, hour) -- broadcast V_min/V_max\n",
+    "# across all 8760 hours since the source has no temporal variation.\n",
     "v_min = ht['V_min'].fillna(0).astype(float).values\n",
     "v_max = ht['V_max'].astype(float).values\n",
-    "smin_rows = [{'tech': n, 'year': 1, 'month': m, 'unit': 'm3', 'value': float(v)}\n",
-    "             for n, v in zip(hydro_names, v_min) for m in range(1, 13)]\n",
-    "smax_rows = [{'tech': n, 'year': 1, 'month': m, 'unit': 'm3', 'value': float(v)}\n",
-    "             for n, v in zip(hydro_names, v_max) for m in range(1, 13)]\n",
+    "smin_rows = [{'tech': n, 'year': 1, 'hour': h, 'unit': 'm3', 'value': float(v)}\n",
+    "             for n, v in zip(hydro_names, v_min) for h in range(1, 8761)]\n",
+    "smax_rows = [{'tech': n, 'year': 1, 'hour': h, 'unit': 'm3', 'value': float(v)}\n",
+    "             for n, v in zip(hydro_names, v_max) for h in range(1, 8761)]\n",
     "pd.DataFrame(smin_rows).to_csv(OUT / 'reservoir_storage_min.csv', index=False)\n",
     "pd.DataFrame(smax_rows).to_csv(OUT / 'reservoir_storage_max.csv', index=False)\n",
     "\n",
@@ -772,7 +772,7 @@
     "]\n",
     "ax.legend(handles=legend, loc='lower right')\n",
     "ax.set_xlabel('Longitude'); ax.set_ylabel('Latitude')\n",
-    "ax.set_title(f'Transmission network ({len(gt)} edges, line width ∝ capacity)')\n",
+    "ax.set_title(f'Transmission network ({len(gt)} edges, line width \u221d capacity)')\n",
     "plt.tight_layout(); plt.show()\n"
    ]
   },
@@ -950,7 +950,7 @@
     "inflow_long = pd.DataFrame(inflow_rows)\n",
     "sample_inf = inflow_long[inflow_long['tech'] == sample_hydro]\n",
     "axes[1].plot(sample_inf['hour'], sample_inf['value'], color='royalblue', linewidth=0.5)\n",
-    "axes[1].set_xlabel('Hour of year'); axes[1].set_ylabel('Inflow (m³/s)')\n",
+    "axes[1].set_xlabel('Hour of year'); axes[1].set_ylabel('Inflow (m\u00b3/s)')\n",
     "axes[1].set_title(f'Hydro sample: {sample_hydro} (inflow proxy = 2019)')\n",
     "\n",
     "axes[1].set_xlim(1, 8760)\n",
@@ -974,12 +974,12 @@
     "    --cap-source input/capacity_pcm.csv\n",
     "```\n",
     "\n",
-    "The driver builds a fresh single-day LP for hours 1..24, solves it with the existing fleet locked from `capacity_pcm.csv`, persists the dispatch, advances by 24 h, and repeats — 365 windows for a full year.\n",
+    "The driver builds a fresh single-day LP for hours 1..24, solves it with the existing fleet locked from `capacity_pcm.csv`, persists the dispatch, advances by 24 h, and repeats \u2014 365 windows for a full year.\n",
     "\n",
     "Per-window state that flows forward:\n",
     "\n",
     "- **Hydro reservoir storage** at the terminal hour (clamped just inside `[storage_min, storage_max]` to absorb solver-noise boundary values).\n",
-    "- **Battery SOC**, converted from absolute MWh back to the per-unit-of-cap fraction `initial_energy_storage_level` expects (irrelevant here — no batteries in this dataset).\n",
+    "- **Battery SOC**, converted from absolute MWh back to the per-unit-of-cap fraction `initial_energy_storage_level` expects (irrelevant here \u2014 no batteries in this dataset).\n",
     "- **Cross-window cascade outflow**: the upstream's outflow over the lookback period is stashed as a `params['prior_outflow']` numeric lookup so the next window's `hydro.inflow_rule` sees the cascade contribution at boundary hours.\n"
    ]
   },
@@ -994,7 +994,7 @@
     "\n",
     "| Flag | Effect | Cost |\n",
     "|------|--------|------|\n",
-    "| `dc_parameters.is_dc_flow: true` | Kirchhoff voltage law on the 615-line network | LP, ~5–10 % build-time bump |\n",
+    "| `dc_parameters.is_dc_flow: true` | Kirchhoff voltage law on the 615-line network | LP, ~5\u201310 % build-time bump |\n",
     "| `dc_parameters.is_n1_secure: true` | Preventive N-1 SCDC OPF; needs lines listed in `transmission_contingencies.csv` | LP, multiplies size by `1 + N_contingencies` |\n",
     "| `cost_parameters.is_piecewise_heat_rate: true` | Convex piecewise-linear heat rates | LP, modest |\n",
     "| `uc_parameters.is_uc: true` | Clustered unit commitment | MILP; with 168 thermal units, run rolling-horizon only |\n",
@@ -1014,7 +1014,7 @@
     "\n",
     "- **Single 24-h window:** ~0.8 s (build + solve + extract).\n",
     "- **Full year (365 windows):** ~10 minutes wall.\n",
-    "- **Output:** `output/baseline_pcm/` with one Parquet sidecar per variable (long format, zstd-compressed). Total ~40 MB for the full year — most of which is `trans_export`.\n",
+    "- **Output:** `output/baseline_pcm/` with one Parquet sidecar per variable (long format, zstd-compressed). Total ~40 MB for the full year \u2014 most of which is `trans_export`.\n",
     "\n",
     "**Caveats:**\n",
     "\n",
