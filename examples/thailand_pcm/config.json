@@ -15,7 +15,7 @@
         "iteration_number": 1
     },
     "solver_parameters": {
-        "solver": "highs"
+        "solver": "gurobi"
     },
     "reserve_parameters": {
         "is_reserve": false
