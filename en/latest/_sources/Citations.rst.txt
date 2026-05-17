@@ -29,3 +29,6 @@ If you use specific version of PREP-SHOT, please cite the appropriate publicatio
    * - `Climate extremes and energy system resilience <https://github.com/PREP-NexT/PREP-SHOT>`_
      - Lower Mekong Region
      - Xie, J., Liu, Z., Yan, S. et al. Variable renewable energy pathways in the Lower Mekong Basin under projected river flow extremes. Commun Earth Environ 6, 928 (2025). https://doi.org/10.1038/s43247-025-02861-6
+   * - `Climate extremes and energy system resilience <https://github.com/PREP-NexT/PREP-SHOT>`_
+     - Ecuador
+     - Liu, Z., & He, X. (2026). A renewable tango for drought-stricken power grids. Nature Water, 1-3. https://doi.org/10.1038/s44221-026-00625-w
