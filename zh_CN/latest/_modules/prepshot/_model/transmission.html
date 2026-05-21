@@ -889,13 +889,13 @@
         <span class="n">lifetime</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;transmission_line_lifetime&#39;</span><span class="p">]</span>
         <span class="n">existing</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;transmission_existing&#39;</span><span class="p">]</span>
         <span class="c1"># Sum over (zone1, zone2, commission_year) entries that are</span>
-        <span class="c1"># still in service in year y: cy &lt;= y &lt; cy + lifetime[z, z1].</span>
-        <span class="c1"># transmission_line_lifetime has not been changed in this</span>
-        <span class="c1"># release; it remains keyed by (zone1, zone2).</span>
-        <span class="n">lt</span> <span class="o">=</span> <span class="n">lifetime</span><span class="o">.</span><span class="n">get</span><span class="p">((</span><span class="n">z</span><span class="p">,</span> <span class="n">z1</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="c1"># still in service in year y: cy &lt;= y &lt; cy + lifetime[z, z1, cy].</span>
+        <span class="c1"># lifetime is keyed by (zone1, zone2, year) so the lookup</span>
+        <span class="c1"># uses the row&#39;s commission year, not the planning year y.</span>
         <span class="n">remaining_capacity_line</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span>
             <span class="n">cap</span> <span class="k">for</span> <span class="p">(</span><span class="n">zz1</span><span class="p">,</span> <span class="n">zz2</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span> <span class="n">cap</span> <span class="ow">in</span> <span class="n">existing</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
-            <span class="k">if</span> <span class="n">zz1</span> <span class="o">==</span> <span class="n">z</span> <span class="ow">and</span> <span class="n">zz2</span> <span class="o">==</span> <span class="n">z1</span> <span class="ow">and</span> <span class="n">cy</span> <span class="o">&lt;=</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">cy</span> <span class="o">+</span> <span class="n">lt</span>
+            <span class="k">if</span> <span class="n">zz1</span> <span class="o">==</span> <span class="n">z</span> <span class="ow">and</span> <span class="n">zz2</span> <span class="o">==</span> <span class="n">z1</span>
+            <span class="ow">and</span> <span class="n">cy</span> <span class="o">&lt;=</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">cy</span> <span class="o">+</span> <span class="n">lifetime</span><span class="p">[</span><span class="n">zz1</span><span class="p">,</span> <span class="n">zz2</span><span class="p">,</span> <span class="n">cy</span><span class="p">]</span>
         <span class="p">)</span>
         <span class="n">cap_lines_existing</span> <span class="o">=</span> <span class="n">poi</span><span class="o">.</span><span class="n">ExprBuilder</span><span class="p">()</span>
         <span class="n">new_capacity_line</span> <span class="o">=</span> <span class="n">poi</span><span class="o">.</span><span class="n">quicksum</span><span class="p">(</span>

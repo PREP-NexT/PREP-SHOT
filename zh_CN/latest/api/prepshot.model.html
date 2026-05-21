@@ -853,13 +853,10 @@ index sets, so they're materialised here.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="prepshot.model.define_complex_sets">
 <span class="sig-prename descclassname"><span class="pre">prepshot.model.</span></span><span class="sig-name descname"><span class="pre">define_complex_sets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/prepshot/model.html#define_complex_sets"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#prepshot.model.define_complex_sets" title="永久链接至目标">¶</a></dt>
-<dd><p>Pad <code class="docutils literal notranslate"><span class="pre">transmission_line_efficiency</span></code> for the active line set.</p>
-<p>A few constraint rules read <code class="docutils literal notranslate"><span class="pre">efficiency[z1,</span> <span class="pre">z2]</span></code> for every line
-in <code class="docutils literal notranslate"><span class="pre">active_lines</span></code>; if the input CSV omits a line that DOES
-appear in <code class="docutils literal notranslate"><span class="pre">transmission_existing</span></code> (rare but possible), default
-its efficiency to 0. We no longer pad the dense <code class="docutils literal notranslate"><span class="pre">zone</span> <span class="pre">x</span> <span class="pre">zone</span></code>
-product -- the active-line set is sparse, so padding only
-touches the real lines.</p>
+<dd><p>Validate that every line param needed by the constraints is
+actually present in the loaded CSVs.</p>
+<p>Refuses to silently default a missing entry. Each (active line,
+year) combination MUST have a row in the CSV.</p>
 <dl class="field-list simple">
 <dt class="field-odd">参数</dt>
 <dd class="field-odd"><p><strong>model</strong> (<em>object</em>) -- </p>
