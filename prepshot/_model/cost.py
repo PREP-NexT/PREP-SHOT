@@ -173,7 +173,7 @@ class AddCostObjective:
             given year, source and destination zone.
         """
         model = self.model
-        lvc = model.params['transmission_line_variable_OM_cost'][z, z1]
+        lvc = model.params['transmission_line_variable_OM_cost'][z, z1, y]
         # Source-zone discount for inter-zone transmission costs.
         vf = model.params['var_factor'][y, z]
         w = model.params['weight']
@@ -229,9 +229,9 @@ class AddCostObjective:
             year, source and destination zone.
         """
         model = self.model
-        lfc = model.params['transmission_line_fixed_OM_cost']
-        ff = model.params['fix_factor']
-        return lfc[z, z1] * model.cap_lines_existing[y, z, z1] * ff[y, z] * 0.5
+        lfc = model.params['transmission_line_fixed_OM_cost'][z, z1, y]
+        ff = model.params['fix_factor'][y, z]
+        return lfc * model.cap_lines_existing[y, z, z1] * ff * 0.5
 
     def cost_fix_tech_breakdown(
         self, y : int, z : str, te : str
@@ -304,7 +304,7 @@ class AddCostObjective:
             destination zone.
         """
         model = self.model
-        lic = model.params['transmission_line_investment_cost'][z, z1]
+        lic = model.params['transmission_line_investment_cost'][z, z1, y]
         d = model.params['distance'][z, z1]
         # Source-zone discount for inter-zone transmission investment.
         ivf = model.params['trans_inv_factor'][y, z]

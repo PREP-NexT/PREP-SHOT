@@ -161,54 +161,68 @@ def define_active_zone_tech(model : object) -> None:
 
 
 def define_complex_sets(model : object) -> None:
-    """Pad ``transmission_line_efficiency`` for the active line set.
+    """Validate that every line param needed by the constraints is
+    actually present in the loaded CSVs.
 
-    A few constraint rules read ``efficiency[z1, z2]`` for every line
-    in ``active_lines``; if the input CSV omits a line that DOES
-    appear in ``transmission_existing`` (rare but possible), default
-    its efficiency to 0. We no longer pad the dense ``zone x zone``
-    product -- the active-line set is sparse, so padding only
-    touches the real lines.
+    Refuses to silently default a missing entry. Each (active line,
+    year) combination MUST have a row in the CSV.
     """
-    # Several line-param dicts only carry the rows explicitly in
-    # their CSV, but the cost / capacity rules read every active line
-    # by index. Pad each with 0 (or +inf for capacity_max-style upper
-    # bounds) on lines missing from the CSV. We pad the *active*
-    # set, not the dense zone**2 product.
-    # Default to 1.0 (lossless) when the CSV omits a line that's in
-    # the active set. The historical 0.0 fallback silently blocks
-    # those lines -- not what you want if the CSV is just incomplete.
-    # Users can still set efficiency=0 explicitly to disable a line.
-    eff = model.params['transmission_line_efficiency']
-    for (z1, z2) in model.active_lines:
-        if (z1, z2) not in eff:
-            eff[z1, z2] = 1.0
-
-    # Padding defaults: 0 for cost/distance/susceptance (no penalty,
-    # no flow contribution from a missing entry), but a large value
-    # for lifetime so the line is "in service" through the whole
-    # planning horizon when the CSV is absent. Padding lifetime to 0
-    # collapses ``cap_lines_existing`` to 0 -- silently blocks every
-    # line whose lifetime row is missing.
-    line_param_zero = (
+    # Year-indexed params: keyed by (zone1, zone2, year).
+    year_indexed = (
         'transmission_line_variable_OM_cost',
         'transmission_line_fixed_OM_cost',
         'transmission_line_investment_cost',
-        'distance',
-        'transmission_line_susceptance',
+        'transmission_line_lifetime',
     )
-    for k in line_param_zero:
+    # Static (no year) params: keyed by (zone1, zone2). Susceptance
+    # is only required in DC-flow mode and is validated separately
+    # inside dc_flow.py's gated init.
+    static_indexed = (
+        'transmission_line_efficiency',
+        'distance',
+    )
+    years = list(model.params['year'])
+
+    for k in year_indexed:
         d = model.params.get(k)
         if d is None:
-            continue
-        for (z1, z2) in model.active_lines:
-            if (z1, z2) not in d:
-                d[z1, z2] = 0
-    lt = model.params.get('transmission_line_lifetime')
-    if lt is not None:
-        for (z1, z2) in model.active_lines:
-            if (z1, z2) not in lt:
-                lt[z1, z2] = 9999
+            raise KeyError(
+                f"{k!r} is missing from model.params; the loader "
+                f"failed to read its CSV."
+            )
+        missing = [
+            (z1, z2, y)
+            for (z1, z2) in model.active_lines
+            for y in years
+            if (z1, z2, y) not in d
+        ]
+        if missing:
+            raise KeyError(
+                f"{k!r} has no entry for {len(missing)} "
+                f"(zone1, zone2, year) tuples needed by active_lines. "
+                f"First few: {missing[:5]}. Add the missing rows to "
+                f"input/{k.removeprefix('transmission_line_')}.csv "
+                f"(schema: zone1,zone2,year,unit,value) or drop the "
+                f"line from transmission_existing / candidates."
+            )
+
+    for k in static_indexed:
+        d = model.params.get(k)
+        if d is None:
+            raise KeyError(
+                f"{k!r} is missing from model.params; the loader "
+                f"failed to read its CSV."
+            )
+        missing = [
+            (z1, z2)
+            for (z1, z2) in model.active_lines
+            if (z1, z2) not in d
+        ]
+        if missing:
+            raise KeyError(
+                f"{k!r} has no entry for {len(missing)} "
+                f"(zone1, zone2) line(s). First few: {missing[:5]}."
+            )
 
 
 def define_variables(model : object) -> None:

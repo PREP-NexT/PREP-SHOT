@@ -126,13 +126,13 @@ class AddTransmissionConstraints:
         lifetime = model.params['transmission_line_lifetime']
         existing = model.params['transmission_existing']
         # Sum over (zone1, zone2, commission_year) entries that are
-        # still in service in year y: cy <= y < cy + lifetime[z, z1].
-        # transmission_line_lifetime has not been changed in this
-        # release; it remains keyed by (zone1, zone2).
-        lt = lifetime.get((z, z1), 0)
+        # still in service in year y: cy <= y < cy + lifetime[z, z1, cy].
+        # lifetime is keyed by (zone1, zone2, year) so the lookup
+        # uses the row's commission year, not the planning year y.
         remaining_capacity_line = sum(
             cap for (zz1, zz2, cy), cap in existing.items()
-            if zz1 == z and zz2 == z1 and cy <= y < cy + lt
+            if zz1 == z and zz2 == z1
+            and cy <= y < cy + lifetime[zz1, zz2, cy]
         )
         cap_lines_existing = poi.ExprBuilder()
         new_capacity_line = poi.quicksum(
