@@ -1,3 +1,4 @@
 examples/thailand_pcm/input/demand.csv filter=lfs diff=lfs merge=lfs -text
 examples/thailand_pcm/input/tech_max_gen_profile.csv filter=lfs diff=lfs merge=lfs -text
 examples/thailand_pcm/input/reservoir_inflow.csv filter=lfs diff=lfs merge=lfs -text
+examples/thailand_pcm/input/tech_min_gen_profile.csv filter=lfs diff=lfs merge=lfs -text
