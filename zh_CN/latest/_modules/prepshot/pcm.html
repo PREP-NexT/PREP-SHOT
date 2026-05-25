@@ -1070,6 +1070,23 @@
         <span class="n">merged</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;initial_energy_storage_level&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{})</span>
         <span class="n">merged</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="s1">&#39;battery_storage&#39;</span><span class="p">])</span>
         <span class="n">p</span><span class="p">[</span><span class="s1">&#39;initial_energy_storage_level&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">merged</span>
+    <span class="c1"># Cross-window UC state: (z, te) -&gt; online count at end of prior</span>
+    <span class="c1"># window; (z, te, h_abs) -&gt; startup / shutdown count over the last</span>
+    <span class="c1"># max(min_up, min_down) hours of the prior window.  Consumed by</span>
+    <span class="c1"># unit_commitment.{state_evolution_rule, min_up_rule, min_down_rule}</span>
+    <span class="c1"># so the boundary hour h0 is properly linked to the prior window</span>
+    <span class="c1"># instead of being a free reset.</span>
+    <span class="k">if</span> <span class="n">state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;prior_uc_online&#39;</span><span class="p">):</span>
+        <span class="n">p</span><span class="p">[</span><span class="s1">&#39;prior_uc_online&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="s1">&#39;prior_uc_online&#39;</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;prior_uc_startup&#39;</span><span class="p">):</span>
+        <span class="n">p</span><span class="p">[</span><span class="s1">&#39;prior_uc_startup&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="s1">&#39;prior_uc_startup&#39;</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;prior_uc_shutdown&#39;</span><span class="p">):</span>
+        <span class="n">p</span><span class="p">[</span><span class="s1">&#39;prior_uc_shutdown&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="s1">&#39;prior_uc_shutdown&#39;</span><span class="p">])</span>
+    <span class="c1"># Cross-window ramping continuity: terminal gen[h] per (z, te)</span>
+    <span class="c1"># so ramping_up_rule / ramping_down_rule at h = hour[0] can link</span>
+    <span class="c1"># to the prior window&#39;s terminal value instead of being skipped.</span>
+    <span class="k">if</span> <span class="n">state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;prior_gen&#39;</span><span class="p">):</span>
+        <span class="n">p</span><span class="p">[</span><span class="s1">&#39;prior_gen&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="s1">&#39;prior_gen&#39;</span><span class="p">])</span>
     <span class="c1"># Force the head-iteration off in PCM windows -- per-window head</span>
     <span class="c1"># iteration would multiply the solve count by 3x with no extra</span>
     <span class="c1"># accuracy on a single window.</span>
@@ -1108,7 +1125,72 @@
         <span class="s1">&#39;hydro_storage&#39;</span><span class="p">:</span> <span class="p">{},</span>
         <span class="s1">&#39;battery_storage&#39;</span><span class="p">:</span> <span class="p">{},</span>
         <span class="s1">&#39;prior_outflow&#39;</span><span class="p">:</span> <span class="p">{},</span>
+        <span class="s1">&#39;prior_uc_online&#39;</span><span class="p">:</span> <span class="p">{},</span>
+        <span class="s1">&#39;prior_uc_startup&#39;</span><span class="p">:</span> <span class="p">{},</span>
+        <span class="s1">&#39;prior_uc_shutdown&#39;</span><span class="p">:</span> <span class="p">{},</span>
+        <span class="s1">&#39;prior_gen&#39;</span><span class="p">:</span> <span class="p">{},</span>
     <span class="p">}</span>
+    <span class="c1"># ----- Generation level at window end: terminal gen[h] per</span>
+    <span class="c1"># (z, te), so next window&#39;s ramping rules at h0 can link</span>
+    <span class="c1"># gen[h0] to the prior window&#39;s terminal value instead of being</span>
+    <span class="c1"># an amnesiac restart.</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s1">&#39;gen&#39;</span><span class="p">):</span>
+        <span class="n">m0</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">month</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">y0</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">year</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">active_zt</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s1">&#39;active_zt&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">active_zt</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">te</span><span class="p">)</span> <span class="ow">in</span> <span class="n">active_zt</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">g</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span>
+                        <span class="n">model</span><span class="o">.</span><span class="n">gen</span><span class="p">[</span><span class="n">terminal_hour</span><span class="p">,</span> <span class="n">m0</span><span class="p">,</span> <span class="n">y0</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">te</span><span class="p">]</span>
+                    <span class="p">))</span>
+                <span class="k">except</span> <span class="p">(</span><span class="ne">KeyError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
+                    <span class="k">continue</span>
+                <span class="n">state</span><span class="p">[</span><span class="s1">&#39;prior_gen&#39;</span><span class="p">][(</span><span class="n">z</span><span class="p">,</span> <span class="n">te</span><span class="p">)]</span> <span class="o">=</span> <span class="n">g</span>
+    <span class="c1"># ----- UC state at window end: online count, plus the last</span>
+    <span class="c1"># max(min_up, min_down) hours of startup / shutdown counts so</span>
+    <span class="c1"># the next window&#39;s min_up / min_down lookback can see across</span>
+    <span class="c1"># the boundary.</span>
+    <span class="k">if</span> <span class="n">full_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;is_uc&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s1">&#39;online&#39;</span><span class="p">):</span>
+        <span class="n">elig</span> <span class="o">=</span> <span class="n">full_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;uc_eligible&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{}</span>
+        <span class="n">eligible_techs</span> <span class="o">=</span> <span class="p">{</span><span class="n">t</span> <span class="k">for</span> <span class="n">t</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">elig</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="n">v</span><span class="p">)}</span>
+        <span class="n">min_up_dict</span> <span class="o">=</span> <span class="n">full_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;uc_min_up_time&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{}</span>
+        <span class="n">min_down_dict</span> <span class="o">=</span> <span class="n">full_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;uc_min_down_time&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{}</span>
+        <span class="n">max_lookback</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span>
+            <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">min_up_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">eligible_techs</span><span class="p">]</span>
+            <span class="o">+</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">min_down_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">eligible_techs</span><span class="p">]</span>
+            <span class="o">+</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="n">m0</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">month</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">y0</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">year</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">zone</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">te</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">tech</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">te</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">eligible_techs</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">on_val</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span>
+                        <span class="n">model</span><span class="o">.</span><span class="n">online</span><span class="p">[</span><span class="n">terminal_hour</span><span class="p">,</span> <span class="n">m0</span><span class="p">,</span> <span class="n">y0</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">te</span><span class="p">]</span>
+                    <span class="p">))</span>
+                <span class="k">except</span> <span class="p">(</span><span class="ne">KeyError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
+                    <span class="k">continue</span>
+                <span class="n">state</span><span class="p">[</span><span class="s1">&#39;prior_uc_online&#39;</span><span class="p">][(</span><span class="n">z</span><span class="p">,</span> <span class="n">te</span><span class="p">)]</span> <span class="o">=</span> <span class="n">on_val</span>
+                <span class="c1"># Capture startup / shutdown for the last</span>
+                <span class="c1"># max_lookback hours, keyed by absolute hour.</span>
+                <span class="k">for</span> <span class="n">offset</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_lookback</span><span class="p">):</span>
+                    <span class="n">h_abs</span> <span class="o">=</span> <span class="n">terminal_hour</span> <span class="o">-</span> <span class="n">offset</span>
+                    <span class="k">if</span> <span class="n">h_abs</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">hour</span><span class="p">):</span>
+                        <span class="k">continue</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">s_val</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span>
+                            <span class="n">model</span><span class="o">.</span><span class="n">startup</span><span class="p">[</span><span class="n">h_abs</span><span class="p">,</span> <span class="n">m0</span><span class="p">,</span> <span class="n">y0</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">te</span><span class="p">]</span>
+                        <span class="p">))</span>
+                        <span class="n">d_val</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span>
+                            <span class="n">model</span><span class="o">.</span><span class="n">shutdown</span><span class="p">[</span><span class="n">h_abs</span><span class="p">,</span> <span class="n">m0</span><span class="p">,</span> <span class="n">y0</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">te</span><span class="p">]</span>
+                        <span class="p">))</span>
+                    <span class="k">except</span> <span class="p">(</span><span class="ne">KeyError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
+                        <span class="k">continue</span>
+                    <span class="n">state</span><span class="p">[</span><span class="s1">&#39;prior_uc_startup&#39;</span><span class="p">][(</span><span class="n">z</span><span class="p">,</span> <span class="n">te</span><span class="p">,</span> <span class="n">h_abs</span><span class="p">)]</span> <span class="o">=</span> <span class="n">s_val</span>
+                    <span class="n">state</span><span class="p">[</span><span class="s1">&#39;prior_uc_shutdown&#39;</span><span class="p">][(</span><span class="n">z</span><span class="p">,</span> <span class="n">te</span><span class="p">,</span> <span class="n">h_abs</span><span class="p">)]</span> <span class="o">=</span> <span class="n">d_val</span>
     <span class="k">if</span> <span class="n">full_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;isinflow&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s1">&#39;storage_reservoir&#39;</span><span class="p">):</span>
         <span class="n">smin</span> <span class="o">=</span> <span class="n">full_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;reservoir_storage_min&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{}</span>
         <span class="n">smax</span> <span class="o">=</span> <span class="n">full_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;reservoir_storage_max&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{}</span>

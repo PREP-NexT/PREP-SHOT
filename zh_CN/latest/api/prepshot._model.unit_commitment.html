@@ -897,14 +897,27 @@ cluster = one unit at full cap, equivalent to LP behaviour).</p></li>
 <dt class="sig sig-object py" id="prepshot._model.unit_commitment.AddUnitCommitmentConstraints.min_down_rule">
 <span class="sig-name descname"><span class="pre">min_down_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">te</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/prepshot/_model/unit_commitment.html#AddUnitCommitmentConstraints.min_down_rule"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#prepshot._model.unit_commitment.AddUnitCommitmentConstraints.min_down_rule" title="永久链接至目标">¶</a></dt>
 <dd><p><code class="docutils literal notranslate"><span class="pre">(N_units</span> <span class="pre">-</span> <span class="pre">online[h])</span> <span class="pre">&gt;=</span> <span class="pre">sum_{i=0..MinDown-1}</span> <span class="pre">shutdown[h-i]</span></code>.</p>
+<p>Symmetric to <code class="docutils literal notranslate"><span class="pre">min_up_rule</span></code>: the lookback over absolute hours
+<code class="docutils literal notranslate"><span class="pre">[h</span> <span class="pre">-</span> <span class="pre">md</span> <span class="pre">+</span> <span class="pre">1,</span> <span class="pre">h]</span></code> pulls in-window shutdowns from
+<code class="docutils literal notranslate"><span class="pre">model.shutdown</span></code> and pre-window shutdowns from
+<code class="docutils literal notranslate"><span class="pre">params['prior_uc_shutdown'][(z,</span> <span class="pre">te,</span> <span class="pre">h_abs)]</span></code>.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="prepshot._model.unit_commitment.AddUnitCommitmentConstraints.min_up_rule">
 <span class="sig-name descname"><span class="pre">min_up_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">te</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/prepshot/_model/unit_commitment.html#AddUnitCommitmentConstraints.min_up_rule"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#prepshot._model.unit_commitment.AddUnitCommitmentConstraints.min_up_rule" title="永久链接至目标">¶</a></dt>
 <dd><p><code class="docutils literal notranslate"><span class="pre">online[h]</span> <span class="pre">&gt;=</span> <span class="pre">sum_{i=0..MinUp-1}</span> <span class="pre">startup[h-i]</span></code> -- if a
-unit started in any of the last MinUp hours, it must be online
-now.</p>
+unit started in any of the last MinUp hours, it must be
+online now.</p>
+<p>The lookback spans absolute hours <code class="docutils literal notranslate"><span class="pre">[h</span> <span class="pre">-</span> <span class="pre">mu</span> <span class="pre">+</span> <span class="pre">1,</span> <span class="pre">h]</span></code>.  Hours
+that fall inside the current window pull
+<code class="docutils literal notranslate"><span class="pre">model.startup[h_abs,</span> <span class="pre">...]</span></code>; hours that fall before the
+window's first hour pull the carried-over count from
+<code class="docutils literal notranslate"><span class="pre">params['prior_uc_startup'][(z,</span> <span class="pre">te,</span> <span class="pre">h_abs)]</span></code> (populated by
+the previous PCM window's <code class="docutils literal notranslate"><span class="pre">_extract_window_state</span></code>).
+Missing prior values default to 0, equivalent to &quot;no startup
+recorded that hour&quot; -- a safe under-count that only affects
+very early hours of the first run.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -917,9 +930,14 @@ for non-eligible (z, te) cells.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="prepshot._model.unit_commitment.AddUnitCommitmentConstraints.state_evolution_rule">
 <span class="sig-name descname"><span class="pre">state_evolution_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">te</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/prepshot/_model/unit_commitment.html#AddUnitCommitmentConstraints.state_evolution_rule"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#prepshot._model.unit_commitment.AddUnitCommitmentConstraints.state_evolution_rule" title="永久链接至目标">¶</a></dt>
-<dd><p><code class="docutils literal notranslate"><span class="pre">online[h]</span> <span class="pre">-</span> <span class="pre">online[h-1]</span> <span class="pre">=</span> <span class="pre">startup[h]</span> <span class="pre">-</span> <span class="pre">shutdown[h]</span></code> for
-every hour after the first in the modelled set. The first
-hour's online state is free (initialised by the LP optimum).</p>
+<dd><p><code class="docutils literal notranslate"><span class="pre">online[h]</span> <span class="pre">-</span> <span class="pre">online[h-1]</span> <span class="pre">=</span> <span class="pre">startup[h]</span> <span class="pre">-</span> <span class="pre">shutdown[h]</span></code>.</p>
+<p>At the first hour of a window, <code class="docutils literal notranslate"><span class="pre">online[h-1]</span></code> does not exist
+in this LP, so the rule consults
+<code class="docutils literal notranslate"><span class="pre">params['prior_uc_online'][(z,</span> <span class="pre">te)]</span></code> (terminal online count
+from the previous PCM window).  When that lookup is missing
+(very first window of the run, or non-PCM CEM model) the
+boundary condition degenerates to &quot;online[h0] free, no
+startup / shutdown linkage&quot; -- same behaviour as before.</p>
 </dd></dl>
 
 </dd></dl>

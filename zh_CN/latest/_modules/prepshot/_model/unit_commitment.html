@@ -967,12 +967,33 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="AddUnitCommitmentConstraints.state_evolution_rule"><a class="viewcode-back" href="../../../api/prepshot._model.unit_commitment.html#prepshot._model.unit_commitment.AddUnitCommitmentConstraints.state_evolution_rule">[文档]</a>    <span class="k">def</span> <span class="nf">state_evolution_rule</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">te</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;``online[h] - online[h-1] = startup[h] - shutdown[h]`` for</span>
-<span class="sd">        every hour after the first in the modelled set. The first</span>
-<span class="sd">        hour&#39;s online state is free (initialised by the LP optimum).&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;``online[h] - online[h-1] = startup[h] - shutdown[h]``.</span>
+
+<span class="sd">        At the first hour of a window, ``online[h-1]`` does not exist</span>
+<span class="sd">        in this LP, so the rule consults</span>
+<span class="sd">        ``params[&#39;prior_uc_online&#39;][(z, te)]`` (terminal online count</span>
+<span class="sd">        from the previous PCM window).  When that lookup is missing</span>
+<span class="sd">        (very first window of the run, or non-PCM CEM model) the</span>
+<span class="sd">        boundary condition degenerates to &quot;online[h0] free, no</span>
+<span class="sd">        startup / shutdown linkage&quot; -- same behaviour as before.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_eligible</span><span class="p">[</span><span class="n">te</span><span class="p">]</span> <span class="ow">or</span> <span class="n">h</span> <span class="o">==</span> <span class="n">model</span><span class="o">.</span><span class="n">hour</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_eligible</span><span class="p">[</span><span class="n">te</span><span class="p">]:</span>
             <span class="k">return</span> <span class="kc">None</span>
+        <span class="n">h0</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">hour</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">h</span> <span class="o">==</span> <span class="n">h0</span><span class="p">:</span>
+            <span class="n">prior_online</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;prior_uc_online&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{}</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">((</span><span class="n">z</span><span class="p">,</span> <span class="n">te</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">prior_online</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">None</span>
+            <span class="n">lhs</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">model</span><span class="o">.</span><span class="n">online</span><span class="p">[</span><span class="n">h</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">te</span><span class="p">]</span>
+                <span class="o">-</span> <span class="n">prior_online</span>
+                <span class="o">-</span> <span class="n">model</span><span class="o">.</span><span class="n">startup</span><span class="p">[</span><span class="n">h</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">te</span><span class="p">]</span>
+                <span class="o">+</span> <span class="n">model</span><span class="o">.</span><span class="n">shutdown</span><span class="p">[</span><span class="n">h</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">te</span><span class="p">]</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="n">model</span><span class="o">.</span><span class="n">add_linear_constraint</span><span class="p">(</span><span class="n">lhs</span><span class="p">,</span> <span class="n">poi</span><span class="o">.</span><span class="n">Eq</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
         <span class="n">lhs</span> <span class="o">=</span> <span class="p">(</span>
             <span class="n">model</span><span class="o">.</span><span class="n">online</span><span class="p">[</span><span class="n">h</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">te</span><span class="p">]</span>
             <span class="o">-</span> <span class="n">model</span><span class="o">.</span><span class="n">online</span><span class="p">[</span><span class="n">h</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">te</span><span class="p">]</span>
@@ -1013,8 +1034,19 @@
 
 <div class="viewcode-block" id="AddUnitCommitmentConstraints.min_up_rule"><a class="viewcode-back" href="../../../api/prepshot._model.unit_commitment.html#prepshot._model.unit_commitment.AddUnitCommitmentConstraints.min_up_rule">[文档]</a>    <span class="k">def</span> <span class="nf">min_up_rule</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">te</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;``online[h] &gt;= sum_{i=0..MinUp-1} startup[h-i]`` -- if a</span>
-<span class="sd">        unit started in any of the last MinUp hours, it must be online</span>
-<span class="sd">        now.&quot;&quot;&quot;</span>
+<span class="sd">        unit started in any of the last MinUp hours, it must be</span>
+<span class="sd">        online now.</span>
+
+<span class="sd">        The lookback spans absolute hours ``[h - mu + 1, h]``.  Hours</span>
+<span class="sd">        that fall inside the current window pull</span>
+<span class="sd">        ``model.startup[h_abs, ...]``; hours that fall before the</span>
+<span class="sd">        window&#39;s first hour pull the carried-over count from</span>
+<span class="sd">        ``params[&#39;prior_uc_startup&#39;][(z, te, h_abs)]`` (populated by</span>
+<span class="sd">        the previous PCM window&#39;s ``_extract_window_state``).</span>
+<span class="sd">        Missing prior values default to 0, equivalent to &quot;no startup</span>
+<span class="sd">        recorded that hour&quot; -- a safe under-count that only affects</span>
+<span class="sd">        very early hours of the first run.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_eligible</span><span class="p">[</span><span class="n">te</span><span class="p">]:</span>
             <span class="k">return</span> <span class="kc">None</span>
@@ -1022,19 +1054,31 @@
         <span class="k">if</span> <span class="n">mu</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span>  <span class="c1"># 1-hour min-up = no real constraint</span>
         <span class="n">h0</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">hour</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">lookback</span> <span class="o">=</span> <span class="p">[</span><span class="n">hh</span> <span class="k">for</span> <span class="n">hh</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">h</span> <span class="o">-</span> <span class="n">mu</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">h</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">hh</span> <span class="o">&gt;=</span> <span class="n">h0</span><span class="p">]</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">lookback</span><span class="p">:</span>
+        <span class="n">in_window</span> <span class="o">=</span> <span class="p">[</span><span class="n">hh</span> <span class="k">for</span> <span class="n">hh</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">h</span> <span class="o">-</span> <span class="n">mu</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">h</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">hh</span> <span class="o">&gt;=</span> <span class="n">h0</span><span class="p">]</span>
+        <span class="n">prior_starts</span> <span class="o">=</span> <span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;prior_uc_startup&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{})</span>
+        <span class="n">prior_total</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span>
+            <span class="nb">float</span><span class="p">(</span><span class="n">prior_starts</span><span class="o">.</span><span class="n">get</span><span class="p">((</span><span class="n">z</span><span class="p">,</span> <span class="n">te</span><span class="p">,</span> <span class="n">hh</span><span class="p">),</span> <span class="mf">0.0</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">hh</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">h</span> <span class="o">-</span> <span class="n">mu</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">h0</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">in_window</span> <span class="ow">and</span> <span class="n">prior_total</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span>
         <span class="n">lhs</span> <span class="o">=</span> <span class="p">(</span>
             <span class="n">poi</span><span class="o">.</span><span class="n">quicksum</span><span class="p">(</span>
-                <span class="n">model</span><span class="o">.</span><span class="n">startup</span><span class="p">[</span><span class="n">hh</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">te</span><span class="p">]</span> <span class="k">for</span> <span class="n">hh</span> <span class="ow">in</span> <span class="n">lookback</span>
+                <span class="n">model</span><span class="o">.</span><span class="n">startup</span><span class="p">[</span><span class="n">hh</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">te</span><span class="p">]</span> <span class="k">for</span> <span class="n">hh</span> <span class="ow">in</span> <span class="n">in_window</span>
             <span class="p">)</span>
+            <span class="o">+</span> <span class="n">prior_total</span>
             <span class="o">-</span> <span class="n">model</span><span class="o">.</span><span class="n">online</span><span class="p">[</span><span class="n">h</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">te</span><span class="p">]</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">model</span><span class="o">.</span><span class="n">add_linear_constraint</span><span class="p">(</span><span class="n">lhs</span><span class="p">,</span> <span class="n">poi</span><span class="o">.</span><span class="n">Leq</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="AddUnitCommitmentConstraints.min_down_rule"><a class="viewcode-back" href="../../../api/prepshot._model.unit_commitment.html#prepshot._model.unit_commitment.AddUnitCommitmentConstraints.min_down_rule">[文档]</a>    <span class="k">def</span> <span class="nf">min_down_rule</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">te</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;``(N_units - online[h]) &gt;= sum_{i=0..MinDown-1} shutdown[h-i]``.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;``(N_units - online[h]) &gt;= sum_{i=0..MinDown-1} shutdown[h-i]``.</span>
+
+<span class="sd">        Symmetric to ``min_up_rule``: the lookback over absolute hours</span>
+<span class="sd">        ``[h - md + 1, h]`` pulls in-window shutdowns from</span>
+<span class="sd">        ``model.shutdown`` and pre-window shutdowns from</span>
+<span class="sd">        ``params[&#39;prior_uc_shutdown&#39;][(z, te, h_abs)]``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_eligible</span><span class="p">[</span><span class="n">te</span><span class="p">]:</span>
             <span class="k">return</span> <span class="kc">None</span>
@@ -1042,15 +1086,21 @@
         <span class="k">if</span> <span class="n">md</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span>
         <span class="n">h0</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">hour</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">lookback</span> <span class="o">=</span> <span class="p">[</span><span class="n">hh</span> <span class="k">for</span> <span class="n">hh</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">h</span> <span class="o">-</span> <span class="n">md</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">h</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">hh</span> <span class="o">&gt;=</span> <span class="n">h0</span><span class="p">]</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">lookback</span><span class="p">:</span>
+        <span class="n">in_window</span> <span class="o">=</span> <span class="p">[</span><span class="n">hh</span> <span class="k">for</span> <span class="n">hh</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">h</span> <span class="o">-</span> <span class="n">md</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">h</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">hh</span> <span class="o">&gt;=</span> <span class="n">h0</span><span class="p">]</span>
+        <span class="n">prior_shuts</span> <span class="o">=</span> <span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;prior_uc_shutdown&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{})</span>
+        <span class="n">prior_total</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span>
+            <span class="nb">float</span><span class="p">(</span><span class="n">prior_shuts</span><span class="o">.</span><span class="n">get</span><span class="p">((</span><span class="n">z</span><span class="p">,</span> <span class="n">te</span><span class="p">,</span> <span class="n">hh</span><span class="p">),</span> <span class="mf">0.0</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">hh</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">h</span> <span class="o">-</span> <span class="n">md</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">h0</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">in_window</span> <span class="ow">and</span> <span class="n">prior_total</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span>
         <span class="n">n</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_units</span><span class="o">.</span><span class="n">get</span><span class="p">((</span><span class="n">z</span><span class="p">,</span> <span class="n">te</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
         <span class="n">lhs</span> <span class="o">=</span> <span class="p">(</span>
             <span class="n">model</span><span class="o">.</span><span class="n">online</span><span class="p">[</span><span class="n">h</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">te</span><span class="p">]</span>
             <span class="o">+</span> <span class="n">poi</span><span class="o">.</span><span class="n">quicksum</span><span class="p">(</span>
-                <span class="n">model</span><span class="o">.</span><span class="n">shutdown</span><span class="p">[</span><span class="n">hh</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">te</span><span class="p">]</span> <span class="k">for</span> <span class="n">hh</span> <span class="ow">in</span> <span class="n">lookback</span>
+                <span class="n">model</span><span class="o">.</span><span class="n">shutdown</span><span class="p">[</span><span class="n">hh</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">te</span><span class="p">]</span> <span class="k">for</span> <span class="n">hh</span> <span class="ow">in</span> <span class="n">in_window</span>
             <span class="p">)</span>
+            <span class="o">+</span> <span class="n">prior_total</span>
             <span class="o">-</span> <span class="n">n</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">model</span><span class="o">.</span><span class="n">add_linear_constraint</span><span class="p">(</span><span class="n">lhs</span><span class="p">,</span> <span class="n">poi</span><span class="o">.</span><span class="n">Leq</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div></div>
