@@ -825,8 +825,16 @@
         <span class="c1"># where `zones` is a comma-separated list of member zone codes.</span>
         <span class="c1"># Each row becomes one LP constraint:</span>
         <span class="c1">#   sum(carbon_capacity[year, z] for z in zones) &lt;= value</span>
-        <span class="n">emission_limits_df</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;carbon_emission_limit&#39;</span><span class="p">]</span>
-        <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">lr</span> <span class="ow">in</span> <span class="n">emission_limits_df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+        <span class="c1"># Optional: a PCM scenario typically omits the file entirely</span>
+        <span class="c1"># because the annual cap concept doesn&#39;t fit rolling-horizon</span>
+        <span class="c1"># dispatch.  Treat absent / empty input as &quot;no cap&quot;.</span>
+        <span class="n">emission_limits_df</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;carbon_emission_limit&#39;</span><span class="p">)</span>
+        <span class="n">rows</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">emission_limits_df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">()</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">emission_limits_df</span><span class="p">,</span> <span class="s1">&#39;iterrows&#39;</span><span class="p">)</span>
+            <span class="k">else</span> <span class="p">[]</span>
+        <span class="p">)</span>
+        <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">lr</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">lr</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">:</span>
                 <span class="k">continue</span>
             <span class="n">member_zones</span> <span class="o">=</span> <span class="p">[</span><span class="n">z</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">lr</span><span class="p">[</span><span class="s1">&#39;zones&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">z</span><span class="o">.</span><span class="n">strip</span><span class="p">()]</span>
