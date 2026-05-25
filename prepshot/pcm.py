@@ -319,6 +319,11 @@ def _build_window_params(
         p['prior_uc_startup'] = dict(state['prior_uc_startup'])
     if state.get('prior_uc_shutdown'):
         p['prior_uc_shutdown'] = dict(state['prior_uc_shutdown'])
+    # Cross-window ramping continuity: terminal gen[h] per (z, te)
+    # so ramping_up_rule / ramping_down_rule at h = hour[0] can link
+    # to the prior window's terminal value instead of being skipped.
+    if state.get('prior_gen'):
+        p['prior_gen'] = dict(state['prior_gen'])
     # Force the head-iteration off in PCM windows -- per-window head
     # iteration would multiply the solve count by 3x with no extra
     # accuracy on a single window.
@@ -360,7 +365,25 @@ def _extract_window_state(
         'prior_uc_online': {},
         'prior_uc_startup': {},
         'prior_uc_shutdown': {},
+        'prior_gen': {},
     }
+    # ----- Generation level at window end: terminal gen[h] per
+    # (z, te), so next window's ramping rules at h0 can link
+    # gen[h0] to the prior window's terminal value instead of being
+    # an amnesiac restart.
+    if hasattr(model, 'gen'):
+        m0 = model.month[0]
+        y0 = model.year[0]
+        active_zt = getattr(model, 'active_zt', None)
+        if active_zt is not None:
+            for (z, te) in active_zt:
+                try:
+                    g = float(model.get_value(
+                        model.gen[terminal_hour, m0, y0, z, te]
+                    ))
+                except (KeyError, TypeError):
+                    continue
+                state['prior_gen'][(z, te)] = g
     # ----- UC state at window end: online count, plus the last
     # max(min_up, min_down) hours of startup / shutdown counts so
     # the next window's min_up / min_down lookback can see across

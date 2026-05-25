@@ -203,15 +203,23 @@ class AddGenerationConstraints:
         """
         model = self.model
         rp = model.params['ramp_up'][te] * model.params['dt']
-        # Skip when ramp limit isn't binding (rp >= 1 means a unit can
-        # ramp from 0 to full output in one step), or for the first
-        # hour of the modelled window (no h-1 in the set).
-        if rp < 1 and h > model.hour[0]:
-            lhs = (
-                model.gen[h, m, y, z, te] - model.gen[h-1, m, y, z, te]
-                - rp * model.cap_existing[y, z, te]
-            )
-            return model.add_linear_constraint(lhs, poi.Leq, 0)
+        if rp >= 1:
+            return None  # ramp >= full capacity per step -- not binding
+        if h > model.hour[0]:
+            prev_gen = model.gen[h - 1, m, y, z, te]
+        else:
+            # First hour of window: pull terminal gen from the prior
+            # PCM window if available; otherwise leave the boundary
+            # unconstrained (original behaviour for CEM / first window).
+            prior_gen = (model.params.get('prior_gen') or {}).get((z, te))
+            if prior_gen is None:
+                return None
+            prev_gen = prior_gen
+        lhs = (
+            model.gen[h, m, y, z, te] - prev_gen
+            - rp * model.cap_existing[y, z, te]
+        )
+        return model.add_linear_constraint(lhs, poi.Leq, 0)
 
 
     def ramping_down_rule(
@@ -239,9 +247,17 @@ class AddGenerationConstraints:
         """
         model = self.model
         rd = model.params['ramp_down'][te] * model.params['dt']
-        if rd < 1 and h > model.hour[0]:
-            lhs = (
-                model.gen[h-1, m, y, z, te] - model.gen[h, m, y, z, te]
-                - rd * model.cap_existing[y, z, te]
-            )
-            return model.add_linear_constraint(lhs, poi.Leq, 0)
+        if rd >= 1:
+            return None
+        if h > model.hour[0]:
+            prev_gen = model.gen[h - 1, m, y, z, te]
+        else:
+            prior_gen = (model.params.get('prior_gen') or {}).get((z, te))
+            if prior_gen is None:
+                return None
+            prev_gen = prior_gen
+        lhs = (
+            prev_gen - model.gen[h, m, y, z, te]
+            - rd * model.cap_existing[y, z, te]
+        )
+        return model.add_linear_constraint(lhs, poi.Leq, 0)
