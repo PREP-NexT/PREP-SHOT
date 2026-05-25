@@ -276,12 +276,17 @@ def _build_window_params(
     # approximation that lets each window stand alone, instead of
     # implicitly looping its end back into its beginning.
     p['cyclic_hydro'] = False
-    # Recompute weight for the smaller window so cost / income terms
-    # scale correctly (weight is in the income denominator).
-    if 'hours_in_year' in p:
-        p['weight'] = (
-            len(p['month']) * len(window_hours) * p['dt']
-        ) / p['hours_in_year']
+    # Keep weight at the full-year value (= 1.0 in the standard
+    # configuration).  In CEM mode `weight = window_hours /
+    # hours_in_year` scales a representative period up to an annual
+    # equivalent; in PCM mode every window is a real chunk of time,
+    # not a representative.  The 1/weight factor inside the cost
+    # rules would annualize each window's objective (e.g. multiply a
+    # 24-h dispatch cost by 365), so summing the 365 window
+    # objectives would yield 365 x annual_cost.  By pinning weight
+    # to the inherited full-year value (1.0 in standard configs) the
+    # per-window objective IS the actual cost for that window, and
+    # the 365 objectives sum to the real annual cost.
     # Filter year-keyed lookups down to {year}. The CEM model iterates
     # over rows of the policy / fleet tables and indexes year-keyed
     # variables; keeping rows for years outside the window triggers
