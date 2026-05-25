@@ -1038,12 +1038,17 @@
     <span class="c1"># approximation that lets each window stand alone, instead of</span>
     <span class="c1"># implicitly looping its end back into its beginning.</span>
     <span class="n">p</span><span class="p">[</span><span class="s1">&#39;cyclic_hydro&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
-    <span class="c1"># Recompute weight for the smaller window so cost / income terms</span>
-    <span class="c1"># scale correctly (weight is in the income denominator).</span>
-    <span class="k">if</span> <span class="s1">&#39;hours_in_year&#39;</span> <span class="ow">in</span> <span class="n">p</span><span class="p">:</span>
-        <span class="n">p</span><span class="p">[</span><span class="s1">&#39;weight&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="nb">len</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;month&#39;</span><span class="p">])</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">window_hours</span><span class="p">)</span> <span class="o">*</span> <span class="n">p</span><span class="p">[</span><span class="s1">&#39;dt&#39;</span><span class="p">]</span>
-        <span class="p">)</span> <span class="o">/</span> <span class="n">p</span><span class="p">[</span><span class="s1">&#39;hours_in_year&#39;</span><span class="p">]</span>
+    <span class="c1"># Keep weight at the full-year value (= 1.0 in the standard</span>
+    <span class="c1"># configuration).  In CEM mode `weight = window_hours /</span>
+    <span class="c1"># hours_in_year` scales a representative period up to an annual</span>
+    <span class="c1"># equivalent; in PCM mode every window is a real chunk of time,</span>
+    <span class="c1"># not a representative.  The 1/weight factor inside the cost</span>
+    <span class="c1"># rules would annualize each window&#39;s objective (e.g. multiply a</span>
+    <span class="c1"># 24-h dispatch cost by 365), so summing the 365 window</span>
+    <span class="c1"># objectives would yield 365 x annual_cost.  By pinning weight</span>
+    <span class="c1"># to the inherited full-year value (1.0 in standard configs) the</span>
+    <span class="c1"># per-window objective IS the actual cost for that window, and</span>
+    <span class="c1"># the 365 objectives sum to the real annual cost.</span>
     <span class="c1"># Filter year-keyed lookups down to {year}. The CEM model iterates</span>
     <span class="c1"># over rows of the policy / fleet tables and indexes year-keyed</span>
     <span class="c1"># variables; keeping rows for years outside the window triggers</span>
