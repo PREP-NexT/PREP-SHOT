@@ -869,6 +869,17 @@
         <span class="c1"># cap-bounded dispatchable constraint into one rule.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_p_max_pu</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;max_gen_profile&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{})</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_p_min_pu</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;min_gen_profile&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{})</span>
+        <span class="c1"># UC-eligible techs get their min-gen lower bound gated by</span>
+        <span class="c1"># `online[h]` in unit_commitment.gen_low_uc_rule; the</span>
+        <span class="c1"># cap_existing-based lower bound here would override that gate</span>
+        <span class="c1"># (cap_existing * p_min_pu &gt;= online * unit_size * p_min_pu</span>
+        <span class="c1"># whenever online &lt; n_units), pinning units permanently on.</span>
+        <span class="c1"># Skip the rule for those techs.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_uc_active</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;is_uc&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">))</span>
+        <span class="n">elig</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;uc_eligible&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_uc_eligible_techs</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">t</span> <span class="k">for</span> <span class="n">t</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">elig</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+        <span class="p">}</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_uc_active</span> <span class="k">else</span> <span class="nb">set</span><span class="p">()</span>
         <span class="c1"># Iterate sparsely over (h, m, y, z, te) where (z, te) is in</span>
         <span class="c1"># ``model.active_zt``. Inactive (z, te) pairs have no</span>
         <span class="c1"># ``model.gen`` variable (sparse creation in model.py), and</span>
@@ -911,7 +922,16 @@
 <span class="sd">        Defaults to p_min_pu = 0 (no minimum) when the tech has no</span>
 <span class="sd">        entry in tech_min_gen_profile.csv. Set p_min_pu &gt; 0 for</span>
 <span class="sd">        must-run plants with a minimum stable load.</span>
+
+<span class="sd">        Skipped when the tech is UC-eligible -- in that case the</span>
+<span class="sd">        commitment-gated rule in unit_commitment.gen_low_uc_rule</span>
+<span class="sd">        (gen &gt;= online * unit_size * p_min_pu * dt) is the</span>
+<span class="sd">        authoritative lower bound, and adding this cap_existing-based</span>
+<span class="sd">        version would force gen &gt;= cap_existing * p_min_pu regardless</span>
+<span class="sd">        of the online state, defeating shutdowns.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">te</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_uc_eligible_techs</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
         <span class="n">model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span>
         <span class="n">p_min_pu</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p_min_pu</span><span class="o">.</span><span class="n">get</span><span class="p">((</span><span class="n">te</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">h</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">p_min_pu</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>

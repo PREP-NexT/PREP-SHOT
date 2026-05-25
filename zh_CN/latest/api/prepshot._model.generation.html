@@ -894,6 +894,12 @@ of storage technology <span class="math notranslate nohighlight">\(e\)</span>.</
 <p>Defaults to p_min_pu = 0 (no minimum) when the tech has no
 entry in tech_min_gen_profile.csv. Set p_min_pu &gt; 0 for
 must-run plants with a minimum stable load.</p>
+<p>Skipped when the tech is UC-eligible -- in that case the
+commitment-gated rule in unit_commitment.gen_low_uc_rule
+(gen &gt;= online * unit_size * p_min_pu * dt) is the
+authoritative lower bound, and adding this cap_existing-based
+version would force gen &gt;= cap_existing * p_min_pu regardless
+of the online state, defeating shutdowns.</p>
 <dl class="field-list simple">
 <dt class="field-odd">参数</dt>
 <dd class="field-odd"><ul class="simple">
