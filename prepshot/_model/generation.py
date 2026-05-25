@@ -106,6 +106,17 @@ class AddGenerationConstraints:
         # cap-bounded dispatchable constraint into one rule.
         self._p_max_pu = dict(model.params.get('max_gen_profile') or {})
         self._p_min_pu = dict(model.params.get('min_gen_profile') or {})
+        # UC-eligible techs get their min-gen lower bound gated by
+        # `online[h]` in unit_commitment.gen_low_uc_rule; the
+        # cap_existing-based lower bound here would override that gate
+        # (cap_existing * p_min_pu >= online * unit_size * p_min_pu
+        # whenever online < n_units), pinning units permanently on.
+        # Skip the rule for those techs.
+        self._uc_active = bool(model.params.get('is_uc', False))
+        elig = model.params.get('uc_eligible') or {}
+        self._uc_eligible_techs = {
+            t for t, v in elig.items() if bool(v)
+        } if self._uc_active else set()
         # Iterate sparsely over (h, m, y, z, te) where (z, te) is in
         # ``model.active_zt``. Inactive (z, te) pairs have no
         # ``model.gen`` variable (sparse creation in model.py), and
@@ -148,7 +159,16 @@ class AddGenerationConstraints:
         Defaults to p_min_pu = 0 (no minimum) when the tech has no
         entry in tech_min_gen_profile.csv. Set p_min_pu > 0 for
         must-run plants with a minimum stable load.
+
+        Skipped when the tech is UC-eligible -- in that case the
+        commitment-gated rule in unit_commitment.gen_low_uc_rule
+        (gen >= online * unit_size * p_min_pu * dt) is the
+        authoritative lower bound, and adding this cap_existing-based
+        version would force gen >= cap_existing * p_min_pu regardless
+        of the online state, defeating shutdowns.
         """
+        if te in self._uc_eligible_techs:
+            return None
         model = self.model
         p_min_pu = self._p_min_pu.get((te, z, y, m, h), 0)
         if p_min_pu == 0:
