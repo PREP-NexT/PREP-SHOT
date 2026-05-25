@@ -21,7 +21,8 @@
     "carbon_emission_limit": {
         "file_name": "policy_carbon_emission_limit",
         "format": "table",
-        "drop_na": false
+        "drop_na": false,
+        "required": false
     },
     "emission_factor": {
         "file_name": "tech_emission_factor",

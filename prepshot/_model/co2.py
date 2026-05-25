@@ -62,8 +62,16 @@ class AddCo2EmissionConstraints:
         # where `zones` is a comma-separated list of member zone codes.
         # Each row becomes one LP constraint:
         #   sum(carbon_capacity[year, z] for z in zones) <= value
-        emission_limits_df = model.params['carbon_emission_limit']
-        for _, lr in emission_limits_df.iterrows():
+        # Optional: a PCM scenario typically omits the file entirely
+        # because the annual cap concept doesn't fit rolling-horizon
+        # dispatch.  Treat absent / empty input as "no cap".
+        emission_limits_df = model.params.get('carbon_emission_limit')
+        rows = (
+            emission_limits_df.iterrows()
+            if hasattr(emission_limits_df, 'iterrows')
+            else []
+        )
+        for _, lr in rows:
             if lr['value'] == np.inf:
                 continue
             member_zones = [z.strip() for z in str(lr['zones']).split(',') if z.strip()]
