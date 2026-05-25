@@ -204,12 +204,33 @@ class AddUnitCommitmentConstraints:
         )
 
     def state_evolution_rule(self, h, m, y, z, te):
-        """``online[h] - online[h-1] = startup[h] - shutdown[h]`` for
-        every hour after the first in the modelled set. The first
-        hour's online state is free (initialised by the LP optimum)."""
+        """``online[h] - online[h-1] = startup[h] - shutdown[h]``.
+
+        At the first hour of a window, ``online[h-1]`` does not exist
+        in this LP, so the rule consults
+        ``params['prior_uc_online'][(z, te)]`` (terminal online count
+        from the previous PCM window).  When that lookup is missing
+        (very first window of the run, or non-PCM CEM model) the
+        boundary condition degenerates to "online[h0] free, no
+        startup / shutdown linkage" -- same behaviour as before.
+        """
         model = self.model
-        if not self.is_eligible[te] or h == model.hour[0]:
+        if not self.is_eligible[te]:
             return None
+        h0 = model.hour[0]
+        if h == h0:
+            prior_online = (
+                model.params.get('prior_uc_online') or {}
+            ).get((z, te))
+            if prior_online is None:
+                return None
+            lhs = (
+                model.online[h, m, y, z, te]
+                - prior_online
+                - model.startup[h, m, y, z, te]
+                + model.shutdown[h, m, y, z, te]
+            )
+            return model.add_linear_constraint(lhs, poi.Eq, 0)
         lhs = (
             model.online[h, m, y, z, te]
             - model.online[h - 1, m, y, z, te]
@@ -250,8 +271,19 @@ class AddUnitCommitmentConstraints:
 
     def min_up_rule(self, h, m, y, z, te):
         """``online[h] >= sum_{i=0..MinUp-1} startup[h-i]`` -- if a
-        unit started in any of the last MinUp hours, it must be online
-        now."""
+        unit started in any of the last MinUp hours, it must be
+        online now.
+
+        The lookback spans absolute hours ``[h - mu + 1, h]``.  Hours
+        that fall inside the current window pull
+        ``model.startup[h_abs, ...]``; hours that fall before the
+        window's first hour pull the carried-over count from
+        ``params['prior_uc_startup'][(z, te, h_abs)]`` (populated by
+        the previous PCM window's ``_extract_window_state``).
+        Missing prior values default to 0, equivalent to "no startup
+        recorded that hour" -- a safe under-count that only affects
+        very early hours of the first run.
+        """
         model = self.model
         if not self.is_eligible[te]:
             return None
@@ -259,19 +291,31 @@ class AddUnitCommitmentConstraints:
         if mu <= 1:
             return None  # 1-hour min-up = no real constraint
         h0 = model.hour[0]
-        lookback = [hh for hh in range(h - mu + 1, h + 1) if hh >= h0]
-        if not lookback:
+        in_window = [hh for hh in range(h - mu + 1, h + 1) if hh >= h0]
+        prior_starts = (model.params.get('prior_uc_startup') or {})
+        prior_total = sum(
+            float(prior_starts.get((z, te, hh), 0.0))
+            for hh in range(h - mu + 1, h0)
+        )
+        if not in_window and prior_total == 0.0:
             return None
         lhs = (
             poi.quicksum(
-                model.startup[hh, m, y, z, te] for hh in lookback
+                model.startup[hh, m, y, z, te] for hh in in_window
             )
+            + prior_total
             - model.online[h, m, y, z, te]
         )
         return model.add_linear_constraint(lhs, poi.Leq, 0)
 
     def min_down_rule(self, h, m, y, z, te):
-        """``(N_units - online[h]) >= sum_{i=0..MinDown-1} shutdown[h-i]``."""
+        """``(N_units - online[h]) >= sum_{i=0..MinDown-1} shutdown[h-i]``.
+
+        Symmetric to ``min_up_rule``: the lookback over absolute hours
+        ``[h - md + 1, h]`` pulls in-window shutdowns from
+        ``model.shutdown`` and pre-window shutdowns from
+        ``params['prior_uc_shutdown'][(z, te, h_abs)]``.
+        """
         model = self.model
         if not self.is_eligible[te]:
             return None
@@ -279,15 +323,21 @@ class AddUnitCommitmentConstraints:
         if md <= 1:
             return None
         h0 = model.hour[0]
-        lookback = [hh for hh in range(h - md + 1, h + 1) if hh >= h0]
-        if not lookback:
+        in_window = [hh for hh in range(h - md + 1, h + 1) if hh >= h0]
+        prior_shuts = (model.params.get('prior_uc_shutdown') or {})
+        prior_total = sum(
+            float(prior_shuts.get((z, te, hh), 0.0))
+            for hh in range(h - md + 1, h0)
+        )
+        if not in_window and prior_total == 0.0:
             return None
         n = self.n_units.get((z, te), 0)
         lhs = (
             model.online[h, m, y, z, te]
             + poi.quicksum(
-                model.shutdown[hh, m, y, z, te] for hh in lookback
+                model.shutdown[hh, m, y, z, te] for hh in in_window
             )
+            + prior_total
             - n
         )
         return model.add_linear_constraint(lhs, poi.Leq, 0)

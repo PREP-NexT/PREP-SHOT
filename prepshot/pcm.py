@@ -307,6 +307,18 @@ def _build_window_params(
         merged = dict(p.get('initial_energy_storage_level') or {})
         merged.update(state['battery_storage'])
         p['initial_energy_storage_level'] = merged
+    # Cross-window UC state: (z, te) -> online count at end of prior
+    # window; (z, te, h_abs) -> startup / shutdown count over the last
+    # max(min_up, min_down) hours of the prior window.  Consumed by
+    # unit_commitment.{state_evolution_rule, min_up_rule, min_down_rule}
+    # so the boundary hour h0 is properly linked to the prior window
+    # instead of being a free reset.
+    if state.get('prior_uc_online'):
+        p['prior_uc_online'] = dict(state['prior_uc_online'])
+    if state.get('prior_uc_startup'):
+        p['prior_uc_startup'] = dict(state['prior_uc_startup'])
+    if state.get('prior_uc_shutdown'):
+        p['prior_uc_shutdown'] = dict(state['prior_uc_shutdown'])
     # Force the head-iteration off in PCM windows -- per-window head
     # iteration would multiply the solve count by 3x with no extra
     # accuracy on a single window.
@@ -345,7 +357,54 @@ def _extract_window_state(
         'hydro_storage': {},
         'battery_storage': {},
         'prior_outflow': {},
+        'prior_uc_online': {},
+        'prior_uc_startup': {},
+        'prior_uc_shutdown': {},
     }
+    # ----- UC state at window end: online count, plus the last
+    # max(min_up, min_down) hours of startup / shutdown counts so
+    # the next window's min_up / min_down lookback can see across
+    # the boundary.
+    if full_params.get('is_uc', False) and hasattr(model, 'online'):
+        elig = full_params.get('uc_eligible') or {}
+        eligible_techs = {t for t, v in elig.items() if bool(v)}
+        min_up_dict = full_params.get('uc_min_up_time') or {}
+        min_down_dict = full_params.get('uc_min_down_time') or {}
+        max_lookback = max(
+            [int(min_up_dict.get(t, 1)) for t in eligible_techs]
+            + [int(min_down_dict.get(t, 1)) for t in eligible_techs]
+            + [1]
+        )
+        m0 = model.month[0]
+        y0 = model.year[0]
+        for z in model.zone:
+            for te in model.tech:
+                if te not in eligible_techs:
+                    continue
+                try:
+                    on_val = float(model.get_value(
+                        model.online[terminal_hour, m0, y0, z, te]
+                    ))
+                except (KeyError, TypeError):
+                    continue
+                state['prior_uc_online'][(z, te)] = on_val
+                # Capture startup / shutdown for the last
+                # max_lookback hours, keyed by absolute hour.
+                for offset in range(max_lookback):
+                    h_abs = terminal_hour - offset
+                    if h_abs not in set(model.hour):
+                        continue
+                    try:
+                        s_val = float(model.get_value(
+                            model.startup[h_abs, m0, y0, z, te]
+                        ))
+                        d_val = float(model.get_value(
+                            model.shutdown[h_abs, m0, y0, z, te]
+                        ))
+                    except (KeyError, TypeError):
+                        continue
+                    state['prior_uc_startup'][(z, te, h_abs)] = s_val
+                    state['prior_uc_shutdown'][(z, te, h_abs)] = d_val
     if full_params.get('isinflow') and hasattr(model, 'storage_reservoir'):
         smin = full_params.get('reservoir_storage_min') or {}
         smax = full_params.get('reservoir_storage_max') or {}
