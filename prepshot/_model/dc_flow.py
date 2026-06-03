@@ -279,14 +279,15 @@ class AddDCFlowConstraints:
         """Capacity bound on contingency-case flow.
 
         ``trans_export_c[h, m, y, z1, z2, c] <= cap_lines_existing[y,
-        z1, z2]``. Same numeric bound as the base case -- ``gen`` is
-        shared between base and contingency, so capacity stays
-        consistent.
+        z1, z2] * dt``. Same numeric bound as the base case -- ``gen``
+        is shared between base and contingency, so capacity stays
+        consistent. ``dt`` converts MW capacity to per-step MWh, matching
+        ``trans_export_c`` which carries MWh per timestep.
         """
         model = self.model
         lhs = (
             model.trans_export_c[h, m, y, z1, z2, c]
-            - model.cap_lines_existing[y, z1, z2]
+            - model.cap_lines_existing[y, z1, z2] * model.params['dt']
         )
         return model.add_linear_constraint(lhs, poi.Leq, 0)
 

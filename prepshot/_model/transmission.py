@@ -225,6 +225,8 @@ class AddTransmissionConstraints:
             The constraint of the model.
         """
         model = self.model
-        lhs = model.trans_export[h, m, y, z, z1]                              \
-            - model.cap_lines_existing[y, z, z1]
+        lhs = (
+            model.trans_export[h, m, y, z, z1]
+            - model.cap_lines_existing[y, z, z1] * model.params['dt']
+        )
         return model.add_linear_constraint(lhs, poi.Leq, 0)
