@@ -1041,14 +1041,15 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Capacity bound on contingency-case flow.</span>
 
 <span class="sd">        ``trans_export_c[h, m, y, z1, z2, c] &lt;= cap_lines_existing[y,</span>
-<span class="sd">        z1, z2]``. Same numeric bound as the base case -- ``gen`` is</span>
-<span class="sd">        shared between base and contingency, so capacity stays</span>
-<span class="sd">        consistent.</span>
+<span class="sd">        z1, z2] * dt``. Same numeric bound as the base case -- ``gen``</span>
+<span class="sd">        is shared between base and contingency, so capacity stays</span>
+<span class="sd">        consistent. ``dt`` converts MW capacity to per-step MWh, matching</span>
+<span class="sd">        ``trans_export_c`` which carries MWh per timestep.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span>
         <span class="n">lhs</span> <span class="o">=</span> <span class="p">(</span>
             <span class="n">model</span><span class="o">.</span><span class="n">trans_export_c</span><span class="p">[</span><span class="n">h</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z1</span><span class="p">,</span> <span class="n">z2</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span>
-            <span class="o">-</span> <span class="n">model</span><span class="o">.</span><span class="n">cap_lines_existing</span><span class="p">[</span><span class="n">y</span><span class="p">,</span> <span class="n">z1</span><span class="p">,</span> <span class="n">z2</span><span class="p">]</span>
+            <span class="o">-</span> <span class="n">model</span><span class="o">.</span><span class="n">cap_lines_existing</span><span class="p">[</span><span class="n">y</span><span class="p">,</span> <span class="n">z1</span><span class="p">,</span> <span class="n">z2</span><span class="p">]</span> <span class="o">*</span> <span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;dt&#39;</span><span class="p">]</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">model</span><span class="o">.</span><span class="n">add_linear_constraint</span><span class="p">(</span><span class="n">lhs</span><span class="p">,</span> <span class="n">poi</span><span class="o">.</span><span class="n">Leq</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div>
 

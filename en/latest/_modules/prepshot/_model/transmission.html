@@ -987,8 +987,10 @@
 <span class="sd">            The constraint of the model.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span>
-        <span class="n">lhs</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">trans_export</span><span class="p">[</span><span class="n">h</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">z1</span><span class="p">]</span>                              \
-            <span class="o">-</span> <span class="n">model</span><span class="o">.</span><span class="n">cap_lines_existing</span><span class="p">[</span><span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">z1</span><span class="p">]</span>
+        <span class="n">lhs</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">trans_export</span><span class="p">[</span><span class="n">h</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">z1</span><span class="p">]</span>
+            <span class="o">-</span> <span class="n">model</span><span class="o">.</span><span class="n">cap_lines_existing</span><span class="p">[</span><span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">z1</span><span class="p">]</span> <span class="o">*</span> <span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;dt&#39;</span><span class="p">]</span>
+        <span class="p">)</span>
         <span class="k">return</span> <span class="n">model</span><span class="o">.</span><span class="n">add_linear_constraint</span><span class="p">(</span><span class="n">lhs</span><span class="p">,</span> <span class="n">poi</span><span class="o">.</span><span class="n">Leq</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div></div>
 </pre></div>
 

@@ -872,9 +872,10 @@ for numerical stability; in practice DC OPF angles stay well within
 <span class="sig-name descname"><span class="pre">cap_c_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/prepshot/_model/dc_flow.html#AddDCFlowConstraints.cap_c_rule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#prepshot._model.dc_flow.AddDCFlowConstraints.cap_c_rule" title="Permalink to this definition">¶</a></dt>
 <dd><p>Capacity bound on contingency-case flow.</p>
 <p><code class="docutils literal notranslate"><span class="pre">trans_export_c[h,</span> <span class="pre">m,</span> <span class="pre">y,</span> <span class="pre">z1,</span> <span class="pre">z2,</span> <span class="pre">c]</span> <span class="pre">&lt;=</span> <span class="pre">cap_lines_existing[y,</span>
-<span class="pre">z1,</span> <span class="pre">z2]</span></code>. Same numeric bound as the base case -- <code class="docutils literal notranslate"><span class="pre">gen</span></code> is
-shared between base and contingency, so capacity stays
-consistent.</p>
+<span class="pre">z1,</span> <span class="pre">z2]</span> <span class="pre">*</span> <span class="pre">dt</span></code>. Same numeric bound as the base case -- <code class="docutils literal notranslate"><span class="pre">gen</span></code>
+is shared between base and contingency, so capacity stays
+consistent. <code class="docutils literal notranslate"><span class="pre">dt</span></code> converts MW capacity to per-step MWh, matching
+<code class="docutils literal notranslate"><span class="pre">trans_export_c</span></code> which carries MWh per timestep.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
