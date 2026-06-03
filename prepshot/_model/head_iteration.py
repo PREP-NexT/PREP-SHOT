@@ -159,8 +159,14 @@ def process_model_solution(
             params['reservoir_forebay_level_volume_function']
         )
 
-        # Calculate the new water head.
-        fore = (storage[:, :, :hour[-1]] + storage[:, :, 1:]) / 2
+        # Calculate the new water head. Use positional slicing (``:-1``)
+        # instead of value-based (``:hour[-1]``): the third axis has
+        # length ``len(hour) + 1`` regardless of what numbers ``hour``
+        # contains, so ``:-1`` always pairs correctly with ``1:``. The
+        # old form happened to work only when hour starts at 1 with step
+        # 1 (CEM default); PCM windows whose hour ranges don't start at
+        # 1 would silently produce a shape mismatch.
+        fore = (storage[:, :, :-1] + storage[:, :, 1:]) / 2
         h = np.maximum(fore - tail, 0)
         new_waterhead.loc[station_id, :] = h.ravel()
     return True
