@@ -865,6 +865,32 @@ based on the proportion of the maximum storage capacity, as follows:</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="prepshot._model.storage.AddStorageConstraints.charge_up_bound_rule">
+<span class="sig-name descname"><span class="pre">charge_up_bound_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">te</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/prepshot/_model/storage.html#AddStorageConstraints.charge_up_bound_rule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#prepshot._model.storage.AddStorageConstraints.charge_up_bound_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>charge[h,m,y,z,te] &lt;= cap_existing * dt.</p>
+<p>Symmetric to gen_up_bound_rule on the discharge side. Bounds
+grid-side charging energy per timestep by the installed power
+capacity (storage is assumed symmetric: same power rating for
+charge and discharge, per the module docstring). Without this
+rule, charge is implicitly capped only by the SOC ceiling --
+letting a 1 MW / 10 MWh battery draw 10 MW for one hour.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>h</strong> (<em>int</em>) -- </p></li>
+<li><p><strong>m</strong> (<em>int</em>) -- </p></li>
+<li><p><strong>y</strong> (<em>int</em>) -- </p></li>
+<li><p><strong>z</strong> (<em>str</em>) -- </p></li>
+<li><p><strong>te</strong> (<em>str</em>) -- </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><em>ConstraintIndex</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="prepshot._model.storage.AddStorageConstraints.end_energy_storage_rule">
 <span class="sig-name descname"><span class="pre">end_energy_storage_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">te</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/prepshot/_model/storage.html#AddStorageConstraints.end_energy_storage_rule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#prepshot._model.storage.AddStorageConstraints.end_energy_storage_rule" title="Permalink to this definition">¶</a></dt>
 <dd><p>End energy storage.</p>
