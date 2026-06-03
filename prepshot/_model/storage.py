@@ -64,6 +64,8 @@ from typing import Union
 
 import pyoptinterface as poi
 
+from prepshot.utils import sparse_tupledict
+
 class AddStorageConstraints:
     """Energy storage class.
     """
@@ -95,6 +97,13 @@ class AddStorageConstraints:
         model.energy_storage_gen_cons = poi.make_tupledict(
             model.hour, model.month, model.year, model.zone,
             model.storage_tech, rule=self.energy_storage_gen_rule
+        )
+        # Iterate sparsely over (h, m, y, z, te) where (z, te) is in
+        # ``model.active_zt_storage``. Matches the sparse creation of
+        # ``model.charge`` in model.py: accessing inactive pairs would
+        # KeyError, and the bound on those would be ``0 <= 0`` anyway.
+        model.charge_up_bound_cons = sparse_tupledict(
+            model.active_hmyzte_storage, self.charge_up_bound_rule
         )
 
     def energy_storage_balance_rule(
@@ -230,6 +239,25 @@ class AddStorageConstraints:
         lhs = (
             model.storage[h, m, y, z, te]
             - model.cap_existing[y, z, te] * epr * dt
+        )
+        return model.add_linear_constraint(lhs, poi.Leq, 0)
+
+    def charge_up_bound_rule(
+        self, h : int, m : int, y : int, z : str, te : str
+    ) -> poi.ConstraintIndex:
+        """charge[h,m,y,z,te] <= cap_existing * dt.
+
+        Symmetric to gen_up_bound_rule on the discharge side. Bounds
+        grid-side charging energy per timestep by the installed power
+        capacity (storage is assumed symmetric: same power rating for
+        charge and discharge, per the module docstring). Without this
+        rule, charge is implicitly capped only by the SOC ceiling --
+        letting a 1 MW / 10 MWh battery draw 10 MW for one hour.
+        """
+        model = self.model
+        lhs = (
+            model.charge[h, m, y, z, te]
+            - model.cap_existing[y, z, te] * model.params['dt']
         )
         return model.add_linear_constraint(lhs, poi.Leq, 0)
 
