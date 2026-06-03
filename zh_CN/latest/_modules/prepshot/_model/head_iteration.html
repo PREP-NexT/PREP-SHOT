@@ -922,8 +922,14 @@
             <span class="n">params</span><span class="p">[</span><span class="s1">&#39;reservoir_forebay_level_volume_function&#39;</span><span class="p">]</span>
         <span class="p">)</span>
 
-        <span class="c1"># Calculate the new water head.</span>
-        <span class="n">fore</span> <span class="o">=</span> <span class="p">(</span><span class="n">storage</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:</span><span class="n">hour</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span> <span class="o">+</span> <span class="n">storage</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">1</span><span class="p">:])</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="c1"># Calculate the new water head. Use positional slicing (``:-1``)</span>
+        <span class="c1"># instead of value-based (``:hour[-1]``): the third axis has</span>
+        <span class="c1"># length ``len(hour) + 1`` regardless of what numbers ``hour``</span>
+        <span class="c1"># contains, so ``:-1`` always pairs correctly with ``1:``. The</span>
+        <span class="c1"># old form happened to work only when hour starts at 1 with step</span>
+        <span class="c1"># 1 (CEM default); PCM windows whose hour ranges don&#39;t start at</span>
+        <span class="c1"># 1 would silently produce a shape mismatch.</span>
+        <span class="n">fore</span> <span class="o">=</span> <span class="p">(</span><span class="n">storage</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">storage</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">1</span><span class="p">:])</span> <span class="o">/</span> <span class="mi">2</span>
         <span class="n">h</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">fore</span> <span class="o">-</span> <span class="n">tail</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
         <span class="n">new_waterhead</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">station_id</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
     <span class="k">return</span> <span class="kc">True</span></div>
