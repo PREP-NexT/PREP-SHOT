@@ -344,7 +344,7 @@ def _extract_window_state(
     Battery SOC is converted from absolute MWh (the form held by
     ``model.storage``) to the per-unit-of-capacity fraction that
     ``params['initial_energy_storage_level']`` expects, using the
-    same ``esl * cap * epr * dt`` relation as the
+    same ``esl * cap * epr`` relation as the
     ``init_energy_storage_rule``.
 
     **Prior outflow state (v1.17+).** For each upstream station with a
@@ -483,7 +483,6 @@ def _extract_window_state(
 
     if hasattr(model, 'storage') and getattr(model, 'storage_tech', None):
         epr_lookup = full_params.get('energy_to_power_ratio') or {}
-        dt = full_params['dt']
         # Sparse (z, te) pairs only: cap_existing / storage have no
         # entry for a storage tech that is not deployed in a zone.
         for (z, te) in model.active_zt_storage:
@@ -494,7 +493,7 @@ def _extract_window_state(
                 model.cap_existing[year, z, te]
             )) if hasattr(model.cap_existing, '__getitem__') else 0.0
             epr = float(epr_lookup.get(te, 0.0))
-            denom = cap_mw * epr * dt
+            denom = cap_mw * epr
             if denom <= 0:
                 # No installed storage in this (z, te) slot --
                 # skip; the next window's init lookup defaults to 0.
@@ -505,7 +504,7 @@ def _extract_window_state(
                 ))
                 esl = val_mwh / denom
                 # Clamp into [0, 1] -- LP feasibility guarantees
-                # storage stays in [0, cap*epr*dt], but
+                # storage stays in [0, cap*epr], but
                 # floating-point noise can push the ratio just
                 # outside.
                 esl = min(max(esl, 0.0), 1.0)

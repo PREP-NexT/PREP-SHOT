@@ -167,14 +167,15 @@ class AddStorageConstraints:
         """
         model = self.model
         esl = model.params['initial_energy_storage_level'][te, z]
+        # Energy-to-power ratio is in hours (MWh per MW), so the energy
+        # capacity cap * epr does not depend on the time step length.
         epr = model.params['energy_to_power_ratio'][te]
-        dt = model.params['dt']
         # storage[hour_p[0], ...] is the prior-hour anchor: hour 0 in
         # CEM mode (where model.hour starts at 1), or h_first - 1 in a
         # PCM rolling-horizon window.
         lhs = (
             model.storage[model.hour_p[0], m, y, z, te]
-            - esl * model.cap_existing[y, z, te] * epr * dt
+            - esl * model.cap_existing[y, z, te] * epr
         )
         return model.add_linear_constraint(lhs, poi.Eq, 0)
 
@@ -237,10 +238,9 @@ class AddStorageConstraints:
         """
         model = self.model
         epr = model.params['energy_to_power_ratio'][te]
-        dt = model.params['dt']
         lhs = (
             model.storage[h, m, y, z, te]
-            - model.cap_existing[y, z, te] * epr * dt
+            - model.cap_existing[y, z, te] * epr
         )
         return model.add_linear_constraint(lhs, poi.Leq, 0)
 
