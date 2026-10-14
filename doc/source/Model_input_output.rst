@@ -108,8 +108,9 @@ Required inputs
   * - tech emission factor [tCO2/MWh]
     - Emission factor per tech, year, and zone.
     - tech_emission_factor
-  * - tech ramp up / ramp down [1/MW]
-    - Hourly ramp limits per tech and year.
+  * - tech ramp up / ramp down [fraction of capacity per hour]
+    - Hourly ramp limits per tech: the largest change in power output
+      over one hour, as a fraction of installed capacity.
     - tech_ramp_up,
       tech_ramp_down
 

@@ -202,7 +202,11 @@ class AddGenerationConstraints:
             The constraint of the model.
         """
         model = self.model
-        rp = model.params['ramp_up'][te] * model.params['dt']
+        # ramp_up is a fraction of capacity per hour, so the power may
+        # change by ramp_up * dt * cap over one step. gen is energy per
+        # step (power * dt), hence the second dt on the bound below.
+        dt = model.params['dt']
+        rp = model.params['ramp_up'][te] * dt
         if rp >= 1:
             return None  # ramp >= full capacity per step -- not binding
         if h > model.hour[0]:
@@ -217,7 +221,7 @@ class AddGenerationConstraints:
             prev_gen = prior_gen
         lhs = (
             model.gen[h, m, y, z, te] - prev_gen
-            - rp * model.cap_existing[y, z, te]
+            - rp * model.cap_existing[y, z, te] * dt
         )
         return model.add_linear_constraint(lhs, poi.Leq, 0)
 
@@ -246,7 +250,9 @@ class AddGenerationConstraints:
             The constraint of the model.
         """
         model = self.model
-        rd = model.params['ramp_down'][te] * model.params['dt']
+        # Same units as ramping_up_rule: ramp_down is per hour.
+        dt = model.params['dt']
+        rd = model.params['ramp_down'][te] * dt
         if rd >= 1:
             return None
         if h > model.hour[0]:
@@ -258,6 +264,6 @@ class AddGenerationConstraints:
             prev_gen = prior_gen
         lhs = (
             prev_gen - model.gen[h, m, y, z, te]
-            - rd * model.cap_existing[y, z, te]
+            - rd * model.cap_existing[y, z, te] * dt
         )
         return model.add_linear_constraint(lhs, poi.Leq, 0)
