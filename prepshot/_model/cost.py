@@ -177,7 +177,7 @@ class AddCostObjective:
         # Source-zone discount for inter-zone transmission costs.
         vf = model.params['var_factor'][y, z]
         w = model.params['weight']
-        return (0.5 / w * lvc * vf
+        return (1 / w * lvc * vf
             * poi.quicksum(model.trans_export.select('*', '*', y, z, z1)))
 
     def cost_var_tech_breakdown(
