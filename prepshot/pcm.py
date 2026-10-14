@@ -344,7 +344,7 @@ def _extract_window_state(
     Battery SOC is converted from absolute MWh (the form held by
     ``model.storage``) to the per-unit-of-capacity fraction that
     ``params['initial_energy_storage_level']`` expects, using the
-    same ``esl * cap * epr * dt`` relation as the
+    same ``esl * cap * epr`` relation as the
     ``init_energy_storage_rule``.
 
     **Prior outflow state (v1.17+).** For each upstream station with a
@@ -483,32 +483,32 @@ def _extract_window_state(
 
     if hasattr(model, 'storage') and getattr(model, 'storage_tech', None):
         epr_lookup = full_params.get('energy_to_power_ratio') or {}
-        dt = full_params['dt']
-        for z in model.zone:
-            for te in model.storage_tech:
-                # Compose cap_existing for this (year, zone, tech). Use
-                # the FIRST year in the window (PCM only models one).
-                year = model.year[0]
-                cap_mw = float(model.get_value(
-                    model.cap_existing[year, z, te]
-                )) if hasattr(model.cap_existing, '__getitem__') else 0.0
-                epr = float(epr_lookup.get(te, 0.0))
-                denom = cap_mw * epr * dt
-                if denom <= 0:
-                    # No installed storage in this (z, te) slot --
-                    # skip; the next window's init lookup defaults to 0.
-                    continue
-                for m in model.month:
-                    val_mwh = float(model.get_value(
-                        model.storage[terminal_hour, m, year, z, te]
-                    ))
-                    esl = val_mwh / denom
-                    # Clamp into [0, 1] -- LP feasibility guarantees
-                    # storage stays in [0, cap*epr*dt], but
-                    # floating-point noise can push the ratio just
-                    # outside.
-                    esl = min(max(esl, 0.0), 1.0)
-                    state['battery_storage'][te, z] = esl
+        # Sparse (z, te) pairs only: cap_existing / storage have no
+        # entry for a storage tech that is not deployed in a zone.
+        for (z, te) in model.active_zt_storage:
+            # Compose cap_existing for this (year, zone, tech). Use
+            # the FIRST year in the window (PCM only models one).
+            year = model.year[0]
+            cap_mw = float(model.get_value(
+                model.cap_existing[year, z, te]
+            )) if hasattr(model.cap_existing, '__getitem__') else 0.0
+            epr = float(epr_lookup.get(te, 0.0))
+            denom = cap_mw * epr
+            if denom <= 0:
+                # No installed storage in this (z, te) slot --
+                # skip; the next window's init lookup defaults to 0.
+                continue
+            for m in model.month:
+                val_mwh = float(model.get_value(
+                    model.storage[terminal_hour, m, year, z, te]
+                ))
+                esl = val_mwh / denom
+                # Clamp into [0, 1] -- LP feasibility guarantees
+                # storage stays in [0, cap*epr], but
+                # floating-point noise can push the ratio just
+                # outside.
+                esl = min(max(esl, 0.0), 1.0)
+                state['battery_storage'][te, z] = esl
     return state
 
 

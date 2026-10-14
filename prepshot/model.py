@@ -160,6 +160,38 @@ def define_active_zone_tech(model : object) -> None:
     ]
 
 
+def check_line_symmetry(existing : dict) -> None:
+    """Check that each existing line has the same capacity in both
+    directions.
+
+    A line has one entry for each direction, and the cost rules charge
+    half of the line cost on each entry. An entry with no equal entry
+    in the opposite direction would thus be charged incorrectly.
+
+    Parameters
+    ----------
+    existing : dict
+        ``transmission_existing``, keyed ``(zone1, zone2)`` or
+        ``(zone1, zone2, commission_year)``.
+
+    Raises
+    ------
+    ValueError
+        If the capacity of a line differs between the two directions.
+    """
+    mismatched = sorted(
+        key for key, cap in existing.items()
+        if existing.get((key[1], key[0]) + tuple(key[2:]), 0) != cap
+    )
+    if mismatched:
+        raise ValueError(
+            f"transmission_existing has {len(mismatched)} entries with "
+            f"no equal entry in the opposite direction. First few: "
+            f"{mismatched[:5]}. Give each line the same capacity for "
+            f"(zone1, zone2) and (zone2, zone1)."
+        )
+
+
 def define_complex_sets(model : object) -> None:
     """Validate that every line param needed by the constraints is
     actually present in the loaded CSVs.
@@ -182,6 +214,8 @@ def define_complex_sets(model : object) -> None:
         'distance',
     )
     years = list(model.params['year'])
+
+    check_line_symmetry(model.params.get('transmission_existing') or {})
 
     for k in year_indexed:
         d = model.params.get(k)

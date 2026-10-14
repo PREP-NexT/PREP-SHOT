@@ -5,37 +5,39 @@
 storage system is considered in this module. It means that the energy storage
 system has the same power capacity for charging and discharging.
 
-Similar to the power discharging process, the charging power of storage
-technology :math:`e` (:math:`{\\rm{power}}_{h,m,y,z,e}^{{c}}`) is also limited
-by the existing installed capacity and technical minimum charging power
-(:math:`{\\underline{{\\rm{POWER}}}}_{h,m,y,z,e}^{{c}}`) as follows:
+Similar to the power discharging process, the charging energy drawn from
+the grid by storage technology :math:`e` in each time step
+(:math:`{\\rm{charge}}_{h,m,y,z,e}`) is limited by the existing installed
+capacity:
 
 .. math::
 
-    {\\underline{{\\rm{POWER}}}}_{h,m,y,z,e}^{{c}}\\times
-    {\\rm{cap}}_{y,z,e}^{\\rm{existingtech}}\\le{\\rm{power}}_{h,m,y,z,e}^{{c}}
-    \\le {\\rm{cap}}_{y,z,e}^{\\rm{existingtech}}\\quad\\forall h,m,y,z,e
-    \\in {\\mathcal{STOR}}
-
-The charging generation (:math:`{\\rm{charge}}_{h,m,y,z,e}`) and
-:math:`{\\rm{power}}_{h,m,y,z,e}^{c}` need to meet the following formula:
-
-.. math::
-    
-    {\\rm{charge}}_{h,m,y,z,e}={\\rm{power}}_{h,m,y,z,e}^{\\rm{c}}\\times
-    \\Delta h{\\times\\eta}_{y,e}^{{\\rm{in}}}
+    {\\rm{charge}}_{h,m,y,z,e}\\le
+    {\\rm{cap}}_{y,z,e}^{\\rm{existingtech}}\\times\\Delta h
     \\quad\\forall h,m,y,z,e\\in {\\mathcal{STOR}}
 
 Changes in stored electricity
 (:math:`{\\rm{storage}}_{h,m,y,z,e}^{\\rm{energy}}`) in two successive periods
 should be balanced by the charging (:math:`{\\rm{charge}}_{h,m,y,z,e}`) and
-discharging (:math:`{\\rm{gen}}_{h,m,y,z,e}`) processes:
+discharging (:math:`{\\rm{gen}}_{h,m,y,z,e}`) processes. Both are measured on
+the grid side, so the charging efficiency (:math:`\\eta_{y,e}^{\\rm{in}}`) and
+discharging efficiency (:math:`\\eta_{y,e}^{\\rm{out}}`) enter the balance:
 
 .. math::
     
     {\\rm{storage}}_{h,m,y,z,e}^{\\rm{energy}}-
     {\\rm{storage}}_{h-1,m,y,z,e}^{\\rm{energy}}
-    ={\\rm{charge}}_{h,m,y,z,e}-{\\rm{gen}}_{h,m,y,z,e}
+    ={\\rm{charge}}_{h,m,y,z,e}\\times\\eta_{y,e}^{\\rm{in}}
+    -{\\rm{gen}}_{h,m,y,z,e}/\\eta_{y,e}^{\\rm{out}}
+
+The energy discharged in a time step cannot exceed the energy stored at the
+end of the previous one:
+
+.. math::
+
+    {\\rm{gen}}_{h,m,y,z,e}/\\eta_{y,e}^{\\rm{out}}\\le
+    {\\rm{storage}}_{h-1,m,y,z,e}^{\\rm{energy}}
+    \\quad\\forall h,m,y,z,e\\in {\\mathcal{STOR}}
 
 In addition, the initial (when :math:`h=h_{\rm{start}}`) stored electricity
 (:math:`{\\rm{storage}}_{h=h_{\\rm{start}},m,y,z,e}^{\\rm{energy}}`) of
@@ -78,30 +80,32 @@ class AddStorageConstraints:
             Model object depending on the solver.
         """
         self.model = model
-        model.energy_storage_balance_cons = poi.make_tupledict(
-            model.hour, model.month, model.year, model.zone,
-            model.storage_tech, rule=self.energy_storage_balance_rule
+        # Iterate sparsely over (z, te) pairs in ``model.active_zt_storage``.
+        # Matches the sparse creation of ``model.storage`` / ``model.gen`` /
+        # ``model.charge`` in model.py: a storage tech that is not
+        # deployed (nor buildable) in a zone has no variables there, so
+        # a dense zone x storage_tech product would KeyError.
+        active_myzte_storage = [
+            (m, y, z, te)
+            for m in model.month
+            for y in model.year
+            for (z, te) in model.active_zt_storage
+        ]
+        model.energy_storage_balance_cons = sparse_tupledict(
+            model.active_hmyzte_storage, self.energy_storage_balance_rule
         )
-        model.init_energy_storage_cons = poi.make_tupledict(
-            model.month, model.year, model.zone,
-            model.storage_tech, rule=self.init_energy_storage_rule
+        model.init_energy_storage_cons = sparse_tupledict(
+            active_myzte_storage, self.init_energy_storage_rule
         )
-        model.end_energy_storage_cons = poi.make_tupledict(
-            model.month, model.year, model.zone, model.storage_tech,
-            rule=self.end_energy_storage_rule
+        model.end_energy_storage_cons = sparse_tupledict(
+            active_myzte_storage, self.end_energy_storage_rule
         )
-        model.energy_storage_up_bound_cons = poi.make_tupledict(
-            model.hour, model.month, model.year, model.zone,
-            model.storage_tech, rule=self.energy_storage_up_bound_rule
+        model.energy_storage_up_bound_cons = sparse_tupledict(
+            model.active_hmyzte_storage, self.energy_storage_up_bound_rule
         )
-        model.energy_storage_gen_cons = poi.make_tupledict(
-            model.hour, model.month, model.year, model.zone,
-            model.storage_tech, rule=self.energy_storage_gen_rule
+        model.energy_storage_gen_cons = sparse_tupledict(
+            model.active_hmyzte_storage, self.energy_storage_gen_rule
         )
-        # Iterate sparsely over (h, m, y, z, te) where (z, te) is in
-        # ``model.active_zt_storage``. Matches the sparse creation of
-        # ``model.charge`` in model.py: accessing inactive pairs would
-        # KeyError, and the bound on those would be ``0 <= 0`` anyway.
         model.charge_up_bound_cons = sparse_tupledict(
             model.active_hmyzte_storage, self.charge_up_bound_rule
         )
@@ -165,14 +169,15 @@ class AddStorageConstraints:
         """
         model = self.model
         esl = model.params['initial_energy_storage_level'][te, z]
+        # Energy-to-power ratio is in hours (MWh per MW), so the energy
+        # capacity cap * epr does not depend on the time step length.
         epr = model.params['energy_to_power_ratio'][te]
-        dt = model.params['dt']
         # storage[hour_p[0], ...] is the prior-hour anchor: hour 0 in
         # CEM mode (where model.hour starts at 1), or h_first - 1 in a
         # PCM rolling-horizon window.
         lhs = (
             model.storage[model.hour_p[0], m, y, z, te]
-            - esl * model.cap_existing[y, z, te] * epr * dt
+            - esl * model.cap_existing[y, z, te] * epr
         )
         return model.add_linear_constraint(lhs, poi.Eq, 0)
 
@@ -235,10 +240,9 @@ class AddStorageConstraints:
         """
         model = self.model
         epr = model.params['energy_to_power_ratio'][te]
-        dt = model.params['dt']
         lhs = (
             model.storage[h, m, y, z, te]
-            - model.cap_existing[y, z, te] * epr * dt
+            - model.cap_existing[y, z, te] * epr
         )
         return model.add_linear_constraint(lhs, poi.Leq, 0)
 

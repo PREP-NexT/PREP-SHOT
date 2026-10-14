@@ -88,7 +88,11 @@ class TestRegressionDefaultInput(unittest.TestCase):
     #                                 path. Net drift from v1.19.0
     #                                 is the removal of the +11 %
     #                                 N-1 cost premium.
-    EXPECTED_OBJECTIVE = 1.9007200040e11
+    #   v1.21.x : 1.9039779201e11  -- line fixed O&M multiplied by
+    #                                 distance; 0.5 factor removed
+    #                                 from line variable O&M
+    #                                 (~+0.17 %).
+    EXPECTED_OBJECTIVE = 1.9039779201e11
     # 1 % tolerance — head iteration is non-trivial; this absorbs minor
     # numerical differences across HiGHS minor versions and platforms
     # without being so loose it stops catching real regressions.

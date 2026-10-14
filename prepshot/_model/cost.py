@@ -36,7 +36,7 @@ The cost equations are defined as follows:
     \\rm{cost}_{\\rm{line}}^{\\rm{fix}} &= \\sum_{y,z_s,z_o}
     C_{y,z_s,z_o}^{\\rm{line-fix}}\\times 
     \\rm{cap}_{y,z_s,z_o}^{\\rm{existing-line}}\\times
-    \\rm{factor}_{y}^{\\rm{fix}}
+    L_{z_s,z_o}\\times \\rm{factor}_{y}^{\\rm{fix}} \\times 0.5
 
     \\rm{cost}_{\\rm{tech}}^{\\rm{inv}} &=  \\sum_{y,z,\\rm{e}}
     C_{y,z,\\rm{e}}^{\\rm{tech-inv}}\\times 
@@ -46,7 +46,12 @@ The cost equations are defined as follows:
     \\rm{cost}_{\\rm{line}}^{\\rm{inv}} &= \\sum_{y,z_s,z_o}
     C_{y,z_s,z_o}^{\\rm{line-inv}}\\times
     \\rm{cap}_{y,z_s,z_o}^{\\rm{line-inv}}\\times
-    \\rm{factor}_{y}^{\\rm{inv}} \\times 0.5
+    L_{z_s,z_o}\\times \\rm{factor}_{y}^{\\rm{inv}} \\times 0.5
+
+where :math:`L_{z_s,z_o}` is the length of the line. The fixed O&M cost and
+the capital cost of a line are multiplied by 0.5 because each line has one
+entry for each direction. The variable O&M cost applies to the flow in each
+direction, and has no such factor.
 
 """
 
@@ -177,7 +182,7 @@ class AddCostObjective:
         # Source-zone discount for inter-zone transmission costs.
         vf = model.params['var_factor'][y, z]
         w = model.params['weight']
-        return (0.5 / w * lvc * vf
+        return (1 / w * lvc * vf
             * poi.quicksum(model.trans_export.select('*', '*', y, z, z1)))
 
     def cost_var_tech_breakdown(
@@ -230,8 +235,9 @@ class AddCostObjective:
         """
         model = self.model
         lfc = model.params['transmission_line_fixed_OM_cost'][z, z1, y]
+        d = model.params['distance'][z, z1]
         ff = model.params['fix_factor'][y, z]
-        return lfc * model.cap_lines_existing[y, z, z1] * ff * 0.5
+        return lfc * model.cap_lines_existing[y, z, z1] * d * ff * 0.5
 
     def cost_fix_tech_breakdown(
         self, y : int, z : str, te : str
