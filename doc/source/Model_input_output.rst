@@ -137,7 +137,7 @@ Required inputs
       ``capacity_min`` / ``capacity_max`` columns.
     - transmission_candidates
   * - transmission distance [km]
-    - Inter-zone distance (drives investment cost).
+    - Inter-zone distance (drives investment and fixed O&M cost).
     - transmission_distance
   * - transmission efficiency [fraction]
     - Per-line transmission efficiency.
@@ -145,8 +145,10 @@ Required inputs
   * - transmission investment cost [dollar/MW/km]
     - Per-line investment cost (multiplied by distance).
     - transmission_investment_cost
-  * - transmission fixed / variable OM cost
-    - Per-line fixed and variable O&M costs.
+  * - transmission fixed OM cost [dollar/MW/km/yr] / variable OM cost
+      [dollar/MWh]
+    - Per-line fixed O&M cost (multiplied by distance) and variable
+      O&M cost (charged on the flow in each direction).
     - transmission_fixed_OM_cost,
       transmission_variable_OM_cost
   * - transmission lifetime [yr]

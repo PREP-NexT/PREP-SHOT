@@ -36,7 +36,7 @@ The cost equations are defined as follows:
     \\rm{cost}_{\\rm{line}}^{\\rm{fix}} &= \\sum_{y,z_s,z_o}
     C_{y,z_s,z_o}^{\\rm{line-fix}}\\times 
     \\rm{cap}_{y,z_s,z_o}^{\\rm{existing-line}}\\times
-    \\rm{factor}_{y}^{\\rm{fix}}
+    L_{z_s,z_o}\\times \\rm{factor}_{y}^{\\rm{fix}} \\times 0.5
 
     \\rm{cost}_{\\rm{tech}}^{\\rm{inv}} &=  \\sum_{y,z,\\rm{e}}
     C_{y,z,\\rm{e}}^{\\rm{tech-inv}}\\times 
@@ -46,7 +46,12 @@ The cost equations are defined as follows:
     \\rm{cost}_{\\rm{line}}^{\\rm{inv}} &= \\sum_{y,z_s,z_o}
     C_{y,z_s,z_o}^{\\rm{line-inv}}\\times
     \\rm{cap}_{y,z_s,z_o}^{\\rm{line-inv}}\\times
-    \\rm{factor}_{y}^{\\rm{inv}} \\times 0.5
+    L_{z_s,z_o}\\times \\rm{factor}_{y}^{\\rm{inv}} \\times 0.5
+
+where :math:`L_{z_s,z_o}` is the length of the line. The fixed O&M cost and
+the capital cost of a line are multiplied by 0.5 because each line has one
+entry for each direction. The variable O&M cost applies to the flow in each
+direction, and has no such factor.
 
 """
 
