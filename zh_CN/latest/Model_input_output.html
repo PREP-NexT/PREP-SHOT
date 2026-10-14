@@ -325,6 +325,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="api/prepshot.model.html">model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.model.html#prepshot.model.check_line_symmetry"><code class="docutils literal notranslate"><span class="pre">check_line_symmetry()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/prepshot.model.html#prepshot.model.create_model"><code class="docutils literal notranslate"><span class="pre">create_model()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/prepshot.model.html#prepshot.model.define_active_zone_tech"><code class="docutils literal notranslate"><span class="pre">define_active_zone_tech()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/prepshot.model.html#prepshot.model.define_basic_sets"><code class="docutils literal notranslate"><span class="pre">define_basic_sets()</span></code></a></li>
@@ -883,8 +884,9 @@
 <td><p>按技术、年份和区域的排放系数。</p></td>
 <td><p>tech_emission_factor</p></td>
 </tr>
-<tr class="row-even"><td><p>技术爬坡 / 减荷 [1/MW]</p></td>
-<td><p>按技术和年份的小时爬坡限制。</p></td>
+<tr class="row-even"><td><p>tech ramp up / ramp down [fraction of capacity per hour]</p></td>
+<td><p>Hourly ramp limits per tech: the largest change in power output
+over one hour, as a fraction of installed capacity.</p></td>
 <td><p>tech_ramp_up,
 tech_ramp_down</p></td>
 </tr>
@@ -910,7 +912,7 @@ storage_discharge_efficiency</p></td>
 <td><p>transmission_candidates</p></td>
 </tr>
 <tr class="row-even"><td><p>输电距离 [km]</p></td>
-<td><p>区域间距离 (决定投资成本)。</p></td>
+<td><p>Inter-zone distance (drives investment and fixed O&amp;M cost).</p></td>
 <td><p>transmission_distance</p></td>
 </tr>
 <tr class="row-odd"><td><p>输电效率 [比例]</p></td>
@@ -921,8 +923,10 @@ storage_discharge_efficiency</p></td>
 <td><p>按线路的投资成本 (再乘以距离)。</p></td>
 <td><p>transmission_investment_cost</p></td>
 </tr>
-<tr class="row-odd"><td><p>输电固定 / 可变 O&amp;M 成本</p></td>
-<td><p>按线路的固定与可变 O&amp;M 成本。</p></td>
+<tr class="row-odd"><td><p>transmission fixed OM cost [dollar/MW/km/yr] / variable OM cost
+[dollar/MWh]</p></td>
+<td><p>Per-line fixed O&amp;M cost (multiplied by distance) and variable
+O&amp;M cost (charged on the flow in each direction).</p></td>
 <td><p>transmission_fixed_OM_cost,
 transmission_variable_OM_cost</p></td>
 </tr>

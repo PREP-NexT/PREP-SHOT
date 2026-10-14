@@ -327,6 +327,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="api/prepshot.model.html">model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.model.html#prepshot.model.check_line_symmetry"><code class="docutils literal notranslate"><span class="pre">check_line_symmetry()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/prepshot.model.html#prepshot.model.create_model"><code class="docutils literal notranslate"><span class="pre">create_model()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/prepshot.model.html#prepshot.model.define_active_zone_tech"><code class="docutils literal notranslate"><span class="pre">define_active_zone_tech()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/prepshot.model.html#prepshot.model.define_basic_sets"><code class="docutils literal notranslate"><span class="pre">define_basic_sets()</span></code></a></li>
@@ -1114,8 +1115,8 @@
 <td><p>dollar/MWh</p></td>
 </tr>
 <tr class="row-odd"><td><p><span class="math notranslate nohighlight">\({{C}}_{y,z_{\rm{from}},z_{\rm{to}}}^{\rm{fixline}}\)</span></p></td>
-<td><p>Fixed O&amp;M cost per year per unit existing capacity of transmission line from zone <span class="math notranslate nohighlight">\(z_{\rm{from}}\)</span> to zone <span class="math notranslate nohighlight">\(z_{\rm{to}}\)</span> in year <span class="math notranslate nohighlight">\(y\)</span>.</p></td>
-<td><p>dollar/MW-yr</p></td>
+<td><p>Fixed O&amp;M cost per year per unit existing capacity per unit length of transmission line from zone <span class="math notranslate nohighlight">\(z_{\rm{from}}\)</span> to zone <span class="math notranslate nohighlight">\(z_{\rm{to}}\)</span> in year <span class="math notranslate nohighlight">\(y\)</span>.</p></td>
+<td><p>dollar/MW-km-yr</p></td>
 </tr>
 <tr class="row-even"><td><p><span class="math notranslate nohighlight">\({{C}}_{y,z_{\rm{from}},z_{\rm{to}}}^{\rm{invline}}\)</span></p></td>
 <td><p>Capital cost per unit expansion of transmission line from zone <span class="math notranslate nohighlight">\(z_{\rm{from}}\)</span> to zone <span class="math notranslate nohighlight">\(z_{\rm{to}}\)</span> in year <span class="math notranslate nohighlight">\(y\)</span>.</p></td>
@@ -1271,12 +1272,13 @@
 \\
 \rm{cost}_{\rm{tech}}^{\rm{fix}} &amp;= \sum_{y,z,\rm{e}}C_{y,z,\rm{e}}^{\rm{tech-fix}}\times \rm{cap}_{y,z,\rm{e}}^{\rm{existing-tech}}\times \rm{factor}_{y}^{\rm{fix}} \\
 \\
-\rm{cost}_{\rm{line}}^{\rm{fix}} &amp;= \sum_{y,z_s,z_o}C_{y,z_s,z_o}^{\rm{line-fix}}\times \rm{cap}_{y,z_s,z_o}^{\rm{existing-line}}\times \rm{factor}_{y}^{\rm{fix}} \\
+\rm{cost}_{\rm{line}}^{\rm{fix}} &amp;= \sum_{y,z_s,z_o}C_{y,z_s,z_o}^{\rm{line-fix}}\times \rm{cap}_{y,z_s,z_o}^{\rm{existing-line}}\times L_{z_s,z_o}\times \rm{factor}_{y}^{\rm{fix}} \times 0.5 \\
 \\
 \rm{cost}_{\rm{tech}}^{\rm{inv}} &amp;=  \sum_{y,z,\rm{e}}C_{y,z,\rm{e}}^{\rm{tech-inv}}\times \rm{cap}_{y,z,\rm{e}}^{\rm{tech-inv}}\times \rm{factor}_{y}^{\rm{inv}} \\
 \\
 \\
-\rm{cost}_{\rm{line}}^{\rm{inv}} &amp;= \sum_{y,z_s,z_o}C_{y,z_s,z_o}^{\rm{line-inv}}\times \rm{cap}_{y,z_s,z_o}^{\rm{line-inv}}\times \rm{factor}_{y}^{\rm{inv}} \times 0.5\end{split}\]</div>
+\rm{cost}_{\rm{line}}^{\rm{inv}} &amp;= \sum_{y,z_s,z_o}C_{y,z_s,z_o}^{\rm{line-inv}}\times \rm{cap}_{y,z_s,z_o}^{\rm{line-inv}}\times L_{z_s,z_o}\times \rm{factor}_{y}^{\rm{inv}} \times 0.5\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(L_{z_s,z_o}\)</span> is the length of the line. The fixed O&amp;M cost and the capital cost of a line are multiplied by 0.5 because each line has one entry for each direction. The variable O&amp;M cost applies to the flow in each direction, and has no such factor.</p>
 </section>
 <section id="factors">
 <h3>Factors<a class="headerlink" href="#factors" title="此标题的永久链接">¶</a></h3>

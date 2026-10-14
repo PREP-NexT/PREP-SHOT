@@ -300,8 +300,8 @@ Parameter List
      - dollar/MWh
 
    * - :math:`{{C}}_{y,z_{\rm{from}},z_{\rm{to}}}^{\rm{fixline}}`
-     - Fixed O&M cost per year per unit existing capacity of transmission line from zone :math:`z_{\rm{from}}` to zone :math:`z_{\rm{to}}` in year :math:`y`.
-     - dollar/MW-yr
+     - Fixed O&M cost per year per unit existing capacity per unit length of transmission line from zone :math:`z_{\rm{from}}` to zone :math:`z_{\rm{to}}` in year :math:`y`.
+     - dollar/MW-km-yr
 
    * - :math:`{{C}}_{y,z_{\rm{from}},z_{\rm{to}}}^{\rm{invline}}`
      - Capital cost per unit expansion of transmission line from zone :math:`z_{\rm{from}}` to zone :math:`z_{\rm{to}}` in year :math:`y`.
@@ -463,12 +463,14 @@ The cost equations are defined as follows:
   \\
   \rm{cost}_{\rm{tech}}^{\rm{fix}} &= \sum_{y,z,\rm{e}}C_{y,z,\rm{e}}^{\rm{tech-fix}}\times \rm{cap}_{y,z,\rm{e}}^{\rm{existing-tech}}\times \rm{factor}_{y}^{\rm{fix}} \\
   \\
-  \rm{cost}_{\rm{line}}^{\rm{fix}} &= \sum_{y,z_s,z_o}C_{y,z_s,z_o}^{\rm{line-fix}}\times \rm{cap}_{y,z_s,z_o}^{\rm{existing-line}}\times \rm{factor}_{y}^{\rm{fix}} \\
+  \rm{cost}_{\rm{line}}^{\rm{fix}} &= \sum_{y,z_s,z_o}C_{y,z_s,z_o}^{\rm{line-fix}}\times \rm{cap}_{y,z_s,z_o}^{\rm{existing-line}}\times L_{z_s,z_o}\times \rm{factor}_{y}^{\rm{fix}} \times 0.5 \\
   \\
   \rm{cost}_{\rm{tech}}^{\rm{inv}} &=  \sum_{y,z,\rm{e}}C_{y,z,\rm{e}}^{\rm{tech-inv}}\times \rm{cap}_{y,z,\rm{e}}^{\rm{tech-inv}}\times \rm{factor}_{y}^{\rm{inv}} \\
   \\
   \\
-  \rm{cost}_{\rm{line}}^{\rm{inv}} &= \sum_{y,z_s,z_o}C_{y,z_s,z_o}^{\rm{line-inv}}\times \rm{cap}_{y,z_s,z_o}^{\rm{line-inv}}\times \rm{factor}_{y}^{\rm{inv}} \times 0.5
+  \rm{cost}_{\rm{line}}^{\rm{inv}} &= \sum_{y,z_s,z_o}C_{y,z_s,z_o}^{\rm{line-inv}}\times \rm{cap}_{y,z_s,z_o}^{\rm{line-inv}}\times L_{z_s,z_o}\times \rm{factor}_{y}^{\rm{inv}} \times 0.5
+
+where :math:`L_{z_s,z_o}` is the length of the line. The fixed O&M cost and the capital cost of a line are multiplied by 0.5 because each line has one entry for each direction. The variable O&M cost applies to the flow in each direction, and has no such factor.
 
 Factors
 +++++++

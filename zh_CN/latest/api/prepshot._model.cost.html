@@ -327,6 +327,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="prepshot.model.html">model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.model.html#prepshot.model.check_line_symmetry"><code class="docutils literal notranslate"><span class="pre">check_line_symmetry()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="prepshot.model.html#prepshot.model.create_model"><code class="docutils literal notranslate"><span class="pre">create_model()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="prepshot.model.html#prepshot.model.define_active_zone_tech"><code class="docutils literal notranslate"><span class="pre">define_active_zone_tech()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="prepshot.model.html#prepshot.model.define_basic_sets"><code class="docutils literal notranslate"><span class="pre">define_basic_sets()</span></code></a></li>
@@ -818,13 +819,17 @@ C_{y,z,\rm{e}}^{\rm{tech-fix}}\times
 \rm{factor}_{y}^{\rm{fix}}\\\rm{cost}_{\rm{line}}^{\rm{fix}} &amp;= \sum_{y,z_s,z_o}
 C_{y,z_s,z_o}^{\rm{line-fix}}\times
 \rm{cap}_{y,z_s,z_o}^{\rm{existing-line}}\times
-\rm{factor}_{y}^{\rm{fix}}\\\rm{cost}_{\rm{tech}}^{\rm{inv}} &amp;=  \sum_{y,z,\rm{e}}
+L_{z_s,z_o}\times \rm{factor}_{y}^{\rm{fix}} \times 0.5\\\rm{cost}_{\rm{tech}}^{\rm{inv}} &amp;=  \sum_{y,z,\rm{e}}
 C_{y,z,\rm{e}}^{\rm{tech-inv}}\times
 \rm{cap}_{y,z,\rm{e}}^{\rm{tech-inv}}\times
 \rm{factor}_{y}^{\rm{inv}}\\\rm{cost}_{\rm{line}}^{\rm{inv}} &amp;= \sum_{y,z_s,z_o}
 C_{y,z_s,z_o}^{\rm{line-inv}}\times
 \rm{cap}_{y,z_s,z_o}^{\rm{line-inv}}\times
-\rm{factor}_{y}^{\rm{inv}} \times 0.5\end{aligned}\end{align} \]</div>
+L_{z_s,z_o}\times \rm{factor}_{y}^{\rm{inv}} \times 0.5\end{aligned}\end{align} \]</div>
+<p>where <span class="math notranslate nohighlight">\(L_{z_s,z_o}\)</span> is the length of the line. The fixed O&amp;M cost and
+the capital cost of a line are multiplied by 0.5 because each line has one
+entry for each direction. The variable O&amp;M cost applies to the flow in each
+direction, and has no such factor.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="prepshot._model.cost.AddCostObjective">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">prepshot._model.cost.</span></span><span class="sig-name descname"><span class="pre">AddCostObjective</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/prepshot/_model/cost.html#AddCostObjective"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#prepshot._model.cost.AddCostObjective" title="永久链接至目标">¶</a></dt>

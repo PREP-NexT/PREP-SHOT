@@ -317,6 +317,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/prepshot.model.html">model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/prepshot.model.html#prepshot.model.check_line_symmetry"><code class="docutils literal notranslate"><span class="pre">check_line_symmetry()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/prepshot.model.html#prepshot.model.create_model"><code class="docutils literal notranslate"><span class="pre">create_model()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/prepshot.model.html#prepshot.model.define_active_zone_tech"><code class="docutils literal notranslate"><span class="pre">define_active_zone_tech()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/prepshot.model.html#prepshot.model.define_basic_sets"><code class="docutils literal notranslate"><span class="pre">define_basic_sets()</span></code></a></li>
@@ -840,6 +841,8 @@
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">pyoptinterface</span> <span class="k">as</span> <span class="nn">poi</span>
 
+<span class="kn">from</span> <span class="nn">prepshot.utils</span> <span class="kn">import</span> <span class="n">sparse_tupledict</span>
+
 
 <span class="k">def</span> <span class="nf">_is_down_product</span><span class="p">(</span><span class="n">product</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;``True`` for down-direction products (suffix ``_down``).</span>
@@ -880,6 +883,8 @@
             <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">tech</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">products</span>
         <span class="p">}</span>
 
+        <span class="bp">self</span><span class="o">.</span><span class="n">_active_zt</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">active_zt</span><span class="p">)</span>
+
         <span class="c1"># Same p_max_pu / p_min_pu sources as gen_up_bound_rule.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_p_max_pu</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;max_gen_profile&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{})</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_p_min_pu</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;min_gen_profile&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{})</span>
@@ -905,13 +910,15 @@
 
         <span class="c1"># Two headroom rules per (h, m, y, z, te) -- one per direction</span>
         <span class="c1"># -- summing across products in that direction.</span>
-        <span class="n">model</span><span class="o">.</span><span class="n">reserve_headroom_up_cons</span> <span class="o">=</span> <span class="n">poi</span><span class="o">.</span><span class="n">make_tupledict</span><span class="p">(</span>
-            <span class="n">model</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">zone</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">tech</span><span class="p">,</span>
-            <span class="n">rule</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">headroom_up_rule</span><span class="p">,</span>
+        <span class="c1"># Sparse over active (z, te) pairs: ``model.gen`` and</span>
+        <span class="c1"># ``model.cap_existing`` have no entry for inactive pairs.</span>
+        <span class="c1"># Reserve on those pairs is pinned to 0 by</span>
+        <span class="c1"># ``non_eligible_zero_rule`` instead.</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">reserve_headroom_up_cons</span> <span class="o">=</span> <span class="n">sparse_tupledict</span><span class="p">(</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">active_hmyzte</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">headroom_up_rule</span>
         <span class="p">)</span>
-        <span class="n">model</span><span class="o">.</span><span class="n">reserve_headroom_down_cons</span> <span class="o">=</span> <span class="n">poi</span><span class="o">.</span><span class="n">make_tupledict</span><span class="p">(</span>
-            <span class="n">model</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">zone</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">tech</span><span class="p">,</span>
-            <span class="n">rule</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">headroom_down_rule</span><span class="p">,</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">reserve_headroom_down_cons</span> <span class="o">=</span> <span class="n">sparse_tupledict</span><span class="p">(</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">active_hmyzte</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">headroom_down_rule</span>
         <span class="p">)</span>
 
         <span class="c1"># Per-(h, m, y, z, product) zonal requirement.</span>
@@ -924,8 +931,9 @@
     <span class="c1"># Rules</span>
 
 <div class="viewcode-block" id="AddReserveConstraints.non_eligible_zero_rule"><a class="viewcode-back" href="../../../api/prepshot._model.reserve.html#prepshot._model.reserve.AddReserveConstraints.non_eligible_zero_rule">[文档]</a>    <span class="k">def</span> <span class="nf">non_eligible_zero_rule</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">te</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Force ``reserve[..., te, p] = 0`` when (te, p) isn&#39;t eligible.&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_eligible</span><span class="p">[(</span><span class="n">te</span><span class="p">,</span> <span class="n">p</span><span class="p">)]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Force ``reserve[..., te, p] = 0`` when (te, p) isn&#39;t eligible</span>
+<span class="sd">        or ``te`` has no capacity (existing or candidate) in zone ``z``.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_eligible</span><span class="p">[(</span><span class="n">te</span><span class="p">,</span> <span class="n">p</span><span class="p">)]</span> <span class="ow">and</span> <span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">te</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_active_zt</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">add_linear_constraint</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">reserve</span><span class="p">[</span><span class="n">h</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">te</span><span class="p">,</span> <span class="n">p</span><span class="p">],</span> <span class="n">poi</span><span class="o">.</span><span class="n">Eq</span><span class="p">,</span> <span class="mi">0</span>

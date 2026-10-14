@@ -317,6 +317,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/prepshot.model.html">model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/prepshot.model.html#prepshot.model.check_line_symmetry"><code class="docutils literal notranslate"><span class="pre">check_line_symmetry()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/prepshot.model.html#prepshot.model.create_model"><code class="docutils literal notranslate"><span class="pre">create_model()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/prepshot.model.html#prepshot.model.define_active_zone_tech"><code class="docutils literal notranslate"><span class="pre">define_active_zone_tech()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/prepshot.model.html#prepshot.model.define_basic_sets"><code class="docutils literal notranslate"><span class="pre">define_basic_sets()</span></code></a></li>
@@ -799,7 +800,7 @@
 <span class="sd">    \\rm{cost}_{\\rm{line}}^{\\rm{fix}} &amp;= \\sum_{y,z_s,z_o}</span>
 <span class="sd">    C_{y,z_s,z_o}^{\\rm{line-fix}}\\times </span>
 <span class="sd">    \\rm{cap}_{y,z_s,z_o}^{\\rm{existing-line}}\\times</span>
-<span class="sd">    \\rm{factor}_{y}^{\\rm{fix}}</span>
+<span class="sd">    L_{z_s,z_o}\\times \\rm{factor}_{y}^{\\rm{fix}} \\times 0.5</span>
 
 <span class="sd">    \\rm{cost}_{\\rm{tech}}^{\\rm{inv}} &amp;=  \\sum_{y,z,\\rm{e}}</span>
 <span class="sd">    C_{y,z,\\rm{e}}^{\\rm{tech-inv}}\\times </span>
@@ -809,7 +810,12 @@
 <span class="sd">    \\rm{cost}_{\\rm{line}}^{\\rm{inv}} &amp;= \\sum_{y,z_s,z_o}</span>
 <span class="sd">    C_{y,z_s,z_o}^{\\rm{line-inv}}\\times</span>
 <span class="sd">    \\rm{cap}_{y,z_s,z_o}^{\\rm{line-inv}}\\times</span>
-<span class="sd">    \\rm{factor}_{y}^{\\rm{inv}} \\times 0.5</span>
+<span class="sd">    L_{z_s,z_o}\\times \\rm{factor}_{y}^{\\rm{inv}} \\times 0.5</span>
+
+<span class="sd">where :math:`L_{z_s,z_o}` is the length of the line. The fixed O&amp;M cost and</span>
+<span class="sd">the capital cost of a line are multiplied by 0.5 because each line has one</span>
+<span class="sd">entry for each direction. The variable O&amp;M cost applies to the flow in each</span>
+<span class="sd">direction, and has no such factor.</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 
@@ -940,7 +946,7 @@
         <span class="c1"># Source-zone discount for inter-zone transmission costs.</span>
         <span class="n">vf</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;var_factor&#39;</span><span class="p">][</span><span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">]</span>
         <span class="n">w</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;weight&#39;</span><span class="p">]</span>
-        <span class="k">return</span> <span class="p">(</span><span class="mf">0.5</span> <span class="o">/</span> <span class="n">w</span> <span class="o">*</span> <span class="n">lvc</span> <span class="o">*</span> <span class="n">vf</span>
+        <span class="k">return</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">w</span> <span class="o">*</span> <span class="n">lvc</span> <span class="o">*</span> <span class="n">vf</span>
             <span class="o">*</span> <span class="n">poi</span><span class="o">.</span><span class="n">quicksum</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">trans_export</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">z1</span><span class="p">)))</span></div>
 
 <div class="viewcode-block" id="AddCostObjective.cost_var_tech_breakdown"><a class="viewcode-back" href="../../../api/prepshot._model.cost.html#prepshot._model.cost.AddCostObjective.cost_var_tech_breakdown">[文档]</a>    <span class="k">def</span> <span class="nf">cost_var_tech_breakdown</span><span class="p">(</span>
@@ -993,8 +999,9 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span>
         <span class="n">lfc</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;transmission_line_fixed_OM_cost&#39;</span><span class="p">][</span><span class="n">z</span><span class="p">,</span> <span class="n">z1</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;distance&#39;</span><span class="p">][</span><span class="n">z</span><span class="p">,</span> <span class="n">z1</span><span class="p">]</span>
         <span class="n">ff</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;fix_factor&#39;</span><span class="p">][</span><span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">lfc</span> <span class="o">*</span> <span class="n">model</span><span class="o">.</span><span class="n">cap_lines_existing</span><span class="p">[</span><span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">z1</span><span class="p">]</span> <span class="o">*</span> <span class="n">ff</span> <span class="o">*</span> <span class="mf">0.5</span></div>
+        <span class="k">return</span> <span class="n">lfc</span> <span class="o">*</span> <span class="n">model</span><span class="o">.</span><span class="n">cap_lines_existing</span><span class="p">[</span><span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">z1</span><span class="p">]</span> <span class="o">*</span> <span class="n">d</span> <span class="o">*</span> <span class="n">ff</span> <span class="o">*</span> <span class="mf">0.5</span></div>
 
 <div class="viewcode-block" id="AddCostObjective.cost_fix_tech_breakdown"><a class="viewcode-back" href="../../../api/prepshot._model.cost.html#prepshot._model.cost.AddCostObjective.cost_fix_tech_breakdown">[文档]</a>    <span class="k">def</span> <span class="nf">cost_fix_tech_breakdown</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">y</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">z</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">te</span> <span class="p">:</span> <span class="nb">str</span>
