@@ -326,6 +326,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="prepshot.model.html">model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.model.html#prepshot.model.check_line_symmetry"><code class="docutils literal notranslate"><span class="pre">check_line_symmetry()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="prepshot.model.html#prepshot.model.create_model"><code class="docutils literal notranslate"><span class="pre">create_model()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="prepshot.model.html#prepshot.model.define_active_zone_tech"><code class="docutils literal notranslate"><span class="pre">define_active_zone_tech()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="prepshot.model.html#prepshot.model.define_basic_sets"><code class="docutils literal notranslate"><span class="pre">define_basic_sets()</span></code></a></li>
@@ -887,7 +888,8 @@ when off, no variables / constraints are built.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="prepshot._model.reserve.AddReserveConstraints.non_eligible_zero_rule">
 <span class="sig-name descname"><span class="pre">non_eligible_zero_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">te</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/prepshot/_model/reserve.html#AddReserveConstraints.non_eligible_zero_rule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#prepshot._model.reserve.AddReserveConstraints.non_eligible_zero_rule" title="Permalink to this definition">¶</a></dt>
-<dd><p>Force <code class="docutils literal notranslate"><span class="pre">reserve[...,</span> <span class="pre">te,</span> <span class="pre">p]</span> <span class="pre">=</span> <span class="pre">0</span></code> when (te, p) isn't eligible.</p>
+<dd><p>Force <code class="docutils literal notranslate"><span class="pre">reserve[...,</span> <span class="pre">te,</span> <span class="pre">p]</span> <span class="pre">=</span> <span class="pre">0</span></code> when (te, p) isn't eligible
+or <code class="docutils literal notranslate"><span class="pre">te</span></code> has no capacity (existing or candidate) in zone <code class="docutils literal notranslate"><span class="pre">z</span></code>.</p>
 </dd></dl>
 
 <dl class="py method">

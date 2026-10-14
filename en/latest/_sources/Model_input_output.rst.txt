@@ -108,8 +108,9 @@ Required inputs
   * - tech emission factor [tCO2/MWh]
     - Emission factor per tech, year, and zone.
     - tech_emission_factor
-  * - tech ramp up / ramp down [1/MW]
-    - Hourly ramp limits per tech and year.
+  * - tech ramp up / ramp down [fraction of capacity per hour]
+    - Hourly ramp limits per tech: the largest change in power output
+      over one hour, as a fraction of installed capacity.
     - tech_ramp_up,
       tech_ramp_down
 
@@ -136,7 +137,7 @@ Required inputs
       ``capacity_min`` / ``capacity_max`` columns.
     - transmission_candidates
   * - transmission distance [km]
-    - Inter-zone distance (drives investment cost).
+    - Inter-zone distance (drives investment and fixed O&M cost).
     - transmission_distance
   * - transmission efficiency [fraction]
     - Per-line transmission efficiency.
@@ -144,8 +145,10 @@ Required inputs
   * - transmission investment cost [dollar/MW/km]
     - Per-line investment cost (multiplied by distance).
     - transmission_investment_cost
-  * - transmission fixed / variable OM cost
-    - Per-line fixed and variable O&M costs.
+  * - transmission fixed OM cost [dollar/MW/km/yr] / variable OM cost
+      [dollar/MWh]
+    - Per-line fixed O&M cost (multiplied by distance) and variable
+      O&M cost (charged on the flow in each direction).
     - transmission_fixed_OM_cost,
       transmission_variable_OM_cost
   * - transmission lifetime [yr]

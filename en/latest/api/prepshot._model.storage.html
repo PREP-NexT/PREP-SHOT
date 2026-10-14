@@ -326,6 +326,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="prepshot.model.html">model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="prepshot.model.html#prepshot.model.check_line_symmetry"><code class="docutils literal notranslate"><span class="pre">check_line_symmetry()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="prepshot.model.html#prepshot.model.create_model"><code class="docutils literal notranslate"><span class="pre">create_model()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="prepshot.model.html#prepshot.model.define_active_zone_tech"><code class="docutils literal notranslate"><span class="pre">define_active_zone_tech()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="prepshot.model.html#prepshot.model.define_basic_sets"><code class="docutils literal notranslate"><span class="pre">define_basic_sets()</span></code></a></li>
@@ -800,29 +801,31 @@
 <p>This module contains energy storage related functions. Symmetrical energy
 storage system is considered in this module. It means that the energy storage
 system has the same power capacity for charging and discharging.</p>
-<p>Similar to the power discharging process, the charging power of storage
-technology <span class="math notranslate nohighlight">\(e\)</span> (<span class="math notranslate nohighlight">\({\rm{power}}_{h,m,y,z,e}^{{c}}\)</span>) is also limited
-by the existing installed capacity and technical minimum charging power
-(<span class="math notranslate nohighlight">\({\underline{{\rm{POWER}}}}_{h,m,y,z,e}^{{c}}\)</span>) as follows:</p>
+<p>Similar to the power discharging process, the charging energy drawn from
+the grid by storage technology <span class="math notranslate nohighlight">\(e\)</span> in each time step
+(<span class="math notranslate nohighlight">\({\rm{charge}}_{h,m,y,z,e}\)</span>) is limited by the existing installed
+capacity:</p>
 <div class="math notranslate nohighlight">
-\[{\underline{{\rm{POWER}}}}_{h,m,y,z,e}^{{c}}\times
-{\rm{cap}}_{y,z,e}^{\rm{existingtech}}\le{\rm{power}}_{h,m,y,z,e}^{{c}}
-\le {\rm{cap}}_{y,z,e}^{\rm{existingtech}}\quad\forall h,m,y,z,e
-\in {\mathcal{STOR}}\]</div>
-<p>The charging generation (<span class="math notranslate nohighlight">\({\rm{charge}}_{h,m,y,z,e}\)</span>) and
-<span class="math notranslate nohighlight">\({\rm{power}}_{h,m,y,z,e}^{c}\)</span> need to meet the following formula:</p>
-<div class="math notranslate nohighlight">
-\[{\rm{charge}}_{h,m,y,z,e}={\rm{power}}_{h,m,y,z,e}^{\rm{c}}\times
-\Delta h{\times\eta}_{y,e}^{{\rm{in}}}
+\[{\rm{charge}}_{h,m,y,z,e}\le
+{\rm{cap}}_{y,z,e}^{\rm{existingtech}}\times\Delta h
 \quad\forall h,m,y,z,e\in {\mathcal{STOR}}\]</div>
 <p>Changes in stored electricity
 (<span class="math notranslate nohighlight">\({\rm{storage}}_{h,m,y,z,e}^{\rm{energy}}\)</span>) in two successive periods
 should be balanced by the charging (<span class="math notranslate nohighlight">\({\rm{charge}}_{h,m,y,z,e}\)</span>) and
-discharging (<span class="math notranslate nohighlight">\({\rm{gen}}_{h,m,y,z,e}\)</span>) processes:</p>
+discharging (<span class="math notranslate nohighlight">\({\rm{gen}}_{h,m,y,z,e}\)</span>) processes. Both are measured on
+the grid side, so the charging efficiency (<span class="math notranslate nohighlight">\(\eta_{y,e}^{\rm{in}}\)</span>) and
+discharging efficiency (<span class="math notranslate nohighlight">\(\eta_{y,e}^{\rm{out}}\)</span>) enter the balance:</p>
 <div class="math notranslate nohighlight">
 \[{\rm{storage}}_{h,m,y,z,e}^{\rm{energy}}-
 {\rm{storage}}_{h-1,m,y,z,e}^{\rm{energy}}
-={\rm{charge}}_{h,m,y,z,e}-{\rm{gen}}_{h,m,y,z,e}\]</div>
+={\rm{charge}}_{h,m,y,z,e}\times\eta_{y,e}^{\rm{in}}
+-{\rm{gen}}_{h,m,y,z,e}/\eta_{y,e}^{\rm{out}}\]</div>
+<p>The energy discharged in a time step cannot exceed the energy stored at the
+end of the previous one:</p>
+<div class="math notranslate nohighlight">
+\[{\rm{gen}}_{h,m,y,z,e}/\eta_{y,e}^{\rm{out}}\le
+{\rm{storage}}_{h-1,m,y,z,e}^{\rm{energy}}
+\quad\forall h,m,y,z,e\in {\mathcal{STOR}}\]</div>
 <p>In addition, the initial (when <span class="math notranslate nohighlight">\(h=h_{
 m{start}}\)</span>) stored electricity
 (<span class="math notranslate nohighlight">\({\rm{storage}}_{h=h_{\rm{start}},m,y,z,e}^{\rm{energy}}\)</span>) of

@@ -316,6 +316,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/prepshot.model.html">model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.model.html#prepshot.model.check_line_symmetry"><code class="docutils literal notranslate"><span class="pre">check_line_symmetry()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.model.html#prepshot.model.create_model"><code class="docutils literal notranslate"><span class="pre">create_model()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.model.html#prepshot.model.define_active_zone_tech"><code class="docutils literal notranslate"><span class="pre">define_active_zone_tech()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.model.html#prepshot.model.define_basic_sets"><code class="docutils literal notranslate"><span class="pre">define_basic_sets()</span></code></a></li>
@@ -1106,7 +1107,7 @@
 <span class="sd">    Battery SOC is converted from absolute MWh (the form held by</span>
 <span class="sd">    ``model.storage``) to the per-unit-of-capacity fraction that</span>
 <span class="sd">    ``params[&#39;initial_energy_storage_level&#39;]`` expects, using the</span>
-<span class="sd">    same ``esl * cap * epr * dt`` relation as the</span>
+<span class="sd">    same ``esl * cap * epr`` relation as the</span>
 <span class="sd">    ``init_energy_storage_rule``.</span>
 
 <span class="sd">    **Prior outflow state (v1.17+).** For each upstream station with a</span>
@@ -1245,32 +1246,32 @@
 
     <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s1">&#39;storage&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s1">&#39;storage_tech&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
         <span class="n">epr_lookup</span> <span class="o">=</span> <span class="n">full_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;energy_to_power_ratio&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{}</span>
-        <span class="n">dt</span> <span class="o">=</span> <span class="n">full_params</span><span class="p">[</span><span class="s1">&#39;dt&#39;</span><span class="p">]</span>
-        <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">zone</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">te</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">storage_tech</span><span class="p">:</span>
-                <span class="c1"># Compose cap_existing for this (year, zone, tech). Use</span>
-                <span class="c1"># the FIRST year in the window (PCM only models one).</span>
-                <span class="n">year</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">year</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-                <span class="n">cap_mw</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span>
-                    <span class="n">model</span><span class="o">.</span><span class="n">cap_existing</span><span class="p">[</span><span class="n">year</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">te</span><span class="p">]</span>
-                <span class="p">))</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">cap_existing</span><span class="p">,</span> <span class="s1">&#39;__getitem__&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="mf">0.0</span>
-                <span class="n">epr</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">epr_lookup</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">te</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span>
-                <span class="n">denom</span> <span class="o">=</span> <span class="n">cap_mw</span> <span class="o">*</span> <span class="n">epr</span> <span class="o">*</span> <span class="n">dt</span>
-                <span class="k">if</span> <span class="n">denom</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
-                    <span class="c1"># No installed storage in this (z, te) slot --</span>
-                    <span class="c1"># skip; the next window&#39;s init lookup defaults to 0.</span>
-                    <span class="k">continue</span>
-                <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">month</span><span class="p">:</span>
-                    <span class="n">val_mwh</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span>
-                        <span class="n">model</span><span class="o">.</span><span class="n">storage</span><span class="p">[</span><span class="n">terminal_hour</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">te</span><span class="p">]</span>
-                    <span class="p">))</span>
-                    <span class="n">esl</span> <span class="o">=</span> <span class="n">val_mwh</span> <span class="o">/</span> <span class="n">denom</span>
-                    <span class="c1"># Clamp into [0, 1] -- LP feasibility guarantees</span>
-                    <span class="c1"># storage stays in [0, cap*epr*dt], but</span>
-                    <span class="c1"># floating-point noise can push the ratio just</span>
-                    <span class="c1"># outside.</span>
-                    <span class="n">esl</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">esl</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span> <span class="mf">1.0</span><span class="p">)</span>
-                    <span class="n">state</span><span class="p">[</span><span class="s1">&#39;battery_storage&#39;</span><span class="p">][</span><span class="n">te</span><span class="p">,</span> <span class="n">z</span><span class="p">]</span> <span class="o">=</span> <span class="n">esl</span>
+        <span class="c1"># Sparse (z, te) pairs only: cap_existing / storage have no</span>
+        <span class="c1"># entry for a storage tech that is not deployed in a zone.</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">te</span><span class="p">)</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">active_zt_storage</span><span class="p">:</span>
+            <span class="c1"># Compose cap_existing for this (year, zone, tech). Use</span>
+            <span class="c1"># the FIRST year in the window (PCM only models one).</span>
+            <span class="n">year</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">year</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">cap_mw</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span>
+                <span class="n">model</span><span class="o">.</span><span class="n">cap_existing</span><span class="p">[</span><span class="n">year</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">te</span><span class="p">]</span>
+            <span class="p">))</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">cap_existing</span><span class="p">,</span> <span class="s1">&#39;__getitem__&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="mf">0.0</span>
+            <span class="n">epr</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">epr_lookup</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">te</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span>
+            <span class="n">denom</span> <span class="o">=</span> <span class="n">cap_mw</span> <span class="o">*</span> <span class="n">epr</span>
+            <span class="k">if</span> <span class="n">denom</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="c1"># No installed storage in this (z, te) slot --</span>
+                <span class="c1"># skip; the next window&#39;s init lookup defaults to 0.</span>
+                <span class="k">continue</span>
+            <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">month</span><span class="p">:</span>
+                <span class="n">val_mwh</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span>
+                    <span class="n">model</span><span class="o">.</span><span class="n">storage</span><span class="p">[</span><span class="n">terminal_hour</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">te</span><span class="p">]</span>
+                <span class="p">))</span>
+                <span class="n">esl</span> <span class="o">=</span> <span class="n">val_mwh</span> <span class="o">/</span> <span class="n">denom</span>
+                <span class="c1"># Clamp into [0, 1] -- LP feasibility guarantees</span>
+                <span class="c1"># storage stays in [0, cap*epr], but</span>
+                <span class="c1"># floating-point noise can push the ratio just</span>
+                <span class="c1"># outside.</span>
+                <span class="n">esl</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">esl</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span> <span class="mf">1.0</span><span class="p">)</span>
+                <span class="n">state</span><span class="p">[</span><span class="s1">&#39;battery_storage&#39;</span><span class="p">][</span><span class="n">te</span><span class="p">,</span> <span class="n">z</span><span class="p">]</span> <span class="o">=</span> <span class="n">esl</span>
     <span class="k">return</span> <span class="n">state</span>
 
 

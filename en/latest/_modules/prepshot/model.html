@@ -316,6 +316,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/prepshot.model.html">model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.model.html#prepshot.model.check_line_symmetry"><code class="docutils literal notranslate"><span class="pre">check_line_symmetry()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.model.html#prepshot.model.create_model"><code class="docutils literal notranslate"><span class="pre">create_model()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.model.html#prepshot.model.define_active_zone_tech"><code class="docutils literal notranslate"><span class="pre">define_active_zone_tech()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/prepshot.model.html#prepshot.model.define_basic_sets"><code class="docutils literal notranslate"><span class="pre">define_basic_sets()</span></code></a></li>
@@ -922,6 +923,38 @@
     <span class="p">]</span></div>
 
 
+<div class="viewcode-block" id="check_line_symmetry"><a class="viewcode-back" href="../../api/prepshot.model.html#prepshot.model.check_line_symmetry">[docs]</a><span class="k">def</span> <span class="nf">check_line_symmetry</span><span class="p">(</span><span class="n">existing</span> <span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Check that each existing line has the same capacity in both</span>
+<span class="sd">    directions.</span>
+
+<span class="sd">    A line has one entry for each direction, and the cost rules charge</span>
+<span class="sd">    half of the line cost on each entry. An entry with no equal entry</span>
+<span class="sd">    in the opposite direction would thus be charged incorrectly.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    existing : dict</span>
+<span class="sd">        ``transmission_existing``, keyed ``(zone1, zone2)`` or</span>
+<span class="sd">        ``(zone1, zone2, commission_year)``.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If the capacity of a line differs between the two directions.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mismatched</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span>
+        <span class="n">key</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">cap</span> <span class="ow">in</span> <span class="n">existing</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">existing</span><span class="o">.</span><span class="n">get</span><span class="p">((</span><span class="n">key</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">key</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">key</span><span class="p">[</span><span class="mi">2</span><span class="p">:]),</span> <span class="mi">0</span><span class="p">)</span> <span class="o">!=</span> <span class="n">cap</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">mismatched</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;transmission_existing has </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">mismatched</span><span class="p">)</span><span class="si">}</span><span class="s2"> entries with &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;no equal entry in the opposite direction. First few: &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">mismatched</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span><span class="si">}</span><span class="s2">. Give each line the same capacity for &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;(zone1, zone2) and (zone2, zone1).&quot;</span>
+        <span class="p">)</span></div>
+
+
 <div class="viewcode-block" id="define_complex_sets"><a class="viewcode-back" href="../../api/prepshot.model.html#prepshot.model.define_complex_sets">[docs]</a><span class="k">def</span> <span class="nf">define_complex_sets</span><span class="p">(</span><span class="n">model</span> <span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Validate that every line param needed by the constraints is</span>
 <span class="sd">    actually present in the loaded CSVs.</span>
@@ -944,6 +977,8 @@
         <span class="s1">&#39;distance&#39;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">years</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">])</span>
+
+    <span class="n">check_line_symmetry</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;transmission_existing&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{})</span>
 
     <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">year_indexed</span><span class="p">:</span>
         <span class="n">d</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>

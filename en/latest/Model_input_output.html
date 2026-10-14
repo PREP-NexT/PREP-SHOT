@@ -324,6 +324,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="api/prepshot.model.html">model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/prepshot.model.html#prepshot.model.check_line_symmetry"><code class="docutils literal notranslate"><span class="pre">check_line_symmetry()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/prepshot.model.html#prepshot.model.create_model"><code class="docutils literal notranslate"><span class="pre">create_model()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/prepshot.model.html#prepshot.model.define_active_zone_tech"><code class="docutils literal notranslate"><span class="pre">define_active_zone_tech()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/prepshot.model.html#prepshot.model.define_basic_sets"><code class="docutils literal notranslate"><span class="pre">define_basic_sets()</span></code></a></li>
@@ -908,8 +909,9 @@ year, so a unit built in <code class="docutils literal notranslate"><span class=
 <td><p>Emission factor per tech, year, and zone.</p></td>
 <td><p>tech_emission_factor</p></td>
 </tr>
-<tr class="row-even"><td><p>tech ramp up / ramp down [1/MW]</p></td>
-<td><p>Hourly ramp limits per tech and year.</p></td>
+<tr class="row-even"><td><p>tech ramp up / ramp down [fraction of capacity per hour]</p></td>
+<td><p>Hourly ramp limits per tech: the largest change in power output
+over one hour, as a fraction of installed capacity.</p></td>
 <td><p>tech_ramp_up,
 tech_ramp_down</p></td>
 </tr>
@@ -940,7 +942,7 @@ energy capacity).</p></td>
 <td><p>transmission_candidates</p></td>
 </tr>
 <tr class="row-even"><td><p>transmission distance [km]</p></td>
-<td><p>Inter-zone distance (drives investment cost).</p></td>
+<td><p>Inter-zone distance (drives investment and fixed O&amp;M cost).</p></td>
 <td><p>transmission_distance</p></td>
 </tr>
 <tr class="row-odd"><td><p>transmission efficiency [fraction]</p></td>
@@ -951,8 +953,10 @@ energy capacity).</p></td>
 <td><p>Per-line investment cost (multiplied by distance).</p></td>
 <td><p>transmission_investment_cost</p></td>
 </tr>
-<tr class="row-odd"><td><p>transmission fixed / variable OM cost</p></td>
-<td><p>Per-line fixed and variable O&amp;M costs.</p></td>
+<tr class="row-odd"><td><p>transmission fixed OM cost [dollar/MW/km/yr] / variable OM cost
+[dollar/MWh]</p></td>
+<td><p>Per-line fixed O&amp;M cost (multiplied by distance) and variable
+O&amp;M cost (charged on the flow in each direction).</p></td>
 <td><p>transmission_fixed_OM_cost,
 transmission_variable_OM_cost</p></td>
 </tr>

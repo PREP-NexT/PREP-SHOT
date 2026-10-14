@@ -324,6 +324,7 @@
 </ul>
 </li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#prepshot.model.check_line_symmetry"><code class="docutils literal notranslate"><span class="pre">check_line_symmetry()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#prepshot.model.create_model"><code class="docutils literal notranslate"><span class="pre">create_model()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#prepshot.model.define_active_zone_tech"><code class="docutils literal notranslate"><span class="pre">define_active_zone_tech()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#prepshot.model.define_basic_sets"><code class="docutils literal notranslate"><span class="pre">define_basic_sets()</span></code></a></li>
@@ -796,6 +797,28 @@
 <span id="model"></span><h1>model<a class="headerlink" href="#module-prepshot.model" title="Permalink to this heading">¶</a></h1>
 <p>This module defines the PREP-SHOT model. The model is created using
 the pyoptinterface library.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="prepshot.model.check_line_symmetry">
+<span class="sig-prename descclassname"><span class="pre">prepshot.model.</span></span><span class="sig-name descname"><span class="pre">check_line_symmetry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">existing</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/prepshot/model.html#check_line_symmetry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#prepshot.model.check_line_symmetry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check that each existing line has the same capacity in both
+directions.</p>
+<p>A line has one entry for each direction, and the cost rules charge
+half of the line cost on each entry. An entry with no equal entry
+in the opposite direction would thus be charged incorrectly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>existing</strong> (<em>dict</em>) -- <code class="docutils literal notranslate"><span class="pre">transmission_existing</span></code>, keyed <code class="docutils literal notranslate"><span class="pre">(zone1,</span> <span class="pre">zone2)</span></code> or
+<code class="docutils literal notranslate"><span class="pre">(zone1,</span> <span class="pre">zone2,</span> <span class="pre">commission_year)</span></code>.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> -- If the capacity of a line differs between the two directions.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="prepshot.model.create_model">
 <span class="sig-prename descclassname"><span class="pre">prepshot.model.</span></span><span class="sig-name descname"><span class="pre">create_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/prepshot/model.html#create_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#prepshot.model.create_model" title="Permalink to this definition">¶</a></dt>
