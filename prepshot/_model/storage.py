@@ -78,30 +78,32 @@ class AddStorageConstraints:
             Model object depending on the solver.
         """
         self.model = model
-        model.energy_storage_balance_cons = poi.make_tupledict(
-            model.hour, model.month, model.year, model.zone,
-            model.storage_tech, rule=self.energy_storage_balance_rule
+        # Iterate sparsely over (z, te) pairs in ``model.active_zt_storage``.
+        # Matches the sparse creation of ``model.storage`` / ``model.gen`` /
+        # ``model.charge`` in model.py: a storage tech that is not
+        # deployed (nor buildable) in a zone has no variables there, so
+        # a dense zone x storage_tech product would KeyError.
+        active_myzte_storage = [
+            (m, y, z, te)
+            for m in model.month
+            for y in model.year
+            for (z, te) in model.active_zt_storage
+        ]
+        model.energy_storage_balance_cons = sparse_tupledict(
+            model.active_hmyzte_storage, self.energy_storage_balance_rule
         )
-        model.init_energy_storage_cons = poi.make_tupledict(
-            model.month, model.year, model.zone,
-            model.storage_tech, rule=self.init_energy_storage_rule
+        model.init_energy_storage_cons = sparse_tupledict(
+            active_myzte_storage, self.init_energy_storage_rule
         )
-        model.end_energy_storage_cons = poi.make_tupledict(
-            model.month, model.year, model.zone, model.storage_tech,
-            rule=self.end_energy_storage_rule
+        model.end_energy_storage_cons = sparse_tupledict(
+            active_myzte_storage, self.end_energy_storage_rule
         )
-        model.energy_storage_up_bound_cons = poi.make_tupledict(
-            model.hour, model.month, model.year, model.zone,
-            model.storage_tech, rule=self.energy_storage_up_bound_rule
+        model.energy_storage_up_bound_cons = sparse_tupledict(
+            model.active_hmyzte_storage, self.energy_storage_up_bound_rule
         )
-        model.energy_storage_gen_cons = poi.make_tupledict(
-            model.hour, model.month, model.year, model.zone,
-            model.storage_tech, rule=self.energy_storage_gen_rule
+        model.energy_storage_gen_cons = sparse_tupledict(
+            model.active_hmyzte_storage, self.energy_storage_gen_rule
         )
-        # Iterate sparsely over (h, m, y, z, te) where (z, te) is in
-        # ``model.active_zt_storage``. Matches the sparse creation of
-        # ``model.charge`` in model.py: accessing inactive pairs would
-        # KeyError, and the bound on those would be ``0 <= 0`` anyway.
         model.charge_up_bound_cons = sparse_tupledict(
             model.active_hmyzte_storage, self.charge_up_bound_rule
         )

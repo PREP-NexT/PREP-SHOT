@@ -77,6 +77,8 @@ when off, no variables / constraints are built.
 """
 import pyoptinterface as poi
 
+from prepshot.utils import sparse_tupledict
+
 
 def _is_down_product(product: str) -> bool:
     """``True`` for down-direction products (suffix ``_down``).
@@ -117,6 +119,8 @@ class AddReserveConstraints:
             for t in model.tech for p in products
         }
 
+        self._active_zt = set(model.active_zt)
+
         # Same p_max_pu / p_min_pu sources as gen_up_bound_rule.
         self._p_max_pu = dict(model.params.get('max_gen_profile') or {})
         self._p_min_pu = dict(model.params.get('min_gen_profile') or {})
@@ -142,13 +146,15 @@ class AddReserveConstraints:
 
         # Two headroom rules per (h, m, y, z, te) -- one per direction
         # -- summing across products in that direction.
-        model.reserve_headroom_up_cons = poi.make_tupledict(
-            model.hour, model.month, model.year, model.zone, model.tech,
-            rule=self.headroom_up_rule,
+        # Sparse over active (z, te) pairs: ``model.gen`` and
+        # ``model.cap_existing`` have no entry for inactive pairs.
+        # Reserve on those pairs is pinned to 0 by
+        # ``non_eligible_zero_rule`` instead.
+        model.reserve_headroom_up_cons = sparse_tupledict(
+            model.active_hmyzte, self.headroom_up_rule
         )
-        model.reserve_headroom_down_cons = poi.make_tupledict(
-            model.hour, model.month, model.year, model.zone, model.tech,
-            rule=self.headroom_down_rule,
+        model.reserve_headroom_down_cons = sparse_tupledict(
+            model.active_hmyzte, self.headroom_down_rule
         )
 
         # Per-(h, m, y, z, product) zonal requirement.
@@ -161,8 +167,9 @@ class AddReserveConstraints:
     # Rules
 
     def non_eligible_zero_rule(self, h, m, y, z, te, p):
-        """Force ``reserve[..., te, p] = 0`` when (te, p) isn't eligible."""
-        if self.is_eligible[(te, p)]:
+        """Force ``reserve[..., te, p] = 0`` when (te, p) isn't eligible
+        or ``te`` has no capacity (existing or candidate) in zone ``z``."""
+        if self.is_eligible[(te, p)] and (z, te) in self._active_zt:
             return None
         return self.model.add_linear_constraint(
             self.model.reserve[h, m, y, z, te, p], poi.Eq, 0
