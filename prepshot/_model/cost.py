@@ -230,8 +230,9 @@ class AddCostObjective:
         """
         model = self.model
         lfc = model.params['transmission_line_fixed_OM_cost'][z, z1, y]
+        d = model.params['distance'][z, z1]
         ff = model.params['fix_factor'][y, z]
-        return lfc * model.cap_lines_existing[y, z, z1] * ff * 0.5
+        return lfc * model.cap_lines_existing[y, z, z1] * d * ff * 0.5
 
     def cost_fix_tech_breakdown(
         self, y : int, z : str, te : str
