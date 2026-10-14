@@ -5,37 +5,39 @@
 storage system is considered in this module. It means that the energy storage
 system has the same power capacity for charging and discharging.
 
-Similar to the power discharging process, the charging power of storage
-technology :math:`e` (:math:`{\\rm{power}}_{h,m,y,z,e}^{{c}}`) is also limited
-by the existing installed capacity and technical minimum charging power
-(:math:`{\\underline{{\\rm{POWER}}}}_{h,m,y,z,e}^{{c}}`) as follows:
+Similar to the power discharging process, the charging energy drawn from
+the grid by storage technology :math:`e` in each time step
+(:math:`{\\rm{charge}}_{h,m,y,z,e}`) is limited by the existing installed
+capacity:
 
 .. math::
 
-    {\\underline{{\\rm{POWER}}}}_{h,m,y,z,e}^{{c}}\\times
-    {\\rm{cap}}_{y,z,e}^{\\rm{existingtech}}\\le{\\rm{power}}_{h,m,y,z,e}^{{c}}
-    \\le {\\rm{cap}}_{y,z,e}^{\\rm{existingtech}}\\quad\\forall h,m,y,z,e
-    \\in {\\mathcal{STOR}}
-
-The charging generation (:math:`{\\rm{charge}}_{h,m,y,z,e}`) and
-:math:`{\\rm{power}}_{h,m,y,z,e}^{c}` need to meet the following formula:
-
-.. math::
-    
-    {\\rm{charge}}_{h,m,y,z,e}={\\rm{power}}_{h,m,y,z,e}^{\\rm{c}}\\times
-    \\Delta h{\\times\\eta}_{y,e}^{{\\rm{in}}}
+    {\\rm{charge}}_{h,m,y,z,e}\\le
+    {\\rm{cap}}_{y,z,e}^{\\rm{existingtech}}\\times\\Delta h
     \\quad\\forall h,m,y,z,e\\in {\\mathcal{STOR}}
 
 Changes in stored electricity
 (:math:`{\\rm{storage}}_{h,m,y,z,e}^{\\rm{energy}}`) in two successive periods
 should be balanced by the charging (:math:`{\\rm{charge}}_{h,m,y,z,e}`) and
-discharging (:math:`{\\rm{gen}}_{h,m,y,z,e}`) processes:
+discharging (:math:`{\\rm{gen}}_{h,m,y,z,e}`) processes. Both are measured on
+the grid side, so the charging efficiency (:math:`\\eta_{y,e}^{\\rm{in}}`) and
+discharging efficiency (:math:`\\eta_{y,e}^{\\rm{out}}`) enter the balance:
 
 .. math::
     
     {\\rm{storage}}_{h,m,y,z,e}^{\\rm{energy}}-
     {\\rm{storage}}_{h-1,m,y,z,e}^{\\rm{energy}}
-    ={\\rm{charge}}_{h,m,y,z,e}-{\\rm{gen}}_{h,m,y,z,e}
+    ={\\rm{charge}}_{h,m,y,z,e}\\times\\eta_{y,e}^{\\rm{in}}
+    -{\\rm{gen}}_{h,m,y,z,e}/\\eta_{y,e}^{\\rm{out}}
+
+The energy discharged in a time step cannot exceed the energy stored at the
+end of the previous one:
+
+.. math::
+
+    {\\rm{gen}}_{h,m,y,z,e}/\\eta_{y,e}^{\\rm{out}}\\le
+    {\\rm{storage}}_{h-1,m,y,z,e}^{\\rm{energy}}
+    \\quad\\forall h,m,y,z,e\\in {\\mathcal{STOR}}
 
 In addition, the initial (when :math:`h=h_{\rm{start}}`) stored electricity
 (:math:`{\\rm{storage}}_{h=h_{\\rm{start}},m,y,z,e}^{\\rm{energy}}`) of
